@@ -99,7 +99,7 @@ CGAL::Oriented_side Polygon2_OrientedSide(void* ptr, Point2d point)
 }
 
 template<class POLYGON>
-double Polygon2_Area(void* ptr)
+double Polygon2_SignedArea(void* ptr)
 {
 	auto polygon = (POLYGON*)ptr;
 	return CGAL::to_double(polygon->area());

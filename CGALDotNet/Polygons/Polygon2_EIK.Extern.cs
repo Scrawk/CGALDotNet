@@ -46,7 +46,7 @@ namespace CGALDotNet.Polygons
         private static extern CGAL_ORIENTED_SIDE Polygon2_EIK_OrientedSide(IntPtr ptr, Point2d point);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern double Polygon2_EIK_Area(IntPtr ptr);
+        private static extern double Polygon2_EIK_SignedArea(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Polygon2_EIK_Clear(IntPtr ptr);

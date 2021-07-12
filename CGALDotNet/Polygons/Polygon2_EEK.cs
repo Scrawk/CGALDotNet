@@ -100,7 +100,7 @@ namespace CGALDotNet.Polygons
 
         public override double SignedArea()
         {
-            return Polygon2_EEK_Area(Ptr);
+            return Polygon2_EEK_SignedArea(Ptr);
         }
 
         public override void Clear()

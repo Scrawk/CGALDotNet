@@ -25,6 +25,11 @@ namespace CGALDotNet
 
         internal IntPtr Ptr { get; private set; }
 
+        protected void SetPtr(IntPtr ptr)
+        {
+            Ptr = ptr;
+        }
+
         public void Dispose()
         {
             Release();

@@ -63,9 +63,9 @@ CGAL::Oriented_side Polygon2_EEK_OrientedSide(void* ptr, Point2d point)
 	return Polygon2_OrientedSide<Polygon2_EEK, Point2_EEK>(ptr, point);
 }
 
-double Polygon2_EEK_Area(void* ptr)
+double Polygon2_EEK_SignedArea(void* ptr)
 {
-	return Polygon2_Area<Polygon2_EEK>(ptr);
+	return Polygon2_SignedArea<Polygon2_EEK>(ptr);
 }
 
 void Polygon2_EEK_Clear(void* ptr)

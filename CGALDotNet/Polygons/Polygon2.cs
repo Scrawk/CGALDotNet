@@ -27,11 +27,6 @@ namespace CGALDotNet.Polygons
             set => SetPoint(i, value);
         }
 
-        protected void SetPtr(IntPtr ptr)
-        {
-            Ptr = ptr;
-        }
-
         public abstract Point2d GetPoint(int index);
 
         public abstract Point2d GetPointWrapped(int index);

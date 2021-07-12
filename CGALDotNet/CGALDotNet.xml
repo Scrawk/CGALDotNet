@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CGALDotNet</name>
+    </assembly>
+    <members>
+        <member name="F:CGALDotNet.Geometry.Point2d.UnitX">
+            <summary>
+            The unit x point.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point2d.UnitY">
+            <summary>
+            The unit y point.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point2d.Zero">
+            <summary>
+            A point of zeros.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point2d.One">
+            <summary>
+            A point of ones.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point2d.Half">
+            <summary>
+            A point of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point2d.PositiveInfinity">
+            <summary>
+            A point of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point2d.NegativeInfinity">
+            <summary>
+            A point of negative infinity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.#ctor(System.Double)">
+            <summary>
+            A point all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.#ctor(System.Double,System.Double)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Addition(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Add two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Addition(CGALDotNet.Geometry.Point2d,System.Double)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Addition(System.Double,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_UnaryNegation(CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Negate point.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Subtraction(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Subtract two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Subtraction(CGALDotNet.Geometry.Point2d,System.Double)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Subtraction(System.Double,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Multiply(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Multiply two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Multiply(CGALDotNet.Geometry.Point2d,System.Double)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Multiply(System.Double,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Division(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Divide two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Division(CGALDotNet.Geometry.Point2d,System.Double)">
+            <summary>
+            Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Equality(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Inequality(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Are these points not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Equals(System.Object)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Equals(CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Distance(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.SqrDistance(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Square distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Min(CGALDotNet.Geometry.Point2d,System.Double)">
+            <summary>
+            The minimum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Min(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            The minimum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Max(CGALDotNet.Geometry.Point2d,System.Double)">
+            <summary>
+            The maximum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Max(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            The maximum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Clamp(CGALDotNet.Geometry.Point2d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Clamp(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Lerp(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d,System.Double)">
+            <summary>
+            Lerp between two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.Rounded(System.Int32)">
+            <summary>
+            A rounded point.
+            </summary>
+            <param name="digits"></param>
+            <returns></returns>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.UnitX">
+            <summary>
+            The unit x point.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.UnitY">
+            <summary>
+            The unit y point.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.UnitZ">
+            <summary>
+            The unit z point.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.Zero">
+            <summary>
+            A point of zeros.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.One">
+            <summary>
+            A point of ones.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.Half">
+            <summary>
+            A point of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.PositiveInfinity">
+            <summary>
+            A point of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Point3d.NegativeInfinity">
+            <summary>
+            A point of negative infinity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.#ctor(System.Double)">
+            <summary>
+            A point all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Addition(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Add two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Addition(CGALDotNet.Geometry.Point3d,System.Double)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Addition(System.Double,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_UnaryNegation(CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Negate point.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Subtraction(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Subtract two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Subtraction(CGALDotNet.Geometry.Point3d,System.Double)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Subtraction(System.Double,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Multiply(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Multiply two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Multiply(CGALDotNet.Geometry.Point3d,System.Double)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Multiply(System.Double,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Division(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Divide two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Division(CGALDotNet.Geometry.Point3d,System.Double)">
+            <summary>
+            Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Equality(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Inequality(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Are these points not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Equals(System.Object)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Equals(CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Distance(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.SqrDistance(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Square distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Min(CGALDotNet.Geometry.Point3d,System.Double)">
+            <summary>
+            The minimum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Min(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            The minimum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Max(CGALDotNet.Geometry.Point3d,System.Double)">
+            <summary>
+            The maximum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Max(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            The maximum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Clamp(CGALDotNet.Geometry.Point3d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Clamp(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Lerp(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d,System.Double)">
+            <summary>
+            Lerp between two points.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.Rounded(System.Int32)">
+            <summary>
+            A rounded point.
+            </summary>
+            <param name="digits"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.MathUtil.Wrap(System.Int32,System.Int32)">
+            <summary>
+            Wrap a value between 0 and count-1 (inclusive).
+            </summary>
+        </member>
+    </members>
+</doc>

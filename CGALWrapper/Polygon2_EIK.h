@@ -32,7 +32,7 @@ extern "C" CGALWRAPPER_API CGAL::Orientation Polygon2_EIK_Orientation(void* ptr)
 
 extern "C" CGALWRAPPER_API CGAL::Oriented_side Polygon2_EIK_OrientedSide(void* ptr, Point2d point);
 
-extern "C" CGALWRAPPER_API double Polygon2_EIK_Area(void* ptr);
+extern "C" CGALWRAPPER_API double Polygon2_EIK_SignedArea(void* ptr);
 
 extern "C" CGALWRAPPER_API void Polygon2_EIK_Clear(void* ptr);
 
