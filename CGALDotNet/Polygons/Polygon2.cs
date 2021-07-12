@@ -1,8 +1,7 @@
-﻿using System;
+﻿using CGALDotNet.Geometry;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-
-using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
@@ -16,7 +15,7 @@ namespace CGALDotNet.Polygons
 
         internal Polygon2(IntPtr ptr) : base(ptr)
         {
-    
+
         }
 
         public int Count { get; protected set; }

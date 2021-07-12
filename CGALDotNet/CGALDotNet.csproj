@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
 
@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\net5.0\CGALDotNet.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\net5.0\CGALDotNet.pdb&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)CGALDotNet.xml&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(SolutionDir)x64\$(ConfigurationName)\CGALWrapper.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\gmp.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\mpfr-6.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;" />
+    <Exec Command="xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\CGALDotNet.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\CGALDotNet.pdb&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)CGALDotNet.xml&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(SolutionDir)x64\$(ConfigurationName)\CGALWrapper.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\gmp.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\mpfr-6.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;" />
   </Target>
 
   <ItemGroup>
