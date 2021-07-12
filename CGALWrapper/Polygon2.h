@@ -6,16 +6,10 @@
 #include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h>
 
-template<class POLYGON>
-void* Polygon2_Create()
-{
-	return new POLYGON();
-}
-
 template<class POLYGON, class POINT>
 void* Polygon2_CreateFromPoints(Point2d* points, int startIndex, int count)
 {
-	auto polygon = new  POLYGON();
+	auto polygon = new POLYGON();
 
 	for (int i = 0; i < count; i++)
 	{
@@ -26,18 +20,6 @@ void* Polygon2_CreateFromPoints(Point2d* points, int startIndex, int count)
 	}
 
 	return polygon;
-}
-
-template<class POLYGON>
-void Polygon2_Release(void* ptr)
-{
-	auto poylgon = (POLYGON*)ptr;
-
-	if (poylgon != nullptr)
-	{
-		delete poylgon;
-		poylgon = nullptr;
-	}
 }
 
 template<class POLYGON>

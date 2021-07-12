@@ -9,8 +9,9 @@ namespace CGALDotNetConsole
         static void Main(string[] args)
         {
 
-            Polygon2Examples.CreateExample();
-            Polygon2BooleanExamples.IntersectExample();
+            //Polygon2Examples.CreateExample();
+            //Polygon2BooleanExamples.IntersectExample();
+            Polygon2BooleanExamples.Join();
 
         }
 

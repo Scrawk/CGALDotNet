@@ -9,7 +9,7 @@ namespace CGALDotNetConsole.Examples
 {
     public static class Polygon2Examples
     {
-        public static void CreateExample()
+        public static void Create()
         {
             var points = new Point2d[]
             {

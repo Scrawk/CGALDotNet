@@ -1,10 +1,11 @@
 #include "pch.h"
+#include "Util.h"
 #include "Polygon2_EIK.h"
 #include "Polygon2.h"
 
 void* Polygon2_EIK_Create()
 {
-	return Polygon2_Create<Polygon2_EIK>();
+	return Util_Create<Polygon2_EIK>();
 }
 
 void* Polygon2_EIK_CreateFromPoints(Point2d* points, int startIndex, int count)
@@ -14,7 +15,7 @@ void* Polygon2_EIK_CreateFromPoints(Point2d* points, int startIndex, int count)
 
 void Polygon2_EIK_Release(void* ptr)
 {
-	Polygon2_Release<Polygon2_EIK>(ptr);
+	Util_Release<Polygon2_EIK>(ptr);
 }
 
 Point2d Polygon2_EIK_GetPoint(void* ptr, int index)

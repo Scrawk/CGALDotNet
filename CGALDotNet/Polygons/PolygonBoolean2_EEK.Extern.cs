@@ -8,5 +8,8 @@ namespace CGALDotNet.Polygons
     {
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool PolygonBoolean2_EEK_DoIntersect(IntPtr ptr1, IntPtr ptr2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool PolygonBoolean2_EEK_Join(IntPtr ptr1, IntPtr ptr2, out IntPtr result);
     }
 }

@@ -6,19 +6,20 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    public abstract class Polygon2 : IDisposable, IEnumerable<Point2d>
+    public abstract class Polygon2 : CGALObject, IEnumerable<Point2d>
     {
-        
-        ~Polygon2()
+
+        public Polygon2()
         {
-            Release();
+
+        }
+
+        internal Polygon2(IntPtr ptr) : base(ptr)
+        {
+    
         }
 
         public int Count { get; protected set; }
-
-        public bool IsDisposed { get; private set; }
-
-        internal IntPtr Ptr { get; private set; }
 
         public Point2d this[int i]
         {
@@ -82,30 +83,6 @@ namespace CGALDotNet.Polygons
             var points = new Point2d[Count];
             GetPoints(points, 0);
             return points;
-        }
-
-        public void Dispose()
-        {
-            Release();
-            GC.SuppressFinalize(this);
-        }
-
-        private void Release()
-        {
-            if (!IsDisposed)
-            {
-                ReleasePtr();
-                Ptr = IntPtr.Zero;
-                IsDisposed = true;
-            }
-        }
-
-        protected abstract void ReleasePtr();
-
-        protected void CheckPtr()
-        {
-            if (Ptr == IntPtr.Zero)
-                throw new NullReferenceException("Polygon unmanaged resources have been released.");
         }
 
         protected void CheckBounds(int index)

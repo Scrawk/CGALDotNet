@@ -9,7 +9,7 @@ namespace CGALDotNetConsole.Examples
 {
     public static class Polygon2BooleanExamples
     {
-        public static void IntersectExample()
+        public static void Intersect()
         {
             var points1 = new Point2d[]
             {
@@ -29,6 +29,43 @@ namespace CGALDotNetConsole.Examples
             var polygon2 = new Polygon2_EEK(points2);
 
             Console.WriteLine("Polygons intersect = " + PolygonBoolean2.DoIntersect(polygon1, polygon2));
+        }
+
+        public static void Join()
+        {
+            var points1 = new Point2d[]
+            {
+                new Point2d(0, 0),
+                new Point2d(5, 0),
+                new Point2d(3.5, 1.5),
+                new Point2d(2.5, 0.5),
+                new Point2d(1.5, 1.5)
+            };
+
+            var points2 = new Point2d[]
+            {
+                new Point2d(0, 2),
+                new Point2d(1.5, 0.5),
+                new Point2d(2.5, 1.5),
+                new Point2d(3.5, 0.5),
+                new Point2d(5, 2)
+            };
+
+            points2 = new Point2d[]
+            {
+                new Point2d(9, 1),
+                new Point2d(11, -1),
+                new Point2d(10, 1)
+            };
+
+            var polygon1 = new Polygon2_EEK(points1);
+            var polygon2 = new Polygon2_EEK(points2);
+
+            PolygonWithHoles2 result;
+
+            Console.WriteLine("Polygons join = " + PolygonBoolean2.Join(polygon1, polygon2, out result));
+
+            Console.WriteLine("result = " + result);
         }
     }
 }

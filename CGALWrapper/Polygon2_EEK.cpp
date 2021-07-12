@@ -1,10 +1,11 @@
 #include "pch.h"
+#include "Util.h"
 #include "Polygon2_EEK.h"
 #include "Polygon2.h"
 
 void* Polygon2_EEK_Create()
 {
-	return Polygon2_Create<Polygon2_EEK>();
+	return Util_Create<Polygon2_EEK>();
 }
 
 void* Polygon2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
@@ -14,7 +15,7 @@ void* Polygon2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
 
 void Polygon2_EEK_Release(void* ptr)
 {
-	Polygon2_Release<Polygon2_EEK>(ptr);
+	Util_Release<Polygon2_EEK>(ptr);
 }
 
 Point2d Polygon2_EEK_GetPoint(void* ptr, int index)
