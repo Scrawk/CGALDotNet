@@ -36,3 +36,4 @@ extern "C" CGALWRAPPER_API double Polygon2_EIK_Area(void* ptr);
 
 extern "C" CGALWRAPPER_API void Polygon2_EIK_Clear(void* ptr);
 
+

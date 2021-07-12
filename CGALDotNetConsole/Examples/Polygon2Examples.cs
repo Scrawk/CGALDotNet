@@ -7,10 +7,9 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNetConsole.Examples
 {
-    public static class Polygons
+    public static class Polygon2Examples
     {
-
-        public static void Example1()
+        public static void CreateExample()
         {
             var points = new Point2d[]
             {

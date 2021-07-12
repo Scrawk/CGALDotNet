@@ -42,12 +42,30 @@
     <ClInclude Include="Polygon2_EIK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
+    <ClInclude Include="Polygon2_EEK.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon2.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonBoolean2.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonBoolean2_EEK.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Polygon2_EIK.cpp">
+      <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygon2_EEK.cpp">
+      <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonBoolean2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
   </ItemGroup>

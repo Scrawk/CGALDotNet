@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(SolutionDir)x64\$(ConfigurationName)\CGALWrapper.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net5.0&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\gmp.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net5.0&quot; /y" />
+    <Exec Command="xcopy &quot;$(SolutionDir)x64\$(ConfigurationName)\CGALWrapper.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net5.0&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\gmp.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net5.0&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\mpfr-6.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\net5.0&quot; /y" />
   </Target>
 
 </Project>

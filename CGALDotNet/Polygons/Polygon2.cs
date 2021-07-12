@@ -18,12 +18,17 @@ namespace CGALDotNet.Polygons
 
         public bool IsDisposed { get; private set; }
 
-        protected IntPtr Ptr { get; set; }
+        internal IntPtr Ptr { get; private set; }
 
         public Point2d this[int i]
         {
             get => GetPointWrapped(i);
             set => SetPoint(i, value);
+        }
+
+        protected void SetPtr(IntPtr ptr)
+        {
+            Ptr = ptr;
         }
 
         public abstract Point2d GetPoint(int index);
@@ -32,15 +37,15 @@ namespace CGALDotNet.Polygons
 
         public abstract Point2d GetPointClamped(int index);
 
-        public abstract void GetPoints(Point2d[] points, int arrayStartIndex = 0);
+        public abstract void GetPoints(Point2d[] points, int startIndex = 0);
 
-        public abstract void GetPoints(Point2d[] points, int arrayStartIndex, int count);
+        public abstract void GetPoints(Point2d[] points, int startIndex, int count);
 
         public abstract void SetPoint(int index, Point2d point);
 
-        public abstract void SetPoints(Point2d[] points, int arrayStartIndex = 0);
+        public abstract void SetPoints(Point2d[] points, int startIndex = 0);
 
-        public abstract void SetPoints(Point2d[] points, int arrayStartIndex, int count);
+        public abstract void SetPoints(Point2d[] points, int startIndex, int count);
 
         public abstract void Reverse();
 
@@ -100,7 +105,31 @@ namespace CGALDotNet.Polygons
         protected void CheckPtr()
         {
             if (Ptr == IntPtr.Zero)
-                throw new Exception("Polygon unmanaged resources have been released.");
+                throw new NullReferenceException("Polygon unmanaged resources have been released.");
+        }
+
+        protected void CheckBounds(int index)
+        {
+            if (index < 0 || index >= Count)
+                throw new ArgumentOutOfRangeException("Index was out of polygon range. Must be non-negative and less than the size of the collection.");
+        }
+
+        protected void CheckBounds(Point2d[] points, int index)
+        {
+            if (index < 0 || index >= Count)
+                throw new ArgumentOutOfRangeException("Index was out of polygon range. Must be non-negative and less than the size of the collection.");
+
+            if (index >= points.Length)
+                throw new ArgumentOutOfRangeException("Index was out of point array range. Must be non-negative and less than the size of the collection.");
+        }
+
+        protected void CheckBounds(Point2d[] points, int index, int count)
+        {
+            if (count < 0 || index < 0 || index >= Count || index + count > Count)
+                throw new ArgumentOutOfRangeException("Index was out of polygon range. Must be non-negative and less than the size of the collection.");
+
+            if (index >= points.Length || index + count > points.Length)
+                throw new ArgumentOutOfRangeException("Index was out of point array range. Must be non-negative and less than the size of the collection.");
         }
 
     }
