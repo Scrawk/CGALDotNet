@@ -19,6 +19,15 @@ namespace CGALDotNet.Polygons
         private static extern int Polygon2_EEK_Release(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int Polygon2_EEK_Count(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr Polygon2_EEK_Copy(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Polygon2_EEK_Clear(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern Point2d Polygon2_EEK_GetPoint(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -47,8 +56,5 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double Polygon2_EEK_SignedArea(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Polygon2_EEK_Clear(IntPtr ptr);
     }
 }

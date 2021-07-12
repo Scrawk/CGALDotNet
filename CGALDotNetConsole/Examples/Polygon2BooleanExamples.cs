@@ -9,8 +9,10 @@ namespace CGALDotNetConsole.Examples
 {
     public static class Polygon2BooleanExamples
     {
-        public static void Intersect()
+        public static void DoIntersect()
         {
+            Console.WriteLine("Do polygons intersect example\n");
+
             var points1 = new Point2d[]
             {
                 new Point2d(-1, 1),
@@ -29,10 +31,14 @@ namespace CGALDotNetConsole.Examples
             var polygon2 = new Polygon2_EEK(points2);
 
             Console.WriteLine("Polygons intersect = " + PolygonBoolean2.DoIntersect(polygon1, polygon2));
+
+            Console.WriteLine();
         }
 
         public static void Join()
         {
+            Console.WriteLine("Join polygons example\n");
+
             var points1 = new Point2d[]
             {
                 new Point2d(0, 0),
@@ -51,12 +57,14 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5, 2)
             };
 
+            /*
             points2 = new Point2d[]
             {
                 new Point2d(9, 1),
                 new Point2d(11, -1),
                 new Point2d(10, 1)
             };
+            */
 
             var polygon1 = new Polygon2_EEK(points1);
             var polygon2 = new Polygon2_EEK(points2);
@@ -66,6 +74,8 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine("Polygons join = " + PolygonBoolean2.Join(polygon1, polygon2, out result));
 
             Console.WriteLine("result = " + result);
+
+            Console.WriteLine("");
         }
     }
 }

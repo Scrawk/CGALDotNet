@@ -19,6 +19,15 @@ namespace CGALDotNet.Polygons
         private static extern int Polygon2_EIK_Release(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int Polygon2_EIK_Count(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr Polygon2_EIK_Copy(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Polygon2_EIK_Clear(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern Point2d Polygon2_EIK_GetPoint(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -48,7 +57,5 @@ namespace CGALDotNet.Polygons
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double Polygon2_EIK_SignedArea(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Polygon2_EIK_Clear(IntPtr ptr);
     }
 }

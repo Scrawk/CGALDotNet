@@ -20,9 +20,25 @@ namespace CGALDotNet.Polygons
             SetPtr(Polygon2_EIK_CreateFromPoints(points, 0, Count));
         }
 
+        internal Polygon2_EIK(IntPtr ptr) : base(ptr)
+        {
+            Count = Polygon2_EIK_Count(Ptr);
+        }
+
         public override string ToString()
         {
             return string.Format("[Polygon2_EIK: Count={0}, IsDisposed={1},]", Count, IsDisposed);
+        }
+
+        public Polygon2_EIK Copy()
+        {
+            return new Polygon2_EIK(Polygon2_EIK_Copy(Ptr));
+        }
+
+        public override void Clear()
+        {
+            Count = 0;
+            Polygon2_EIK_Clear(Ptr);
         }
 
         public override Point2d GetPoint(int index)
@@ -101,12 +117,6 @@ namespace CGALDotNet.Polygons
         public override double SignedArea()
         {
             return Polygon2_EIK_SignedArea(Ptr);
-        }
-
-        public override void Clear()
-        {
-            Count = 0;
-            Polygon2_EIK_Clear(Ptr);
         }
 
         protected override void ReleasePtr()

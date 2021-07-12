@@ -4,37 +4,58 @@
 #include "Points.h"
 
 #include <CGAL/Polygon_2.h>
-#include <CGAL/enum.h>
+#include <CGAL/enum.h> 
 
-template<class POLYGON, class POINT>
+template<class K>
+int Polygon2_Count(void* ptr)
+{
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	return polygon->size();
+}
+
+template<class K>
+void* Polygon2_Copy(void* ptr)
+{
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	return new CGAL::Polygon_2<K>(*polygon);
+}
+
+template<class K>
+void Polygon2_Clear(void* ptr)
+{
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	polygon->clear();
+}
+
+template<class K>
 void* Polygon2_CreateFromPoints(Point2d* points, int startIndex, int count)
 {
-	auto polygon = new POLYGON();
+	auto polygon = new CGAL::Polygon_2<K>();
 
 	for (int i = 0; i < count; i++)
 	{
 		double x = points[startIndex + i].x;
 		double y = points[startIndex + i].y;
 
-		polygon->push_back(POINT(x, y));
+		polygon->push_back(CGAL::Point_2<K>(x, y));
 	}
 
 	return polygon;
 }
 
-template<class POLYGON>
+template<class K>
 Point2d Polygon2_GetPoint(void* ptr, int index)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 	auto point = polygon->vertex(index);
 
 	return { CGAL::to_double(point.x()), CGAL::to_double(point.y()) };
 }
 
-template<class POLYGON>
+template<class K>
 void Polygon2_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 
 	for (int i = 0; i < count; i++)
 	{
@@ -45,72 +66,66 @@ void Polygon2_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
 	}
 }
 
-template<class POLYGON, class POINT>
+template<class K>
 void Polygon2_SetPoint(void* ptr, int index, Point2d point)
 {
-	auto polygon = (POLYGON*)ptr;
-	(*polygon)[index] = POINT(point.x, point.y);
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	(*polygon)[index] = CGAL::Point_2<K>(point.x, point.y);
 }
 
-template<class POLYGON, class POINT>
+template<class K>
 void Polygon2_SetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 
 	for (int i = 0; i < count; i++)
 	{
-		(*polygon)[i] = POINT(points[startIndex + i].x, points[startIndex + i].y);
+		(*polygon)[i] = CGAL::Point_2<K>(points[startIndex + i].x, points[startIndex + i].y);
 	}
 }
 
-template<class POLYGON>
+template<class K>
 void Polygon2_Reverse(void* ptr)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 	polygon->reverse_orientation();
 }
 
-template<class POLYGON>
+template<class K>
 bool Polygon2_IsSimple(void* ptr)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 	return polygon->is_simple();
 }
 
-template<class POLYGON>
+template<class K>
 bool Polygon2_IsConvex(void* ptr)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 	return polygon->is_convex();
 }
 
-template<class POLYGON>
+template<class K>
 CGAL::Orientation Polygon2_Orientation(void* ptr)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 	return polygon->orientation();
 }
 
-template<class POLYGON, class POINT>
+template<class K>
 CGAL::Oriented_side Polygon2_OrientedSide(void* ptr, Point2d point)
 {
-	auto polygon = (POLYGON*)ptr;
-	return polygon->oriented_side(POINT(point.x, point.y));
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	return polygon->oriented_side(CGAL::Point_2<K>(point.x, point.y));
 }
 
-template<class POLYGON>
+template<class K>
 double Polygon2_SignedArea(void* ptr)
 {
-	auto polygon = (POLYGON*)ptr;
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 	return CGAL::to_double(polygon->area());
 }
 
-template<class POLYGON>
-void Polygon2_Clear(void* ptr)
-{
-	auto polygon = (POLYGON*)ptr;
-	polygon->clear();
-}
 
 
 

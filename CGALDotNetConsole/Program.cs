@@ -10,7 +10,7 @@ namespace CGALDotNetConsole
         {
 
             Polygon2Examples.Create();
-            Polygon2BooleanExamples.Intersect();
+            Polygon2BooleanExamples.DoIntersect();
             Polygon2BooleanExamples.Join();
 
         }

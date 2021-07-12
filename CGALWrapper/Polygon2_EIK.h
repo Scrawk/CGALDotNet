@@ -6,13 +6,17 @@
 #include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h>
 
-typedef CGAL::Polygon_2<EIK> Polygon2_EIK;
-
 extern "C" CGALWRAPPER_API void* Polygon2_EIK_Create();
 
 extern "C" CGALWRAPPER_API void* Polygon2_EIK_CreateFromPoints(Point2d * points, int startIndex, int count);
 
 extern "C" CGALWRAPPER_API void Polygon2_EIK_Release(void* ptr);
+
+extern "C" CGALWRAPPER_API int Polygon2_EIK_Count(void* ptr);
+
+extern "C" CGALWRAPPER_API void* Polygon2_EIK_Copy(void* ptr);
+
+extern "C" CGALWRAPPER_API void Polygon2_EIK_Clear(void* ptr);
 
 extern "C" CGALWRAPPER_API Point2d Polygon2_EIK_GetPoint(void* ptr, int index);
 
@@ -34,6 +38,5 @@ extern "C" CGALWRAPPER_API CGAL::Oriented_side Polygon2_EIK_OrientedSide(void* p
 
 extern "C" CGALWRAPPER_API double Polygon2_EIK_SignedArea(void* ptr);
 
-extern "C" CGALWRAPPER_API void Polygon2_EIK_Clear(void* ptr);
 
 

@@ -11,6 +11,8 @@ namespace CGALDotNetConsole.Examples
     {
         public static void Create()
         {
+            Console.WriteLine("Create polygon example\n");
+
             var points = new Point2d[]
             {
                 new Point2d(0,0),
@@ -21,17 +23,24 @@ namespace CGALDotNetConsole.Examples
 
             var polygon = new Polygon2_EIK(points);
 
+            Print(polygon);
+
+            Console.WriteLine("Point (0.0, 0.0) is on the = " + polygon.OrientedSide(new Point2d(0.0, 0.0)));
+            Console.WriteLine("Point (0.5, 0.5) is on the = " + polygon.OrientedSide(new Point2d(0.5, 0.5)));
+            Console.WriteLine("Point (1.5, 2.5) is on the = " + polygon.OrientedSide(new Point2d(1.5, 2.5)));
+            Console.WriteLine("Point (2.5, 0.0) is on the = " + polygon.OrientedSide(new Point2d(0.5, 0.5)));
+
+            Console.WriteLine();
+        }
+
+        private static void Print(Polygon2 polygon)
+        {
             Console.WriteLine("Polygon = " + polygon);
             Console.WriteLine("Is simple = " + polygon.IsSimple());
             Console.WriteLine("Is convex = " + polygon.IsConvex());
             Console.WriteLine("Orientation = " + polygon.Orientation());
             Console.WriteLine("Signed Area = " + polygon.SignedArea());
             Console.WriteLine("Area = " + polygon.Area());
-
-            Console.WriteLine("Point (0.0, 0.0) is on the = " + polygon.OrientedSide(new Point2d(0.0, 0.0)));
-            Console.WriteLine("Point (0.5, 0.5) is on the = " + polygon.OrientedSide(new Point2d(0.5, 0.5)));
-            Console.WriteLine("Point (1.5, 2.5) is on the = " + polygon.OrientedSide(new Point2d(1.5, 2.5)));
-            Console.WriteLine("Point (2.5, 0.0) is on the = " + polygon.OrientedSide(new Point2d(0.5, 0.5)));
         }
     }
 }
