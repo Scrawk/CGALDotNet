@@ -80,9 +80,6 @@
     <ClCompile Include="PolygonWithHoles2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonWithHoles2.cpp">
-      <Filter>Source Files\Polygons</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CGALWrapper.rc">

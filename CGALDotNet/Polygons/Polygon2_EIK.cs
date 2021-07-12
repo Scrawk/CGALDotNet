@@ -17,7 +17,7 @@ namespace CGALDotNet.Polygons
         public Polygon2_EIK(Point2d[] points)
         {
             Count = points.Length;
-            SetPtr(Polygon2_EIK_CreateFromPoints(points, 0, Count));
+            SetPtr(Polygon2_EIK_CreateFromPoints(points, 0, points.Length));
         }
 
         internal Polygon2_EIK(IntPtr ptr) : base(ptr)
@@ -27,7 +27,7 @@ namespace CGALDotNet.Polygons
 
         public override string ToString()
         {
-            return string.Format("[Polygon2_EIK: Count={0}, IsDisposed={1},]", Count, IsDisposed);
+            return string.Format("[Polygon2_EIK: Count={0}]", Count);
         }
 
         public Polygon2_EIK Copy()
@@ -43,7 +43,7 @@ namespace CGALDotNet.Polygons
 
         public override Point2d GetPoint(int index)
         {
-            CheckBounds(index);
+            ErrorUtil.CheckBounds(index, Count);
             return Polygon2_EIK_GetPoint(Ptr, index);
         }
 
@@ -59,33 +59,33 @@ namespace CGALDotNet.Polygons
             return Polygon2_EIK_GetPoint(Ptr, index);
         }
 
-        public override void GetPoints(Point2d[] points, int startIndex = 0)
+        public override void GetPoints(Point2d[] points)
         {
-            CheckBounds(points, startIndex);
-            Polygon2_EIK_GetPoints(Ptr, points, startIndex, Count);
+            ErrorUtil.CheckBounds(points, 0, Count);
+            Polygon2_EIK_GetPoints(Ptr, points, 0, points.Length);
         }
 
         public override void GetPoints(Point2d[] points, int startIndex, int count)
         {
-            CheckBounds(points, startIndex, count);
+            ErrorUtil.CheckBounds(points, startIndex, count, Count);
             Polygon2_EIK_GetPoints(Ptr, points, startIndex, count);
         }
 
         public override void SetPoint(int index, Point2d point)
         {
-            CheckBounds(index);
+            ErrorUtil.CheckBounds(index, Count);
             Polygon2_EIK_SetPoint(Ptr, index, point);
         }
 
-        public override void SetPoints(Point2d[] points, int startIndex = 0)
+        public override void SetPoints(Point2d[] points)
         {
-            CheckBounds(points, startIndex);
-            Polygon2_EIK_SetPoints(Ptr, points, startIndex, Count);
+            ErrorUtil.CheckBounds(points, 0, Count);
+            Polygon2_EIK_SetPoints(Ptr, points, 0, points.Length);
         }
 
         public override void SetPoints(Point2d[] points, int startIndex, int count)
         {
-            CheckBounds(points, startIndex, count);
+            ErrorUtil.CheckBounds(points, startIndex, count, Count);
             Polygon2_EIK_SetPoints(Ptr, points, startIndex, count);
         }
 

@@ -73,9 +73,15 @@ namespace CGALDotNetConsole.Examples
 
             Console.WriteLine("Polygons join = " + PolygonBoolean2.Join(polygon1, polygon2, out result));
 
-            Console.WriteLine("result = " + result);
+            Print(result);
 
             Console.WriteLine("");
+        }
+
+        private static void Print(PolygonWithHoles2 pwh)
+        {
+            Console.WriteLine(pwh);
+            Console.WriteLine("Is Unbounded = " + pwh.IsUnbounded());
         }
     }
 }

@@ -34,13 +34,13 @@ namespace CGALDotNet.Polygons
 
         public abstract Point2d GetPointClamped(int index);
 
-        public abstract void GetPoints(Point2d[] points, int startIndex = 0);
+        public abstract void GetPoints(Point2d[] points);
 
         public abstract void GetPoints(Point2d[] points, int startIndex, int count);
 
         public abstract void SetPoint(int index, Point2d point);
 
-        public abstract void SetPoints(Point2d[] points, int startIndex = 0);
+        public abstract void SetPoints(Point2d[] points);
 
         public abstract void SetPoints(Point2d[] points, int startIndex, int count);
 
@@ -75,32 +75,8 @@ namespace CGALDotNet.Polygons
         public Point2d[] ToArray()
         {
             var points = new Point2d[Count];
-            GetPoints(points, 0);
+            GetPoints(points);
             return points;
-        }
-
-        protected void CheckBounds(int index)
-        {
-            if (index < 0 || index >= Count)
-                throw new ArgumentOutOfRangeException("Index was out of polygon range. Must be non-negative and less than the size of the collection.");
-        }
-
-        protected void CheckBounds(Point2d[] points, int index)
-        {
-            if (index < 0 || index >= Count)
-                throw new ArgumentOutOfRangeException("Index was out of polygon range. Must be non-negative and less than the size of the collection.");
-
-            if (index >= points.Length)
-                throw new ArgumentOutOfRangeException("Index was out of point array range. Must be non-negative and less than the size of the collection.");
-        }
-
-        protected void CheckBounds(Point2d[] points, int index, int count)
-        {
-            if (count < 0 || index < 0 || index >= Count || index + count > Count)
-                throw new ArgumentOutOfRangeException("Index was out of polygon range. Must be non-negative and less than the size of the collection.");
-
-            if (index >= points.Length || index + count > points.Length)
-                throw new ArgumentOutOfRangeException("Index was out of point array range. Must be non-negative and less than the size of the collection.");
         }
 
     }

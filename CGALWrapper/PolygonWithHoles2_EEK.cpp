@@ -25,7 +25,7 @@ void* PolygonWithHoles2_EEK_Copy(void* ptr)
 
 void PolygonWithHoles2_EEK_Clear(void* ptr)
 {
-
+	PolygonWithHoles2_Clear<EEK>(ptr);
 }
 
 void* PolygonWithHoles2_EEK_CreateFromPolygon(void* ptr)
@@ -36,4 +36,57 @@ void* PolygonWithHoles2_EEK_CreateFromPolygon(void* ptr)
 void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
 {
 	return PolygonWithHoles2_CreateFromPoints<EEK>(points, startIndex, count);
+}
+
+void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr)
+{
+	PolygonWithHoles2_AddHoleFromPolygon<EEK>(pwhPtr, polygonPtr);
+}
+
+void PolygonWithHoles2_EEK_AddHoleFromPoints(void* ptr, Point2d* points, int startIndex, int count)
+{
+	PolygonWithHoles2_AddHoleFromPoints<EEK>(ptr, points, startIndex, count);
+}
+
+void PolygonWithHoles2_EEK_RemoveHole(void* ptr, int index)
+{
+	auto pwh = (CGAL::Polygon_with_holes_2<EEK>*)ptr;
+	pwh->erase_hole(pwh->holes_begin() + index);
+}
+
+void* PolygonWithHoles2_EEK_CopyHole(void* ptr, int index)
+{
+	auto pwh = (CGAL::Polygon_with_holes_2<EEK>*)ptr;
+	auto polygon = pwh->holes().at(index);
+	return new CGAL::Polygon_2<EEK>(polygon);
+}
+
+bool PolygonWithHoles2_EEK_IsUnbounded(void* ptr)
+{
+	return PolygonWithHoles2_IsUnbounded<EEK>(ptr);
+}
+
+bool PolygonWithHoles2_EEK_IsSimple(void* ptr, int index)
+{
+	return PolygonWithHoles2_IsSimple<EEK>(ptr, index);
+}
+
+bool PolygonWithHoles2_EEK_IsConvex(void* ptr, int index)
+{
+	return PolygonWithHoles2_IsConvex<EEK>(ptr, index);
+}
+
+CGAL::Orientation PolygonWithHoles2_EEK_Orientation(void* ptr, int index)
+{
+	return PolygonWithHoles2_Orientation<EEK>(ptr, index);
+}
+
+CGAL::Oriented_side PolygonWithHoles2_EEK_OrientedSide(void* ptr, int index, Point2d point)
+{
+	return PolygonWithHoles2_OrientedSide<EEK>(ptr, index, point);
+}
+
+double PolygonWithHoles2_EEK_SignedArea(void* ptr, int index)
+{
+	return PolygonWithHoles2_SignedArea<EEK>(ptr, index);
 }

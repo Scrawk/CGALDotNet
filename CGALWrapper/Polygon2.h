@@ -33,12 +33,7 @@ void* Polygon2_CreateFromPoints(Point2d* points, int startIndex, int count)
 	auto polygon = new CGAL::Polygon_2<K>();
 
 	for (int i = 0; i < count; i++)
-	{
-		double x = points[startIndex + i].x;
-		double y = points[startIndex + i].y;
-
-		polygon->push_back(CGAL::Point_2<K>(x, y));
-	}
+		polygon->push_back(points[startIndex + i].To<K>());
 
 	return polygon;
 }
@@ -79,9 +74,7 @@ void Polygon2_SetPoints(void* ptr, Point2d* points, int startIndex, int count)
 	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 
 	for (int i = 0; i < count; i++)
-	{
-		(*polygon)[i] = CGAL::Point_2<K>(points[startIndex + i].x, points[startIndex + i].y);
-	}
+		(*polygon)[i] = points[startIndex + i].To<K>();
 }
 
 template<class K>
@@ -116,7 +109,7 @@ template<class K>
 CGAL::Oriented_side Polygon2_OrientedSide(void* ptr, Point2d point)
 {
 	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return polygon->oriented_side(CGAL::Point_2<K>(point.x, point.y));
+	return polygon->oriented_side(point.To<K>());
 }
 
 template<class K>
