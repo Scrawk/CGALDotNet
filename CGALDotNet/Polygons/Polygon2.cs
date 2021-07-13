@@ -26,7 +26,7 @@ namespace CGALDotNet.Polygons
 
         public int Count { get; protected set; }
 
-        public bool IsUpdated { get; protected set; }
+        protected bool IsUpdated { get; set; }
 
         public bool IsSimple
         {
@@ -175,7 +175,6 @@ namespace CGALDotNet.Polygons
             }
 
             IsUpdated = true;
-
         }
 
     }

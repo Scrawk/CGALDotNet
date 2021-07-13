@@ -6,8 +6,10 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
+
     public abstract class PolygonWithHoles2 : CGALObject
     {
+
         public PolygonWithHoles2()
         {
       
@@ -15,55 +17,55 @@ namespace CGALDotNet.Polygons
 
         internal PolygonWithHoles2(IntPtr ptr) : base(ptr)
         {
-            
+            CheckPtr();
         }
 
         public int HoleCount { get; protected set; }
-
-        public abstract void Clear();
-
-        public abstract void RemoveBoundary();
-
-        public abstract void ReverseBoundary();
-
-        public abstract void AddHole(Point2d[] points);
 
         public abstract void AddHole(Polygon2 polygon);
 
         public abstract void RemoveHole(int index);
 
-        public abstract void ReverseHole(int index);
+        public abstract bool FindIfUnbounded();
 
-        public abstract bool IsUnbounded();
+        public abstract bool FindIfBoundaryIsSimple();
 
-        public abstract bool BoundaryIsSimple();
+        public abstract bool FindIfBoundaryIsConvex();
 
-        public abstract bool BoundaryIsConvex();
-
-        public abstract CGAL_ORIENTATION BoundaryOrientation();
+        public abstract CGAL_ORIENTATION FindBoundaryOrientation();
 
         public abstract CGAL_ORIENTED_SIDE BoundaryOrientedSide(Point2d point);
 
-        public abstract double BoundarySignedArea();
+        public abstract double FindBoundarySignedArea();
 
-        public double BoundaryArea()
+        public double FindBoundaryArea()
         {
-            return Math.Abs(BoundarySignedArea());
+            return Math.Abs(FindBoundarySignedArea());
         }
 
-        public abstract bool HoleIsSimple(int index);
+        public abstract bool FindIfHoleIsSimple(int index);
 
-        public abstract bool HoleIsConvex(int index);
+        public abstract bool FindIfHoleIsConvex(int index);
 
-        public abstract CGAL_ORIENTATION HoleOrientation(int index);
+        public abstract CGAL_ORIENTATION FindHoleOrientation(int index);
 
         public abstract CGAL_ORIENTED_SIDE HoleOrientedSide(int index, Point2d point);
 
-        public abstract double HoleSignedArea(int index);
+        public abstract double FindHoleSignedArea(int index);
 
-        public double HoleArea(int index)
+        public double FindHoleArea(int index)
         {
-            return Math.Abs(HoleSignedArea(index));
+            return Math.Abs(FindHoleSignedArea(index));
+        }
+
+        public bool IsValidBoundary(Polygon2 polygon)
+        {
+            return polygon.IsSimple && polygon.ClockDir == CGAL_CLOCK_DIR.COUNTER_CLOCKWISE;
+        }
+
+        public bool IsValidHole(Polygon2 polygon)
+        {
+            return polygon.IsSimple && polygon.ClockDir == CGAL_CLOCK_DIR.CLOCKWISE;
         }
 
         public void Print()
@@ -77,37 +79,50 @@ namespace CGALDotNet.Polygons
         {
             builder.AppendLine(ToString());
 
-            bool isUnbounded = IsUnbounded();
+            bool isUnbounded = FindIfUnbounded();
             builder.AppendLine("Is unbounded = " + isUnbounded);
 
             if (!isUnbounded)
             {
-                bool boundaryIsSimple = BoundaryIsSimple();
+                bool boundaryIsSimple = FindIfBoundaryIsSimple();
                 builder.AppendLine("Boundary is simple = " + boundaryIsSimple);
 
                 if (boundaryIsSimple)
                 {
-                    builder.AppendLine("Boundary is convex = " + BoundaryIsConvex());
-                    builder.AppendLine("Boundary orientation = " + BoundaryOrientation());
-                    builder.AppendLine("Boundary signed Area = " + BoundarySignedArea());
+                    builder.AppendLine("Boundary is convex = " + FindIfBoundaryIsConvex());
+                    builder.AppendLine("Boundary orientation = " + FindBoundaryOrientation());
+                    builder.AppendLine("Boundary signed Area = " + FindBoundarySignedArea());
                 }
             }
 
             for (int i = 0; i < HoleCount; i++)
             {
 
-                bool holeIsSimple = HoleIsSimple(i);
-                builder.AppendLine("Hole " + i + " is simple = " + HoleIsSimple(i));
+                bool holeIsSimple = FindIfHoleIsSimple(i);
+                builder.AppendLine("Hole " + i + " is simple = " + FindIfHoleIsSimple(i));
 
                 if (holeIsSimple)
                 {
-                    builder.AppendLine("Hole " + i + " is convex = " + HoleIsConvex(i));
-                    builder.AppendLine("Hole " + i + " is orientation = " + HoleOrientation(i));
-                    builder.AppendLine("Hole " + i + " is signed area = " + HoleSignedArea(i));
+                    builder.AppendLine("Hole " + i + " is convex = " + FindIfHoleIsConvex(i));
+                    builder.AppendLine("Hole " + i + " is orientation = " + FindHoleOrientation(i));
+                    builder.AppendLine("Hole " + i + " is signed area = " + FindHoleSignedArea(i));
                 }
 
                 builder.AppendLine();
             }
         }
+
+        protected void CheckBoundary(Polygon2 polygon)
+        {
+            if (!IsValidBoundary(polygon))
+                throw new Exception("Polygon is not valid boundary. Must be simple and counter clock wise.");
+        }
+
+        protected void CheckHole(Polygon2 polygon)
+        {
+            if (!IsValidHole(polygon))
+                throw new Exception("Polygon is not valid hole. Must be simple and clock wise.");
+        }
+
     }
 }

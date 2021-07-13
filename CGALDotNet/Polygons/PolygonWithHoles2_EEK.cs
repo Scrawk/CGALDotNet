@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
 
@@ -8,19 +7,11 @@ namespace CGALDotNet.Polygons
 {
     public sealed partial class PolygonWithHoles2_EEK : PolygonWithHoles2
     {
-        public PolygonWithHoles2_EEK()
-        {
-            SetPtr(PolygonWithHoles2_EEK_Create());
-        }
 
         public PolygonWithHoles2_EEK(Polygon2_EEK boundary)
         {
+            CheckBoundary(boundary);
             SetPtr(PolygonWithHoles2_EEK_CreateFromPolygon(boundary.Ptr));
-        }
-
-        public PolygonWithHoles2_EEK(Point2d[] boundary)
-        {
-            SetPtr(PolygonWithHoles2_EEK_CreateFromPoints(boundary, 0, boundary.Length));
         }
 
         internal PolygonWithHoles2_EEK(IntPtr ptr) : base(ptr)
@@ -35,27 +26,13 @@ namespace CGALDotNet.Polygons
 
         public PolygonWithHoles2_EEK Copy()
         {
+            CheckPtr();
             return new PolygonWithHoles2_EEK(PolygonWithHoles2_EEK_Copy(Ptr));
-        }
-
-        public override void Clear()
-        {
-            HoleCount = 0;
-            PolygonWithHoles2_EEK_Clear(Ptr);
-        }
-
-        public override void RemoveBoundary()
-        {
-            PolygonWithHoles2_EEK_ClearBoundary(Ptr);
-        }
-
-        public override void ReverseBoundary()
-        {
-            PolygonWithHoles2_EEK_ReverseHole(Ptr, -1);
         }
 
         public Polygon2_EEK CopyBoundary()
         {
+            CheckPtr();
             var ptr = PolygonWithHoles2_EEK_CopyHole(Ptr, -1);
             if (ptr != IntPtr.Zero)
                 return new Polygon2_EEK(ptr);
@@ -63,100 +40,103 @@ namespace CGALDotNet.Polygons
                 return null;
         }
 
-        public override void AddHole(Point2d[] points)
-        {
-            PolygonWithHoles2_EEK_AddHoleFromPoints(Ptr, points, 0, points.Length);
-            HoleCount++;
-        }
-
         public override void AddHole(Polygon2 polygon)
         {
+            CheckPtr();
+            CheckHole(polygon);
             PolygonWithHoles2_EEK_AddHoleFromPolygon(Ptr, polygon.Ptr);
             HoleCount++;
         }
 
         public override void RemoveHole(int index)
         {
+            CheckPtr();
             ErrorUtil.CheckBounds(index, HoleCount);
             PolygonWithHoles2_EEK_RemoveHole(Ptr, index);
             HoleCount--;
         }
 
-        public override void ReverseHole(int index)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            PolygonWithHoles2_EEK_ReverseHole(Ptr, index);
-        }
-
         public Polygon2_EEK CopyHole(int index)
         {
+            CheckPtr();
             ErrorUtil.CheckBounds(index, HoleCount);
             return new Polygon2_EEK(PolygonWithHoles2_EEK_CopyHole(Ptr, index));
         }
 
-        public override bool IsUnbounded()
+        public override bool FindIfUnbounded()
         {
+            CheckPtr();
             return PolygonWithHoles2_EEK_IsUnbounded(Ptr);
         }
 
-        public override bool BoundaryIsSimple()
+        public override bool FindIfBoundaryIsSimple()
         {
+            CheckPtr();
             return PolygonWithHoles2_EEK_IsSimple(Ptr, -1);
         }
 
-        public override bool BoundaryIsConvex()
+        public override bool FindIfBoundaryIsConvex()
         {
+            CheckPtr();
             return PolygonWithHoles2_EEK_IsConvex(Ptr, -1);
         }
 
-        public override CGAL_ORIENTATION BoundaryOrientation()
+        public override CGAL_ORIENTATION FindBoundaryOrientation()
         {
+            CheckPtr();
             return PolygonWithHoles2_EEK_Orientation(Ptr, -1);
         }
 
         public override CGAL_ORIENTED_SIDE BoundaryOrientedSide(Point2d point)
         {
+            CheckPtr();
             return PolygonWithHoles2_EEK_OrientedSide(Ptr, -1, point);
         }
 
-        public override double BoundarySignedArea()
+        public override double FindBoundarySignedArea()
         {
+            CheckPtr();
             return PolygonWithHoles2_EEK_SignedArea(Ptr, -1);
         }
 
-        public override bool HoleIsSimple(int index)
+        public override bool FindIfHoleIsSimple(int index)
         {
+            CheckPtr();
             ErrorUtil.CheckBounds(index, HoleCount);
             return PolygonWithHoles2_EEK_IsSimple(Ptr, index);
         }
 
-        public override bool HoleIsConvex(int index)
+        public override bool FindIfHoleIsConvex(int index)
         {
+            CheckPtr();
             ErrorUtil.CheckBounds(index, HoleCount);
             return PolygonWithHoles2_EEK_IsConvex(Ptr, index);
         }
 
-        public override CGAL_ORIENTATION HoleOrientation(int index)
+        public override CGAL_ORIENTATION FindHoleOrientation(int index)
         {
+            CheckPtr();
             ErrorUtil.CheckBounds(index, HoleCount);
             return PolygonWithHoles2_EEK_Orientation(Ptr, index);
         }
 
         public override CGAL_ORIENTED_SIDE HoleOrientedSide(int index, Point2d point)
         {
+            CheckPtr();
             ErrorUtil.CheckBounds(index, HoleCount);
             return PolygonWithHoles2_EEK_OrientedSide(Ptr, index, point);
         }
 
-        public override double HoleSignedArea(int index)
+        public override double FindHoleSignedArea(int index)
         {
+            CheckPtr();
             ErrorUtil.CheckBounds(index, HoleCount);
             return PolygonWithHoles2_EEK_SignedArea(Ptr, index);
         }
 
         public List<Polygon2_EEK> ToList()
         {
-            var unbounded = IsUnbounded();
+            var unbounded = FindIfUnbounded();
 
             int count = HoleCount;
             if (!unbounded)
