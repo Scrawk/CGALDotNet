@@ -28,6 +28,11 @@ void PolygonWithHoles2_EEK_Clear(void* ptr)
 	PolygonWithHoles2_Clear<EEK>(ptr);
 }
 
+void PolygonWithHoles2_EEK_ClearBoundary(void* ptr)
+{
+	PolygonWithHoles2_ClearBoundary<EEK>(ptr);
+}
+
 void* PolygonWithHoles2_EEK_CreateFromPolygon(void* ptr)
 {
 	return PolygonWithHoles2_CreateFromPolygon<EEK>(ptr);
@@ -50,15 +55,17 @@ void PolygonWithHoles2_EEK_AddHoleFromPoints(void* ptr, Point2d* points, int sta
 
 void PolygonWithHoles2_EEK_RemoveHole(void* ptr, int index)
 {
-	auto pwh = (CGAL::Polygon_with_holes_2<EEK>*)ptr;
-	pwh->erase_hole(pwh->holes_begin() + index);
+	PolygonWithHoles2_RemoveHole<EEK>(ptr, index);
 }
 
 void* PolygonWithHoles2_EEK_CopyHole(void* ptr, int index)
 {
-	auto pwh = (CGAL::Polygon_with_holes_2<EEK>*)ptr;
-	auto polygon = pwh->holes().at(index);
-	return new CGAL::Polygon_2<EEK>(polygon);
+	return PolygonWithHoles2_CopyHole<EEK>(ptr, index);
+}
+
+void PolygonWithHoles2_EEK_ReverseHole(void* ptr, int index)
+{
+	PolygonWithHoles2_ReverseHole<EEK>(ptr, index);
 }
 
 bool PolygonWithHoles2_EEK_IsUnbounded(void* ptr)

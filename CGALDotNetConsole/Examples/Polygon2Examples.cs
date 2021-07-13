@@ -23,7 +23,7 @@ namespace CGALDotNetConsole.Examples
 
             var polygon = new Polygon2_EIK(points);
 
-            Print(polygon);
+            polygon.Print();
 
             Console.WriteLine("Point (0.0, 0.0) is on the = " + polygon.OrientedSide(new Point2d(0.0, 0.0)));
             Console.WriteLine("Point (0.5, 0.5) is on the = " + polygon.OrientedSide(new Point2d(0.5, 0.5)));
@@ -35,7 +35,7 @@ namespace CGALDotNetConsole.Examples
 
         public static void CreatePolygonWithHoles()
         {
-            Console.WriteLine("Create polygon holes example\n");
+            Console.WriteLine("Create polygon with holes example\n");
 
             var bounds = new Point2d[]
             {
@@ -53,44 +53,13 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0.5,6)
             };
 
-            var pwh = new PolygonWithHoles2(bounds);
+            var pwh = new PolygonWithHoles2_EEK(bounds);
 
             pwh.AddHole(points);
-            Print(pwh);
+
+            pwh.Print();
 
             Console.WriteLine();
-        }
-
-        private static void Print(PolygonWithHoles2 pwh)
-        {
-            Console.WriteLine(pwh);
-            Console.WriteLine("Is Unbounded = " + pwh.IsUnbounded());
-            Console.WriteLine("Is simple = " + pwh.BoundaryIsSimple());
-            Console.WriteLine("Is convex = " + pwh.BoundaryIsConvex());
-            Console.WriteLine("Is orientation = " + pwh.BoundaryOrientation());
-            Console.WriteLine("Is signed area = " + pwh.BoundarySignedArea());
-
-            for (int i = 0; i < pwh.HoleCount; i++)
-            {
-                Console.WriteLine("Hole " + i);
-                Console.WriteLine("Is simple = " + pwh.HoleIsSimple(i));
-                Console.WriteLine("Is convex = " + pwh.HoleIsConvex(i));
-                Console.WriteLine("Is orientation = " + pwh.HoleOrientation(i));
-                Console.WriteLine("Is signed area = " + pwh.HoleSignedArea(i));
-
-                Console.WriteLine();
-            }
-
-        }
-
-        private static void Print(Polygon2 polygon)
-        {
-            Console.WriteLine(polygon);
-            Console.WriteLine("Is simple = " + polygon.IsSimple());
-            Console.WriteLine("Is convex = " + polygon.IsConvex());
-            Console.WriteLine("Orientation = " + polygon.Orientation());
-            Console.WriteLine("Signed Area = " + polygon.SignedArea());
-            Console.WriteLine("Area = " + polygon.Area());
         }
     }
 }

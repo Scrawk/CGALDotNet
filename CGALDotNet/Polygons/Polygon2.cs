@@ -1,7 +1,9 @@
-﻿using CGALDotNet.Geometry;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+
+using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
@@ -34,15 +36,11 @@ namespace CGALDotNet.Polygons
 
         public abstract Point2d GetPointClamped(int index);
 
-        public abstract void GetPoints(Point2d[] points);
-
-        public abstract void GetPoints(Point2d[] points, int startIndex, int count);
+        public abstract void GetPoints(Point2d[] points, int startIndex = 0);
 
         public abstract void SetPoint(int index, Point2d point);
 
-        public abstract void SetPoints(Point2d[] points);
-
-        public abstract void SetPoints(Point2d[] points, int startIndex, int count);
+        public abstract void SetPoints(Point2d[] points, int startIndex = 0);
 
         public abstract void Reverse();
 
@@ -77,6 +75,29 @@ namespace CGALDotNet.Polygons
             var points = new Point2d[Count];
             GetPoints(points);
             return points;
+        }
+
+        public void Print()
+        {
+            var builder = new StringBuilder();
+            Print(builder);
+            Console.WriteLine(builder.ToString());
+        }
+
+        public void Print(StringBuilder builder)
+        {
+            builder.AppendLine(ToString());
+
+            bool isSimple = IsSimple();
+            builder.AppendLine("Is simple = " + isSimple);
+
+            if (isSimple)
+            {
+                builder.AppendLine("Is convex = " + IsConvex());
+                builder.AppendLine("Orientation = " + Orientation());
+                builder.AppendLine("Signed Area = " + SignedArea());
+                builder.AppendLine("Area = " + Area());
+            }
         }
 
     }

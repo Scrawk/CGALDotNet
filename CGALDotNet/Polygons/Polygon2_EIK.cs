@@ -59,16 +59,10 @@ namespace CGALDotNet.Polygons
             return Polygon2_EIK_GetPoint(Ptr, index);
         }
 
-        public override void GetPoints(Point2d[] points)
+        public override void GetPoints(Point2d[] points, int startIndex = 0)
         {
-            ErrorUtil.CheckBounds(points, 0, Count);
-            Polygon2_EIK_GetPoints(Ptr, points, 0, points.Length);
-        }
-
-        public override void GetPoints(Point2d[] points, int startIndex, int count)
-        {
-            ErrorUtil.CheckBounds(points, startIndex, count, Count);
-            Polygon2_EIK_GetPoints(Ptr, points, startIndex, count);
+            ErrorUtil.CheckBounds(points, startIndex, Count);
+            Polygon2_EIK_GetPoints(Ptr, points, startIndex, Count);
         }
 
         public override void SetPoint(int index, Point2d point)
@@ -77,16 +71,10 @@ namespace CGALDotNet.Polygons
             Polygon2_EIK_SetPoint(Ptr, index, point);
         }
 
-        public override void SetPoints(Point2d[] points)
+        public override void SetPoints(Point2d[] points, int startIndex = 0)
         {
-            ErrorUtil.CheckBounds(points, 0, Count);
-            Polygon2_EIK_SetPoints(Ptr, points, 0, points.Length);
-        }
-
-        public override void SetPoints(Point2d[] points, int startIndex, int count)
-        {
-            ErrorUtil.CheckBounds(points, startIndex, count, Count);
-            Polygon2_EIK_SetPoints(Ptr, points, startIndex, count);
+            ErrorUtil.CheckBounds(points, startIndex, Count);
+            Polygon2_EIK_SetPoints(Ptr, points, startIndex, Count);
         }
 
         public override void Reverse()

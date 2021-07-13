@@ -5,6 +5,15 @@ namespace CGALDotNet
 {
     public enum CGAL_KERNEL
     {
+        EIK = 0,
+        EEK = 1,
+        EEK_SQRT2 = 2,
+        EEK_KTH_ROOT = 3,
+        EEK_ROOT_OF = 4
+    }
+
+    public enum CGAL_KERNEL_LONG
+    {
         EXACT_PREDICATES_INEXACT_CONSTRUCTION = 0,
         EXACT_PREDICATES_EXACT_CONSTRUCTION = 1,
         EXACT_PREDICATES_EXACT_CONSTRUCTION_WITH_SQRT2 = 2,

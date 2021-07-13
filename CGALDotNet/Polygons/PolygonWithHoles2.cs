@@ -1,190 +1,113 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Text;
 
 using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    public class PolygonWithHoles2 : CGALObject
+    public abstract class PolygonWithHoles2 : CGALObject
     {
         public PolygonWithHoles2()
         {
-            SetPtr(PolygonWithHoles2_EEK_Create());
-        }
-
-        public PolygonWithHoles2(Polygon2_EEK polygon)
-        {
-            SetPtr(PolygonWithHoles2_EEK_CreateFromPolygon(polygon.Ptr));
-        }
-
-        public PolygonWithHoles2(Point2d[] points)
-        {
-            SetPtr(PolygonWithHoles2_EEK_CreateFromPoints(points, 0, points.Length));
+      
         }
 
         internal PolygonWithHoles2(IntPtr ptr) : base(ptr)
         {
-            HoleCount = PolygonWithHoles2_EEK_HoleCount(Ptr);
+            
         }
 
-        public int HoleCount { get; private set; }
+        public int HoleCount { get; protected set; }
 
-        public override string ToString()
+        public abstract void Clear();
+
+        public abstract void RemoveBoundary();
+
+        public abstract void ReverseBoundary();
+
+        public abstract void AddHole(Point2d[] points);
+
+        public abstract void AddHole(Polygon2 polygon);
+
+        public abstract void RemoveHole(int index);
+
+        public abstract void ReverseHole(int index);
+
+        public abstract bool IsUnbounded();
+
+        public abstract bool BoundaryIsSimple();
+
+        public abstract bool BoundaryIsConvex();
+
+        public abstract CGAL_ORIENTATION BoundaryOrientation();
+
+        public abstract CGAL_ORIENTED_SIDE BoundaryOrientedSide(Point2d point);
+
+        public abstract double BoundarySignedArea();
+
+        public double BoundaryArea()
         {
-            return string.Format("[PolygonWithHoles2: HoleCount={0}]", HoleCount);
+            return Math.Abs(BoundarySignedArea());
         }
 
-        public PolygonWithHoles2 Copy()
+        public abstract bool HoleIsSimple(int index);
+
+        public abstract bool HoleIsConvex(int index);
+
+        public abstract CGAL_ORIENTATION HoleOrientation(int index);
+
+        public abstract CGAL_ORIENTED_SIDE HoleOrientedSide(int index, Point2d point);
+
+        public abstract double HoleSignedArea(int index);
+
+        public double HoleArea(int index)
         {
-            return new PolygonWithHoles2(PolygonWithHoles2_EEK_Copy(Ptr));
+            return Math.Abs(HoleSignedArea(index));
         }
 
-        public void Clear()
+        public void Print()
         {
-            HoleCount = 0;
-            PolygonWithHoles2_EEK_Clear(Ptr);
+            var builder = new StringBuilder();
+            Print(builder);
+            Console.WriteLine(builder.ToString());
         }
 
-        public void AddHole(Point2d[] points)
+        public void Print(StringBuilder builder)
         {
-            PolygonWithHoles2_EEK_AddHoleFromPoints(Ptr, points, 0, points.Length);
-            HoleCount++;
+            builder.AppendLine(ToString());
+
+            bool isUnbounded = IsUnbounded();
+            builder.AppendLine("Is unbounded = " + isUnbounded);
+
+            if (!isUnbounded)
+            {
+                bool boundaryIsSimple = BoundaryIsSimple();
+                builder.AppendLine("Boundary is simple = " + boundaryIsSimple);
+
+                if (boundaryIsSimple)
+                {
+                    builder.AppendLine("Boundary is convex = " + BoundaryIsConvex());
+                    builder.AppendLine("Boundary orientation = " + BoundaryOrientation());
+                    builder.AppendLine("Boundary signed Area = " + BoundarySignedArea());
+                }
+            }
+
+            for (int i = 0; i < HoleCount; i++)
+            {
+
+                bool holeIsSimple = HoleIsSimple(i);
+                builder.AppendLine("Hole " + i + " is simple = " + HoleIsSimple(i));
+
+                if (holeIsSimple)
+                {
+                    builder.AppendLine("Hole " + i + " is convex = " + HoleIsConvex(i));
+                    builder.AppendLine("Hole " + i + " is orientation = " + HoleOrientation(i));
+                    builder.AppendLine("Hole " + i + " is signed area = " + HoleSignedArea(i));
+                }
+
+                builder.AppendLine();
+            }
         }
-
-        public void AddHole(Polygon2 polygon)
-        {
-            PolygonWithHoles2_EEK_AddHoleFromPolygon(Ptr, polygon.Ptr);
-            HoleCount++;
-        }
-
-        public void RemoveHole(int index)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            PolygonWithHoles2_EEK_RemoveHole(Ptr, index);
-            HoleCount--;
-        }
-
-        public Polygon2_EEK CopyHole(int index)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            return new Polygon2_EEK(PolygonWithHoles2_EEK_CopyHole(Ptr, index));
-        }
-
-        public bool IsUnbounded()
-        {
-            return PolygonWithHoles2_EEK_IsUnbounded(Ptr);
-        }
-
-        public bool BoundaryIsSimple()
-        {
-            return PolygonWithHoles2_EEK_IsSimple(Ptr, -1);
-        }
-
-        public bool BoundaryIsConvex()
-        {
-            return PolygonWithHoles2_EEK_IsConvex(Ptr, -1);
-        }
-
-        public CGAL_ORIENTATION BoundaryOrientation()
-        {
-            return PolygonWithHoles2_EEK_Orientation(Ptr, -1);
-        }
-
-        public CGAL_ORIENTED_SIDE BoundaryOrientedSide(Point2d point)
-        {
-            return PolygonWithHoles2_EEK_OrientedSide(Ptr, -1, point);
-        }
-
-        public double BoundarySignedArea()
-        {
-            return PolygonWithHoles2_EEK_SignedArea(Ptr, -1);
-        }
-
-        public bool HoleIsSimple(int index)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            return PolygonWithHoles2_EEK_IsSimple(Ptr, index);
-        }
-
-        public bool HoleIsConvex(int index)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            return PolygonWithHoles2_EEK_IsConvex(Ptr, index);
-        }
-
-        public CGAL_ORIENTATION HoleOrientation(int index)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            return PolygonWithHoles2_EEK_Orientation(Ptr, index);
-        }
-
-        public CGAL_ORIENTED_SIDE HoleOrientedSide(int index, Point2d point)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            return PolygonWithHoles2_EEK_OrientedSide(Ptr, index, point);
-        }
-
-        public double HoleSignedArea(int index)
-        {
-            ErrorUtil.CheckBounds(index, HoleCount);
-            return PolygonWithHoles2_EEK_SignedArea(Ptr, index);
-        }
-
-        protected override void ReleasePtr()
-        {
-            PolygonWithHoles2_EEK_Release(Ptr);
-        }
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonWithHoles2_EEK_Create();
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonWithHoles2_EEK_Release(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonWithHoles2_EEK_HoleCount(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonWithHoles2_EEK_Copy(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonWithHoles2_EEK_Clear(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPolygon(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPoints(Point2d[] points, int startIndex, int count);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonWithHoles2_EEK_AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonWithHoles2_EEK_AddHoleFromPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonWithHoles2_EEK_RemoveHole(IntPtr ptr, int index);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonWithHoles2_EEK_CopyHole(IntPtr ptr, int index);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonWithHoles2_EEK_IsUnbounded(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonWithHoles2_EEK_IsSimple(IntPtr ptr, int index);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonWithHoles2_EEK_IsConvex(IntPtr ptr, int index);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION PolygonWithHoles2_EEK_Orientation(IntPtr ptr, int index);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTED_SIDE PolygonWithHoles2_EEK_OrientedSide(IntPtr ptr, int index, Point2d point);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern double PolygonWithHoles2_EEK_SignedArea(IntPtr ptr, int index);
     }
 }

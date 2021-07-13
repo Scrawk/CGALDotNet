@@ -57,31 +57,18 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5, 2)
             };
 
-            /*
-            points2 = new Point2d[]
-            {
-                new Point2d(9, 1),
-                new Point2d(11, -1),
-                new Point2d(10, 1)
-            };
-            */
-
             var polygon1 = new Polygon2_EEK(points1);
             var polygon2 = new Polygon2_EEK(points2);
 
-            PolygonWithHoles2 result;
+            PolygonWithHoles2_EEK result;
 
             Console.WriteLine("Polygons join = " + PolygonBoolean2.Join(polygon1, polygon2, out result));
+            Console.WriteLine("");
 
-            Print(result);
+            result.Print();
 
             Console.WriteLine("");
         }
 
-        private static void Print(PolygonWithHoles2 pwh)
-        {
-            Console.WriteLine(pwh);
-            Console.WriteLine("Is Unbounded = " + pwh.IsUnbounded());
-        }
     }
 }

@@ -32,7 +32,7 @@ void* Polygon2_CreateFromPoints(Point2d* points, int startIndex, int count)
 {
 	auto polygon = new CGAL::Polygon_2<K>();
 
-	for (int i = 0; i < count; i++)
+	for (auto i = 0; i < count; i++)
 		polygon->push_back(points[startIndex + i].To<K>());
 
 	return polygon;
@@ -52,10 +52,9 @@ void Polygon2_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
 	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 
-	for (int i = 0; i < count; i++)
+	for (auto i = 0; i < count; i++)
 	{
 		auto point = polygon->vertex(i);
-
 		points[startIndex + i].x = CGAL::to_double(point.x());
 		points[startIndex + i].y = CGAL::to_double(point.y());
 	}
@@ -73,7 +72,7 @@ void Polygon2_SetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
 	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 
-	for (int i = 0; i < count; i++)
+	for (auto i = 0; i < count; i++)
 		(*polygon)[i] = points[startIndex + i].To<K>();
 }
 
