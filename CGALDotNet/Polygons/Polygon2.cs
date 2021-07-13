@@ -10,6 +10,10 @@ namespace CGALDotNet.Polygons
     public abstract class Polygon2 : CGALObject, IEnumerable<Point2d>
     {
 
+        private bool m_isSimple;
+
+        private CGAL_ORIENTATION m_orientation;
+
         public Polygon2()
         {
 
@@ -17,10 +21,40 @@ namespace CGALDotNet.Polygons
 
         internal Polygon2(IntPtr ptr) : base(ptr)
         {
-
+            CheckPtr();
         }
 
         public int Count { get; protected set; }
+
+        public bool IsUpdated { get; protected set; }
+
+        public bool IsSimple
+        {
+            get
+            {
+                Update();
+                return m_isSimple;
+            }
+            protected set
+            {
+                m_isSimple = value;
+            }
+        }
+
+        public CGAL_ORIENTATION Orientation
+        {
+            get
+            {
+                Update();
+                return m_orientation;
+            }
+            protected set
+            {
+                m_orientation = value;
+            }
+        }
+
+        public CGAL_CLOCK_DIR ClockDir => (CGAL_CLOCK_DIR)Orientation;
 
         public Point2d this[int i]
         {
@@ -38,25 +72,44 @@ namespace CGALDotNet.Polygons
 
         public abstract void GetPoints(Point2d[] points, int startIndex = 0);
 
+        public void GetPoints(List<Point2d> points)
+        {
+            for (int i = 0; i < Count; i++)
+                points.Add(GetPoint(i));
+        }
+
         public abstract void SetPoint(int index, Point2d point);
 
         public abstract void SetPoints(Point2d[] points, int startIndex = 0);
 
         public abstract void Reverse();
 
-        public abstract bool IsSimple();
+        public abstract bool FindIfSimple();
 
-        public abstract bool IsConvex();
+        public abstract bool FindIfConvex();
 
-        public abstract CGAL_ORIENTATION Orientation();
+        public abstract CGAL_ORIENTATION FindOrientation();
 
         public abstract CGAL_ORIENTED_SIDE OrientedSide(Point2d point);
 
-        public abstract double SignedArea();
+        public abstract double FindSignedArea();
 
-        public double Area()
+        public double FindArea()
         {
-            return Math.Abs(SignedArea());
+            return Math.Abs(FindSignedArea());
+        }
+
+        public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
+        {
+            var side = OrientedSide(point);
+
+            if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
+                return false;
+
+            if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
+                return true;
+
+            return (int)side == (int)Orientation;
         }
 
         public IEnumerator<Point2d> GetEnumerator()
@@ -77,6 +130,15 @@ namespace CGALDotNet.Polygons
             return points;
         }
 
+        public List<Point2d> ToList()
+        {
+            var points = new List<Point2d>(Count);
+            for (int i = 0; i < Count; i++)
+                points.Add(GetPoint(i));
+
+            return points;
+        }
+
         public void Print()
         {
             var builder = new StringBuilder();
@@ -86,18 +148,34 @@ namespace CGALDotNet.Polygons
 
         public void Print(StringBuilder builder)
         {
+            Update();
             builder.AppendLine(ToString());
 
-            bool isSimple = IsSimple();
-            builder.AppendLine("Is simple = " + isSimple);
-
-            if (isSimple)
+            if (IsSimple)
             {
-                builder.AppendLine("Is convex = " + IsConvex());
-                builder.AppendLine("Orientation = " + Orientation());
-                builder.AppendLine("Signed Area = " + SignedArea());
-                builder.AppendLine("Area = " + Area());
+                builder.AppendLine("Is convex = " + FindIfConvex());
+                builder.AppendLine("Signed Area = " + FindSignedArea());
+                builder.AppendLine("Area = " + FindArea());
             }
+        }
+
+        protected void Update()
+        {
+            if (IsUpdated) return;
+
+            if (FindIfSimple())
+            {
+                IsSimple = true;
+                Orientation = FindOrientation();
+            }
+            else
+            {
+                IsSimple = false;
+                Orientation = CGAL_ORIENTATION.ZERO;
+            }
+
+            IsUpdated = true;
+
         }
 
     }

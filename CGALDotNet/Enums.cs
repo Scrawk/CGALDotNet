@@ -66,7 +66,8 @@ namespace CGALDotNet
     public enum CGAL_ORIENTED_SIDE
     { 
         ON_NEGATIVE_SIDE = -1, 
-        ON_ORIENTED_BOUNDARY = 0,
-        ON_POSITIVE_SIDE = 1
+        ON_BOUNDARY = 0,
+        ON_POSITIVE_SIDE = 1,
+        UNDETERMINED = 2
     }
 }

@@ -50,8 +50,11 @@ namespace CGALDotNet
 
         protected void CheckPtr()
         {
-            if (Ptr == IntPtr.Zero)
+            if(IsDisposed)
                 throw new NullReferenceException("Unmanaged resources have been released.");
+
+            if (Ptr == IntPtr.Zero)
+                throw new NullReferenceException("Unmanaged resources have not been created.");
         }
     }
 }

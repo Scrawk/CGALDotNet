@@ -154,6 +154,25 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_SignedArea(Ptr, index);
         }
 
+        public List<Polygon2_EEK> ToList()
+        {
+            var unbounded = IsUnbounded();
+
+            int count = HoleCount;
+            if (!unbounded)
+                count++;
+
+            var polygons = new List<Polygon2_EEK>(count);
+
+            if(!unbounded)
+                polygons.Add(CopyBoundary());
+
+            for (int i = 0; i < HoleCount; i++)
+                polygons.Add(CopyHole(i));
+
+            return polygons;
+        }
+
         protected override void ReleasePtr()
         {
             PolygonWithHoles2_EEK_Release(Ptr);
