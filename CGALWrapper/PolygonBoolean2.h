@@ -5,6 +5,7 @@
 #include <CGAL/Boolean_set_operations_2.h>
 #include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h>
+#include <vector>
 
 template<class P1, class P2>
 bool PolygonBoolean2_DoIntersect(P1* polygon1, P2* polygon2)
@@ -27,7 +28,7 @@ template<class K>
 bool PolygonBoolean2_DoIntersect_P_PWH(void* ptr1, void* ptr2)
 {
 	using POLYGON = CGAL::Polygon_2<K>;
-	using PWH = CGAL::Polygon_2<K>;
+	using PWH = CGAL::Polygon_with_holes_2<K>;
 
 	auto polygon1 = (POLYGON*)ptr1;
 	auto polygon2 = (PWH*)ptr2;
@@ -38,7 +39,7 @@ bool PolygonBoolean2_DoIntersect_P_PWH(void* ptr1, void* ptr2)
 template<class K>
 bool PolygonBoolean2_DoIntersect_PWH_PWH(void* ptr1, void* ptr2)
 {
-	using PWH = CGAL::Polygon_2<K>;
+	using PWH = CGAL::Polygon_with_holes_2<K>;
 
 	auto polygon1 = (PWH*)ptr1;
 	auto polygon2 = (PWH*)ptr2;
@@ -79,7 +80,7 @@ template<class K>
 bool PolygonBoolean2_Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr)
 {
 	using POLYGON = CGAL::Polygon_2<K>;
-	using PWH = CGAL::Polygon_2<K>;
+	using PWH = CGAL::Polygon_with_holes_2<K>;
 
 	auto polygon1 = (POLYGON*)ptr1;
 	auto polygon2 = (PWH*)ptr2;
@@ -90,12 +91,29 @@ bool PolygonBoolean2_Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr)
 template<class K>
 bool PolygonBoolean2_Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr)
 {
-	using PWH = CGAL::Polygon_2<K>;
+	using PWH = CGAL::Polygon_with_holes_2<K>;
 
 	auto polygon1 = (PWH*)ptr1;
 	auto polygon2 = (PWH*)ptr2;
 
 	return PolygonBoolean2_Join<K, PWH, PWH>(polygon1, polygon2, resultPtr);
+}
+
+template<class K, class P1, class P2, class LIST>
+void PolygonBoolean2_Intersect(P1* polygon1, P2* polygon2, LIST& list)
+{
+	CGAL::intersection(*polygon1, *polygon2, std::back_inserter(list));
+}
+
+template<class K, class LIST>
+void PolygonBoolean2_Intersect_P_P(void* ptr1, void* ptr2, LIST& list)
+{
+	using POLYGON = CGAL::Polygon_2<K>;
+
+	auto polygon1 = (POLYGON*)ptr1;
+	auto polygon2 = (POLYGON*)ptr2;
+
+	PolygonBoolean2_Intersect<K, POLYGON, POLYGON, LIST>(polygon1, polygon2, list);
 }
 
 

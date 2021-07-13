@@ -70,5 +70,41 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine("");
         }
 
+        public static void Intersect()
+        {
+            Console.WriteLine("Intersect polygons example\n");
+
+            var points1 = new Point2d[]
+            {
+                new Point2d(0, 0),
+                new Point2d(5, 0),
+                new Point2d(3.5, 1.5),
+                new Point2d(2.5, 0.5),
+                new Point2d(1.5, 1.5)
+            };
+
+            var points2 = new Point2d[]
+            {
+                new Point2d(0, 2),
+                new Point2d(1.5, 0.5),
+                new Point2d(2.5, 1.5),
+                new Point2d(3.5, 0.5),
+                new Point2d(5, 2)
+            };
+
+            var polygon1 = new Polygon2_EEK(points1);
+            var polygon2 = new Polygon2_EEK(points2);
+
+            var result = new List<PolygonWithHoles2_EEK>();
+
+            PolygonBoolean2.Intersect(polygon1, polygon2, result);
+            Console.WriteLine("");
+
+            foreach(var poly in result)
+                poly.Print();
+
+            Console.WriteLine("");
+        }
+
     }
 }

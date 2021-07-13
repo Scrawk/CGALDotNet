@@ -72,6 +72,32 @@ namespace CGALDotNet.Polygons
             }
         }
 
+        public static void Intersect(Polygon2_EEK polygon1, Polygon2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            CheckPolygons(polygon1, polygon2);
+            int count = PolygonBoolean2_EEK_Intersect_P_P(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        private static void CopyBuffer(int count, List<PolygonWithHoles2_EEK> result)
+        {
+            for (int i = 0; i < count; i++)
+                result.Add(CopyBufferItem(i));
+
+            ClearBuffer();
+        }
+
+        private static PolygonWithHoles2_EEK CopyBufferItem(int index)
+        {
+            var ptr = PolygonBoolean2_EEK_CopyBufferItem(index);
+            return new PolygonWithHoles2_EEK(ptr);
+        }
+
+        private static void ClearBuffer()
+        {
+            PolygonBoolean2_EEK_ClearBuffer();
+        }
+
         private static void CheckPolygon(Polygon2 polygon)
         {
             if (!polygon.IsSimple)
