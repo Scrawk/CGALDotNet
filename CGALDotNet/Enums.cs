@@ -21,6 +21,25 @@ namespace CGALDotNet
         EXACT_PREDICATES_EXACT_CONSTRUCTION_WITH_ROOT_OF = 4
     }
 
+    public static class CGALEnum
+    {
+        public static CGAL_BOUNDED_SIDE Opposite(CGAL_BOUNDED_SIDE e) => (CGAL_BOUNDED_SIDE)(-(int)e);
+
+        public static CGAL_COMPARISON_RESULT Opposite(CGAL_COMPARISON_RESULT e) => (CGAL_COMPARISON_RESULT)(-(int)e);
+
+        public static CGAL_SIGN Opposite(CGAL_SIGN e) => (CGAL_SIGN)(-(int)e);
+
+        public static CGAL_CLOCK_DIR Opposite(CGAL_CLOCK_DIR e) => (CGAL_CLOCK_DIR)(-(int)e);
+
+        public static CGAL_ORIENTATION Opposite(CGAL_ORIENTATION e) => (CGAL_ORIENTATION)(-(int)e);
+
+        public static CGAL_ORIENTED_SIDE Opposite(CGAL_ORIENTED_SIDE e) => (CGAL_ORIENTED_SIDE)(-(int)e);
+
+        public static bool SameOrientation(CGAL_ORIENTATION e1, CGAL_ORIENTED_SIDE e2) => e1 == (CGAL_ORIENTATION)e2;
+
+        public static bool OppositeOrientation(CGAL_ORIENTATION e1, CGAL_ORIENTED_SIDE e2) => Opposite(e1) == (CGAL_ORIENTATION)e2;
+    }
+
     public enum CGAL_ANGLE 
     { 
         OBTUSE = -1, 

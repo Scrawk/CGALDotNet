@@ -70,6 +70,49 @@ namespace CGALDotNet.Polygons
             return Math.Abs(FindHoleSignedArea(index));
         }
 
+        public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
+        {
+            if(BoundaryContainsPoint(point, inculdeBoundary))
+            {
+                for(int i = 0; i < HoleCount; i++)
+                {
+                    if (HoleContainsPoint(i, point, inculdeBoundary))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool BoundaryContainsPoint(Point2d point, bool inculdeBoundary = true)
+        {
+            if (FindIfUnbounded())
+                return true;
+
+            var side = BoundaryOrientedSide(point);
+
+            if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
+                return false;
+
+            if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
+                return true;
+
+            return (int)side == (int)FindBoundaryOrientation();
+        }
+
+        public bool HoleContainsPoint(int index, Point2d point, bool inculdeBoundary = true)
+        {
+            var side = HoleOrientedSide(index, point);
+
+            if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
+                return false;
+
+            if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
+                return true;
+
+            return CGALEnum.OppositeOrientation(FindHoleOrientation(index), side);
+        }
+
         public void Print()
         {
             var builder = new StringBuilder();
@@ -107,7 +150,7 @@ namespace CGALDotNet.Polygons
             return polygon.IsSimple && polygon.IsCounterClockWise;
         }
 
-        public static bool IsValidHole(Polygon2 polygon)
+        public static bool IsValidHole(PolygonWithHoles2 pwh, Polygon2 polygon)
         {
             return polygon.IsSimple && polygon.IsClockWise;
         }
@@ -118,10 +161,10 @@ namespace CGALDotNet.Polygons
                 throw new Exception("Boundary must be simple and counter clock wise.");
         }
 
-        protected void CheckHole(Polygon2 polygon)
+        protected void CheckHole(PolygonWithHoles2 pwh, Polygon2 polygon)
         {
-            if (!IsValidHole(polygon))
-                throw new Exception("Polygon must be simple and clock wise to be a polygon hole.");
+            if (!IsValidHole(pwh, polygon))
+                throw new Exception("Polygon must be simple, clock wise to be a polygon hole.");
         }
 
     }

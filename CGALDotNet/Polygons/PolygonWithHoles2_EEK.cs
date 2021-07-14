@@ -78,7 +78,7 @@ namespace CGALDotNet.Polygons
         public override void AddHole(Polygon2 polygon)
         {
             CheckPtr();
-            CheckHole(polygon);
+            CheckHole(this, polygon);
             PolygonWithHoles2_EEK_AddHoleFromPolygon(Ptr, polygon.Ptr);
             HoleCount++;
         }

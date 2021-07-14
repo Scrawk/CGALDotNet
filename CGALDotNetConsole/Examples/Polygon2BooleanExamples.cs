@@ -120,14 +120,14 @@ namespace CGALDotNetConsole.Examples
             };
 
             var polygon1 = new Polygon2_EEK(points1);
-            var polygon2 = new PolygonWithHoles2_EEK(points2);
+            var polygon2 = new Polygon2_EEK(points2);
 
-            var hole = new Polygon2_EEK(points3);
-            hole.Reverse();
-            polygon2.AddHole(hole);
+            //var hole = new Polygon2_EEK(points3);
+            //hole.Reverse();
+            //polygon2.AddHole(hole);
 
-            polygon1.Print();
-            polygon2.Print();
+            //polygon1.Print();
+            //polygon2.Print();
 
             var result = new List<PolygonWithHoles2_EEK>();
 

@@ -92,7 +92,7 @@ namespace CGALDotNet.Polygons
 
         protected void ReverseOrientation()
         {
-            m_orientation = (CGAL_ORIENTATION)((int)m_orientation * -1);
+            m_orientation = CGALEnum.Opposite(m_orientation);
         }
 
         public abstract bool FindIfSimple();
@@ -120,7 +120,7 @@ namespace CGALDotNet.Polygons
             if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
                 return true;
 
-            return (int)side == (int)Orientation;
+            return CGALEnum.SameOrientation(Orientation, side);
         }
 
         public IEnumerator<Point2d> GetEnumerator()

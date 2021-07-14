@@ -9,6 +9,11 @@ namespace CGALDotNet.Polygons
     public static partial class PolygonBoolean2
     {
 
+        public static bool IsValid(Polygon2 polygon)
+        {
+            return polygon.IsSimple && polygon.IsCounterClockWise;
+        }
+
         public static bool DoIntersect(Polygon2_EEK polygon1, Polygon2_EEK polygon2)
         {
             CheckPolygons(polygon1, polygon2);
@@ -106,11 +111,6 @@ namespace CGALDotNet.Polygons
         private static void ClearBuffer()
         {
             PolygonBoolean2_EEK_ClearBuffer();
-        }
-
-        public static bool IsValid(Polygon2 polygon)
-        {
-            return polygon.IsSimple && polygon.IsCounterClockWise;
         }
 
         private static void CheckPolygon(Polygon2 polygon)

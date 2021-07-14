@@ -3,6 +3,8 @@
 #include "PolygonWithHoles2_EEK.h"
 #include "PolygonWithHoles2.h"
 
+#include <CGAL/Boolean_set_operations_2.h>
+
 void* PolygonWithHoles2_EEK_Create()
 {
 	return Util_Create<CGAL::Polygon_with_holes_2<EEK>>();
@@ -97,3 +99,5 @@ double PolygonWithHoles2_EEK_SignedArea(void* ptr, int index)
 {
 	return PolygonWithHoles2_SignedArea<EEK>(ptr, index);
 }
+
+
