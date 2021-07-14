@@ -79,13 +79,13 @@ namespace CGALDotNet.Polygons
         public static void Intersect(Polygon2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
         {
             CheckPolygon(polygon1);
-            int count = PolygonBoolean2_EEK_Intersect_P_P(polygon1.Ptr, polygon2.Ptr);
+            int count = PolygonBoolean2_EEK_Intersect_P_PWH(polygon1.Ptr, polygon2.Ptr);
             CopyBuffer(count, result);
         }
 
         public static void Intersect(PolygonWithHoles2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
         {
-            int count = PolygonBoolean2_EEK_Intersect_P_P(polygon1.Ptr, polygon2.Ptr);
+            int count = PolygonBoolean2_EEK_Intersect_PWH_PWH(polygon1.Ptr, polygon2.Ptr);
             CopyBuffer(count, result);
         }
 
@@ -108,19 +108,24 @@ namespace CGALDotNet.Polygons
             PolygonBoolean2_EEK_ClearBuffer();
         }
 
+        public static bool IsValid(Polygon2 polygon)
+        {
+            return polygon.IsSimple && polygon.IsCounterClockWise;
+        }
+
         private static void CheckPolygon(Polygon2 polygon)
         {
-            if (!polygon.IsSimple)
-                throw new Exception("Poylgon must be simple for boolean op.");
+            if (!IsValid(polygon))
+                throw new Exception("Poylgon must be simple and counter clock wise for boolean op.");
         }
 
         private static void CheckPolygons(Polygon2 polygon1, Polygon2 polygon2)
         {
-            if (!polygon1.IsSimple)
-                throw new Exception("Poylgon must be simple for boolean op.");
+            if (!IsValid(polygon1))
+                throw new Exception("Poylgon must be simple for counter clock wise boolean op.");
 
-            if (!polygon2.IsSimple)
-                throw new Exception("Poylgon must be simple for boolean op.");
+            if (!IsValid(polygon2))
+                throw new Exception("Poylgon must be simple for counter clock wise boolean op.");
         }
 
     }

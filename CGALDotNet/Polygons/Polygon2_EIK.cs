@@ -30,7 +30,7 @@ namespace CGALDotNet.Polygons
         public override string ToString()
         {
             Update();
-            return string.Format("[Polygon2_EIK: Count={0}, IsSimple={1}, Orientation={2}]",
+            return string.Format("[Polygon2_EIK: Count={0}, IsSimple={1}, Orientation={2}]", 
                 Count, IsSimple, Orientation);
         }
 
@@ -102,31 +102,39 @@ namespace CGALDotNet.Polygons
         {
             CheckPtr();
             Polygon2_EIK_Reverse(Ptr);
-            IsUpdated = false;
+            ReverseOrientation();
         }
 
         public override bool FindIfSimple()
         {
             CheckPtr();
-            return Polygon2_EIK_IsSimple(Ptr);
+            if (Count < 3)
+                return false;
+            else
+                return Polygon2_EIK_IsSimple(Ptr);
         }
 
         public override bool FindIfConvex()
         {
             CheckPtr();
-            return Polygon2_EIK_IsConvex(Ptr);
+            if (IsSimple)
+                return Polygon2_EIK_IsConvex(Ptr);
+            else
+                return false;
         }
 
         public override CGAL_ORIENTATION FindOrientation()
         {
             CheckPtr();
-            return Polygon2_EIK_Orientation(Ptr);
+            if (IsSimple)
+                return Polygon2_EIK_Orientation(Ptr);
+            else
+                return CGAL_ORIENTATION.ZERO;
         }
 
         public override CGAL_ORIENTED_SIDE OrientedSide(Point2d point)
         {
             CheckPtr();
-
             if (IsSimple)
                 return Polygon2_EIK_OrientedSide(Ptr, point);
             else
@@ -136,7 +144,10 @@ namespace CGALDotNet.Polygons
         public override double FindSignedArea()
         {
             CheckPtr();
-            return Polygon2_EIK_SignedArea(Ptr);
+            if (IsSimple)
+                return Polygon2_EIK_SignedArea(Ptr);
+            else
+                return 0;
         }
 
         protected override void ReleasePtr()

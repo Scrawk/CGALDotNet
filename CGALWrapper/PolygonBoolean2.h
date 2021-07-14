@@ -116,4 +116,27 @@ void PolygonBoolean2_Intersect_P_P(void* ptr1, void* ptr2, LIST& list)
 	PolygonBoolean2_Intersect<K, POLYGON, POLYGON, LIST>(polygon1, polygon2, list);
 }
 
+template<class K, class LIST>
+void PolygonBoolean2_Intersect_P_PWH(void* ptr1, void* ptr2, LIST& list)
+{
+	using POLYGON = CGAL::Polygon_2<K>;
+	using PWH = CGAL::Polygon_with_holes_2<K>;
+
+	auto polygon1 = (POLYGON*)ptr1;
+	auto polygon2 = (PWH*)ptr2;
+
+	PolygonBoolean2_Intersect<K, POLYGON, PWH, LIST>(polygon1, polygon2, list);
+}
+
+template<class K, class LIST>
+void PolygonBoolean2_Intersect_PWH_PWH(void* ptr1, void* ptr2, LIST& list)
+{
+	using PWH = CGAL::Polygon_with_holes_2<K>;
+
+	auto polygon1 = (PWH*)ptr1;
+	auto polygon2 = (PWH*)ptr2;
+
+	PolygonBoolean2_Intersect<K, PWH, PWH, LIST>(polygon1, polygon2, list);
+}
+
 

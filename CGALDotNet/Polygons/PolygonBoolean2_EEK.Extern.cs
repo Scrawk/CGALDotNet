@@ -32,5 +32,11 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int PolygonBoolean2_EEK_Intersect_P_P(IntPtr ptr1, IntPtr ptr2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int PolygonBoolean2_EEK_Intersect_P_PWH(IntPtr ptr1, IntPtr ptr2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int PolygonBoolean2_EEK_Intersect_PWH_PWH(IntPtr ptr1, IntPtr ptr2);
     }
 }

@@ -24,3 +24,7 @@ extern "C" CGALWRAPPER_API bool PolygonBoolean2_EEK_Join_PWH_PWH(void* ptr1, voi
 
 extern "C" CGALWRAPPER_API int PolygonBoolean2_EEK_Intersect_P_P(void* ptr1, void* ptr2);
 
+extern "C" CGALWRAPPER_API int PolygonBoolean2_EEK_Intersect_P_PWH(void* ptr1, void* ptr2);
+
+extern "C" CGALWRAPPER_API int PolygonBoolean2_EEK_Intersect_PWH_PWH(void* ptr1, void* ptr2);
+

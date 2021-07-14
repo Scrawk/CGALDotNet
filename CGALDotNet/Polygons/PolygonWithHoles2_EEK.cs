@@ -8,16 +8,21 @@ namespace CGALDotNet.Polygons
     public sealed partial class PolygonWithHoles2_EEK : PolygonWithHoles2
     {
 
+        public PolygonWithHoles2_EEK()
+        {
+            SetPtr(PolygonWithHoles2_EEK_Create());
+        }
+
         public PolygonWithHoles2_EEK(Polygon2_EEK boundary)
         {
-            CheckPolygon(boundary);
+            CheckBoundary(boundary);
             SetPtr(PolygonWithHoles2_EEK_CreateFromPolygon(boundary.Ptr));
         }
 
         public PolygonWithHoles2_EEK(Point2d[] points)
         {
             var boundary = new Polygon2_EEK(points);
-            CheckPolygon(boundary);
+            CheckBoundary(boundary);
             SetPtr(PolygonWithHoles2_EEK_CreateFromPolygon(boundary.Ptr));
         }
 
@@ -40,13 +45,13 @@ namespace CGALDotNet.Polygons
         public override void RemoveBoundary()
         {
             CheckPtr();
-            PolygonWithHoles2_EEK_RemoveHole(Ptr, -1);
+            PolygonWithHoles2_EEK_ClearBoundary(Ptr);
         }
 
         public override void ReverseBoundary()
         {
             CheckPtr();
-            PolygonWithHoles2_EEK_ReverseHole(Ptr, -1);
+            PolygonWithHoles2_EEK_ReverseHole(Ptr, BOUNDARY_INDEX);
         }
 
         public PolygonWithHoles2_EEK Copy()
@@ -58,17 +63,22 @@ namespace CGALDotNet.Polygons
         public Polygon2_EEK CopyBoundary()
         {
             CheckPtr();
-            var ptr = PolygonWithHoles2_EEK_CopyHole(Ptr, -1);
+            var ptr = PolygonWithHoles2_EEK_CopyHole(Ptr, BOUNDARY_INDEX);
             if (ptr != IntPtr.Zero)
                 return new Polygon2_EEK(ptr);
             else
                 return null;
         }
 
+        public override void AddHole(Point2d[] points)
+        {
+            AddHole(new Polygon2_EEK(points));
+        }
+
         public override void AddHole(Polygon2 polygon)
         {
             CheckPtr();
-            CheckPolygon(polygon);
+            CheckHole(polygon);
             PolygonWithHoles2_EEK_AddHoleFromPolygon(Ptr, polygon.Ptr);
             HoleCount++;
         }
@@ -103,31 +113,31 @@ namespace CGALDotNet.Polygons
         public override bool FindIfBoundaryIsSimple()
         {
             CheckPtr();
-            return PolygonWithHoles2_EEK_IsSimple(Ptr, -1);
+            return PolygonWithHoles2_EEK_IsSimple(Ptr, BOUNDARY_INDEX);
         }
 
         public override bool FindIfBoundaryIsConvex()
         {
             CheckPtr();
-            return PolygonWithHoles2_EEK_IsConvex(Ptr, -1);
+            return PolygonWithHoles2_EEK_IsConvex(Ptr, BOUNDARY_INDEX);
         }
 
         public override CGAL_ORIENTATION FindBoundaryOrientation()
         {
             CheckPtr();
-            return PolygonWithHoles2_EEK_Orientation(Ptr, -1);
+            return PolygonWithHoles2_EEK_Orientation(Ptr, BOUNDARY_INDEX);
         }
 
         public override CGAL_ORIENTED_SIDE BoundaryOrientedSide(Point2d point)
         {
             CheckPtr();
-            return PolygonWithHoles2_EEK_OrientedSide(Ptr, -1, point);
+            return PolygonWithHoles2_EEK_OrientedSide(Ptr, BOUNDARY_INDEX, point);
         }
 
         public override double FindBoundarySignedArea()
         {
             CheckPtr();
-            return PolygonWithHoles2_EEK_SignedArea(Ptr, -1);
+            return PolygonWithHoles2_EEK_SignedArea(Ptr, BOUNDARY_INDEX);
         }
 
         public override bool FindIfHoleIsSimple(int index)

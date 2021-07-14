@@ -56,6 +56,12 @@ namespace CGALDotNet.Polygons
 
         public CGAL_CLOCK_DIR ClockDir => (CGAL_CLOCK_DIR)Orientation;
 
+        public bool IsDegenerate => Count < 3 || Orientation == CGAL_ORIENTATION.ZERO;
+
+        public bool IsClockWise => ClockDir == CGAL_CLOCK_DIR.CLOCKWISE;
+
+        public bool IsCounterClockWise => ClockDir == CGAL_CLOCK_DIR.COUNTER_CLOCKWISE;
+
         public Point2d this[int i]
         {
             get => GetPointWrapped(i);
@@ -83,6 +89,11 @@ namespace CGALDotNet.Polygons
         public abstract void SetPoints(Point2d[] points, int startIndex = 0);
 
         public abstract void Reverse();
+
+        protected void ReverseOrientation()
+        {
+            m_orientation = (CGAL_ORIENTATION)((int)m_orientation * -1);
+        }
 
         public abstract bool FindIfSimple();
 
@@ -148,20 +159,16 @@ namespace CGALDotNet.Polygons
 
         public void Print(StringBuilder builder)
         {
-            Update();
             builder.AppendLine(ToString());
-
-            if (IsSimple)
-            {
-                builder.AppendLine("Is convex = " + FindIfConvex());
-                builder.AppendLine("Signed Area = " + FindSignedArea());
-                builder.AppendLine("Area = " + FindArea());
-            }
+            builder.AppendLine("Is convex = " + FindIfConvex());
+            builder.AppendLine("Signed Area = " + FindSignedArea());
+            builder.AppendLine("Area = " + FindArea());
         }
 
         protected void Update()
         {
             if (IsUpdated) return;
+            IsUpdated = true;
 
             if (FindIfSimple())
             {
@@ -173,8 +180,7 @@ namespace CGALDotNet.Polygons
                 IsSimple = false;
                 Orientation = CGAL_ORIENTATION.ZERO;
             }
-
-            IsUpdated = true;
+            
         }
 
     }

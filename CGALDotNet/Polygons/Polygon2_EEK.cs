@@ -102,31 +102,39 @@ namespace CGALDotNet.Polygons
         {
             CheckPtr();
             Polygon2_EEK_Reverse(Ptr);
-            IsUpdated = false;
+            ReverseOrientation();
         }
 
         public override bool FindIfSimple()
         {
             CheckPtr();
-            return Polygon2_EEK_IsSimple(Ptr);
+            if (Count < 3)
+                return false;
+            else
+                return Polygon2_EEK_IsSimple(Ptr);
         }
 
         public override bool FindIfConvex()
         {
             CheckPtr();
-            return Polygon2_EEK_IsConvex(Ptr);
+            if (IsSimple)
+                return Polygon2_EEK_IsConvex(Ptr);
+            else
+                return false;
         }
 
         public override CGAL_ORIENTATION FindOrientation()
         {
             CheckPtr();
-            return Polygon2_EEK_Orientation(Ptr);
+            if (IsSimple)
+                return Polygon2_EEK_Orientation(Ptr);
+            else
+                return CGAL_ORIENTATION.ZERO;
         }
 
         public override CGAL_ORIENTED_SIDE OrientedSide(Point2d point)
         {
             CheckPtr();
-
             if (IsSimple)
                 return Polygon2_EEK_OrientedSide(Ptr, point);
             else
@@ -136,7 +144,10 @@ namespace CGALDotNet.Polygons
         public override double FindSignedArea()
         {
             CheckPtr();
-            return Polygon2_EEK_SignedArea(Ptr);
+            if (IsSimple)
+                return Polygon2_EEK_SignedArea(Ptr);
+            else
+                return 0;
         }
 
         protected override void ReleasePtr()

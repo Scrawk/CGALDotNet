@@ -53,3 +53,17 @@ int PolygonBoolean2_EEK_Intersect_P_P(void* ptr1, void* ptr2)
 	PolygonBoolean2_Intersect_P_P<EEK>(ptr1, ptr2, buffer);
 	return buffer.size();
 }
+
+int PolygonBoolean2_EEK_Intersect_P_PWH(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_Intersect_P_PWH<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_Intersect_PWH_PWH(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_Intersect_PWH_PWH<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}

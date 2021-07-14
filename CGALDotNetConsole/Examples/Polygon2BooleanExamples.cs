@@ -75,6 +75,7 @@ namespace CGALDotNetConsole.Examples
         {
             Console.WriteLine("Intersect polygons example\n");
 
+            /*
             var points1 = new Point2d[]
             {
                 new Point2d(0, 0),
@@ -92,14 +93,45 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(3.5, 0.5),
                 new Point2d(5, 2)
             };
+            */
+
+            var points1 = new Point2d[]
+            {
+                new Point2d(-10, -10),
+                new Point2d(10, -10),
+                new Point2d(10, 10),
+                new Point2d(-10, 10),
+            };
+
+            var points2 = new Point2d[]
+            {
+                new Point2d(-5, -5),
+                new Point2d(5, -5),
+                new Point2d(5, 5),
+                new Point2d(-5, 5),
+            };
+
+            var points3 = new Point2d[]
+            {
+                new Point2d(-1, -1),
+                new Point2d(1, -1),
+                new Point2d(1, 1),
+                new Point2d(-1, 1),
+            };
 
             var polygon1 = new Polygon2_EEK(points1);
-            var polygon2 = new Polygon2_EEK(points2);
+            var polygon2 = new PolygonWithHoles2_EEK(points2);
+
+            var hole = new Polygon2_EEK(points3);
+            hole.Reverse();
+            polygon2.AddHole(hole);
+
+            polygon1.Print();
+            polygon2.Print();
 
             var result = new List<PolygonWithHoles2_EEK>();
 
             PolygonBoolean2.Intersect(polygon1, polygon2, result);
-            Console.WriteLine("");
 
             foreach(var poly in result)
                 poly.Print();
