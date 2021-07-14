@@ -60,12 +60,13 @@ namespace CGALDotNetConsole.Examples
             var polygon1 = new Polygon2_EEK(points1);
             var polygon2 = new Polygon2_EEK(points2);
 
-            PolygonWithHoles2_EEK result;
+            var result = new List<PolygonWithHoles2_EEK>();
 
-            Console.WriteLine("Polygons join = " + PolygonBoolean2.Join(polygon1, polygon2, out result));
+            Console.WriteLine("Polygons join = " + PolygonBoolean2.Join(polygon1, polygon2, result));
             Console.WriteLine("");
 
-            result.Print();
+            foreach (var poly in result)
+                poly.Print();
 
             Console.WriteLine("");
         }

@@ -22,9 +22,17 @@ namespace CGALDotNet.Polygons
 
         public int HoleCount { get; protected set; }
 
+        public abstract void Clear();
+
+        public abstract void RemoveBoundary();
+
+        public abstract void ReverseBoundary();
+
         public abstract void AddHole(Polygon2 polygon);
 
         public abstract void RemoveHole(int index);
+
+        public abstract void ReverseHole(int index);
 
         public abstract bool FindIfUnbounded();
 
@@ -56,16 +64,6 @@ namespace CGALDotNet.Polygons
         public double FindHoleArea(int index)
         {
             return Math.Abs(FindHoleSignedArea(index));
-        }
-
-        public bool IsValidBoundary(Polygon2 polygon)
-        {
-            return polygon.IsSimple && polygon.ClockDir == CGAL_CLOCK_DIR.COUNTER_CLOCKWISE;
-        }
-
-        public bool IsValidHole(Polygon2 polygon)
-        {
-            return polygon.IsSimple && polygon.ClockDir == CGAL_CLOCK_DIR.CLOCKWISE;
         }
 
         public void Print()
@@ -112,16 +110,10 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        protected void CheckBoundary(Polygon2 polygon)
+        protected void CheckPolygon(Polygon2 polygon)
         {
-            if (!IsValidBoundary(polygon))
-                throw new Exception("Polygon is not valid boundary. Must be simple and counter clock wise.");
-        }
-
-        protected void CheckHole(Polygon2 polygon)
-        {
-            if (!IsValidHole(polygon))
-                throw new Exception("Polygon is not valid hole. Must be simple and clock wise.");
+            if (!polygon.IsSimple)
+                throw new Exception("Polygon must be simple.");
         }
 
     }

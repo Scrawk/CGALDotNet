@@ -10,7 +10,14 @@ namespace CGALDotNet.Polygons
 
         public PolygonWithHoles2_EEK(Polygon2_EEK boundary)
         {
-            CheckBoundary(boundary);
+            CheckPolygon(boundary);
+            SetPtr(PolygonWithHoles2_EEK_CreateFromPolygon(boundary.Ptr));
+        }
+
+        public PolygonWithHoles2_EEK(Point2d[] points)
+        {
+            var boundary = new Polygon2_EEK(points);
+            CheckPolygon(boundary);
             SetPtr(PolygonWithHoles2_EEK_CreateFromPolygon(boundary.Ptr));
         }
 
@@ -22,6 +29,24 @@ namespace CGALDotNet.Polygons
         public override string ToString()
         {
             return string.Format("[PolygonWithHoles2_EEK: HoleCount={0}]", HoleCount);
+        }
+
+        public override void Clear()
+        {
+            CheckPtr();
+            PolygonWithHoles2_EEK_Clear(Ptr);
+        }
+
+        public override void RemoveBoundary()
+        {
+            CheckPtr();
+            PolygonWithHoles2_EEK_RemoveHole(Ptr, -1);
+        }
+
+        public override void ReverseBoundary()
+        {
+            CheckPtr();
+            PolygonWithHoles2_EEK_ReverseHole(Ptr, -1);
         }
 
         public PolygonWithHoles2_EEK Copy()
@@ -43,7 +68,7 @@ namespace CGALDotNet.Polygons
         public override void AddHole(Polygon2 polygon)
         {
             CheckPtr();
-            CheckHole(polygon);
+            CheckPolygon(polygon);
             PolygonWithHoles2_EEK_AddHoleFromPolygon(Ptr, polygon.Ptr);
             HoleCount++;
         }
@@ -54,6 +79,12 @@ namespace CGALDotNet.Polygons
             ErrorUtil.CheckBounds(index, HoleCount);
             PolygonWithHoles2_EEK_RemoveHole(Ptr, index);
             HoleCount--;
+        }
+
+        public override void ReverseHole(int index)
+        {
+            CheckPtr();
+            PolygonWithHoles2_EEK_ReverseHole(Ptr, index);
         }
 
         public Polygon2_EEK CopyHole(int index)

@@ -26,48 +26,45 @@ namespace CGALDotNet.Polygons
             return PolygonBoolean2_EEK_DoIntersect_PWH_PWH(polygon1.Ptr, polygon2.Ptr);
         }
 
-        public static bool Join(Polygon2_EEK polygon1, Polygon2_EEK polygon2, out PolygonWithHoles2_EEK result)
+        public static bool Join(Polygon2_EEK polygon1, Polygon2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
         {
             CheckPolygons(polygon1, polygon2);
 
             if (PolygonBoolean2_EEK_Join_P_P(polygon1.Ptr, polygon2.Ptr, out IntPtr resultPtr))
             {
-                result = new PolygonWithHoles2_EEK(resultPtr);
+                result.Add(new PolygonWithHoles2_EEK(resultPtr));
                 return true;
             }
             else
             {
-                result = null;
                 return false;
             }
         }
 
-        public static bool Join(Polygon2_EEK polygon1, PolygonWithHoles2_EEK polygon2, out PolygonWithHoles2_EEK result)
+        public static bool Join(Polygon2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
         {
             CheckPolygon(polygon1);
 
             if (PolygonBoolean2_EEK_Join_P_PWH(polygon1.Ptr, polygon2.Ptr, out IntPtr resultPtr))
             {
-                result = new PolygonWithHoles2_EEK(resultPtr);
+                result.Add(new PolygonWithHoles2_EEK(resultPtr));
                 return true;
             }
             else
             {
-                result = null;
                 return false;
             }
         }
 
-        public static bool Join(PolygonWithHoles2_EEK polygon1, PolygonWithHoles2_EEK polygon2, out PolygonWithHoles2_EEK result)
+        public static bool Join(PolygonWithHoles2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
         {
             if (PolygonBoolean2_EEK_Join_PWH_PWH(polygon1.Ptr, polygon2.Ptr, out IntPtr resultPtr))
             {
-                result = new PolygonWithHoles2_EEK(resultPtr);
+                result.Add(new PolygonWithHoles2_EEK(resultPtr));
                 return true;
             }
             else
             {
-                result = null;
                 return false;
             }
         }
@@ -75,6 +72,19 @@ namespace CGALDotNet.Polygons
         public static void Intersect(Polygon2_EEK polygon1, Polygon2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
         {
             CheckPolygons(polygon1, polygon2);
+            int count = PolygonBoolean2_EEK_Intersect_P_P(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void Intersect(Polygon2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            CheckPolygon(polygon1);
+            int count = PolygonBoolean2_EEK_Intersect_P_P(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void Intersect(PolygonWithHoles2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
             int count = PolygonBoolean2_EEK_Intersect_P_P(polygon1.Ptr, polygon2.Ptr);
             CopyBuffer(count, result);
         }
