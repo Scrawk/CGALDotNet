@@ -3,6 +3,7 @@
 #include "Points.h"
 
 #include <CGAL/Boolean_set_operations_2.h>
+#include <CGAL/connect_holes.h>
 #include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h>
 #include <vector>
@@ -234,7 +235,7 @@ void PolygonBoolean2_SymmetricDifference_PWH_PWH(void* ptr1, void* ptr2, LIST& l
 template<class K, class P, class LIST>
 void PolygonBoolean2_Complement(P* polygon, LIST& list)
 {
-	CGAL::symmetric_complement(*polygon, std::back_inserter(list));
+	CGAL::complement(*polygon, std::back_inserter(list));
 }
 
 template<class K, class LIST>
@@ -247,23 +248,6 @@ void PolygonBoolean2_Complement_PWH(void* ptr, LIST& list)
 	PolygonBoolean2_Complement<K, PWH, LIST>(pwh, list);
 }
 
-//Connect Holes
-
-template<class K, class P, class LIST>
-void PolygonBoolean2_ConnectHoles(P* polygon, LIST& list)
-{
-CGAL:connect_holes(*polygon, std::back_inserter(list));
-}
-
-template<class K, class LIST>
-void PolygonBoolean2_ConnectHoles_PWH(void* ptr, LIST& list)
-{
-	using PWH = CGAL::Polygon_with_holes_2<K>;
-
-	auto pwh = (PWH*)ptr;
-
-	PolygonBoolean2_ConnectHoles<K, PWH, LIST>(pwh, list);
-}
 
 
 

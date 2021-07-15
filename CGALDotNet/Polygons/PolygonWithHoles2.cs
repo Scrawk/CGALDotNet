@@ -77,11 +77,16 @@ namespace CGALDotNet.Polygons
                 for(int i = 0; i < HoleCount; i++)
                 {
                     if (HoleContainsPoint(i, point, inculdeBoundary))
-                        return true;
+                        return false;
                 }
-            }
 
-            return false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public bool BoundaryContainsPoint(Point2d point, bool inculdeBoundary = true)
@@ -97,7 +102,7 @@ namespace CGALDotNet.Polygons
             if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
                 return true;
 
-            return (int)side == (int)FindBoundaryOrientation();
+            return side == CGAL_ORIENTED_SIDE.ON_POSITIVE_SIDE;
         }
 
         public bool HoleContainsPoint(int index, Point2d point, bool inculdeBoundary = true)
@@ -110,7 +115,7 @@ namespace CGALDotNet.Polygons
             if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
                 return true;
 
-            return CGALEnum.OppositeOrientation(FindHoleOrientation(index), side);
+            return side == CGAL_ORIENTED_SIDE.ON_NEGATIVE_SIDE;
         }
 
         public void Print()

@@ -94,6 +94,52 @@ namespace CGALDotNet.Polygons
             CopyBuffer(count, result);
         }
 
+        public static void Difference(Polygon2_EEK polygon1, Polygon2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            CheckPolygons(polygon1, polygon2);
+            int count = PolygonBoolean2_EEK_Difference_P_P(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void Difference(Polygon2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            CheckPolygon(polygon1);
+            int count = PolygonBoolean2_EEK_Difference_P_PWH(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void Difference(PolygonWithHoles2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            int count = PolygonBoolean2_EEK_Difference_PWH_PWH(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void SymmetricDifference(Polygon2_EEK polygon1, Polygon2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            CheckPolygons(polygon1, polygon2);
+            int count = PolygonBoolean2_EEK_SymmetricDifference_P_P(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void SymmetricDifference(Polygon2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            CheckPolygon(polygon1);
+            int count = PolygonBoolean2_EEK_SymmetricDifference_P_PWH(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void SymmetricDifference(PolygonWithHoles2_EEK polygon1, PolygonWithHoles2_EEK polygon2, List<PolygonWithHoles2_EEK> result)
+        {
+            int count = PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(polygon1.Ptr, polygon2.Ptr);
+            CopyBuffer(count, result);
+        }
+
+        public static void Complement(PolygonWithHoles2_EEK polygon, List<PolygonWithHoles2_EEK> result)
+        {
+            int count = PolygonBoolean2_EEK_Complement_PWH(polygon.Ptr);
+            CopyBuffer(count, result);
+        }
+
         private static void CopyBuffer(int count, List<PolygonWithHoles2_EEK> result)
         {
             for (int i = 0; i < count; i++)

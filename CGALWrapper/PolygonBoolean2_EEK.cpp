@@ -2,6 +2,7 @@
 #include "PolygonBoolean2_EEK.h"
 #include "PolygonBoolean2.h"
 #include <vector>
+#include <list>
 
 using PWH = CGAL::Polygon_with_holes_2<EEK>;
 using LIST = std::vector<PWH>;
@@ -65,5 +66,54 @@ int PolygonBoolean2_EEK_Intersect_PWH_PWH(void* ptr1, void* ptr2)
 {
 	buffer.clear();
 	PolygonBoolean2_Intersect_PWH_PWH<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_Difference_P_P(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_Difference_P_P<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_Difference_P_PWH(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_Difference_P_PWH<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_Difference_PWH_PWH(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_Difference_PWH_PWH<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_SymmetricDifference_P_P(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_SymmetricDifference_P_P<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_SymmetricDifference_P_PWH(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_SymmetricDifference_P_PWH<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(void* ptr1, void* ptr2)
+{
+	buffer.clear();
+	PolygonBoolean2_SymmetricDifference_PWH_PWH<EEK>(ptr1, ptr2, buffer);
+	return buffer.size();
+}
+
+int PolygonBoolean2_EEK_Complement_PWH(void* ptr)
+{
+	buffer.clear();
+	PolygonBoolean2_Complement_PWH<EEK>(ptr, buffer);
 	return buffer.size();
 }

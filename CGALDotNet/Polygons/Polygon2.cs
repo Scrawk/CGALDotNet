@@ -120,7 +120,7 @@ namespace CGALDotNet.Polygons
             if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
                 return true;
 
-            return CGALEnum.SameOrientation(Orientation, side);
+            return side == CGAL_ORIENTED_SIDE.ON_POSITIVE_SIDE;
         }
 
         public IEnumerator<Point2d> GetEnumerator()
