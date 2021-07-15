@@ -25,6 +25,12 @@ namespace CGALDotNet
 
         internal IntPtr Ptr { get; private set; }
 
+        protected IntPtr GetCheckedPtr()
+        {
+            CheckPtr();
+            return Ptr;
+        }
+
         protected void SetPtr(IntPtr ptr)
         {
             Ptr = ptr;
@@ -40,7 +46,9 @@ namespace CGALDotNet
         {
             if (!IsDisposed)
             {
-                ReleasePtr();
+                if(Ptr != IntPtr.Zero)
+                    ReleasePtr();
+
                 Ptr = IntPtr.Zero;
                 IsDisposed = true;
             }
@@ -51,10 +59,10 @@ namespace CGALDotNet
         protected void CheckPtr()
         {
             if(IsDisposed)
-                throw new NullReferenceException("Unmanaged resources have been released.");
+                throw new CGALUnmanagedResourcesReleasedExeception("Unmanaged resources have been released.");
 
             if (Ptr == IntPtr.Zero)
-                throw new NullReferenceException("Unmanaged resources have not been created.");
+                throw new CGALUnmanagedResourcesReleasedExeception("Unmanaged resources have not been created.");
         }
     }
 }

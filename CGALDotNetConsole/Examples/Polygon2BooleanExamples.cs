@@ -27,10 +27,10 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 1)
             };
 
-            var polygon1 = new Polygon2_EEK(points1);
-            var polygon2 = new Polygon2_EEK(points2);
+            var polygon1 = new Polygon2<EEK>(points1);
+            var polygon2 = new Polygon2<EEK>(points2);
 
-            Console.WriteLine("Polygons intersect = " + PolygonBoolean2.DoIntersect(polygon1, polygon2));
+            Console.WriteLine("Polygons intersect = " + PolygonBoolean2<EEK>.DoIntersect(polygon1, polygon2));
 
             Console.WriteLine();
         }
@@ -57,12 +57,12 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5, 2)
             };
 
-            var polygon1 = new Polygon2_EEK(points1);
-            var polygon2 = new Polygon2_EEK(points2);
+            var polygon1 = new Polygon2<EEK>(points1);
+            var polygon2 = new Polygon2<EEK>(points2);
 
-            var result = new List<PolygonWithHoles2_EEK>();
+            var result = new List<PolygonWithHoles2<EEK>>();
 
-            Console.WriteLine("Polygons join = " + PolygonBoolean2.Join(polygon1, polygon2, result));
+            Console.WriteLine("Polygons join = " + PolygonBoolean2<EEK>.Join(polygon1, polygon2, result));
             Console.WriteLine("");
 
             foreach (var poly in result)
@@ -93,12 +93,12 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5, 2)
             };
 
-            var polygon1 = new Polygon2_EEK(points1);
-            var polygon2 = new Polygon2_EEK(points2);
+            var polygon1 = new Polygon2<EEK>(points1);
+            var polygon2 = new Polygon2<EEK>(points2);
 
-            var result = new List<PolygonWithHoles2_EEK>();
+            var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2.Intersect(polygon1, polygon2, result);
+            PolygonBoolean2<EEK>.Intersect(polygon1, polygon2, result);
 
             foreach(var poly in result)
                 poly.Print();
@@ -128,12 +128,12 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5, 2)
             };
 
-            var polygon1 = new Polygon2_EEK(points1);
-            var polygon2 = new Polygon2_EEK(points2);
+            var polygon1 = new Polygon2<EEK>(points1);
+            var polygon2 = new Polygon2<EEK>(points2);
 
-            var result = new List<PolygonWithHoles2_EEK>();
+            var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2.Difference(polygon1, polygon2, result);
+            PolygonBoolean2<EEK>.Difference(polygon1, polygon2, result);
 
             foreach (var poly in result)
                 poly.Print();
@@ -163,12 +163,12 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5, 2)
             };
 
-            var polygon1 = new Polygon2_EEK(points1);
-            var polygon2 = new Polygon2_EEK(points2);
+            var polygon1 = new Polygon2<EEK>(points1);
+            var polygon2 = new Polygon2<EEK>(points2);
 
-            var result = new List<PolygonWithHoles2_EEK>();
+            var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2.SymmetricDifference(polygon1, polygon2, result);
+            PolygonBoolean2<EEK>.SymmetricDifference(polygon1, polygon2, result);
 
             foreach (var poly in result)
                 poly.Print();
@@ -196,12 +196,12 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(1, -1)
             };
 
-            var polygon = new PolygonWithHoles2_EEK(points);
+            var polygon = new PolygonWithHoles2<EEK>(new Polygon2<EEK>(points));
             polygon.AddHole(hole);
 
-            var result = new List<PolygonWithHoles2_EEK>();
+            var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2.Complement(polygon, result);
+            PolygonBoolean2<EEK>.Complement(polygon, result);
 
             foreach (var poly in result)
                 poly.Print();

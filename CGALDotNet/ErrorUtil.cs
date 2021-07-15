@@ -24,4 +24,21 @@ namespace CGALDotNet
                 throw new ArgumentOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.");
         }
     }
+
+    public class CGALUnmanagedResourcesReleasedExeception : Exception
+    {
+        public CGALUnmanagedResourcesReleasedExeception()
+        {
+        }
+
+        public CGALUnmanagedResourcesReleasedExeception(string message)
+            : base(message)
+        {
+        }
+
+        public CGALUnmanagedResourcesReleasedExeception(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
 }

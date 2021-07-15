@@ -9,6 +9,7 @@ namespace CGALDotNetConsole.Examples
 {
     public static class Polygon2Examples
     {
+
         public static void CreateSimplePolygon()
         {
             Console.WriteLine("Create simple polygon example\n");
@@ -21,7 +22,7 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 5)
             };
 
-            var polygon = new Polygon2_EEK(points);
+            var polygon = new Polygon2<EEK>(points);
             polygon.Print();
         }
 
@@ -39,7 +40,7 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 4),
             };
 
-            var polygon = new Polygon2_EEK(points);
+            var polygon = new Polygon2<EEK>(points);
             polygon.Print();
         }
 
@@ -55,7 +56,7 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0.5,6)
             };
 
-            var polygon = new Polygon2_EEK(points);
+            var polygon = new Polygon2<EEK>(points);
             polygon.Print();
         }
 
@@ -71,7 +72,7 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 4),
             };
 
-            var polygon = new Polygon2_EEK(points);
+            var polygon = new Polygon2<EEK>(points);
             polygon.Print();
         }
 
@@ -87,7 +88,7 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0.5,6)
             };
 
-            var polygon = new Polygon2_EEK(points);
+            var polygon = new Polygon2<EEK>(points);
 
             Console.WriteLine("Point (0.0, 0.0) is on the = " + polygon.OrientedSide(new Point2d(0.0, 0.0)));
             Console.WriteLine("Point (0.5, 0.5) is on the = " + polygon.OrientedSide(new Point2d(0.5, 0.5)));
@@ -120,8 +121,8 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5,-5)
             };
 
-            var pwh = new PolygonWithHoles2_EEK(new Polygon2_EEK(bounds));
-            pwh.AddHole(new Polygon2_EEK(points));
+            var pwh = new PolygonWithHoles2<EEK>(new Polygon2<EEK>(bounds));
+            pwh.AddHole(new Polygon2<EEK>(points));
 
             pwh.Print();
 

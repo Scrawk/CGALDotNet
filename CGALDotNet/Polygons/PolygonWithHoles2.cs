@@ -7,63 +7,204 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Polygons
 {
 
-    public abstract class PolygonWithHoles2 : CGALObject
+    public sealed class PolygonWithHoles2<K> : PolygonWithHoles2 where K : CGALKernel, new()
     {
-
-        protected const int BOUNDARY_INDEX = -1;
-
-        public PolygonWithHoles2()
+        public PolygonWithHoles2() : base(new K())
         {
-      
+
         }
 
-        internal PolygonWithHoles2(IntPtr ptr) : base(ptr)
+        public PolygonWithHoles2(Polygon2<K> boundary) : base(new K(), boundary)
         {
-            CheckPtr();
+
+        }
+
+        internal PolygonWithHoles2(IntPtr ptr) : base(new K(), ptr)
+        {
+
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[PolygonWithHoles2<{0}>: HoleCount={1}]", 
+                Kernel.Name, HoleCount);
+        }
+
+        public PolygonWithHoles2<K> Copy()
+        {
+            return new PolygonWithHoles2<K>(Kernel.Copy(GetCheckedPtr()));
+        }
+
+        public Polygon2<K> CopyBoundary()
+        {
+            var ptr = Kernel.CopyHole(GetCheckedPtr(), BOUNDARY_INDEX);
+            if (ptr != IntPtr.Zero)
+                return new Polygon2<K>(ptr);
+            else
+                return null;
+        }
+
+        public void AddHole(Point2d[] points)
+        {
+            AddHole(new Polygon2<K>(points));
+        }
+
+        public Polygon2<K> CopyHole(int index)
+        {
+            ErrorUtil.CheckBounds(index, HoleCount);
+            return new Polygon2<K>(Kernel.CopyHole(GetCheckedPtr(), index));
+        }
+
+        public List<Polygon2<K>> ToList()
+        {
+            var unbounded = FindIfUnbounded();
+
+            int count = HoleCount;
+            if (!unbounded)
+                count++;
+
+            var polygons = new List<Polygon2<K>>(count);
+
+            if (!unbounded)
+                polygons.Add(CopyBoundary());
+
+            for (int i = 0; i < HoleCount; i++)
+                polygons.Add(CopyHole(i));
+
+            return polygons;
+        }
+    }
+
+    public abstract class PolygonWithHoles2 : CGALObject
+    {
+        protected const int BOUNDARY_INDEX = -1;
+
+        private PolygonWithHoles2()
+        {
+
+        }
+
+        internal PolygonWithHoles2(CGALKernel kernel)
+        {
+            Kernel = kernel.PolygonWithHolesKernel2;
+            SetPtr(Kernel.Create());
+        }
+
+        internal PolygonWithHoles2(CGALKernel kernel, Polygon2 boundary)
+        {
+            Kernel = kernel.PolygonWithHolesKernel2;
+            CheckBoundary(boundary);
+            SetPtr(Kernel.CreateFromPolygon(boundary.Ptr));
+        }
+
+        internal PolygonWithHoles2(CGALKernel kernel, IntPtr ptr) : base(ptr)
+        {
+            Kernel = kernel.PolygonWithHolesKernel2;
+            HoleCount = Kernel.HoleCount(Ptr);
         }
 
         public int HoleCount { get; protected set; }
 
-        public abstract void Clear();
+        protected private PolygonWithHolesKernel2 Kernel { get; private set; }
 
-        public abstract void RemoveBoundary();
-
-        public abstract void ReverseBoundary();
-
-        public abstract void AddHole(Point2d[] points);
-
-        public abstract void AddHole(Polygon2 polygon);
-
-        public abstract void RemoveHole(int index);
-
-        public abstract void ReverseHole(int index);
-
-        public abstract bool FindIfUnbounded();
-
-        public abstract bool FindIfBoundaryIsSimple();
-
-        public abstract bool FindIfBoundaryIsConvex();
-
-        public abstract CGAL_ORIENTATION FindBoundaryOrientation();
-
-        public abstract CGAL_ORIENTED_SIDE BoundaryOrientedSide(Point2d point);
-
-        public abstract double FindBoundarySignedArea();
-
-        public double FindBoundaryArea()
+        public void Clear()
         {
-            return Math.Abs(FindBoundarySignedArea());
+            Kernel.Clear(GetCheckedPtr());
         }
 
-        public abstract bool FindIfHoleIsSimple(int index);
+        public void RemoveBoundary()
+        {
+            Kernel.ClearBoundary(GetCheckedPtr());
+        }
 
-        public abstract bool FindIfHoleIsConvex(int index);
+        public void ReverseBoundary()
+        {
+            Kernel.ReverseHole(GetCheckedPtr(), BOUNDARY_INDEX);
+        }
 
-        public abstract CGAL_ORIENTATION FindHoleOrientation(int index);
+        public void AddHole(Polygon2 polygon)
+        {
+            CheckHole(this, polygon);
+            Kernel.AddHoleFromPolygon(GetCheckedPtr(), polygon.Ptr);
+            HoleCount++;
+        }
 
-        public abstract CGAL_ORIENTED_SIDE HoleOrientedSide(int index, Point2d point);
+        public void RemoveHole(int index)
+        {
+            ErrorUtil.CheckBounds(index, HoleCount);
+            Kernel.RemoveHole(GetCheckedPtr(), index);
+            HoleCount--;
+        }
 
-        public abstract double FindHoleSignedArea(int index);
+        public void ReverseHole(int index)
+        {
+            Kernel.ReverseHole(GetCheckedPtr(), index);
+        }
+
+        public bool FindIfUnbounded()
+        {
+            return Kernel.IsUnbounded(GetCheckedPtr());
+        }
+
+        public bool FindIfBoundaryIsSimple()
+        {
+            return Kernel.IsSimple(GetCheckedPtr(), BOUNDARY_INDEX);
+        }
+
+        public bool FindIfBoundaryIsConvex()
+        {
+            return Kernel.IsConvex(GetCheckedPtr(), BOUNDARY_INDEX);
+        }
+
+        public CGAL_ORIENTATION FindBoundaryOrientation()
+        {
+            return Kernel.Orientation(GetCheckedPtr(), BOUNDARY_INDEX);
+        }
+
+        public CGAL_ORIENTED_SIDE BoundaryOrientedSide(Point2d point)
+        {
+            return Kernel.OrientedSide(GetCheckedPtr(), BOUNDARY_INDEX, point);
+        }
+
+        public double FindBoundarySignedArea()
+        {
+            return Kernel.SignedArea(GetCheckedPtr(), BOUNDARY_INDEX);
+        }
+
+        public bool FindIfHoleIsSimple(int index)
+        {
+            ErrorUtil.CheckBounds(index, HoleCount);
+            return Kernel.IsSimple(GetCheckedPtr(), index);
+        }
+
+        public bool FindIfHoleIsConvex(int index)
+        {
+            ErrorUtil.CheckBounds(index, HoleCount);
+            return Kernel.IsConvex(GetCheckedPtr(), index);
+        }
+
+        public CGAL_ORIENTATION FindHoleOrientation(int index)
+        {
+            ErrorUtil.CheckBounds(index, HoleCount);
+            return Kernel.Orientation(GetCheckedPtr(), index);
+        }
+
+        public CGAL_ORIENTED_SIDE HoleOrientedSide(int index, Point2d point)
+        {
+            ErrorUtil.CheckBounds(index, HoleCount);
+            return Kernel.OrientedSide(GetCheckedPtr(), index, point);
+        }
+
+        public double FindHoleSignedArea(int index)
+        {
+            ErrorUtil.CheckBounds(index, HoleCount);
+            return Kernel.SignedArea(GetCheckedPtr(), index);
+        }
+
+        protected override void ReleasePtr()
+        {
+            Kernel.Release(GetCheckedPtr());
+        }
 
         public double FindHoleArea(int index)
         {
@@ -72,7 +213,7 @@ namespace CGALDotNet.Polygons
 
         public bool ContainsPolygon(Polygon2 polygon, bool inculdeBoundary = true)
         {
-            for(int i = 0; i < polygon.Count; i++)
+            for (int i = 0; i < polygon.Count; i++)
             {
                 if (!ContainsPoint(polygon.GetPoint(i), inculdeBoundary))
                     return false;
@@ -83,9 +224,9 @@ namespace CGALDotNet.Polygons
 
         public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
         {
-            if(BoundaryContainsPoint(point, inculdeBoundary))
+            if (BoundaryContainsPoint(point, inculdeBoundary))
             {
-                for(int i = 0; i < HoleCount; i++)
+                for (int i = 0; i < HoleCount; i++)
                 {
                     if (HoleContainsPoint(i, point, inculdeBoundary))
                         return false;
@@ -181,6 +322,5 @@ namespace CGALDotNet.Polygons
             if (!IsValidHole(pwh, polygon))
                 throw new Exception("Polygon must be simple, clock wise and not intersect the boundary or holes to be a polygon hole.");
         }
-
     }
 }
