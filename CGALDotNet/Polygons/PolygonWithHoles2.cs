@@ -70,6 +70,17 @@ namespace CGALDotNet.Polygons
             return Math.Abs(FindHoleSignedArea(index));
         }
 
+        public bool ContainsPolygon(Polygon2 polygon, bool inculdeBoundary = true)
+        {
+            for(int i = 0; i < polygon.Count; i++)
+            {
+                if (!ContainsPoint(polygon.GetPoint(i), inculdeBoundary))
+                    return false;
+            }
+
+            return true;
+        }
+
         public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
         {
             if(BoundaryContainsPoint(point, inculdeBoundary))
@@ -86,7 +97,6 @@ namespace CGALDotNet.Polygons
             {
                 return false;
             }
-            
         }
 
         public bool BoundaryContainsPoint(Point2d point, bool inculdeBoundary = true)
@@ -157,7 +167,7 @@ namespace CGALDotNet.Polygons
 
         public static bool IsValidHole(PolygonWithHoles2 pwh, Polygon2 polygon)
         {
-            return polygon.IsSimple && polygon.IsClockWise;
+            return polygon.IsSimple && polygon.IsClockWise && pwh.ContainsPolygon(polygon);
         }
 
         protected void CheckBoundary(Polygon2 polygon)
@@ -169,7 +179,7 @@ namespace CGALDotNet.Polygons
         protected void CheckHole(PolygonWithHoles2 pwh, Polygon2 polygon)
         {
             if (!IsValidHole(pwh, polygon))
-                throw new Exception("Polygon must be simple, clock wise to be a polygon hole.");
+                throw new Exception("Polygon must be simple, clock wise and not intersect the boundary or holes to be a polygon hole.");
         }
 
     }
