@@ -95,6 +95,26 @@ namespace CGALDotNet.Polygons
             return Polygon2_EEK_SignedArea(ptr);
         }
 
+        internal override void Translate(IntPtr ptr, Point2d translation)
+        {
+            Polygon2_EEK_Translate(ptr, translation);
+        }
+
+        internal override void Rotate(IntPtr ptr, double rotation)
+        {
+            Polygon2_EEK_Rotate(ptr, rotation);
+        }
+
+        internal override void Scale(IntPtr ptr, double scale)
+        {
+            Polygon2_EEK_Scale(ptr, scale);
+        }
+
+        internal override void Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        {
+            Polygon2_EEK_Transform(ptr,  translation, rotation, scale);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Polygon2_EEK_Create();
 
@@ -142,6 +162,18 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double Polygon2_EEK_SignedArea(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Polygon2_EEK_Translate(IntPtr ptr, Point2d translation);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Polygon2_EEK_Rotate(IntPtr ptr, double rotation);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Polygon2_EEK_Scale(IntPtr ptr, double scale);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Polygon2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
     }
 }

@@ -6,14 +6,16 @@ namespace CGALDotNet
     public abstract class CGALObject : IDisposable
     {
 
+        private IntPtr m_ptr;
+
         public CGALObject()
         {
-
+            m_ptr = IntPtr.Zero;
         }
 
         internal CGALObject(IntPtr ptr)
         {
-            Ptr = ptr;
+            m_ptr = ptr;
         }
 
         ~CGALObject()
@@ -23,18 +25,19 @@ namespace CGALDotNet
 
         public bool IsDisposed { get; private set; }
 
-        internal IntPtr Ptr { get; private set; }
-
-        protected IntPtr GetCheckedPtr()
-        {
-            CheckPtr();
-            return Ptr;
+        internal IntPtr Ptr 
+        { 
+            get
+            {
+                CheckPtr();
+                return m_ptr;
+            }
+            private protected set
+            {
+                m_ptr = value;
+            }
         }
 
-        protected void SetPtr(IntPtr ptr)
-        {
-            Ptr = ptr;
-        }
 
         public void Dispose()
         {
@@ -46,10 +49,10 @@ namespace CGALDotNet
         {
             if (!IsDisposed)
             {
-                if(Ptr != IntPtr.Zero)
+                if(m_ptr != IntPtr.Zero)
                     ReleasePtr();
 
-                Ptr = IntPtr.Zero;
+                m_ptr = IntPtr.Zero;
                 IsDisposed = true;
             }
         }
@@ -61,7 +64,7 @@ namespace CGALDotNet
             if(IsDisposed)
                 throw new CGALUnmanagedResourcesReleasedExeception("Unmanaged resources have been released.");
 
-            if (Ptr == IntPtr.Zero)
+            if (m_ptr == IntPtr.Zero)
                 throw new CGALUnmanagedResourcesReleasedExeception("Unmanaged resources have not been created.");
         }
     }

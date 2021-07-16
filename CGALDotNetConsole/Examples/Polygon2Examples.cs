@@ -128,5 +128,32 @@ namespace CGALDotNetConsole.Examples
 
             Console.WriteLine();
         }
+
+        public static void TransformPolygon()
+        {
+            Console.WriteLine("Transform polygon example\n");
+
+            var points = new Point2d[]
+            {
+                new Point2d(-1, -1),
+                new Point2d(1, -1),
+                new Point2d(1, 1),
+                new Point2d(-1, 1)
+            };
+
+            var polygon = new PolygonWithHoles2<EEK>(new Polygon2<EEK>(points));
+
+            var op = BOUNDARY_OR_HOLE.BOUNDARY;
+
+            Console.WriteLine("Before transform");
+            foreach (var p in polygon.Copy(op))
+                Console.WriteLine(p);
+
+            polygon.Transform(op, (1,1), Degree.A180, 2);
+
+            Console.WriteLine("After transform");
+            foreach (var p in polygon.Copy(op))
+                Console.WriteLine(p);
+        }
     }
 }

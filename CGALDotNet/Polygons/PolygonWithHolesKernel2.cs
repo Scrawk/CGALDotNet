@@ -53,5 +53,13 @@ namespace CGALDotNet.Polygons
 
         internal abstract double SignedArea(IntPtr ptr, int index);
 
+        internal abstract void Translate(IntPtr ptr, int index, Point2d translation);
+
+        internal abstract void Rotate(IntPtr ptr, int index, double rotation);
+
+        internal abstract void Scale(IntPtr ptr, int index, double scale);
+
+        internal abstract void Transform(IntPtr ptr, int index, Point2d translation, double rotation, double scale);
+
     }
 }

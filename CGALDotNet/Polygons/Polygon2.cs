@@ -33,7 +33,7 @@ namespace CGALDotNet.Polygons
 
         public Polygon2<K> Copy()
         {
-            var copy = new Polygon2<K>(Kernel.Copy(GetCheckedPtr()));
+            var copy = new Polygon2<K>(Kernel.Copy(Ptr));
             copy.Update(IsSimple, Orientation);
             return copy;
         }
@@ -55,14 +55,14 @@ namespace CGALDotNet.Polygons
         internal Polygon2(CGALKernel kernel)
         {
             Kernel = kernel.PolygonKernel2;
-            SetPtr(Kernel.Create());
+            Ptr = Kernel.Create();
         }
 
         internal Polygon2(CGALKernel kernel, Point2d[] points)
         {
             Kernel = kernel.PolygonKernel2;
             Count = points.Length;
-            SetPtr(Kernel.CreateFromPoints(points, 0, points.Length));
+            Ptr = Kernel.CreateFromPoints(points, 0, points.Length);
             Update();
         }
 
@@ -116,32 +116,32 @@ namespace CGALDotNet.Polygons
         public void Clear()
         {
             Count = 0;
-            Kernel.Clear(GetCheckedPtr());
+            Kernel.Clear(Ptr);
             Update(false, CGAL_ORIENTATION.ZERO);
         }
 
         public Point2d GetPoint(int index)
         {
             ErrorUtil.CheckBounds(index, Count);
-            return Kernel.GetPoint(GetCheckedPtr(), index);
+            return Kernel.GetPoint(Ptr, index);
         }
 
         public Point2d GetPointWrapped(int index)
         {
             index = MathUtil.Wrap(index, Count);
-            return Kernel.GetPoint(GetCheckedPtr(), index);
+            return Kernel.GetPoint(Ptr, index);
         }
 
         public Point2d GetPointClamped(int index)
         {
             index = MathUtil.Clamp(index, 0, Count - 1);
-            return Kernel.GetPoint(GetCheckedPtr(), index);
+            return Kernel.GetPoint(Ptr, index);
         }
 
         public void GetPoints(Point2d[] points, int startIndex = 0)
         {
             ErrorUtil.CheckBounds(points, startIndex, Count);
-            Kernel.GetPoints(GetCheckedPtr(), points, startIndex, Count);
+            Kernel.GetPoints(Ptr, points, startIndex, Count);
         }
 
         public void GetPoints(List<Point2d> points)
@@ -153,20 +153,20 @@ namespace CGALDotNet.Polygons
         public void SetPoint(int index, Point2d point)
         {
             ErrorUtil.CheckBounds(index, Count);
-            Kernel.SetPoint(GetCheckedPtr(), index, point);
+            Kernel.SetPoint(Ptr, index, point);
             IsUpdated = false;
         }
 
         public void SetPoints(Point2d[] points, int startIndex = 0)
         {
             ErrorUtil.CheckBounds(points, startIndex, Count);
-            Kernel.SetPoints(GetCheckedPtr(), points, startIndex, Count);
+            Kernel.SetPoints(Ptr, points, startIndex, Count);
             IsUpdated = false;
         }
 
         public void Reverse()
         {
-            Kernel.Reverse(GetCheckedPtr());
+            Kernel.Reverse(Ptr);
             m_orientation = CGALEnum.Opposite(m_orientation);
         }
 
@@ -175,13 +175,13 @@ namespace CGALDotNet.Polygons
             if (Count < 3)
                 return false;
             else
-                return Kernel.IsSimple(GetCheckedPtr());
+                return Kernel.IsSimple(Ptr);
         }
 
         public bool FindIfConvex()
         {
             if (IsSimple)
-                return Kernel.IsConvex(GetCheckedPtr());
+                return Kernel.IsConvex(Ptr);
             else
                 return false;
         }
@@ -189,7 +189,7 @@ namespace CGALDotNet.Polygons
         public CGAL_ORIENTATION FindOrientation()
         {
             if (IsSimple)
-                return Kernel.Orientation(GetCheckedPtr());
+                return Kernel.Orientation(Ptr);
             else
                 return CGAL_ORIENTATION.ZERO;
         }
@@ -197,7 +197,7 @@ namespace CGALDotNet.Polygons
         public CGAL_ORIENTED_SIDE OrientedSide(Point2d point)
         {
             if (IsSimple)
-                return Kernel.OrientedSide(GetCheckedPtr(), point);
+                return Kernel.OrientedSide(Ptr, point);
             else
                 return CGAL_ORIENTED_SIDE.UNDETERMINED;
         }
@@ -205,7 +205,7 @@ namespace CGALDotNet.Polygons
         public double FindSignedArea()
         {
             if (IsSimple)
-                return Kernel.SignedArea(GetCheckedPtr());
+                return Kernel.SignedArea(Ptr);
             else
                 return 0;
         }
@@ -226,6 +226,28 @@ namespace CGALDotNet.Polygons
                 return true;
 
             return side == CGAL_ORIENTED_SIDE.ON_POSITIVE_SIDE;
+        }
+
+        public void Translate(Point2d translation)
+        {
+            Kernel.Translate(Ptr, translation);
+        }
+
+        public void Rotate(double rotation)
+        {
+            Kernel.Rotate(Ptr, rotation);
+        }
+
+        public void Scale(double scale)
+        {
+            Kernel.Scale(Ptr, scale);
+            IsUpdated = false;
+        }
+
+        public void Transform(Point2d translation, double rotation, double scale)
+        {
+            Kernel.Transform(Ptr, translation, rotation, scale);
+            IsUpdated = false;
         }
 
         public IEnumerator<Point2d> GetEnumerator()
@@ -272,7 +294,7 @@ namespace CGALDotNet.Polygons
 
         protected override void ReleasePtr()
         {
-            Kernel.Release(GetCheckedPtr());
+            Kernel.Release(Ptr);
         }
 
         protected void Update()

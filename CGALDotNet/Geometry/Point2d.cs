@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
-using REAL = System.Double;
-
 namespace CGALDotNet.Geometry
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Point2d : IEquatable<Point2d>
     {
-        public REAL x, y;
+        public double x, y;
 
         /// <summary>
         /// The unit x point.
@@ -41,18 +39,18 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// A point of positive infinity.
         /// </summary>
-        public readonly static Point2d PositiveInfinity = new Point2d(REAL.PositiveInfinity);
+        public readonly static Point2d PositiveInfinity = new Point2d(double.PositiveInfinity);
 
         /// <summary>
         /// A point of negative infinity.
         /// </summary>
-        public readonly static Point2d NegativeInfinity = new Point2d(REAL.NegativeInfinity);
+        public readonly static Point2d NegativeInfinity = new Point2d(double.NegativeInfinity);
 
         /// <summary>
         /// A point all with the value v.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d(REAL v)
+        public Point2d(double v)
         {
             this.x = v;
             this.y = v;
@@ -62,27 +60,32 @@ namespace CGALDotNet.Geometry
         /// A point from the varibles.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d(REAL x, REAL y)
+        public Point2d(double x, double y)
         {
             this.x = x;
             this.y = y;
         }
 
-        unsafe public REAL this[int i]
+        /// <summary>
+        /// Array accessor for variables. 
+        /// </summary>
+        /// <param name="i">The variables index.</param>
+        /// <returns>The variable value</returns>
+        unsafe public double this[int i]
         {
             get
             {
                 if ((uint)i >= 2)
                     throw new IndexOutOfRangeException("Point2d index out of range.");
 
-                fixed (Point2d* array = &this) { return ((REAL*)array)[i]; }
+                fixed (Point2d* array = &this) { return ((double*)array)[i]; }
             }
             set
             {
                 if ((uint)i >= 2)
                     throw new IndexOutOfRangeException("Point2d index out of range.");
 
-                fixed (REAL* array = &x) { array[i] = value; }
+                fixed (double* array = &x) { array[i] = value; }
             }
         }
 
@@ -99,7 +102,7 @@ namespace CGALDotNet.Geometry
         /// Add point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(Point2d v1, REAL s)
+        public static Point2d operator +(Point2d v1, double s)
         {
             return new Point2d(v1.x + s, v1.y + s);
         }
@@ -108,7 +111,7 @@ namespace CGALDotNet.Geometry
         /// Add point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(REAL s, Point2d v1)
+        public static Point2d operator +(double s, Point2d v1)
         {
             return new Point2d(v1.x + s, v1.y + s);
         }
@@ -135,7 +138,7 @@ namespace CGALDotNet.Geometry
         /// Subtract point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Point2d v1, REAL s)
+        public static Point2d operator -(Point2d v1, double s)
         {
             return new Point2d(v1.x - s, v1.y - s);
         }
@@ -144,7 +147,7 @@ namespace CGALDotNet.Geometry
         /// Subtract point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(REAL s, Point2d v1)
+        public static Point2d operator -(double s, Point2d v1)
         {
             return new Point2d(s - v1.x, s - v1.y);
         }
@@ -162,7 +165,7 @@ namespace CGALDotNet.Geometry
         /// Multiply a point and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(Point2d v, REAL s)
+        public static Point2d operator *(Point2d v, double s)
         {
             return new Point2d(v.x * s, v.y * s);
         }
@@ -171,7 +174,7 @@ namespace CGALDotNet.Geometry
         /// Multiply a point and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(REAL s, Point2d v)
+        public static Point2d operator *(double s, Point2d v)
         {
             return new Point2d(v.x * s, v.y * s);
         }
@@ -189,7 +192,7 @@ namespace CGALDotNet.Geometry
         /// Divide a point and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator /(Point2d v, REAL s)
+        public static Point2d operator /(Point2d v, double s)
         {
             return new Point2d(v.x / s, v.y / s);
         }
@@ -210,6 +213,16 @@ namespace CGALDotNet.Geometry
         public static bool operator !=(Point2d v1, Point2d v2)
         {
             return (v1.x != v2.x || v1.y != v2.y);
+        }
+
+        /// <summary>
+        /// Cast from a tuple to a point.
+        /// </summary>
+        /// <param name="v">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Point2d(ValueTuple<double, double> v)
+        {
+            return new Point2d(v.Item1, v.Item2);
         }
 
         /// <summary>
@@ -269,7 +282,7 @@ namespace CGALDotNet.Geometry
         /// Distance between two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static REAL Distance(Point2d v0, Point2d v1)
+        public static double Distance(Point2d v0, Point2d v1)
         {
             return Math.Sqrt(SqrDistance(v0, v1));
         }
@@ -278,10 +291,10 @@ namespace CGALDotNet.Geometry
         /// Square distance between two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static REAL SqrDistance(Point2d v0, Point2d v1)
+        public static double SqrDistance(Point2d v0, Point2d v1)
         {
-            REAL x = v0.x - v1.x;
-            REAL y = v0.y - v1.y;
+            double x = v0.x - v1.x;
+            double y = v0.y - v1.y;
             return x * x + y * y;
         }
 
@@ -290,7 +303,7 @@ namespace CGALDotNet.Geometry
         /// The minimum value between s and each component in point.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Min(Point2d v, REAL s)
+        public static Point2d Min(Point2d v, double s)
         {
             v.x = Math.Min(v.x, s);
             v.y = Math.Min(v.y, s);
@@ -312,7 +325,7 @@ namespace CGALDotNet.Geometry
         /// The maximum value between s and each component in point.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Max(Point2d v, REAL s)
+        public static Point2d Max(Point2d v, double s)
         {
             v.x = Math.Max(v.x, s);
             v.y = Math.Max(v.y, s);
@@ -334,7 +347,7 @@ namespace CGALDotNet.Geometry
         /// Clamp each component to specified min and max.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Clamp(Point2d v, REAL min, REAL max)
+        public static Point2d Clamp(Point2d v, double min, double max)
         {
             v.x = Math.Max(Math.Min(v.x, max), min);
             v.y = Math.Max(Math.Min(v.y, max), min);
@@ -355,7 +368,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Lerp between two points.
         /// </summary>
-        public static Point2d Lerp(Point2d from, Point2d to, REAL t)
+        public static Point2d Lerp(Point2d from, Point2d to, double t)
         {
             if (t < 0.0) t = 0.0;
             if (t > 1.0) t = 1.0;
@@ -363,7 +376,7 @@ namespace CGALDotNet.Geometry
             if (t == 0.0) return from;
             if (t == 1.0) return to;
 
-            REAL t1 = 1.0f - t;
+            double t1 = 1.0f - t;
             var v = new Point2d();
             v.x = from.x * t1 + to.x * t;
             v.y = from.y * t1 + to.y * t;
@@ -378,8 +391,8 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2d Rounded(int digits = 0)
         {
-            REAL x = Math.Round(this.x, digits);
-            REAL y = Math.Round(this.y, digits);
+            double x = Math.Round(this.x, digits);
+            double y = Math.Round(this.y, digits);
             return new Point2d(x, y);
         }
 

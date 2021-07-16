@@ -12,7 +12,7 @@ namespace CGALDotNet.Polygons
         SYMMETRIC_DIFFERENCE 
     };
 
-    public static partial class PolygonBoolean2<K> where K : CGALKernel, new()
+    public static class PolygonBoolean2<K> where K : CGALKernel, new()
     {
 
         private static readonly K Kernel = new K();

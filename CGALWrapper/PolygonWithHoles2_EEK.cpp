@@ -100,4 +100,24 @@ double PolygonWithHoles2_EEK_SignedArea(void* ptr, int index)
 	return PolygonWithHoles2_SignedArea<EEK>(ptr, index);
 }
 
+void PolygonWithHoles2_EEK_Translate(void* ptr, int index, Point2d translation)
+{
+	PolygonWithHoles2_Translate<EEK>(ptr, index, translation);
+}
+
+void PolygonWithHoles2_EEK_Rotate(void* ptr, int index, double rotation)
+{
+	PolygonWithHoles2_Rotate<EEK>(ptr, index, rotation);
+}
+
+void PolygonWithHoles2_EEK_Scale(void* ptr, int index, double scale)
+{
+	PolygonWithHoles2_Scale<EEK>(ptr, index, scale);
+}
+
+void PolygonWithHoles2_EEK_Transform(void* ptr, int index, Point2d translation, double rotation, double scale)
+{
+	PolygonWithHoles2_Transform<EEK>(ptr, index, translation, rotation, scale);
+}
+
 

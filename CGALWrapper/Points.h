@@ -2,18 +2,7 @@
 
 #include "CGALWrapper.h"
 #include "CGAL/Point_2.h"
-
-struct Point2f
-{
-    float x;
-    float y;
-
-    template<class K>
-    CGAL::Point_2<K> To()
-    {
-        return CGAL::Point_2<K>(x, y);
-    }
-};
+#include "CGAL/Vector_2.h"
 
 struct Point2d
 {
@@ -25,5 +14,12 @@ struct Point2d
     {
         return CGAL::Point_2<K>(x, y);
     }
+
+    template<class K>
+    CGAL::Vector_2<K> ToVector()
+    {
+        return CGAL::Vector_2<K>(x, y);
+    }
+
 };
 

@@ -5,6 +5,9 @@
 
 #include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h> 
+#include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Vector_2.h>
+#include <CGAL/Direction_2.h>
 
 template<class K>
 int Polygon2_Count(void* ptr)
@@ -117,6 +120,43 @@ double Polygon2_SignedArea(void* ptr)
 	auto polygon = (CGAL::Polygon_2<K>*)ptr;
 	return CGAL::to_double(polygon->area());
 }
+
+template<class K>
+void Polygon2_Translate(void* ptr, Point2d translation)
+{
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	CGAL::Aff_transformation_2<K> transformation(CGAL::TRANSLATION, translation.ToVector<K>());
+	(*polygon) = CGAL::transform(transformation, *polygon);
+}
+
+template<class K>
+void Polygon2_Rotate(void* ptr, double rotation)
+{
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	CGAL::Aff_transformation_2<K> transformation(CGAL::ROTATION, sin(rotation), cos(rotation));
+	(*polygon) = CGAL::transform(transformation, *polygon);
+}
+
+template<class K>
+void Polygon2_Scale(void* ptr, double scale)
+{
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	CGAL::Aff_transformation_2<K> transformation(CGAL::SCALING, scale);
+	(*polygon) = CGAL::transform(transformation, *polygon);
+}
+
+template<class K>
+void Polygon2_Transform(void* ptr, Point2d translation, double rotation, double scale)
+{
+	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+
+	CGAL::Aff_transformation_2<K> T(CGAL::TRANSLATION, translation.ToVector<K>());
+	CGAL::Aff_transformation_2<K> R(CGAL::ROTATION, sin(rotation), cos(rotation));
+	CGAL::Aff_transformation_2<K> S(CGAL::SCALING, scale);
+
+	(*polygon) = CGAL::transform(T * R * S, *polygon);
+}
+
 
 
 

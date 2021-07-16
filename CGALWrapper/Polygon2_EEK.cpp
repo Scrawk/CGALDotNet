@@ -82,3 +82,23 @@ double Polygon2_EEK_SignedArea(void* ptr)
 {
 	return Polygon2_SignedArea<EEK>(ptr);
 }
+
+void Polygon2_EEK_Translate(void* ptr, Point2d translation)
+{
+	Polygon2_Translate<EEK>(ptr, translation);
+}
+
+void Polygon2_EEK_Rotate(void* ptr, double rotation)
+{
+	Polygon2_Rotate<EEK>(ptr, rotation);
+}
+
+void Polygon2_EEK_Scale(void* ptr, double scale)
+{
+	Polygon2_Scale<EEK>(ptr, scale);
+}
+
+void Polygon2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
+{
+	Polygon2_Transform<EEK>(ptr, translation, rotation, scale);
+}

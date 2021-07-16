@@ -4,6 +4,148 @@
         <name>CGALDotNet</name>
     </assembly>
     <members>
+        <member name="T:CGALDotNet.Geometry.Degree">
+            <summary>
+            Represents a angle in degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Degree.angle">
+            <summary>
+            The angle in degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Degree.Angle0">
+            <summary>
+            0 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Degree.Angle90">
+            <summary>
+            90 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Degree.Angle180">
+            <summary>
+            180 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Degree.Angle270">
+            <summary>
+            270 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Degree.Angle360">
+            <summary>
+            360 degrees.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.#ctor(System.Double)">
+            <summary>
+            Create a new degree from a value.
+            </summary>
+            <param name="angle">The angle in degrees.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Addition(CGALDotNet.Geometry.Degree,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Add two angles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Addition(CGALDotNet.Geometry.Degree,System.Double)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_UnaryNegation(CGALDotNet.Geometry.Degree)">
+            <summary>
+            Negate the angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Addition(System.Double,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Subtraction(CGALDotNet.Geometry.Degree,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Subtract two angles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Subtraction(CGALDotNet.Geometry.Degree,System.Double)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Subtraction(System.Double,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Multiply(CGALDotNet.Geometry.Degree,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Multiply two angles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Multiply(CGALDotNet.Geometry.Degree,System.Double)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Multiply(System.Double,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Division(CGALDotNet.Geometry.Degree,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Divide two angles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Division(CGALDotNet.Geometry.Degree,System.Double)">
+            <summary>
+            Divide a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Implicit(CGALDotNet.Geometry.Radian)~CGALDotNet.Geometry.Degree">
+            <summary>
+            Cast from a radian to degrees.
+            </summary>
+            <param name="v">The angle in radians.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Equality(CGALDotNet.Geometry.Degree,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.op_Inequality(CGALDotNet.Geometry.Degree,CGALDotNet.Geometry.Degree)">
+            <summary>
+            Are these angles not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.Equals(System.Object)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.Equals(CGALDotNet.Geometry.Degree)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.GetHashCode">
+            <summary>
+            Angles hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.ToString">
+            <summary>
+            Angles as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Degree.ToString(System.String)">
+            <summary>
+            Angles as a string.
+            </summary>
+        </member>
         <member name="F:CGALDotNet.Geometry.Point2d.UnitX">
             <summary>
             The unit x point.
@@ -48,6 +190,13 @@
             <summary>
             A point from the varibles.
             </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point2d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
         </member>
         <member name="M:CGALDotNet.Geometry.Point2d.op_Addition(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
             <summary>
@@ -118,6 +267,12 @@
             <summary>
             Are these points not equal.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Implicit(System.ValueTuple{System.Double,System.Double})~CGALDotNet.Geometry.Point2d">
+            <summary>
+            Cast from a tuple to a point.
+            </summary>
+            <param name="v">The tuple.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.Point2d.Equals(System.Object)">
             <summary>
@@ -246,6 +401,13 @@
             A point from the varibles.
             </summary>
         </member>
+        <member name="P:CGALDotNet.Geometry.Point3d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
         <member name="M:CGALDotNet.Geometry.Point3d.op_Addition(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
             <summary>
             Add two points.
@@ -315,6 +477,12 @@
             <summary>
             Are these points not equal.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point3d.op_Implicit(System.ValueTuple{System.Double,System.Double,System.Double})~CGALDotNet.Geometry.Point3d">
+            <summary>
+            Cast from a tuple to a point.
+            </summary>
+            <param name="v">The tuple.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.Point3d.Equals(System.Object)">
             <summary>
@@ -392,6 +560,143 @@
             </summary>
             <param name="digits"></param>
             <returns></returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Radian">
+            <summary>
+            Represents a angle in degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Radian.angle">
+            <summary>
+            The angle in radians.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Radian.PI">
+            <summary>
+            Pi.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Radian.Angle0">
+            <summary>
+            0 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Radian.Angle90">
+            <summary>
+            90 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Radian.Angle180">
+            <summary>
+            180 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Radian.Angle270">
+            <summary>
+            270 degrees.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Radian.Angle360">
+            <summary>
+            360 degrees.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.#ctor(System.Double)">
+            <summary>
+            Create a new radian from a value.
+            </summary>
+            <param name="angle">The angle in radians.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Addition(CGALDotNet.Geometry.Radian,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Add two angles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Addition(CGALDotNet.Geometry.Radian,System.Double)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_UnaryNegation(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Negate the angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Addition(System.Double,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Subtraction(CGALDotNet.Geometry.Radian,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Subtract two angles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Subtraction(CGALDotNet.Geometry.Radian,System.Double)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Subtraction(System.Double,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Multiply(CGALDotNet.Geometry.Radian,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Multiply two angles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Multiply(CGALDotNet.Geometry.Radian,System.Double)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Multiply(System.Double,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Implicit(CGALDotNet.Geometry.Degree)~CGALDotNet.Geometry.Radian">
+            <summary>
+            Cast from a degrees to radians.
+            </summary>
+            <param name="v">The angle in radians.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Equality(CGALDotNet.Geometry.Radian,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.op_Inequality(CGALDotNet.Geometry.Radian,CGALDotNet.Geometry.Radian)">
+            <summary>
+            Are these angles not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.Equals(System.Object)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.Equals(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.GetHashCode">
+            <summary>
+            Angles hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.ToString">
+            <summary>
+            Angles as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Radian.ToString(System.String)">
+            <summary>
+            Angles as a string.
+            </summary>
         </member>
         <member name="M:CGALDotNet.MathUtil.Wrap(System.Int32,System.Int32)">
             <summary>

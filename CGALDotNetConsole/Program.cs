@@ -14,15 +14,15 @@ namespace CGALDotNetConsole
             //Polygon2Examples.CreateConcavePolygon();
             //Polygon2Examples.CreateNonSimplePolygon();
             //Polygon2Examples.PolygonContainsPoint();
-
             //Polygon2Examples.CreatePolygonWithHoles();
+            Polygon2Examples.TransformPolygon();
 
-            Polygon2BooleanExamples.DoIntersect();
-            Polygon2BooleanExamples.Join();
-            Polygon2BooleanExamples.Intersect();
-            Polygon2BooleanExamples.Difference();
-            Polygon2BooleanExamples.SymmetricDifference();
-            Polygon2BooleanExamples.Complement();
+            //Polygon2BooleanExamples.DoIntersect();
+            //Polygon2BooleanExamples.Join();
+            //Polygon2BooleanExamples.Intersect();
+            //Polygon2BooleanExamples.Difference();
+            //Polygon2BooleanExamples.SymmetricDifference();
+            //Polygon2BooleanExamples.Complement();
         }
 
     }

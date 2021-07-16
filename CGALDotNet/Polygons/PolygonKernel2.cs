@@ -46,5 +46,13 @@ namespace CGALDotNet.Polygons
         internal abstract CGAL_ORIENTED_SIDE OrientedSide(IntPtr ptr, Point2d point);
 
         internal abstract double SignedArea(IntPtr ptr);
+
+        internal abstract void Translate(IntPtr ptr, Point2d translation);
+
+        internal abstract void Rotate(IntPtr ptr, double rotation);
+
+        internal abstract void Scale(IntPtr ptr, double scale);
+
+        internal abstract void Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
     }
 }

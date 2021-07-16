@@ -172,5 +172,53 @@ double PolygonWithHoles2_SignedArea(void* ptr, int index)
 		return 0;
 }
 
+template<class K>
+void PolygonWithHoles2_Translate(void* ptr, int index, Point2d translation)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, index);
+	if (polygon != nullptr)
+	{
+		CGAL::Aff_transformation_2<K> transformation(CGAL::TRANSLATION, translation.ToVector<K>());
+		(*polygon) = CGAL::transform(transformation, *polygon);
+	}
+}
+
+template<class K>
+void PolygonWithHoles2_Rotate(void* ptr, int index, double rotation)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, index);
+	if (polygon != nullptr)
+	{
+		CGAL::Aff_transformation_2<K> transformation(CGAL::ROTATION, sin(rotation), cos(rotation));
+		(*polygon) = CGAL::transform(transformation, *polygon);
+	}
+}
+
+template<class K>
+void PolygonWithHoles2_Scale(void* ptr, int index, double scale)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, index);
+	if (polygon != nullptr)
+	{
+		CGAL::Aff_transformation_2<K> transformation(CGAL::SCALING, scale);
+		(*polygon) = CGAL::transform(transformation, *polygon);
+	}
+}
+
+template<class K>
+void PolygonWithHoles2_Transform(void* ptr, int index, Point2d translation, double rotation, double scale)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, index);
+	if (polygon != nullptr)
+	{
+		CGAL::Aff_transformation_2<K> T(CGAL::TRANSLATION, translation.ToVector<K>());
+		CGAL::Aff_transformation_2<K> R(CGAL::ROTATION, sin(rotation), cos(rotation));
+		CGAL::Aff_transformation_2<K> S(CGAL::SCALING, scale);
+
+		(*polygon) = CGAL::transform(T * R * S, *polygon);
+	}
+
+}
+
 
 

@@ -109,6 +109,26 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_SignedArea(ptr, index);
         }
 
+        internal override void Translate(IntPtr ptr, int index, Point2d translation)
+        {
+            PolygonWithHoles2_EEK_Translate(ptr, index, translation);
+        }
+
+        internal override void Rotate(IntPtr ptr, int index, double rotation)
+        {
+            PolygonWithHoles2_EEK_Rotate(ptr, index, rotation);
+        }
+
+        internal override void Scale(IntPtr ptr, int index, double scale)
+        {
+            PolygonWithHoles2_EEK_Scale(ptr, index, scale);
+        }
+
+        internal override void Transform(IntPtr ptr, int index, Point2d translation, double rotation, double scale)
+        {
+            PolygonWithHoles2_EEK_Transform(ptr, index, translation, rotation, scale);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr PolygonWithHoles2_EEK_Create();
 
@@ -165,5 +185,17 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double PolygonWithHoles2_EEK_SignedArea(IntPtr ptr, int index);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void PolygonWithHoles2_EEK_Translate(IntPtr ptr, int index, Point2d translation);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void PolygonWithHoles2_EEK_Rotate(IntPtr ptr, int index, double rotation);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void PolygonWithHoles2_EEK_Scale(IntPtr ptr, int index, double scale);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void PolygonWithHoles2_EEK_Transform(IntPtr ptr, int index, Point2d translation, double rotation, double scale);
     }
 }
