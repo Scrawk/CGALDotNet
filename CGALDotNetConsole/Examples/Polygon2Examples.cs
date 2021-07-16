@@ -141,7 +141,7 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(-1, 1)
             };
 
-            var polygon = new PolygonWithHoles2<EEK>(new Polygon2<EEK>(points));
+            var polygon = new PolygonWithHoles2<EEK>(points);
 
             var op = BOUNDARY_OR_HOLE.BOUNDARY;
 
@@ -154,6 +154,7 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine("After transform");
             foreach (var p in polygon.Copy(op))
                 Console.WriteLine(p);
+            
         }
     }
 }

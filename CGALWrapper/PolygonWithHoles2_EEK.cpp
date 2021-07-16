@@ -20,6 +20,11 @@ int PolygonWithHoles2_EEK_HoleCount(void* ptr)
 	return PolygonWithHoles2_HoleCount<EEK>(ptr);
 }
 
+int PolygonWithHoles2_EEK_PointCount(void* ptr, int index)
+{
+	return PolygonWithHoles2_PointCount<EEK>(ptr, index);
+}
+
 void* PolygonWithHoles2_EEK_Copy(void* ptr)
 {
 	return PolygonWithHoles2_Copy<EEK>(ptr);
@@ -45,14 +50,29 @@ void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d* points, int startIndex, in
 	return PolygonWithHoles2_CreateFromPoints<EEK>(points, startIndex, count);
 }
 
+Point2d PolygonWithHoles2_EEK_GetPoint(void* ptr, int polyIndex, int pointIndex)
+{
+	return PolygonWithHoles2_GetPoint<EEK>(ptr, polyIndex, pointIndex);
+}
+
+void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+{
+	PolygonWithHoles2_GetPoints<EEK>(ptr, points, polyIndex, startIndex, count);
+}
+
+void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point)
+{
+	PolygonWithHoles2_SetPoint<EEK>(ptr, polyIndex, pointIndex, point);
+}
+
+void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+{
+	PolygonWithHoles2_SetPoints<EEK>(ptr, points, polyIndex, startIndex, count);
+}
+
 void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr)
 {
 	PolygonWithHoles2_AddHoleFromPolygon<EEK>(pwhPtr, polygonPtr);
-}
-
-void PolygonWithHoles2_EEK_AddHoleFromPoints(void* ptr, Point2d* points, int startIndex, int count)
-{
-	PolygonWithHoles2_AddHoleFromPoints<EEK>(ptr, points, startIndex, count);
 }
 
 void PolygonWithHoles2_EEK_RemoveHole(void* ptr, int index)
@@ -60,14 +80,14 @@ void PolygonWithHoles2_EEK_RemoveHole(void* ptr, int index)
 	PolygonWithHoles2_RemoveHole<EEK>(ptr, index);
 }
 
-void* PolygonWithHoles2_EEK_CopyHole(void* ptr, int index)
+void* PolygonWithHoles2_EEK_CopyPolygon(void* ptr, int index)
 {
-	return PolygonWithHoles2_CopyHole<EEK>(ptr, index);
+	return PolygonWithHoles2_CopyPolygon<EEK>(ptr, index);
 }
 
-void PolygonWithHoles2_EEK_ReverseHole(void* ptr, int index)
+void PolygonWithHoles2_EEK_ReversePolygon(void* ptr, int index)
 {
-	PolygonWithHoles2_ReverseHole<EEK>(ptr, index);
+	PolygonWithHoles2_ReversePolygon<EEK>(ptr, index);
 }
 
 bool PolygonWithHoles2_EEK_IsUnbounded(void* ptr)

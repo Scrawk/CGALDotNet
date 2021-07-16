@@ -74,9 +74,17 @@ template<class K>
 void Polygon2_SetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
 	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	auto size = polygon->size();
 
 	for (auto i = 0; i < count; i++)
-		(*polygon)[i] = points[startIndex + i].To<K>();
+	{
+		int index = startIndex + i;
+
+		if(index < size)
+			(*polygon)[i] = points[index].To<K>();
+		else
+			polygon->push_back(points[index].To<K>());
+	}
 }
 
 template<class K>

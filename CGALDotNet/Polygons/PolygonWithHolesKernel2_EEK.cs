@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CGALDotNet.Geometry;
+using System;
 using System.Runtime.InteropServices;
-
-using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
@@ -27,6 +24,11 @@ namespace CGALDotNet.Polygons
         internal override int HoleCount(IntPtr ptr)
         {
             return PolygonWithHoles2_EEK_HoleCount(ptr);
+        }
+
+        internal override int PointCount(IntPtr ptr, int index)
+        {
+            return PolygonWithHoles2_EEK_PointCount(ptr, index);
         }
 
         internal override IntPtr Copy(IntPtr ptr)
@@ -54,14 +56,29 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_CreateFromPoints(points, startIndex, count);
         }
 
+        internal override Point2d GetPoint(IntPtr ptr, int polyIndex, int pointIndex)
+        {
+            return PolygonWithHoles2_EEK_GetPoint(ptr, polyIndex, pointIndex);
+        }
+
+        internal override void GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count)
+        {
+            PolygonWithHoles2_EEK_GetPoints(ptr, points, polyIndex, startIndex, count);
+        }
+
+        internal override void SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point)
+        {
+            PolygonWithHoles2_EEK_SetPoint(ptr, polyIndex, pointIndex, point);
+        }
+
+        internal override void SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count)
+        {
+            PolygonWithHoles2_EEK_SetPoints(ptr, points, polyIndex, startIndex, count);
+        }
+
         internal override void AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr)
         {
             PolygonWithHoles2_EEK_AddHoleFromPolygon(pwhPtr, polygonPtr);
-        }
-
-        internal override void AddHoleFromPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
-        {
-            PolygonWithHoles2_EEK_AddHoleFromPoints(ptr, points, startIndex, count);
         }
 
         internal override void RemoveHole(IntPtr ptr, int index)
@@ -69,14 +86,14 @@ namespace CGALDotNet.Polygons
             PolygonWithHoles2_EEK_RemoveHole(ptr, index);
         }
 
-        internal override IntPtr CopyHole(IntPtr ptr, int index)
+        internal override IntPtr CopyPolygon(IntPtr ptr, int index)
         {
-            return PolygonWithHoles2_EEK_CopyHole(ptr, index);
+            return PolygonWithHoles2_EEK_CopyPolygon(ptr, index);
         }
 
-        internal override void ReverseHole(IntPtr ptr, int index)
+        internal override void ReversePolygon(IntPtr ptr, int index)
         {
-            PolygonWithHoles2_EEK_ReverseHole(ptr, index);
+            PolygonWithHoles2_EEK_ReversePolygon(ptr, index);
         }
 
         internal override bool IsUnbounded(IntPtr ptr)
@@ -139,6 +156,9 @@ namespace CGALDotNet.Polygons
         private static extern int PolygonWithHoles2_EEK_HoleCount(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int PolygonWithHoles2_EEK_PointCount(IntPtr ptr, int index);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr PolygonWithHoles2_EEK_Copy(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -154,19 +174,28 @@ namespace CGALDotNet.Polygons
         private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPoints(Point2d[] points, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonWithHoles2_EEK_AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
+        private static extern Point2d PolygonWithHoles2_EEK_GetPoint(IntPtr ptr, int polyIndex, int pointIndex);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonWithHoles2_EEK_AddHoleFromPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
+        private static extern void PolygonWithHoles2_EEK_GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void PolygonWithHoles2_EEK_SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void PolygonWithHoles2_EEK_SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void PolygonWithHoles2_EEK_AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void PolygonWithHoles2_EEK_RemoveHole(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonWithHoles2_EEK_CopyHole(IntPtr ptr, int index);
+        private static extern IntPtr PolygonWithHoles2_EEK_CopyPolygon(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonWithHoles2_EEK_ReverseHole(IntPtr ptr, int index);
+        private static extern void PolygonWithHoles2_EEK_ReversePolygon(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool PolygonWithHoles2_EEK_IsUnbounded(IntPtr ptr);

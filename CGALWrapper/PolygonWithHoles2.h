@@ -6,14 +6,16 @@
 #include <CGAL/Polygon_with_holes_2.h>
 #include <CGAL/enum.h>
 
+#define BOUNDARY_INDEX -1
+
 template<class K>
-CGAL::Polygon_2<K>* GetBoundaryOrHole(void* ptr, int index)
+CGAL::Polygon_2<K>* GetBoundaryOrHole(void* ptr, int index, bool forceBoundary = false)
 {
 	auto pwh = (CGAL::Polygon_with_holes_2<K>*)ptr;
 
-	if (index == -1)
+	if (index == BOUNDARY_INDEX)
 	{
-		if (pwh->is_unbounded())
+		if (!forceBoundary && pwh->is_unbounded())
 			return nullptr;
 		else
 			return &pwh->outer_boundary();
@@ -29,6 +31,16 @@ int PolygonWithHoles2_HoleCount(void* ptr)
 {
 	auto pwh = (CGAL::Polygon_with_holes_2<K>*)ptr;
 	return pwh->number_of_holes();
+}
+
+template<class K>
+int PolygonWithHoles2_PointCount(void* ptr, int index)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, index);
+	if (polygon != nullptr)
+		polygon->size();
+	else
+		return 0;
 }
 
 template<class K>
@@ -71,23 +83,74 @@ void* PolygonWithHoles2_CreateFromPoints(Point2d* points, int startIndex, int co
 }
 
 template<class K>
+Point2d PolygonWithHoles2_GetPoint(void* ptr, int polyIndex, int pointIndex)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, polyIndex);
+	if (polygon != nullptr)
+	{
+		auto polygon = (CGAL::Polygon_2<K>*)ptr;
+		auto point = polygon->vertex(pointIndex);
+
+		return { CGAL::to_double(point.x()), CGAL::to_double(point.y()) };
+	}
+	else
+	{
+		return { 0, 0 };
+	}
+}
+
+template<class K>
+void PolygonWithHoles2_GetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, polyIndex);
+	if (polygon != nullptr)
+	{
+		for (auto i = 0; i < count; i++)
+		{
+			auto point = polygon->vertex(i);
+			points[startIndex + i].x = CGAL::to_double(point.x());
+			points[startIndex + i].y = CGAL::to_double(point.y());
+		}
+	}
+}
+
+template<class K>
+void PolygonWithHoles2_SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, polyIndex);
+	if (polygon != nullptr)
+	{
+		auto polygon = (CGAL::Polygon_2<K>*)ptr;
+		(*polygon)[pointIndex] = CGAL::Point_2<K>(point.x, point.y);
+	}
+}
+
+template<class K>
+void PolygonWithHoles2_SetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+{
+	auto polygon = GetBoundaryOrHole<K>(ptr, polyIndex, true);
+	if (polygon != nullptr)
+	{
+		auto size = polygon->size();
+
+		for (auto i = 0; i < count; i++)
+		{
+			int index = startIndex + i;
+
+			if (index < size)
+				(*polygon)[i] = points[index].To<K>();
+			else
+				polygon->push_back(points[index].To<K>());
+		}
+	}
+}
+
+template<class K>
 void PolygonWithHoles2_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr)
 {
 	auto pwh = (CGAL::Polygon_with_holes_2<K>*)pwhPtr;
 	auto polygon = (CGAL::Polygon_2<K>*)polygonPtr;
 	pwh->add_hole(*polygon);
-}
-
-template<class K>
-void PolygonWithHoles2_AddHoleFromPoints(void* ptr, Point2d* points, int startIndex, int count)
-{
-	auto pwh = (CGAL::Polygon_with_holes_2<K>*)ptr;
-	auto polygon = CGAL::Polygon_2<K>();
-
-	for (auto i = 0; i < count; i++)
-		polygon.push_back(points[startIndex + i].To<K>());
-
-	pwh->add_hole(polygon);
 }
 
 template<class K>
@@ -98,7 +161,7 @@ void PolygonWithHoles2_RemoveHole(void* ptr, int index)
 }
 
 template<class K>
-void* PolygonWithHoles2_CopyHole(void* ptr, int index)
+void* PolygonWithHoles2_CopyPolygon(void* ptr, int index)
 {
 	auto polygon = GetBoundaryOrHole<K>(ptr, index);
 	if (polygon != nullptr)
@@ -108,7 +171,7 @@ void* PolygonWithHoles2_CopyHole(void* ptr, int index)
 }
 
 template<class K>
-void PolygonWithHoles2_ReverseHole(void* ptr, int index)
+void PolygonWithHoles2_ReversePolygon(void* ptr, int index)
 {
 	auto polygon = GetBoundaryOrHole<K>(ptr, index);
 	if (polygon != nullptr)

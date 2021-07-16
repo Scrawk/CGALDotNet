@@ -159,8 +159,9 @@ namespace CGALDotNet.Polygons
 
         public void SetPoints(Point2d[] points, int startIndex = 0)
         {
-            ErrorUtil.CheckBounds(points, startIndex, Count);
-            Kernel.SetPoints(Ptr, points, startIndex, Count);
+            int count = Math.Max(Count, points.Length);
+            ErrorUtil.CheckBounds(points, startIndex, count);
+            Kernel.SetPoints(Ptr, points, startIndex, count);
             IsUpdated = false;
         }
 

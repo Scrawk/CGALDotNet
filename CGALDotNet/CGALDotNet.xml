@@ -14,27 +14,27 @@
             The angle in degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Degree.Angle0">
+        <member name="F:CGALDotNet.Geometry.Degree.A0">
             <summary>
             0 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Degree.Angle90">
+        <member name="F:CGALDotNet.Geometry.Degree.A90">
             <summary>
             90 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Degree.Angle180">
+        <member name="F:CGALDotNet.Geometry.Degree.A180">
             <summary>
             180 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Degree.Angle270">
+        <member name="F:CGALDotNet.Geometry.Degree.A270">
             <summary>
             270 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Degree.Angle360">
+        <member name="F:CGALDotNet.Geometry.Degree.A360">
             <summary>
             360 degrees.
             </summary>
@@ -576,27 +576,27 @@
             Pi.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Radian.Angle0">
+        <member name="F:CGALDotNet.Geometry.Radian.Ae0">
             <summary>
             0 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Radian.Angle90">
+        <member name="F:CGALDotNet.Geometry.Radian.A90">
             <summary>
             90 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Radian.Angle180">
+        <member name="F:CGALDotNet.Geometry.Radian.A180">
             <summary>
             180 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Radian.Angle270">
+        <member name="F:CGALDotNet.Geometry.Radian.A270">
             <summary>
             270 degrees.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Radian.Angle360">
+        <member name="F:CGALDotNet.Geometry.Radian.A360">
             <summary>
             360 degrees.
             </summary>

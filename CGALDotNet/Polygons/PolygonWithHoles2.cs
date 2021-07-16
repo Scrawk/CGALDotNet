@@ -21,6 +21,11 @@ namespace CGALDotNet.Polygons
 
         }
 
+        public PolygonWithHoles2(Point2d[] boundary) : base(new K(), boundary)
+        {
+
+        }
+
         internal PolygonWithHoles2(IntPtr ptr) : base(new K(), ptr)
         {
 
@@ -28,8 +33,8 @@ namespace CGALDotNet.Polygons
 
         public override string ToString()
         {
-            return string.Format("[PolygonWithHoles2<{0}>: HoleCount={1}]", 
-                Kernel.Name, HoleCount);
+            return string.Format("[PolygonWithHoles2<{0}>: IsUnbounded={1}, HoleCount={2}]", 
+                Kernel.Name, IsUnbounded, HoleCount);
         }
 
         public PolygonWithHoles2<K> Copy()
@@ -41,18 +46,19 @@ namespace CGALDotNet.Polygons
         {
             if (op == BOUNDARY_OR_HOLE.BOUNDARY)
             {
-                var ptr = Kernel.CopyHole(Ptr, BOUNDARY_INDEX);
+                CheckIsBounded();
+                var ptr = Kernel.CopyPolygon(Ptr, BOUNDARY_INDEX);
+
                 if (ptr != IntPtr.Zero)
                     return new Polygon2<K>(ptr);
                 else
-                    return null;
+                    throw new InvalidOperationException("Failed to find boundary.");
             }
             else
             {
                 ErrorUtil.CheckBounds(index, HoleCount);
-                return new Polygon2<K>(Kernel.CopyHole(Ptr, index));
+                return new Polygon2<K>(Kernel.CopyPolygon(Ptr, index));
             }
-        
         }
 
         public void AddHole(Point2d[] points)
@@ -62,15 +68,13 @@ namespace CGALDotNet.Polygons
 
         public List<Polygon2<K>> ToList()
         {
-            var unbounded = FindIfUnbounded();
-
             int count = HoleCount;
-            if (!unbounded)
+            if (!IsUnbounded)
                 count++;
 
             var polygons = new List<Polygon2<K>>(count);
 
-            if (!unbounded)
+            if (!IsUnbounded)
                 polygons.Add(Copy(BOUNDARY_OR_HOLE.BOUNDARY));
 
             for (int i = 0; i < HoleCount; i++)
@@ -100,6 +104,15 @@ namespace CGALDotNet.Polygons
             Kernel = kernel.PolygonWithHolesKernel2;
             CheckBoundary(boundary);
             Ptr = Kernel.CreateFromPolygon(boundary.Ptr);
+            IsUnbounded = false;
+        }
+
+        internal PolygonWithHoles2(CGALKernel kernel, Point2d[] boundary)
+        {
+            Kernel = kernel.PolygonWithHolesKernel2;
+            Ptr = Kernel.Create();
+            SetPoints(BOUNDARY_OR_HOLE.BOUNDARY, boundary, 0);
+            IsUnbounded = false;
         }
 
         internal PolygonWithHoles2(CGALKernel kernel, IntPtr ptr) : base(ptr)
@@ -108,6 +121,8 @@ namespace CGALDotNet.Polygons
             HoleCount = Kernel.HoleCount(Ptr);
         }
 
+        public bool IsUnbounded { get; protected set; }
+
         public int HoleCount { get; protected set; }
 
         protected private PolygonWithHolesKernel2 Kernel { get; private set; }
@@ -115,29 +130,109 @@ namespace CGALDotNet.Polygons
         public void Clear()
         {
             Kernel.Clear(Ptr);
+            IsUnbounded = true;
         }
 
         public void Remove(BOUNDARY_OR_HOLE op, int index = 0)
         {
-            if(op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            {
                 Kernel.ClearBoundary(Ptr);
+                IsUnbounded = true;
+            }
             else
             {
                 ErrorUtil.CheckBounds(index, HoleCount);
                 Kernel.RemoveHole(Ptr, index);
                 HoleCount--;
             }
-
         }
 
         public void Reverse(BOUNDARY_OR_HOLE op, int index = 0)
         {
             if (op == BOUNDARY_OR_HOLE.BOUNDARY)
-                Kernel.ReverseHole(Ptr, BOUNDARY_INDEX);
+                Kernel.ReversePolygon(Ptr, BOUNDARY_INDEX);
             else
             {
                 ErrorUtil.CheckBounds(index, HoleCount);
-                Kernel.ReverseHole(Ptr, index);
+                Kernel.ReversePolygon(Ptr, index);
+            }
+        }
+
+        public Point2d GetPoint(BOUNDARY_OR_HOLE op, int pointIndex, int holeIndex = 0)
+        {
+            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            {
+                int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
+                ErrorUtil.CheckBounds(pointIndex, count);
+                return Kernel.GetPoint(Ptr, BOUNDARY_INDEX, pointIndex);
+            }
+            else
+            {
+                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+                int count = Kernel.PointCount(Ptr, holeIndex);
+
+                ErrorUtil.CheckBounds(pointIndex, count);
+                return Kernel.GetPoint(Ptr, holeIndex, pointIndex);
+            }
+        }
+
+        public void GetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int pointStartIndex, int holeIndex = 0)
+        {
+            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            {
+                int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
+                ErrorUtil.CheckBounds(points, pointStartIndex, count);
+                Kernel.GetPoints(Ptr, points, BOUNDARY_INDEX, pointStartIndex, count);
+            }
+            else
+            {
+                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+                int count = Kernel.PointCount(Ptr, holeIndex);
+
+                ErrorUtil.CheckBounds(points, pointStartIndex, count);
+                Kernel.GetPoints(Ptr, points, holeIndex, pointStartIndex, count);
+            }
+        }
+
+        public void SetPoint(BOUNDARY_OR_HOLE op, int pointIndex, Point2d point, int holeIndex = 0)
+        {
+            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            {
+                int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
+                ErrorUtil.CheckBounds(pointIndex, count);
+                Kernel.SetPoint(Ptr, BOUNDARY_INDEX, pointIndex, point);
+            }
+            else
+            {
+                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+                int count = Kernel.PointCount(Ptr, holeIndex);
+
+                ErrorUtil.CheckBounds(pointIndex, count);
+                Kernel.SetPoint(Ptr, holeIndex, pointIndex, point);
+            }
+        }
+
+        public void SetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int pointStartIndex, int holeIndex = 0)
+        {
+            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            {
+                int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
+                count = Math.Max(count, points.Length);
+
+                ErrorUtil.CheckBounds(points, pointStartIndex, count);
+                Kernel.SetPoints(Ptr, points, BOUNDARY_INDEX, pointStartIndex, count);
+                IsUnbounded = count > 0;
+            }
+            else
+            {
+                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+
+                int count = Kernel.PointCount(Ptr, holeIndex);
+                count = Math.Max(count, points.Length);
+
+                ErrorUtil.CheckBounds(points, pointStartIndex, count);
+                Kernel.SetPoints(Ptr, points, holeIndex, pointStartIndex, count);
             }
         }
 
@@ -251,7 +346,7 @@ namespace CGALDotNet.Polygons
         {
             if (op == BOUNDARY_OR_HOLE.BOUNDARY)
             {
-                if (FindIfUnbounded())
+                if (IsUnbounded)
                     return true;
 
                 var side = OrientedSide(op, point);
@@ -333,11 +428,9 @@ namespace CGALDotNet.Polygons
         public void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
+            builder.AppendLine("Is unbounded = " + IsUnbounded);
 
-            bool isUnbounded = FindIfUnbounded();
-            builder.AppendLine("Is unbounded = " + isUnbounded);
-
-            if (!isUnbounded)
+            if (!IsUnbounded)
             {
                 var op = BOUNDARY_OR_HOLE.BOUNDARY;
                 builder.AppendLine("Boundary is simple = " + FindIfSimple(op));
@@ -377,6 +470,12 @@ namespace CGALDotNet.Polygons
         {
             if (!IsValidHole(pwh, polygon))
                 throw new Exception("Polygon must be simple, clock wise and not intersect the boundary or holes to be a polygon hole.");
+        }
+
+        protected void CheckIsBounded()
+        {
+            if (IsUnbounded)
+                throw new NullReferenceException("This is not a valid operation on a unbounded polygon.");
         }
     }
 }

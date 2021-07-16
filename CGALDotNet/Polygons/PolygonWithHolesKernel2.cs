@@ -21,6 +21,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract int HoleCount(IntPtr ptr);
 
+        internal abstract int PointCount(IntPtr ptr, int index);
+
         internal abstract IntPtr Copy(IntPtr ptr);
 
         internal abstract void Clear(IntPtr ptr);
@@ -31,15 +33,21 @@ namespace CGALDotNet.Polygons
 
         internal abstract IntPtr CreateFromPoints(Point2d[] points, int startIndex, int count);
 
-        internal abstract void AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
+        internal abstract Point2d GetPoint(IntPtr ptr, int polyIndex, int pointIndex);
 
-        internal abstract void AddHoleFromPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
+        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+
+        internal abstract void SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point);
+
+        internal abstract void SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+
+        internal abstract void AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
 
         internal abstract void RemoveHole(IntPtr ptr, int index);
 
-        internal abstract IntPtr CopyHole(IntPtr ptr, int index);
+        internal abstract IntPtr CopyPolygon(IntPtr ptr, int index);
 
-        internal abstract void ReverseHole(IntPtr ptr, int index);
+        internal abstract void ReversePolygon(IntPtr ptr, int index);
 
         internal abstract bool IsUnbounded(IntPtr ptr);
 

@@ -15,6 +15,8 @@ extern "C"
 
 	CGALWRAPPER_API int PolygonWithHoles2_EEK_HoleCount(void* ptr);
 
+	CGALWRAPPER_API int PolygonWithHoles2_EEK_PointCount(void* ptr, int index);
+
 	CGALWRAPPER_API void* PolygonWithHoles2_EEK_Copy(void* ptr);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_Clear(void* ptr);
@@ -25,15 +27,21 @@ extern "C"
 
 	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d * points, int startIndex, int count);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr);
+	CGALWRAPPER_API Point2d PolygonWithHoles2_EEK_GetPoint(void* ptr, int polyIndex, int pointIndex);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_AddHoleFromPoints(void* ptr, Point2d * points, int startIndex, int count);
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count);
+
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point);
+
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count);
+
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_RemoveHole(void* ptr, int index);
 
-	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CopyHole(void* ptr, int index);
+	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CopyPolygon(void* ptr, int index);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_ReverseHole(void* ptr, int index);
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_ReversePolygon(void* ptr, int index);
 
 	CGALWRAPPER_API bool PolygonWithHoles2_EEK_IsUnbounded(void* ptr);
 
