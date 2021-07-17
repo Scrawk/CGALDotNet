@@ -133,6 +133,17 @@ namespace CGALDotNet.Polygons
             IsUnbounded = true;
         }
 
+        public int PointCount(BOUNDARY_OR_HOLE op, int index = 0)
+        {
+            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+                return Kernel.PointCount(Ptr, BOUNDARY_INDEX);
+            else
+            {
+                ErrorUtil.CheckBounds(index, HoleCount);
+                return Kernel.PointCount(Ptr, index);
+            }
+        }
+
         public void Remove(BOUNDARY_OR_HOLE op, int index = 0)
         {
             if (op == BOUNDARY_OR_HOLE.BOUNDARY)
@@ -177,21 +188,21 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void GetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int pointStartIndex, int holeIndex = 0)
+        public void GetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int holeIndex = 0)
         {
             if (op == BOUNDARY_OR_HOLE.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
-                ErrorUtil.CheckBounds(points, pointStartIndex, count);
-                Kernel.GetPoints(Ptr, points, BOUNDARY_INDEX, pointStartIndex, count);
+                ErrorUtil.CheckBounds(points, 0, count);
+                Kernel.GetPoints(Ptr, points, BOUNDARY_INDEX, 0, count);
             }
             else
             {
                 ErrorUtil.CheckBounds(holeIndex, HoleCount);
                 int count = Kernel.PointCount(Ptr, holeIndex);
 
-                ErrorUtil.CheckBounds(points, pointStartIndex, count);
-                Kernel.GetPoints(Ptr, points, holeIndex, pointStartIndex, count);
+                ErrorUtil.CheckBounds(points, 0, count);
+                Kernel.GetPoints(Ptr, points, holeIndex, 0, count);
             }
         }
 
@@ -213,15 +224,15 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void SetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int pointStartIndex, int holeIndex = 0)
+        public void SetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int holeIndex = 0)
         {
             if (op == BOUNDARY_OR_HOLE.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                 count = Math.Max(count, points.Length);
 
-                ErrorUtil.CheckBounds(points, pointStartIndex, count);
-                Kernel.SetPoints(Ptr, points, BOUNDARY_INDEX, pointStartIndex, count);
+                ErrorUtil.CheckBounds(points, 0, count);
+                Kernel.SetPoints(Ptr, points, BOUNDARY_INDEX, 0, count);
                 IsUnbounded = count > 0;
             }
             else
@@ -231,8 +242,8 @@ namespace CGALDotNet.Polygons
                 int count = Kernel.PointCount(Ptr, holeIndex);
                 count = Math.Max(count, points.Length);
 
-                ErrorUtil.CheckBounds(points, pointStartIndex, count);
-                Kernel.SetPoints(Ptr, points, holeIndex, pointStartIndex, count);
+                ErrorUtil.CheckBounds(points, 0, count);
+                Kernel.SetPoints(Ptr, points, holeIndex, 0, count);
             }
         }
 

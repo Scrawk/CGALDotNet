@@ -138,10 +138,10 @@ namespace CGALDotNet.Polygons
             return Kernel.GetPoint(Ptr, index);
         }
 
-        public void GetPoints(Point2d[] points, int startIndex = 0)
+        public void GetPoints(Point2d[] points)
         {
-            ErrorUtil.CheckBounds(points, startIndex, Count);
-            Kernel.GetPoints(Ptr, points, startIndex, Count);
+            ErrorUtil.CheckBounds(points, 0, Count);
+            Kernel.GetPoints(Ptr, points, 0, Count);
         }
 
         public void GetPoints(List<Point2d> points)
@@ -157,11 +157,11 @@ namespace CGALDotNet.Polygons
             IsUpdated = false;
         }
 
-        public void SetPoints(Point2d[] points, int startIndex = 0)
+        public void SetPoints(Point2d[] points)
         {
             int count = Math.Max(Count, points.Length);
-            ErrorUtil.CheckBounds(points, startIndex, count);
-            Kernel.SetPoints(Ptr, points, startIndex, count);
+            ErrorUtil.CheckBounds(points, 0, count);
+            Kernel.SetPoints(Ptr, points, 0, count);
             IsUpdated = false;
         }
 
