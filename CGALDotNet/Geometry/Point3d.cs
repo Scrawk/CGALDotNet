@@ -223,16 +223,6 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Cast from a tuple to a point.
-        /// </summary>
-        /// <param name="v">The tuple.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Point3d(ValueTuple<double, double, double> v)
-        {
-            return new Point3d(v.Item1, v.Item2, v.Item3);
-        }
-
-        /// <summary>
         /// Are these points equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

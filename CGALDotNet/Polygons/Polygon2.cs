@@ -113,6 +113,12 @@ namespace CGALDotNet.Polygons
 
         protected private PolygonKernel2 Kernel { get; private set; }
 
+        public Point2d this[int i]
+        {
+            get => GetPointWrapped(i);
+            set => SetPoint(i, value);
+        }
+
         public void Clear()
         {
             Count = 0;

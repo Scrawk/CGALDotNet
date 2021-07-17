@@ -4,6 +4,61 @@
         <name>CGALDotNet</name>
     </assembly>
     <members>
+        <member name="M:CGALDotNet.Geometry.Box2d.Intersects(CGALDotNet.Geometry.Box2d)">
+            <summary>
+            Returns true if this box intersects the other box.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2d.Contains(CGALDotNet.Geometry.Box2d)">
+            <summary>
+            Does the box contain the other box.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2d.Contains(CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Does the box contain the point.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2d.Closest(CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Find the closest point to the box.
+            If point inside box return point.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Circle2d.Radius2">
+            <summary>
+            The squared radius.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Circle2d.Diameter">
+            <summary>
+            The circles diameter.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Circle2d.Area">
+            <summary>
+            The circles area.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Circle2d.Circumference">
+            <summary>
+            The circles circumference.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Circle2d.Contains(CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Does the circle contain the point.
+            </summary>
+            <param name="p">The point</param>
+            <returns>true if circle contains point</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Circle2d.Intersects(CGALDotNet.Geometry.Circle2d)">
+            <summary>
+            Does this circle intersect with the other circle.
+            </summary>
+            <param name="circle">The other circle</param>
+            <returns>True if the circles intersect</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Degree">
             <summary>
             Represents a angle in degrees.
@@ -268,12 +323,6 @@
             Are these points not equal.
             </summary>
         </member>
-        <member name="M:CGALDotNet.Geometry.Point2d.op_Implicit(System.ValueTuple{System.Double,System.Double})~CGALDotNet.Geometry.Point2d">
-            <summary>
-            Cast from a tuple to a point.
-            </summary>
-            <param name="v">The tuple.</param>
-        </member>
         <member name="M:CGALDotNet.Geometry.Point2d.Equals(System.Object)">
             <summary>
             Are these points equal.
@@ -477,12 +526,6 @@
             <summary>
             Are these points not equal.
             </summary>
-        </member>
-        <member name="M:CGALDotNet.Geometry.Point3d.op_Implicit(System.ValueTuple{System.Double,System.Double,System.Double})~CGALDotNet.Geometry.Point3d">
-            <summary>
-            Cast from a tuple to a point.
-            </summary>
-            <param name="v">The tuple.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.Point3d.Equals(System.Object)">
             <summary>
@@ -696,6 +739,16 @@
         <member name="M:CGALDotNet.Geometry.Radian.ToString(System.String)">
             <summary>
             Angles as a string.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2d.Area">
+            <summary>
+            The triangles area.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2d.SignedArea">
+            <summary>
+            The triangles signed area.
             </summary>
         </member>
         <member name="M:CGALDotNet.MathUtil.Wrap(System.Int32,System.Int32)">

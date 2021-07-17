@@ -149,7 +149,7 @@ namespace CGALDotNetConsole.Examples
             foreach (var p in polygon.Copy(op))
                 Console.WriteLine(p);
 
-            polygon.Transform(op, (1,1), Degree.A180, 2);
+            polygon.Transform(op, new Point2d(1,1), Degree.A180, 2);
 
             Console.WriteLine("After transform");
             foreach (var p in polygon.Copy(op))
