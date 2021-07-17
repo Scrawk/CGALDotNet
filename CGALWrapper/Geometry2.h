@@ -23,3 +23,22 @@ struct Point2d
 
 };
 
+struct Segment2d
+{
+    Point2d a;
+    Point2d b;
+};
+
+struct Triangle2d
+{
+    Point2d a;
+    Point2d b;
+    Point2d c;
+};
+
+struct Circle2d
+{
+    Point2d center;
+    double radius;
+};
+

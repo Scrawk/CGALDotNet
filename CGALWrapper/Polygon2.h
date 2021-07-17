@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CGALWrapper.h"
-#include "Points.h"
+#include "Geometry2.h"
 
 #include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h> 
@@ -10,160 +10,156 @@
 #include <CGAL/Direction_2.h>
 
 template<class K>
-int Polygon2_Count(void* ptr)
+class Polygon2
 {
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return polygon->size();
-}
 
-template<class K>
-void* Polygon2_Copy(void* ptr)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return new CGAL::Polygon_2<K>(*polygon);
-}
+private:
+	Polygon2() {}
 
-template<class K>
-void Polygon2_Clear(void* ptr)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	polygon->clear();
-}
+	typedef CGAL::Polygon_2<K> Polygon_2;
+	typedef CGAL::Aff_transformation_2<K> Transformation_2;
 
-template<class K>
-void* Polygon2_CreateFromPoints(Point2d* points, int startIndex, int count)
-{
-	auto polygon = new CGAL::Polygon_2<K>();
+public:
 
-	for (auto i = 0; i < count; i++)
-		polygon->push_back(points[startIndex + i].To<K>());
-
-	return polygon;
-}
-
-template<class K>
-Point2d Polygon2_GetPoint(void* ptr, int index)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	auto point = polygon->vertex(index);
-
-	return { CGAL::to_double(point.x()), CGAL::to_double(point.y()) };
-}
-
-template<class K>
-void Polygon2_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-
-	for (auto i = 0; i < count; i++)
+	static int Count(void* ptr)
 	{
-		auto point = polygon->vertex(i);
-		points[startIndex + i].x = CGAL::to_double(point.x());
-		points[startIndex + i].y = CGAL::to_double(point.y());
+		auto polygon = (Polygon_2*)ptr;
+		return polygon->size();
 	}
-}
 
-template<class K>
-void Polygon2_SetPoint(void* ptr, int index, Point2d point)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	(*polygon)[index] = CGAL::Point_2<K>(point.x, point.y);
-}
-
-template<class K>
-void Polygon2_SetPoints(void* ptr, Point2d* points, int startIndex, int count)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	auto size = polygon->size();
-
-	for (auto i = 0; i < count; i++)
+	static void* Copy(void* ptr)
 	{
-		int index = startIndex + i;
-
-		if(index < size)
-			(*polygon)[i] = points[index].To<K>();
-		else
-			polygon->push_back(points[index].To<K>());
+		auto polygon = (Polygon_2*)ptr;
+		return new Polygon_2(*polygon);
 	}
-}
 
-template<class K>
-void Polygon2_Reverse(void* ptr)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	polygon->reverse_orientation();
-}
+	static void Clear(void* ptr)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		polygon->clear();
+	}
 
-template<class K>
-bool Polygon2_IsSimple(void* ptr)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return polygon->is_simple();
-}
+	static void* CreateFromPoints(Point2d* points, int startIndex, int count)
+	{
+		auto polygon = new Polygon_2();
 
-template<class K>
-bool Polygon2_IsConvex(void* ptr)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return polygon->is_convex();
-}
+		for (auto i = 0; i < count; i++)
+			polygon->push_back(points[startIndex + i].To<K>());
 
-template<class K>
-CGAL::Orientation Polygon2_Orientation(void* ptr)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return polygon->orientation();
-}
+		return polygon;
+	}
 
-template<class K>
-CGAL::Oriented_side Polygon2_OrientedSide(void* ptr, Point2d point)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return polygon->oriented_side(point.To<K>());
-}
+	static Point2d GetPoint(void* ptr, int index)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		auto point = polygon->vertex(index);
 
-template<class K>
-double Polygon2_SignedArea(void* ptr)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	return CGAL::to_double(polygon->area());
-}
+		return { CGAL::to_double(point.x()), CGAL::to_double(point.y()) };
+	}
 
-template<class K>
-void Polygon2_Translate(void* ptr, Point2d translation)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	CGAL::Aff_transformation_2<K> transformation(CGAL::TRANSLATION, translation.ToVector<K>());
-	(*polygon) = CGAL::transform(transformation, *polygon);
-}
+	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	{
+		auto polygon = (Polygon_2*)ptr;
 
-template<class K>
-void Polygon2_Rotate(void* ptr, double rotation)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	CGAL::Aff_transformation_2<K> transformation(CGAL::ROTATION, sin(rotation), cos(rotation));
-	(*polygon) = CGAL::transform(transformation, *polygon);
-}
+		for (auto i = 0; i < count; i++)
+		{
+			auto point = polygon->vertex(i);
+			points[startIndex + i].x = CGAL::to_double(point.x());
+			points[startIndex + i].y = CGAL::to_double(point.y());
+		}
+	}
 
-template<class K>
-void Polygon2_Scale(void* ptr, double scale)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
-	CGAL::Aff_transformation_2<K> transformation(CGAL::SCALING, scale);
-	(*polygon) = CGAL::transform(transformation, *polygon);
-}
+	static void SetPoint(void* ptr, int index, Point2d point)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		(*polygon)[index] = CGAL::Point_2<K>(point.x, point.y);
+	}
 
-template<class K>
-void Polygon2_Transform(void* ptr, Point2d translation, double rotation, double scale)
-{
-	auto polygon = (CGAL::Polygon_2<K>*)ptr;
+	static void SetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		auto size = polygon->size();
 
-	CGAL::Aff_transformation_2<K> T(CGAL::TRANSLATION, translation.ToVector<K>());
-	CGAL::Aff_transformation_2<K> R(CGAL::ROTATION, sin(rotation), cos(rotation));
-	CGAL::Aff_transformation_2<K> S(CGAL::SCALING, scale);
+		for (auto i = 0; i < count; i++)
+		{
+			int index = startIndex + i;
 
-	(*polygon) = CGAL::transform(T * R * S, *polygon);
-}
+			if (index < size)
+				(*polygon)[i] = points[index].To<K>();
+			else
+				polygon->push_back(points[index].To<K>());
+		}
+	}
+
+	static void Reverse(void* ptr)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		polygon->reverse_orientation();
+	}
+
+	static bool IsSimple(void* ptr)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		return polygon->is_simple();
+	}
+
+	static bool IsConvex(void* ptr)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		return polygon->is_convex();
+	}
+
+	static CGAL::Orientation Orientation(void* ptr)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		return polygon->orientation();
+	}
+
+	static CGAL::Oriented_side OrientedSide(void* ptr, Point2d point)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		return polygon->oriented_side(point.To<K>());
+	}
+
+	static double SignedArea(void* ptr)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		return CGAL::to_double(polygon->area());
+	}
+
+	static void Translate(void* ptr, Point2d translation)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		Transformation_2 transformation(CGAL::TRANSLATION, translation.ToVector<K>());
+		(*polygon) = CGAL::transform(transformation, *polygon);
+	}
+
+	static void Rotate(void* ptr, double rotation)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		Transformation_2 transformation(CGAL::ROTATION, sin(rotation), cos(rotation));
+		(*polygon) = CGAL::transform(transformation, *polygon);
+	}
+
+	static void Scale(void* ptr, double scale)
+	{
+		auto polygon = (Polygon_2*)ptr;
+		Transformation_2 transformation(CGAL::SCALING, scale);
+		(*polygon) = CGAL::transform(transformation, *polygon);
+	}
+
+	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
+	{
+		auto polygon = (Polygon_2*)ptr;
+
+		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<K>());
+		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+		Transformation_2 S(CGAL::SCALING, scale);
+
+		(*polygon) = CGAL::transform(T * R * S, *polygon);
+	}
+
+};
 
 
 

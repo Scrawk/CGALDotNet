@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Polygons">
       <UniqueIdentifier>{52bcf3aa-6773-4300-87e1-f8fb778f5af1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Arrangements">
+      <UniqueIdentifier>{88c3aad0-96b4-4bbe-928a-08872ee87f46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Arrangements">
+      <UniqueIdentifier>{2e0a034f-4a47-4736-8348-e07b217b9889}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -36,11 +42,8 @@
     <ClInclude Include="CGALWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Points.h">
+    <ClInclude Include="Geometry2.h">
       <Filter>Header Files\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Polygon2_EIK.h">
-      <Filter>Header Files\Polygons</Filter>
     </ClInclude>
     <ClInclude Include="Polygon2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
@@ -63,13 +66,16 @@
     <ClInclude Include="Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Arrangement2.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrangement2_EEK.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Polygon2_EIK.cpp">
-      <Filter>Source Files\Polygons</Filter>
     </ClCompile>
     <ClCompile Include="Polygon2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
@@ -79,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="PolygonWithHoles2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrangement2_EEK.cpp">
+      <Filter>Source Files\Arrangements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

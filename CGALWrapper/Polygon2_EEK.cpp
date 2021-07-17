@@ -5,100 +5,103 @@
 
 void* Polygon2_EEK_Create()
 {
-	return Util_Create<CGAL::Polygon_2<EEK>>();
+	return Util::Create<CGAL::Polygon_2<EEK>>();
 }
 
 void* Polygon2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
 {
-	return Polygon2_CreateFromPoints<EEK>(points, startIndex, count);
+	return Polygon2<EEK>::CreateFromPoints(points, startIndex, count);
 }
 
 void Polygon2_EEK_Release(void* ptr)
 {
-	Util_Release<CGAL::Polygon_2<EEK>>(ptr);
+	Util::Release<CGAL::Polygon_2<EEK>>(ptr);
 }
 
 int Polygon2_EEK_Count(void* ptr)
 {
-	return Polygon2_Count<EEK>(ptr);
+	return Polygon2<EEK>::Count(ptr);
 }
 
 void* Polygon2_EEK_Copy(void* ptr)
 {
-	return Polygon2_Copy<EEK>(ptr);
+	return Polygon2<EEK>::Copy(ptr);
 }
 
 void Polygon2_EEK_Clear(void* ptr)
 {
-	Polygon2_Clear<EEK>(ptr);
+	Polygon2<EEK>::Clear(ptr);
 }
 
 Point2d Polygon2_EEK_GetPoint(void* ptr, int index)
 {
-	return Polygon2_GetPoint<EEK>(ptr, index);
+	return Polygon2<EEK>::GetPoint(ptr, index);
 }
 
 void Polygon2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
-	Polygon2_GetPoints<EEK>(ptr, points, startIndex, count);
+	Polygon2<EEK>::GetPoints(ptr, points, startIndex, count);
 }
 
 void Polygon2_EEK_SetPoint(void* ptr, int index, Point2d point)
 {
-	Polygon2_SetPoint<EEK>(ptr, index, point);
+	Polygon2<EEK>::SetPoint(ptr, index, point);
 }
 
 void Polygon2_EEK_SetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
-	Polygon2_SetPoints<EEK>(ptr, points, startIndex, count);
+	Polygon2<EEK>::SetPoints(ptr, points, startIndex, count);
 }
 
 void Polygon2_EEK_Reverse(void* ptr)
 {
-	Polygon2_Reverse<EEK>(ptr);
+	Polygon2<EEK>::Reverse<(ptr);
 }
 
 bool Polygon2_EEK_IsSimple(void* ptr)
 {
-	return Polygon2_IsSimple<EEK>(ptr);
+	auto polygon = (CGAL::Polygon_2<EEK>*)ptr;
+	return polygon->is_simple();
+
+	//return Polygon2<EEK>::IsSimple<(ptr);
 }
 
 bool Polygon2_EEK_IsConvex(void* ptr)
 {
-	return Polygon2_IsConvex<EEK>(ptr);
+	return Polygon2<EEK>::IsConvex(ptr);
 }
 
 CGAL::Orientation Polygon2_EEK_Orientation(void* ptr)
 {
-	return Polygon2_Orientation<EEK>(ptr);
+	return Polygon2<EEK>::Orientation(ptr);
 }
 
 CGAL::Oriented_side Polygon2_EEK_OrientedSide(void* ptr, Point2d point)
 {
-	return Polygon2_OrientedSide<EEK>(ptr, point);
+	return Polygon2<EEK>::OrientedSide(ptr, point);
 }
 
 double Polygon2_EEK_SignedArea(void* ptr)
 {
-	return Polygon2_SignedArea<EEK>(ptr);
+	return Polygon2<EEK>::SignedArea(ptr);
 }
 
 void Polygon2_EEK_Translate(void* ptr, Point2d translation)
 {
-	Polygon2_Translate<EEK>(ptr, translation);
+	Polygon2<EEK>::Translate(ptr, translation);
 }
 
 void Polygon2_EEK_Rotate(void* ptr, double rotation)
 {
-	Polygon2_Rotate<EEK>(ptr, rotation);
+	Polygon2<EEK>::Rotate(ptr, rotation);
 }
 
 void Polygon2_EEK_Scale(void* ptr, double scale)
 {
-	Polygon2_Scale<EEK>(ptr, scale);
+	Polygon2<EEK>::Scale(ptr, scale);
 }
 
 void Polygon2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
 {
-	Polygon2_Transform<EEK>(ptr, translation, rotation, scale);
+	Polygon2<EEK>::Transform(ptr, translation, rotation, scale);
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "CGALWrapper.h"
-#include "Points.h"
+#include "Geometry2.h"
 
 #include <CGAL/Boolean_set_operations_2.h>
 #include <CGAL/connect_holes.h>
@@ -8,247 +8,216 @@
 #include <CGAL/enum.h>
 #include <vector>
 
-//Do Intersect
-
-template<class P1, class P2>
-bool PolygonBoolean2_DoIntersect(P1* polygon1, P2* polygon2)
-{
-	return CGAL::do_intersect(*polygon1, *polygon2);
-}
-
 template<class K>
-bool PolygonBoolean2_DoIntersect_P_P(void* ptr1, void* ptr2)
+class PolygonBoolean2
 {
-	using POLYGON = CGAL::Polygon_2<K>;
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (POLYGON*)ptr2;
+private:
+	PolygonBoolean2() {}
 
-	return PolygonBoolean2_DoIntersect<POLYGON, POLYGON>(polygon1, polygon2);
-}
+	typedef CGAL::Polygon_2<K> Polygon_2;
+	typedef CGAL::Polygon_with_holes_2<K> Pwh_2;
 
-template<class K>
-bool PolygonBoolean2_DoIntersect_P_PWH(void* ptr1, void* ptr2)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+public:
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+	//Do Intersect
 
-	return PolygonBoolean2_DoIntersect<POLYGON, PWH>(polygon1, polygon2);
-}
-
-template<class K>
-bool PolygonBoolean2_DoIntersect_PWH_PWH(void* ptr1, void* ptr2)
-{
-	using PWH = CGAL::Polygon_with_holes_2<K>;
-
-	auto polygon1 = (PWH*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
-
-	return PolygonBoolean2_DoIntersect<PWH, PWH>(polygon1, polygon2);
-}
-
-//Join
-
-template<class K, class P1, class P2>
-bool PolygonBoolean2_Join(P1* polygon1, P2* polygon2, void** resultPtr)
-{
-	auto result = new CGAL::Polygon_with_holes_2<K>();
-
-	if (CGAL::join(*polygon1, *polygon2, *result))
+	template<class P1, class P2>
+	static bool DoIntersect(P1* polygon1, P2* polygon2)
 	{
-		*resultPtr = result;
-		return true;
+		return CGAL::do_intersect(*polygon1, *polygon2);
 	}
-	else
+
+	static bool DoIntersect_P_P(void* ptr1, void* ptr2)
 	{
-		delete result;
-		result = nullptr;
-		return false;
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Polygon_2*)ptr2;
+
+		return DoIntersect<Polygon_2, Polygon_2>(polygon1, polygon2);
 	}
-}
 
-template<class K>
-bool PolygonBoolean2_Join_P_P(void* ptr1, void* ptr2, void** resultPtr)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
+	static bool DoIntersect_P_PWH(void* ptr1, void* ptr2)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (POLYGON*)ptr2;
+		return DoIntersect<Polygon_2, Pwh_2>(polygon1, polygon2);
+	}
 
-	return PolygonBoolean2_Join<K, POLYGON, POLYGON>(polygon1, polygon2, resultPtr);
-}
+	static bool DoIntersect_PWH_PWH(void* ptr1, void* ptr2)
+	{
+		auto polygon1 = (Pwh_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-template<class K>
-bool PolygonBoolean2_Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+		return DoIntersect<Pwh_2, Pwh_2>(polygon1, polygon2);
+	}
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+	//Join
 
-	return PolygonBoolean2_Join<K, POLYGON, PWH>(polygon1, polygon2, resultPtr);
-}
+	template<class P1, class P2>
+	static bool Join(P1* polygon1, P2* polygon2, void** resultPtr)
+	{
+		auto result = new CGAL::Polygon_with_holes_2<K>();
 
-template<class K>
-bool PolygonBoolean2_Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr)
-{
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+		if (CGAL::join(*polygon1, *polygon2, *result))
+		{
+			*resultPtr = result;
+			return true;
+		}
+		else
+		{
+			delete result;
+			result = nullptr;
+			return false;
+		}
+	}
 
-	auto polygon1 = (PWH*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+	static bool Join_P_P(void* ptr1, void* ptr2, void** resultPtr)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Polygon_2*)ptr2;
 
-	return PolygonBoolean2_Join<K, PWH, PWH>(polygon1, polygon2, resultPtr);
-}
+		return Join<Polygon_2, Polygon_2>(polygon1, polygon2, resultPtr);
+	}
 
-//Intersect
+	static bool Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-template<class K, class P1, class P2, class LIST>
-void PolygonBoolean2_Intersect(P1* polygon1, P2* polygon2, LIST& list)
-{
-	CGAL::intersection(*polygon1, *polygon2, std::back_inserter(list));
-}
+		return Join<Polygon_2, Pwh_2>(polygon1, polygon2, resultPtr);
+	}
 
-template<class K, class LIST>
-void PolygonBoolean2_Intersect_P_P(void* ptr1, void* ptr2, LIST& list)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
+	static bool Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr)
+	{
+		auto polygon1 = (Pwh_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (POLYGON*)ptr2;
+		return Join<Pwh_2, Pwh_2>(polygon1, polygon2, resultPtr);
+	}
 
-	PolygonBoolean2_Intersect<K, POLYGON, POLYGON, LIST>(polygon1, polygon2, list);
-}
+	//Intersect
 
-template<class K, class LIST>
-void PolygonBoolean2_Intersect_P_PWH(void* ptr1, void* ptr2, LIST& list)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+	template<class P1, class P2, class LIST>
+	static void Intersect(P1* polygon1, P2* polygon2, LIST& list)
+	{
+		CGAL::intersection(*polygon1, *polygon2, std::back_inserter(list));
+	}
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+	template<class LIST>
+	static void Intersect_P_P(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Polygon_2*)ptr2;
 
-	PolygonBoolean2_Intersect<K, POLYGON, PWH, LIST>(polygon1, polygon2, list);
-}
+		Intersect<Polygon_2, Polygon_2, LIST>(polygon1, polygon2, list);
+	}
 
-template<class K, class LIST>
-void PolygonBoolean2_Intersect_PWH_PWH(void* ptr1, void* ptr2, LIST& list)
-{
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+	template<class LIST>
+	static void Intersect_P_PWH(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-	auto polygon1 = (PWH*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+		Intersect<Polygon_2, Pwh_2, LIST>(polygon1, polygon2, list);
+	}
 
-	PolygonBoolean2_Intersect<K, PWH, PWH, LIST>(polygon1, polygon2, list);
-}
+	template<class LIST>
+	static void Intersect_PWH_PWH(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Pwh_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-//Difference
+		Intersect<Pwh_2, Pwh_2, LIST>(polygon1, polygon2, list);
+	}
 
-template<class K, class P1, class P2, class LIST>
-void PolygonBoolean2_Difference(P1* polygon1, P2* polygon2, LIST& list)
-{
-	CGAL::difference(*polygon1, *polygon2, std::back_inserter(list));
-}
+	//Difference
 
-template<class K, class LIST>
-void PolygonBoolean2_Difference_P_P(void* ptr1, void* ptr2, LIST& list)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
+	template<class P1, class P2, class LIST>
+	static void Difference(P1* polygon1, P2* polygon2, LIST& list)
+	{
+		CGAL::difference(*polygon1, *polygon2, std::back_inserter(list));
+	}
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (POLYGON*)ptr2;
+	template<class LIST>
+	static void Difference_P_P(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Polygon_2*)ptr2;
 
-	PolygonBoolean2_Difference<K, POLYGON, POLYGON, LIST>(polygon1, polygon2, list);
-}
+		Difference<Polygon_2, Polygon_2, LIST>(polygon1, polygon2, list);
+	}
 
-template<class K, class LIST>
-void PolygonBoolean2_Difference_P_PWH(void* ptr1, void* ptr2, LIST& list)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+	template<class LIST>
+	static void Difference_P_PWH(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+		Difference<Polygon_2, Pwh_2, LIST>(polygon1, polygon2, list);
+	}
 
-	PolygonBoolean2_Difference<K, POLYGON, PWH, LIST>(polygon1, polygon2, list);
-}
+	template<class LIST>
+	static void Difference_PWH_PWH(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Pwh_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-template<class K, class LIST>
-void PolygonBoolean2_Difference_PWH_PWH(void* ptr1, void* ptr2, LIST& list)
-{
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+		Difference<Pwh_2, Pwh_2, LIST>(polygon1, polygon2, list);
+	}
 
-	auto polygon1 = (PWH*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+	//Symmetric Difference
 
-	PolygonBoolean2_Difference<K, PWH, PWH, LIST>(polygon1, polygon2, list);
-}
+	template<class P1, class P2, class LIST>
+	static void SymmetricDifference(P1* polygon1, P2* polygon2, LIST& list)
+	{
+		CGAL::symmetric_difference(*polygon1, *polygon2, std::back_inserter(list));
+	}
 
-//Symmetric Difference
+	template<class LIST>
+	static void SymmetricDifference_P_P(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Polygon_2*)ptr2;
 
-template<class K, class P1, class P2, class LIST>
-void PolygonBoolean2_SymmetricDifference(P1* polygon1, P2* polygon2, LIST& list)
-{
-	CGAL::symmetric_difference(*polygon1, *polygon2, std::back_inserter(list));
-}
+		SymmetricDifference<Polygon_2, Polygon_2, LIST>(polygon1, polygon2, list);
+	}
 
-template<class K, class LIST>
-void PolygonBoolean2_SymmetricDifference_P_P(void* ptr1, void* ptr2, LIST& list)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
+	template<class LIST>
+	static void SymmetricDifference_P_PWH(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Polygon_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (POLYGON*)ptr2;
+		SymmetricDifference<Polygon_2, Pwh_2, LIST>(polygon1, polygon2, list);
+	}
 
-	PolygonBoolean2_SymmetricDifference<K, POLYGON, POLYGON, LIST>(polygon1, polygon2, list);
-}
+	template<class LIST>
+	static void SymmetricDifference_PWH_PWH(void* ptr1, void* ptr2, LIST& list)
+	{
+		auto polygon1 = (Pwh_2*)ptr1;
+		auto polygon2 = (Pwh_2*)ptr2;
 
-template<class K, class LIST>
-void PolygonBoolean2_SymmetricDifference_P_PWH(void* ptr1, void* ptr2, LIST& list)
-{
-	using POLYGON = CGAL::Polygon_2<K>;
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+		SymmetricDifference<Pwh_2, Pwh_2, LIST>(polygon1, polygon2, list);
+	}
 
-	auto polygon1 = (POLYGON*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+	//Complement
 
-	PolygonBoolean2_SymmetricDifference<K, POLYGON, PWH, LIST>(polygon1, polygon2, list);
-}
+	template<class P, class LIST>
+	static void Complement(P* polygon, LIST& list)
+	{
+		CGAL::complement(*polygon, std::back_inserter(list));
+	}
 
-template<class K, class LIST>
-void PolygonBoolean2_SymmetricDifference_PWH_PWH(void* ptr1, void* ptr2, LIST& list)
-{
-	using PWH = CGAL::Polygon_with_holes_2<K>;
+	template<class LIST>
+	static void Complement_PWH(void* ptr, LIST& list)
+	{
+		auto pwh = (Pwh_2*)ptr;
 
-	auto polygon1 = (PWH*)ptr1;
-	auto polygon2 = (PWH*)ptr2;
+		Complement<Pwh_2, LIST>(pwh, list);
+	}
 
-	PolygonBoolean2_SymmetricDifference<K, PWH, PWH, LIST>(polygon1, polygon2, list);
-}
-
-//Complement
-
-template<class K, class P, class LIST>
-void PolygonBoolean2_Complement(P* polygon, LIST& list)
-{
-	CGAL::complement(*polygon, std::back_inserter(list));
-}
-
-template<class K, class LIST>
-void PolygonBoolean2_Complement_PWH(void* ptr, LIST& list)
-{
-	using PWH = CGAL::Polygon_with_holes_2<K>;
-
-	auto pwh = (PWH*)ptr;
-
-	PolygonBoolean2_Complement<K, PWH, LIST>(pwh, list);
-}
-
-
+};
 
 
 

@@ -1,19 +1,24 @@
 #pragma once
 
-template<class T>
-void* Util_Create()
+namespace Util
 {
-	return new T();
-}
 
-template<class T>
-void Util_Release(void* ptr)
-{
-	auto obj = (T*)ptr;
-
-	if (obj != nullptr)
+	template<class T>
+	void* Create()
 	{
-		delete obj;
-		obj = nullptr;
+		return new T();
 	}
+
+	template<class T>
+	void Release(void* ptr)
+	{
+		auto obj = (T*)ptr;
+
+		if (obj != nullptr)
+		{
+			delete obj;
+			obj = nullptr;
+		}
+	}
+
 }

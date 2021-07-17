@@ -121,8 +121,14 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5,-5)
             };
 
-            var pwh = new PolygonWithHoles2<EEK>(new Polygon2<EEK>(bounds));
-            pwh.AddHole(new Polygon2<EEK>(points));
+            //var boundary = new Polygon2<EEK>(bounds);
+            //boundary.Print();
+
+           // foreach (var p in boundary)
+            //    Console.WriteLine(p);
+
+            var pwh = new PolygonWithHoles2<EEK>(bounds);
+            ///pwh.AddHole(new Polygon2<EEK>(points));
 
             pwh.Print();
 
