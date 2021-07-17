@@ -16,11 +16,11 @@ private:
 
 	PolygonWithHoles2() {}
 
+public:
+
 	typedef CGAL::Polygon_with_holes_2<K> Pwh_2;
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Point_2<K> Point_2;
-
-public:
 
 	static Polygon_2* GetBoundaryOrHole(void* ptr, int index, bool forceBoundary = false)
 	{

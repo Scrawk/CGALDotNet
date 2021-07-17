@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Polygons;
+using CGALDotNet.Arrangements;
 
 namespace CGALDotNet
 {
@@ -13,6 +14,8 @@ namespace CGALDotNet
         internal abstract PolygonWithHolesKernel2 PolygonWithHolesKernel2 { get; }
 
         internal abstract PolygonBooleanKernel2 PolygonBooleanKernel2 { get; }
+
+        internal abstract ArrangementKernel2 ArrangementKernel2 { get; }
     }
 
     public class EEK : CGALKernel
@@ -24,5 +27,7 @@ namespace CGALDotNet
         internal override PolygonWithHolesKernel2 PolygonWithHolesKernel2 => PolygonWithHolesKernel2_EEK.Instance;
 
         internal override PolygonBooleanKernel2 PolygonBooleanKernel2 => PolygonBooleanKernel2_EEK.Instance;
+
+        internal override ArrangementKernel2 ArrangementKernel2 => ArrangementKernel2_EEK.Instance;
     }
 }

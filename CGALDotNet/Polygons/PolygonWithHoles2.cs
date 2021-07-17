@@ -7,7 +7,11 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Polygons
 {
 
-    public enum BOUNDARY_OR_HOLE { BOUNDARY, HOLE }
+    public enum POLYGON_ELEMENT 
+    { 
+        BOUNDARY, 
+        HOLE 
+    }
 
     public sealed class PolygonWithHoles2<K> : PolygonWithHoles2 where K : CGALKernel, new()
     {
@@ -42,9 +46,9 @@ namespace CGALDotNet.Polygons
             return new PolygonWithHoles2<K>(Kernel.Copy(Ptr));
         }
 
-        public Polygon2<K> Copy(BOUNDARY_OR_HOLE op, int index = 0)
+        public Polygon2<K> Copy(POLYGON_ELEMENT element, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 CheckIsBounded();
                 var ptr = Kernel.CopyPolygon(Ptr, BOUNDARY_INDEX);
@@ -75,10 +79,10 @@ namespace CGALDotNet.Polygons
             var polygons = new List<Polygon2<K>>(count);
 
             if (!IsUnbounded)
-                polygons.Add(Copy(BOUNDARY_OR_HOLE.BOUNDARY));
+                polygons.Add(Copy(POLYGON_ELEMENT.BOUNDARY));
 
             for (int i = 0; i < HoleCount; i++)
-                polygons.Add(Copy(BOUNDARY_OR_HOLE.HOLE, i));
+                polygons.Add(Copy(POLYGON_ELEMENT.HOLE, i));
 
             return polygons;
         }
@@ -111,7 +115,7 @@ namespace CGALDotNet.Polygons
         {
             Kernel = kernel.PolygonWithHolesKernel2;
             Ptr = Kernel.Create();
-            SetPoints(BOUNDARY_OR_HOLE.BOUNDARY, boundary, 0);
+            SetPoints(POLYGON_ELEMENT.BOUNDARY, boundary, 0);
             IsUnbounded = false;
         }
 
@@ -133,9 +137,9 @@ namespace CGALDotNet.Polygons
             IsUnbounded = true;
         }
 
-        public int PointCount(BOUNDARY_OR_HOLE op, int index = 0)
+        public int PointCount(POLYGON_ELEMENT element, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.PointCount(Ptr, BOUNDARY_INDEX);
             else
             {
@@ -144,9 +148,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void Remove(BOUNDARY_OR_HOLE op, int index = 0)
+        public void Remove(POLYGON_ELEMENT element, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 Kernel.ClearBoundary(Ptr);
                 IsUnbounded = true;
@@ -159,9 +163,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void Reverse(BOUNDARY_OR_HOLE op, int index = 0)
+        public void Reverse(POLYGON_ELEMENT element, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 Kernel.ReversePolygon(Ptr, BOUNDARY_INDEX);
             else
             {
@@ -170,9 +174,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public Point2d GetPoint(BOUNDARY_OR_HOLE op, int pointIndex, int holeIndex = 0)
+        public Point2d GetPoint(POLYGON_ELEMENT element, int pointIndex, int holeIndex = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                 ErrorUtil.CheckBounds(pointIndex, count);
@@ -188,9 +192,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void GetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int holeIndex = 0)
+        public void GetPoints(POLYGON_ELEMENT element, Point2d[] points, int holeIndex = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                 ErrorUtil.CheckBounds(points, 0, count);
@@ -206,9 +210,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void SetPoint(BOUNDARY_OR_HOLE op, int pointIndex, Point2d point, int holeIndex = 0)
+        public void SetPoint(POLYGON_ELEMENT element, int pointIndex, Point2d point, int holeIndex = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                 ErrorUtil.CheckBounds(pointIndex, count);
@@ -224,9 +228,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void SetPoints(BOUNDARY_OR_HOLE op, Point2d[] points, int holeIndex = 0)
+        public void SetPoints(POLYGON_ELEMENT element, Point2d[] points, int holeIndex = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                 count = Math.Max(count, points.Length);
@@ -259,9 +263,9 @@ namespace CGALDotNet.Polygons
             return Kernel.IsUnbounded(Ptr);
         }
 
-        public bool FindIfSimple(BOUNDARY_OR_HOLE op, int index = 0)
+        public bool FindIfSimple(POLYGON_ELEMENT element, int index = 0)
         {
-            if(op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if(element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.IsSimple(Ptr, BOUNDARY_INDEX);
             else
             {
@@ -270,9 +274,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public bool FindIfConvex(BOUNDARY_OR_HOLE op, int index = 0)
+        public bool FindIfConvex(POLYGON_ELEMENT element, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.IsConvex(Ptr, BOUNDARY_INDEX);
             else
             {
@@ -281,9 +285,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public CGAL_ORIENTATION FindOrientation(BOUNDARY_OR_HOLE op, int index = 0)
+        public CGAL_ORIENTATION FindOrientation(POLYGON_ELEMENT element, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.Orientation(Ptr, BOUNDARY_INDEX);
             else
             {
@@ -292,9 +296,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public CGAL_ORIENTED_SIDE OrientedSide(BOUNDARY_OR_HOLE op, Point2d point, int index = 0)
+        public CGAL_ORIENTED_SIDE OrientedSide(POLYGON_ELEMENT element, Point2d point, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.OrientedSide(Ptr, BOUNDARY_INDEX, point);
             else
             {
@@ -303,9 +307,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public double FindSignedArea(BOUNDARY_OR_HOLE op, int index = 0)
+        public double FindSignedArea(POLYGON_ELEMENT element, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.SignedArea(Ptr, BOUNDARY_INDEX);
             else
             {
@@ -314,9 +318,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public double FindArea(BOUNDARY_OR_HOLE op, int index = 0)
+        public double FindArea(POLYGON_ELEMENT element, int index = 0)
         {
-            return Math.Abs(FindSignedArea(op, index));
+            return Math.Abs(FindSignedArea(element, index));
         }
 
         protected override void ReleasePtr()
@@ -337,11 +341,11 @@ namespace CGALDotNet.Polygons
 
         public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
         {
-            if (ContainsPoint(BOUNDARY_OR_HOLE.BOUNDARY, point, inculdeBoundary))
+            if (ContainsPoint(POLYGON_ELEMENT.BOUNDARY, point, inculdeBoundary))
             {
                 for (int i = 0; i < HoleCount; i++)
                 {
-                    if (ContainsPoint(BOUNDARY_OR_HOLE.HOLE, point, inculdeBoundary, i))
+                    if (ContainsPoint(POLYGON_ELEMENT.HOLE, point, inculdeBoundary, i))
                         return false;
                 }
 
@@ -353,14 +357,14 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public bool ContainsPoint(BOUNDARY_OR_HOLE op, Point2d point, bool inculdeBoundary = true, int index = 0)
+        public bool ContainsPoint(POLYGON_ELEMENT element, Point2d point, bool inculdeBoundary = true, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 if (IsUnbounded)
                     return true;
 
-                var side = OrientedSide(op, point);
+                var side = OrientedSide(element, point);
 
                 if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
                     return false;
@@ -373,7 +377,7 @@ namespace CGALDotNet.Polygons
             else
             {
                 ErrorUtil.CheckBounds(index, HoleCount);
-                var side = OrientedSide(op, point, index);
+                var side = OrientedSide(element, point, index);
 
                 if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
                     return false;
@@ -385,9 +389,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void Translate(BOUNDARY_OR_HOLE op, Point2d translation, int index = 0)
+        public void Translate(POLYGON_ELEMENT element, Point2d translation, int index = 0)
         {
-            if(op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if(element == POLYGON_ELEMENT.BOUNDARY)
                 Kernel.Translate(Ptr, BOUNDARY_INDEX, translation);
             else
             {
@@ -396,9 +400,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void Rotate(BOUNDARY_OR_HOLE op, Radian rotation, int index = 0)
+        public void Rotate(POLYGON_ELEMENT element, Radian rotation, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 Kernel.Rotate(Ptr, BOUNDARY_INDEX, rotation.angle);
             else
             {
@@ -407,9 +411,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void Scale(BOUNDARY_OR_HOLE op, double scale, int index = 0)
+        public void Scale(POLYGON_ELEMENT element, double scale, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 Kernel.Scale(Ptr, BOUNDARY_INDEX, scale);
             else
             {
@@ -418,9 +422,9 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void Transform(BOUNDARY_OR_HOLE op, Point2d translation, Radian rotation, double scale, int index = 0)
+        public void Transform(POLYGON_ELEMENT element, Point2d translation, Radian rotation, double scale, int index = 0)
         {
-            if (op == BOUNDARY_OR_HOLE.BOUNDARY)
+            if (element == POLYGON_ELEMENT.BOUNDARY)
                 Kernel.Transform(Ptr, BOUNDARY_INDEX, translation, rotation.angle, scale);
             else
             {
@@ -443,20 +447,20 @@ namespace CGALDotNet.Polygons
 
             if (!IsUnbounded)
             {
-                var op = BOUNDARY_OR_HOLE.BOUNDARY;
-                builder.AppendLine("Boundary is simple = " + FindIfSimple(op));
-                builder.AppendLine("Boundary is convex = " + FindIfConvex(op));
-                builder.AppendLine("Boundary orientation = " + FindOrientation(op));
-                builder.AppendLine("Boundary signed Area = " + FindSignedArea(op));
+                var element = POLYGON_ELEMENT.BOUNDARY;
+                builder.AppendLine("Boundary is simple = " + FindIfSimple(element));
+                builder.AppendLine("Boundary is convex = " + FindIfConvex(element));
+                builder.AppendLine("Boundary orientation = " + FindOrientation(element));
+                builder.AppendLine("Boundary signed Area = " + FindSignedArea(element));
             }
 
             for (int i = 0; i < HoleCount; i++)
             {
-                var op = BOUNDARY_OR_HOLE.HOLE;
-                builder.AppendLine("Hole " + i + " is simple = " + FindIfSimple(op, i));
-                builder.AppendLine("Hole " + i + " is convex = " + FindIfConvex(op, i));
-                builder.AppendLine("Hole " + i + " is orientation = " + FindOrientation(op, i));
-                builder.AppendLine("Hole " + i + " is signed area = " + FindSignedArea(op, i));
+                var element = POLYGON_ELEMENT.HOLE;
+                builder.AppendLine("Hole " + i + " is simple = " + FindIfSimple(element, i));
+                builder.AppendLine("Hole " + i + " is convex = " + FindIfConvex(element, i));
+                builder.AppendLine("Hole " + i + " is orientation = " + FindOrientation(element, i));
+                builder.AppendLine("Hole " + i + " is signed area = " + FindSignedArea(element, i));
                 builder.AppendLine();
             }
         }

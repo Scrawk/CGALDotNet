@@ -16,10 +16,10 @@ class Polygon2
 private:
 	Polygon2() {}
 
+public:
+
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Aff_transformation_2<K> Transformation_2;
-
-public:
 
 	static int Count(void* ptr)
 	{

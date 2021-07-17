@@ -5,7 +5,7 @@
 
 void* Polygon2_EEK_Create()
 {
-	return Util::Create<CGAL::Polygon_2<EEK>>();
+	return Util::Create<Polygon2<EEK>::Polygon_2>();
 }
 
 void* Polygon2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
@@ -15,7 +15,7 @@ void* Polygon2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
 
 void Polygon2_EEK_Release(void* ptr)
 {
-	Util::Release<CGAL::Polygon_2<EEK>>(ptr);
+	Util::Release<Polygon2<EEK>::Polygon_2>(ptr);
 }
 
 int Polygon2_EEK_Count(void* ptr)

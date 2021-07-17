@@ -15,10 +15,10 @@ class PolygonBoolean2
 private:
 	PolygonBoolean2() {}
 
+public:
+
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Polygon_with_holes_2<K> Pwh_2;
-
-public:
 
 	//Do Intersect
 

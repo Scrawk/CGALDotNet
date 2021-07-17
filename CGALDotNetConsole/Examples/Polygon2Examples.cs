@@ -149,7 +149,7 @@ namespace CGALDotNetConsole.Examples
 
             var polygon = new PolygonWithHoles2<EEK>(points);
 
-            var op = BOUNDARY_OR_HOLE.BOUNDARY;
+            var op = POLYGON_ELEMENT.BOUNDARY;
 
             Console.WriteLine("Before transform");
             foreach (var p in polygon.Copy(op))

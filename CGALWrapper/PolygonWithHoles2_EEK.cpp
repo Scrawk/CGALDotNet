@@ -7,12 +7,12 @@
 
 void* PolygonWithHoles2_EEK_Create()
 {
-	return Util::Create<CGAL::Polygon_with_holes_2<EEK>>();
+	return Util::Create<PolygonWithHoles2<EEK>::Pwh_2>();
 }
 
 void PolygonWithHoles2_EEK_Release(void* ptr)
 {
-	Util::Release<CGAL::Polygon_with_holes_2<EEK>>(ptr);
+	Util::Release<PolygonWithHoles2<EEK>::Pwh_2>(ptr);
 }
 
 int PolygonWithHoles2_EEK_HoleCount(void* ptr)
