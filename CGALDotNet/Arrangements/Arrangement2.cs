@@ -9,13 +9,17 @@ namespace CGALDotNet.Arrangements
 	public enum ARRANGEMENT2_ELEMENT
 	{
 		VERTEX,
-		EDGE,
 		FACE,
-		HALF_EDGE,
-		ISOLATED_VERTEX,
-		VERTEX_AT_INFINITY,
-		UNBOUNDED_FACE
+		HALF_EDGE
 	};
+
+    public enum ARRANGEMENT2_ELEMENT_EXT
+    {
+        EDGE,
+        ISOLATED_VERTEX,
+        VERTEX_AT_INFINITY,
+        UNBOUNDED_FACE
+    };
 
     public sealed class Arrangement2<K> : Arrangement2 where K : CGALKernel, new()
     {
@@ -68,9 +72,57 @@ namespace CGALDotNet.Arrangements
 
         protected private ArrangementKernel2 Kernel { get; private set; }
 
-        public int ElementCount(ARRANGEMENT2_ELEMENT element)
+        public int VertexCount => Kernel.VertexCount(Ptr);
+
+        public int IsolatedVerticesCount => Kernel.IsolatedVerticesCount(Ptr);
+
+        public int VerticesAtInfinityCount => Kernel.VerticesAtInfinityCount(Ptr);
+
+        public int HalfEdgeCount => Kernel.HalfEdgeCount(Ptr);
+
+        public int EdgeCount => Kernel.EdgeCount(Ptr);
+
+        public int FaceCount => Kernel.FaceCount(Ptr);
+
+        public int UnboundedFaceCount => Kernel.UnboundedFaceCount(Ptr);
+
+        public void SetIndices()
         {
-            return Kernel.ElementCount(Ptr, element);
+            SetVertexIndices();
+            SetHalfEdgeIndices();
+            SetFaceIndices();
+        }
+
+        public void SetVertexIndices()
+        {
+            Kernel.SetVertexIndices(Ptr);
+        }
+
+        public void SetHalfEdgeIndices()
+        {
+            Kernel.SetHalfEdgeIndices(Ptr);
+        }
+        public void SetFaceIndices()
+        {
+            Kernel.SetFaceIndices(Ptr);
+        }
+
+        public void GetPoints(Point2d[] points)
+        {
+            ErrorUtil.CheckBounds(points, 0, VertexCount);
+            Kernel.GetPoints(Ptr, points, 0, points.Length);
+        }
+
+        public void GetSegments(Segment2d[] segments)
+        {
+            ErrorUtil.CheckBounds(segments, 0, EdgeCount);
+            Kernel.GetSegments(Ptr, segments, 0, segments.Length);
+        }
+
+        public void GetVertices(ArrVertex2[] vertices)
+        {
+            ErrorUtil.CheckBounds(vertices, 0, VertexCount);
+            Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
         }
 
         public void Print()
@@ -82,14 +134,43 @@ namespace CGALDotNet.Arrangements
 
         public void Print(StringBuilder builder)
         {
+
             builder.AppendLine(ToString());
-            builder.AppendLine("Vertex Count = " + ElementCount(ARRANGEMENT2_ELEMENT.VERTEX));
-            builder.AppendLine("Edge Count = " + ElementCount(ARRANGEMENT2_ELEMENT.EDGE));
-            builder.AppendLine("Face Count = " + ElementCount(ARRANGEMENT2_ELEMENT.FACE));
-            builder.AppendLine("Half Edge Count = " + ElementCount(ARRANGEMENT2_ELEMENT.HALF_EDGE));
-            builder.AppendLine("Isolated Vertex Count = " + ElementCount(ARRANGEMENT2_ELEMENT.ISOLATED_VERTEX));
-            builder.AppendLine("Vertex at Infinity Count = " + ElementCount(ARRANGEMENT2_ELEMENT.VERTEX_AT_INFINITY));
-            builder.AppendLine("Unbounded Face Count = " + ElementCount(ARRANGEMENT2_ELEMENT.UNBOUNDED_FACE));
+            builder.AppendLine("Vertex Count = " + VertexCount);
+            builder.AppendLine("Isolated Vertex Count = " + IsolatedVerticesCount);
+            builder.AppendLine("Vertex at Infinity Count = " + VerticesAtInfinityCount);
+            builder.AppendLine("Half Edge Count = " + HalfEdgeCount);
+            builder.AppendLine("Edge Count = " + EdgeCount);
+            builder.AppendLine("Face Count = " + FaceCount);
+            builder.AppendLine("Unbounded Face Count = " + UnboundedFaceCount);
+
+            var points = new Point2d[VertexCount];
+            GetPoints(points);
+
+            foreach(var p in points)
+                builder.AppendLine(p.ToString());
+
+            var segments = new Segment2d[EdgeCount];
+            GetSegments(segments);
+
+            foreach (var s in segments)
+                builder.AppendLine(s.ToString());
+
+            SetIndices();
+
+            var vertices = new ArrVertex2[VertexCount];
+            GetVertices(vertices);
+
+            foreach (var v in vertices)
+            {
+                builder.AppendLine(v.ToString());
+
+                builder.AppendLine("Index = " + v.Index);
+                builder.AppendLine("Face Index = " + v.FaceIndex);
+                builder.AppendLine("HalfEdge Index = " + v.HalfEdgeIndex);
+            }
+                
+
         }
 
         protected override void ReleasePtr()

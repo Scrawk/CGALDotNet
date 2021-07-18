@@ -22,7 +22,67 @@ void Arrangement2_EEK_Release(void* ptr)
 	Util::Release<Arrangement2<EEK>::Arrangement_2>(ptr);
 }
 
-int Arrangement2_EEK_ElementCount(void* ptr, ARRANGEMENT2_ELEMENT element)
+int Arrangement2_EEK_VertexCount(void* ptr)
 {
-	return Arrangement2<EEK>::ElementCount(ptr, element);
+	return Arrangement2<EEK>::VertexCount(ptr);
+}
+
+int Arrangement2_EEK_IsolatedVerticesCount(void* ptr)
+{
+	return Arrangement2<EEK>::IsolatedVerticesCount(ptr);
+}
+
+int Arrangement2_EEK_VerticesAtInfinityCount(void* ptr)
+{
+	return Arrangement2<EEK>::VerticesAtInfinityCount(ptr);
+}
+
+int Arrangement2_EEK_HalfEdgeCount(void* ptr)
+{
+	return Arrangement2<EEK>::HalfEdgeCount(ptr);
+}
+
+int Arrangement2_EEK_FaceCount(void* ptr)
+{
+	return Arrangement2<EEK>::FaceCount(ptr);
+}
+
+int Arrangement2_EEK_EdgeCount(void* ptr)
+{
+	return Arrangement2<EEK>::EdgeCount(ptr);
+}
+
+int Arrangement2_EEK_UnboundedFaceCount(void* ptr)
+{
+	return Arrangement2<EEK>::UnboundedFaceCount(ptr);
+}
+
+void Arrangement2_EEK_SetVertexIndices(void* ptr)
+{
+	Arrangement2<EEK>::SetVertexIndices(ptr);
+}
+
+void Arrangement2_EEK_SetHalfEdgeIndices(void* ptr)
+{
+	Arrangement2<EEK>::SetHalfEdgeIndices(ptr);
+}
+
+void Arrangement2_EEK_SetFaceIndices(void* ptr)
+{
+	Arrangement2<EEK>::SetFaceIndices(ptr);
+}
+
+void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+{
+	Arrangement2<EEK>::GetPoints(ptr, points, startIndex, count);
+}
+
+void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+{
+	Arrangement2<EEK>::GetSegments(ptr, segments, startIndex, count);
+}
+
+void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int startIndex, int count)
+{
+	Arrangement2<EEK>::GetVertices(ptr, vertices, startIndex, count);
 }

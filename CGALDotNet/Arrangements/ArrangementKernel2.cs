@@ -21,6 +21,30 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void Release(IntPtr ptr);
 
-        internal abstract int ElementCount(IntPtr ptr, ARRANGEMENT2_ELEMENT element);
+        internal abstract int VertexCount(IntPtr ptr);
+
+        internal abstract int IsolatedVerticesCount(IntPtr ptr);
+
+        internal abstract int VerticesAtInfinityCount(IntPtr ptr);
+
+        internal abstract int HalfEdgeCount(IntPtr ptr);
+
+        internal abstract int FaceCount(IntPtr ptr);
+
+        internal abstract int EdgeCount(IntPtr ptr);
+
+        internal abstract int UnboundedFaceCount(IntPtr ptr);
+
+        internal abstract void SetVertexIndices(IntPtr ptr);
+
+        internal abstract void SetHalfEdgeIndices(IntPtr ptr);
+
+        internal abstract void SetFaceIndices(IntPtr ptr);
+
+        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
+
+        internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+
+        internal abstract void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int startIndex, int count);
     }
 }

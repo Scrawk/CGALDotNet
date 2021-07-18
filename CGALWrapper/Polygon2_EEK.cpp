@@ -55,7 +55,7 @@ void Polygon2_EEK_SetPoints(void* ptr, Point2d* points, int startIndex, int coun
 
 void Polygon2_EEK_Reverse(void* ptr)
 {
-	Polygon2<EEK>::Reverse<(ptr);
+	Polygon2<EEK>::Reverse(ptr);
 }
 
 bool Polygon2_EEK_IsSimple(void* ptr)

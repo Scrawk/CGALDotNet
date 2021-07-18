@@ -12,5 +12,32 @@ extern "C"
 
 	CGALWRAPPER_API void Arrangement2_EEK_Release(void* ptr);
 
-	CGALWRAPPER_API int Arrangement2_EEK_ElementCount(void* ptr, ARRANGEMENT2_ELEMENT element);
+	CGALWRAPPER_API int Arrangement2_EEK_VertexCount(void* ptr);
+
+	CGALWRAPPER_API int Arrangement2_EEK_IsolatedVerticesCount(void* ptr);
+
+	CGALWRAPPER_API int Arrangement2_EEK_VerticesAtInfinityCount(void* ptr);
+
+	CGALWRAPPER_API int Arrangement2_EEK_HalfEdgeCount(void* ptr);
+
+	CGALWRAPPER_API int Arrangement2_EEK_FaceCount(void* ptr);
+
+	CGALWRAPPER_API int Arrangement2_EEK_EdgeCount(void* ptr);
+
+	CGALWRAPPER_API int Arrangement2_EEK_UnboundedFaceCount(void* ptr);
+
+	CGALWRAPPER_API void Arrangement2_EEK_SetVertexIndices(void* ptr);
+
+	CGALWRAPPER_API void Arrangement2_EEK_SetHalfEdgeIndices(void* ptr);
+
+	CGALWRAPPER_API void Arrangement2_EEK_SetFaceIndices(void* ptr);
+
+	CGALWRAPPER_API void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count);
+
+	CGALWRAPPER_API void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count);
+
+	CGALWRAPPER_API void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* points, int startIndex, int count);
+
+
+
 }

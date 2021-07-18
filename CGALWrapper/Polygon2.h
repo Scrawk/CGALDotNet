@@ -24,7 +24,7 @@ public:
 	static int Count(void* ptr)
 	{
 		auto polygon = (Polygon_2*)ptr;
-		return polygon->size();
+		return (int)polygon->size();
 	}
 
 	static void* Copy(void* ptr)

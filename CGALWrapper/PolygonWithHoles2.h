@@ -49,7 +49,7 @@ public:
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
 		if (polygon != nullptr)
-			return polygon->size();
+			return (int)polygon->size();
 		else
 			return 0;
 	}
