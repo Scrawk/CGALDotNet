@@ -30,9 +30,9 @@ extern "C"
 
 	CGALWRAPPER_API void Polygon2_EEK_Reverse(void* ptr);
 
-	CGALWRAPPER_API bool Polygon2_EEK_IsSimple(void* ptr);
+	CGALWRAPPER_API BOOL Polygon2_EEK_IsSimple(void* ptr);
 
-	CGALWRAPPER_API bool Polygon2_EEK_IsConvex(void* ptr);
+	CGALWRAPPER_API BOOL Polygon2_EEK_IsConvex(void* ptr);
 
 	CGALWRAPPER_API CGAL::Orientation Polygon2_EEK_Orientation(void* ptr);
 

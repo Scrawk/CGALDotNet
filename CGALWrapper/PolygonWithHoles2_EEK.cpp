@@ -90,17 +90,17 @@ void PolygonWithHoles2_EEK_ReversePolygon(void* ptr, int index)
 	PolygonWithHoles2<EEK>::ReversePolygon(ptr, index);
 }
 
-bool PolygonWithHoles2_EEK_IsUnbounded(void* ptr)
+BOOL PolygonWithHoles2_EEK_IsUnbounded(void* ptr)
 {
 	return PolygonWithHoles2<EEK>::IsUnbounded(ptr);
 }
 
-bool PolygonWithHoles2_EEK_IsSimple(void* ptr, int index)
+BOOL PolygonWithHoles2_EEK_IsSimple(void* ptr, int index)
 {
 	return PolygonWithHoles2<EEK>::IsSimple(ptr, index);
 }
 
-bool PolygonWithHoles2_EEK_IsConvex(void* ptr, int index)
+BOOL PolygonWithHoles2_EEK_IsConvex(void* ptr, int index)
 {
 	return PolygonWithHoles2<EEK>::IsConvex(ptr, index);
 }

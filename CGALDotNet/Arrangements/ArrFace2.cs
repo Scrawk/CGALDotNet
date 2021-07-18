@@ -6,7 +6,6 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Arrangements
 {
-    [Serializable]
     public struct ArrFace2
     {
         public bool IsFictitious;

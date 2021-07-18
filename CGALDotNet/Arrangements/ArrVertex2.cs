@@ -6,7 +6,6 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Arrangements
 {
-    [Serializable]
     public struct ArrVertex2
     {
         public Point2d Point;

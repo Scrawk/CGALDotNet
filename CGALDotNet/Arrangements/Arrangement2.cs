@@ -6,20 +6,6 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Arrangements
 {
-	public enum ARRANGEMENT2_ELEMENT
-	{
-		VERTEX,
-		FACE,
-		HALF_EDGE
-	};
-
-    public enum ARRANGEMENT2_ELEMENT_EXT
-    {
-        EDGE,
-        ISOLATED_VERTEX,
-        VERTEX_AT_INFINITY,
-        UNBOUNDED_FACE
-    };
 
     public sealed class Arrangement2<K> : Arrangement2 where K : CGALKernel, new()
     {
@@ -171,6 +157,8 @@ namespace CGALDotNet.Arrangements
             foreach (var s in segments)
                 builder.AppendLine(s.ToString());
 
+           
+
             SetIndices();
 
             var vertices = new ArrVertex2[VertexCount];
@@ -183,7 +171,11 @@ namespace CGALDotNet.Arrangements
                 builder.AppendLine("Index = " + v.Index);
                 builder.AppendLine("Face Index = " + v.FaceIndex);
                 builder.AppendLine("HalfEdge Index = " + v.HalfEdgeIndex);
+
+                builder.AppendLine();
             }
+
+            builder.AppendLine();
 
             var edges = new ArrHalfEdge2[HalfEdgeCount];
             GetHalfEdges(edges);
@@ -199,8 +191,9 @@ namespace CGALDotNet.Arrangements
                 builder.AppendLine("Next Index = " + e.NextIndex);
                 builder.AppendLine("Previous Index = " + e.PreviousIndex);
                 builder.AppendLine("Twin Index = " + e.TwinIndex);
+
+                builder.AppendLine();
             }
-            */
 
             builder.AppendLine();
 
@@ -212,14 +205,11 @@ namespace CGALDotNet.Arrangements
                 builder.AppendLine(e.ToString());
 
                 builder.AppendLine("Index = " + e.Index);
-                builder.AppendLine("Is Fictitious = " + e.IsFictitious);
-                builder.AppendLine("Is Unbounded = " + e.IsUnbounded);
-                builder.AppendLine("Has Outer Edges = " + e.HasOuterEdges);
                 builder.AppendLine("HalfEdge Index = " + e.HalfEdgeIndex);
 
                 builder.AppendLine();
             }
-
+            */
         }
 
         protected override void ReleasePtr()

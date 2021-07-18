@@ -43,11 +43,11 @@ extern "C"
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_ReversePolygon(void* ptr, int index);
 
-	CGALWRAPPER_API bool PolygonWithHoles2_EEK_IsUnbounded(void* ptr);
+	CGALWRAPPER_API BOOL PolygonWithHoles2_EEK_IsUnbounded(void* ptr);
 
-	CGALWRAPPER_API bool PolygonWithHoles2_EEK_IsSimple(void* ptr, int index);
+	CGALWRAPPER_API BOOL PolygonWithHoles2_EEK_IsSimple(void* ptr, int index);
 
-	CGALWRAPPER_API bool PolygonWithHoles2_EEK_IsConvex(void* ptr, int index);
+	CGALWRAPPER_API BOOL PolygonWithHoles2_EEK_IsConvex(void* ptr, int index);
 
 	CGALWRAPPER_API CGAL::Orientation PolygonWithHoles2_EEK_Orientation(void* ptr, int index);
 

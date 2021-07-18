@@ -12,17 +12,17 @@ extern "C"
 
 	CGALWRAPPER_API void* PolygonBoolean2_EEK_CopyBufferItem(int index);
 
-	CGALWRAPPER_API bool PolygonBoolean2_EEK_DoIntersect_P_P(void* ptr1, void* ptr2);
+	CGALWRAPPER_API BOOL PolygonBoolean2_EEK_DoIntersect_P_P(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API bool PolygonBoolean2_EEK_DoIntersect_P_PWH(void* ptr1, void* ptr2);
+	CGALWRAPPER_API BOOL PolygonBoolean2_EEK_DoIntersect_P_PWH(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API bool PolygonBoolean2_EEK_DoIntersect_PWH_PWH(void* ptr1, void* ptr2);
+	CGALWRAPPER_API BOOL PolygonBoolean2_EEK_DoIntersect_PWH_PWH(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API bool PolygonBoolean2_EEK_Join_P_P(void* ptr1, void* ptr2, void** resultPtr);
+	CGALWRAPPER_API BOOL PolygonBoolean2_EEK_Join_P_P(void* ptr1, void* ptr2, void** resultPtr);
 
-	CGALWRAPPER_API bool PolygonBoolean2_EEK_Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr);
+	CGALWRAPPER_API BOOL PolygonBoolean2_EEK_Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr);
 
-	CGALWRAPPER_API bool PolygonBoolean2_EEK_Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr);
+	CGALWRAPPER_API BOOL PolygonBoolean2_EEK_Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr);
 
 	CGALWRAPPER_API int PolygonBoolean2_EEK_Intersect_P_P(void* ptr1, void* ptr2);
 

@@ -97,13 +97,13 @@ public:
 		polygon->reverse_orientation();
 	}
 
-	static bool IsSimple(void* ptr)
+	static BOOL IsSimple(void* ptr)
 	{
 		auto polygon = (Polygon_2*)ptr;
 		return polygon->is_simple();
 	}
 
-	static bool IsConvex(void* ptr)
+	static BOOL IsConvex(void* ptr)
 	{
 		auto polygon = (Polygon_2*)ptr;
 		return polygon->is_convex();

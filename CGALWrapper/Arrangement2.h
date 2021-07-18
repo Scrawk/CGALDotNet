@@ -8,26 +8,11 @@
 #include <CGAL/Arrangement_2.h>
 #include <CGAL/Arr_extended_dcel.h>
 
-enum class ARRANGEMENT2_ELEMENT : int
-{
-	VERTEX,
-	FACE,
-	HALF_EDGE
-};
-
-enum class ARRANGEMENT2_ELEMENT_EXT : int
-{
-	EDGE,
-	ISOLATED_VERTEX,
-	VERTEX_AT_INFINITY,
-	UNBOUNDED_FACE
-};
-
 struct ArrVertex2
 {
 	Point2d Point;
 	int Degree;
-	bool IsIsolated;
+	BOOL IsIsolated;
 	int Index;
 	int FaceIndex;
 	int HalfEdgeIndex;
@@ -35,7 +20,7 @@ struct ArrVertex2
 
 struct ArrHalfEdge2
 {
-	bool IsFictitious;
+	BOOL IsFictitious;
 	int Index;
 	int SourceIndex;
 	int TargetIndex;
@@ -47,9 +32,9 @@ struct ArrHalfEdge2
 
 struct ArrFace2
 {
-	bool IsFictitious;
-	bool IsUnbounded;
-	bool HasOuterEdges;
+	BOOL IsFictitious;
+	BOOL IsUnbounded;
+	BOOL HasOuterEdges;
 	int Index;
 	int HalfEdgeIndex;
 };

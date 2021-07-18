@@ -22,7 +22,7 @@ public:
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Point_2<K> Point_2;
 
-	static Polygon_2* GetBoundaryOrHole(void* ptr, int index, bool forceBoundary = false)
+	static Polygon_2* GetBoundaryOrHole(void* ptr, int index, BOOL forceBoundary = false)
 	{
 		auto pwh = (Pwh_2*)ptr;
 
@@ -176,13 +176,13 @@ public:
 			return polygon->reverse_orientation();
 	}
 
-	static bool IsUnbounded(void* ptr)
+	static BOOL IsUnbounded(void* ptr)
 	{
 		auto pwh = (Pwh_2*)ptr;
 		return pwh->is_unbounded();
 	}
 
-	static bool IsSimple(void* ptr, int index)
+	static BOOL IsSimple(void* ptr, int index)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
 		if (polygon != nullptr)
@@ -191,7 +191,7 @@ public:
 			return false;
 	}
 
-	static bool IsConvex(void* ptr, int index)
+	static BOOL IsConvex(void* ptr, int index)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
 		if (polygon != nullptr)

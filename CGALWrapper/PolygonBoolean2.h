@@ -23,12 +23,12 @@ public:
 	//Do Intersect
 
 	template<class P1, class P2>
-	static bool DoIntersect(P1* polygon1, P2* polygon2)
+	static BOOL DoIntersect(P1* polygon1, P2* polygon2)
 	{
 		return CGAL::do_intersect(*polygon1, *polygon2);
 	}
 
-	static bool DoIntersect_P_P(void* ptr1, void* ptr2)
+	static BOOL DoIntersect_P_P(void* ptr1, void* ptr2)
 	{
 		auto polygon1 = (Polygon_2*)ptr1;
 		auto polygon2 = (Polygon_2*)ptr2;
@@ -36,7 +36,7 @@ public:
 		return DoIntersect<Polygon_2, Polygon_2>(polygon1, polygon2);
 	}
 
-	static bool DoIntersect_P_PWH(void* ptr1, void* ptr2)
+	static BOOL DoIntersect_P_PWH(void* ptr1, void* ptr2)
 	{
 		auto polygon1 = (Polygon_2*)ptr1;
 		auto polygon2 = (Pwh_2*)ptr2;
@@ -44,7 +44,7 @@ public:
 		return DoIntersect<Polygon_2, Pwh_2>(polygon1, polygon2);
 	}
 
-	static bool DoIntersect_PWH_PWH(void* ptr1, void* ptr2)
+	static BOOL DoIntersect_PWH_PWH(void* ptr1, void* ptr2)
 	{
 		auto polygon1 = (Pwh_2*)ptr1;
 		auto polygon2 = (Pwh_2*)ptr2;
@@ -55,7 +55,7 @@ public:
 	//Join
 
 	template<class P1, class P2>
-	static bool Join(P1* polygon1, P2* polygon2, void** resultPtr)
+	static BOOL Join(P1* polygon1, P2* polygon2, void** resultPtr)
 	{
 		auto result = new CGAL::Polygon_with_holes_2<K>();
 
@@ -72,7 +72,7 @@ public:
 		}
 	}
 
-	static bool Join_P_P(void* ptr1, void* ptr2, void** resultPtr)
+	static BOOL Join_P_P(void* ptr1, void* ptr2, void** resultPtr)
 	{
 		auto polygon1 = (Polygon_2*)ptr1;
 		auto polygon2 = (Polygon_2*)ptr2;
@@ -80,7 +80,7 @@ public:
 		return Join<Polygon_2, Polygon_2>(polygon1, polygon2, resultPtr);
 	}
 
-	static bool Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr)
+	static BOOL Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr)
 	{
 		auto polygon1 = (Polygon_2*)ptr1;
 		auto polygon2 = (Pwh_2*)ptr2;
@@ -88,7 +88,7 @@ public:
 		return Join<Polygon_2, Pwh_2>(polygon1, polygon2, resultPtr);
 	}
 
-	static bool Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr)
+	static BOOL Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr)
 	{
 		auto polygon1 = (Pwh_2*)ptr1;
 		auto polygon2 = (Pwh_2*)ptr2;

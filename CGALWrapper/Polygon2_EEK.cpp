@@ -58,7 +58,7 @@ void Polygon2_EEK_Reverse(void* ptr)
 	Polygon2<EEK>::Reverse(ptr);
 }
 
-bool Polygon2_EEK_IsSimple(void* ptr)
+BOOL Polygon2_EEK_IsSimple(void* ptr)
 {
 	auto polygon = (CGAL::Polygon_2<EEK>*)ptr;
 	return polygon->is_simple();
@@ -66,7 +66,7 @@ bool Polygon2_EEK_IsSimple(void* ptr)
 	//return Polygon2<EEK>::IsSimple<(ptr);
 }
 
-bool Polygon2_EEK_IsConvex(void* ptr)
+BOOL Polygon2_EEK_IsConvex(void* ptr)
 {
 	return Polygon2<EEK>::IsConvex(ptr);
 }
