@@ -94,6 +94,16 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_GetVertices(ptr, vertices, startIndex, count);
         }
 
+        internal override void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int startIndex, int count)
+        {
+            Arrangement2_EEK_GetHalfEdges(ptr, edges, startIndex, count);
+        }
+
+        internal override void GetFaces(IntPtr ptr, ArrFace2[] faces, int startIndex, int count)
+        {
+            Arrangement2_EEK_GetFaces(ptr, faces, startIndex, count);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Arrangement2_EEK_Create();
 
@@ -141,5 +151,11 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_GetVertices(IntPtr ptr, [Out] ArrVertex2[] vertices, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_GetHalfEdges(IntPtr ptr, [Out] ArrHalfEdge2[] edges, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_GetFaces(IntPtr ptr, [Out] ArrFace2[] faces, int startIndex, int count);
     }
 }

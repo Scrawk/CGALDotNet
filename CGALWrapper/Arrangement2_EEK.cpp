@@ -86,3 +86,13 @@ void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int startInde
 {
 	Arrangement2<EEK>::GetVertices(ptr, vertices, startIndex, count);
 }
+
+void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count)
+{
+	Arrangement2<EEK>::GetHalfEdges(ptr, edges, startIndex, count);
+}
+
+void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count)
+{
+	Arrangement2<EEK>::GetFaces(ptr, faces, startIndex, count);
+}

@@ -125,6 +125,18 @@ namespace CGALDotNet.Arrangements
             Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
         }
 
+        public void GetHalfEdges(ArrHalfEdge2[] edges)
+        {
+            ErrorUtil.CheckBounds(edges, 0, HalfEdgeCount);
+            Kernel.GetHalfEdges(Ptr, edges, 0, edges.Length);
+        }
+
+        public void GetFaces(ArrFace2[] faces)
+        {
+            ErrorUtil.CheckBounds(faces, 0, FaceCount);
+            Kernel.GetFaces(Ptr, faces, 0, faces.Length);
+        }
+
         public void Print()
         {
             var builder = new StringBuilder();
@@ -144,6 +156,9 @@ namespace CGALDotNet.Arrangements
             builder.AppendLine("Face Count = " + FaceCount);
             builder.AppendLine("Unbounded Face Count = " + UnboundedFaceCount);
 
+            SetIndices();
+
+            /*
             var points = new Point2d[VertexCount];
             GetPoints(points);
 
@@ -169,7 +184,41 @@ namespace CGALDotNet.Arrangements
                 builder.AppendLine("Face Index = " + v.FaceIndex);
                 builder.AppendLine("HalfEdge Index = " + v.HalfEdgeIndex);
             }
-                
+
+            var edges = new ArrHalfEdge2[HalfEdgeCount];
+            GetHalfEdges(edges);
+
+            foreach (var e in edges)
+            {
+                builder.AppendLine(e.ToString());
+
+                builder.AppendLine("Index = " + e.Index);
+                builder.AppendLine("Source Index = " + e.SourceIndex);
+                builder.AppendLine("Target Index = " + e.TargetIndex);
+                builder.AppendLine("Face Index = " + e.FaceIndex);
+                builder.AppendLine("Next Index = " + e.NextIndex);
+                builder.AppendLine("Previous Index = " + e.PreviousIndex);
+                builder.AppendLine("Twin Index = " + e.TwinIndex);
+            }
+            */
+
+            builder.AppendLine();
+
+            var faces = new ArrFace2[FaceCount];
+            GetFaces(faces);
+
+            foreach (var e in faces)
+            {
+                builder.AppendLine(e.ToString());
+
+                builder.AppendLine("Index = " + e.Index);
+                builder.AppendLine("Is Fictitious = " + e.IsFictitious);
+                builder.AppendLine("Is Unbounded = " + e.IsUnbounded);
+                builder.AppendLine("Has Outer Edges = " + e.HasOuterEdges);
+                builder.AppendLine("HalfEdge Index = " + e.HalfEdgeIndex);
+
+                builder.AppendLine();
+            }
 
         }
 

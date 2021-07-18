@@ -33,6 +33,27 @@ struct ArrVertex2
 	int HalfEdgeIndex;
 };
 
+struct ArrHalfEdge2
+{
+	bool IsFictitious;
+	int Index;
+	int SourceIndex;
+	int TargetIndex;
+	int FaceIndex;
+	int NextIndex;
+	int PreviousIndex;
+	int TwinIndex;
+};
+
+struct ArrFace2
+{
+	bool IsFictitious;
+	bool IsUnbounded;
+	bool HasOuterEdges;
+	int Index;
+	int HalfEdgeIndex;
+};
+
 template<class K>
 class Arrangement2
 {
@@ -163,10 +184,10 @@ public:
 
 		for (auto iter = arr->vertices_begin(); iter != arr->vertices_end(); ++iter, ++i)
 		{
+			vertices[i].Index = iter->data();
 			vertices[i].Point.From<K>(iter->point());
 			vertices[i].Degree = (int)iter->degree();
 			vertices[i].IsIsolated = iter->is_isolated();
-			vertices[i].Index = iter->data();
 
 			if (iter->is_isolated())
 			{
@@ -176,9 +197,50 @@ public:
 			else
 			{
 				vertices[i].FaceIndex = -1;
-
 				auto first = iter->incident_halfedges();
 				vertices[i].HalfEdgeIndex = first->data();
+			}
+		}
+	}
+
+	static void GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count)
+	{
+		auto arr = (Arrangement_2*)ptr;
+		int i = startIndex;
+
+		for (auto iter = arr->halfedges_begin(); iter != arr->halfedges_end(); ++iter, ++i)
+		{
+			edges[i].IsFictitious = iter->is_fictitious();
+			edges[i].Index = iter->data();
+			edges[i].SourceIndex = iter->source()->data();
+			edges[i].TargetIndex = iter->target()->data();
+			edges[i].FaceIndex = iter->face()->data();
+			edges[i].NextIndex = iter->next()->data();
+			edges[i].PreviousIndex = iter->prev()->data();
+			edges[i].TwinIndex = iter->twin()->data();
+		}
+	}
+
+	static void GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count)
+	{
+		auto arr = (Arrangement_2*)ptr;
+		int i = startIndex;
+
+		for (auto iter = arr->faces_begin(); iter != arr->faces_end(); ++iter, ++i)
+		{
+			faces[i].IsFictitious = iter->is_fictitious();
+			faces[i].IsUnbounded = iter->is_unbounded();
+			faces[i].HasOuterEdges = iter->has_outer_ccb();
+			faces[i].Index = iter->data();
+
+			if (iter->has_outer_ccb())
+			{
+				auto first = iter->outer_ccb();
+				faces[i].HalfEdgeIndex = first->data();
+			}
+			else
+			{
+				faces[i].HalfEdgeIndex = -1;
 			}
 		}
 	}

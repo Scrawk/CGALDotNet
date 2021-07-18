@@ -36,8 +36,9 @@ extern "C"
 
 	CGALWRAPPER_API void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count);
 
-	CGALWRAPPER_API void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* points, int startIndex, int count);
+	CGALWRAPPER_API void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int startIndex, int count);
 
+	CGALWRAPPER_API void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count);
 
-
+	CGALWRAPPER_API void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count);
 }

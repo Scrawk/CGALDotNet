@@ -46,5 +46,9 @@ namespace CGALDotNet.Arrangements
         internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
 
         internal abstract void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int startIndex, int count);
+
+        internal abstract void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int startIndex, int count);
+
+        internal abstract void GetFaces(IntPtr ptr, ArrFace2[] faces, int startIndex, int count);
     }
 }
