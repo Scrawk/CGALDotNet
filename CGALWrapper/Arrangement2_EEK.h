@@ -46,5 +46,10 @@ extern "C"
 
 	CGALWRAPPER_API void Arrangement2_EEK_ReleaseLocator(void* ptr);
 
-	CGALWRAPPER_API int Arrangement2_EEK_PointQuery(void* ptr, Point2d point, ArrPointQueryResult& result);
+	CGALWRAPPER_API BOOL Arrangement2_EEK_PointQuery(void* ptr, Point2d point, ArrQuery& result);
+
+	CGALWRAPPER_API BOOL Arrangement2_EEK_BatchedPointQuery(void* ptr, Point2d* points, ArrQuery* results, int startIndex, int count);
+
+	CGALWRAPPER_API BOOL Arrangement2_EEK_RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& result);
+
 }

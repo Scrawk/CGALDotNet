@@ -7,13 +7,6 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Arrangements
 {
 
-    public enum ARR_ELEMENT
-    {
-        VERTEX,
-        HALF_EDGE,
-        FACE
-    };
-
     public sealed class Arrangement2<K> : Arrangement2 where K : CGALKernel, new()
     {
         public Arrangement2() : base(new K())
@@ -140,9 +133,20 @@ namespace CGALDotNet.Arrangements
             Kernel.ReleaseLocator(Ptr);
         }
 
-        public bool PointQuery(Point2d point, out ArrPointQueryResult result)
+        public bool PointQuery(Point2d point, out ArrQuery result)
         {
             return Kernel.PointQuery(Ptr, point, out result);
+        }
+
+        public bool BatchedPointQuery(Point2d[] points, ArrQuery[] results)
+        {
+            ErrorUtil.CheckBounds(results, 0, points.Length);
+            return Kernel.BatchedPointQuery(Ptr, points, results, 0, points.Length);
+        }
+
+        public bool RayQuery(Point2d point, bool up, out ArrQuery result)
+        {
+            return Kernel.RayQuery(Ptr, point, up, out result);
         }
 
         public void Print()

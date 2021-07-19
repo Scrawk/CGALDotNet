@@ -12,14 +12,23 @@ namespace CGALDotNet.Arrangements
         TRAPEZOID = 3
     };
 
-    public struct ArrPointQueryResult
+    public enum ARR_ELEMENT_HIT
     {
-        public ARR_ELEMENT Element;
+        NONE,
+        VERTEX,
+        HALF_EDGE,
+        FACE
+    };
+
+    public struct ArrQuery
+    {
+        public ARR_ELEMENT_HIT Element;
+
         public int Index;
 
         public override string ToString()
         {
-            return string.Format("[ArrPointQueryResult: Element={0}, Index={1}]", Element, Index);
+            return string.Format("[ArrQuery: Element={0}, Index={1}]", Element, Index);
         }
     }
  

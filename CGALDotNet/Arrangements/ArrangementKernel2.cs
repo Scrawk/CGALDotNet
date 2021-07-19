@@ -55,6 +55,10 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void ReleaseLocator(IntPtr ptr);
 
-        internal abstract bool PointQuery(IntPtr ptr, Point2d point, out ArrPointQueryResult result);
+        internal abstract bool PointQuery(IntPtr ptr, Point2d point, out ArrQuery result);
+
+        internal abstract bool BatchedPointQuery(IntPtr ptr, Point2d[] points, ArrQuery[] results, int startIndex, int count);
+
+        internal abstract bool RayQuery(IntPtr ptr, Point2d point, bool up, out ArrQuery result);
     }
 }

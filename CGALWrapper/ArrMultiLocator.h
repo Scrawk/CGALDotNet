@@ -5,6 +5,7 @@
 
 #include "CGAL/Point_2.h"
 #include <CGAL/Arr_point_location_result.h>
+#include <CGAL/Arr_batched_point_location.h>
 #include <CGAL/Arr_naive_point_location.h>
 #include <CGAL/Arr_walk_along_line_point_location.h>
 #include <CGAL/Arr_landmarks_point_location.h>
@@ -19,7 +20,7 @@ enum class ARR_LOCATOR : int
 	TRAPEZOID = 3
 };
 
-template<class Arrangement>
+template<class K, class Arrangement>
 class ArrMultiLocator
 {
 
@@ -125,8 +126,7 @@ public:
 		current_locator = ARR_LOCATOR::NONE;
 	}
 
-	template<class K>
-	Locator_Result_Type Locate(Point2d point, const Arrangement& arr)
+	Locator_Result_Type Locate(const Arrangement& arr, Point2d point)
 	{
 		switch (current_locator)
 		{
@@ -147,7 +147,40 @@ public:
 			locator.attach(arr);
 			return locator.locate(point.To<K>());
 		}
+	}
 
+	Locator_Result_Type RayShootUp(const Arrangement& arr, Point2d point)
+	{
+		switch (current_locator)
+		{
+		case ARR_LOCATOR::WALK:
+			return walk_locator->ray_shoot_up(point.To<K>());
+
+		case ARR_LOCATOR::TRAPEZOID:
+			return trapezoid_locator->ray_shoot_up(point.To<K>());
+
+		default:
+			Walk_Locator locator;
+			locator.attach(arr);
+			return locator.ray_shoot_up(point.To<K>());
+		}
+	}
+
+	Locator_Result_Type RayShootDown(const Arrangement& arr, Point2d point)
+	{
+		switch (current_locator)
+		{
+		case ARR_LOCATOR::WALK:
+			return walk_locator->ray_shoot_down(point.To<K>());
+
+		case ARR_LOCATOR::TRAPEZOID:
+			return trapezoid_locator->ray_shoot_down(point.To<K>());
+
+		default:
+			Walk_Locator locator;
+			locator.attach(arr);
+			return locator.ray_shoot_down(point.To<K>());
+		}
 	}
 
 };

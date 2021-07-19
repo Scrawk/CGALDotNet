@@ -107,7 +107,17 @@ void Arrangement2_EEK_ReleaseLocator(void* ptr)
 	Arrangement2<EEK>::ReleaseLocator(ptr);
 }
 
-BOOL Arrangement2_EEK_PointQuery(void* ptr, Point2d point, ArrPointQueryResult& result)
+BOOL Arrangement2_EEK_PointQuery(void* ptr, Point2d point, ArrQuery& result)
 {
 	return Arrangement2<EEK>::PointQuery(ptr, point, result);
+}
+
+BOOL Arrangement2_EEK_BatchedPointQuery(void* ptr, Point2d* points, ArrQuery* results, int startIndex, int count)
+{
+	return Arrangement2<EEK>::BatchedPointQuery(ptr, points, results, startIndex, count);
+}
+
+BOOL Arrangement2_EEK_RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& result)
+{
+	return Arrangement2<EEK>::RayQuery(ptr, point, up, result);
 }

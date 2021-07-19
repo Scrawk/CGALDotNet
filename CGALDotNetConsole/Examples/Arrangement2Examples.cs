@@ -140,9 +140,37 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine();
         }
 
-        public static void PointLocationExample()
+        public static void PointQueryExample()
         {
-            Console.WriteLine("Point location example\n");
+            Console.WriteLine("Point query example\n");
+
+            Point2d p1 = new Point2d(0, 0);
+            Point2d p2 = new Point2d(0, 4);
+            Point2d p3 = new Point2d(4, 0);
+
+            var segments = new Segment2d[]
+            {
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p1)
+            };
+
+            var arr = new Arrangement2<EEK>(segments);
+
+            arr.SetIndices();
+            arr.CreateLocator(ARR_LOCATOR.NAIVE);
+
+            ArrQuery result;
+
+            if (arr.PointQuery(new Point2d(1, 1), out result))
+                Console.WriteLine("Point result = " + result);
+            else
+                Console.WriteLine("Point did not hit a element.");
+        }
+
+        public static void BatchedPointQueryExample()
+        {
+            Console.WriteLine("Batched point query example\n");
 
             Point2d p1 = new Point2d(0, 0);
             Point2d p2 = new Point2d(0, 4);
@@ -160,13 +188,50 @@ namespace CGALDotNetConsole.Examples
             arr.SetIndices();
             arr.CreateLocator(ARR_LOCATOR.WALK);
 
-            ArrPointQueryResult result;
+            var queries = new Point2d[]
+            {
+                new Point2d(0, 0),
+                new Point2d(1, 1),
+                new Point2d(0, 5)
+            };
 
-            if (arr.PointQuery(new Point2d(1, 1), out result))
+            ArrQuery[] results = new ArrQuery[queries.Length];
+
+            if (arr.BatchedPointQuery(queries, results))
+            {
+                foreach (var result in results)
+                    Console.WriteLine("Point result = " + result);
+            }
+            else
+                Console.WriteLine("Queries did not hit a element.");
+        }
+
+        public static void RayQueryExample()
+        {
+            Console.WriteLine("Ray query example\n");
+
+            Point2d p1 = new Point2d(0, 0);
+            Point2d p2 = new Point2d(0, 4);
+            Point2d p3 = new Point2d(4, 0);
+
+            var segments = new Segment2d[]
+            {
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p1)
+            };
+
+            var arr = new Arrangement2<EEK>(segments);
+
+            arr.SetIndices();
+            arr.CreateLocator(ARR_LOCATOR.WALK);
+
+            ArrQuery result;
+
+            if (arr.RayQuery(new Point2d(1, 1), true, out result))
                 Console.WriteLine("Point result = " + result);
             else
                 Console.WriteLine("Point did not hit a element.");
-
         }
 
     }

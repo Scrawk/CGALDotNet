@@ -104,12 +104,6 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_GetFaces(ptr, faces, startIndex, count);
         }
 
-        internal override bool PointQuery(IntPtr ptr, Point2d point, out ArrPointQueryResult result)
-        {
-            result = new ArrPointQueryResult();
-            return Arrangement2_EEK_PointQuery(ptr, point, out result);
-        }
-
         internal override void CreateLocator(IntPtr ptr, ARR_LOCATOR type)
         {
             Arrangement2_EEK_CreateLocator(ptr, type);
@@ -118,6 +112,21 @@ namespace CGALDotNet.Arrangements
         internal override void ReleaseLocator(IntPtr ptr)
         {
             Arrangement2_EEK_ReleaseLocator(ptr);
+        }
+
+        internal override bool PointQuery(IntPtr ptr, Point2d point, out ArrQuery result)
+        {
+            return Arrangement2_EEK_PointQuery(ptr, point, out result);
+        }
+
+        internal override bool BatchedPointQuery(IntPtr ptr, Point2d[] points, ArrQuery[] results, int startIndex, int count)
+        {
+            return Arrangement2_EEK_BatchedPointQuery(ptr, points, results, startIndex, count);
+        }
+
+        internal override bool RayQuery(IntPtr ptr, Point2d point, bool up, out ArrQuery result)
+        {
+            return Arrangement2_EEK_RayQuery(ptr, point, up, out result);
         }
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -181,7 +190,13 @@ namespace CGALDotNet.Arrangements
         private static extern void Arrangement2_EEK_ReleaseLocator(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool Arrangement2_EEK_PointQuery(IntPtr ptr, Point2d point, [Out] out ArrPointQueryResult result);
+        private static extern bool Arrangement2_EEK_PointQuery(IntPtr ptr, Point2d point, [Out] out ArrQuery result);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_BatchedPointQuery(IntPtr ptr, [Out] Point2d[] points, [Out] ArrQuery[] results, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_RayQuery(IntPtr ptr, Point2d point, bool up, [Out] out ArrQuery result);
 
 
     }

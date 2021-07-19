@@ -26,8 +26,10 @@ namespace CGALDotNetConsole
 
             //Arrangement2Examples.CreateArrangement();
             //Arrangement2Examples.GetGeometryExample();
-            Arrangement2Examples.GetElementsExample();
-            Arrangement2Examples.PointLocationExample();
+            //Arrangement2Examples.GetElementsExample();
+            //Arrangement2Examples.PointQueryExample();
+
+            Arrangement2Examples.BatchedPointQueryExample();
         }
 
     }

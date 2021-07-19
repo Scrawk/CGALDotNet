@@ -4,17 +4,12 @@
 #include "Geometry2.h"
 #include "ArrMultiLocator.h"
 
+#include <vector>
 #include "CGAL/Point_2.h"
 #include <CGAL/Arr_segment_traits_2.h>
 #include <CGAL/Arrangement_2.h>
 #include <CGAL/Arr_extended_dcel.h>
-
-enum class ARR_ELEMENT : int
-{
-	VERTEX,
-	HALF_EDGE,
-	FACE
-};
+#include <CGAL/Arr_batched_point_location.h>
 
 struct ArrVertex2
 {
@@ -47,9 +42,17 @@ struct ArrFace2
 	int HalfEdgeIndex;
 };
 
-struct ArrPointQueryResult
+enum class ARR_ELEMENT_HIT : int
 {
-	ARR_ELEMENT Element;
+	NONE,
+	VERTEX,
+	HALF_EDGE,
+	FACE
+};
+
+struct ArrQuery
+{
+	ARR_ELEMENT_HIT Element;
 	int Index;
 };
 
@@ -64,7 +67,11 @@ public:
 	typedef Traits_2::X_monotone_curve_2 Segment_2;
 	typedef CGAL::Arr_extended_dcel<Traits_2, int, int, int> Dcel;
 	typedef CGAL::Arrangement_2<Traits_2, Dcel> Arrangement_2;
-	typedef ArrMultiLocator<Arrangement_2> Locator;
+	typedef ArrMultiLocator<K, Arrangement_2> Locator;
+
+	typedef typename Locator::Locator_Result_Type Locator_Result_Type;
+
+	typedef std::pair<Point_2, Locator_Result_Type> Query_result;
 
 	typedef typename Arrangement_2::Vertex_const_handle   Vertex_const_handle;
 	typedef typename Arrangement_2::Halfedge_const_handle Halfedge_const_handle;
@@ -78,9 +85,9 @@ private:
 
 public:
 
-	Arrangement2() 
+	Arrangement2()
 	{
-
+	
 	}
 
 	~Arrangement2()
@@ -275,49 +282,100 @@ public:
 		arr->locator.ReleaseLocator();
 	}
 
-	static BOOL PointQuery(void* ptr, Point2d point, ArrPointQueryResult& result)
+	static BOOL PointQuery(void* ptr, Point2d point, ArrQuery& result)
+	{
+		auto arr = CastToArrangement(ptr);
+		auto q = arr->locator.Locate(arr->model, point);
+		return HandleQuery(q, result);
+	}
+
+	static BOOL BatchedPointQuery(void* ptr, Point2d* p, ArrQuery* r, int startIndex, int count)
 	{
 		auto arr = CastToArrangement(ptr);
 
-		auto q = arr->locator.Locate<K>(point, arr->model);
+		auto list = ToList(p, startIndex, count);
+		std::vector<Query_result> results;
 
-		const Vertex_const_handle* v;
-		const Halfedge_const_handle* e;
-		const Face_const_handle* f;
+		locate(arr->model, list.begin(), list.end(), std::back_inserter(results));
 
-		if (f = boost::get<Face_const_handle>(&q))
+		BOOL hit = FALSE;
+		int i = 0;
+
+		for (auto it = results.begin(); it != results.end(); ++it, ++i) 
 		{
-			result.Element = ARR_ELEMENT::FACE;
-			result.Index = (*f)->data();
+			if (HandleQuery(it->second, r[i]))
+				hit = TRUE;
+		}
+
+		return hit;
+	}
+
+	static BOOL RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& result)
+	{
+		auto arr = CastToArrangement(ptr);
+
+		if (up)
+		{
+			auto q = arr->locator.RayShootUp(arr->model, point);
+			return HandleQuery(q, result);
+		}
+		else
+		{
+			auto q = arr->locator.RayShootDown(arr->model, point);
+			return HandleQuery(q, result);
+		}
+	}
+
+private:
+
+	inline static Arrangement2* CastToArrangement(void* ptr)
+	{
+		return static_cast<Arrangement2*>(ptr);
+	}
+
+	static BOOL HandleQuery(Locator_Result_Type query, ArrQuery& result)
+	{
+		const Vertex_const_handle* vert;
+		const Halfedge_const_handle* edge;
+		const Face_const_handle* face;
+
+		if (face = boost::get<Face_const_handle>(&query))
+		{
+			result.Element = ARR_ELEMENT_HIT::FACE;
+			result.Index = (*face)->data();
 			return TRUE;
 		}
-			
-		else if (e = boost::get<Halfedge_const_handle>(&q))
+
+		else if (edge = boost::get<Halfedge_const_handle>(&query))
 		{
-			result.Element = ARR_ELEMENT::HALF_EDGE;
-			result.Index = (*e)->data();
+			result.Element = ARR_ELEMENT_HIT::HALF_EDGE;
+			result.Index = (*edge)->data();
 			return TRUE;
 		}
-			
-		else if (v = boost::get<Vertex_const_handle>(&q))
+
+		else if (vert = boost::get<Vertex_const_handle>(&query))
 		{
-			result.Element = ARR_ELEMENT::VERTEX;
-			result.Index = (*v)->data();
+			result.Element = ARR_ELEMENT_HIT::VERTEX;
+			result.Index = (*vert)->data();
 			return TRUE;
 		}
 		else
 		{
+			result.Element = ARR_ELEMENT_HIT::NONE;
 			result.Index = -1;
 			return FALSE;
 		}
 	}
 
-	private:
+	static std::vector<Point_2> ToList(Point2d* points, int startIndex, int count)
+	{
+		auto list = std::vector<Point_2>(count);
 
-		inline static Arrangement2* CastToArrangement(void* ptr)
-		{
-			return static_cast<Arrangement2*>(ptr);
-		}
+		for (int i = startIndex; i < count; i++)
+			list.push_back(points[i].To<K>());
+
+		return list;
+	}
 
 };
 
