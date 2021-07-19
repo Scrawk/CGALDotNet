@@ -121,3 +121,13 @@ BOOL Arrangement2_EEK_RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& resu
 {
 	return Arrangement2<EEK>::RayQuery(ptr, point, up, result);
 }
+
+BOOL Arrangement2_EEK_IntersectsSegment(void* ptr, Segment2d segment)
+{
+	return Arrangement2<EEK>::IntersectsSegment(ptr, segment);
+}
+
+void Arrangement2_EEK_InsertPoint(void* ptr, Point2d point)
+{
+	Arrangement2<EEK>::InsertPoint(ptr, point);
+}

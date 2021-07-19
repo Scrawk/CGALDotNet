@@ -36,7 +36,7 @@ public:
 
 private:
 
-	ARR_LOCATOR current_locator;
+	ARR_LOCATOR current_locator_type;
 
 	Naive_Locator* naive_locator;
 
@@ -50,7 +50,7 @@ public:
 
 	ArrMultiLocator()
 	{
-		current_locator = ARR_LOCATOR::NONE;
+		current_locator_type = ARR_LOCATOR::NONE;
 		naive_locator = nullptr;
 		walk_locator = nullptr;
 		landmark_locator = nullptr;
@@ -64,11 +64,11 @@ public:
 
 	void CreateLocator(ARR_LOCATOR type, Arrangement& arr)
 	{
-		if (current_locator == type)
+		if (current_locator_type == type)
 			return;
 
 		ReleaseLocator();
-		current_locator = type;
+		current_locator_type = type;
 
 		switch (type)
 		{
@@ -96,7 +96,7 @@ public:
 
 	void ReleaseLocator()
 	{
-		switch (current_locator)
+		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::NAIVE:
 			naive_locator->detach();
@@ -123,12 +123,12 @@ public:
 			break;
 		}
 
-		current_locator = ARR_LOCATOR::NONE;
+		current_locator_type = ARR_LOCATOR::NONE;
 	}
 
 	Locator_Result_Type Locate(const Arrangement& arr, Point2d point)
 	{
-		switch (current_locator)
+		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::NAIVE:
 			return naive_locator->locate(point.To<K>());
@@ -151,7 +151,7 @@ public:
 
 	Locator_Result_Type RayShootUp(const Arrangement& arr, Point2d point)
 	{
-		switch (current_locator)
+		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::WALK:
 			return walk_locator->ray_shoot_up(point.To<K>());
@@ -168,7 +168,7 @@ public:
 
 	Locator_Result_Type RayShootDown(const Arrangement& arr, Point2d point)
 	{
-		switch (current_locator)
+		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::WALK:
 			return walk_locator->ray_shoot_down(point.To<K>());
@@ -181,6 +181,47 @@ public:
 			locator.attach(arr);
 			return locator.ray_shoot_down(point.To<K>());
 		}
+	}
+
+	template<class SEGMENT>
+	BOOL Intersects(Arrangement& arr, Segment2d segment)
+	{
+		auto seg = segment.To<K, SEGMENT>();
+
+		switch (current_locator_type)
+		{
+		case ARR_LOCATOR::WALK:
+			return do_intersect(arr, seg, *walk_locator);
+
+		case ARR_LOCATOR::TRAPEZOID:
+			return do_intersect(arr, seg, *trapezoid_locator);
+
+		default:
+			Walk_Locator locator;
+			locator.attach(arr);
+			return do_intersect(arr, seg, locator);
+		}
+	}
+
+	void InsertPoint(Arrangement& arr, Point2d point)
+	{
+		switch (current_locator_type)
+		{
+		case ARR_LOCATOR::WALK:
+			insert_point(arr, point.To<K>(), *walk_locator);
+			break;
+
+		case ARR_LOCATOR::TRAPEZOID:
+			insert_point(arr, point.To<K>(), *trapezoid_locator);
+			break;
+
+		default:
+			Walk_Locator locator;
+			locator.attach(arr);
+			insert_point(arr, point.To<K>(), locator);
+			break;
+		}
+
 	}
 
 };

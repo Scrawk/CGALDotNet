@@ -68,10 +68,10 @@ public:
 	typedef CGAL::Arr_extended_dcel<Traits_2, int, int, int> Dcel;
 	typedef CGAL::Arrangement_2<Traits_2, Dcel> Arrangement_2;
 	typedef ArrMultiLocator<K, Arrangement_2> Locator;
+	typedef typename Locator::Walk_Locator Walk_Locator;
 
 	typedef typename Locator::Locator_Result_Type Locator_Result_Type;
-
-	typedef std::pair<Point_2, Locator_Result_Type> Query_result;
+	typedef std::pair<Point_2, Locator_Result_Type> Batch_Query_Result;
 
 	typedef typename Arrangement_2::Vertex_const_handle   Vertex_const_handle;
 	typedef typename Arrangement_2::Halfedge_const_handle Halfedge_const_handle;
@@ -294,7 +294,7 @@ public:
 		auto arr = CastToArrangement(ptr);
 
 		auto list = ToList(p, startIndex, count);
-		std::vector<Query_result> results;
+		std::vector<Batch_Query_Result> results;
 
 		locate(arr->model, list.begin(), list.end(), std::back_inserter(results));
 
@@ -324,6 +324,18 @@ public:
 			auto q = arr->locator.RayShootDown(arr->model, point);
 			return HandleQuery(q, result);
 		}
+	}
+
+	static BOOL IntersectsSegment(void* ptr, Segment2d segment)
+	{
+		auto arr = CastToArrangement(ptr);
+		return arr->locator.Intersects<Segment_2>(arr->model, segment);
+	}
+
+	static void InsertPoint(void* ptr, Point2d point)
+	{
+		auto arr = CastToArrangement(ptr);
+		return arr->locator.InsertPoint(arr->model, point);
 	}
 
 private:

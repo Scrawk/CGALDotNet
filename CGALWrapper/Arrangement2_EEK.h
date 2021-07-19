@@ -52,4 +52,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& result);
 
+	CGALWRAPPER_API BOOL Arrangement2_EEK_IntersectsSegment(void* ptr, Segment2d segment);
+
+	CGALWRAPPER_API void Arrangement2_EEK_InsertPoint(void* ptr, Point2d point);
+
 }
