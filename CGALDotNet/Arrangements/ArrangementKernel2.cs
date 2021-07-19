@@ -50,5 +50,11 @@ namespace CGALDotNet.Arrangements
         internal abstract void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int startIndex, int count);
 
         internal abstract void GetFaces(IntPtr ptr, ArrFace2[] faces, int startIndex, int count);
+
+        internal abstract void CreateLocator(IntPtr ptr, ARR_LOCATOR type);
+
+        internal abstract void ReleaseLocator(IntPtr ptr);
+
+        internal abstract bool PointQuery(IntPtr ptr, Point2d point, out ArrPointQueryResult result);
     }
 }

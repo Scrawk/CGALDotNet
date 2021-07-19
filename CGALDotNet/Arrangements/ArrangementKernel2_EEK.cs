@@ -104,6 +104,22 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_GetFaces(ptr, faces, startIndex, count);
         }
 
+        internal override bool PointQuery(IntPtr ptr, Point2d point, out ArrPointQueryResult result)
+        {
+            result = new ArrPointQueryResult();
+            return Arrangement2_EEK_PointQuery(ptr, point, out result);
+        }
+
+        internal override void CreateLocator(IntPtr ptr, ARR_LOCATOR type)
+        {
+            Arrangement2_EEK_CreateLocator(ptr, type);
+        }
+
+        internal override void ReleaseLocator(IntPtr ptr)
+        {
+            Arrangement2_EEK_ReleaseLocator(ptr);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Arrangement2_EEK_Create();
 
@@ -157,5 +173,16 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_GetFaces(IntPtr ptr, [Out] ArrFace2[] faces, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_CreateLocator(IntPtr ptr, ARR_LOCATOR type);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_ReleaseLocator(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_PointQuery(IntPtr ptr, Point2d point, [Out] out ArrPointQueryResult result);
+
+
     }
 }

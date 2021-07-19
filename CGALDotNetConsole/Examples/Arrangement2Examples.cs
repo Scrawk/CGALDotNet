@@ -18,7 +18,7 @@ namespace CGALDotNetConsole.Examples
             Point2d p2 = new Point2d(0, 4);
             Point2d p3 = new Point2d(4, 0);
 
-            var segments= new Segment2d[]
+            var segments = new Segment2d[]
             {
                 new Segment2d(p1, p2),
                 new Segment2d(p2, p3),
@@ -28,5 +28,146 @@ namespace CGALDotNetConsole.Examples
             var arr = new Arrangement2<EEK>(segments);
             arr.Print();
         }
+
+        public static void GetGeometryExample()
+        {
+            Console.WriteLine("Get geometry example\n");
+
+            Point2d p1 = new Point2d(0, 0);
+            Point2d p2 = new Point2d(0, 4);
+            Point2d p3 = new Point2d(4, 0);
+
+            var segments = new Segment2d[]
+            {
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p1)
+            };
+
+            var arr = new Arrangement2<EEK>(segments);
+
+            var points = new Point2d[arr.VertexCount];
+            arr.GetPoints(points);
+
+            Console.WriteLine("Arrangement Points.");
+            Console.WriteLine();
+
+            foreach (var p in points)
+                Console.WriteLine(p.ToString());
+
+            segments = new Segment2d[arr.EdgeCount];
+            arr.GetSegments(segments);
+
+            Console.WriteLine();
+            Console.WriteLine("Arrangement Segments\n.");
+
+            foreach (var s in segments)
+                Console.WriteLine(s.ToString());
+
+            Console.WriteLine();
+        }
+
+        public static void GetElementsExample()
+        {
+            Console.WriteLine("Get elements example\n");
+
+            Point2d p1 = new Point2d(0, 0);
+            Point2d p2 = new Point2d(0, 4);
+            Point2d p3 = new Point2d(4, 0);
+
+            var segments = new Segment2d[]
+            {
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p1)
+            };
+
+            var arr = new Arrangement2<EEK>(segments);
+
+            arr.SetIndices();
+
+            var vertices = new ArrVertex2[arr.VertexCount];
+            arr.GetVertices(vertices);
+
+            Console.WriteLine("Arrangement Vertices.\n");
+
+            foreach (var v in vertices)
+            {
+                Console.WriteLine(v.ToString());
+
+                Console.WriteLine("Index = " + v.Index);
+                Console.WriteLine("Face Index = " + v.FaceIndex);
+                Console.WriteLine("HalfEdge Index = " + v.HalfEdgeIndex);
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Arrangement Half Edges.\n");
+
+            var edges = new ArrHalfEdge2[arr.HalfEdgeCount];
+            arr.GetHalfEdges(edges);
+
+            foreach (var e in edges)
+            {
+                Console.WriteLine(e.ToString());
+
+                Console.WriteLine("Index = " + e.Index);
+                Console.WriteLine("Source Index = " + e.SourceIndex);
+                Console.WriteLine("Target Index = " + e.TargetIndex);
+                Console.WriteLine("Face Index = " + e.FaceIndex);
+                Console.WriteLine("Next Index = " + e.NextIndex);
+                Console.WriteLine("Previous Index = " + e.PreviousIndex);
+                Console.WriteLine("Twin Index = " + e.TwinIndex);
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Arrangement Faces.\n");
+
+            var faces = new ArrFace2[arr.FaceCount];
+            arr.GetFaces(faces);
+
+            foreach (var e in faces)
+            {
+                Console.WriteLine(e.ToString());
+
+                Console.WriteLine("Index = " + e.Index);
+                Console.WriteLine("HalfEdge Index = " + e.HalfEdgeIndex);
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+        }
+
+        public static void PointLocationExample()
+        {
+            Console.WriteLine("Point location example\n");
+
+            Point2d p1 = new Point2d(0, 0);
+            Point2d p2 = new Point2d(0, 4);
+            Point2d p3 = new Point2d(4, 0);
+
+            var segments = new Segment2d[]
+            {
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p1)
+            };
+
+            var arr = new Arrangement2<EEK>(segments);
+
+            arr.SetIndices();
+            arr.CreateLocator(ARR_LOCATOR.WALK);
+
+            ArrPointQueryResult result;
+
+            if (arr.PointQuery(new Point2d(1, 1), out result))
+                Console.WriteLine("Point result = " + result);
+            else
+                Console.WriteLine("Point did not hit a element.");
+
+        }
+
     }
 }

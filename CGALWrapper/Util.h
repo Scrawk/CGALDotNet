@@ -12,7 +12,7 @@ namespace Util
 	template<class T>
 	void Release(void* ptr)
 	{
-		auto obj = (T*)ptr;
+		auto obj = static_cast<T*>(ptr);
 
 		if (obj != nullptr)
 		{

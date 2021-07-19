@@ -7,6 +7,13 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Arrangements
 {
 
+    public enum ARR_ELEMENT
+    {
+        VERTEX,
+        HALF_EDGE,
+        FACE
+    };
+
     public sealed class Arrangement2<K> : Arrangement2 where K : CGALKernel, new()
     {
         public Arrangement2() : base(new K())
@@ -123,6 +130,21 @@ namespace CGALDotNet.Arrangements
             Kernel.GetFaces(Ptr, faces, 0, faces.Length);
         }
 
+        public void CreateLocator(ARR_LOCATOR type)
+        {
+            Kernel.CreateLocator(Ptr, type);
+        }
+
+        public void ReleaseLocator()
+        {
+            Kernel.ReleaseLocator(Ptr);
+        }
+
+        public bool PointQuery(Point2d point, out ArrPointQueryResult result)
+        {
+            return Kernel.PointQuery(Ptr, point, out result);
+        }
+
         public void Print()
         {
             var builder = new StringBuilder();
@@ -141,75 +163,6 @@ namespace CGALDotNet.Arrangements
             builder.AppendLine("Edge Count = " + EdgeCount);
             builder.AppendLine("Face Count = " + FaceCount);
             builder.AppendLine("Unbounded Face Count = " + UnboundedFaceCount);
-
-            SetIndices();
-
-            /*
-            var points = new Point2d[VertexCount];
-            GetPoints(points);
-
-            foreach(var p in points)
-                builder.AppendLine(p.ToString());
-
-            var segments = new Segment2d[EdgeCount];
-            GetSegments(segments);
-
-            foreach (var s in segments)
-                builder.AppendLine(s.ToString());
-
-           
-
-            SetIndices();
-
-            var vertices = new ArrVertex2[VertexCount];
-            GetVertices(vertices);
-
-            foreach (var v in vertices)
-            {
-                builder.AppendLine(v.ToString());
-
-                builder.AppendLine("Index = " + v.Index);
-                builder.AppendLine("Face Index = " + v.FaceIndex);
-                builder.AppendLine("HalfEdge Index = " + v.HalfEdgeIndex);
-
-                builder.AppendLine();
-            }
-
-            builder.AppendLine();
-
-            var edges = new ArrHalfEdge2[HalfEdgeCount];
-            GetHalfEdges(edges);
-
-            foreach (var e in edges)
-            {
-                builder.AppendLine(e.ToString());
-
-                builder.AppendLine("Index = " + e.Index);
-                builder.AppendLine("Source Index = " + e.SourceIndex);
-                builder.AppendLine("Target Index = " + e.TargetIndex);
-                builder.AppendLine("Face Index = " + e.FaceIndex);
-                builder.AppendLine("Next Index = " + e.NextIndex);
-                builder.AppendLine("Previous Index = " + e.PreviousIndex);
-                builder.AppendLine("Twin Index = " + e.TwinIndex);
-
-                builder.AppendLine();
-            }
-
-            builder.AppendLine();
-
-            var faces = new ArrFace2[FaceCount];
-            GetFaces(faces);
-
-            foreach (var e in faces)
-            {
-                builder.AppendLine(e.ToString());
-
-                builder.AppendLine("Index = " + e.Index);
-                builder.AppendLine("HalfEdge Index = " + e.HalfEdgeIndex);
-
-                builder.AppendLine();
-            }
-            */
         }
 
         protected override void ReleasePtr()

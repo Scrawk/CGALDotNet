@@ -24,7 +24,10 @@ namespace CGALDotNetConsole
             //Polygon2BooleanExamples.SymmetricDifference();
             //Polygon2BooleanExamples.Complement();
 
-            Arrangement2Examples.CreateArrangement();
+            //Arrangement2Examples.CreateArrangement();
+            //Arrangement2Examples.GetGeometryExample();
+            Arrangement2Examples.GetElementsExample();
+            Arrangement2Examples.PointLocationExample();
         }
 
     }

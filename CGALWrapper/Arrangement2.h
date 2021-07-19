@@ -2,11 +2,19 @@
 
 #include "CGALWrapper.h"
 #include "Geometry2.h"
+#include "ArrMultiLocator.h"
 
 #include "CGAL/Point_2.h"
 #include <CGAL/Arr_segment_traits_2.h>
 #include <CGAL/Arrangement_2.h>
 #include <CGAL/Arr_extended_dcel.h>
+
+enum class ARR_ELEMENT : int
+{
+	VERTEX,
+	HALF_EDGE,
+	FACE
+};
 
 struct ArrVertex2
 {
@@ -39,13 +47,15 @@ struct ArrFace2
 	int HalfEdgeIndex;
 };
 
+struct ArrPointQueryResult
+{
+	ARR_ELEMENT Element;
+	int Index;
+};
+
 template<class K>
 class Arrangement2
 {
-
-private:
-
-	Arrangement2() {}
 
 public:
 
@@ -54,15 +64,38 @@ public:
 	typedef Traits_2::X_monotone_curve_2 Segment_2;
 	typedef CGAL::Arr_extended_dcel<Traits_2, int, int, int> Dcel;
 	typedef CGAL::Arrangement_2<Traits_2, Dcel> Arrangement_2;
+	typedef ArrMultiLocator<Arrangement_2> Locator;
+
+	typedef typename Arrangement_2::Vertex_const_handle   Vertex_const_handle;
+	typedef typename Arrangement_2::Halfedge_const_handle Halfedge_const_handle;
+	typedef typename Arrangement_2::Face_const_handle     Face_const_handle;
+
+private:
+
+	Arrangement_2 model;
+
+	Locator locator;
+
+public:
+
+	Arrangement2() 
+	{
+
+	}
+
+	~Arrangement2()
+	{
+
+	}
 
 	static void* CreateFromSegments(Segment2d* segments, int startIndex, int count)
 	{
-		auto arr = new Arrangement_2();
+		auto arr = new Arrangement2();
 
 		for (auto i = startIndex; i < count; i++)
 		{
 			auto seg = segments[i].To<K, Segment_2>();
-			CGAL::insert(*arr, seg);
+			CGAL::insert(arr->model, seg);
 		}
 
 		return arr;
@@ -70,52 +103,52 @@ public:
 
 	static int VertexCount(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
-		return (int)arr->number_of_vertices();
+		auto arr = CastToArrangement(ptr);
+		return (int)arr->model.number_of_vertices();
 	}
 
 	static int VerticesAtInfinityCount(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
-		return (int)arr->number_of_vertices_at_infinity();
+		auto arr = CastToArrangement(ptr);
+		return (int)arr->model.number_of_vertices_at_infinity();
 	}
 
 	static int IsolatedVerticesCount(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
-		return (int)arr->number_of_isolated_vertices();
+		auto arr = CastToArrangement(ptr);
+		return (int)arr->model.number_of_isolated_vertices();
 	}
 
 	static int HalfEdgeCount(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
-		return (int)arr->number_of_halfedges();
+		auto arr = CastToArrangement(ptr);
+		return (int)arr->model.number_of_halfedges();
 	}
 
 	static int FaceCount(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
-		return (int)arr->number_of_faces();
+		auto arr = CastToArrangement(ptr);
+		return (int)arr->model.number_of_faces();
 	}
 
 	static int EdgeCount(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
-		return (int)arr->number_of_edges();
+		auto arr = CastToArrangement(ptr);
+		return (int)arr->model.number_of_edges();
 	}
 
 	static int UnboundedFaceCount(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
-		return (int)arr->number_of_unbounded_faces();
+		auto arr = CastToArrangement(ptr);
+		return (int)arr->model.number_of_unbounded_faces();
 	}
 
 	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
 
-		for (auto iter = arr->vertices_begin(); iter != arr->vertices_end(); ++iter, ++i)
+		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter, ++i)
 		{
 			points[i].From<K>(iter->point());
 		}
@@ -123,10 +156,10 @@ public:
 
 	static void GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
 
-		for (auto iter = arr->edges_begin(); iter != arr->edges_end(); ++iter, ++i)
+		for (auto iter = arr->model.edges_begin(); iter != arr->model.edges_end(); ++iter, ++i)
 		{
 			auto a = iter->curve().source();
 			auto b = iter->curve().target();
@@ -137,37 +170,37 @@ public:
 
 	static void SetVertexIndices(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int index = 0;
 
-		for (auto iter = arr->vertices_begin(); iter != arr->vertices_end(); ++iter)
+		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter)
 			iter->set_data(index++);
 	}
 
 	static void SetHalfEdgeIndices(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int index = 0;
 
-		for (auto iter = arr->halfedges_begin(); iter != arr->halfedges_end(); ++iter)
+		for (auto iter = arr->model.halfedges_begin(); iter != arr->model.halfedges_end(); ++iter)
 			iter->set_data(index++);
 	}
 
 	static void SetFaceIndices(void* ptr)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int index = 0;
 
-		for (auto iter = arr->faces_begin(); iter != arr->faces_end(); ++iter)
+		for (auto iter = arr->model.faces_begin(); iter != arr->model.faces_end(); ++iter)
 			iter->set_data(index++);
 	}
 
 	static void GetVertices(void* ptr, ArrVertex2* vertices, int startIndex, int count)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
 
-		for (auto iter = arr->vertices_begin(); iter != arr->vertices_end(); ++iter, ++i)
+		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter, ++i)
 		{
 			vertices[i].Index = iter->data();
 			vertices[i].Point.From<K>(iter->point());
@@ -190,10 +223,10 @@ public:
 
 	static void GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
 
-		for (auto iter = arr->halfedges_begin(); iter != arr->halfedges_end(); ++iter, ++i)
+		for (auto iter = arr->model.halfedges_begin(); iter != arr->model.halfedges_end(); ++iter, ++i)
 		{
 			edges[i].IsFictitious = iter->is_fictitious();
 			edges[i].Index = iter->data();
@@ -208,10 +241,10 @@ public:
 
 	static void GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count)
 	{
-		auto arr = (Arrangement_2*)ptr;
+		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
 
-		for (auto iter = arr->faces_begin(); iter != arr->faces_end(); ++iter, ++i)
+		for (auto iter = arr->model.faces_begin(); iter != arr->model.faces_end(); ++iter, ++i)
 		{
 			faces[i].IsFictitious = iter->is_fictitious();
 			faces[i].IsUnbounded = iter->is_unbounded();
@@ -230,106 +263,61 @@ public:
 		}
 	}
 
-	/*
-	void print_neighboring_vertices(Arrangement_2::Vertex_const_handle v)
+	static void CreateLocator(void* ptr, ARR_LOCATOR type)
 	{
-		if (v->is_isolated()) {
-			std::cout << "The vertex (" << v->point() << ") is isolated" << std::endl;
-			return;
-		}
-
-		Arrangement_2::Halfedge_around_vertex_const_circulator first, curr;
-		first = curr = v->incident_halfedges();
-
-		std::cout << "The neighbors of the vertex (" << v->point() << ") are:";
-
-		do 
-		{
-			// Note that the current halfedge is directed from u to v:
-			Arrangement_2::Vertex_const_handle u = curr->source();
-			std::cout << " (" << u->point() << ")";
-		} 
-		while (++curr != first);
-
-		std::cout << std::endl;
+		auto arr = CastToArrangement(ptr);
+		arr->locator.CreateLocator(type, arr->model);
 	}
 
-	void print_ccb(Arrangement_2::Ccb_halfedge_const_circulator circ)
+	static void ReleaseLocator(void* ptr)
 	{
-		Ccb_halfedge_const_circulator curr = circ;
-
-		std::cout << "(" << curr->source()->point() << ")";
-
-		do 
-		{
-			Arrangement_2::Halfedge_const_handle he = curr->handle();
-
-			std::cout << " [" << he->curve() << "] "
-				<< "(" << he->target()->point() << ")";
-		}
-		while (++curr != circ);
-
-		std::cout << std::endl;
+		auto arr = CastToArrangement(ptr);
+		arr->locator.ReleaseLocator();
 	}
 
-	void print_face(Arrangement_2::Face_const_handle f)
+	static BOOL PointQuery(void* ptr, Point2d point, ArrPointQueryResult& result)
 	{
-		// Print the outer boundary.
-		if (f->is_unbounded())
-			std::cout << "Unbounded face. " << std::endl;
-		else 
+		auto arr = CastToArrangement(ptr);
+
+		auto q = arr->locator.Locate<K>(point, arr->model);
+
+		const Vertex_const_handle* v;
+		const Halfedge_const_handle* e;
+		const Face_const_handle* f;
+
+		if (f = boost::get<Face_const_handle>(&q))
 		{
-			std::cout << "Outer boundary: ";
-			print_ccb(f->outer_ccb());
+			result.Element = ARR_ELEMENT::FACE;
+			result.Index = (*f)->data();
+			return TRUE;
 		}
-
-		// Print the boundary of each of the holes.
-		Arrangement_2::Hole_const_iterator hi;
-		int index = 1;
-		for (hi = f->holes_begin(); hi != f->holes_end(); ++hi, ++index) {
-			std::cout << " Hole #" << index << ": ";
-			print_ccb(*hi);
+			
+		else if (e = boost::get<Halfedge_const_handle>(&q))
+		{
+			result.Element = ARR_ELEMENT::HALF_EDGE;
+			result.Index = (*e)->data();
+			return TRUE;
 		}
-
-		// Print the isolated vertices.
-		Arrangement_2::Isolated_vertex_const_iterator iv;
-
-		for (iv = f->isolated_vertices_begin(), index = 1;
-			iv != f->isolated_vertices_end(); ++iv, ++index) {
-			std::cout << " Isolated vertex #" << index << ": "
-				<< "(" << iv->point() << ")" << std::endl;
+			
+		else if (v = boost::get<Vertex_const_handle>(&q))
+		{
+			result.Element = ARR_ELEMENT::VERTEX;
+			result.Index = (*v)->data();
+			return TRUE;
+		}
+		else
+		{
+			result.Index = -1;
+			return FALSE;
 		}
 	}
 
-	void print_arrangement(const Arrangement_2& arr)
-	{
-		// Print the arrangement vertices.
-		Vertex_const_iterator vit;
+	private:
 
-		std::cout << arr.number_of_vertices() << " vertices:" << std::endl;
-
-		for (vit = arr.vertices_begin(); vit != arr.vertices_end(); ++vit) 
+		inline static Arrangement2* CastToArrangement(void* ptr)
 		{
-			std::cout << "(" << vit->point() << ")";
-			if (vit->is_isolated())
-				std::cout << " - Isolated." << std::endl;
-			else
-				std::cout << " - degree " << vit->degree() << std::endl;
+			return static_cast<Arrangement2*>(ptr);
 		}
-
-		// Print the arrangement edges.
-		Edge_const_iterator eit;
-		std::cout << arr.number_of_edges() << " edges:" << std::endl;
-		for (eit = arr.edges_begin(); eit != arr.edges_end(); ++eit)
-			std::cout << "[" << eit->curve() << "]" << std::endl;
-
-		// Print the arrangement faces.
-		Face_const_iterator fit;
-		std::cout << arr.number_of_faces() << " faces:" << std::endl;
-		for (fit = arr.faces_begin(); fit != arr.faces_end(); ++fit)
-			print_face(fit);
-	}
-	*/
 
 };
 

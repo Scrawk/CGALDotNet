@@ -72,6 +72,9 @@
     <ClInclude Include="Arrangement2_EEK.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
+    <ClInclude Include="ArrMultiLocator.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

@@ -9,7 +9,7 @@
 
 void* Arrangement2_EEK_Create()
 {
-	return Util::Create<Arrangement2<EEK>::Arrangement_2>();
+	return Util::Create<Arrangement2<EEK>>();
 }
 
 void* Arrangement2_EEK_CreateFromSegments(Segment2d* segments, int startIndex, int count)
@@ -19,7 +19,7 @@ void* Arrangement2_EEK_CreateFromSegments(Segment2d* segments, int startIndex, i
 
 void Arrangement2_EEK_Release(void* ptr)
 {
-	Util::Release<Arrangement2<EEK>::Arrangement_2>(ptr);
+	Util::Release<Arrangement2<EEK>>(ptr);
 }
 
 int Arrangement2_EEK_VertexCount(void* ptr)
@@ -95,4 +95,19 @@ void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startInde
 void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count)
 {
 	Arrangement2<EEK>::GetFaces(ptr, faces, startIndex, count);
+}
+
+void Arrangement2_EEK_CreateLocator(void* ptr, ARR_LOCATOR type)
+{
+	Arrangement2<EEK>::CreateLocator(ptr, type);
+}
+
+void Arrangement2_EEK_ReleaseLocator(void* ptr)
+{
+	Arrangement2<EEK>::ReleaseLocator(ptr);
+}
+
+BOOL Arrangement2_EEK_PointQuery(void* ptr, Point2d point, ArrPointQueryResult& result)
+{
+	return Arrangement2<EEK>::PointQuery(ptr, point, result);
 }
