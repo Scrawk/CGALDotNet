@@ -30,6 +30,18 @@ namespace CGALDotNet.Arrangements
                 Kernel.Name, VertexCount, HalfEdgeCount, FaceCount, Locator);
         }
 
+        public void Assign(Arrangement2<K> other)
+        {
+            Kernel.Assign(Ptr, other.Ptr);
+        }
+
+        public Arrangement2<K> Copy()
+        {
+            var copy = new Arrangement2<K>();
+            Kernel.Assign(copy.Ptr, Ptr);
+            return copy;
+        }
+
     }
 
     public abstract class Arrangement2 : CGALObject
@@ -73,6 +85,13 @@ namespace CGALDotNet.Arrangements
         public int UnboundedFaceCount => Kernel.UnboundedFaceCount(Ptr);
 
         public ARR_LOCATOR Locator { get; private set; }
+
+        public bool IsEmpty => Kernel.IsEmpty(Ptr);
+
+        public void Clear()
+        {
+            Kernel.Clear(Ptr);
+        }
 
         public bool CheckIfValid()
         {

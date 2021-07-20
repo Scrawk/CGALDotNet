@@ -34,6 +34,21 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_IsValid(ptr);
         }
 
+        internal override void Clear(IntPtr ptr)
+        {
+            Arrangement2_EEK_Clear(ptr);
+        }
+
+        internal override bool IsEmpty(IntPtr ptr)
+        {
+            return Arrangement2_EEK_IsEmpty(ptr);
+        }
+
+        internal override void Assign(IntPtr ptr, IntPtr ptrOther)
+        {
+            Arrangement2_EEK_Assign(ptr, ptrOther);
+        }
+
         internal override int VertexCount(IntPtr ptr)
         {
             return Arrangement2_EEK_VertexCount(ptr);
@@ -175,6 +190,15 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Arrangement2_EEK_IsValid(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_Clear(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_IsEmpty(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_Assign(IntPtr ptr, IntPtr ptrOther);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int Arrangement2_EEK_VertexCount(IntPtr ptr);

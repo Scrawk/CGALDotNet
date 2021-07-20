@@ -120,6 +120,25 @@ public:
 		return arr->model.is_valid();
 	}
 
+	static void Clear(void* ptr)
+	{
+		auto arr = CastToArrangement(ptr);
+		arr->model.clear();
+	}
+
+	static BOOL IsEmpty(void* ptr)
+	{
+		auto arr = CastToArrangement(ptr);
+		return arr->model.is_empty();
+	}
+
+	static void Assign(void* ptr, void* ptrOther)
+	{
+		auto arr = CastToArrangement(ptr);
+		auto other = CastToArrangement(ptrOther);
+		arr->model.assign(other->model);
+	}
+
 	static int VertexCount(void* ptr)
 	{
 		auto arr = CastToArrangement(ptr);

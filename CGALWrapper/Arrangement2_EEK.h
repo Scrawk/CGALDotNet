@@ -14,6 +14,12 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_IsValid(void* ptr);
 
+	CGALWRAPPER_API void Arrangement2_EEK_Clear(void* ptr);
+
+	CGALWRAPPER_API BOOL Arrangement2_EEK_IsEmpty(void* ptr);
+
+	CGALWRAPPER_API void Arrangement2_EEK_Assign(void* ptr, void* ptrOther);
+
 	CGALWRAPPER_API int Arrangement2_EEK_VertexCount(void* ptr);
 
 	CGALWRAPPER_API int Arrangement2_EEK_IsolatedVerticesCount(void* ptr);

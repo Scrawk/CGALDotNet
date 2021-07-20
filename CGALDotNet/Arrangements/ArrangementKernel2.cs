@@ -23,6 +23,12 @@ namespace CGALDotNet.Arrangements
 
         internal abstract bool IsValid(IntPtr ptr);
 
+        internal abstract void Clear(IntPtr ptr);
+
+        internal abstract bool IsEmpty(IntPtr ptr);
+
+        internal abstract void Assign(IntPtr ptr, IntPtr ptrOther);
+
         internal abstract int VertexCount(IntPtr ptr);
 
         internal abstract int IsolatedVerticesCount(IntPtr ptr);

@@ -27,6 +27,21 @@ BOOL Arrangement2_EEK_IsValid(void* ptr)
 	return Arrangement2<EEK>::IsValid(ptr);
 }
 
+void Arrangement2_EEK_Clear(void* ptr)
+{
+	return Arrangement2<EEK>::Clear(ptr);
+}
+
+BOOL Arrangement2_EEK_IsEmpty(void* ptr)
+{
+	return Arrangement2<EEK>::IsEmpty(ptr);
+}
+
+void Arrangement2_EEK_Assign(void* ptr, void* ptrOther)
+{
+	return Arrangement2<EEK>::Assign(ptr, ptrOther);
+}
+
 int Arrangement2_EEK_VertexCount(void* ptr)
 {
 	return Arrangement2<EEK>::VertexCount(ptr);
