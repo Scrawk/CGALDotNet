@@ -173,6 +173,8 @@
     <ClInclude Include="PolygonWithHoles2.h" />
     <ClInclude Include="PolygonWithHoles2_EEK.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Triangulation2.h" />
+    <ClInclude Include="Triangulation2_EEK.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +188,7 @@
     <ClCompile Include="Polygon2_EEK.cpp" />
     <ClCompile Include="PolygonBoolean2_EEK.cpp" />
     <ClCompile Include="PolygonWithHoles2_EEK.cpp" />
+    <ClCompile Include="Triangulation2_EEK.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CGALWrapper.rc" />

@@ -24,7 +24,7 @@ namespace CGALDotNetConsole
             //Polygon2BooleanExamples.SymmetricDifference();
             //Polygon2BooleanExamples.Complement();
 
-            Arrangement2Examples.CreateArrangement();
+            //Arrangement2Examples.CreateArrangement();
             //Arrangement2Examples.GetGeometryExample();
             //Arrangement2Examples.GetElementsExample();
             //Arrangement2Examples.PointQueryExample();
@@ -32,6 +32,10 @@ namespace CGALDotNetConsole
             //Arrangement2Examples.RayQueryExample();
             //Arrangement2Examples.RemoveVertex();
             //Arrangement2Examples.RemoveEdge();
+
+            Triangulation2Examples.CreateTriangulation();
+            //Triangulation2Examples.GetGeometryExample();
+
         }
 
     }

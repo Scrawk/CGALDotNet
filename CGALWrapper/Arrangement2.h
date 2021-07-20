@@ -101,6 +101,11 @@ public:
 
 	}
 
+	inline static Arrangement2* CastToArrangement(void* ptr)
+	{
+		return static_cast<Arrangement2*>(ptr);
+	}
+
 	static void* CreateFromSegments(Segment2d* segments, int startIndex, int count)
 	{
 		auto arr = new Arrangement2();
@@ -457,19 +462,13 @@ public:
 				while (++curr != first);
 
 			}
-			else
-				return FALSE;
+
 		}
-		else
-			return FALSE;
+		
+		return FALSE;
 	}
 
 private:
-
-	inline static Arrangement2* CastToArrangement(void* ptr)
-	{
-		return static_cast<Arrangement2*>(ptr);
-	}
 
 	static BOOL HandleQuery(Locator_Result_Type query, ArrQuery& result)
 	{

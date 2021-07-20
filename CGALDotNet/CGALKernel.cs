@@ -4,6 +4,7 @@ using System.Text;
 
 using CGALDotNet.Polygons;
 using CGALDotNet.Arrangements;
+using CGALDotNet.Triangulations;
 
 namespace CGALDotNet
 {
@@ -16,6 +17,8 @@ namespace CGALDotNet
         internal abstract PolygonBooleanKernel2 PolygonBooleanKernel2 { get; }
 
         internal abstract ArrangementKernel2 ArrangementKernel2 { get; }
+
+        internal abstract TriangulationKernel2 TriangulationKernel2 { get; }
     }
 
     public class EEK : CGALKernel
@@ -29,5 +32,7 @@ namespace CGALDotNet
         internal override PolygonBooleanKernel2 PolygonBooleanKernel2 => PolygonBooleanKernel2_EEK.Instance;
 
         internal override ArrangementKernel2 ArrangementKernel2 => ArrangementKernel2_EEK.Instance;
+
+        internal override TriangulationKernel2 TriangulationKernel2 => TriangulationKernel2_EEK.Instance;
     }
 }

@@ -28,6 +28,12 @@
     <Filter Include="Source Files\Arrangements">
       <UniqueIdentifier>{2e0a034f-4a47-4736-8348-e07b217b9889}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Triangulations">
+      <UniqueIdentifier>{0e3ede1a-3015-4a20-a650-2a82785d9280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Triangulations">
+      <UniqueIdentifier>{52bfc570-b5b1-4323-b124-201edfd0b624}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -75,6 +81,12 @@
     <ClInclude Include="ArrMultiLocator.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulation2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulation2_EEK.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -91,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="Arrangement2_EEK.cpp">
       <Filter>Source Files\Arrangements</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulation2_EEK.cpp">
+      <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
