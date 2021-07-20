@@ -22,6 +22,11 @@ void Arrangement2_EEK_Release(void* ptr)
 	Util::Release<Arrangement2<EEK>>(ptr);
 }
 
+BOOL Arrangement2_EEK_IsValid(void* ptr)
+{
+	return Arrangement2<EEK>::IsValid(ptr);
+}
+
 int Arrangement2_EEK_VertexCount(void* ptr)
 {
 	return Arrangement2<EEK>::VertexCount(ptr);
@@ -130,4 +135,29 @@ BOOL Arrangement2_EEK_IntersectsSegment(void* ptr, Segment2d segment)
 void Arrangement2_EEK_InsertPoint(void* ptr, Point2d point)
 {
 	Arrangement2<EEK>::InsertPoint(ptr, point);
+}
+
+void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
+{
+	Arrangement2<EEK>::InsertSegment(ptr, segment, nonItersecting);
+}
+
+BOOL Arrangement2_EEK_RemoveVertexByIndex(void* ptr, int index)
+{
+	return Arrangement2<EEK>::RemoveVertex(ptr, index);
+}
+
+BOOL Arrangement2_EEK_RemoveVertexByPoint(void* ptr, Point2d point)
+{
+	return Arrangement2<EEK>::RemoveVertex(ptr, point);
+}
+
+BOOL Arrangement2_EEK_RemoveEdgeByIndex(void* ptr, int index)
+{
+	return Arrangement2<EEK>::RemoveEdge(ptr, index);
+}
+
+BOOL Arrangement2_EEK_RemoveEdgeBySegment(void* ptr, Segment2d segment)
+{
+	return Arrangement2<EEK>::RemoveEdge(ptr, segment);
 }

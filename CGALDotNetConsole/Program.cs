@@ -28,8 +28,11 @@ namespace CGALDotNetConsole
             //Arrangement2Examples.GetGeometryExample();
             //Arrangement2Examples.GetElementsExample();
             //Arrangement2Examples.PointQueryExample();
+            //Arrangement2Examples.BatchedPointQueryExample();
+            //Arrangement2Examples.RayQueryExample();
 
-            Arrangement2Examples.BatchedPointQueryExample();
+            //Arrangement2Examples.RemoveVertex();
+            Arrangement2Examples.RemoveEdge();
         }
 
     }

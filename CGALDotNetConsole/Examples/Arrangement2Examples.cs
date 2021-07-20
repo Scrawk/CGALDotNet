@@ -84,60 +84,8 @@ namespace CGALDotNetConsole.Examples
 
             var arr = new Arrangement2<EEK>(segments);
 
-            arr.SetIndices();
+            arr.Print(true);
 
-            var vertices = new ArrVertex2[arr.VertexCount];
-            arr.GetVertices(vertices);
-
-            Console.WriteLine("Arrangement Vertices.\n");
-
-            foreach (var v in vertices)
-            {
-                Console.WriteLine(v.ToString());
-
-                Console.WriteLine("Index = " + v.Index);
-                Console.WriteLine("Face Index = " + v.FaceIndex);
-                Console.WriteLine("HalfEdge Index = " + v.HalfEdgeIndex);
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("Arrangement Half Edges.\n");
-
-            var edges = new ArrHalfEdge2[arr.HalfEdgeCount];
-            arr.GetHalfEdges(edges);
-
-            foreach (var e in edges)
-            {
-                Console.WriteLine(e.ToString());
-
-                Console.WriteLine("Index = " + e.Index);
-                Console.WriteLine("Source Index = " + e.SourceIndex);
-                Console.WriteLine("Target Index = " + e.TargetIndex);
-                Console.WriteLine("Face Index = " + e.FaceIndex);
-                Console.WriteLine("Next Index = " + e.NextIndex);
-                Console.WriteLine("Previous Index = " + e.PreviousIndex);
-                Console.WriteLine("Twin Index = " + e.TwinIndex);
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("Arrangement Faces.\n");
-
-            var faces = new ArrFace2[arr.FaceCount];
-            arr.GetFaces(faces);
-
-            foreach (var e in faces)
-            {
-                Console.WriteLine(e.ToString());
-
-                Console.WriteLine("Index = " + e.Index);
-                Console.WriteLine("HalfEdge Index = " + e.HalfEdgeIndex);
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine();
         }
 
         public static void PointQueryExample()
@@ -232,6 +180,64 @@ namespace CGALDotNetConsole.Examples
                 Console.WriteLine("Point result = " + result);
             else
                 Console.WriteLine("Point did not hit a element.");
+        }
+
+        public static void RemoveVertex()
+        {
+            Console.WriteLine("Remove vertex example\n");
+
+            Point2d p1 = new Point2d(0, 0);
+            Point2d p2 = new Point2d(0, 4);
+            Point2d p3 = new Point2d(4, 0);
+            Point2d p4 = new Point2d(1, 1);
+
+            var segments = new Segment2d[]
+            {
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p1)
+            };
+
+            var arr = new Arrangement2<EEK>(segments);
+            arr.CreateLocator(ARR_LOCATOR.WALK);
+
+            arr.InsertPoint(p4);
+
+            Console.WriteLine("Removed by point " + arr.RemoveVertex(p4) + "\n");
+
+            arr.InsertPoint(p4);
+            arr.SetIndices();
+
+            Console.WriteLine("Removed by index " + arr.RemoveVertex(3) + "\n");
+
+            arr.Print();
+        }
+
+        public static void RemoveEdge()
+        {
+            Console.WriteLine("Remove vertex example\n");
+
+            Point2d p1 = new Point2d(0, 0);
+            Point2d p2 = new Point2d(0, 4);
+            Point2d p3 = new Point2d(4, 0);
+            Point2d p4 = new Point2d(1, 1);
+
+            var segments = new Segment2d[]
+            {
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p1)
+            };
+
+            var arr = new Arrangement2<EEK>(segments);
+            arr.CreateLocator(ARR_LOCATOR.WALK);
+
+            Console.WriteLine("Removed by segment " + arr.RemoveEdge(new Segment2d(p2, p1)) + "\n");
+
+            arr.SetIndices();
+            Console.WriteLine("Removed by index " + arr.RemoveEdge(3) + "\n");
+
+            arr.Print(true);
         }
 
     }

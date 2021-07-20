@@ -73,9 +73,15 @@ public:
 	typedef typename Locator::Locator_Result_Type Locator_Result_Type;
 	typedef std::pair<Point_2, Locator_Result_Type> Batch_Query_Result;
 
-	typedef typename Arrangement_2::Vertex_const_handle   Vertex_const_handle;
+	typedef typename Arrangement_2::Vertex_const_handle Vertex_const_handle;
 	typedef typename Arrangement_2::Halfedge_const_handle Halfedge_const_handle;
-	typedef typename Arrangement_2::Face_const_handle     Face_const_handle;
+	typedef typename Arrangement_2::Face_const_handle Face_const_handle;
+
+	typedef typename Arrangement_2::Vertex_handle Vertex_handle;
+	typedef typename Arrangement_2::Halfedge_handle Halfedge_handle;
+	typedef typename Arrangement_2::Face_handle Face_handle;
+
+	typedef typename Arrangement_2::Halfedge_around_vertex_const_circulator Vertex_const_circulator;
 
 private:
 
@@ -106,6 +112,12 @@ public:
 		}
 
 		return arr;
+	}
+
+	static BOOL IsValid(void* ptr)
+	{
+		auto arr = CastToArrangement(ptr);
+		return arr->model.is_valid();
 	}
 
 	static int VertexCount(void* ptr)
@@ -335,7 +347,104 @@ public:
 	static void InsertPoint(void* ptr, Point2d point)
 	{
 		auto arr = CastToArrangement(ptr);
-		return arr->locator.InsertPoint(arr->model, point);
+		arr->locator.InsertPoint(arr->model, point);
+	}
+
+	static void InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
+	{
+		auto arr = CastToArrangement(ptr);
+
+		if(nonItersecting)
+			arr->locator.InsertSegment<Segment_2>(arr->model, segment);
+		else
+			arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
+	}
+
+	static BOOL RemoveVertex(void* ptr, int index)
+	{
+		auto arr = CastToArrangement(ptr);
+		
+		Vertex_handle v;
+		if (arr->FindVertex(index, v))
+			return remove_vertex(arr->model, v);
+		else
+			return FALSE;
+	}
+
+	static BOOL RemoveVertex(void* ptr, Point2d point)
+	{
+		auto arr = CastToArrangement(ptr);
+
+		auto q = arr->locator.Locate(arr->model, point);
+
+		const Vertex_const_handle* vert;
+		if (vert = boost::get<Vertex_const_handle>(&q))
+		{
+			auto v = arr->model.non_const_handle(*vert);
+			return remove_vertex(arr->model, v);
+		}
+		else
+			return FALSE;
+	}
+
+	static BOOL RemoveEdge(void* ptr, int index)
+	{
+		auto arr = CastToArrangement(ptr);
+
+		Halfedge_handle e;
+		if (arr->FindEdge(index, e))
+		{
+			remove_edge(arr->model, e);
+			return TRUE;
+		}
+		else
+			return FALSE;
+	}
+
+	static BOOL RemoveEdge(void* ptr, Segment2d segment)
+	{
+		auto arr = CastToArrangement(ptr);
+
+		auto q1 = arr->locator.Locate(arr->model, segment.a);
+
+		const Vertex_const_handle* vert1;
+		if (vert1 = boost::get<Vertex_const_handle>(&q1))
+		{
+			if ((*vert1)->is_isolated())
+				return FALSE;
+
+			auto q2 = arr->locator.Locate(arr->model, segment.b);
+
+			const Vertex_const_handle* vert2;
+			if (vert2 = boost::get<Vertex_const_handle>(&q2))
+			{
+				if ((*vert2)->is_isolated())
+					return FALSE;
+
+				auto first = (*vert1)->incident_halfedges();
+				auto curr = first;
+				auto next = first;
+				bool found = false;
+
+				do 
+				{
+					++next;
+					found = (next->source() == (*vert2) || next->target() == (*vert2));
+				} 
+				while (!found && ++curr != first);
+
+				if (found)
+				{
+					auto e = arr->model.non_const_handle(next);
+					remove_edge(arr->model, e);
+					return TRUE;
+				}
+			}
+			else
+				return FALSE;
+		}
+		else
+			return FALSE;
 	}
 
 private:
@@ -387,6 +496,72 @@ private:
 			list.push_back(points[i].To<K>());
 
 		return list;
+	}
+
+	BOOL FindVertex(int index, Vertex_handle& vert)
+	{
+		int count = (int)model.number_of_vertices();
+
+		if (index < 0 || index >= count)
+			return FALSE;
+
+		if (index / 2 < count)
+		{
+			for (auto iter = model.vertices_begin(); iter != model.vertices_end(); ++iter)
+			{
+				if (iter->data() == index)
+				{
+					vert = iter;
+					return TRUE;
+				}
+			}
+		}
+		else
+		{
+			for (auto iter = model.vertices_end(); iter != model.vertices_begin(); --iter)
+			{
+				if (iter->data() == index)
+				{
+					vert = iter;
+					return TRUE;
+				}
+			}
+		}
+			
+		return FALSE;
+	}
+
+	BOOL FindEdge(int index, Halfedge_handle& edge)
+	{
+		int count = (int)model.number_of_halfedges();
+
+		if (index < 0 || index >= count)
+			return FALSE;
+
+		if (index / 2 < count)
+		{
+			for (auto iter = model.halfedges_begin(); iter != model.halfedges_end(); ++iter)
+			{
+				if (iter->data() == index)
+				{
+					edge = iter;
+					return TRUE;
+				}
+			}
+		}
+		else
+		{
+			for (auto iter = model.halfedges_end(); iter != model.halfedges_begin(); --iter)
+			{
+				if (iter->data() == index)
+				{
+					edge = iter;
+					return TRUE;
+				}
+			}
+		}
+
+		return FALSE;
 	}
 
 };

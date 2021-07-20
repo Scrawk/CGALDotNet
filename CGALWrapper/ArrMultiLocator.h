@@ -13,11 +13,11 @@
 
 enum class ARR_LOCATOR : int
 {
-	NONE = -1,
-	NAIVE = 0,
-	WALK = 1,
-	LANDMARKS = 2,
-	TRAPEZOID = 3
+	NONE,
+	NAIVE,
+	WALK,
+	LANDMARKS,
+	TRAPEZOID
 };
 
 template<class K, class Arrangement>
@@ -143,7 +143,7 @@ public:
 			return trapezoid_locator->locate(point.To<K>());
 
 		default:
-			Naive_Locator locator;
+			Walk_Locator locator;
 			locator.attach(arr);
 			return locator.locate(point.To<K>());
 		}
@@ -221,7 +221,52 @@ public:
 			insert_point(arr, point.To<K>(), locator);
 			break;
 		}
+	}
 
+	template<class SEGMENT>
+	void InsertSegment(Arrangement& arr, Segment2d segment)
+	{
+		auto seg = segment.To<K, SEGMENT>();
+
+		switch (current_locator_type)
+		{
+		case ARR_LOCATOR::WALK:
+			insert(arr, seg, *walk_locator);
+			break;
+
+		case ARR_LOCATOR::TRAPEZOID:
+			insert(arr, seg, *trapezoid_locator);
+			break;
+
+		default:
+			Walk_Locator locator;
+			locator.attach(arr);
+			insert(arr, seg, locator);
+			break;
+		}
+	}
+
+	template<class SEGMENT>
+	void InsertNonIntersectingSegment(Arrangement& arr, Segment2d segment)
+	{
+		auto seg = segment.To<K, SEGMENT>();
+
+		switch (current_locator_type)
+		{
+		case ARR_LOCATOR::WALK:
+			insert_non_intersecting_curve(arr, seg, *walk_locator);
+			break;
+
+		case ARR_LOCATOR::TRAPEZOID:
+			insert_non_intersecting_curve(arr, seg, *trapezoid_locator);
+			break;
+
+		default:
+			Walk_Locator locator;
+			locator.attach(arr);
+			insert_non_intersecting_curve(arr, seg, locator);
+			break;
+		}
 	}
 
 };

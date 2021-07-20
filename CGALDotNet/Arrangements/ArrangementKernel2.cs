@@ -21,6 +21,8 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void Release(IntPtr ptr);
 
+        internal abstract bool IsValid(IntPtr ptr);
+
         internal abstract int VertexCount(IntPtr ptr);
 
         internal abstract int IsolatedVerticesCount(IntPtr ptr);
@@ -60,5 +62,17 @@ namespace CGALDotNet.Arrangements
         internal abstract bool BatchedPointQuery(IntPtr ptr, Point2d[] points, ArrQuery[] results, int startIndex, int count);
 
         internal abstract bool RayQuery(IntPtr ptr, Point2d point, bool up, out ArrQuery result);
+
+        internal abstract bool IntersectsSegment(IntPtr ptr, Segment2d segment);
+
+        internal abstract void InsertPoint(IntPtr ptr, Point2d point);
+
+        internal abstract bool RemoveVertexByIndex(IntPtr ptr, int index);
+
+        internal abstract bool RemoveVertexByPoint(IntPtr ptr, Point2d point);
+
+        internal abstract bool RemoveEdgeByIndex(IntPtr ptr, int index);
+
+        internal abstract bool RemoveEdgeBySegment(IntPtr ptr, Segment2d segment);
     }
 }

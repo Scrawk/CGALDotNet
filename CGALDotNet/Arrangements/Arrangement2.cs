@@ -26,8 +26,8 @@ namespace CGALDotNet.Arrangements
 
         public override string ToString()
         {
-            return string.Format("[Arrangement2<{0}>: ]",
-                Kernel.Name);
+            return string.Format("[Arrangement2<{0}>: Vertices={1}, HalfEdges={2}, Faces={3}, Locator={4}]",
+                Kernel.Name, VertexCount, HalfEdgeCount, FaceCount, Locator);
         }
 
     }
@@ -71,6 +71,13 @@ namespace CGALDotNet.Arrangements
         public int FaceCount => Kernel.FaceCount(Ptr);
 
         public int UnboundedFaceCount => Kernel.UnboundedFaceCount(Ptr);
+
+        public ARR_LOCATOR Locator { get; private set; }
+
+        public bool CheckIfValid()
+        {
+            return Kernel.IsValid(Ptr);
+        }
 
         public void SetIndices()
         {
@@ -123,13 +130,21 @@ namespace CGALDotNet.Arrangements
             Kernel.GetFaces(Ptr, faces, 0, faces.Length);
         }
 
-        public void CreateLocator(ARR_LOCATOR type)
+        public void CreateLocator(ARR_LOCATOR locator)
         {
-            Kernel.CreateLocator(Ptr, type);
+            if (Locator == locator)
+                return;
+
+            Locator = locator;
+            Kernel.CreateLocator(Ptr, locator);
         }
 
         public void ReleaseLocator()
         {
+            if (Locator == ARR_LOCATOR.NONE)
+                return;
+
+            Locator = ARR_LOCATOR.NONE;
             Kernel.ReleaseLocator(Ptr);
         }
 
@@ -149,24 +164,114 @@ namespace CGALDotNet.Arrangements
             return Kernel.RayQuery(Ptr, point, up, out result);
         }
 
-        public void Print()
+        public bool IntersectsSegment(Segment2d segment)
+        {
+            return Kernel.IntersectsSegment(Ptr, segment);
+        }
+
+        public void InsertPoint(Point2d point)
+        {
+            Kernel.InsertPoint(Ptr, point);
+        }
+
+        public bool RemoveVertex(int index)
+        {
+            return Kernel.RemoveVertexByIndex(Ptr, index);
+        }
+
+        public bool RemoveVertex(Point2d point)
+        {
+            return Kernel.RemoveVertexByPoint(Ptr, point);
+        }
+
+        public bool RemoveEdge(int index)
+        {
+            return Kernel.RemoveEdgeByIndex(Ptr, index);
+        }
+
+        public bool RemoveEdge(Segment2d segment)
+        {
+            return Kernel.RemoveEdgeBySegment(Ptr, segment);
+        }
+
+        public void Print(bool printElements = false)
         {
             var builder = new StringBuilder();
-            Print(builder);
+            Print(builder, printElements);
             Console.WriteLine(builder.ToString());
         }
 
-        public void Print(StringBuilder builder)
+        public void Print(StringBuilder builder, bool printElements = false)
         {
-
             builder.AppendLine(ToString());
-            builder.AppendLine("Vertex Count = " + VertexCount);
             builder.AppendLine("Isolated Vertex Count = " + IsolatedVerticesCount);
             builder.AppendLine("Vertex at Infinity Count = " + VerticesAtInfinityCount);
-            builder.AppendLine("Half Edge Count = " + HalfEdgeCount);
             builder.AppendLine("Edge Count = " + EdgeCount);
-            builder.AppendLine("Face Count = " + FaceCount);
             builder.AppendLine("Unbounded Face Count = " + UnboundedFaceCount);
+
+            if(printElements)
+            {
+                builder.AppendLine();
+
+                SetIndices();
+                PrintVertices(builder);
+                PrintHalfEdges(builder);
+                PrintFaces(builder);
+            }
+        }
+
+        public void PrintVertices(StringBuilder builder)
+        {
+            builder.AppendLine("Arrangement Vertices.\n");
+
+            var vertices = new ArrVertex2[VertexCount];
+            GetVertices(vertices);
+
+            foreach (var v in vertices)
+            {
+                builder.AppendLine(v.ToString());
+                builder.AppendLine("Index = " + v.Index);
+                builder.AppendLine("Face Index = " + v.FaceIndex);
+                builder.AppendLine("HalfEdge Index = " + v.HalfEdgeIndex);
+                builder.AppendLine();
+            }
+        }
+
+        public void PrintHalfEdges(StringBuilder builder)
+        {
+            builder.AppendLine("Arrangement Half Edges.\n");
+
+            var edges = new ArrHalfEdge2[HalfEdgeCount];
+            GetHalfEdges(edges);
+
+            foreach (var e in edges)
+            {
+                builder.AppendLine(e.ToString());
+                builder.AppendLine("Index = " + e.Index);
+                builder.AppendLine("Source Index = " + e.SourceIndex);
+                builder.AppendLine("Target Index = " + e.TargetIndex);
+                builder.AppendLine("Face Index = " + e.FaceIndex);
+                builder.AppendLine("Next Index = " + e.NextIndex);
+                builder.AppendLine("Previous Index = " + e.PreviousIndex);
+                builder.AppendLine("Twin Index = " + e.TwinIndex);
+                builder.AppendLine();
+            }
+        }
+
+        public void PrintFaces(StringBuilder builder)
+        {
+            builder.AppendLine("Arrangement Faces.\n");
+
+            var faces = new ArrFace2[FaceCount];
+            GetFaces(faces);
+
+            foreach (var e in faces)
+            {
+                builder.AppendLine(e.ToString());
+                builder.AppendLine("Index = " + e.Index);
+                builder.AppendLine("HalfEdge Index = " + e.HalfEdgeIndex);
+                builder.AppendLine();
+            }
         }
 
         protected override void ReleasePtr()

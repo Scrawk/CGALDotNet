@@ -6,10 +6,11 @@ namespace CGALDotNet.Arrangements
 {
     public enum ARR_LOCATOR
     {
-        NAIVE = 0,
-        WALK = 1,
-        LANDMARKS = 2,
-        TRAPEZOID = 3
+        NONE,
+        NAIVE,
+        WALK,
+        LANDMARKS,
+        TRAPEZOID
     };
 
     public enum ARR_ELEMENT_HIT

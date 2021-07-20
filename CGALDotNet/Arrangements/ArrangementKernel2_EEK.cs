@@ -29,6 +29,11 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_Release(ptr);
         }
 
+        internal override bool IsValid(IntPtr ptr)
+        {
+            return Arrangement2_EEK_IsValid(ptr);
+        }
+
         internal override int VertexCount(IntPtr ptr)
         {
             return Arrangement2_EEK_VertexCount(ptr);
@@ -129,6 +134,36 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_RayQuery(ptr, point, up, out result);
         }
 
+        internal override bool IntersectsSegment(IntPtr ptr, Segment2d segment)
+        {
+            return Arrangement2_EEK_IntersectsSegment(ptr, segment);
+        }
+
+        internal override void InsertPoint(IntPtr ptr, Point2d point)
+        {
+            Arrangement2_EEK_InsertPoint(ptr, point);
+        }
+
+        internal override bool RemoveVertexByIndex(IntPtr ptr, int index)
+        {
+            return Arrangement2_EEK_RemoveVertexByIndex(ptr, index);
+        }
+
+        internal override bool RemoveVertexByPoint(IntPtr ptr, Point2d point)
+        {
+            return Arrangement2_EEK_RemoveVertexByPoint(ptr, point);
+        }
+
+        internal override bool RemoveEdgeByIndex(IntPtr ptr, int index)
+        {
+            return Arrangement2_EEK_RemoveEdgeByIndex(ptr, index);
+        }
+
+        internal override bool RemoveEdgeBySegment(IntPtr ptr, Segment2d segment)
+        {
+            return Arrangement2_EEK_RemoveEdgeBySegment(ptr, segment);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Arrangement2_EEK_Create();
 
@@ -137,6 +172,9 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_Release(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_IsValid(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int Arrangement2_EEK_VertexCount(IntPtr ptr);
@@ -197,6 +235,24 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Arrangement2_EEK_RayQuery(IntPtr ptr, Point2d point, bool up, [Out] out ArrQuery result);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_IntersectsSegment(IntPtr ptr, Segment2d segment);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_InsertPoint(IntPtr ptr, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_RemoveVertexByIndex(IntPtr ptr, int index);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_RemoveVertexByPoint(IntPtr ptr, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_RemoveEdgeByIndex(IntPtr ptr, int index);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Arrangement2_EEK_RemoveEdgeBySegment(IntPtr ptr, Segment2d segment);
 
 
     }
