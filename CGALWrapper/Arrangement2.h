@@ -424,21 +424,19 @@ public:
 				auto first = (*vert1)->incident_halfedges();
 				auto curr = first;
 				auto next = first;
-				bool found = false;
 
 				do 
 				{
 					++next;
-					found = (next->source() == (*vert2) || next->target() == (*vert2));
+					if ((next->source() == (*vert2) || next->target() == (*vert2)))
+					{
+						auto e = arr->model.non_const_handle(next);
+						remove_edge(arr->model, e);
+						return TRUE;
+					}
 				} 
-				while (!found && ++curr != first);
+				while (++curr != first);
 
-				if (found)
-				{
-					auto e = arr->model.non_const_handle(next);
-					remove_edge(arr->model, e);
-					return TRUE;
-				}
 			}
 			else
 				return FALSE;
