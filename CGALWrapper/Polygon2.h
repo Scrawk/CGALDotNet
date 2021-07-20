@@ -3,8 +3,8 @@
 #include "CGALWrapper.h"
 #include "Geometry2.h"
 
-#include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h> 
+#include <CGAL/Polygon_2.h>
 #include <CGAL/Aff_transformation_2.h>
 #include <CGAL/Vector_2.h>
 #include <CGAL/Direction_2.h>
@@ -14,6 +14,7 @@ class Polygon2
 {
 
 private:
+
 	Polygon2() {}
 
 public:

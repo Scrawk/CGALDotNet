@@ -87,6 +87,12 @@
     <ClInclude Include="Triangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
+    <ClInclude Include="PolygonPartition2_EEK.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonPartition2.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -106,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="Triangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonPartition2_EEK.cpp">
+      <Filter>Source Files\Polygons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

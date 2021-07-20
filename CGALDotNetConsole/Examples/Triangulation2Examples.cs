@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CGALDotNet;
 using CGALDotNet.Geometry;
 using CGALDotNet.Triangulations;
+using CGALDotNet.Polygons;
 
 namespace CGALDotNetConsole.Examples
 {
@@ -21,13 +22,36 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 4)
             };
 
-            var tri = new Triangulation2<EEK>(points);
+            var polygon = new Polygon2<EEK>(points);
+
+            var tri = new Triangulation2<EEK>(polygon);
+
+            tri.SetIndices();
             tri.Print();
+
+            points = new Point2d[tri.VertexCount];
+            tri.GetPoints(points);
+
+            Console.WriteLine("Triangulation Points.");
+            Console.WriteLine();
+
+            foreach (var p in points)
+                Console.WriteLine(p.ToString());
+
+            Console.WriteLine();
+
+            var indices = new int[tri.IndiceCount];
+            tri.GetIndices(indices);
+
+            foreach (var i in indices)
+                Console.WriteLine(i.ToString());
+
+            Console.WriteLine();
         }
 
-        public static void GetGeometryExample()
+        public static void GetTrianglesExample()
         {
-            Console.WriteLine("Get geometry example\n");
+            Console.WriteLine("Get triangles example\n");
 
             var points = new Point2d[]
             {

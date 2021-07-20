@@ -20,9 +20,9 @@ namespace CGALDotNet.Triangulations
 
         }
 
-        public Triangulation2(Polygon2<K> polygon) : base(new K(), polygon)
+        public Triangulation2(Polygon2<K> polygon) : base(new K())
         {
-
+            InsertPolygon(polygon);
         }
 
         internal Triangulation2(IntPtr ptr) : base(new K(), ptr)
@@ -34,6 +34,16 @@ namespace CGALDotNet.Triangulations
         {
             return string.Format("[Triangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
                 Kernel.Name, VertexCount, FaceCount);
+        }
+
+        public Triangulation2<K> Copy()
+        {
+            return new Triangulation2<K>(Kernel.Copy(Ptr));
+        }
+
+        public void InsertPolygon(Polygon2<K> polygon)
+        {
+            Kernel.InsertPolygon(Ptr, polygon.Ptr);
         }
 
     }
@@ -54,13 +64,8 @@ namespace CGALDotNet.Triangulations
         internal Triangulation2(CGALKernel kernel, Point2d[] points)
         {
             Kernel = kernel.TriangulationKernel2;
-            Ptr = Kernel.CreateFromPoints(points, 0, points.Length);
-        }
-
-        internal Triangulation2(CGALKernel kernel, Polygon2 polygon)
-        {
-            Kernel = kernel.TriangulationKernel2;
-            Ptr = Kernel.CreateFromPolygon(polygon.Ptr);
+            Ptr = Kernel.Create();
+            InsertPoints(points);
         }
 
         internal Triangulation2(CGALKernel kernel, IntPtr ptr) : base(ptr)
@@ -74,6 +79,8 @@ namespace CGALDotNet.Triangulations
 
         public int FaceCount => Kernel.FaceCount(Ptr);
 
+        public int IndiceCount => FaceCount * 3;
+
         public void Clear()
         {
             Kernel.Clear(Ptr);
@@ -84,10 +91,45 @@ namespace CGALDotNet.Triangulations
             return Kernel.IsValid(Ptr);
         }
 
+        public void SetIndices()
+        {
+            SetVertexIndices();
+            SetFaceIndices();
+        }
+
+        public void SetVertexIndices()
+        {
+            Kernel.SetVertexIndices(Ptr);
+        }
+
+        public void SetFaceIndices()
+        {
+            Kernel.SetFaceIndices(Ptr);
+        }
+
+        public void InsertPoint(Point2d point)
+        {
+            Kernel.InsertPoint(Ptr, point);
+        }
+
+        public void InsertPoints(Point2d[] points)
+        {
+            Kernel.InsertPoints(Ptr, points, 0, points.Length);
+        }
+
         public void GetPoints(Point2d[] points)
         {
             ErrorUtil.CheckBounds(points, 0, VertexCount);
             Kernel.GetPoints(Ptr, points, 0, points.Length);
+        }
+
+        public void GetIndices(int[] indices)
+        {
+            int count = IndiceCount;
+            if (count == 0) return;
+
+            ErrorUtil.CheckBounds(indices, 0, count);
+            Kernel.GetIndices(Ptr, indices, 0, indices.Length);
         }
 
         public void Print()

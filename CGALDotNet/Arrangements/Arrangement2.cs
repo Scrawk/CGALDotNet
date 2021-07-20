@@ -114,6 +114,7 @@ namespace CGALDotNet.Arrangements
         {
             Kernel.SetHalfEdgeIndices(Ptr);
         }
+
         public void SetFaceIndices()
         {
             Kernel.SetFaceIndices(Ptr);
