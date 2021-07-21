@@ -146,6 +146,11 @@ namespace CGALDotNet.Polygons
             PolygonWithHoles2_EEK_Transform(ptr, index, translation, rotation, scale);
         }
 
+        internal override bool ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary)
+        {
+            return PolygonWithHoles2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr PolygonWithHoles2_EEK_Create();
 
@@ -226,5 +231,8 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void PolygonWithHoles2_EEK_Transform(IntPtr ptr, int index, Point2d translation, double rotation, double scale);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool PolygonWithHoles2_EEK_ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation,bool inculdeBoundary);
     }
 }

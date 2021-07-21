@@ -48,6 +48,8 @@ extern "C"
 
 	CGALWRAPPER_API void Polygon2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale);
 
+	CGALWRAPPER_API BOOL Polygon2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary);
+
 }
 
 

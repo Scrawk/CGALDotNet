@@ -341,6 +341,10 @@ namespace CGALDotNet.Polygons
 
         public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
         {
+            var orientation = FindOrientation(POLYGON_ELEMENT.BOUNDARY);
+            return Kernel.ContainsPoint(Ptr, point, orientation, inculdeBoundary);
+
+            /*
             if (ContainsPoint(POLYGON_ELEMENT.BOUNDARY, point, inculdeBoundary))
             {
                 for (int i = 0; i < HoleCount; i++)
@@ -355,9 +359,11 @@ namespace CGALDotNet.Polygons
             {
                 return false;
             }
+            */
         }
 
-        public bool ContainsPoint(POLYGON_ELEMENT element, Point2d point, bool inculdeBoundary = true, int index = 0)
+        /*
+        private bool ContainsPoint(POLYGON_ELEMENT element, Point2d point, bool inculdeBoundary = true, int index = 0)
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
             {
@@ -388,6 +394,7 @@ namespace CGALDotNet.Polygons
                 return side == CGAL_ORIENTED_SIDE.ON_NEGATIVE_SIDE;
             }
         }
+        */
 
         public void Translate(POLYGON_ELEMENT element, Point2d translation, int index = 0)
         {

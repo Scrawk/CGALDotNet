@@ -15,6 +15,7 @@ namespace CGALDotNetConsole
             //Polygon2Examples.CreateNonSimplePolygon();
             //Polygon2Examples.PolygonContainsPoint();
             //Polygon2Examples.CreatePolygonWithHoles();
+            Polygon2Examples.PolygonWithHolesContainsPoint();
             //Polygon2Examples.TransformPolygon();
 
             //Polygon2BooleanExamples.DoIntersect();
@@ -33,7 +34,7 @@ namespace CGALDotNetConsole
             //Arrangement2Examples.RemoveVertex();
             //Arrangement2Examples.RemoveEdge();
 
-            Triangulation2Examples.CreateTriangulation();
+            //Triangulation2Examples.CreateTriangulation();
             //Triangulation2Examples.GetGeometryExample();
 
             //PolygonPartition2Examples.CreatePolygonPartition();

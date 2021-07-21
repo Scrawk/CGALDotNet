@@ -62,4 +62,6 @@ extern "C"
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_Scale(void* ptr, int index, double scale);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_Transform(void* ptr, int index, Point2d translation, double rotation, double scale);
+
+	CGALWRAPPER_API BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary);
 }

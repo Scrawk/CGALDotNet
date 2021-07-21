@@ -115,6 +115,11 @@ namespace CGALDotNet.Polygons
             Polygon2_EEK_Transform(ptr,  translation, rotation, scale);
         }
 
+        internal override bool ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary)
+        {
+            return Polygon2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Polygon2_EEK_Create();
 
@@ -174,6 +179,9 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Polygon2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Polygon2_EEK_ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary);
 
     }
 }

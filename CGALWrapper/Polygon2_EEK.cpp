@@ -105,3 +105,8 @@ void Polygon2_EEK_Transform(void* ptr, Point2d translation, double rotation, dou
 {
 	Polygon2<EEK>::Transform(ptr, translation, rotation, scale);
 }
+
+BOOL Polygon2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+{
+	return Polygon2<EEK>::ContainsPoint(ptr, point, orientation, inculdeBoundary);
+}

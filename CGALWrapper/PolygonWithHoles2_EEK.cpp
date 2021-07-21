@@ -140,4 +140,9 @@ void PolygonWithHoles2_EEK_Transform(void* ptr, int index, Point2d translation, 
 	PolygonWithHoles2<EEK>::Transform(ptr, index, translation, rotation, scale);
 }
 
+BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+{
+	return PolygonWithHoles2<EEK>::ContainsPoint(ptr, point, orientation, inculdeBoundary);
+}
+
 

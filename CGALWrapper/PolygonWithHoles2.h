@@ -22,9 +22,19 @@ public:
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Point_2<K> Point_2;
 
+	inline static Polygon_2* CastToPolygon2(void* ptr)
+	{
+		return static_cast<Polygon_2*>(ptr);
+	}
+
+	inline static Pwh_2* CastToPolygonWithHoles2(void* ptr)
+	{
+		return static_cast<Pwh_2*>(ptr);
+	}
+
 	static Polygon_2* GetBoundaryOrHole(void* ptr, int index, BOOL forceBoundary = false)
 	{
-		auto pwh = (Pwh_2*)ptr;
+		auto pwh = CastToPolygonWithHoles2(ptr);
 
 		if (index == BOUNDARY_INDEX)
 		{
@@ -41,7 +51,7 @@ public:
 
 	static int HoleCount(void* ptr)
 	{
-		auto pwh = (Pwh_2*)ptr;
+		auto pwh = CastToPolygonWithHoles2(ptr);
 		return pwh->number_of_holes();
 	}
 
@@ -56,25 +66,25 @@ public:
 
 	static void* Copy(void* ptr)
 	{
-		auto pwh = (Pwh_2*)ptr;
+		auto pwh = CastToPolygonWithHoles2(ptr);
 		return new Pwh_2(*pwh);
 	}
 
 	static void Clear(void* ptr)
 	{
-		auto pwh = (Pwh_2*)ptr;
+		auto pwh = CastToPolygonWithHoles2(ptr);
 		pwh->clear();
 	}
 
 	static void ClearBoundary(void* ptr)
 	{
-		auto pwh = (Pwh_2*)ptr;
+		auto pwh = CastToPolygonWithHoles2(ptr);
 		pwh->outer_boundary().clear();
 	}
 
 	static void* CreateFromPolygon(void* ptr)
 	{
-		auto polygon = (Polygon_2*)ptr;
+		auto polygon = CastToPolygon2(ptr);
 		return new Pwh_2(*polygon);
 	}
 
@@ -93,7 +103,7 @@ public:
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
 		{
-			auto polygon = (Polygon_2*)ptr;
+			auto polygon = CastToPolygon2(ptr);
 			auto point = polygon->vertex(pointIndex);
 
 			return { CGAL::to_double(point.x()), CGAL::to_double(point.y()) };
@@ -123,7 +133,7 @@ public:
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
 		{
-			auto polygon = (Polygon_2*)ptr;
+			auto polygon = CastToPolygon2(ptr);
 			(*polygon)[pointIndex] = Point_2(point.x, point.y);
 		}
 	}
@@ -156,7 +166,7 @@ public:
 
 	static void RemoveHole(void* ptr, int index)
 	{
-		auto pwh = (Pwh_2*)ptr;
+		auto pwh = CastToPolygonWithHoles2(ptr);
 		pwh->erase_hole(pwh->holes_begin() + index);
 	}
 
@@ -178,7 +188,7 @@ public:
 
 	static BOOL IsUnbounded(void* ptr)
 	{
-		auto pwh = (Pwh_2*)ptr;
+		auto pwh = CastToPolygonWithHoles2(ptr);
 		return pwh->is_unbounded();
 	}
 
@@ -268,7 +278,42 @@ public:
 
 			(*polygon) = CGAL::transform(T * R * S, *polygon);
 		}
+	}
 
+	static BOOL ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	{
+		auto pwh = CastToPolygonWithHoles2(ptr);
+		auto& boundary = pwh->outer_boundary();
+
+		if (ContainsPoint(boundary, true, point, orientation, inculdeBoundary))
+		{
+			for (auto& hole : pwh->holes())
+			{
+				if (ContainsPoint(hole, false, point, orientation, inculdeBoundary))
+					return FALSE;
+			}
+
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+private:
+
+	static BOOL ContainsPoint(Polygon_2& polygon, bool isBoundary, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	{
+		auto side = polygon.oriented_side(point.To<K>());
+
+		if (inculdeBoundary && side == CGAL::Oriented_side::ON_ORIENTED_BOUNDARY)
+			return true;
+
+		if(isBoundary)
+			return side == orientation;
+		else
+			return side == (orientation * -1);
 	}
 
 };

@@ -121,16 +121,41 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(5,-5)
             };
 
-            //var boundary = new Polygon2<EEK>(bounds);
-            //boundary.Print();
+            var pwh = new PolygonWithHoles2<EEK>(bounds);
+            pwh.AddHole(new Polygon2<EEK>(points));
+            pwh.Print();
 
-           // foreach (var p in boundary)
-            //    Console.WriteLine(p);
+            Console.WriteLine();
+        }
+
+        public static void PolygonWithHolesContainsPoint()
+        {
+            Console.WriteLine("Polygon with holes contains point example\n");
+
+            var bounds = new Point2d[]
+            {
+                new Point2d(-10,-10),
+                new Point2d(10,-10),
+                new Point2d(10,10),
+                new Point2d(-10,10)
+            };
+
+            var points = new Point2d[]
+            {
+                new Point2d(-5,-5),
+                new Point2d(-5,5),
+                new Point2d(5,5),
+                new Point2d(5,-5)
+            };
 
             var pwh = new PolygonWithHoles2<EEK>(bounds);
-            ///pwh.AddHole(new Polygon2<EEK>(points));
+            pwh.AddHole(new Polygon2<EEK>(points));
 
-            pwh.Print();
+            Console.WriteLine("Contains point (0.0, 0.0) = " + pwh.ContainsPoint(new Point2d(0.0, 0.0)));
+            Console.WriteLine("Contains point (9, 9) = " + pwh.ContainsPoint(new Point2d(9, 9)));
+            Console.WriteLine("Contains point (11, 11) = " + pwh.ContainsPoint(new Point2d(11, 11)));
+            Console.WriteLine("Contains point (-5, -5) = " + pwh.ContainsPoint(new Point2d(-5, -5)));
+            Console.WriteLine("Contains point (-10, -10) = " + pwh.ContainsPoint(new Point2d(-10, -10)));
 
             Console.WriteLine();
         }

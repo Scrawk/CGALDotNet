@@ -175,6 +175,18 @@ public:
 		(*polygon) = CGAL::transform(T * R * S, *polygon);
 	}
 
+	static BOOL ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	{
+		auto polygon = CastToPolygon2(ptr);
+
+		auto side = polygon->oriented_side(point.To<K>());
+
+		if (inculdeBoundary && side == CGAL::Oriented_side::ON_ORIENTED_BOUNDARY)
+			return true;
+
+		return side == orientation;
+	}
+
 };
 
 

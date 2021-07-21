@@ -224,6 +224,12 @@ namespace CGALDotNet.Polygons
 
         public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
         {
+            if (IsSimple)
+                return Kernel.ContainsPoint(Ptr, point, Orientation, inculdeBoundary);
+            else
+                return false;
+
+            /*
             var side = OrientedSide(point);
 
             if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
@@ -233,6 +239,7 @@ namespace CGALDotNet.Polygons
                 return true;
 
             return side == CGAL_ORIENTED_SIDE.ON_POSITIVE_SIDE;
+            */
         }
 
         public void Translate(Point2d translation)

@@ -54,5 +54,7 @@ namespace CGALDotNet.Polygons
         internal abstract void Scale(IntPtr ptr, double scale);
 
         internal abstract void Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+
+        internal abstract bool ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary);
     }
 }
