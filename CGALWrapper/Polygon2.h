@@ -27,6 +27,16 @@ public:
 		return static_cast<Polygon_2*>(ptr);
 	}
 
+	inline static Polygon_2* CreatePolygon2()
+	{
+		return new Polygon_2();
+	}
+
+	inline static Polygon_2* CreatePolygon2(const Polygon_2& poly)
+	{
+		return new Polygon_2(poly);
+	}
+
 	static int Count(void* ptr)
 	{
 		auto polygon = CastToPolygon2(ptr);

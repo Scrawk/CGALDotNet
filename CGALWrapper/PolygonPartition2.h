@@ -4,7 +4,7 @@
 #include "Geometry2.h"
 #include "Polygon2.h"
 
-#include <list>
+#include <vector>
 #include <CGAL/Partition_traits_2.h>
 #include <CGAL/partition_2.h>
 
@@ -14,7 +14,16 @@ class PolygonPartition2
 
 public:
 
-	typedef CGAL::Polygon_2<K> Polygon_2;
+	typedef CGAL::Partition_traits_2<K> Traits;
+	typedef typename Traits::Point_2 Point_2;
+	typedef typename Traits::Polygon_2 Polygon_2;
+	typedef typename std::vector<Polygon_2> Polygon_List;
+
+private:
+
+	Polygon_List buffer;
+
+public:
 
 	PolygonPartition2()
 	{
@@ -31,6 +40,30 @@ public:
 		return static_cast<PolygonPartition2*>(ptr);
 	}
 
+	static void ClearBuffer(void* ptr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		par->buffer.clear();
+	}
+
+	static int BufferCount(void* ptr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		return (int)par->buffer.size();
+	}
+
+	static void* CopyBufferItem(void* ptr, int index)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+
+		auto copy = Polygon2<K>::CreatePolygon2();
+
+		for (const Point_2& p : par->buffer[index])
+			copy->push_back(p);
+
+		return copy;
+	}
+
 	static BOOL Is_Y_Monotone(void* ptr, void* polyPtr)
 	{
 		auto par = CastToPolygonPartition2(ptr);
@@ -44,7 +77,15 @@ public:
 		auto par = CastToPolygonPartition2(ptr);
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
 
-		return CGAL::partition_is_valid_2(poly->vertices_begin(), poly->vertices_end(), par->begin(), par->end());
+		return CGAL::partition_is_valid_2(poly->vertices_begin(), poly->vertices_end(), par->buffer.begin(), par->buffer.end());
+	}
+
+	static BOOL ConvexPartionIsValid(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+
+		return CGAL::convex_partition_is_valid_2(poly->vertices_begin(), poly->vertices_end(), par->buffer.begin(), par->buffer.end());
 	}
 
 	static BOOL Y_MonotonePartionIsValid(void* ptr, void* polyPtr)
@@ -52,18 +93,51 @@ public:
 		auto par = CastToPolygonPartition2(ptr);
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
 
-		return CGAL::y_monotone_partition_is_valid_2(poly->vertices_begin(), poly->vertices_end(), par->begin(), par->end());
+		return CGAL::y_monotone_partition_is_valid_2(poly->vertices_begin(), poly->vertices_end(), par->buffer.begin(), par->buffer.end());
 	}
 
-	static void Y_MonotonePartition2(void* ptr, void* polyPtr)
+	static int Y_MonotonePartition(void* ptr, void* polyPtr)
 	{
 		auto par = CastToPolygonPartition2(ptr);
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
 
-		std::list<Polygon_2> list;
+		par->buffer.clear();
+		CGAL::y_monotone_partition_2(poly->vertices_begin(), poly->vertices_end(), std::back_inserter(par->buffer));
 
-		//CGAL::y_monotone_partition_2(poly->vertices_begin(), poly->vertices_end(), std::back_inserter(list));
+		return (int)par->buffer.size();
 	}
 
+	static int ApproxConvexPartition(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+
+		par->buffer.clear();
+		CGAL::approx_convex_partition_2(poly->vertices_begin(), poly->vertices_end(), std::back_inserter(par->buffer));
+
+		return (int)par->buffer.size();
+	}
+
+	static int GreeneApproxConvexPartition(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+
+		par->buffer.clear();
+		CGAL::greene_approx_convex_partition_2(poly->vertices_begin(), poly->vertices_end(), std::back_inserter(par->buffer));
+
+		return (int)par->buffer.size();
+	}
+
+	static int OptimalConvexPartition(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+
+		par->buffer.clear();
+		CGAL::optimal_convex_partition_2(poly->vertices_begin(), poly->vertices_end(), std::back_inserter(par->buffer));
+
+		return (int)par->buffer.size();
+	}
 
 };

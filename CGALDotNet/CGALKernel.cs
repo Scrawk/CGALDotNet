@@ -16,6 +16,8 @@ namespace CGALDotNet
 
         internal abstract PolygonBooleanKernel2 PolygonBooleanKernel2 { get; }
 
+        internal abstract PolygonPartitionKernel2 PolygonPartitionKernel2 { get; }
+
         internal abstract ArrangementKernel2 ArrangementKernel2 { get; }
 
         internal abstract TriangulationKernel2 TriangulationKernel2 { get; }
@@ -30,6 +32,8 @@ namespace CGALDotNet
         internal override PolygonWithHolesKernel2 PolygonWithHolesKernel2 => PolygonWithHolesKernel2_EEK.Instance;
 
         internal override PolygonBooleanKernel2 PolygonBooleanKernel2 => PolygonBooleanKernel2_EEK.Instance;
+
+        internal override PolygonPartitionKernel2 PolygonPartitionKernel2 => PolygonPartitionKernel2_EEK.Instance;
 
         internal override ArrangementKernel2 ArrangementKernel2 => ArrangementKernel2_EEK.Instance;
 
