@@ -84,6 +84,11 @@ namespace CGALDotNet.Triangulations
             Triangulation2_EEK_GetIndices(ptr, indices, startIndex, count);
         }
 
+        internal override int GetPolygonIndices(IntPtr triPtr, IntPtr polyPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation)
+        {
+            return Triangulation2_EEK_GetPolygonIndices(triPtr, polyPtr, indices, startIndex, count, orientation);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Triangulation2_EEK_Create();
 
@@ -126,11 +131,8 @@ namespace CGALDotNet.Triangulations
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Triangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int startIndex, int count);
 
-
-
-
-
-
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int Triangulation2_EEK_GetPolygonIndices(IntPtr triPtr, IntPtr polyPtr, [Out] int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
 
     }
 }

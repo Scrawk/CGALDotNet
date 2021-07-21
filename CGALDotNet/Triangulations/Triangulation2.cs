@@ -10,6 +10,9 @@ namespace CGALDotNet.Triangulations
 
     public sealed class Triangulation2<K> : Triangulation2 where K : CGALKernel, new()
     {
+
+        public static readonly Triangulation2<K> Instance = new Triangulation2<K>();
+
         public Triangulation2() : base(new K())
         {
 
@@ -46,6 +49,19 @@ namespace CGALDotNet.Triangulations
             Kernel.InsertPolygon(Ptr, polygon.Ptr);
         }
 
+        public void GetPolygonIndices(Polygon2<K> polygon, List<int> indices)
+        {
+            int count = IndiceCount;
+            if (count == 0) return;
+
+            int[] tmp = new int[count];
+
+            var orientation = polygon.Orientation;
+            count = Kernel.GetPolygonIndices(Ptr, polygon.Ptr, tmp, 0, tmp.Length, orientation);
+
+            for (int i = 0; i < count; i++)
+                indices.Add(tmp[i]);
+        }
     }
 
     public abstract class Triangulation2 : CGALObject

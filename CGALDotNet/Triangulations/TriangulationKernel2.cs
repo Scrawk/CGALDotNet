@@ -43,6 +43,9 @@ namespace CGALDotNet.Triangulations
         internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
 
         internal abstract void GetIndices(IntPtr ptr, int[] indices, int startIndex, int count);
-        
+
+        internal abstract int GetPolygonIndices(IntPtr triPtr, IntPtr polyPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
+
+
     }
 }

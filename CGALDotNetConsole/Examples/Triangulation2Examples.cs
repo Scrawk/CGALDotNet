@@ -18,8 +18,10 @@ namespace CGALDotNetConsole.Examples
             var points = new Point2d[]
             {
                 new Point2d(0, 0),
-                new Point2d(4, 0),
-                new Point2d(0, 4)
+                new Point2d(5, 0),
+                new Point2d(5, 5),
+                new Point2d(2, 2),
+                new Point2d(0, 5)
             };
 
             var polygon = new Polygon2<EEK>(points);
@@ -40,8 +42,10 @@ namespace CGALDotNetConsole.Examples
 
             Console.WriteLine();
 
-            var indices = new int[tri.IndiceCount];
-            tri.GetIndices(indices);
+            var indices = new List<int>();
+            tri.GetPolygonIndices(polygon, indices);
+
+            Console.WriteLine("Count " + indices.Count);
 
             foreach (var i in indices)
                 Console.WriteLine(i.ToString());

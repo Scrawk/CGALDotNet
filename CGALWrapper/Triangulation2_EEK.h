@@ -34,5 +34,7 @@ extern "C"
 
 	CGALWRAPPER_API void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int count);
 
+	CGALWRAPPER_API int Triangulation2_EEK_GetPolygonIndices(void* triPtr, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation);
+
 }
 

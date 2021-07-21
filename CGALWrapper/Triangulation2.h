@@ -23,6 +23,8 @@ public:
 	typedef CGAL::Triangulation_2<K, Tds> Triangulation_2;
 	typedef typename Triangulation_2::Point Point_2;
 
+	typedef typename Triangulation_2::Finite_faces_iterator Finite_faces_iterator;
+
 private:
 
 	Triangulation_2 model;
@@ -133,18 +135,54 @@ public:
 	static void GetIndices(void* ptr, int* indices, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int index = startIndex;
 
 		for (auto& face : tri->model.finite_face_handles())
 		{
-			indices[i * 3 + 0] = face->vertex(0)->info();
-			indices[i * 3 + 1] = face->vertex(1)->info();
-			indices[i * 3 + 2] = face->vertex(2)->info();
+			indices[index * 3 + 0] = face->vertex(0)->info();
+			indices[index * 3 + 1] = face->vertex(1)->info();
+			indices[index * 3 + 2] = face->vertex(2)->info();
 
-			i++;
+			index++;
 		}
 	}
 
+	static Point_2 CenterPoint(Finite_faces_iterator face)
+	{
+		Point_2 p0 = face->vertex(0)->point();
+		Point_2 p1 = face->vertex(1)->point();
+		Point_2 p2 = face->vertex(2)->point();
 
+		auto x = (p0.x() + p1.x() + p2.x()) / 3;
+		auto y = (p0.y() + p1.y() + p2.y()) / 3;
+
+		return Point_2(x, y);
+	}
+
+	static int GetPolygonIndices(void* ptrTri, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
+	{
+		auto tri = CastToTriangulation2(ptrTri);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+
+		int num = 0;
+		int index = startIndex;
+
+		for (auto& face : tri->model.finite_face_handles())
+		{
+			Point_2 p = CenterPoint(face);
+
+			if (poly->oriented_side(p) == orientation)
+			{
+				indices[index * 3 + 0] = face->vertex(0)->info();
+				indices[index * 3 + 1] = face->vertex(1)->info();
+				indices[index * 3 + 2] = face->vertex(2)->info();
+
+				index++;
+				num++;
+			}
+		}
+
+		return num * 3;
+	}
 
 };

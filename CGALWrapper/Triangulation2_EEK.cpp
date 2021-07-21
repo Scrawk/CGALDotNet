@@ -74,3 +74,8 @@ void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int 
 	Triangulation2<EEK>::GetIndices(ptr, indices, startIndex, count);
 }
 
+int Triangulation2_EEK_GetPolygonIndices(void* triPtr, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
+{
+	return Triangulation2<EEK>::GetPolygonIndices(triPtr, polyPtr, indices, startIndex, count, orientation);
+}
+
