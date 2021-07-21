@@ -40,11 +40,15 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void InsertPolygon(IntPtr triPtr, IntPtr polyPtr);
 
+        internal abstract void InsertPolygonWithHoles(IntPtr triPtr, IntPtr pwhPtr);
+
         internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
 
         internal abstract void GetIndices(IntPtr ptr, int[] indices, int startIndex, int count);
 
         internal abstract int GetPolygonIndices(IntPtr triPtr, IntPtr polyPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
+
+        internal abstract int GetPolygonWithHolesIndices(IntPtr triPtr, IntPtr pwhPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
 
 
     }

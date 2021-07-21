@@ -28,6 +28,11 @@ namespace CGALDotNet.Triangulations
             InsertPolygon(polygon);
         }
 
+        public Triangulation2(PolygonWithHoles2<K> polygon) : base(new K())
+        {
+            InsertPolygon(polygon);
+        }
+
         internal Triangulation2(IntPtr ptr) : base(new K(), ptr)
         {
 
@@ -49,6 +54,11 @@ namespace CGALDotNet.Triangulations
             Kernel.InsertPolygon(Ptr, polygon.Ptr);
         }
 
+        public void InsertPolygon(PolygonWithHoles2<K> pwh)
+        {
+            Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
+        }
+
         public void GetPolygonIndices(Polygon2<K> polygon, List<int> indices)
         {
             int count = IndiceCount;
@@ -58,6 +68,20 @@ namespace CGALDotNet.Triangulations
 
             var orientation = polygon.Orientation;
             count = Kernel.GetPolygonIndices(Ptr, polygon.Ptr, tmp, 0, tmp.Length, orientation);
+
+            for (int i = 0; i < count; i++)
+                indices.Add(tmp[i]);
+        }
+
+        public void GetPolygonIndices(PolygonWithHoles2<K> pwh, List<int> indices)
+        {
+            int count = IndiceCount;
+            if (count == 0) return;
+
+            int[] tmp = new int[count];
+
+            var orientation = pwh.FindOrientation(POLYGON_ELEMENT.BOUNDARY);
+            count = Kernel.GetPolygonWithHolesIndices(Ptr, pwh.Ptr, tmp, 0, tmp.Length, orientation);
 
             for (int i = 0; i < count; i++)
                 indices.Add(tmp[i]);

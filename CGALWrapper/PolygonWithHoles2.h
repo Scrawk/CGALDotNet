@@ -301,6 +301,26 @@ public:
 		}
 	}
 
+	static BOOL ContainsPoint(Pwh_2& pwh, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	{
+		auto& boundary = pwh.outer_boundary();
+
+		if (ContainsPoint(boundary, true, point, orientation, inculdeBoundary))
+		{
+			for (auto& hole : pwh.holes())
+			{
+				if (ContainsPoint(hole, false, point, orientation, inculdeBoundary))
+					return FALSE;
+			}
+
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 private:
 
 	static BOOL ContainsPoint(Polygon_2& polygon, bool isBoundary, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)

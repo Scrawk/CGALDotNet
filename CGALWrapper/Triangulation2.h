@@ -3,6 +3,7 @@
 #include "CGALWrapper.h"
 #include "Geometry2.h"
 #include "Polygon2.h"
+#include "PolygonWithHoles2.h"
 
 #include <vector>
 #include "CGAL/Point_2.h"
@@ -123,6 +124,19 @@ public:
 		tri->model.insert(polygon->vertices_begin(), polygon->vertices_end());
 	}
 
+	static void InsertPolygonWithHoles(void* triPtr, void* pwhPtr)
+	{
+		auto tri = CastToTriangulation2(triPtr);
+
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		if(!pwh->is_unbounded())
+			tri->model.insert(pwh->outer_boundary().vertices_begin(), pwh->outer_boundary().vertices_end());
+
+		for (auto& hole : pwh->holes())
+			tri->model.insert(hole.vertices_begin(), hole.vertices_end());
+	}
+
 	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -172,6 +186,35 @@ public:
 			Point_2 p = CenterPoint(face);
 
 			if (poly->oriented_side(p) == orientation)
+			{
+				indices[index * 3 + 0] = face->vertex(0)->info();
+				indices[index * 3 + 1] = face->vertex(1)->info();
+				indices[index * 3 + 2] = face->vertex(2)->info();
+
+				index++;
+				num++;
+			}
+		}
+
+		return num * 3;
+	}
+
+	static int GetPolygonWithHolesIndices(void* ptrTri, void* pwhPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
+	{
+		auto tri = CastToTriangulation2(ptrTri);
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		int num = 0;
+		int index = startIndex;
+
+		for (auto& face : tri->model.finite_face_handles())
+		{
+			Point_2 p = CenterPoint(face);
+
+			Point2d point;
+			point.From<K>(p);
+
+			if (PolygonWithHoles2<K>::ContainsPoint(*pwh, point, orientation, true))
 			{
 				indices[index * 3 + 0] = face->vertex(0)->info();
 				indices[index * 3 + 1] = face->vertex(1)->info();
