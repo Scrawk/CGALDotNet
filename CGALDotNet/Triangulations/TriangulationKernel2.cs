@@ -44,6 +44,8 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void GetVertices(IntPtr ptr, TriVertex2[] vertices, int startIndex, int count);
 
+        internal abstract void GetFaces(IntPtr ptr, TriFace2[] faces, int startIndex, int count);
+
 
     }
 }

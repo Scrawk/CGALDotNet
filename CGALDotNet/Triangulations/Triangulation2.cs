@@ -116,7 +116,10 @@ namespace CGALDotNet.Triangulations
 
         public void GetPoints(Point2d[] points)
         {
-            ErrorUtil.CheckBounds(points, 0, VertexCount);
+            int count = VertexCount;
+            if (count == 0) return;
+
+            ErrorUtil.CheckBounds(points, 0, count);
             Kernel.GetPoints(Ptr, points, 0, points.Length);
         }
 
@@ -131,8 +134,20 @@ namespace CGALDotNet.Triangulations
 
         public void GetVertices(TriVertex2[] vertices)
         {
-            ErrorUtil.CheckBounds(vertices, 0, VertexCount);
+            int count = VertexCount;
+            if (count == 0) return;
+
+            ErrorUtil.CheckBounds(vertices, 0, count);
             Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
+        }
+
+        public void GetFaces(TriFace2[] faces)
+        {
+            int count = FaceCount;
+            if (count == 0) return;
+
+            ErrorUtil.CheckBounds(faces, 0, count);
+            Kernel.GetFaces(Ptr, faces, 0, faces.Length);
         }
 
         public void Print()

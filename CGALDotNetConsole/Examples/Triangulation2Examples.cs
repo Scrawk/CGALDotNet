@@ -93,19 +93,15 @@ namespace CGALDotNetConsole.Examples
             for (int i = 0; i < vertices.Length; i++)
                 Console.WriteLine(vertices[i]);
 
-            var indices = new int[tri.IndiceCount];
-            tri.GetIndices(indices);
-
-            int triangles = indices.Length / 3;
+            var faces = new TriFace2[tri.FaceCount];
+            tri.GetFaces(faces);
 
             Console.WriteLine();
-            Console.WriteLine("Triangles " + triangles);
+            Console.WriteLine("Faces " + faces.Length);
             Console.WriteLine();
 
-            for (int i = 0; i < triangles; i++)
-            {
-                Console.WriteLine("Triangle = " + indices[i * 3 + 0] + "," + indices[i * 3 + 1] + "," + indices[i * 3 + 2]);
-            }
+            for (int i = 0; i < faces.Length; i++)
+                Console.WriteLine(faces[i]);
 
             Console.WriteLine();
         }

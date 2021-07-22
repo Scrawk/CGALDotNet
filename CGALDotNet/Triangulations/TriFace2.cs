@@ -6,6 +6,8 @@ namespace CGALDotNet.Triangulations
 {
     public struct TriFace2
     {
+        public bool IsInfinite;
+
         public int Index;
 
         public int VertexIndex0;
@@ -14,7 +16,8 @@ namespace CGALDotNet.Triangulations
 
         public override string ToString()
         {
-            return string.Format("[TriFace2: ]");
+            return string.Format("[TriFace2: Index={0}, IsInfinite={1}, Vertex0={2}, Vertex1={3}, Vertex2={4}]",
+                Index, IsInfinite, VertexIndex0, VertexIndex1, VertexIndex2);
         }
 
         unsafe public int this[int i]

@@ -4,6 +4,10 @@
 #include "Triangulation2_EEK.h"
 #include "Triangulation2.h"
 
+typedef Triangulation2<EEK>::Triangulation_2 Triangulation;
+typedef Triangulation2<EEK>::Face Face;
+typedef Triangulation2<EEK>::Vertex Vertex;
+
 void* Triangulation2_EEK_Create()
 {
 	return Util::Create<Triangulation2<EEK>>();
@@ -72,6 +76,63 @@ void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int 
 void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
 {
 	Triangulation2<EEK>::GetVertices(ptr, vertices, startIndex, count);
+}
+
+void ResetFace(Triangulation& tri, Vertex vert)
+{
+	auto face = vert->face();
+	auto f = vert->incident_faces(face), end(f);
+
+	if (!f.is_empty())
+	{
+		do
+		{
+			if (!tri.is_infinite(f))
+			{
+				vert->set_face(f);
+				return;
+			}
+
+		} while (++f != end);
+	}
+}
+
+int Degree(Triangulation& tri, Vertex vert)
+{
+	auto face = vert->face();
+	auto f = vert->incident_faces(face), end(f);
+
+	int count = 0;
+
+	if (!f.is_empty())
+	{
+		do
+		{
+			if (!tri.is_infinite(f))
+				count++;
+
+		} while (++f != end);
+	}
+
+	return count;
+}
+
+void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count)
+{
+	/*
+	Triangulation2<EEK>::Triangulation_2 t;
+
+	for (const auto& vert : t.all_vertex_handles())
+	{
+		if (t.is_infinite(vert->face()))
+		{
+			ResetFace(t, vert);
+		}
+
+	}
+	*/
+	
+	Triangulation2<EEK>::GetFaces(ptr, faces, startIndex, count);
 }
 
 

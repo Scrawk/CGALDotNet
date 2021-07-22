@@ -10,6 +10,8 @@ namespace CGALDotNet.Triangulations
     {
         public Point2d Point;
 
+        public bool IsInfinite;
+
         public int Degree;
 
         public int Index;
@@ -17,7 +19,8 @@ namespace CGALDotNet.Triangulations
         public int FaceIndex;
         public override string ToString()
         {
-            return string.Format("[TriVertex2: Point={0}, Degree={1}]", Point, Degree);
+            return string.Format("[TriVertex2: Index={0}, Point={1}, IsInfinite={2}, Degree={3}, Face={4}]", 
+                Index, Point, IsInfinite, Degree, FaceIndex);
         }
     }
 }

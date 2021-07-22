@@ -34,5 +34,7 @@ extern "C"
 
 	CGALWRAPPER_API void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count);
 
+	CGALWRAPPER_API void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count);
+
 }
 
