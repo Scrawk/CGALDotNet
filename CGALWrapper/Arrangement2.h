@@ -112,7 +112,7 @@ public:
 
 		for (auto i = startIndex; i < count; i++)
 		{
-			auto seg = segments[i].To<K, Segment_2>();
+			auto seg = segments[i].ToCGAL<K, Segment_2>();
 			CGAL::insert(arr->model, seg);
 		}
 
@@ -193,7 +193,7 @@ public:
 
 		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter, ++i)
 		{
-			points[i].From<K>(iter->point());
+			points[i] = Point2d::FromCGAL<K>(iter->point());
 		}
 	}
 
@@ -207,7 +207,7 @@ public:
 			auto a = iter->curve().source();
 			auto b = iter->curve().target();
 
-			segments[i].From<K>(a, b);
+			segments[i] = Segment2d::FromCGAL<K>(a, b);
 		}
 	}
 
@@ -246,7 +246,7 @@ public:
 		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter, ++i)
 		{
 			vertices[i].Index = iter->data();
-			vertices[i].Point.From<K>(iter->point());
+			vertices[i].Point = Point2d::FromCGAL<K>(iter->point());
 			vertices[i].Degree = (int)iter->degree();
 			vertices[i].IsIsolated = iter->is_isolated();
 
@@ -509,7 +509,7 @@ private:
 		auto list = std::vector<Point_2>(count);
 
 		for (int i = startIndex; i < count; i++)
-			list.push_back(points[i].To<K>());
+			list.push_back(points[i].ToCGAL<K>());
 
 		return list;
 	}

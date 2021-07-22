@@ -177,7 +177,7 @@ public:
 	static void InsertPoint(void* ptr, Point2d point)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		tri->model.insert(point.To<K>());
+		tri->model.insert(point.ToCGAL<K>());
 		tri->OnModelChanged();
 	}
 
@@ -187,7 +187,7 @@ public:
 
 		std::vector<Point_2> list(count);
 		for (int i = 0; i < count; i++)
-			list[i] = points[startIndex + i].To<K>();
+			list[i] = points[startIndex + i].ToCGAL<K>();
 
 		tri->model.insert(list.begin(), list.end());
 		tri->OnModelChanged();
@@ -223,7 +223,7 @@ public:
 		int i = startIndex;
 
 		for (const auto& vert : tri->model.finite_vertex_handles())
-			points[i++].From<K>(vert->point());
+			points[i++] = Point2d::FromCGAL<K>(vert->point());
 	}
 
 	static void GetIndices(void* ptr, int* indices, int startIndex, int count)
@@ -252,9 +252,9 @@ public:
 
 		for (const auto& vert : tri->model.finite_vertex_handles())
 		{
-			vertices[i].Point.From<K>(vert->point());
-			vertices[i].Degree = vert->degree();
-			vertices[i].Index = vert->info();
+			vertices[i].Point = Point2d::FromCGAL<K>(vert->point());
+			vertices[i].Degree = (int)vert->degree();
+			vertices[i].Index = (int)vert->info();
 			vertices[i].FaceIndex = vert->face()->info();
 
 			i++;

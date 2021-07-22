@@ -10,16 +10,17 @@ struct Point2d
     double y;
 
     template<class K>
-    CGAL::Point_2<K> To()
+    CGAL::Point_2<K> ToCGAL()
     {
         return CGAL::Point_2<K>(x, y);
     }
 
     template<class K>
-    void From(CGAL::Point_2<K> p)
+    static Point2d FromCGAL(CGAL::Point_2<K> p)
     {
-        x = CGAL::to_double(p.x());
-        y = CGAL::to_double(p.y());
+        double x = CGAL::to_double(p.x());
+        double y = CGAL::to_double(p.y());
+        return { x, y };
     }
 
     template<class K>
@@ -36,16 +37,17 @@ struct Segment2d
     Point2d b;
 
     template<class K, class SEG>
-    SEG To()
+    SEG ToCGAL()
     {
-        return { a.To<K>(), b.To<K>() };
+        return { a.ToCGAL<K>(), b.ToCGAL<K>() };
     }
 
     template<class K>
-    void From(CGAL::Point_2<K> a, CGAL::Point_2<K> b)
+    static Segment2d FromCGAL(CGAL::Point_2<K> a, CGAL::Point_2<K> b)
     {
-        this->a.From<K>(a);
-        this->b.From<K>(b);
+        auto c = Point2d::FromCGAL<K>(a);
+        auto d = Point2d::FromCGAL<K>(b);
+        return { c, d };
     }
 
 };

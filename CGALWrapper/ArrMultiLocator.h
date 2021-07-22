@@ -131,21 +131,21 @@ public:
 		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::NAIVE:
-			return naive_locator->locate(point.To<K>());
+			return naive_locator->locate(point.ToCGAL<K>());
 
 		case ARR_LOCATOR::WALK:
-			return walk_locator->locate(point.To<K>());
+			return walk_locator->locate(point.ToCGAL<K>());
 
 		case ARR_LOCATOR::LANDMARKS:
-			return landmark_locator->locate(point.To<K>());
+			return landmark_locator->locate(point.ToCGAL<K>());
 
 		case ARR_LOCATOR::TRAPEZOID:
-			return trapezoid_locator->locate(point.To<K>());
+			return trapezoid_locator->locate(point.ToCGAL<K>());
 
 		default:
 			Walk_Locator locator;
 			locator.attach(arr);
-			return locator.locate(point.To<K>());
+			return locator.locate(point.ToCGAL<K>());
 		}
 	}
 
@@ -154,15 +154,15 @@ public:
 		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::WALK:
-			return walk_locator->ray_shoot_up(point.To<K>());
+			return walk_locator->ray_shoot_up(point.ToCGAL<K>());
 
 		case ARR_LOCATOR::TRAPEZOID:
-			return trapezoid_locator->ray_shoot_up(point.To<K>());
+			return trapezoid_locator->ray_shoot_up(point.ToCGAL<K>());
 
 		default:
 			Walk_Locator locator;
 			locator.attach(arr);
-			return locator.ray_shoot_up(point.To<K>());
+			return locator.ray_shoot_up(point.ToCGAL<K>());
 		}
 	}
 
@@ -171,22 +171,22 @@ public:
 		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::WALK:
-			return walk_locator->ray_shoot_down(point.To<K>());
+			return walk_locator->ray_shoot_down(point.ToCGAL<K>());
 
 		case ARR_LOCATOR::TRAPEZOID:
-			return trapezoid_locator->ray_shoot_down(point.To<K>());
+			return trapezoid_locator->ray_shoot_down(point.ToCGAL<K>());
 
 		default:
 			Walk_Locator locator;
 			locator.attach(arr);
-			return locator.ray_shoot_down(point.To<K>());
+			return locator.ray_shoot_down(point.ToCGAL<K>());
 		}
 	}
 
 	template<class SEGMENT>
 	BOOL Intersects(Arrangement& arr, Segment2d segment)
 	{
-		auto seg = segment.To<K, SEGMENT>();
+		auto seg = segment.ToCGAL<K, SEGMENT>();
 
 		switch (current_locator_type)
 		{
@@ -208,17 +208,17 @@ public:
 		switch (current_locator_type)
 		{
 		case ARR_LOCATOR::WALK:
-			insert_point(arr, point.To<K>(), *walk_locator);
+			insert_point(arr, point.ToCGAL<K>(), *walk_locator);
 			break;
 
 		case ARR_LOCATOR::TRAPEZOID:
-			insert_point(arr, point.To<K>(), *trapezoid_locator);
+			insert_point(arr, point.ToCGAL<K>(), *trapezoid_locator);
 			break;
 
 		default:
 			Walk_Locator locator;
 			locator.attach(arr);
-			insert_point(arr, point.To<K>(), locator);
+			insert_point(arr, point.ToCGAL<K>(), locator);
 			break;
 		}
 	}
@@ -226,7 +226,7 @@ public:
 	template<class SEGMENT>
 	void InsertSegment(Arrangement& arr, Segment2d segment)
 	{
-		auto seg = segment.To<K, SEGMENT>();
+		auto seg = segment.ToCGAL<K, SEGMENT>();
 
 		switch (current_locator_type)
 		{
@@ -249,7 +249,7 @@ public:
 	template<class SEGMENT>
 	void InsertNonIntersectingSegment(Arrangement& arr, Segment2d segment)
 	{
-		auto seg = segment.To<K, SEGMENT>();
+		auto seg = segment.ToCGAL<K, SEGMENT>();
 
 		switch (current_locator_type)
 		{

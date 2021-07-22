@@ -93,7 +93,7 @@ public:
 		auto polygon = Polygon_2();
 
 		for (auto i = 0; i < count; i++)
-			polygon.push_back(points[startIndex + i].To<K>());
+			polygon.push_back(points[startIndex + i].ToCGAL<K>());
 
 		return new Pwh_2(polygon);
 	}
@@ -106,7 +106,7 @@ public:
 			auto polygon = CastToPolygon2(ptr);
 			auto point = polygon->vertex(pointIndex);
 
-			return { CGAL::to_double(point.x()), CGAL::to_double(point.y()) };
+			return Point2d::FromCGAL<K>(point);
 		}
 		else
 		{
@@ -122,8 +122,7 @@ public:
 			for (auto i = 0; i < count; i++)
 			{
 				auto point = polygon->vertex(i);
-				points[startIndex + i].x = CGAL::to_double(point.x());
-				points[startIndex + i].y = CGAL::to_double(point.y());
+				points[startIndex + i] = Point2d::FromCGAL<K>(point);
 			}
 		}
 	}
@@ -150,9 +149,9 @@ public:
 				int index = startIndex + i;
 
 				if (index < size)
-					(*polygon)[i] = points[index].To<K>();
+					(*polygon)[i] = points[index].ToCGAL<K>();
 				else
-					polygon->push_back(points[index].To<K>());
+					polygon->push_back(points[index].ToCGAL<K>());
 			}
 		}
 	}
@@ -223,7 +222,7 @@ public:
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
 		if (polygon != nullptr)
-			return polygon->oriented_side(point.To<EEK>());
+			return polygon->oriented_side(point.ToCGAL<EEK>());
 		else
 			return CGAL::Oriented_side::DEGENERATE;
 	}
@@ -325,7 +324,7 @@ private:
 
 	static BOOL ContainsPoint(Polygon_2& polygon, bool isBoundary, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
 	{
-		auto side = polygon.oriented_side(point.To<K>());
+		auto side = polygon.oriented_side(point.ToCGAL<K>());
 
 		if (inculdeBoundary && side == CGAL::Oriented_side::ON_ORIENTED_BOUNDARY)
 			return true;

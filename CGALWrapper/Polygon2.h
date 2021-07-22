@@ -59,8 +59,8 @@ public:
 	{
 		auto polygon = new Polygon_2();
 
-		for (auto i = startIndex; i < count; i++)
-			polygon->push_back(points[i].To<K>());
+		for (auto i = 0; i < count; i++)
+			polygon->push_back(points[startIndex + i].ToCGAL<K>());
 
 		return polygon;
 	}
@@ -70,7 +70,7 @@ public:
 		auto polygon = CastToPolygon2(ptr);
 		auto point = polygon->vertex(index);
 
-		return { CGAL::to_double(point.x()), CGAL::to_double(point.y()) };
+		return Point2d::FromCGAL<K>(point);
 	}
 
 	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
@@ -80,15 +80,14 @@ public:
 		for (auto i = 0; i < count; i++)
 		{
 			auto point = polygon->vertex(i);
-			points[startIndex + i].x = CGAL::to_double(point.x());
-			points[startIndex + i].y = CGAL::to_double(point.y());
+			points[startIndex + i] = Point2d::FromCGAL<K>(point);
 		}
 	}
 
 	static void SetPoint(void* ptr, int index, Point2d point)
 	{
 		auto polygon = CastToPolygon2(ptr);
-		(*polygon)[index] = CGAL::Point_2<K>(point.x, point.y);
+		(*polygon)[index] = point.ToCGAL<K>();
 	}
 
 	static void SetPoints(void* ptr, Point2d* points, int startIndex, int count)
@@ -101,9 +100,9 @@ public:
 			int index = startIndex + i;
 
 			if (index < size)
-				(*polygon)[i] = points[index].To<K>();
+				(*polygon)[i] = points[index].ToCGAL<K>();
 			else
-				polygon->push_back(points[index].To<K>());
+				polygon->push_back(points[index].ToCGAL<K>());
 		}
 	}
 
@@ -134,7 +133,7 @@ public:
 	static CGAL::Oriented_side OrientedSide(void* ptr, Point2d point)
 	{
 		auto polygon = CastToPolygon2(ptr);
-		return polygon->oriented_side(point.To<K>());
+		return polygon->oriented_side(point.ToCGAL<K>());
 	}
 
 	static double SignedArea(void* ptr)
@@ -179,7 +178,7 @@ public:
 	{
 		auto polygon = CastToPolygon2(ptr);
 
-		auto side = polygon->oriented_side(point.To<K>());
+		auto side = polygon->oriented_side(point.ToCGAL<K>());
 
 		if (inculdeBoundary && side == CGAL::Oriented_side::ON_ORIENTED_BOUNDARY)
 			return true;
