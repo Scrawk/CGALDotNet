@@ -164,6 +164,7 @@
     <ClInclude Include="ArrMultiLocator.h" />
     <ClInclude Include="CGALWrapper.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="IndexMap.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Geometry2.h" />
     <ClInclude Include="Polygon2.h" />

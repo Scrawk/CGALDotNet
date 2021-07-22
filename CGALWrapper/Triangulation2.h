@@ -4,6 +4,7 @@
 #include "Geometry2.h"
 #include "Polygon2.h"
 #include "PolygonWithHoles2.h"
+#include "IndexMap.h"
 
 #include <vector>
 #include "CGAL/Point_2.h"
@@ -24,11 +25,19 @@ public:
 	typedef CGAL::Triangulation_2<K, Tds> Triangulation_2;
 	typedef typename Triangulation_2::Point Point_2;
 
-	typedef typename Triangulation_2::Finite_faces_iterator Finite_faces_iterator;
+	typedef typename Triangulation_2::Finite_faces_iterator Finite_faces;
+	typedef typename Triangulation_2::Finite_vertices_iterator Finite_vertices;
+	typedef typename Triangulation_2::Face_handle Face;
+	typedef typename Triangulation_2::Vertex_handle Vertex;
+
 
 private:
 
 	Triangulation_2 model;
+
+	IndexMap<Vertex> vertexMap;
+
+	IndexMap<Face> faceMap;
 
 public:
 
@@ -47,10 +56,80 @@ public:
 		return static_cast<Triangulation2*>(ptr);
 	}
 
+	void SetVertexIndices()
+	{
+		if (vertexMap.indicesSet)
+			return;
+
+		vertexMap.Clear();
+
+		for (auto& vert : model.finite_vertex_handles())
+			vert->info() = vertexMap.NextIndex();
+
+		vertexMap.indicesSet = true;
+	}
+
+	void BuildVertexMap()
+	{
+		if (vertexMap.mapBuilt)
+			return;
+
+		vertexMap.ClearMap();
+
+		for (auto& vert : model.finite_vertex_handles())
+			vertexMap.Insert(vert->info(), vert);
+
+		vertexMap.mapBuilt = true;
+	}
+
+	void SetFaceIndices()
+	{
+		if (faceMap.indicesSet)
+			return;
+
+		faceMap.Clear();
+
+		for (auto& face : model.finite_face_handles())
+			face->info() = faceMap.NextIndex();
+
+		faceMap.indicesSet = true;
+	}
+
+	void BuildFaceMap()
+	{
+		if (faceMap.mapBuilt) 
+			return;
+
+		faceMap.ClearMap();
+
+		for (auto& face : model.finite_face_handles())
+			faceMap.Insert(face->info(), face);
+
+		faceMap.mapBuilt = true;
+	}
+
+	void BuildMaps()
+	{
+		BuildVertexMap();
+		BuildFaceMap();
+	}
+
+	void ClearMaps()
+	{
+		vertexMap.Clear();
+		faceMap.Clear();
+	}
+
+	void OnModelChanged()
+	{
+		ClearMaps();
+	}
+
 	static void Clear(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
 		tri->model.clear();
+		tri->ClearMaps();
 	}
 
 	static void* Copy(void* ptr)
@@ -84,25 +163,20 @@ public:
 	static void SetVertexIndices(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int index = 0;
-
-		for (auto& vert : tri->model.finite_vertex_handles())
-			vert->info() = index++;
+		tri->SetVertexIndices();
 	}
 
 	static void SetFaceIndices(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int index = 0;
-
-		for (auto& face : tri->model.finite_face_handles())
-			face->info() = index++;
+		tri->SetFaceIndices();
 	}
 
 	static void InsertPoint(void* ptr, Point2d point)
 	{
 		auto tri = CastToTriangulation2(ptr);
 		tri->model.insert(point.To<K>());
+		tri->OnModelChanged();
 	}
 
 	static void InsertPoints(void* ptr, Point2d* points, int startIndex, int count)
@@ -114,6 +188,7 @@ public:
 			list[i] = points[startIndex + i].To<K>();
 
 		tri->model.insert(list.begin(), list.end());
+		tri->OnModelChanged();
 	}
 
 	static void InsertPolygon(void* triPtr, void* polyPtr)
@@ -122,6 +197,7 @@ public:
 
 		auto polygon = Polygon2<K>::CastToPolygon2(polyPtr);
 		tri->model.insert(polygon->vertices_begin(), polygon->vertices_end());
+		tri->OnModelChanged();
 	}
 
 	static void InsertPolygonWithHoles(void* triPtr, void* pwhPtr)
@@ -135,6 +211,8 @@ public:
 
 		for (auto& hole : pwh->holes())
 			tri->model.insert(hole.vertices_begin(), hole.vertices_end());
+
+		tri->OnModelChanged();
 	}
 
 	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
@@ -151,6 +229,8 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int index = startIndex;
 
+		tri->SetVertexIndices();
+
 		for (auto& face : tri->model.finite_face_handles())
 		{
 			indices[index * 3 + 0] = face->vertex(0)->info();
@@ -161,7 +241,7 @@ public:
 		}
 	}
 
-	static Point_2 CenterPoint(Finite_faces_iterator face)
+	static Point_2 CenterPoint(Face face)
 	{
 		Point_2 p0 = face->vertex(0)->point();
 		Point_2 p1 = face->vertex(1)->point();
@@ -180,6 +260,8 @@ public:
 
 		int num = 0;
 		int index = startIndex;
+
+		tri->SetVertexIndices();
 
 		for (auto& face : tri->model.finite_face_handles())
 		{
@@ -206,6 +288,8 @@ public:
 
 		int num = 0;
 		int index = startIndex;
+
+		tri->SetVertexIndices();
 
 		for (auto& face : tri->model.finite_face_handles())
 		{

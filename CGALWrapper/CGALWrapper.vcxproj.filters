@@ -93,6 +93,9 @@
     <ClInclude Include="PolygonPartition2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
+    <ClInclude Include="IndexMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

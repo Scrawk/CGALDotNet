@@ -46,7 +46,7 @@ namespace CGALDotNetConsole.Examples
             var polygon = new Polygon2<EEK>(points);
             var tri = new Triangulation2<EEK>(polygon);
 
-            tri.SetIndices();
+            //tri.SetIndices();
 
             points = new Point2d[tri.VertexCount];
             tri.GetPoints(points);
