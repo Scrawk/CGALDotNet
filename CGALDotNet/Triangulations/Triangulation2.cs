@@ -129,6 +129,12 @@ namespace CGALDotNet.Triangulations
             Kernel.GetIndices(Ptr, indices, 0, indices.Length);
         }
 
+        public void GetVertices(TriVertex2[] vertices)
+        {
+            ErrorUtil.CheckBounds(vertices, 0, VertexCount);
+            Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
+        }
+
         public void Print()
         {
             var builder = new StringBuilder();

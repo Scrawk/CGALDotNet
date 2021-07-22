@@ -23,8 +23,4 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Triangulations\" />
-  </ItemGroup>
-
 </Project>

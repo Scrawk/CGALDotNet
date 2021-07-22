@@ -69,4 +69,9 @@ void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int 
 	Triangulation2<EEK>::GetIndices(ptr, indices, startIndex, count);
 }
 
+void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
+{
+	Triangulation2<EEK>::GetVertices(ptr, vertices, startIndex, count);
+}
+
 

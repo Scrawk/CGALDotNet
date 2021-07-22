@@ -28,9 +28,9 @@ namespace CGALDotNetConsole.Examples
             tri.Print();
         }
 
-        public static void GetTriangulation()
+        public static void GetPointsAndIndices()
         {
-            Console.WriteLine("Get triangulation example\n");
+            Console.WriteLine("Get points and indices example\n");
 
             var points = new Point2d[]
             {
@@ -66,6 +66,47 @@ namespace CGALDotNetConsole.Examples
                 Console.WriteLine("Triangle = " + indices[i*3+0] + "," + indices[i * 3 + 1] + "," + indices[i * 3 + 2]);
             }
                 
+            Console.WriteLine();
+        }
+
+        public static void GetVerticesAndFaces()
+        {
+            Console.WriteLine("Get vertices and faces example\n");
+
+            var points = new Point2d[]
+            {
+                new Point2d(0, 0),
+                new Point2d(5, 0),
+                new Point2d(5, 5),
+                new Point2d(2, 2),
+                new Point2d(0, 5)
+            };
+
+            var tri = new Triangulation2<EEK>(points);
+
+            var vertices = new TriVertex2[tri.VertexCount];
+            tri.GetVertices(vertices);
+
+            Console.WriteLine("Vertices " + vertices.Length);
+            Console.WriteLine();
+
+            for (int i = 0; i < vertices.Length; i++)
+                Console.WriteLine(vertices[i]);
+
+            var indices = new int[tri.IndiceCount];
+            tri.GetIndices(indices);
+
+            int triangles = indices.Length / 3;
+
+            Console.WriteLine();
+            Console.WriteLine("Triangles " + triangles);
+            Console.WriteLine();
+
+            for (int i = 0; i < triangles; i++)
+            {
+                Console.WriteLine("Triangle = " + indices[i * 3 + 0] + "," + indices[i * 3 + 1] + "," + indices[i * 3 + 2]);
+            }
+
             Console.WriteLine();
         }
 

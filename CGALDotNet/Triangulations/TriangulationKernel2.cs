@@ -42,6 +42,8 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void GetIndices(IntPtr ptr, int[] indices, int startIndex, int count);
 
+        internal abstract void GetVertices(IntPtr ptr, TriVertex2[] vertices, int startIndex, int count);
+
 
     }
 }

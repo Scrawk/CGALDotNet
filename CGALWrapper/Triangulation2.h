@@ -12,6 +12,20 @@
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
 
+struct TriVertex2
+{
+	Point2d Point;
+	int Degree;
+	int Index;
+	int FaceIndex;
+};
+
+struct TriFace2
+{
+	int Index;
+	int VertexIndices[3];
+};
+
 template<class K>
 class Triangulation2
 {
@@ -227,6 +241,25 @@ public:
 
 			index++;
 		}
+	}
+
+	static void GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		tri->SetVertexIndices();
+
+		for (const auto& vert : tri->model.finite_vertex_handles())
+		{
+			vertices[i].Point.From<K>(vert->point());
+			vertices[i].Degree = vert->degree();
+			vertices[i].Index = vert->info();
+			vertices[i].FaceIndex = vert->face()->info();
+
+			i++;
+		}
+			
 	}
 
 };
