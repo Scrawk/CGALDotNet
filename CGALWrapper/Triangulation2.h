@@ -12,20 +12,44 @@
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
 
+#define NULL_INDEX -1
+
 struct TriVertex2
 {
 	Point2d Point;
-	BOOL isInfinite;
+	BOOL IsInfinite;
 	int Degree;
 	int Index;
 	int FaceIndex;
+
+	static TriVertex2 NullVertex()
+	{
+		TriVertex2 v;
+		v.Point = { 0, 0 };
+		v.IsInfinite = false;
+		v.Degree = 0;
+		v.Index = NULL_INDEX;
+		v.FaceIndex = NULL_INDEX;
+		return v;
+	}
 };
 
 struct TriFace2
 {
-	BOOL isInfinite;
+	BOOL IsInfinite;
 	int Index;
 	int VertexIndices[3];
+
+	static TriFace2 NullFace()
+	{
+		TriFace2 f;
+		f.IsInfinite = false;
+		f.Index = NULL_INDEX;
+		f.VertexIndices[0] = NULL_INDEX;
+		f.VertexIndices[1] = NULL_INDEX;
+		f.VertexIndices[2] = NULL_INDEX;
+		return f;
+	}
 };
 
 template<class K>
@@ -70,119 +94,6 @@ public:
 	inline static Triangulation2* CastToTriangulation2(void* ptr)
 	{
 		return static_cast<Triangulation2*>(ptr);
-	}
-
-	int Degree(Triangulation_2& tri, Vertex vert)
-	{
-		auto face = vert->face();
-		auto start = vert->incident_faces(face), end(start);
-
-		int count = 0;
-
-		if (!start.is_empty())
-		{
-			do
-			{
-				if (!tri.is_infinite(start))
-					++count;
-
-			} while (++start != end);
-		}
-
-		return count;
-	}
-
-	void ResetFace(const Triangulation_2& tri, Vertex vert)
-	{
-		auto face = vert->face();
-		auto start = vert->incident_faces(face), end(start);
-
-		if (start != nullptr)
-		{
-			do
-			{
-				if (!tri.is_infinite(start))
-				{
-					vert->set_face(start);
-					return;
-				}
-			} 
-			while (++start != end);
-		}
-	}
-
-	void SetVertexIndices()
-	{
-		if (vertexMap.indicesSet)
-			return;
-
-		vertexMap.Clear();
-
-		for (auto& vert : model.finite_vertex_handles())
-		{
-			if (model.is_infinite(vert->face()))
-				ResetFace(model, vert);
-
-			vert->info() = vertexMap.NextIndex();
-		}
-			
-		vertexMap.indicesSet = true;
-	}
-
-	void BuildVertexMap()
-	{
-		if (vertexMap.mapBuilt)
-			return;
-
-		vertexMap.ClearMap();
-
-		for (auto& vert : model.finite_vertex_handles())
-			vertexMap.Insert(vert->info(), vert);
-
-		vertexMap.mapBuilt = true;
-	}
-
-	void SetFaceIndices()
-	{
-		if (faceMap.indicesSet)
-			return;
-
-		faceMap.Clear();
-
-		for (auto& face : model.finite_face_handles())
-			face->info() = faceMap.NextIndex();
-
-		faceMap.indicesSet = true;
-	}
-
-	void BuildFaceMap()
-	{
-		if (faceMap.mapBuilt) 
-			return;
-
-		faceMap.ClearMap();
-
-		for (auto& face : model.finite_face_handles())
-			faceMap.Insert(face->info(), face);
-
-		faceMap.mapBuilt = true;
-	}
-
-	void BuildMaps()
-	{
-		BuildVertexMap();
-		BuildFaceMap();
-	}
-
-	void ClearMaps()
-	{
-		vertexMap.Clear();
-		faceMap.Clear();
-	}
-
-	void OnModelChanged()
-	{
-		ClearMaps();
 	}
 
 	static void Clear(void* ptr)
@@ -289,6 +200,23 @@ public:
 		}
 	}
 
+	static BOOL GetVertex(void* ptr, int index, TriVertex2& triVert)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		
+		auto vert = tri->FindVertex(index);
+		if (vert != nullptr)
+		{
+			triVert = ToTriVertex2(tri, *vert);
+			return TRUE;
+		}
+		else
+		{
+			triVert = TriVertex2::NullVertex();
+			return FALSE;
+		}
+	}
+
 	static void GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -297,23 +225,24 @@ public:
 		tri->SetVertexIndices();
 		tri->SetFaceIndices();
 
-		int numFaces = (int)tri->model.number_of_faces();
-
 		for (const auto& vert : tri->model.finite_vertex_handles())
+			vertices[i++] = ToTriVertex2(tri, vert);
+	}
+
+	static BOOL GetFace(void* ptr, int index, TriFace2& triFace)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		auto face = tri->FindFace(index);
+		if (face != nullptr)
 		{
-			vertices[i].Point = Point2d::FromCGAL<K>(vert->point());
-			vertices[i].isInfinite = tri->model.is_infinite(vert);
-			vertices[i].Degree = tri->Degree(tri->model, vert);
-			vertices[i].Index = vert->info();
-
-			auto face = vert->face();
-
-			if (numFaces == 0 || tri->model.is_infinite(face))
-				vertices[i].FaceIndex = -1;
-			else
-				vertices[i].FaceIndex = face->info();
-
-			i++;
+			triFace = ToTriFace2(tri, *face);
+			return TRUE;
+		}
+		else
+		{
+			triFace = TriFace2::NullFace();
+			return FALSE;
 		}
 	}
 
@@ -326,22 +255,273 @@ public:
 		tri->SetFaceIndices();
 
 		for (const auto& face : tri->model.finite_face_handles())
+			faces[i++] = ToTriFace2(tri, face);
+	}
+
+	static BOOL LocateFace(void* ptr, Point2d point, TriFace2& triFace)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		auto face = tri->model.locate(point.ToCGAL<K>());
+		if (face != nullptr)
 		{
-			faces[i].isInfinite = tri->model.is_infinite(face);
-			faces[i].Index = face->info();
+			triFace = ToTriFace2(tri, face);
+			return TRUE;
+		}
+		else
+		{
+			triFace = TriFace2::NullFace();
+			return FALSE;
+		}
+	}
+
+	static BOOL MoveVertex(void* ptr, int index, Point2d point, BOOL ifNoCollision, TriVertex2& triVert)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		auto vert = tri->FindVertex(index);
+		if (vert != nullptr)
+		{
+			Vertex v; 
+			
+			if(ifNoCollision)
+				v = tri->model.move(*vert, point.ToCGAL<K>());
+			else
+				v = tri->model.move_if_no_collision(*vert, point.ToCGAL<K>());
+
+			if(v != *vert)
+				tri->OnModelChanged();
+
+			triVert = ToTriVertex2(tri, v);
+			return TRUE;
+		}
+		else
+		{
+			triVert = TriVertex2::NullVertex();
+			return FALSE;
+		}
+	}
+
+	static BOOL RemoveVertex(void* ptr, int index)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		auto vert = tri->FindVertex(index);
+		if (vert != nullptr)
+		{
+			tri->model.remove(*vert);
+			tri->OnModelChanged();
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	static BOOL FlipEdge(void* ptr, int faceIndex, int neighbourIndex)
+	{
+
+		auto tri = CastToTriangulation2(ptr);
+
+		auto face = tri->FindFace(faceIndex);
+		auto neighbour = tri->FindFace(neighbourIndex);
+		if (face != nullptr && neighbour != nullptr)
+		{
+			if (tri->model.is_infinite(*face))
+				return FALSE;
+
+			int n = NeighbourIndex(*face, *neighbour);
+			if (n == NULL_INDEX)
+				return FALSE;
+
+			if (tri->model.is_infinite(*neighbour))
+				return FALSE;
+
+			tri->model.flip(*face, n);
+			tri->OnModelChanged();
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	private:
+
+		static int NeighbourIndex(Face face, Face neighbour)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				if (face->neighbor(i) == neighbour)
+					return i;
+			}
+
+			return NULL_INDEX;
+		}
+
+		static TriVertex2 ToTriVertex2(Triangulation2* tri, Vertex vert)
+		{
+			TriVertex2 triVertex;
+			triVertex.Point = Point2d::FromCGAL<K>(vert->point());
+			triVertex.IsInfinite = tri->model.is_infinite(vert);
+			triVertex.Degree = tri->Degree(tri->model, vert);
+			triVertex.Index = vert->info();
+
+			auto face = vert->face();
+
+			if (tri->model.is_infinite(face))
+				triVertex.FaceIndex = NULL_INDEX;
+			else
+				triVertex.FaceIndex = face->info();
+
+			return triVertex;
+		}
+
+		static TriFace2 ToTriFace2(Triangulation2* tri, Face face)
+		{
+			TriFace2 triFace;
+			triFace.IsInfinite = tri->model.is_infinite(face);
+			triFace.Index = face->info();
 
 			for (int j = 0; j < 3; j++)
 			{
 				auto vert = face->vertex(j);
 
 				if (tri->model.is_infinite(vert))
-					faces[i].VertexIndices[j] = -1;
+					triFace.VertexIndices[j] = NULL_INDEX;
 				else
-					faces[i].VertexIndices[j] = vert->info();
+					triFace.VertexIndices[j] = vert->info();
 			}
 
-			i++;
+			return triFace;
 		}
-	}
+
+		int Degree(Triangulation_2& tri, Vertex vert)
+		{
+			auto face = vert->face();
+			auto start = vert->incident_faces(face), end(start);
+
+			int count = 0;
+
+			if (!start.is_empty())
+			{
+				do
+				{
+					if (!tri.is_infinite(start))
+						++count;
+
+				} while (++start != end);
+			}
+
+			return count;
+		}
+
+		void ResetFace(const Triangulation_2& tri, Vertex vert)
+		{
+			auto face = vert->face();
+			auto start = vert->incident_faces(face), end(start);
+
+			if (start != nullptr)
+			{
+				do
+				{
+					if (!tri.is_infinite(start))
+					{
+						vert->set_face(start);
+						return;
+					}
+				} while (++start != end);
+			}
+		}
+
+		void SetVertexIndices()
+		{
+			if (vertexMap.indicesSet)
+				return;
+
+			vertexMap.Clear();
+
+			for (auto& vert : model.finite_vertex_handles())
+			{
+				if (model.is_infinite(vert->face()))
+					ResetFace(model, vert);
+
+				vert->info() = vertexMap.NextIndex();
+			}
+
+			vertexMap.indicesSet = true;
+		}
+
+		void BuildVertexMap()
+		{
+			if (vertexMap.mapBuilt)
+				return;
+
+			vertexMap.ClearMap();
+
+			for (auto& vert : model.finite_vertex_handles())
+				vertexMap.Insert(vert->info(), vert);
+
+			vertexMap.mapBuilt = true;
+		}
+
+		void SetFaceIndices()
+		{
+			if (faceMap.indicesSet)
+				return;
+
+			faceMap.Clear();
+
+			for (auto& face : model.finite_face_handles())
+				face->info() = faceMap.NextIndex();
+
+			faceMap.indicesSet = true;
+		}
+
+		void BuildFaceMap()
+		{
+			if (faceMap.mapBuilt)
+				return;
+
+			faceMap.ClearMap();
+
+			for (auto& face : model.finite_face_handles())
+				faceMap.Insert(face->info(), face);
+
+			faceMap.mapBuilt = true;
+		}
+
+		void BuildMaps()
+		{
+			BuildVertexMap();
+			BuildFaceMap();
+		}
+
+		void ClearMaps()
+		{
+			vertexMap.Clear();
+			faceMap.Clear();
+		}
+
+		void OnModelChanged()
+		{
+			ClearMaps();
+		}
+
+		Vertex* FindVertex(int index)
+		{
+			SetVertexIndices();
+			BuildVertexMap();
+			return vertexMap.Find(index);
+		}
+
+		Face* FindFace(int index)
+		{
+			SetFaceIndices();
+			BuildFaceMap();
+			return faceMap.Find(index);
+		}
 
 };

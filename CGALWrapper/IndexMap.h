@@ -41,5 +41,14 @@ struct IndexMap
 		map.insert(std::pair<int, T>(index, item));
 	}
 
+	T* Find(int index)
+	{
+		auto item = map.find(index);
+		if (item != map.end())
+			return &item->second;
+		else
+			return nullptr;
+	}
+
 };
 

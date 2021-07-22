@@ -132,13 +132,23 @@ namespace CGALDotNet.Triangulations
             Kernel.GetIndices(Ptr, indices, 0, indices.Length);
         }
 
+        public bool GetVertex(int index, out TriVertex2 vertex)
+        {
+            return Kernel.GetVertex(Ptr, index, out vertex);
+        }
+
         public void GetVertices(TriVertex2[] vertices)
         {
             int count = VertexCount;
-            if (count == 0) return;
+            if (count < 3) return;
 
             ErrorUtil.CheckBounds(vertices, 0, count);
             Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
+        }
+
+        public bool GetFace(int index, out TriFace2 face)
+        {
+            return Kernel.GetFace(Ptr, index, out face);
         }
 
         public void GetFaces(TriFace2[] faces)
@@ -148,6 +158,26 @@ namespace CGALDotNet.Triangulations
 
             ErrorUtil.CheckBounds(faces, 0, count);
             Kernel.GetFaces(Ptr, faces, 0, faces.Length);
+        }
+
+        public bool LocateFace(Point2d point, out TriFace2 face)
+        {
+            return Kernel.LocateFace(Ptr, point, out face);
+        }
+
+        public bool MoveVertex(int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex)
+        {
+            return Kernel.MoveVertex(Ptr, index, point, ifNoCollision, out vertex);
+        }
+
+        public bool RemoveVertex(int index)
+        {
+            return Kernel.RemoveVertex(Ptr, index);
+        }
+
+        public bool FlipEdge(int faceIndex, int neighbourIndex)
+        {
+            return Kernel.FlipEdge(Ptr, faceIndex, neighbourIndex);
         }
 
         public void Print()

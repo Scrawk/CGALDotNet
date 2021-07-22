@@ -79,14 +79,44 @@ namespace CGALDotNet.Triangulations
             Triangulation2_EEK_GetIndices(ptr, indices, startIndex, count);
         }
 
+        internal override bool GetVertex(IntPtr ptr, int index, out TriVertex2 vertex)
+        {
+            return Triangulation2_EEK_GetVertex(ptr, index, out vertex);
+        }
+
         internal override void GetVertices(IntPtr ptr, TriVertex2[] vertices, int startIndex, int count)
         {
             Triangulation2_EEK_GetVertices(ptr, vertices, startIndex, count);
         }
 
+        internal override bool GetFace(IntPtr ptr, int index, out TriFace2 face)
+        {
+            return Triangulation2_EEK_GetFace(ptr, index, out face);
+        }
+
         internal override void GetFaces(IntPtr ptr, TriFace2[] faces, int startIndex, int count)
         {
             Triangulation2_EEK_GetFaces(ptr, faces, startIndex, count);
+        }
+
+        internal override bool LocateFace(IntPtr ptr, Point2d point, out TriFace2 face)
+        {
+            return Triangulation2_EEK_LocateFace(ptr, point, out face);
+        }
+
+        internal override bool MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex)
+        {
+            return Triangulation2_EEK_MoveVertex(ptr, index, point, ifNoCollision, out vertex);
+        }
+
+        internal override bool RemoveVertex(IntPtr ptr, int index)
+        {
+            return Triangulation2_EEK_RemoveVertex(ptr, index);
+        }
+
+        internal override bool FlipEdge(IntPtr ptr, int faceIndex, int neighbour)
+        {
+            return Triangulation2_EEK_FlipEdge(ptr, faceIndex, neighbour);
         }
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -129,10 +159,28 @@ namespace CGALDotNet.Triangulations
         private static extern void Triangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_GetVertex(IntPtr ptr, int index, [Out] out TriVertex2 vertex);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Triangulation2_EEK_GetVertices(IntPtr ptr, [Out] TriVertex2[] vertices, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_GetFace(IntPtr ptr, int index, [Out] out TriFace2 triFace);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Triangulation2_EEK_GetFaces(IntPtr ptr, [Out] TriFace2[] faces, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_LocateFace(IntPtr ptr, Point2d point, [Out] out TriFace2 face);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, [Out] out TriVertex2 vertex);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_RemoveVertex(IntPtr ptr, int index);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
 
     }
 }

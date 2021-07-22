@@ -78,11 +78,14 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 0),
                 new Point2d(5, 0),
                 new Point2d(5, 5),
-                new Point2d(2, 2),
+                //new Point2d(2, 2),
                 new Point2d(0, 5)
             };
 
             var tri = new Triangulation2<EEK>(points);
+
+            if (tri.FlipEdge(0, 1))
+                Console.WriteLine("Flipped face edge");
 
             var vertices = new TriVertex2[tri.VertexCount];
             tri.GetVertices(vertices);
@@ -93,6 +96,12 @@ namespace CGALDotNetConsole.Examples
             for (int i = 0; i < vertices.Length; i++)
                 Console.WriteLine(vertices[i]);
 
+            Console.WriteLine();
+
+            TriVertex2 vert;
+            if (tri.GetVertex(3, out vert))
+                Console.WriteLine("Get Vert 3 = " + vert);
+
             var faces = new TriFace2[tri.FaceCount];
             tri.GetFaces(faces);
 
@@ -102,6 +111,21 @@ namespace CGALDotNetConsole.Examples
 
             for (int i = 0; i < faces.Length; i++)
                 Console.WriteLine(faces[i]);
+
+            Console.WriteLine();
+
+            TriFace2 face;
+            if (tri.GetFace(2, out face))
+                Console.WriteLine("Get Face 2 = " + face);
+
+            if (tri.LocateFace(new Point2d(1, 1), out face))
+                Console.WriteLine("Locate face = " + face);
+
+            if(tri.MoveVertex(0, new Point2d(-1,-1), true, out vert))
+                Console.WriteLine("Move vert 0 = " + vert);
+
+            if(tri.RemoveVertex(0))
+                Console.WriteLine("Remove vertex = " + tri);
 
             Console.WriteLine();
         }

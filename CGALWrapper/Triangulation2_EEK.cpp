@@ -4,10 +4,6 @@
 #include "Triangulation2_EEK.h"
 #include "Triangulation2.h"
 
-typedef Triangulation2<EEK>::Triangulation_2 Triangulation;
-typedef Triangulation2<EEK>::Face Face;
-typedef Triangulation2<EEK>::Vertex Vertex;
-
 void* Triangulation2_EEK_Create()
 {
 	return Util::Create<Triangulation2<EEK>>();
@@ -73,66 +69,45 @@ void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int 
 	Triangulation2<EEK>::GetIndices(ptr, indices, startIndex, count);
 }
 
+BOOL Triangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vertex)
+{
+	return Triangulation2<EEK>::GetVertex(ptr, index, vertex);
+}
+
 void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
 {
 	Triangulation2<EEK>::GetVertices(ptr, vertices, startIndex, count);
 }
 
-void ResetFace(Triangulation& tri, Vertex vert)
+bool Triangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
 {
-	auto face = vert->face();
-	auto f = vert->incident_faces(face), end(f);
-
-	if (!f.is_empty())
-	{
-		do
-		{
-			if (!tri.is_infinite(f))
-			{
-				vert->set_face(f);
-				return;
-			}
-
-		} while (++f != end);
-	}
-}
-
-int Degree(Triangulation& tri, Vertex vert)
-{
-	auto face = vert->face();
-	auto f = vert->incident_faces(face), end(f);
-
-	int count = 0;
-
-	if (!f.is_empty())
-	{
-		do
-		{
-			if (!tri.is_infinite(f))
-				count++;
-
-		} while (++f != end);
-	}
-
-	return count;
+	return Triangulation2<EEK>::GetFace(ptr, index, face);
 }
 
 void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count)
 {
-	/*
-	Triangulation2<EEK>::Triangulation_2 t;
-
-	for (const auto& vert : t.all_vertex_handles())
-	{
-		if (t.is_infinite(vert->face()))
-		{
-			ResetFace(t, vert);
-		}
-
-	}
-	*/
-	
 	Triangulation2<EEK>::GetFaces(ptr, faces, startIndex, count);
 }
+
+BOOL Triangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face)
+{
+	return Triangulation2<EEK>::LocateFace(ptr, point, face);
+}
+
+BOOL Triangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, BOOL ifNoCollision, TriVertex2& vertex)
+{
+	return Triangulation2<EEK>::MoveVertex(ptr, index, point, ifNoCollision, vertex);
+}
+
+BOOL Triangulation2_EEK_RemoveVertex(void* ptr, int index)
+{
+	return Triangulation2<EEK>::RemoveVertex(ptr, index);
+}
+
+BOOL Triangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour)
+{
+	return Triangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
+}
+
 
 

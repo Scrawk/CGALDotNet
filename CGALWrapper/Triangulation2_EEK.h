@@ -32,9 +32,21 @@ extern "C"
 
 	CGALWRAPPER_API void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int count);
 
+	CGALWRAPPER_API BOOL Triangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vertex);
+
 	CGALWRAPPER_API void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count);
 
+	CGALWRAPPER_API bool Triangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face);
+
 	CGALWRAPPER_API void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count);
+
+	CGALWRAPPER_API BOOL Triangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face);
+
+	CGALWRAPPER_API BOOL Triangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, BOOL ifNoCollision, TriVertex2& vertex);
+
+	CGALWRAPPER_API BOOL Triangulation2_EEK_RemoveVertex(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL Triangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour);
 
 }
 

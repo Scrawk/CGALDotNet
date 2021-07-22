@@ -42,9 +42,21 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void GetIndices(IntPtr ptr, int[] indices, int startIndex, int count);
 
+        internal abstract bool GetVertex(IntPtr ptr, int index, out TriVertex2 vertex);
+
         internal abstract void GetVertices(IntPtr ptr, TriVertex2[] vertices, int startIndex, int count);
 
+        internal abstract bool GetFace(IntPtr ptr, int index, out TriFace2 face);
+
         internal abstract void GetFaces(IntPtr ptr, TriFace2[] faces, int startIndex, int count);
+
+        internal abstract bool LocateFace(IntPtr ptr, Point2d point, out TriFace2 face);
+
+        internal abstract bool MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex);
+
+        internal abstract bool RemoveVertex(IntPtr ptr, int index);
+
+        internal abstract bool FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
 
 
     }
