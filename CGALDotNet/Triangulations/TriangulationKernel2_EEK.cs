@@ -49,16 +49,6 @@ namespace CGALDotNet.Triangulations
             return Triangulation2_EEK_FaceCount(ptr);
         }
 
-        internal override void SetVertexIndices(IntPtr ptr)
-        {
-            Triangulation2_EEK_SetVertexIndices(ptr);
-        }
-
-        internal override void SetFaceIndices(IntPtr ptr)
-        {
-            Triangulation2_EEK_SetFaceIndices(ptr);
-        }
-
         internal override void InsertPoint(IntPtr ptr, Point2d point)
         {
             Triangulation2_EEK_InsertPoint(ptr, point);
@@ -89,16 +79,6 @@ namespace CGALDotNet.Triangulations
             Triangulation2_EEK_GetIndices(ptr, indices, startIndex, count);
         }
 
-        internal override int GetPolygonIndices(IntPtr triPtr, IntPtr polyPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation)
-        {
-            return Triangulation2_EEK_GetPolygonIndices(triPtr, polyPtr, indices, startIndex, count, orientation);
-        }
-
-        internal override int GetPolygonWithHolesIndices(IntPtr triPtr, IntPtr pwhPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation)
-        {
-            return Triangulation2_EEK_GetPolygonWithHolesIndices(triPtr, pwhPtr, indices, startIndex, count, orientation);
-        }
-
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Triangulation2_EEK_Create();
 
@@ -121,12 +101,6 @@ namespace CGALDotNet.Triangulations
         private static extern int Triangulation2_EEK_FaceCount(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Triangulation2_EEK_SetVertexIndices(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Triangulation2_EEK_SetFaceIndices(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Triangulation2_EEK_InsertPoint(IntPtr ptr, Point2d point);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -143,12 +117,6 @@ namespace CGALDotNet.Triangulations
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Triangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int startIndex, int count);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int Triangulation2_EEK_GetPolygonIndices(IntPtr triPtr, IntPtr polyPtr, [Out] int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int Triangulation2_EEK_GetPolygonWithHolesIndices(IntPtr triPtr, IntPtr pwhPtr, [Out] int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
 
     }
 }

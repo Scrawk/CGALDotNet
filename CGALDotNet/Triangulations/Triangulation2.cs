@@ -59,33 +59,6 @@ namespace CGALDotNet.Triangulations
             Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
         }
 
-        public void GetPolygonIndices(Polygon2<K> polygon, List<int> indices)
-        {
-            int count = IndiceCount;
-            if (count == 0) return;
-
-            int[] tmp = new int[count];
-
-            var orientation = polygon.Orientation;
-            count = Kernel.GetPolygonIndices(Ptr, polygon.Ptr, tmp, 0, tmp.Length, orientation);
-
-            for (int i = 0; i < count; i++)
-                indices.Add(tmp[i]);
-        }
-
-        public void GetPolygonIndices(PolygonWithHoles2<K> pwh, List<int> indices)
-        {
-            int count = IndiceCount;
-            if (count == 0) return;
-
-            int[] tmp = new int[count];
-
-            var orientation = pwh.FindOrientation(POLYGON_ELEMENT.BOUNDARY);
-            count = Kernel.GetPolygonWithHolesIndices(Ptr, pwh.Ptr, tmp, 0, tmp.Length, orientation);
-
-            for (int i = 0; i < count; i++)
-                indices.Add(tmp[i]);
-        }
     }
 
     public abstract class Triangulation2 : CGALObject
@@ -129,22 +102,6 @@ namespace CGALDotNet.Triangulations
         public bool IsValid()
         {
             return Kernel.IsValid(Ptr);
-        }
-
-        public void SetIndices()
-        {
-            SetVertexIndices();
-            SetFaceIndices();
-        }
-
-        public void SetVertexIndices()
-        {
-            Kernel.SetVertexIndices(Ptr);
-        }
-
-        public void SetFaceIndices()
-        {
-            Kernel.SetFaceIndices(Ptr);
         }
 
         public void InsertPoint(Point2d point)

@@ -30,10 +30,6 @@ namespace CGALDotNet.Triangulations
 
         internal abstract int FaceCount(IntPtr ptr);
 
-        internal abstract void SetVertexIndices(IntPtr ptr);
-
-        internal abstract void SetFaceIndices(IntPtr ptr);
-
         internal abstract void InsertPoint(IntPtr ptr, Point2d point);
 
         internal abstract void InsertPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
@@ -45,10 +41,6 @@ namespace CGALDotNet.Triangulations
         internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
 
         internal abstract void GetIndices(IntPtr ptr, int[] indices, int startIndex, int count);
-
-        internal abstract int GetPolygonIndices(IntPtr triPtr, IntPtr polyPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
-
-        internal abstract int GetPolygonWithHolesIndices(IntPtr triPtr, IntPtr pwhPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
 
 
     }

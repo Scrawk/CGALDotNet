@@ -35,7 +35,7 @@ namespace CGALDotNetConsole
             //Arrangement2Examples.RemoveEdge();
 
             //Triangulation2Examples.CreateTriangulation();
-            Triangulation2Examples.TriangulatePolygon();
+            Triangulation2Examples.GetTriangulation();
             //Triangulation2Examples.TriangulatePolygonWithHoles();
 
             //PolygonPartition2Examples.CreatePolygonPartition();

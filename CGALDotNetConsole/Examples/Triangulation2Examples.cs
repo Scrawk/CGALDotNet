@@ -25,14 +25,12 @@ namespace CGALDotNetConsole.Examples
             };
 
             var tri = new Triangulation2<EEK>(points);
-
-            tri.SetIndices();
             tri.Print();
         }
 
-        public static void TriangulatePolygon()
+        public static void GetTriangulation()
         {
-            Console.WriteLine("Triangulate polygon example\n");
+            Console.WriteLine("Get triangulation example\n");
 
             var points = new Point2d[]
             {
@@ -43,10 +41,7 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 5)
             };
 
-            var polygon = new Polygon2<EEK>(points);
-            var tri = new Triangulation2<EEK>(polygon);
-
-            //tri.SetIndices();
+            var tri = new Triangulation2<EEK>(points);
 
             points = new Point2d[tri.VertexCount];
             tri.GetPoints(points);
@@ -57,10 +52,10 @@ namespace CGALDotNetConsole.Examples
             for (int i = 0; i < points.Length; i++)
                 Console.WriteLine("Point " + i + " = " + points[i]);
 
-            var indices = new List<int>();
-            tri.GetPolygonIndices(polygon, indices);
+            var indices = new int[tri.IndiceCount];
+            tri.GetIndices(indices);
 
-            int triangles = indices.Count / 3;
+            int triangles = indices.Length / 3;
 
             Console.WriteLine();
             Console.WriteLine("Triangles " + triangles);
@@ -71,59 +66,6 @@ namespace CGALDotNetConsole.Examples
                 Console.WriteLine("Triangle = " + indices[i*3+0] + "," + indices[i * 3 + 1] + "," + indices[i * 3 + 2]);
             }
                 
-            Console.WriteLine();
-        }
-
-        public static void TriangulatePolygonWithHoles()
-        {
-            Console.WriteLine("Triangulate polygon with holes example\n");
-
-            var bounds = new Point2d[]
-            {
-                new Point2d(-10,-10),
-                new Point2d(10,-10),
-                new Point2d(10,10),
-                new Point2d(-10,10)
-            };
-
-            var points = new Point2d[]
-            {
-                new Point2d(-5,-5),
-                new Point2d(-5,5),
-                new Point2d(5,5),
-                new Point2d(5,-5)
-            };
-
-            var pwh = new PolygonWithHoles2<EEK>(bounds);
-            pwh.AddHole(new Polygon2<EEK>(points));
-
-            var tri = new Triangulation2<EEK>(pwh);
-
-            tri.SetIndices();
-
-            points = new Point2d[tri.VertexCount];
-            tri.GetPoints(points);
-
-            Console.WriteLine("Points " + points.Length);
-            Console.WriteLine();
-
-            for (int i = 0; i < points.Length; i++)
-                Console.WriteLine("Point " + i + " = " + points[i]);
-
-            var indices = new List<int>();
-            tri.GetPolygonIndices(pwh, indices);
-
-            int triangles = indices.Count / 3;
-
-            Console.WriteLine();
-            Console.WriteLine("Triangles " + triangles);
-            Console.WriteLine();
-
-            for (int i = 0; i < triangles; i++)
-            {
-                Console.WriteLine("Triangle = " + indices[i * 3 + 0] + "," + indices[i * 3 + 1] + "," + indices[i * 3 + 2]);
-            }
-
             Console.WriteLine();
         }
 

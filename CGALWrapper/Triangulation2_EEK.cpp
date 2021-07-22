@@ -39,16 +39,6 @@ int Triangulation2_EEK_FaceCount(void* ptr)
 	return Triangulation2<EEK>::FaceCount(ptr);
 }
 
-void Triangulation2_EEK_SetVertexIndices(void* ptr)
-{
-	Triangulation2<EEK>::SetVertexIndices(ptr);
-}
-
-void Triangulation2_EEK_SetFaceIndices(void* ptr)
-{
-	Triangulation2<EEK>::SetFaceIndices(ptr);
-}
-
 void Triangulation2_EEK_InsertPoint(void* ptr, Point2d point)
 {
 	Triangulation2<EEK>::InsertPoint(ptr, point);
@@ -79,13 +69,4 @@ void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int 
 	Triangulation2<EEK>::GetIndices(ptr, indices, startIndex, count);
 }
 
-int Triangulation2_EEK_GetPolygonIndices(void* triPtr, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
-{
-	return Triangulation2<EEK>::GetPolygonIndices(triPtr, polyPtr, indices, startIndex, count, orientation);
-}
-
-int Triangulation2_EEK_GetPolygonWithHolesIndices(void* triPtr, void* pwhPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
-{
-	return Triangulation2<EEK>::GetPolygonWithHolesIndices(triPtr, pwhPtr, indices, startIndex, count, orientation);
-}
 
