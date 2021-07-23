@@ -40,11 +40,13 @@ extern "C"
 
 	CGALWRAPPER_API void DelaunayTriangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count);
 
-	CGALWRAPPER_API BOOL Triangulation2_EEK_GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment);
+	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment);
 
-	CGALWRAPPER_API BOOL Triangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triangle);
+	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triangle);
 
-	CGALWRAPPER_API BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter);
+	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter);
+
+	CGALWRAPPER_API void DelaunayTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count);
 
 	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face);
 

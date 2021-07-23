@@ -114,6 +114,11 @@ namespace CGALDotNet.Triangulations
             return Triangulation2_EEK_GetCircumcenter(ptr, faceIndex, out circumcenter);
         }
 
+        internal override void GetCircumcenters(IntPtr ptr, [Out] Point2d[] circumcenters, int startIndex, int count)
+        {
+            Triangulation2_EEK_GetCircumcenters(ptr, circumcenters, startIndex, count);
+        }
+
         internal override bool LocateFace(IntPtr ptr, Point2d point, out TriFace2 face)
         {
             return Triangulation2_EEK_LocateFace(ptr, point, out face);
@@ -193,6 +198,9 @@ namespace CGALDotNet.Triangulations
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Triangulation2_EEK_GetCircumcenter(IntPtr ptr, int faceIndex, [Out] out Point2d circumcenter);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Triangulation2_EEK_GetCircumcenters(IntPtr ptr, [Out] Point2d[] circumcenters, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Triangulation2_EEK_LocateFace(IntPtr ptr, Point2d point, [Out] out TriFace2 face);

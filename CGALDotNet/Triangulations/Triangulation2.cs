@@ -175,6 +175,15 @@ namespace CGALDotNet.Triangulations
             return Kernel.GetCircumcenter(Ptr, faceIndex, out circumcenter);
         }
 
+        public void GetCircumcenters(Point2d[] circumcenters)
+        {
+            int count = FaceCount;
+            if (count == 0) return;
+
+            ErrorUtil.CheckBounds(circumcenters, 0, count);
+            Kernel.GetCircumcenters(Ptr, circumcenters, 0, circumcenters.Length);
+        }
+
         public bool LocateFace(Point2d point, out TriFace2 face)
         {
             return Kernel.LocateFace(Ptr, point, out face);

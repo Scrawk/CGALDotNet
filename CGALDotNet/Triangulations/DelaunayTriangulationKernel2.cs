@@ -55,6 +55,8 @@ namespace CGALDotNet.Triangulations
 
         internal abstract bool GetCircumcenter(IntPtr ptr, int faceIndex, out Point2d circumcenter);
 
+        internal abstract void GetCircumcenters(IntPtr ptr, Point2d[] circumcenters, int startIndex, int count);
+
         internal abstract bool LocateFace(IntPtr ptr, Point2d point, out TriFace2 face);
 
         internal abstract bool MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex);

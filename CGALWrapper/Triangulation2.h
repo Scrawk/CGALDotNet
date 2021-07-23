@@ -304,6 +304,18 @@ public:
 		}
 	}
 
+	static void GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		for (const auto& face : tri->model.finite_face_handles())
+		{
+			auto c = tri->model.circumcenter(face);
+			circumcenters[i++] = Point2d::FromCGAL<K>(c);
+		}
+	}
+
 	static BOOL LocateFace(void* ptr, Point2d point, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);

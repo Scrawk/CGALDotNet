@@ -7,60 +7,60 @@ namespace CGALDotNet.Geometry
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Point2d : IEquatable<Point2d>
+    public struct Vector2d : IEquatable<Vector2d>
     {
         public double x, y;
 
         /// <summary>
-        /// The unit x point.
+        /// The unit x vector.
         /// </summary>
-	    public readonly static Point2d UnitX = new Point2d(1, 0);
+	    public readonly static Vector2d UnitX = new Vector2d(1, 0);
 
         /// <summary>
-        /// The unit y point.
+        /// The unit y vector.
         /// </summary>
-	    public readonly static Point2d UnitY = new Point2d(0, 1);
+	    public readonly static Vector2d UnitY = new Vector2d(0, 1);
 
         /// <summary>
-        /// A point of zeros.
+        /// A vector of zeros.
         /// </summary>
-	    public readonly static Point2d Zero = new Point2d(0);
+	    public readonly static Vector2d Zero = new Vector2d(0);
 
         /// <summary>
-        /// A point of ones.
+        /// A vector of ones.
         /// </summary>
-	    public readonly static Point2d One = new Point2d(1);
+	    public readonly static Vector2d One = new Vector2d(1);
 
         /// <summary>
-        /// A point of 0.5.
+        /// A vector of 0.5.
         /// </summary>
-        public readonly static Point2d Half = new Point2d(0.5);
+        public readonly static Vector2d Half = new Vector2d(0.5);
 
         /// <summary>
-        /// A point of positive infinity.
+        /// A vector of positive infinity.
         /// </summary>
-        public readonly static Point2d PositiveInfinity = new Point2d(double.PositiveInfinity);
+        public readonly static Vector2d PositiveInfinity = new Vector2d(double.PositiveInfinity);
 
         /// <summary>
-        /// A point of negative infinity.
+        /// A vector of negative infinity.
         /// </summary>
-        public readonly static Point2d NegativeInfinity = new Point2d(double.NegativeInfinity);
+        public readonly static Vector2d NegativeInfinity = new Vector2d(double.NegativeInfinity);
 
         /// <summary>
-        /// A point all with the value v.
+        /// A vector all with the value v.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d(double v)
+        public Vector2d(double v)
         {
             this.x = v;
             this.y = v;
         }
 
         /// <summary>
-        /// A point from the varibles.
+        /// A vector from the varibles.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d(double x, double y)
+        public Vector2d(double x, double y)
         {
             this.x = x;
             this.y = y;
@@ -76,171 +76,223 @@ namespace CGALDotNet.Geometry
             get
             {
                 if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("Point2d index out of range.");
+                    throw new IndexOutOfRangeException("Vector2d index out of range.");
 
-                fixed (Point2d* array = &this) { return ((double*)array)[i]; }
+                fixed (Vector2d* array = &this) { return ((double*)array)[i]; }
             }
             set
             {
                 if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("Point2d index out of range.");
+                    throw new IndexOutOfRangeException("Vector2d index out of range.");
 
                 fixed (double* array = &x) { array[i] = value; }
             }
         }
 
         /// <summary>
-        /// Add two points.
+        /// The length of the vector.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(Point2d v1, Point2d v2)
+        public double Magnitude
         {
-            return new Point2d(v1.x + v2.x, v1.y + v2.y);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return Math.Sqrt(SqrMagnitude);
+            }
         }
 
         /// <summary>
-        /// Add point and scalar.
+        /// The length of the vector squared.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(Point2d v1, double s)
+		public double SqrMagnitude
         {
-            return new Point2d(v1.x + s, v1.y + s);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return (x * x + y * y);
+            }
         }
 
         /// <summary>
-        /// Add point and scalar.
+        /// The vector normalized.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(double s, Point2d v1)
+        public Vector2d Normalized
         {
-            return new Point2d(v1.x + s, v1.y + s);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                double invLength = 1.0 / Math.Sqrt(x * x + y * y);
+                return new Vector2d(x * invLength, y * invLength);
+            }
         }
 
         /// <summary>
-        /// Negate point.
+        /// Counter clock-wise perpendicular.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Point2d v)
+        public Vector2d PerpendicularCCW
         {
-            return new Point2d(-v.x, -v.y);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return new Vector2d(-y, x);
+            }
         }
 
         /// <summary>
-        /// Subtract two points.
+        /// Clock-wise perpendicular.
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Point2d v1, Point2d v2)
+        public Vector2d PerpendicularCW
         {
-            return new Point2d(v1.x - v2.x, v1.y - v2.y);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return new Vector2d(y, -x);
+            }
         }
 
         /// <summary>
-        /// Subtract point and scalar.
+        /// Add two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Point2d v1, double s)
+        public static Vector2d operator +(Vector2d v1, Vector2d v2)
         {
-            return new Point2d(v1.x - s, v1.y - s);
+            return new Vector2d(v1.x + v2.x, v1.y + v2.y);
         }
 
         /// <summary>
-        /// Subtract point and scalar.
+        /// Add vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(double s, Point2d v1)
+        public static Vector2d operator +(Vector2d v1, double s)
         {
-            return new Point2d(s - v1.x, s - v1.y);
+            return new Vector2d(v1.x + s, v1.y + s);
         }
 
         /// <summary>
-        /// Multiply two points.
+        /// Add vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(Point2d v1, Point2d v2)
+        public static Vector2d operator +(double s, Vector2d v1)
         {
-            return new Point2d(v1.x * v2.x, v1.y * v2.y);
+            return new Vector2d(v1.x + s, v1.y + s);
         }
 
         /// <summary>
-        /// Multiply a point and a scalar.
+        /// Negate vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(Point2d v, double s)
+        public static Vector2d operator -(Vector2d v)
         {
-            return new Point2d(v.x * s, v.y * s);
+            return new Vector2d(-v.x, -v.y);
         }
 
         /// <summary>
-        /// Multiply a point and a scalar.
+        /// Subtract two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(double s, Point2d v)
+        public static Vector2d operator -(Vector2d v1, Vector2d v2)
         {
-            return new Point2d(v.x * s, v.y * s);
+            return new Vector2d(v1.x - v2.x, v1.y - v2.y);
         }
 
         /// <summary>
-        /// Divide two points.
+        /// Subtract vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator /(Point2d v1, Point2d v2)
+        public static Vector2d operator -(Vector2d v1, double s)
         {
-            return new Point2d(v1.x / v2.x, v1.y / v2.y);
+            return new Vector2d(v1.x - s, v1.y - s);
         }
 
         /// <summary>
-        /// Divide a point and a scalar.
+        /// Subtract vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator /(Point2d v, double s)
+        public static Vector2d operator -(double s, Vector2d v1)
         {
-            return new Point2d(v.x / s, v.y / s);
+            return new Vector2d(s - v1.x, s - v1.y);
         }
 
         /// <summary>
-        /// Explict cast from vector.
+        /// Dot product of two vectors.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double operator *(Vector2d v1, Vector2d v2)
+        {
+            return Dot(v1, v2);
+        }
+
+        /// <summary>
+        /// Multiply a vector and a scalar.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2d operator *(Vector2d v, double s)
+        {
+            return new Vector2d(v.x * s, v.y * s);
+        }
+
+        /// <summary>
+        /// Multiply a vector and a scalar.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2d operator *(double s, Vector2d v)
+        {
+            return new Vector2d(v.x * s, v.y * s);
+        }
+
+        /// <summary>
+        /// Divide a vector and a scalar.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2d operator /(Vector2d v, double s)
+        {
+            return new Vector2d(v.x / s, v.y / s);
+        }
+
+        /// <summary>
+        /// Explict cast from point.
         /// </summary>
         /// <param name="v"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Point2d(Vector2d v)
+        public static explicit operator Vector2d(Point2d v)
         {
-            return new Point2d(v.x, v.y);
+            return new Vector2d(v.x, v.y);
         }
 
         /// <summary>
-        /// Are these points equal.
+        /// Are these vectors equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Point2d v1, Point2d v2)
+        public static bool operator ==(Vector2d v1, Vector2d v2)
         {
             return (v1.x == v2.x && v1.y == v2.y);
         }
 
         /// <summary>
-        /// Are these points not equal.
+        /// Are these vectors not equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Point2d v1, Point2d v2)
+        public static bool operator !=(Vector2d v1, Vector2d v2)
         {
             return (v1.x != v2.x || v1.y != v2.y);
         }
 
         /// <summary>
-        /// Are these points equal.
+        /// Are these vectors equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
         {
-            if (!(obj is Point2d)) return false;
-            Point2d v = (Point2d)obj;
+            if (!(obj is Vector2d)) return false;
+            Vector2d v = (Vector2d)obj;
             return this == v;
         }
 
         /// <summary>
-        /// Are these points equal.
+        /// Are these vectors equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Point2d v)
+        public bool Equals(Vector2d v)
         {
             return this == v;
         }
@@ -279,31 +331,48 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Distance between two points.
+        /// The dot product of two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Point2d v0, Point2d v1)
+        public static double Dot(Vector2d v0, Vector2d v1)
         {
-            return Math.Sqrt(SqrDistance(v0, v1));
+            return (v0.x * v1.x + v0.y * v1.y);
         }
 
         /// <summary>
-        /// Square distance between two points.
+        /// The abs dot product of two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SqrDistance(Point2d v0, Point2d v1)
+        public static double AbsDot(Vector2d v0, Vector2d v1)
         {
-            double x = v0.x - v1.x;
-            double y = v0.y - v1.y;
-            return x * x + y * y;
+            return Math.Abs(v0.x * v1.x + v0.y * v1.y);
         }
 
-
         /// <summary>
-        /// The minimum value between s and each component in point.
+        /// Normalize the vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Min(Point2d v, double s)
+        public void Normalize()
+        {
+            double invLength = 1.0 / Math.Sqrt(x * x + y * y);
+            x *= invLength;
+            y *= invLength;
+        }
+
+        /// <summary>
+        /// Cross two vectors.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Cross(Vector2d v0, Vector2d v1)
+        {
+            return v0.x * v1.y - v0.y * v1.x;
+        }
+
+        /// <summary>
+        /// The minimum value between s and each component in vector.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2d Min(Vector2d v, double s)
         {
             v.x = Math.Min(v.x, s);
             v.y = Math.Min(v.y, s);
@@ -311,10 +380,10 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// The minimum value between each component in points.
+        /// The minimum value between each component in vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Min(Point2d v0, Point2d v1)
+        public static Vector2d Min(Vector2d v0, Vector2d v1)
         {
             v0.x = Math.Min(v0.x, v1.x);
             v0.y = Math.Min(v0.y, v1.y);
@@ -322,10 +391,10 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// The maximum value between s and each component in point.
+        /// The maximum value between s and each component in vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Max(Point2d v, double s)
+        public static Vector2d Max(Vector2d v, double s)
         {
             v.x = Math.Max(v.x, s);
             v.y = Math.Max(v.y, s);
@@ -333,10 +402,10 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// The maximum value between each component in points.
+        /// The maximum value between each component in vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Max(Point2d v0, Point2d v1)
+        public static Vector2d Max(Vector2d v0, Vector2d v1)
         {
             v0.x = Math.Max(v0.x, v1.x);
             v0.y = Math.Max(v0.y, v1.y);
@@ -347,7 +416,7 @@ namespace CGALDotNet.Geometry
         /// Clamp each component to specified min and max.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Clamp(Point2d v, double min, double max)
+        public static Vector2d Clamp(Vector2d v, double min, double max)
         {
             v.x = Math.Max(Math.Min(v.x, max), min);
             v.y = Math.Max(Math.Min(v.y, max), min);
@@ -358,7 +427,7 @@ namespace CGALDotNet.Geometry
         /// Clamp each component to specified min and max.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d Clamp(Point2d v, Point2d min, Point2d max)
+        public static Vector2d Clamp(Vector2d v, Vector2d min, Vector2d max)
         {
             v.x = Math.Max(Math.Min(v.x, max.x), min.x);
             v.y = Math.Max(Math.Min(v.y, max.y), min.y);
@@ -366,9 +435,9 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Lerp between two points.
+        /// Lerp between two vectors.
         /// </summary>
-        public static Point2d Lerp(Point2d from, Point2d to, double t)
+        public static Vector2d Lerp(Vector2d from, Vector2d to, double t)
         {
             if (t < 0.0) t = 0.0;
             if (t > 1.0) t = 1.0;
@@ -377,23 +446,23 @@ namespace CGALDotNet.Geometry
             if (t == 1.0) return to;
 
             double t1 = 1.0f - t;
-            var v = new Point2d();
+            var v = new Vector2d();
             v.x = from.x * t1 + to.x * t;
             v.y = from.y * t1 + to.y * t;
             return v;
         }
 
         /// <summary>
-        /// A rounded point.
+        /// A rounded vector.
         /// </summary>
         /// <param name="digits"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d Rounded(int digits = 0)
+        public Vector2d Rounded(int digits = 0)
         {
             double x = Math.Round(this.x, digits);
             double y = Math.Round(this.y, digits);
-            return new Point2d(x, y);
+            return new Vector2d(x, y);
         }
 
     }

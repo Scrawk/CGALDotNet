@@ -104,6 +104,11 @@ BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circu
 	return Triangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);
 }
 
+void Triangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count)
+{
+	Triangulation2<EEK>::GetCircumcenters(ptr, circumcenters, startIndex, count);
+}
+
 BOOL Triangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face)
 {
 	return Triangulation2<EEK>::LocateFace(ptr, point, face);
