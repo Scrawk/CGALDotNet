@@ -96,6 +96,15 @@
     <ClInclude Include="IndexMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TriVertex2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="TriFace2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangulationMap.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

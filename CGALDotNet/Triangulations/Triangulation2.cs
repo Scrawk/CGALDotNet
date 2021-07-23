@@ -140,7 +140,7 @@ namespace CGALDotNet.Triangulations
         public void GetVertices(TriVertex2[] vertices)
         {
             int count = VertexCount;
-            if (count < 3) return;
+            if (count == 0) return;
 
             ErrorUtil.CheckBounds(vertices, 0, count);
             Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);

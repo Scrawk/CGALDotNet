@@ -2,6 +2,8 @@
 
 #define CGALWRAPPER_API __declspec(dllexport)
 
+#define NULL_INDEX -1
+
 #include <CGAL/Cartesian.h>
 #include <CGAL/Homogeneous.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>

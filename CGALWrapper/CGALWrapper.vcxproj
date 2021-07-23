@@ -178,6 +178,9 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Triangulation2.h" />
     <ClInclude Include="Triangulation2_EEK.h" />
+    <ClInclude Include="TriangulationMap.h" />
+    <ClInclude Include="TriFace2.h" />
+    <ClInclude Include="TriVertex2.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
