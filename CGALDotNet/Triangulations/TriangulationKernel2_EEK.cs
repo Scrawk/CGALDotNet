@@ -99,6 +99,21 @@ namespace CGALDotNet.Triangulations
             Triangulation2_EEK_GetFaces(ptr, faces, startIndex, count);
         }
 
+        internal override bool GetSegment(IntPtr ptr, int faceIndex, int neighbourIndex, out Segment2d segment)
+        {
+            return Triangulation2_EEK_GetSegment(ptr, faceIndex, neighbourIndex, out segment);
+        }
+
+        internal override bool GetTriangle(IntPtr ptr, int faceIndex, out Triangle2d triangle)
+        {
+            return Triangulation2_EEK_GetTriangle(ptr, faceIndex, out triangle);
+        }
+
+        internal override bool GetCircumcenter(IntPtr ptr, int faceIndex, out Point2d circumcenter)
+        {
+            return Triangulation2_EEK_GetCircumcenter(ptr, faceIndex, out circumcenter);
+        }
+
         internal override bool LocateFace(IntPtr ptr, Point2d point, out TriFace2 face)
         {
             return Triangulation2_EEK_LocateFace(ptr, point, out face);
@@ -169,6 +184,15 @@ namespace CGALDotNet.Triangulations
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Triangulation2_EEK_GetFaces(IntPtr ptr, [Out] TriFace2[] faces, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_GetSegment(IntPtr ptr, int faceIndex, int neighbourIndex, [Out] out Segment2d segment);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_GetTriangle(IntPtr ptr, int faceIndex, [Out] out Triangle2d triangle);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Triangulation2_EEK_GetCircumcenter(IntPtr ptr, int faceIndex, [Out] out Point2d circumcenter);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Triangulation2_EEK_LocateFace(IntPtr ptr, Point2d point, [Out] out TriFace2 face);

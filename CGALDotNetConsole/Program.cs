@@ -34,9 +34,11 @@ namespace CGALDotNetConsole
             //Arrangement2Examples.RemoveVertex();
             //Arrangement2Examples.RemoveEdge();
 
-            //Triangulation2Examples.CreateTriangulation();
+            Triangulation2Examples.CreateTriangulation();
             //Triangulation2Examples.GetPointsAndIndices();
-            Triangulation2Examples.GetVerticesAndFaces();
+            //Triangulation2Examples.GetVerticesAndFaces();
+
+            //DelaunayTriangulation2Examples.CreateDelaunayTriangulation();
 
             //PolygonPartition2Examples.CreatePolygonPartition();
 

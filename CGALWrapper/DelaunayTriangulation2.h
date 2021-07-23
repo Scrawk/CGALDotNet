@@ -12,12 +12,12 @@
 
 #include <vector>
 #include "CGAL/Point_2.h"
-#include <CGAL/Triangulation_2.h>
+#include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
 
 template<class K>
-class Triangulation2
+class DelaunayTriangulation2
 {
 
 public:
@@ -25,7 +25,8 @@ public:
 	typedef CGAL::Triangulation_vertex_base_with_info_2<int, K> Vb;
 	typedef CGAL::Triangulation_face_base_with_info_2<int, K> Fb;
 	typedef CGAL::Triangulation_data_structure_2<Vb, Fb> Tds;
-	typedef CGAL::Triangulation_2<K, Tds> Triangulation_2;
+
+	typedef CGAL::Delaunay_triangulation_2<K, Tds> Triangulation_2;
 	typedef typename Triangulation_2::Point Point_2;
 
 	typedef typename Triangulation_2::Finite_faces_iterator Finite_faces;
@@ -46,19 +47,19 @@ private:
 
 public:
 
-	Triangulation2()
+	DelaunayTriangulation2()
 	{
 
 	}
 
-	~Triangulation2()
+	~DelaunayTriangulation2()
 	{
 
 	}
 
-	inline static Triangulation2* CastToTriangulation2(void* ptr)
+	inline static DelaunayTriangulation2* CastToTriangulation2(void* ptr)
 	{
-		return static_cast<Triangulation2*>(ptr);
+		return static_cast<DelaunayTriangulation2*>(ptr);
 	}
 
 	static void Clear(void* ptr)
@@ -72,7 +73,7 @@ public:
 	{
 		auto tri = CastToTriangulation2(ptr);
 
-		auto copy = new Triangulation2<K>();
+		auto copy = new DelaunayTriangulation2<K>();
 		copy->model = tri->model;
 
 		return copy;
@@ -130,7 +131,7 @@ public:
 
 		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
 
-		if(!pwh->is_unbounded())
+		if (!pwh->is_unbounded())
 			tri->model.insert(pwh->outer_boundary().vertices_begin(), pwh->outer_boundary().vertices_end());
 
 		for (auto& hole : pwh->holes())
@@ -168,7 +169,7 @@ public:
 	static BOOL GetVertex(void* ptr, int index, TriVertex2& triVert)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		
+
 		auto vert = tri->map.FindVertex(tri->model, index);
 		if (vert != nullptr)
 		{
@@ -196,6 +197,7 @@ public:
 			int degree = TriUtil::Degree(tri->model, vert);
 			vertices[i++] = TriVertex2::FromVertex<K>(tri->model, vert, degree);
 		}
+			
 	}
 
 	static BOOL GetFace(void* ptr, int index, TriFace2& triFace)
@@ -328,14 +330,14 @@ public:
 		auto vert = tri->map.FindVertex(tri->model, index);
 		if (vert != nullptr)
 		{
-			Vertex v; 
-			
-			if(ifNoCollision)
+			Vertex v;
+
+			if (ifNoCollision)
 				v = tri->model.move(*vert, point.ToCGAL<K>());
 			else
 				v = tri->model.move_if_no_collision(*vert, point.ToCGAL<K>());
 
-			if(v != *vert)
+			if (v != *vert)
 				tri->map.OnModelChanged();
 
 			int degree = TriUtil::Degree(tri->model, v);
@@ -368,6 +370,7 @@ public:
 
 	static BOOL FlipEdge(void* ptr, int faceIndex, int neighbourIndex)
 	{
+
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);

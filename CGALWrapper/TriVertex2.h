@@ -23,5 +23,24 @@ struct TriVertex2
 		v.FaceIndex = NULL_INDEX;
 		return v;
 	}
+
+	template<class K, class TRI, class VERT>
+	static TriVertex2 FromVertex(TRI tri, VERT vert, int degree)
+	{
+		TriVertex2 triVertex;
+		triVertex.Point = Point2d::FromCGAL<K>(vert->point());
+		triVertex.IsInfinite = tri.is_infinite(vert);
+		triVertex.Degree = degree;
+		triVertex.Index = vert->info();
+
+		auto face = vert->face();
+
+		if (tri.is_infinite(face) || tri.number_of_faces() == 0)
+			triVertex.FaceIndex = NULL_INDEX;
+		else
+			triVertex.FaceIndex = face->info();
+
+		return triVertex;
+	}
 };
 

@@ -3,6 +3,7 @@
 #include "CGALWrapper.h"
 #include "CGAL/Point_2.h"
 #include "CGAL/Vector_2.h"
+#include "CGAL/Segment_2.h"
 
 struct Point2d
 {
@@ -45,9 +46,9 @@ struct Segment2d
     template<class K>
     static Segment2d FromCGAL(CGAL::Point_2<K> a, CGAL::Point_2<K> b)
     {
-        auto c = Point2d::FromCGAL<K>(a);
-        auto d = Point2d::FromCGAL<K>(b);
-        return { c, d };
+        auto A = Point2d::FromCGAL<K>(a);
+        auto B = Point2d::FromCGAL<K>(b);
+        return { A, B };
     }
 
 };
@@ -57,6 +58,21 @@ struct Triangle2d
     Point2d a;
     Point2d b;
     Point2d c;
+
+    template<class K, class TRI>
+    TRI ToCGAL()
+    {
+        return { a.ToCGAL<K>(), b.ToCGAL<K>(), c.ToCGAL<K>() };
+    }
+
+    template<class K>
+    static Triangle2d FromCGAL(CGAL::Point_2<K> a, CGAL::Point_2<K> b, CGAL::Point_2<K> c)
+    {
+        auto A = Point2d::FromCGAL<K>(a);
+        auto B = Point2d::FromCGAL<K>(b);
+        auto C = Point2d::FromCGAL<K>(c);
+        return { A, B, C };
+    }
 };
 
 struct Circle2d

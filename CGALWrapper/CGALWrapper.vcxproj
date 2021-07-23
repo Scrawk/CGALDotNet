@@ -163,6 +163,8 @@
     <ClInclude Include="Arrangement2_EEK.h" />
     <ClInclude Include="ArrMultiLocator.h" />
     <ClInclude Include="CGALWrapper.h" />
+    <ClInclude Include="DelaunayTriangulation2.h" />
+    <ClInclude Include="DelaunayTriangulation2_EEK.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="IndexMap.h" />
     <ClInclude Include="pch.h" />
@@ -180,11 +182,13 @@
     <ClInclude Include="Triangulation2_EEK.h" />
     <ClInclude Include="TriangulationMap.h" />
     <ClInclude Include="TriFace2.h" />
+    <ClInclude Include="TriUtil.h" />
     <ClInclude Include="TriVertex2.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrangement2_EEK.cpp" />
+    <ClCompile Include="DelaunayTriangulation2_EEK.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

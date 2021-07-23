@@ -89,6 +89,21 @@ void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int
 	Triangulation2<EEK>::GetFaces(ptr, faces, startIndex, count);
 }
 
+BOOL Triangulation2_EEK_GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment)
+{
+	return Triangulation2<EEK>::GetSegment(ptr, faceIndex, neighbourIndex, segment);
+}
+
+BOOL Triangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triangle)
+{
+	return Triangulation2<EEK>::GetTriangle(ptr, faceIndex, triangle);
+}
+
+BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
+{
+	return Triangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);
+}
+
 BOOL Triangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face)
 {
 	return Triangulation2<EEK>::LocateFace(ptr, point, face);

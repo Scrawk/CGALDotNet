@@ -21,4 +21,24 @@ struct TriFace2
 		f.VertexIndices[2] = NULL_INDEX;
 		return f;
 	}
+
+	template<class TRI, class FACE>
+	static TriFace2 FromFace(TRI& tri, FACE face)
+	{
+		TriFace2 triFace;
+		triFace.IsInfinite = tri.is_infinite(face);
+		triFace.Index = face->info();
+
+		for (int j = 0; j < 3; j++)
+		{
+			auto vert = face->vertex(j);
+
+			if (tri.is_infinite(vert))
+				triFace.VertexIndices[j] = NULL_INDEX;
+			else
+				triFace.VertexIndices[j] = vert->info();
+		}
+
+		return triFace;
+	}
 };

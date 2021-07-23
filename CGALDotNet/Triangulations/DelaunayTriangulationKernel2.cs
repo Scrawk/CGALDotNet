@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
-using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Triangulations
 {
-    internal abstract class TriangulationKernel2
+    internal abstract class DelaunayTriangulationKernel2
     {
-        internal TriangulationKernel2()
+        internal DelaunayTriangulationKernel2()
         {
 
         }
@@ -63,7 +62,5 @@ namespace CGALDotNet.Triangulations
         internal abstract bool RemoveVertex(IntPtr ptr, int index);
 
         internal abstract bool FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
-
-
     }
 }

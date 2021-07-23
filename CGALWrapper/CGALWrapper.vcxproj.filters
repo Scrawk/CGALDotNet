@@ -105,6 +105,15 @@
     <ClInclude Include="TriangulationMap.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
+    <ClInclude Include="DelaunayTriangulation2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="DelaunayTriangulation2_EEK.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="TriUtil.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -127,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="PolygonPartition2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="DelaunayTriangulation2_EEK.cpp">
+      <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
