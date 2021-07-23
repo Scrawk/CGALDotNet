@@ -382,7 +382,6 @@ public:
 
 	static BOOL FlipEdge(void* ptr, int faceIndex, int neighbourIndex)
 	{
-
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
@@ -407,6 +406,62 @@ public:
 		else
 		{
 			return FALSE;
+		}
+	}
+
+	static int VoronoiSegmentCount(void* ptr)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int count = 0;
+
+		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
+		{
+			CGAL::Object o = tri->model.dual(eit);
+			if (CGAL::object_cast<K::Segment_2>(&o)) 
+				++count;
+		}
+
+		return count;
+	}
+
+	static int VoronoiRayCount(void* ptr)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int count = 0;
+
+		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
+		{
+			CGAL::Object o = tri->model.dual(eit);
+			if (CGAL::object_cast<K::Ray_2>(&o))
+				++count;
+		}
+
+		return count;
+	}
+
+	static void GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit, ++i)
+		{
+			CGAL::Object o = tri->model.dual(eit);
+			if (auto seg = CGAL::object_cast<K::Segment_2>(&o))
+				segments[i] = Segment2d::FromCGAL<K>(seg->source(), seg->target());
+		}
+	}
+
+	static void GetVoronoiRays(void* ptr, Ray2d* rays, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit, ++i)
+		{
+			CGAL::Object o = tri->model.dual(eit);
+			if (auto ray = CGAL::object_cast<K::Ray_2>(&o))
+				rays[i] = Ray2d::FromCGAL<K>(ray->source(), ray->to_vector());
 		}
 	}
 

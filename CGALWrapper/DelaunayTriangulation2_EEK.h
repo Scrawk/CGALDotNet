@@ -55,5 +55,13 @@ extern "C"
 	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_RemoveVertex(void* ptr, int index);
 
 	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour);
+
+	CGALWRAPPER_API int DelaunayTriangulation2_EEK_VoronoiSegmentCount(void* ptr);
+
+	CGALWRAPPER_API int DelaunayTriangulation2_EEK_VoronoiRayCount(void* ptr);
+
+	CGALWRAPPER_API void DelaunayTriangulation2_EEK_GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count);
+
+	CGALWRAPPER_API void DelaunayTriangulation2_EEK_GetVoronoiRays(void* ptr, Ray2d* rays, int startIndex, int count);
 }
 

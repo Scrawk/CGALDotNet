@@ -129,3 +129,23 @@ BOOL DelaunayTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour
 {
 	return DelaunayTriangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
+
+int DelaunayTriangulation2_EEK_VoronoiSegmentCount(void* ptr)
+{
+	return DelaunayTriangulation2<EEK>::VoronoiSegmentCount(ptr);
+}
+
+int DelaunayTriangulation2_EEK_VoronoiRayCount(void* ptr)
+{
+	return DelaunayTriangulation2<EEK>::VoronoiRayCount(ptr);
+}
+
+void DelaunayTriangulation2_EEK_GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+{
+	DelaunayTriangulation2<EEK>::GetVoronoiSegments(ptr, segments, startIndex, count);
+}
+
+void DelaunayTriangulation2_EEK_GetVoronoiRays(void* ptr, Ray2d* rays, int startIndex, int count)
+{
+	DelaunayTriangulation2<EEK>::GetVoronoiRays(ptr, rays, startIndex, count);
+}

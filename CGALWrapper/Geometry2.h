@@ -113,10 +113,10 @@ struct Ray2d
     }
 
     template<class K>
-    static Ray2d FromCGAL(CGAL::Point_2<K> pos, CGAL::Point_2<K> dir)
+    static Ray2d FromCGAL(CGAL::Point_2<K> pos, CGAL::Vector_2<K> dir)
     {
         auto Pos = Point2d::FromCGAL<K>(pos);
-        auto Dir = Point2d::FromCGAL<K>(dir);
+        auto Dir = Vector2d::FromCGAL<K>(dir);
         return { Pos, Dir };
     }
 };
