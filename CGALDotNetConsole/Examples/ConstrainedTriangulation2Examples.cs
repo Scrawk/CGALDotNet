@@ -9,11 +9,11 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNetConsole.Examples
 {
-    class DelaunayTriangulation2Examples
+    class ConstrainedTriangulation2Examples
     {
-        public static void CreateDelaunayTriangulation()
+        public static void CreateConstrainedTriangulation()
         {
-            Console.WriteLine("Create delaunauy triangulation example\n");
+            Console.WriteLine("Create constrained triangulation example\n");
 
             var points = new Point2d[]
             {
@@ -24,19 +24,10 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 5)
             };
 
-            var tri = new DelaunayTriangulation2<EEK>(points);
+            var tri = new ConstrainedTriangulation2<EEK>(points);
             tri.Print();
 
             Console.WriteLine("Is valid " + tri.IsValid());
-
-            var segments = tri.GetVoronoiSegments();
-            var rays = tri.GetVoronoiRays();
-
-            foreach (var seg in segments)
-                Console.WriteLine(seg);
-
-            foreach (var ray in rays)
-               Console.WriteLine(ray);
         }
     }
 }

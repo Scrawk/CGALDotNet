@@ -12,24 +12,26 @@
 
 #include <vector>
 #include "CGAL/Point_2.h"
-#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Constrained_triangulation_2.h>
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
 
-#include <CGAL/Delaunay_mesh_face_base_2.h>
-#include <CGAL/Delaunay_mesh_vertex_base_2.h>
+#include <CGAL/Constrained_triangulation_face_base_2.h>
+#include <CGAL/Constrained_triangulation_plus_2.h>
 
 template<class K>
-class DelaunayTriangulation2
+class ConstrainedTriangulation2
 {
 
 public:
 
 	typedef CGAL::Triangulation_vertex_base_with_info_2<int, K> Vb;
-	typedef CGAL::Triangulation_face_base_with_info_2<int, K> Fb;
+	typedef CGAL::Constrained_triangulation_face_base_2<K> CFb;
+	typedef CGAL::Triangulation_face_base_with_info_2<int, K, CFb> Fb;
+
 	typedef CGAL::Triangulation_data_structure_2<Vb, Fb> Tds;
 
-	typedef CGAL::Delaunay_triangulation_2<K, Tds> Triangulation_2;
+	typedef CGAL::Constrained_triangulation_2<K, Tds> Triangulation_2;
 	typedef typename Triangulation_2::Point Point_2;
 
 	typedef typename Triangulation_2::Finite_faces_iterator Finite_faces;
@@ -50,19 +52,19 @@ private:
 
 public:
 
-	DelaunayTriangulation2()
+	ConstrainedTriangulation2()
 	{
 
 	}
 
-	~DelaunayTriangulation2()
+	~ConstrainedTriangulation2()
 	{
 
 	}
 
-	inline static DelaunayTriangulation2* CastToTriangulation2(void* ptr)
+	inline static ConstrainedTriangulation2* CastToTriangulation2(void* ptr)
 	{
-		return static_cast<DelaunayTriangulation2*>(ptr);
+		return static_cast<ConstrainedTriangulation2*>(ptr);
 	}
 
 	static void Clear(void* ptr)
@@ -76,7 +78,7 @@ public:
 	{
 		auto tri = CastToTriangulation2(ptr);
 
-		auto copy = new DelaunayTriangulation2<K>();
+		auto copy = new ConstrainedTriangulation2<K>();
 		copy->model = tri->model;
 
 		return copy;
@@ -200,7 +202,6 @@ public:
 			int degree = TriUtil::Degree(tri->model, vert);
 			vertices[i++] = TriVertex2::FromVertex<K>(tri->model, vert, degree);
 		}
-			
 	}
 
 	static BOOL GetFace(void* ptr, int index, TriFace2& triFace)
@@ -268,7 +269,6 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
-
 		if (face != nullptr)
 		{
 			if (tri->model.is_infinite(*face))
@@ -330,7 +330,7 @@ public:
 		{
 			auto c = tri->model.circumcenter(face);
 			circumcenters[i++] = Point2d::FromCGAL<K>(c);
-		}	
+		}
 	}
 
 	static BOOL LocateFace(void* ptr, Point2d point, TriFace2& triFace)
@@ -359,9 +359,9 @@ public:
 		{
 			Vertex v;
 
-			if (ifNoCollision)
-				v = tri->model.move(*vert, point.ToCGAL<K>());
-			else
+			//if (ifNoCollision)
+			//	v = tri->model.move(*vert, point.ToCGAL<K>());
+			//else
 				v = tri->model.move_if_no_collision(*vert, point.ToCGAL<K>());
 
 			if (v != *vert)
@@ -421,79 +421,6 @@ public:
 		else
 		{
 			return FALSE;
-		}
-	}
-
-	static void VoronoiCount(void* ptr, int& numSegments, int& numRays)
-	{
-		auto tri = CastToTriangulation2(ptr);
-		
-		numSegments = 0;
-		numRays = 0;
-
-		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
-		{
-			CGAL::Object o = tri->model.dual(eit);
-			if (CGAL::object_cast<K::Segment_2>(&o))
-				numSegments++;
-			else if (CGAL::object_cast<K::Ray_2>(&o))
-				numRays++;
-		}
-	}
-
-	static int VoronoiSegmentCount(void* ptr)
-	{
-		auto tri = CastToTriangulation2(ptr);
-		int count = 0;
-
-		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
-		{
-			CGAL::Object o = tri->model.dual(eit);
-			if (CGAL::object_cast<K::Segment_2>(&o)) 
-				++count;
-		}
-
-		return count;
-	}
-
-	static int VoronoiRayCount(void* ptr)
-	{
-		auto tri = CastToTriangulation2(ptr);
-		int count = 0;
-
-		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
-		{
-			CGAL::Object o = tri->model.dual(eit);
-			if (CGAL::object_cast<K::Ray_2>(&o))
-				++count;
-		}
-
-		return count;
-	}
-
-	static void GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count)
-	{
-		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
-
-		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit, ++i)
-		{
-			CGAL::Object o = tri->model.dual(eit);
-			if (auto seg = CGAL::object_cast<K::Segment_2>(&o))
-				segments[i] = Segment2d::FromCGAL<K>(seg->source(), seg->target());
-		}
-	}
-
-	static void GetVoronoiRays(void* ptr, Ray2d* rays, int startIndex, int count)
-	{
-		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
-
-		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit, ++i)
-		{
-			CGAL::Object o = tri->model.dual(eit);
-			if (auto ray = CGAL::object_cast<K::Ray_2>(&o))
-				rays[i] = Ray2d::FromCGAL<K>(ray->source(), ray->to_vector());
 		}
 	}
 

@@ -38,7 +38,9 @@ namespace CGALDotNetConsole
             //Triangulation2Examples.GetPointsAndIndices();
             //Triangulation2Examples.GetVerticesAndFaces();
 
-            DelaunayTriangulation2Examples.CreateDelaunayTriangulation();
+            //DelaunayTriangulation2Examples.CreateDelaunayTriangulation();
+
+            ConstrainedTriangulation2Examples.CreateConstrainedTriangulation();
 
             //PolygonPartition2Examples.CreatePolygonPartition();
 

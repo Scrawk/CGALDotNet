@@ -5,9 +5,12 @@
 #include "IndexMap.h"
 
 #include "CGAL/Point_2.h"
-#include <CGAL/Triangulation_2.h>
+#include <CGAL/Constrained_triangulation_2.h>
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
+
+#include <CGAL/Constrained_triangulation_face_base_2.h>
+#include <CGAL/Constrained_triangulation_plus_2.h>
 
 template<class K, class VERTEX, class FACE>
 class TriangulationMap
@@ -15,11 +18,17 @@ class TriangulationMap
 
 private:
 
-	typedef CGAL::Triangulation_vertex_base_with_info_2<int, K> Vb;
-	typedef CGAL::Triangulation_face_base_with_info_2<int, K> Fb;
-	typedef CGAL::Triangulation_data_structure_2<Vb, Fb> Tds;
+	/*
+	typedef CGAL::Triangulation_vertex_base_with_info_2<int, K> Vb_info;
+	typedef CGAL::Triangulation_face_base_with_info_2<int, K> Fb_info;
+	typedef CGAL::Triangulation_data_structure_2<Vb_info, Fb_info> Tds;
 	typedef CGAL::Triangulation_2<K, Tds> Triangulation_2;
-	typedef typename Triangulation_2::Point Point_2;
+
+	typedef CGAL::Constrained_triangulation_face_base_2<K> CFb;
+	typedef CGAL::Triangulation_face_base_with_info_2<int, K, CFb> CFb_info;
+	typedef CGAL::Triangulation_data_structure_2<Vb_info, CFb_info> CTds;
+	typedef CGAL::Constrained_triangulation_2<K, CTds> CTriangulation_2;
+	*/
 
 	IndexMap<VERTEX> vertexMap;
 
@@ -32,7 +41,8 @@ public:
 
 	}
 
-	void BuildMaps(Triangulation_2& model)
+	template<class TRI>
+	void BuildMaps(TRI& model)
 	{
 		BuildVertexMap(model);
 		BuildFaceMap(model);
@@ -60,21 +70,24 @@ public:
 		faceMap.Clear();
 	}
 
-	VERTEX* FindVertex(Triangulation_2& model, int index)
+	template<class TRI>
+	VERTEX* FindVertex(TRI& model, int index)
 	{
 		SetVertexIndices(model);
 		BuildVertexMap(model);
 		return vertexMap.Find(index);
 	}
 
-	FACE* FindFace(Triangulation_2& model, int index)
+	template<class TRI>
+	FACE* FindFace(TRI& model, int index)
 	{
 		SetFaceIndices(model);
 		BuildFaceMap(model);
 		return faceMap.Find(index);
 	}
 
-	void SetVertexIndices(Triangulation_2& model)
+	template<class TRI>
+	void SetVertexIndices(TRI& model)
 	{
 		if (vertexMap.indicesSet)
 			return;
@@ -92,7 +105,8 @@ public:
 		vertexMap.indicesSet = true;
 	}
 
-	void BuildVertexMap(Triangulation_2& model)
+	template<class TRI>
+	void BuildVertexMap(TRI& model)
 	{
 		if (vertexMap.mapBuilt)
 			return;
@@ -105,7 +119,8 @@ public:
 		vertexMap.mapBuilt = true;
 	}
 
-	void SetFaceIndices(Triangulation_2& model)
+	template<class TRI>
+	void SetFaceIndices(TRI& model)
 	{
 		if (faceMap.indicesSet)
 			return;
@@ -118,7 +133,8 @@ public:
 		faceMap.indicesSet = true;
 	}
 
-	void BuildFaceMap(Triangulation_2& model)
+	template<class TRI>
+	void BuildFaceMap(TRI& model)
 	{
 		if (faceMap.mapBuilt)
 			return;
@@ -133,7 +149,8 @@ public:
 
 	private:
 
-		void ResetFace(const Triangulation_2& tri, VERTEX vert)
+		template<class TRI>
+		void ResetFace(const TRI& tri, VERTEX vert)
 		{
 			auto face = vert->face();
 			auto start = vert->incident_faces(face), end(start);

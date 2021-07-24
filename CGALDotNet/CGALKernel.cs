@@ -23,6 +23,8 @@ namespace CGALDotNet
         internal abstract TriangulationKernel2 TriangulationKernel2 { get; }
 
         internal abstract DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 { get; }
+
+        internal abstract ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 { get; }
     }
 
     public class EEK : CGALKernel
@@ -42,5 +44,7 @@ namespace CGALDotNet
         internal override TriangulationKernel2 TriangulationKernel2 => TriangulationKernel2_EEK.Instance;
 
         internal override DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 => DelaunayTriangulationKernel2_EEK.Instance;
+
+        internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => ConstrainedTriangulationKernel2_EEK.Instance;
     }
 }

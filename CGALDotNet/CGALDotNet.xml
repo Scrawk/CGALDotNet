@@ -852,6 +852,16 @@
             <param name="i">The variables index.</param>
             <returns>The variable value</returns>
         </member>
+        <member name="P:CGALDotNet.Geometry.Point2d.Magnitude">
+            <summary>
+            The length of the point from the origin.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point2d.SqrMagnitude">
+            <summary>
+            The length of the point from the origin squared.
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Geometry.Point2d.op_Addition(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
             <summary>
             Add two points.
@@ -1061,6 +1071,16 @@
             </summary>
             <param name="i">The variables index.</param>
             <returns>The variable value</returns>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point3d.Magnitude">
+            <summary>
+            The length of the point from the origin.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point3d.SqrMagnitude">
+            <summary>
+            The length of the point from the origin squared.
+            </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.Point3d.op_Addition(CGALDotNet.Geometry.Point3d,CGALDotNet.Geometry.Point3d)">
             <summary>
@@ -1508,6 +1528,13 @@
         <member name="P:CGALDotNet.Geometry.Triangle2d.SignedArea">
             <summary>
             The triangles signed area.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2d.CircumCircle">
+            <summary>
+            Creates a circle that has all 3 points on its circumference.
+            From MathWorld: http://mathworld.wolfram.com/Circumcircle.html.
+            Fails if the points are colinear.
             </summary>
         </member>
         <member name="F:CGALDotNet.Geometry.Vector2d.UnitX">
