@@ -26,6 +26,15 @@ namespace CGALDotNetConsole.Examples
 
             var tri = new DelaunayTriangulation2<EEK>(points);
             tri.Print();
+
+            var segments = tri.GetVoronoiSegments();
+            var rays = tri.GetVoronoiRays();
+
+            foreach (var seg in segments)
+                Console.WriteLine(seg);
+
+            foreach (var ray in rays)
+               Console.WriteLine(ray);
         }
     }
 }

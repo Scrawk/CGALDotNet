@@ -99,6 +99,11 @@ BOOL Triangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triang
 	return Triangulation2<EEK>::GetTriangle(ptr, faceIndex, triangle);
 }
 
+void Triangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+{
+	Triangulation2<EEK>::GetTriangles(ptr, triangles, startIndex, count);
+}
+
 BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
 {
 	return Triangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);

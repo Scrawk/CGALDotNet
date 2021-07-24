@@ -44,6 +44,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triangle);
 
+	CGALWRAPPER_API void DelaunayTriangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count);
+
 	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter);
 
 	CGALWRAPPER_API void DelaunayTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count);
@@ -59,6 +61,8 @@ extern "C"
 	CGALWRAPPER_API int DelaunayTriangulation2_EEK_VoronoiSegmentCount(void* ptr);
 
 	CGALWRAPPER_API int DelaunayTriangulation2_EEK_VoronoiRayCount(void* ptr);
+
+	CGALWRAPPER_API void DelaunayTriangulation2_EEK_VoronoiCount(void* ptr, int& numSegments, int& numRays);
 
 	CGALWRAPPER_API void DelaunayTriangulation2_EEK_GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count);
 

@@ -283,6 +283,18 @@ public:
 		}
 	}
 
+	static void GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		for (const auto& face : tri->model.finite_face_handles())
+		{
+			auto t = tri->model.triangle(face);
+			triangles[i++] = Triangle2d::FromCGAL<K>(t[0], t[1], t[2]);
+		}
+	}
+
 	static BOOL GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -406,6 +418,23 @@ public:
 		else
 		{
 			return FALSE;
+		}
+	}
+
+	static void VoronoiCount(void* ptr, int& numSegments, int& numRays)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		
+		numSegments = 0;
+		numRays = 0;
+
+		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
+		{
+			CGAL::Object o = tri->model.dual(eit);
+			if (CGAL::object_cast<K::Segment_2>(&o))
+				numSegments++;
+			else if (CGAL::object_cast<K::Ray_2>(&o))
+				numRays++;
 		}
 	}
 

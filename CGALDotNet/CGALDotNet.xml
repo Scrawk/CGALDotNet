@@ -313,6 +313,12 @@
             Divide a point and a scalar.
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Point2d.op_Explicit(CGALDotNet.Geometry.Vector2d)~CGALDotNet.Geometry.Point2d">
+            <summary>
+            Explict cast from vector.
+            </summary>
+            <param name="v"></param>
+        </member>
         <member name="M:CGALDotNet.Geometry.Point2d.op_Equality(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
             <summary>
             Are these points equal.
@@ -741,6 +747,13 @@
             Angles as a string.
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Ray2d.GetPosition(System.Double)">
+            <summary>
+            Get the position offset along the ray at t.
+            </summary>
+            <param name="t">The amount to offset.</param>
+            <returns>The position at t.</returns>
+        </member>
         <member name="P:CGALDotNet.Geometry.Triangle2d.Area">
             <summary>
             The triangles area.
@@ -750,6 +763,241 @@
             <summary>
             The triangles signed area.
             </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector2d.UnitX">
+            <summary>
+            The unit x vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector2d.UnitY">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector2d.Zero">
+            <summary>
+            A vector of zeros.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector2d.One">
+            <summary>
+            A vector of ones.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector2d.Half">
+            <summary>
+            A vector of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector2d.PositiveInfinity">
+            <summary>
+            A vector of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector2d.NegativeInfinity">
+            <summary>
+            A vector of negative infinity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.#ctor(System.Double)">
+            <summary>
+            A vector all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.#ctor(System.Double,System.Double)">
+            <summary>
+            A vector from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2d.Magnitude">
+            <summary>
+            The length of the vector.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2d.SqrMagnitude">
+            <summary>
+            The length of the vector squared.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2d.Normalized">
+            <summary>
+            The vector normalized.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2d.PerpendicularCCW">
+            <summary>
+            Counter clock-wise perpendicular.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2d.PerpendicularCW">
+            <summary>
+            Clock-wise perpendicular.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Addition(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Add two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Addition(CGALDotNet.Geometry.Vector2d,System.Double)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Addition(System.Double,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_UnaryNegation(CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Negate vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Subtraction(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Subtract two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Subtraction(CGALDotNet.Geometry.Vector2d,System.Double)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Subtraction(System.Double,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Multiply(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Multiply(CGALDotNet.Geometry.Vector2d,System.Double)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Multiply(System.Double,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Division(CGALDotNet.Geometry.Vector2d,System.Double)">
+            <summary>
+            Divide a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Explicit(CGALDotNet.Geometry.Point2d)~CGALDotNet.Geometry.Vector2d">
+            <summary>
+            Explict cast from point.
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Equality(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.op_Inequality(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Are these vectors not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Equals(System.Object)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Equals(CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Dot(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            The dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.AbsDot(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            The abs dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Normalize">
+            <summary>
+            Normalize the vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Cross(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Cross two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Min(CGALDotNet.Geometry.Vector2d,System.Double)">
+            <summary>
+            The minimum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Min(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            The minimum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Max(CGALDotNet.Geometry.Vector2d,System.Double)">
+            <summary>
+            The maximum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Max(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            The maximum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Clamp(CGALDotNet.Geometry.Vector2d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Clamp(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Lerp(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d,System.Double)">
+            <summary>
+            Lerp between two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2d.Rounded(System.Int32)">
+            <summary>
+            A rounded vector.
+            </summary>
+            <param name="digits"></param>
+            <returns></returns>
         </member>
         <member name="M:CGALDotNet.MathUtil.Wrap(System.Int32,System.Int32)">
             <summary>

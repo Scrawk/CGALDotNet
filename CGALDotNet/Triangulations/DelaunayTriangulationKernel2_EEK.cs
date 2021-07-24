@@ -104,6 +104,12 @@ namespace CGALDotNet.Triangulations
             return DelaunayTriangulation2_EEK_GetTriangle(ptr, faceIndex, out triangle);
         }
 
+
+        internal override void GetTriangles(IntPtr ptr, Triangle2d[] triangles, int startIndex, int count)
+        {
+            DelaunayTriangulation2_EEK_GetTriangles(ptr, triangles, startIndex, count);
+        }
+
         internal override bool GetCircumcenter(IntPtr ptr, int faceIndex, out Point2d circumcenter)
         {
             return DelaunayTriangulation2_EEK_GetCircumcenter(ptr, faceIndex, out circumcenter);
@@ -137,6 +143,31 @@ namespace CGALDotNet.Triangulations
         internal override bool FlipEdge(IntPtr ptr, int faceIndex, int neighbour)
         {
             return DelaunayTriangulation2_EEK_FlipEdge(ptr, faceIndex, neighbour);
+        }
+
+        internal override int VoronoiSegmentCount(IntPtr ptr)
+        {
+            return DelaunayTriangulation2_EEK_VoronoiSegmentCount(ptr);
+        }
+
+        internal override int VoronoiRayCount(IntPtr ptr)
+        {
+            return DelaunayTriangulation2_EEK_VoronoiRayCount(ptr);
+        }
+
+        internal override void GetVoronoiSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        {
+            DelaunayTriangulation2_EEK_GetVoronoiSegments(ptr, segments, startIndex, count);
+        }
+
+        internal override void GetVoronoiRays(IntPtr ptr, Ray2d[] rays, int startIndex, int count)
+        {
+            DelaunayTriangulation2_EEK_GetVoronoiRays(ptr, rays, startIndex, count);
+        }
+
+        internal override void VoronoiCount(IntPtr ptr, out int numSegments, out int numRays)
+        {
+            DelaunayTriangulation2_EEK_VoronoiCount(ptr, out numSegments, out numRays);
         }
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -197,6 +228,9 @@ namespace CGALDotNet.Triangulations
         private static extern bool DelaunayTriangulation2_EEK_GetTriangle(IntPtr ptr, int faceIndex, [Out] out Triangle2d triangle);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void DelaunayTriangulation2_EEK_GetTriangles(IntPtr ptr, [Out] Triangle2d[] triangles, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool DelaunayTriangulation2_EEK_GetCircumcenter(IntPtr ptr, int faceIndex, [Out] out Point2d circumcenter);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -213,6 +247,21 @@ namespace CGALDotNet.Triangulations
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool DelaunayTriangulation2_EEK_FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int DelaunayTriangulation2_EEK_VoronoiSegmentCount(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int DelaunayTriangulation2_EEK_VoronoiRayCount(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void DelaunayTriangulation2_EEK_GetVoronoiSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void DelaunayTriangulation2_EEK_GetVoronoiRays(IntPtr ptr, [Out] Ray2d[] rays, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void DelaunayTriangulation2_EEK_VoronoiCount(IntPtr ptr, [Out] out int numSegments, [Out] out int numRays);
 
     }
 }

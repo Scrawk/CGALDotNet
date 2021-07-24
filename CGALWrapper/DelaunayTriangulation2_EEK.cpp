@@ -100,6 +100,11 @@ BOOL DelaunayTriangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d
 	return DelaunayTriangulation2<EEK>::GetTriangle(ptr, faceIndex, triangle);
 }
 
+void DelaunayTriangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+{
+	DelaunayTriangulation2<EEK>::GetTriangles(ptr, triangles, startIndex, count);
+}
+
 BOOL DelaunayTriangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
 {
 	return DelaunayTriangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);
@@ -138,6 +143,11 @@ int DelaunayTriangulation2_EEK_VoronoiSegmentCount(void* ptr)
 int DelaunayTriangulation2_EEK_VoronoiRayCount(void* ptr)
 {
 	return DelaunayTriangulation2<EEK>::VoronoiRayCount(ptr);
+}
+
+void DelaunayTriangulation2_EEK_VoronoiCount(void* ptr, int& numSegments, int& numRays)
+{
+	DelaunayTriangulation2<EEK>::VoronoiCount(ptr, numSegments, numRays);
 }
 
 void DelaunayTriangulation2_EEK_GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count)

@@ -44,6 +44,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Triangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triangle);
 
+	CGALWRAPPER_API void Triangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count);
+
 	CGALWRAPPER_API BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter);
 
 	CGALWRAPPER_API void Triangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count);

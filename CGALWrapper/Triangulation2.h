@@ -263,7 +263,6 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
-
 		if (face != nullptr)
 		{
 			if (tri->model.is_infinite(*face))
@@ -279,6 +278,18 @@ public:
 			triangle = {};
 			return FALSE;
 		}
+	}
+
+	static void GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		for (const auto& face : tri->model.finite_face_handles())
+		{
+			auto t = tri->model.triangle(face);
+			triangles[i++] = Triangle2d::FromCGAL<K>(t[0], t[1], t[2]);
+		}	
 	}
 
 	static BOOL GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
