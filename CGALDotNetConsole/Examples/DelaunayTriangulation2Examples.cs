@@ -27,6 +27,8 @@ namespace CGALDotNetConsole.Examples
             var tri = new DelaunayTriangulation2<EEK>(points);
             tri.Print();
 
+            Console.WriteLine("Is valid " + tri.IsValid());
+
             var segments = tri.GetVoronoiSegments();
             var rays = tri.GetVoronoiRays();
 

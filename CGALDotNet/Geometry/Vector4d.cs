@@ -1,89 +1,124 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 namespace CGALDotNet.Geometry
 {
+
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Vector2d : IEquatable<Vector2d>
+    public struct Vector4d : IEquatable<Vector4d>
     {
-        public double x, y;
+
+        public double x, y, z, w;
 
         /// <summary>
         /// The unit x vector.
         /// </summary>
-	    public readonly static Vector2d UnitX = new Vector2d(1, 0);
+        public readonly static Vector4d UnitX = new Vector4d(1, 0, 0, 0);
 
         /// <summary>
         /// The unit y vector.
         /// </summary>
-	    public readonly static Vector2d UnitY = new Vector2d(0, 1);
+	    public readonly static Vector4d UnitY = new Vector4d(0, 1, 0, 0);
+
+        /// <summary>
+        /// The unit z vector.
+        /// </summary>
+	    public readonly static Vector4d UnitZ = new Vector4d(0, 0, 1, 0);
+
+        /// <summary>
+        /// The unit w vector.
+        /// </summary>
+	    public readonly static Vector4d UnitW = new Vector4d(0, 0, 0, 1);
 
         /// <summary>
         /// A vector of zeros.
         /// </summary>
-	    public readonly static Vector2d Zero = new Vector2d(0);
+	    public readonly static Vector4d Zero = new Vector4d(0);
 
         /// <summary>
         /// A vector of ones.
         /// </summary>
-	    public readonly static Vector2d One = new Vector2d(1);
+	    public readonly static Vector4d One = new Vector4d(1);
 
         /// <summary>
         /// A vector of 0.5.
         /// </summary>
-        public readonly static Vector2d Half = new Vector2d(0.5);
+        public readonly static Vector4d Half = new Vector4d(0.5);
 
         /// <summary>
         /// A vector of positive infinity.
         /// </summary>
-        public readonly static Vector2d PositiveInfinity = new Vector2d(double.PositiveInfinity);
+        public readonly static Vector4d PositiveInfinity = new Vector4d(double.PositiveInfinity);
 
         /// <summary>
         /// A vector of negative infinity.
         /// </summary>
-        public readonly static Vector2d NegativeInfinity = new Vector2d(double.NegativeInfinity);
+        public readonly static Vector4d NegativeInfinity = new Vector4d(double.NegativeInfinity);
 
         /// <summary>
         /// A vector all with the value v.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2d(double v)
+        public Vector4d(double v)
         {
             this.x = v;
             this.y = v;
+            this.z = v;
+            this.w = v;
         }
 
         /// <summary>
         /// A vector from the varibles.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2d(double x, double y)
+        public Vector4d(double x, double y, double z, double w)
         {
             this.x = x;
             this.y = y;
+            this.z = z;
+            this.w = w;
         }
 
         /// <summary>
-        /// Array accessor for variables. 
+        /// A vector from a 2d vector and the z and w varibles.
         /// </summary>
-        /// <param name="i">The variables index.</param>
-        /// <returns>The variable value</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4d(Vector2d v, double z, double w)
+        {
+            x = v.x;
+            y = v.y;
+            this.z = z;
+            this.w = w;
+        }
+
+        /// <summary>
+        /// A vector from a 3d vector and the w varible.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4d(Vector3d v, double w)
+        {
+            x = v.x;
+            y = v.y;
+            z = v.z;
+            this.w = w;
+        }
+
         unsafe public double this[int i]
         {
             get
             {
-                if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("Vector2d index out of range.");
+                if ((uint)i >= 4)
+                    throw new IndexOutOfRangeException("Vector4d index out of range.");
 
-                fixed (Vector2d* array = &this) { return ((double*)array)[i]; }
+                fixed (Vector4d* array = &this) { return ((double*)array)[i]; }
             }
             set
             {
-                if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("Vector2d index out of range.");
+                if ((uint)i >= 4)
+                    throw new IndexOutOfRangeException("Vector4d index out of range.");
 
                 fixed (double* array = &x) { array[i] = value; }
             }
@@ -99,7 +134,7 @@ namespace CGALDotNet.Geometry
             {
                 double sqm = SqrMagnitude;
                 if (sqm != 0)
-                    return Math.Sqrt(sqm);
+                    return Math.Sqrt(SqrMagnitude);
                 else
                     return 0;
             }
@@ -113,50 +148,26 @@ namespace CGALDotNet.Geometry
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
-                return (x * x + y * y);
+                return (x * x + y * y + z * z + w * w);
             }
         }
 
         /// <summary>
         /// The vector normalized.
         /// </summary>
-        public Vector2d Normalized
+        public Vector4d Normalized
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
-                double sqrLen = x * x + y * y;
-                if (sqrLen == 0)
-                    return Vector2d.Zero;
-                else
+                double sqm = SqrMagnitude;
+                if (sqm != 0)
                 {
-                    double invLength = 1.0 / Math.Sqrt(sqrLen);
-                    return new Vector2d(x * invLength, y * invLength);
+                    double invLength = 1.0 / sqm;
+                    return new Vector4d(x * invLength, y * invLength, z * invLength, w * invLength);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Counter clock-wise perpendicular.
-        /// </summary>
-        public Vector2d PerpendicularCCW
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                return new Vector2d(-y, x);
-            }
-        }
-
-        /// <summary>
-        /// Clock-wise perpendicular.
-        /// </summary>
-        public Vector2d PerpendicularCW
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                return new Vector2d(y, -x);
+                else
+                    return Zero;
             }
         }
 
@@ -164,70 +175,70 @@ namespace CGALDotNet.Geometry
         /// Add two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator +(Vector2d v1, Vector2d v2)
+        public static Vector4d operator +(Vector4d v1, Vector4d v2)
         {
-            return new Vector2d(v1.x + v2.x, v1.y + v2.y);
+            return new Vector4d(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z, v1.w + v2.w);
         }
 
         /// <summary>
         /// Add vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator +(Vector2d v1, double s)
+        public static Vector4d operator +(Vector4d v1, double s)
         {
-            return new Vector2d(v1.x + s, v1.y + s);
+            return new Vector4d(v1.x + s, v1.y + s, v1.z + s, v1.w + s);
         }
 
         /// <summary>
         /// Add vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator +(double s, Vector2d v1)
+        public static Vector4d operator +(double s, Vector4d v1)
         {
-            return new Vector2d(s + v1.x, s + v1.y);
+            return new Vector4d(s + v1.x, s + v1.y, s + v1.z, s + v1.w);
         }
 
         /// <summary>
         /// Negate vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator -(Vector2d v)
+        public static Vector4d operator -(Vector4d v)
         {
-            return new Vector2d(-v.x, -v.y);
+            return new Vector4d(-v.x, -v.y, -v.z, -v.w);
         }
 
         /// <summary>
         /// Subtract two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator -(Vector2d v1, Vector2d v2)
+        public static Vector4d operator -(Vector4d v1, Vector4d v2)
         {
-            return new Vector2d(v1.x - v2.x, v1.y - v2.y);
+            return new Vector4d(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z, v1.w - v2.w);
         }
 
         /// <summary>
         /// Subtract vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator -(Vector2d v1, double s)
+        public static Vector4d operator -(Vector4d v1, double s)
         {
-            return new Vector2d(v1.x - s, v1.y - s);
+            return new Vector4d(v1.x - s, v1.y - s, v1.z - s, v1.w - s);
         }
 
         /// <summary>
         /// Subtract vector and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator -(double s, Vector2d v1)
+        public static Vector4d operator -(double s, Vector4d v1)
         {
-            return new Vector2d(s - v1.x, s - v1.y);
+            return new Vector4d(s - v1.x, s - v1.y, s - v1.z, s - v1.w);
         }
 
         /// <summary>
-        /// Dot product of two vectors.
+        /// Dot porduct of two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double operator *(Vector2d v1, Vector2d v2)
+        public static double operator *(Vector4d v1, Vector4d v2)
         {
             return Dot(v1, v2);
         }
@@ -236,58 +247,48 @@ namespace CGALDotNet.Geometry
         /// Multiply a vector and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator *(Vector2d v, double s)
+        public static Vector4d operator *(Vector4d v, double s)
         {
-            return new Vector2d(v.x * s, v.y * s);
+            return new Vector4d(v.x * s, v.y * s, v.z * s, v.w * s);
         }
 
         /// <summary>
         /// Multiply a vector and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator *(double s, Vector2d v)
+        public static Vector4d operator *(double s, Vector4d v)
         {
-            return new Vector2d(v.x * s, v.y * s);
+            return new Vector4d(v.x * s, v.y * s, v.z * s, v.w * s);
         }
 
         /// <summary>
         /// Divide a vector and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d operator /(Vector2d v, double s)
+        public static Vector4d operator /(Vector4d v, double s)
         {
-            if (s == 0)
-                return Vector2d.Zero;
+            if (s != 0)
+                return new Vector4d(v.x / s, v.y / s, v.z / s, v.w / s);
             else
-                return new Vector2d(v.x / s, v.y / s);
-        }
-
-        /// <summary>
-        /// Explict cast from point.
-        /// </summary>
-        /// <param name="v"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Vector2d(Point2d v)
-        {
-            return new Vector2d(v.x, v.y);
+                return Zero;
         }
 
         /// <summary>
         /// Are these vectors equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Vector2d v1, Vector2d v2)
+        public static bool operator ==(Vector4d v1, Vector4d v2)
         {
-            return (v1.x == v2.x && v1.y == v2.y);
+            return (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z && v1.w == v2.w);
         }
 
         /// <summary>
         /// Are these vectors not equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Vector2d v1, Vector2d v2)
+        public static bool operator !=(Vector4d v1, Vector4d v2)
         {
-            return (v1.x != v2.x || v1.y != v2.y);
+            return (v1.x != v2.x || v1.y != v2.y || v1.z != v2.z || v1.w != v2.w);
         }
 
         /// <summary>
@@ -296,8 +297,8 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
         {
-            if (!(obj is Vector2d)) return false;
-            Vector2d v = (Vector2d)obj;
+            if (!(obj is Vector4d)) return false;
+            Vector4d v = (Vector4d)obj;
             return this == v;
         }
 
@@ -305,7 +306,7 @@ namespace CGALDotNet.Geometry
         /// Are these vectors equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector2d v)
+        public bool Equals(Vector4d v)
         {
             return this == v;
         }
@@ -321,6 +322,8 @@ namespace CGALDotNet.Geometry
                 int hash = (int)2166136261;
                 hash = (hash * 16777619) ^ x.GetHashCode();
                 hash = (hash * 16777619) ^ y.GetHashCode();
+                hash = (hash * 16777619) ^ z.GetHashCode();
+                hash = (hash * 16777619) ^ w.GetHashCode();
                 return hash;
             }
         }
@@ -331,7 +334,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
-            return string.Format("{0},{1}", x, y);
+            return string.Format("{0},{1},{2},{3}", x, y, z, w);
         }
 
         /// <summary>
@@ -340,25 +343,24 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string f)
         {
-            return string.Format("{0},{1}", x.ToString(f), y.ToString(f));
+            return string.Format("{0},{1},{2},{3}", x.ToString(f), y.ToString(f), z.ToString(f), w.ToString(f));
         }
 
         /// <summary>
         /// The dot product of two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Dot(Vector2d v0, Vector2d v1)
+        public static double Dot(Vector4d v0, Vector4d v1)
         {
-            return (v0.x * v1.x + v0.y * v1.y);
+            return (v0.x * v1.x + v0.y * v1.y + v0.z * v1.z + v0.w * v1.w);
         }
-
         /// <summary>
         /// The abs dot product of two vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AbsDot(Vector2d v0, Vector2d v1)
+        public static double AbsDot(Vector4d v0, Vector4d v1)
         {
-            return Math.Abs(v0.x * v1.x + v0.y * v1.y);
+            return Math.Abs(v0.x * v1.x + v0.y * v1.y + v0.z * v1.z + v0.w * v1.w);
         }
 
         /// <summary>
@@ -367,32 +369,27 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Normalize()
         {
-            double sqrLen = x * x + y * y;
-            if (sqrLen != 0)
+            double sqm = SqrMagnitude;
+            if (sqm != 0)
             {
-                double invLength = 1.0 / Math.Sqrt(sqrLen);
+                double invLength = 1.0 / sqm;
                 x *= invLength;
                 y *= invLength;
+                z *= invLength;
+                w *= invLength;
             }
-        }
-
-        /// <summary>
-        /// Cross two vectors.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Cross(Vector2d v0, Vector2d v1)
-        {
-            return v0.x * v1.y - v0.y * v1.x;
         }
 
         /// <summary>
         /// The minimum value between s and each component in vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d Min(Vector2d v, double s)
+        public static Vector4d Min(Vector4d v, double s)
         {
             v.x = Math.Min(v.x, s);
             v.y = Math.Min(v.y, s);
+            v.z = Math.Min(v.z, s);
+            v.w = Math.Min(v.w, s);
             return v;
         }
 
@@ -400,10 +397,12 @@ namespace CGALDotNet.Geometry
         /// The minimum value between each component in vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d Min(Vector2d v0, Vector2d v1)
+        public static Vector4d Min(Vector4d v0, Vector4d v1)
         {
             v0.x = Math.Min(v0.x, v1.x);
             v0.y = Math.Min(v0.y, v1.y);
+            v0.z = Math.Min(v0.z, v1.z);
+            v0.w = Math.Min(v0.w, v1.w);
             return v0;
         }
 
@@ -411,10 +410,12 @@ namespace CGALDotNet.Geometry
         /// The maximum value between s and each component in vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d Max(Vector2d v, double s)
+        public static Vector4d Max(Vector4d v, double s)
         {
             v.x = Math.Max(v.x, s);
             v.y = Math.Max(v.y, s);
+            v.z = Math.Max(v.z, s);
+            v.w = Math.Max(v.w, s);
             return v;
         }
 
@@ -422,10 +423,12 @@ namespace CGALDotNet.Geometry
         /// The maximum value between each component in vectors.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d Max(Vector2d v0, Vector2d v1)
+        public static Vector4d Max(Vector4d v0, Vector4d v1)
         {
             v0.x = Math.Max(v0.x, v1.x);
             v0.y = Math.Max(v0.y, v1.y);
+            v0.z = Math.Max(v0.z, v1.z);
+            v0.w = Math.Max(v0.w, v1.w);
             return v0;
         }
 
@@ -433,10 +436,12 @@ namespace CGALDotNet.Geometry
         /// Clamp each component to specified min and max.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d Clamp(Vector2d v, double min, double max)
+        public static Vector4d Clamp(Vector4d v, double min, double max)
         {
             v.x = Math.Max(Math.Min(v.x, max), min);
             v.y = Math.Max(Math.Min(v.y, max), min);
+            v.z = Math.Max(Math.Min(v.z, max), min);
+            v.w = Math.Max(Math.Min(v.w, max), min);
             return v;
         }
 
@@ -444,17 +449,19 @@ namespace CGALDotNet.Geometry
         /// Clamp each component to specified min and max.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2d Clamp(Vector2d v, Vector2d min, Vector2d max)
+        public static Vector4d Clamp(Vector4d v, Vector4d min, Vector4d max)
         {
             v.x = Math.Max(Math.Min(v.x, max.x), min.x);
             v.y = Math.Max(Math.Min(v.y, max.y), min.y);
+            v.z = Math.Max(Math.Min(v.z, max.z), min.z);
+            v.w = Math.Max(Math.Min(v.w, max.w), min.w);
             return v;
         }
 
         /// <summary>
         /// Lerp between two vectors.
         /// </summary>
-        public static Vector2d Lerp(Vector2d from, Vector2d to, double t)
+        public static Vector4d Lerp(Vector4d from, Vector4d to, double t)
         {
             if (t < 0.0) t = 0.0;
             if (t > 1.0) t = 1.0;
@@ -462,25 +469,63 @@ namespace CGALDotNet.Geometry
             if (t == 0.0) return from;
             if (t == 1.0) return to;
 
-            double t1 = 1.0f - t;
-            var v = new Vector2d();
+            double t1 = 1.0 - t;
+            Vector4d v = new Vector4d();
             v.x = from.x * t1 + to.x * t;
             v.y = from.y * t1 + to.y * t;
+            v.z = from.z * t1 + to.z * t;
+            v.w = from.w * t1 + to.w * t;
             return v;
         }
 
         /// <summary>
-        /// A rounded vector.
+        /// Round vector.
         /// </summary>
-        /// <param name="digits"></param>
-        /// <returns></returns>
+        /// <param name="digits">number of digits to round to.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2d Rounded(int digits = 0)
+        public Vector4d Rounded(int digits)
         {
             double x = Math.Round(this.x, digits);
             double y = Math.Round(this.y, digits);
-            return new Vector2d(x, y);
+            double z = Math.Round(this.z, digits);
+            double w = Math.Round(this.w, digits);
+            return new Vector4d(x, y, z, w);
         }
 
     }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

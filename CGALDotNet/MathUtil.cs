@@ -49,6 +49,12 @@ namespace CGALDotNet
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double ToRadians(double degrees)
+        {
+            return degrees * DEG_TO_RAD;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Radian Sin(Radian radian)
         {
             return new Radian(Math.Sin(radian.angle));

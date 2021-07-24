@@ -15,7 +15,7 @@ namespace CGALDotNet.Geometry
         public Ray2d(Point2d position, Vector2d direction)
         {
             Position = position;
-            Direction = direction;
+            Direction = direction.Normalized;
         }
 
         public static bool operator ==(Ray2d r1, Ray2d r2)

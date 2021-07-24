@@ -125,5 +125,40 @@ namespace CGALDotNet.Geometry
             return string.Format("[Triangle2d: A={0}, B={1}, C={2}]", A, B, C);
         }
 
+        /// <summary>
+        /// Creates a circle that has all 3 points on its circumference.
+        /// From MathWorld: http://mathworld.wolfram.com/Circumcircle.html.
+        /// Fails if the points are colinear.
+        /// </summary>
+        public Circle2d CircumCircle()
+        {
+            var m = new Matrix3x3d();
+
+            // x, y, 1
+            m.SetRow(0, new Vector3d(A.x, A.y, 1));
+            m.SetRow(1, new Vector3d(B.x, B.y, 1));
+            m.SetRow(2, new Vector3d(C.x, C.y, 1));
+            double a = m.Determinant;
+
+            // size, y, 1
+            m.SetColumn(0, new Vector3d(A.SqrMagnitude, B.SqrMagnitude, C.SqrMagnitude));
+            double dx = -m.Determinant;
+
+            // size, x, 1
+            m.SetColumn(1, new Vector3d(A.x, B.x, C.x));
+            double dy = m.Determinant;
+
+            // size, x, y
+            m.SetColumn(2, new Vector3d(A.y, B.y, C.y));
+            double c = -m.Determinant;
+
+            double s = -1.0 / (2.0 * a);
+
+            var circumCenter = new Point2d(s * dx, s * dy);
+            double radius = Math.Abs(s) * Math.Sqrt(dx * dx + dy * dy - 4.0 * a * c);
+
+            return new Circle2d(circumCenter, radius);
+        }
+
     }
 }

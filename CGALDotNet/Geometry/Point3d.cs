@@ -97,6 +97,34 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// The length of the point from the origin.
+        /// </summary>
+        public double Magnitude
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                double sqm = SqrMagnitude;
+                if (sqm != 0)
+                    return Math.Sqrt(sqm);
+                else
+                    return 0;
+            }
+        }
+
+        /// <summary>
+        /// The length of the point from the origin squared.
+        /// </summary>
+		public double SqrMagnitude
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return (x * x + y * y + z * z);
+            }
+        }
+
+        /// <summary>
         /// Add two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

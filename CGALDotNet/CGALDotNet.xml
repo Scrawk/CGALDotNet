@@ -201,6 +201,605 @@
             Angles as a string.
             </summary>
         </member>
+        <member name="T:CGALDotNet.Geometry.Matrix2x2d">
+            <summary>
+            Matrix is column major. Data is accessed as: row + (column*2). 
+            Matrices can be indexed like 2D arrays but in an expression like mat[a, b], 
+            a refers to the row index, while b refers to the column index 
+            (note that this is the opposite way round to Cartesian coordinates).
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix2x2d.m00">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix2x2d.m10">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix2x2d.Identity">
+            <summary>
+            The Matrix Idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.#ctor(CGALDotNet.Geometry.Vector2d,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.#ctor(System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.#ctor(System.Double[0:,0:])">
+            <summary>
+            A matrix copied from a array of varibles.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix2x2d.Item(System.Int32)">
+            <summary>
+            Access the varible at index i
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix2x2d.Item(System.Int32,System.Int32)">
+            <summary>
+            Access the varible at index ij
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix2x2d.Transpose">
+            <summary>
+            The transpose of the matrix. The rows and columns are flipped.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix2x2d.Determinant">
+            <summary>
+            The determinate of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix2x2d.Inverse">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.op_Addition(CGALDotNet.Geometry.Matrix2x2d,CGALDotNet.Geometry.Matrix2x2d)">
+            <summary>
+            Add two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.op_Subtraction(CGALDotNet.Geometry.Matrix2x2d,CGALDotNet.Geometry.Matrix2x2d)">
+            <summary>
+            Subtract two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.op_Multiply(CGALDotNet.Geometry.Matrix2x2d,CGALDotNet.Geometry.Matrix2x2d)">
+            <summary>
+            Multiply two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.op_Multiply(CGALDotNet.Geometry.Matrix2x2d,System.Double)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.op_Multiply(System.Double,CGALDotNet.Geometry.Matrix2x2d)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.op_Equality(CGALDotNet.Geometry.Matrix2x2d,CGALDotNet.Geometry.Matrix2x2d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.op_Inequality(CGALDotNet.Geometry.Matrix2x2d,CGALDotNet.Geometry.Matrix2x2d)">
+            <summary>
+            Are these matrices not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.Equals(System.Object)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.Equals(CGALDotNet.Geometry.Matrix2x2d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.GetHashCode">
+            <summary>
+            Matrices hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.ToString">
+            <summary>
+            A matrix as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.TryInverse(CGALDotNet.Geometry.Matrix2x2d@)">
+            <summary>
+            The Inverse of the matrix copied into mInv.
+            Returns false if the matrix has no inverse.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.GetColumn(System.Int32)">
+            <summary>
+            Get the ith column as a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.SetColumn(System.Int32,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Set the ith column from avector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.GetRow(System.Int32)">
+            <summary>
+            Get the ith row as a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.SetRow(System.Int32,CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Set the ith row from avector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.Rotate(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix2x2d.ToMatrix3x3d">
+            <summary>
+            Convert to a float precision 3 dimension matrix.
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Matrix3x3d">
+            <summary>
+            Matrix is column major. Data is accessed as: row + (column*3). 
+            Matrices can be indexed like 2D arrays but in an expression like mat[a, b], 
+            a refers to the row index, while b refers to the column index 
+            (note that this is the opposite way round to Cartesian coordinates).
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix3x3d.m00">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix3x3d.m10">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix3x3d.m20">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix3x3d.Identity">
+            <summary>
+            The Matrix Idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.#ctor(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.#ctor(System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.#ctor(System.Double[0:,0:])">
+            <summary>
+            A matrix copied from a array of varibles.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix3x3d.Item(System.Int32)">
+            <summary>
+            Access the varible at index i
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix3x3d.Item(System.Int32,System.Int32)">
+            <summary>
+            Access the varible at index ij
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix3x3d.Transpose">
+            <summary>
+            The transpose of the matrix. The rows and columns are flipped.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix3x3d.Determinant">
+            <summary>
+            The determinate of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix3x3d.Inverse">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.op_Addition(CGALDotNet.Geometry.Matrix3x3d,CGALDotNet.Geometry.Matrix3x3d)">
+            <summary>
+            Add two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.op_Subtraction(CGALDotNet.Geometry.Matrix3x3d,CGALDotNet.Geometry.Matrix3x3d)">
+            <summary>
+            Subtract two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.op_Multiply(CGALDotNet.Geometry.Matrix3x3d,CGALDotNet.Geometry.Matrix3x3d)">
+            <summary>
+            Multiply two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.op_Multiply(CGALDotNet.Geometry.Matrix3x3d,System.Double)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.op_Multiply(System.Double,CGALDotNet.Geometry.Matrix3x3d)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.op_Equality(CGALDotNet.Geometry.Matrix3x3d,CGALDotNet.Geometry.Matrix3x3d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.op_Inequality(CGALDotNet.Geometry.Matrix3x3d,CGALDotNet.Geometry.Matrix3x3d)">
+            <summary>
+            Are these matrices not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.Equals(System.Object)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.Equals(CGALDotNet.Geometry.Matrix3x3d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.GetHashCode">
+            <summary>
+            Matrices hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.ToString">
+            <summary>
+            A matrix as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.TryInverse(CGALDotNet.Geometry.Matrix3x3d@)">
+            <summary>
+            The Inverse of the matrix copied into mInv.
+            Returns false if the matrix has no inverse.
+            A matrix multipled by its inverse is the idenity.
+            Invert a 3x3 using cofactors.  This is about 8 times faster than
+            the Numerical Recipes code which uses Gaussian elimination.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.GetColumn(System.Int32)">
+            <summary>
+            Get the ith column as a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.SetColumn(System.Int32,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Set the ith column from avector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.GetRow(System.Int32)">
+            <summary>
+            Get the ith row as a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.SetRow(System.Int32,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Set the ith row from avector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.ToMatrix4x4d">
+            <summary>
+            Convert to a double precision 4 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.Translate(CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Create a translation out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.Scale(CGALDotNet.Geometry.Vector2d)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.Scale(System.Double)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.RotateX(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.RotateY(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.RotateZ(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix3x3d.Rotate(CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a rotation out of a vector.
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Matrix4x4d">
+            <summary>
+            Matrix is column major. Data is accessed as: row + (column*4). 
+            Matrices can be indexed like 2D arrays but in an expression like mat[a, b], 
+            a refers to the row index, while b refers to the column index 
+            (note that this is the opposite way round to Cartesian coordinates).
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix4x4d.m00">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix4x4d.m10">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix4x4d.m20">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix4x4d.m30">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Matrix4x4d.Identity">
+            <summary>
+            The Matrix Idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.#ctor(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.#ctor(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.#ctor(System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.#ctor(System.Double[0:,0:])">
+            <summary>
+            A matrix copied from a array of varibles.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix4x4d.Item(System.Int32)">
+            <summary>
+            Access the varible at index i
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix4x4d.Item(System.Int32,System.Int32)">
+            <summary>
+            Access the varible at index ij
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix4x4d.Transpose">
+            <summary>
+            The transpose of the matrix. The rows and columns are flipped.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix4x4d.Determinant">
+            <summary>
+            The determinate of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix4x4d.Adjoint">
+            <summary>
+            The adjoint of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Matrix4x4d.Inverse">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.op_Addition(CGALDotNet.Geometry.Matrix4x4d,CGALDotNet.Geometry.Matrix4x4d)">
+            <summary>
+            Add two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.op_Subtraction(CGALDotNet.Geometry.Matrix4x4d,CGALDotNet.Geometry.Matrix4x4d)">
+            <summary>
+            Subtract two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.op_Multiply(CGALDotNet.Geometry.Matrix4x4d,CGALDotNet.Geometry.Matrix4x4d)">
+            <summary>
+            Multiply two matrices.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.op_Multiply(CGALDotNet.Geometry.Matrix4x4d,System.Double)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.op_Multiply(System.Double,CGALDotNet.Geometry.Matrix4x4d)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.op_Equality(CGALDotNet.Geometry.Matrix4x4d,CGALDotNet.Geometry.Matrix4x4d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.op_Inequality(CGALDotNet.Geometry.Matrix4x4d,CGALDotNet.Geometry.Matrix4x4d)">
+            <summary>
+            Are these matrices not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.Equals(System.Object)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.Equals(CGALDotNet.Geometry.Matrix4x4d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.GetHashCode">
+            <summary>
+            Matrices hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.ToString">
+            <summary>
+            A matrix as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.Minor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            The minor of a matrix. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.TryInverse(CGALDotNet.Geometry.Matrix4x4d@)">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.GetColumn(System.Int32)">
+            <summary>
+            Get the ith column as a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.SetColumn(System.Int32,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Set the ith column from a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.GetRow(System.Int32)">
+            <summary>
+            Get the ith row as a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.SetRow(System.Int32,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Set the ith row from a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.ToMatrix3x3d">
+            <summary>
+            Convert to a 3 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.TranslateRotateScale(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a translation, rotation and scale.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.TranslateRotate(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Quaternion3d)">
+            <summary>
+            Create a translation and rotation.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.TranslateScale(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a translation and scale.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.RotateScale(CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a rotation and scale.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.Translate(CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a translation out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.Scale(CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.Scale(System.Double)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.RotateX(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.RotateY(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.RotateZ(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.Rotate(CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a rotation out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Matrix4x4d.LookAt(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Creates the matrix need to look at target from position.
+            </summary>
+        </member>
         <member name="F:CGALDotNet.Geometry.Point2d.UnitX">
             <summary>
             The unit x point.
@@ -610,6 +1209,153 @@
             <param name="digits"></param>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A Quaternion from varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.#ctor(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Radian)">
+            <summary>
+            A Quaternion from a vector axis and angle.
+            The axis is the up direction and the angle is the rotation.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.#ctor(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            A quaternion with the rotation required to
+            rotation from the from direction to the to direction.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Quaternion3d.Conjugate">
+            <summary>
+            Returns the conjugate of a quaternion value.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Quaternion3d.Inverse">
+            <summary>
+            The inverse of the quaternion.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Quaternion3d.Magnitude">
+            <summary>
+            The length of the quaternion.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Quaternion3d.SqrMagnitude">
+            <summary>
+            The sqr length of the quaternion.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Quaternion3d.Normalized">
+            <summary>
+            The a normalized quaternion.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.op_Multiply(CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Quaternion3d)">
+            <summary>
+            Multiply two quternions together.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.op_Multiply(CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Multiply a quaternion and a vector together.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.op_Multiply(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Quaternion3d)">
+            <summary>
+            Multiply a quaternion and a vector together.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.op_Equality(CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Quaternion3d)">
+            <summary>
+            Are these Quaternions equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.op_Inequality(CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Quaternion3d)">
+            <summary>
+            Are these Quaternions not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.Equals(CGALDotNet.Geometry.Quaternion3d)">
+            <summary>
+            Are these Quaternions equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.Equals(System.Object)">
+            <summary>
+            Are these Quaternions equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.GetHashCode">
+            <summary>
+            Quaternions hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.ToString">
+            <summary>
+            Quaternion as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.ToString(System.String)">
+            <summary>
+            Quaternion as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.ToMatrix3x3d">
+            <summary>
+            Convert to a 3 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.ToMatrix4x4d">
+            <summary>
+            Convert to a 4 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.Normalize">
+            <summary>
+            The normalize the quaternion.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.Dot(CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Quaternion3d)">
+            <summary>
+            The dot product of two quaternion..
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.Slerp(CGALDotNet.Geometry.Quaternion3d,CGALDotNet.Geometry.Quaternion3d,System.Double)">
+            <summary>
+            Slerp the quaternion from the from rotation to the to rotation by t.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.FromEuler(CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Create a rotation out of a vector in degrees.
+            Uses Unity euler axis (+x right, +y up, +z forward)
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.RotateX(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Returns a 4x4 matrix that rotates around the x-axis.
+            </summary>
+            <param name="radian">
+            The clockwise rotation angle when looking along the x-axis towards the origin.
+            </param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.RotateY(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Returns a 4x4 matrix that rotates around the y-axis.
+            </summary>
+            <param name="radian">
+            The clockwise rotation angle when looking along the y-axis towards the origin.
+            </param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Quaternion3d.RotateZ(CGALDotNet.Geometry.Radian)">
+            <summary>
+            Returns a 4x4 matrix that rotates around the z-axis.
+            </summary>
+            <param name="radian">
+            The clockwise rotation angle when looking along the z-axis towards the origin.
+            </param>
+        </member>
         <member name="T:CGALDotNet.Geometry.Radian">
             <summary>
             Represents a angle in degrees.
@@ -998,6 +1744,466 @@
             </summary>
             <param name="digits"></param>
             <returns></returns>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.UnitX">
+            <summary>
+            The unit x vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.UnitY">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.UnitZ">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.Zero">
+            <summary>
+            A vector of zeros.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.One">
+            <summary>
+            A vector of ones.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.Half">
+            <summary>
+            A vector of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.PositiveInfinity">
+            <summary>
+            A vector of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector3d.NegativeInfinity">
+            <summary>
+            A vector of negative infinity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.#ctor(System.Double)">
+            <summary>
+            A vector all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            A vector from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector3d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector3d.Magnitude">
+            <summary>
+            The length of the vector.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector3d.SqrMagnitude">
+            <summary>
+            The length of the vector squared.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector3d.Normalized">
+            <summary>
+            The vector normalized.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Addition(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Add two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Addition(CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Addition(System.Double,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_UnaryNegation(CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Negate vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Subtraction(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Subtract two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Subtraction(CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Subtraction(System.Double,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Multiply(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Multiply(CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Multiply(System.Double,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Division(CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            Divide a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Explicit(CGALDotNet.Geometry.Point3d)~CGALDotNet.Geometry.Vector3d">
+            <summary>
+            Explict cast from point.
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Equality(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.op_Inequality(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Are these vectors not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Equals(System.Object)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Equals(CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Dot(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            The dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.AbsDot(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            The abs dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Normalize">
+            <summary>
+            Normalize the vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Cross(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Cross two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Orthonormal(CGALDotNet.Geometry.Vector3d@,CGALDotNet.Geometry.Vector3d@,CGALDotNet.Geometry.Vector3d@)">
+            <summary>
+            Create a set of orthonormal vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Min(CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            The minimum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Min(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            The minimum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Max(CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            The maximum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Max(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            The maximum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Clamp(CGALDotNet.Geometry.Vector3d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Clamp(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Lerp(CGALDotNet.Geometry.Vector3d,CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            Lerp between two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector3d.Rounded(System.Int32)">
+            <summary>
+            Round vector.
+            </summary>
+            <param name="digits">number of digits to round to.</param>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.UnitX">
+            <summary>
+            The unit x vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.UnitY">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.UnitZ">
+            <summary>
+            The unit z vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.UnitW">
+            <summary>
+            The unit w vector.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.Zero">
+            <summary>
+            A vector of zeros.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.One">
+            <summary>
+            A vector of ones.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.Half">
+            <summary>
+            A vector of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.PositiveInfinity">
+            <summary>
+            A vector of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Vector4d.NegativeInfinity">
+            <summary>
+            A vector of negative infinity.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.#ctor(System.Double)">
+            <summary>
+            A vector all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A vector from the varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.#ctor(CGALDotNet.Geometry.Vector2d,System.Double,System.Double)">
+            <summary>
+            A vector from a 2d vector and the z and w varibles.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.#ctor(CGALDotNet.Geometry.Vector3d,System.Double)">
+            <summary>
+            A vector from a 3d vector and the w varible.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector4d.Magnitude">
+            <summary>
+            The length of the vector.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector4d.SqrMagnitude">
+            <summary>
+            The length of the vector squared.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector4d.Normalized">
+            <summary>
+            The vector normalized.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Addition(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Add two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Addition(CGALDotNet.Geometry.Vector4d,System.Double)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Addition(System.Double,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_UnaryNegation(CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Negate vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Subtraction(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Subtract two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Subtraction(CGALDotNet.Geometry.Vector4d,System.Double)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Subtraction(System.Double,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Multiply(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Dot porduct of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Multiply(CGALDotNet.Geometry.Vector4d,System.Double)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Multiply(System.Double,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Division(CGALDotNet.Geometry.Vector4d,System.Double)">
+            <summary>
+            Divide a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Equality(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.op_Inequality(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Are these vectors not equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Equals(System.Object)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Equals(CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Dot(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            The dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.AbsDot(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            The abs dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Normalize">
+            <summary>
+            Normalize the vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Min(CGALDotNet.Geometry.Vector4d,System.Double)">
+            <summary>
+            The minimum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Min(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            The minimum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Max(CGALDotNet.Geometry.Vector4d,System.Double)">
+            <summary>
+            The maximum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Max(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            The maximum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Clamp(CGALDotNet.Geometry.Vector4d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Clamp(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Lerp(CGALDotNet.Geometry.Vector4d,CGALDotNet.Geometry.Vector4d,System.Double)">
+            <summary>
+            Lerp between two vectors.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector4d.Rounded(System.Int32)">
+            <summary>
+            Round vector.
+            </summary>
+            <param name="digits">number of digits to round to.</param>
         </member>
         <member name="M:CGALDotNet.MathUtil.Wrap(System.Int32,System.Int32)">
             <summary>
