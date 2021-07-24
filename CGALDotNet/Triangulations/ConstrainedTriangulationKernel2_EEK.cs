@@ -144,6 +144,18 @@ namespace CGALDotNet.Triangulations
             return ConstrainedTriangulation2_EEK_FlipEdge(ptr, faceIndex, neighbour);
         }
 
+        //Constrained only.
+
+        internal override int ConstrainedEdgesCount(IntPtr ptr)
+        {
+            return ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(ptr);
+        }
+
+        internal override void InsertConstraint(IntPtr ptr, Segment2d segment)
+        {
+            ConstrainedTriangulation2_EEK_InsertConstraint(ptr, segment.A, segment.B);
+        }
+
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ConstrainedTriangulation2_EEK_Create();
 
@@ -221,6 +233,14 @@ namespace CGALDotNet.Triangulations
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool ConstrainedTriangulation2_EEK_FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
+
+        //Constrained only.
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(IntPtr ptr);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ConstrainedTriangulation2_EEK_InsertConstraint(IntPtr ptr, Point2d a, Point2d b);
 
     }
 }

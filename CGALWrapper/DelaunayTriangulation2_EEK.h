@@ -58,6 +58,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour);
 
+	//Delaunay only
+
 	CGALWRAPPER_API int DelaunayTriangulation2_EEK_VoronoiSegmentCount(void* ptr);
 
 	CGALWRAPPER_API int DelaunayTriangulation2_EEK_VoronoiRayCount(void* ptr);

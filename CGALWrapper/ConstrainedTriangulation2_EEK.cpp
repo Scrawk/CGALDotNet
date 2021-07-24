@@ -133,3 +133,27 @@ BOOL ConstrainedTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighb
 {
 	return ConstrainedTriangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
+
+//Constrained only
+
+int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(void* ptr)
+{
+	return ConstrainedTriangulation2<EEK>::ConstrainedEdgesCount(ptr);
+}
+
+void ConstrainedTriangulation2_EEK_InsertConstraint(void* ptr, Point2d a, Point2d b)
+{
+	ConstrainedTriangulation2<EEK>::InsertConstraint(ptr, a, b);
+}
+
+void Test()
+{
+	ConstrainedTriangulation2<EEK>::Triangulation_2 t;
+
+	for (auto edge = t.constrained_edges_begin(); edge != t.constrained_edges_end(); ++edge)
+	{
+		
+	}
+
+
+}

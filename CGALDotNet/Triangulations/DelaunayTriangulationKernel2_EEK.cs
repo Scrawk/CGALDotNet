@@ -145,6 +145,8 @@ namespace CGALDotNet.Triangulations
             return DelaunayTriangulation2_EEK_FlipEdge(ptr, faceIndex, neighbour);
         }
 
+        //Delaunay only
+
         internal override int VoronoiSegmentCount(IntPtr ptr)
         {
             return DelaunayTriangulation2_EEK_VoronoiSegmentCount(ptr);
@@ -247,6 +249,8 @@ namespace CGALDotNet.Triangulations
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool DelaunayTriangulation2_EEK_FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
+
+        //Delaunay only
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int DelaunayTriangulation2_EEK_VoronoiSegmentCount(IntPtr ptr);

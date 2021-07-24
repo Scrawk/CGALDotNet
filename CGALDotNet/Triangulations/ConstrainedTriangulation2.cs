@@ -81,5 +81,19 @@ namespace CGALDotNet.Triangulations
 
         protected private ConstrainedTriangulationKernel2 TriangulationKernel { get; private set; }
 
+        public int ConstrainedEdgeCount => TriangulationKernel.ConstrainedEdgesCount(Ptr);
+
+        public void InsertConstraint(Segment2d segment)
+        {
+            TriangulationKernel.InsertConstraint(Ptr, segment);
+        }
+
+        public override void Print(StringBuilder builder)
+        {
+            builder.AppendLine(ToString());
+            builder.AppendLine("Is valid = " + IsValid());
+            builder.AppendLine("Constrained edges = " + ConstrainedEdgeCount);
+        }
+
     }
 }

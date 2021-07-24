@@ -166,7 +166,7 @@ namespace CGALDotNet.Triangulations
             Console.WriteLine(builder.ToString());
         }
 
-        public void Print(StringBuilder builder)
+        public virtual void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
         }

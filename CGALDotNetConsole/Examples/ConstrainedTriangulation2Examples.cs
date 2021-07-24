@@ -25,9 +25,19 @@ namespace CGALDotNetConsole.Examples
             };
 
             var tri = new ConstrainedTriangulation2<EEK>(points);
+
+            //tri.InsertConstraint(new Segment2d(points[0], points[3]));
+
             tri.Print();
 
-            Console.WriteLine("Is valid " + tri.IsValid());
+            points = new Point2d[tri.VertexCount];
+            tri.GetPoints(points);
+
+            Console.WriteLine("Points " + points.Length);
+            Console.WriteLine();
+
+            for (int i = 0; i < points.Length; i++)
+                Console.WriteLine("Point " + i + " = " + points[i]);
         }
     }
 }

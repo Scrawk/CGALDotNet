@@ -10,6 +10,8 @@
 #include "TriFace2.h"
 #include "TriangulationMap.h"
 
+#include "CGAL/Segment_2.h"
+
 #include <vector>
 #include "CGAL/Point_2.h"
 #include <CGAL/Constrained_triangulation_2.h>
@@ -38,7 +40,7 @@ public:
 	typedef typename Triangulation_2::Finite_vertices_iterator Finite_vertices;
 	typedef typename Triangulation_2::Face_handle Face;
 	typedef typename Triangulation_2::Vertex_handle Vertex;
-
+	typedef typename Tds::Edge Edge;
 
 private:
 
@@ -422,6 +424,54 @@ public:
 		{
 			return FALSE;
 		}
+	}
+
+	//Constrained only
+
+	static int ConstrainedEdgesCount(void* ptr)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		int count = 0;
+		for (auto edge = tri->model.constrained_edges_begin(); edge != tri->model.constrained_edges_end(); ++edge)
+			++count;
+
+		return count;
+	}
+
+	static BOOL IsConstrained(void* ptr, int faceIndex, int neighbourIndex)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		auto face = tri->map.FindFace(tri->model, faceIndex);
+		auto neighbour = tri->map.FindFace(tri->model, neighbourIndex);
+
+		for (auto edge = tri->model.constrained_edges_begin(); edge != tri->model.constrained_edges_end(); ++edge)
+		{
+			if (edge->first.info() == faceIndex)
+			{
+				int n = TriUtil::NeighbourIndex(*face, *neighbour);
+
+				if (edge->second == n)
+					return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+
+	static BOOL HasIncidentConstraints(void* ptr)
+	{
+		auto tri = CastToTriangulation2(ptr);
+	}
+
+	static void InsertConstraint(void* ptr, Point2d a, Point2d b)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		tri->model.insert_constraint(a.ToCGAL<K>(), b.ToCGAL<K>());
+
+		tri->map.OnModelChanged();
 	}
 
 };

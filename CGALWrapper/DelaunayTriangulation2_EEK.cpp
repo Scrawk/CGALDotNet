@@ -135,6 +135,8 @@ BOOL DelaunayTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour
 	return DelaunayTriangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
 
+//Delaunay only
+
 int DelaunayTriangulation2_EEK_VoronoiSegmentCount(void* ptr)
 {
 	return DelaunayTriangulation2<EEK>::VoronoiSegmentCount(ptr);

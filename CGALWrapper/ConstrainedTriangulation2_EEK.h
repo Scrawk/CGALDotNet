@@ -58,5 +58,12 @@ extern "C"
 
 	CGALWRAPPER_API BOOL ConstrainedTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour);
 
+	//Constrained only
+
+	CGALWRAPPER_API int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(void* ptr);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertConstraint(void* ptr, Point2d a, Point2d b);
+
+
 }
 
