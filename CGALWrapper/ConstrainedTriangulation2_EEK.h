@@ -84,6 +84,9 @@ extern "C"
 
 	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(void* ptr, int vertexIndex);
 
+	CGALWRAPPER_API int ConstrainedTriangulation2_EEK_GetPolygonIndices(void* ptrTri, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation);
+
+	CGALWRAPPER_API int ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(void* ptrTri, void* pwhPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation);
 
 }
 

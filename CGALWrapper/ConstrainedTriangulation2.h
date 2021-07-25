@@ -629,4 +629,61 @@ public:
 		}
 	}
 
+	static int GetPolygonIndices(void* ptrTri, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
+	{
+		auto tri = CastToTriangulation2(ptrTri);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+
+		int num = 0;
+		int index = startIndex;
+
+		tri->map.SetVertexIndices(tri->model);
+
+		for (auto& face : tri->model.finite_face_handles())
+		{
+			auto p = TriUtil::CenterPoint<Point_2>(face);
+
+			if (poly->oriented_side(p) == orientation)
+			{
+				indices[index * 3 + 0] = face->vertex(0)->info();
+				indices[index * 3 + 1] = face->vertex(1)->info();
+				indices[index * 3 + 2] = face->vertex(2)->info();
+
+				index++;
+				num++;
+			}
+		}
+
+		return num * 3;
+	}
+
+	static int GetPolygonWithHolesIndices(void* ptrTri, void* pwhPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
+	{
+		auto tri = CastToTriangulation2(ptrTri);
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		int num = 0;
+		int index = startIndex;
+
+		tri->map.SetVertexIndices(tri->model);
+
+		for (auto& face : tri->model.finite_face_handles())
+		{
+			auto p = TriUtil::CenterPoint<Point_2>(face);
+			Point2d point = Point2d::FromCGAL(p);
+
+			if (PolygonWithHoles2<K>::ContainsPoint(*pwh, point, orientation, true))
+			{
+				indices[index * 3 + 0] = face->vertex(0)->info();
+				indices[index * 3 + 1] = face->vertex(1)->info();
+				indices[index * 3 + 2] = face->vertex(2)->info();
+
+				index++;
+				num++;
+			}
+		}
+
+		return num * 3;
+	}
+
 };

@@ -40,7 +40,9 @@ namespace CGALDotNetConsole
 
             //DelaunayTriangulation2Examples.CreateDelaunayTriangulation();
 
-            ConstrainedTriangulation2Examples.CreateConstrainedTriangulation();
+            //ConstrainedTriangulation2Examples.CreateConstrainedTriangulation();
+
+            ConstrainedTriangulation2Examples.GetPolygonIndices();
 
             //PolygonPartition2Examples.CreatePolygonPartition();
 

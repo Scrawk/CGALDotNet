@@ -15,7 +15,7 @@ namespace TriUtil
 {
 
 	template<class FACE>
-	static int NeighbourIndex(FACE face, FACE neighbour)
+	int NeighbourIndex(FACE face, FACE neighbour)
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -45,6 +45,19 @@ namespace TriUtil
 		}
 
 		return count;
+	}
+
+	template<class POINT, class FACE>
+	POINT CenterPoint(FACE face)
+	{
+		POINT p0 = face->vertex(0)->point();
+		POINT p1 = face->vertex(1)->point();
+		POINT p2 = face->vertex(2)->point();
+
+		auto x = (p0.x() + p1.x() + p2.x()) / 3;
+		auto y = (p0.y() + p1.y() + p2.y()) / 3;
+
+		return POINT(x, y);
 	}
 
 }

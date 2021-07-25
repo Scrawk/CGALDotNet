@@ -69,6 +69,34 @@ namespace CGALDotNet.Triangulations
             TriangulationKernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
         }
 
+        public void GetPolygonIndices(Polygon2<K> polygon, List<int> indices)
+        {
+            int count = IndiceCount;
+            if (count == 0) return;
+
+            var orientation = polygon.Orientation;
+
+            int[] tmp = new int[count];
+            count = TriangulationKernel.GetPolygonIndices(Ptr, polygon.Ptr, tmp, 0, tmp.Length, orientation);
+
+            for (int i = 0; i < count; i++)
+                indices.Add(tmp[i]);
+        }
+
+        public void GetPolygonIndices(PolygonWithHoles2<K> pwh, List<int> indices)
+        {
+            int count = IndiceCount;
+            if (count == 0) return;
+
+            var orientation = pwh.FindOrientation(POLYGON_ELEMENT.BOUNDARY);
+
+            int[] tmp = new int[count];
+            count = TriangulationKernel.GetPolygonWithHolesIndices(Ptr, pwh.Ptr, tmp, 0, tmp.Length, orientation);
+
+            for (int i = 0; i < count; i++)
+                indices.Add(tmp[i]);
+        }
+
     }
 
     public abstract class ConstrainedTriangulation2 : BaseTriangulation2

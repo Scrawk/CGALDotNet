@@ -99,5 +99,11 @@ namespace CGALDotNet.Triangulations
             return rays;
         }
 
+        public override void Print(StringBuilder builder)
+        {
+            builder.AppendLine(ToString());
+            builder.AppendLine("Is valid = " + IsValid());;
+        }
+
     }
 }

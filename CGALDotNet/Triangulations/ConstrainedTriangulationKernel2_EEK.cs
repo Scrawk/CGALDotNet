@@ -211,6 +211,15 @@ namespace CGALDotNet.Triangulations
             ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(ptr, vertexIndex);
         }
 
+        internal override int GetPolygonIndices(IntPtr ptrTri, IntPtr polyPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation)
+        {
+            return ConstrainedTriangulation2_EEK_GetPolygonIndices(ptrTri, polyPtr, indices, startIndex, count, orientation);
+        }
+
+        internal override int GetPolygonWithHolesIndices(IntPtr ptrTri, IntPtr pwhPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation)
+        {
+            return ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(ptrTri, pwhPtr, indices, startIndex, count, orientation);
+        }
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ConstrainedTriangulation2_EEK_Create();
@@ -327,6 +336,12 @@ namespace CGALDotNet.Triangulations
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(IntPtr ptr, int vertexIndex);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int ConstrainedTriangulation2_EEK_GetPolygonIndices(IntPtr ptrTri, IntPtr polyPtr, [Out] int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(IntPtr ptrTri, IntPtr pwhPtr, [Out] int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
 
     }
 }

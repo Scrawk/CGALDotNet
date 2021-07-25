@@ -60,5 +60,30 @@ namespace CGALDotNetConsole.Examples
             tri.Print();
 
         }
+
+        public static void GetPolygonIndices()
+        {
+            Console.WriteLine("Get polygon indices example\n");
+
+            var points = new Point2d[]
+            {
+                new Point2d(0, 0),
+                new Point2d(5, 0),
+                new Point2d(5, 5),
+                new Point2d(2, 2),
+                new Point2d(0, 5)
+            };
+
+            var polygon = new Polygon2<EEK>(points);
+
+            var tri = new ConstrainedTriangulation2<EEK>(polygon);
+
+            var indices = new List<int>();
+            tri.GetPolygonIndices(polygon, indices);
+
+            foreach (int i in indices)
+                Console.WriteLine(i);
+
+        }
     }
 }

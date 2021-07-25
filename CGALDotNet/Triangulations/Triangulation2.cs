@@ -84,5 +84,11 @@ namespace CGALDotNet.Triangulations
 
         protected private TriangulationKernel2 TriangulationKernel { get; private set; }
 
+        public override void Print(StringBuilder builder)
+        {
+            builder.AppendLine(ToString());
+            builder.AppendLine("Is valid = " + IsValid()); ;
+        }
+
     }
 }

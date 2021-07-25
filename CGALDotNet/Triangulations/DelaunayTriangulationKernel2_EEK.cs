@@ -21,7 +21,6 @@ namespace CGALDotNet.Triangulations
 
         internal override IntPtr Create()
         {
-            Console.WriteLine(" DelaunayTriangulation2_EEK_Create");
             return DelaunayTriangulation2_EEK_Create();
         }
 

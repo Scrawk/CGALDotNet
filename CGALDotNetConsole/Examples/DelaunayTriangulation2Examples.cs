@@ -27,6 +27,10 @@ namespace CGALDotNetConsole.Examples
             var tri = new DelaunayTriangulation2<EEK>(points);
             tri.Print();
 
+
+            tri.InsertPoint(new Point2d(1, 1));
+
+            /*
             Console.WriteLine("Is valid " + tri.IsValid());
 
             var segments = tri.GetVoronoiSegments();
@@ -37,6 +41,7 @@ namespace CGALDotNetConsole.Examples
 
             foreach (var ray in rays)
                Console.WriteLine(ray);
+            */
         }
     }
 }

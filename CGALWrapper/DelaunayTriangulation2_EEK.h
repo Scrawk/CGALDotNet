@@ -22,6 +22,8 @@ extern "C"
 
 	CGALWRAPPER_API int DelaunayTriangulation2_EEK_FaceCount(void* ptr);
 
+	CGALWRAPPER_API void DelaunayTriangulation2_EEK_InsertPoint(void* ptr, Point2d point);
+
 	CGALWRAPPER_API void DelaunayTriangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int startIndex, int count);
 
 	CGALWRAPPER_API void DelaunayTriangulation2_EEK_InsertPolygon(void* triPtr, void* polyPtr);
