@@ -41,14 +41,8 @@ namespace CGALDotNet.Arrangements
 
         internal abstract int UnboundedFaceCount(IntPtr ptr);
 
-        internal abstract void SetVertexIndices(IntPtr ptr);
-
-        internal abstract void SetHalfEdgeIndices(IntPtr ptr);
-
-        internal abstract void SetFaceIndices(IntPtr ptr);
-
         internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
-
+        
         internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
 
         internal abstract void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int startIndex, int count);

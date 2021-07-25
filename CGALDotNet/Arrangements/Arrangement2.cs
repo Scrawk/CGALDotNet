@@ -99,28 +99,6 @@ namespace CGALDotNet.Arrangements
             return Kernel.IsValid(Ptr);
         }
 
-        public void SetIndices()
-        {
-            SetVertexIndices();
-            SetHalfEdgeIndices();
-            SetFaceIndices();
-        }
-
-        public void SetVertexIndices()
-        {
-            Kernel.SetVertexIndices(Ptr);
-        }
-
-        public void SetHalfEdgeIndices()
-        {
-            Kernel.SetHalfEdgeIndices(Ptr);
-        }
-
-        public void SetFaceIndices()
-        {
-            Kernel.SetFaceIndices(Ptr);
-        }
-
         public void GetPoints(Point2d[] points)
         {
             ErrorUtil.CheckBounds(points, 0, VertexCount);
@@ -244,7 +222,6 @@ namespace CGALDotNet.Arrangements
             {
                 builder.AppendLine();
 
-                SetIndices();
                 PrintVertices(builder);
                 PrintHalfEdges(builder);
                 PrintFaces(builder);

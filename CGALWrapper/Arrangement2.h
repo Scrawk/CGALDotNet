@@ -3,6 +3,7 @@
 #include "CGALWrapper.h"
 #include "Geometry2.h"
 #include "ArrMultiLocator.h"
+#include "ArrangementMap.h"
 
 #include <vector>
 #include "CGAL/Point_2.h"
@@ -73,13 +74,13 @@ public:
 	typedef typename Locator::Locator_Result_Type Locator_Result_Type;
 	typedef std::pair<Point_2, Locator_Result_Type> Batch_Query_Result;
 
-	typedef typename Arrangement_2::Vertex_const_handle Vertex_const_handle;
-	typedef typename Arrangement_2::Halfedge_const_handle Halfedge_const_handle;
-	typedef typename Arrangement_2::Face_const_handle Face_const_handle;
+	typedef typename Arrangement_2::Vertex_const_handle Vertex_const;
+	typedef typename Arrangement_2::Halfedge_const_handle Halfedge_const;
+	typedef typename Arrangement_2::Face_const_handle Face_const;
 
-	typedef typename Arrangement_2::Vertex_handle Vertex_handle;
-	typedef typename Arrangement_2::Halfedge_handle Halfedge_handle;
-	typedef typename Arrangement_2::Face_handle Face_handle;
+	typedef typename Arrangement_2::Vertex_handle Vertex;
+	typedef typename Arrangement_2::Halfedge_handle Halfedge;
+	typedef typename Arrangement_2::Face_handle Face;
 
 	typedef typename Arrangement_2::Halfedge_around_vertex_const_circulator Vertex_const_circulator;
 
@@ -88,6 +89,8 @@ private:
 	Arrangement_2 model;
 
 	Locator locator;
+
+	ArrangementMap<K, Vertex, Face, Halfedge> map;
 
 public:
 
@@ -116,6 +119,7 @@ public:
 	{
 		auto arr = CastToArrangement(ptr);
 		arr->model.clear();
+		arr->map.ClearMaps();
 	}
 
 	static BOOL IsEmpty(void* ptr)
@@ -198,37 +202,12 @@ public:
 		}
 	}
 
-	static void SetVertexIndices(void* ptr)
-	{
-		auto arr = CastToArrangement(ptr);
-		int index = 0;
-
-		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter)
-			iter->set_data(index++);
-	}
-
-	static void SetHalfEdgeIndices(void* ptr)
-	{
-		auto arr = CastToArrangement(ptr);
-		int index = 0;
-
-		for (auto iter = arr->model.halfedges_begin(); iter != arr->model.halfedges_end(); ++iter)
-			iter->set_data(index++);
-	}
-
-	static void SetFaceIndices(void* ptr)
-	{
-		auto arr = CastToArrangement(ptr);
-		int index = 0;
-
-		for (auto iter = arr->model.faces_begin(); iter != arr->model.faces_end(); ++iter)
-			iter->set_data(index++);
-	}
-
 	static void GetVertices(void* ptr, ArrVertex2* vertices, int startIndex, int count)
 	{
 		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
+
+		arr->map.SetIndices(arr->model);
 
 		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter, ++i)
 		{
@@ -256,6 +235,8 @@ public:
 		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
 
+		arr->map.SetIndices(arr->model);
+
 		for (auto iter = arr->model.halfedges_begin(); iter != arr->model.halfedges_end(); ++iter, ++i)
 		{
 			edges[i].IsFictitious = iter->is_fictitious();
@@ -273,6 +254,8 @@ public:
 	{
 		auto arr = CastToArrangement(ptr);
 		int i = startIndex;
+
+		arr->map.SetIndices(arr->model);
 
 		for (auto iter = arr->model.faces_begin(); iter != arr->model.faces_end(); ++iter, ++i)
 		{
@@ -309,7 +292,7 @@ public:
 	{
 		auto arr = CastToArrangement(ptr);
 		auto q = arr->locator.Locate(arr->model, point);
-		return HandleQuery(q, result);
+		return HandleQuery(arr, q, result);
 	}
 
 	static BOOL BatchedPointQuery(void* ptr, Point2d* p, ArrQuery* r, int startIndex, int count)
@@ -326,7 +309,7 @@ public:
 
 		for (auto it = results.begin(); it != results.end(); ++it, ++i) 
 		{
-			if (HandleQuery(it->second, r[i]))
+			if (HandleQuery(arr, it->second, r[i]))
 				hit = TRUE;
 		}
 
@@ -340,12 +323,12 @@ public:
 		if (up)
 		{
 			auto q = arr->locator.RayShootUp(arr->model, point);
-			return HandleQuery(q, result);
+			return HandleQuery(arr, q, result);
 		}
 		else
 		{
 			auto q = arr->locator.RayShootDown(arr->model, point);
-			return HandleQuery(q, result);
+			return HandleQuery(arr, q, result);
 		}
 	}
 
@@ -359,6 +342,7 @@ public:
 	{
 		auto arr = CastToArrangement(ptr);
 		arr->locator.InsertPoint(arr->model, point);
+		arr->map.OnModelChanged();
 	}
 
 	static void InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
@@ -369,6 +353,8 @@ public:
 			arr->locator.InsertSegment<Segment_2>(arr->model, segment);
 		else
 			arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
+
+		arr->map.OnModelChanged();
 	}
 
 	static void InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count)
@@ -380,17 +366,25 @@ public:
 			auto seg = segments[i].ToCGAL<K, Segment_2>();
 			CGAL::insert(arr->model, seg);
 		}
+
+		arr->map.OnModelChanged();
 	}
 
 	static BOOL RemoveVertex(void* ptr, int index)
 	{
 		auto arr = CastToArrangement(ptr);
 		
-		Vertex_handle v;
-		if (arr->FindVertex(index, v))
-			return remove_vertex(arr->model, v);
-		else
-			return FALSE;
+		auto v = arr->map.FindVertex(arr->model, index);
+		if (v != nullptr)
+		{
+			if (remove_vertex(arr->model, *v))
+			{
+				arr->map.OnModelChanged();
+				return TRUE;
+			}
+		}
+
+		return FALSE;
 	}
 
 	static BOOL RemoveVertex(void* ptr, Point2d point)
@@ -399,28 +393,33 @@ public:
 
 		auto q = arr->locator.Locate(arr->model, point);
 
-		const Vertex_const_handle* vert;
-		if (vert = boost::get<Vertex_const_handle>(&q))
+		const Vertex_const* vert;
+		if (vert = boost::get<Vertex_const>(&q))
 		{
 			auto v = arr->model.non_const_handle(*vert);
-			return remove_vertex(arr->model, v);
+			if (remove_vertex(arr->model, v))
+			{
+				arr->map.OnModelChanged();
+				return TRUE;
+			}
 		}
-		else
-			return FALSE;
+
+		return FALSE;
 	}
 
 	static BOOL RemoveEdge(void* ptr, int index)
 	{
 		auto arr = CastToArrangement(ptr);
 
-		Halfedge_handle e;
-		if (arr->FindEdge(index, e))
+		auto e = arr->map.FindEdge(arr->model, index);
+		if (e != nullptr)
 		{
-			remove_edge(arr->model, e);
+			remove_edge(arr->model, *e);
+			arr->map.OnModelChanged();
 			return TRUE;
 		}
-		else
-			return FALSE;
+
+		return FALSE;
 	}
 
 	static BOOL RemoveEdge(void* ptr, Segment2d segment)
@@ -429,16 +428,16 @@ public:
 
 		auto q1 = arr->locator.Locate(arr->model, segment.a);
 
-		const Vertex_const_handle* vert1;
-		if (vert1 = boost::get<Vertex_const_handle>(&q1))
+		const Vertex_const* vert1;
+		if (vert1 = boost::get<Vertex_const>(&q1))
 		{
 			if ((*vert1)->is_isolated())
 				return FALSE;
 
 			auto q2 = arr->locator.Locate(arr->model, segment.b);
 
-			const Vertex_const_handle* vert2;
-			if (vert2 = boost::get<Vertex_const_handle>(&q2))
+			const Vertex_const* vert2;
+			if (vert2 = boost::get<Vertex_const>(&q2))
 			{
 				if ((*vert2)->is_isolated())
 					return FALSE;
@@ -454,6 +453,7 @@ public:
 					{
 						auto e = arr->model.non_const_handle(next);
 						remove_edge(arr->model, e);
+						arr->map.OnModelChanged();
 						return TRUE;
 					}
 				} 
@@ -468,28 +468,31 @@ public:
 
 private:
 
-	static BOOL HandleQuery(Locator_Result_Type query, ArrQuery& result)
+	static BOOL HandleQuery(Arrangement2* arr, Locator_Result_Type query, ArrQuery& result)
 	{
-		const Vertex_const_handle* vert;
-		const Halfedge_const_handle* edge;
-		const Face_const_handle* face;
+		const Vertex_const* vert;
+		const Halfedge_const* edge;
+		const Face_const* face;
 
-		if (face = boost::get<Face_const_handle>(&query))
+		if (face = boost::get<Face_const>(&query))
 		{
+			arr->map.SetFaceIndices(arr->model);
 			result.Element = ARR_ELEMENT_HIT::FACE;
 			result.Index = (*face)->data();
 			return TRUE;
 		}
 
-		else if (edge = boost::get<Halfedge_const_handle>(&query))
+		else if (edge = boost::get<Halfedge_const>(&query))
 		{
+			arr->map.SetEdgeIndices(arr->model);
 			result.Element = ARR_ELEMENT_HIT::HALF_EDGE;
 			result.Index = (*edge)->data();
 			return TRUE;
 		}
 
-		else if (vert = boost::get<Vertex_const_handle>(&query))
+		else if (vert = boost::get<Vertex_const>(&query))
 		{
+			arr->map.SetVertexIndices(arr->model);
 			result.Element = ARR_ELEMENT_HIT::VERTEX;
 			result.Index = (*vert)->data();
 			return TRUE;
@@ -510,72 +513,6 @@ private:
 			list.push_back(points[i].ToCGAL<K>());
 
 		return list;
-	}
-
-	BOOL FindVertex(int index, Vertex_handle& vert)
-	{
-		int count = (int)model.number_of_vertices();
-
-		if (index < 0 || index >= count)
-			return FALSE;
-
-		if (index / 2 < count)
-		{
-			for (auto iter = model.vertices_begin(); iter != model.vertices_end(); ++iter)
-			{
-				if (iter->data() == index)
-				{
-					vert = iter;
-					return TRUE;
-				}
-			}
-		}
-		else
-		{
-			for (auto iter = model.vertices_end(); iter != model.vertices_begin(); --iter)
-			{
-				if (iter->data() == index)
-				{
-					vert = iter;
-					return TRUE;
-				}
-			}
-		}
-			
-		return FALSE;
-	}
-
-	BOOL FindEdge(int index, Halfedge_handle& edge)
-	{
-		int count = (int)model.number_of_halfedges();
-
-		if (index < 0 || index >= count)
-			return FALSE;
-
-		if (index / 2 < count)
-		{
-			for (auto iter = model.halfedges_begin(); iter != model.halfedges_end(); ++iter)
-			{
-				if (iter->data() == index)
-				{
-					edge = iter;
-					return TRUE;
-				}
-			}
-		}
-		else
-		{
-			for (auto iter = model.halfedges_end(); iter != model.halfedges_begin(); --iter)
-			{
-				if (iter->data() == index)
-				{
-					edge = iter;
-					return TRUE;
-				}
-			}
-		}
-
-		return FALSE;
 	}
 
 };

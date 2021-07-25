@@ -32,12 +32,6 @@ extern "C"
 
 	CGALWRAPPER_API int Arrangement2_EEK_UnboundedFaceCount(void* ptr);
 
-	CGALWRAPPER_API void Arrangement2_EEK_SetVertexIndices(void* ptr);
-
-	CGALWRAPPER_API void Arrangement2_EEK_SetHalfEdgeIndices(void* ptr);
-
-	CGALWRAPPER_API void Arrangement2_EEK_SetFaceIndices(void* ptr);
-
 	CGALWRAPPER_API void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count);
 
 	CGALWRAPPER_API void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count);

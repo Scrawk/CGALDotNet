@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Arrangement2.h" />
     <ClInclude Include="Arrangement2_EEK.h" />
+    <ClInclude Include="ArrangementMap.h" />
     <ClInclude Include="ArrMultiLocator.h" />
     <ClInclude Include="CGALWrapper.h" />
     <ClInclude Include="ConstrainedTriangulation2.h" />

@@ -120,6 +120,9 @@
     <ClInclude Include="ConstrainedTriangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
+    <ClInclude Include="ArrangementMap.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

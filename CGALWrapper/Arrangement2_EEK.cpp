@@ -72,21 +72,6 @@ int Arrangement2_EEK_UnboundedFaceCount(void* ptr)
 	return Arrangement2<EEK>::UnboundedFaceCount(ptr);
 }
 
-void Arrangement2_EEK_SetVertexIndices(void* ptr)
-{
-	Arrangement2<EEK>::SetVertexIndices(ptr);
-}
-
-void Arrangement2_EEK_SetHalfEdgeIndices(void* ptr)
-{
-	Arrangement2<EEK>::SetHalfEdgeIndices(ptr);
-}
-
-void Arrangement2_EEK_SetFaceIndices(void* ptr)
-{
-	Arrangement2<EEK>::SetFaceIndices(ptr);
-}
-
 void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
 {
 	Arrangement2<EEK>::GetPoints(ptr, points, startIndex, count);

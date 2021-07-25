@@ -59,7 +59,7 @@ namespace CGALDotNetConsole.Examples
             arr.GetSegments(segments);
 
             Console.WriteLine();
-            Console.WriteLine("Arrangement Segments\n.");
+            Console.WriteLine("Arrangement Segments.\n");
 
             foreach (var s in segments)
                 Console.WriteLine(s.ToString());
@@ -105,7 +105,7 @@ namespace CGALDotNetConsole.Examples
 
             var arr = new Arrangement2<EEK>(segments);
 
-            arr.SetIndices();
+            //arr.SetIndices();
             arr.CreateLocator(ARR_LOCATOR.NAIVE);
 
             ArrQuery result;
@@ -133,7 +133,7 @@ namespace CGALDotNetConsole.Examples
 
             var arr = new Arrangement2<EEK>(segments);
 
-            arr.SetIndices();
+            //arr.SetIndices();
             arr.CreateLocator(ARR_LOCATOR.WALK);
 
             var queries = new Point2d[]
@@ -171,7 +171,7 @@ namespace CGALDotNetConsole.Examples
 
             var arr = new Arrangement2<EEK>(segments);
 
-            arr.SetIndices();
+            //arr.SetIndices();
             arr.CreateLocator(ARR_LOCATOR.WALK);
 
             ArrQuery result;
@@ -206,7 +206,7 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine("Removed by point " + arr.RemoveVertex(p4) + "\n");
 
             arr.InsertPoint(p4);
-            arr.SetIndices();
+            //arr.SetIndices();
 
             Console.WriteLine("Removed by index " + arr.RemoveVertex(3) + "\n");
 
@@ -234,7 +234,7 @@ namespace CGALDotNetConsole.Examples
 
             Console.WriteLine("Removed by segment " + arr.RemoveEdge(new Segment2d(p2, p1)) + "\n");
 
-            arr.SetIndices();
+            //arr.SetIndices();
             Console.WriteLine("Removed by index " + arr.RemoveEdge(3) + "\n");
 
             arr.Print(true);

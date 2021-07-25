@@ -79,21 +79,6 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_UnboundedFaceCount(ptr);
         }
 
-        internal override void SetVertexIndices(IntPtr ptr)
-        {
-            Arrangement2_EEK_SetVertexIndices(ptr);
-        }
-
-        internal override void SetHalfEdgeIndices(IntPtr ptr)
-        {
-            Arrangement2_EEK_SetHalfEdgeIndices(ptr);
-        }
-
-        internal override void SetFaceIndices(IntPtr ptr)
-        {
-            Arrangement2_EEK_SetFaceIndices(ptr);
-        }
-
         internal override void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
         {
             Arrangement2_EEK_GetPoints(ptr, points, startIndex, count);
@@ -222,15 +207,6 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int Arrangement2_EEK_UnboundedFaceCount(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Arrangement2_EEK_SetVertexIndices(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Arrangement2_EEK_SetHalfEdgeIndices(IntPtr ptr);
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Arrangement2_EEK_SetFaceIndices(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
