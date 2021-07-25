@@ -19,11 +19,6 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_Create();
         }
 
-        internal override IntPtr CreateFromSegments(Segment2d[] segments, int startIndex, int count)
-        {
-            return Arrangement2_EEK_CreateFromSegments(segments, startIndex, count);
-        }
-
         internal override void Release(IntPtr ptr)
         {
             Arrangement2_EEK_Release(ptr);
@@ -159,6 +154,16 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_InsertPoint(ptr, point);
         }
 
+        internal override void InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting)
+        {
+            Arrangement2_EEK_InsertSegment(ptr, segment, nonItersecting);
+        }
+
+        internal override void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        {
+            Arrangement2_EEK_InsertSegments(ptr, segments, startIndex, count);
+        }
+
         internal override bool RemoveVertexByIndex(IntPtr ptr, int index)
         {
             return Arrangement2_EEK_RemoveVertexByIndex(ptr, index);
@@ -181,9 +186,6 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Arrangement2_EEK_Create();
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr Arrangement2_EEK_CreateFromSegments([In] Segment2d[] points, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_Release(IntPtr ptr);
@@ -265,6 +267,12 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_InsertPoint(IntPtr ptr, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_InsertSegments(IntPtr ptr, [In] Segment2d[] points, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Arrangement2_EEK_RemoveVertexByIndex(IntPtr ptr, int index);

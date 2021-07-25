@@ -17,8 +17,6 @@ namespace CGALDotNet.Arrangements
 
         internal abstract IntPtr Create();
 
-        internal abstract IntPtr CreateFromSegments(Segment2d[] segment, int startIndex, int count);
-
         internal abstract void Release(IntPtr ptr);
 
         internal abstract bool IsValid(IntPtr ptr);
@@ -72,6 +70,10 @@ namespace CGALDotNet.Arrangements
         internal abstract bool IntersectsSegment(IntPtr ptr, Segment2d segment);
 
         internal abstract void InsertPoint(IntPtr ptr, Point2d point);
+
+        internal abstract void InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
+
+        internal abstract void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
 
         internal abstract bool RemoveVertexByIndex(IntPtr ptr, int index);
 

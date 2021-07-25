@@ -8,11 +8,6 @@ void* Polygon2_EEK_Create()
 	return Util::Create<Polygon2<EEK>::Polygon_2>();
 }
 
-void* Polygon2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
-{
-	return Polygon2<EEK>::CreateFromPoints(points, startIndex, count);
-}
-
 void Polygon2_EEK_Release(void* ptr)
 {
 	Util::Release<Polygon2<EEK>::Polygon_2>(ptr);

@@ -12,11 +12,6 @@ void* Arrangement2_EEK_Create()
 	return Util::Create<Arrangement2<EEK>>();
 }
 
-void* Arrangement2_EEK_CreateFromSegments(Segment2d* segments, int startIndex, int count)
-{
-	return Arrangement2<EEK>::CreateFromSegments(segments, startIndex, count);
-}
-
 void Arrangement2_EEK_Release(void* ptr)
 {
 	Util::Release<Arrangement2<EEK>>(ptr);
@@ -155,6 +150,11 @@ void Arrangement2_EEK_InsertPoint(void* ptr, Point2d point)
 void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
 {
 	Arrangement2<EEK>::InsertSegment(ptr, segment, nonItersecting);
+}
+
+void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+{
+	Arrangement2<EEK>::InsertSegments(ptr, segments, startIndex, count);
 }
 
 BOOL Arrangement2_EEK_RemoveVertexByIndex(void* ptr, int index)

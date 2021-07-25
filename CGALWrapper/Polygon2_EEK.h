@@ -10,8 +10,6 @@ extern "C"
 {
 	CGALWRAPPER_API void* Polygon2_EEK_Create();
 
-	CGALWRAPPER_API void* Polygon2_EEK_CreateFromPoints(Point2d * points, int startIndex, int count);
-
 	CGALWRAPPER_API void Polygon2_EEK_Release(void* ptr);
 
 	CGALWRAPPER_API int Polygon2_EEK_Count(void* ptr);

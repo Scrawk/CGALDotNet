@@ -17,8 +17,6 @@ namespace CGALDotNet.Polygons
 
         internal abstract IntPtr Create();
 
-        internal abstract IntPtr CreateFromPoints(Point2d[] points, int startIndex, int count);
-
         internal abstract void Release(IntPtr ptr);
 
         internal abstract int Count(IntPtr ptr);

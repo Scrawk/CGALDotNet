@@ -106,19 +106,6 @@ public:
 		return static_cast<Arrangement2*>(ptr);
 	}
 
-	static void* CreateFromSegments(Segment2d* segments, int startIndex, int count)
-	{
-		auto arr = new Arrangement2();
-
-		for (auto i = startIndex; i < count; i++)
-		{
-			auto seg = segments[i].ToCGAL<K, Segment_2>();
-			CGAL::insert(arr->model, seg);
-		}
-
-		return arr;
-	}
-
 	static BOOL IsValid(void* ptr)
 	{
 		auto arr = CastToArrangement(ptr);
@@ -382,6 +369,17 @@ public:
 			arr->locator.InsertSegment<Segment_2>(arr->model, segment);
 		else
 			arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
+	}
+
+	static void InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	{
+		auto arr = CastToArrangement(ptr);
+
+		for (auto i = startIndex; i < count; i++)
+		{
+			auto seg = segments[i].ToCGAL<K, Segment_2>();
+			CGAL::insert(arr->model, seg);
+		}
 	}
 
 	static BOOL RemoveVertex(void* ptr, int index)

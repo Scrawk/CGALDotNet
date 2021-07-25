@@ -8,8 +8,6 @@ extern "C"
 {
 	CGALWRAPPER_API void* Arrangement2_EEK_Create();
 
-	CGALWRAPPER_API void* Arrangement2_EEK_CreateFromSegments(Segment2d* segments, int startIndex, int count);
-
 	CGALWRAPPER_API void Arrangement2_EEK_Release(void* ptr);
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_IsValid(void* ptr);
@@ -65,6 +63,8 @@ extern "C"
 	CGALWRAPPER_API void Arrangement2_EEK_InsertPoint(void* ptr, Point2d point);
 
 	CGALWRAPPER_API void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting);
+
+	CGALWRAPPER_API void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count);
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_RemoveVertexByIndex(void* ptr, int index);
 

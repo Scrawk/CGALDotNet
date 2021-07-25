@@ -60,7 +60,8 @@ namespace CGALDotNet.Arrangements
         internal Arrangement2(CGALKernel kernel, Segment2d[] segments)
         {
             Kernel = kernel.ArrangementKernel2;
-            Ptr = Kernel.CreateFromSegments(segments, 0, segments.Length);
+            Ptr = Kernel.Create();
+            InsertSegments(segments);
         }
 
         internal Arrangement2(CGALKernel kernel, IntPtr ptr) : base(ptr)
@@ -192,6 +193,16 @@ namespace CGALDotNet.Arrangements
         public void InsertPoint(Point2d point)
         {
             Kernel.InsertPoint(Ptr, point);
+        }
+
+        public void InsertSegment(Segment2d segment, bool nonIntersecting)
+        {
+            Kernel.InsertSegment(Ptr, segment, nonIntersecting);
+        }
+
+        public void InsertSegments(Segment2d[] segments)
+        {
+            Kernel.InsertSegments(Ptr, segments, 0, segments.Length);
         }
 
         public bool RemoveVertex(int index)

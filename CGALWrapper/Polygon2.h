@@ -55,16 +55,6 @@ public:
 		polygon->clear();
 	}
 
-	static void* CreateFromPoints(Point2d* points, int startIndex, int count)
-	{
-		auto polygon = new Polygon_2();
-
-		for (auto i = 0; i < count; i++)
-			polygon->push_back(points[startIndex + i].ToCGAL<K>());
-
-		return polygon;
-	}
-
 	static Point2d GetPoint(void* ptr, int index)
 	{
 		auto polygon = CastToPolygon2(ptr);

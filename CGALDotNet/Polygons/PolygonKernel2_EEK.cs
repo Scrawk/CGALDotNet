@@ -20,11 +20,6 @@ namespace CGALDotNet.Polygons
             return Polygon2_EEK_Create();
         }
 
-        internal override IntPtr CreateFromPoints(Point2d[] points, int startIndex, int count)
-        {
-            return Polygon2_EEK_CreateFromPoints(points, startIndex, count);
-        }
-
         internal override void Release(IntPtr ptr)
         {
             Polygon2_EEK_Release(ptr);
@@ -122,9 +117,6 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Polygon2_EEK_Create();
-
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr Polygon2_EEK_CreateFromPoints([In] Point2d[] points, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Polygon2_EEK_Release(IntPtr ptr);

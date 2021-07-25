@@ -61,8 +61,9 @@ namespace CGALDotNet.Polygons
         internal Polygon2(CGALKernel kernel, Point2d[] points)
         {
             Kernel = kernel.PolygonKernel2;
+            Ptr = Kernel.Create();
+            SetPoints(points);
             Count = points.Length;
-            Ptr = Kernel.CreateFromPoints(points, 0, points.Length);
             Update();
         }
 
