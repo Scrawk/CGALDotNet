@@ -63,19 +63,22 @@ namespace CGALDotNet.Triangulations
     public abstract class DelaunayTriangulation2 : BaseTriangulation2
     {
 
-        internal DelaunayTriangulation2(CGALKernel kernel) : base(kernel)
+        internal DelaunayTriangulation2(CGALKernel kernel) 
+            : base(kernel.DelaunayTriangulationKernel2)
         {
-            TriangulationKernel = kernel.DelaunayTriangulationKernel2;
+            TriangulationKernel = Kernel as DelaunayTriangulationKernel2;
         }
 
-        internal DelaunayTriangulation2(CGALKernel kernel, Point2d[] points) : base(kernel, points)
+        internal DelaunayTriangulation2(CGALKernel kernel, Point2d[] points) 
+            : base(kernel.DelaunayTriangulationKernel2, points)
         {
-            TriangulationKernel = kernel.DelaunayTriangulationKernel2;
+            TriangulationKernel = Kernel as DelaunayTriangulationKernel2;
         }
 
-        internal DelaunayTriangulation2(CGALKernel kernel, IntPtr ptr) : base(kernel, ptr)
+        internal DelaunayTriangulation2(CGALKernel kernel, IntPtr ptr) 
+            : base(kernel.DelaunayTriangulationKernel2, ptr)
         {
-            TriangulationKernel = kernel.DelaunayTriangulationKernel2;
+            TriangulationKernel = Kernel as DelaunayTriangulationKernel2;
         }
 
         protected private DelaunayTriangulationKernel2 TriangulationKernel { get; private set; }

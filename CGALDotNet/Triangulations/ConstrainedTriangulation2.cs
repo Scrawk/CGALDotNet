@@ -15,7 +15,7 @@ namespace CGALDotNet.Triangulations
 
         public ConstrainedTriangulation2() : base(new K())
         {
-
+            Console.WriteLine("ConstrainedTriangulation2<K>");
         }
 
         public ConstrainedTriangulation2(Point2d[] points) : base(new K(), points)
@@ -25,12 +25,12 @@ namespace CGALDotNet.Triangulations
 
         public ConstrainedTriangulation2(Polygon2<K> polygon) : base(new K())
         {
-            InsertPolygon(polygon);
+            InsertPolygonConstraint(polygon);
         }
 
         public ConstrainedTriangulation2(PolygonWithHoles2<K> polygon) : base(new K())
         {
-            InsertPolygon(polygon);
+            InsertPolygonConstraint(polygon);
         }
 
         internal ConstrainedTriangulation2(IntPtr ptr) : base(new K(), ptr)
@@ -59,33 +59,86 @@ namespace CGALDotNet.Triangulations
             Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
         }
 
+        public void InsertPolygonConstraint(Polygon2<K> polygon)
+        {
+            TriangulationKernel.InsertPolygonConstraint(Ptr, polygon.Ptr);
+        }
+
+        public void InsertPolygonConstraint(PolygonWithHoles2<K> pwh)
+        {
+            TriangulationKernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
+        }
+
     }
 
     public abstract class ConstrainedTriangulation2 : BaseTriangulation2
     {
 
-        internal ConstrainedTriangulation2(CGALKernel kernel) : base(kernel)
+        internal ConstrainedTriangulation2(CGALKernel kernel) 
+            : base(kernel.ConstrainedTriangulationKernel2)
         {
-
+            TriangulationKernel = Kernel as ConstrainedTriangulationKernel2;
         }
 
-        internal ConstrainedTriangulation2(CGALKernel kernel, Point2d[] points) : base(kernel, points)
+        internal ConstrainedTriangulation2(CGALKernel kernel, Point2d[] points)
+            : base(kernel.ConstrainedTriangulationKernel2, points)
         {
-            TriangulationKernel = kernel.ConstrainedTriangulationKernel2;
+            TriangulationKernel = Kernel as ConstrainedTriangulationKernel2;
         }
 
-        internal ConstrainedTriangulation2(CGALKernel kernel, IntPtr ptr) : base(kernel, ptr)
+        internal ConstrainedTriangulation2(CGALKernel kernel, IntPtr ptr) 
+            : base(kernel.ConstrainedTriangulationKernel2, ptr)
         {
-            TriangulationKernel = kernel.ConstrainedTriangulationKernel2;
+            TriangulationKernel = Kernel as ConstrainedTriangulationKernel2;
         }
 
         protected private ConstrainedTriangulationKernel2 TriangulationKernel { get; private set; }
 
         public int ConstrainedEdgeCount => TriangulationKernel.ConstrainedEdgesCount(Ptr);
 
-        public void InsertConstraint(Segment2d segment)
+        public int IncidentConstraintCount(int vertIndex)
         {
-            TriangulationKernel.InsertConstraint(Ptr, segment);
+            return TriangulationKernel.IncidentConstraintCount(Ptr, vertIndex);
+        }
+
+        public bool HasIncidentConstraint(int vertIndex)
+        {
+            return TriangulationKernel.HasIncidentConstraints(Ptr, vertIndex);
+        }
+
+        public void InsertSegmentConstraint(Segment2d segment)
+        {
+            InsertSegmentConstraint(segment.A, segment.B);
+        }
+
+        public void InsertSegmentConstraint(Point2d a, Point2d b)
+        {
+            TriangulationKernel.InsertSegmentConstraintFromPoints(Ptr, a, b);
+        }
+
+        public void InsertSegmentConstraints(Segment2d[] segments)
+        {
+            TriangulationKernel.InsertSegmentConstraints(Ptr, segments, 0, segments.Length);
+        }
+
+        public void GetConstraints(TriEdgeConstraint2[] constraints)
+        {
+            TriangulationKernel.GetConstraints(Ptr, constraints, 0, constraints.Length);
+        }
+
+        public void GetIncidentConstraints(int vertexIndex, TriEdgeConstraint2[] constraints)
+        {
+            TriangulationKernel.GetIncidentConstraints(Ptr, vertexIndex, constraints, 0, constraints.Length);
+        }
+
+        public void RemoveConstraint(int faceIndex, int neighbourIndex)
+        {
+            TriangulationKernel.RemoveConstraint(Ptr, faceIndex, neighbourIndex);
+        }
+
+        public void RemoveIncidentConstraints(int vertexIndex)
+        {
+            TriangulationKernel.RemoveIncidentConstraints(Ptr, vertexIndex);
         }
 
         public override void Print(StringBuilder builder)

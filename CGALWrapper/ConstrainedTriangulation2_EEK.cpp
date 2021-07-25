@@ -141,19 +141,63 @@ int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(void* ptr)
 	return ConstrainedTriangulation2<EEK>::ConstrainedEdgesCount(ptr);
 }
 
-void ConstrainedTriangulation2_EEK_InsertConstraint(void* ptr, Point2d a, Point2d b)
+BOOL ConstrainedTriangulation2_EEK_HasIncidentConstraints(void* ptr, int index)
 {
-	ConstrainedTriangulation2<EEK>::InsertConstraint(ptr, a, b);
+	return ConstrainedTriangulation2<EEK>::HasIncidentConstraints(ptr, index);
+}
+
+int ConstrainedTriangulation2_EEK_IncidentConstraintCount(void* ptr, int index)
+{
+	return ConstrainedTriangulation2<EEK>::IncidentConstraintCount(ptr, index);
+}
+
+void ConstrainedTriangulation2_EEK_InsertSegmentConstraintFromPoints(void* ptr, Point2d a, Point2d b)
+{
+	ConstrainedTriangulation2<EEK>::InsertSegmentConstraint(ptr, a, b);
+}
+
+void ConstrainedTriangulation2_EEK_InsertSegmentConstraintFromVertices(void* ptr, int vertIndex1, int vertIndex2)
+{
+	ConstrainedTriangulation2<EEK>::InsertSegmentConstraint(ptr, vertIndex1, vertIndex2);
+}
+
+void ConstrainedTriangulation2_EEK_InsertSegmentConstraints(void* ptr, Segment2d* segments, int startIndex, int count)
+{
+	ConstrainedTriangulation2<EEK>::InsertSegmentConstraints(ptr, segments, startIndex, count);
+}
+
+void ConstrainedTriangulation2_EEK_InsertPolygonConstraint(void* triPtr, void* polyPtr)
+{
+	ConstrainedTriangulation2<EEK>::InsertPolygonConstraint(triPtr, polyPtr);
+}
+
+void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(void* triPtr, void* pwhPtr)
+{
+	ConstrainedTriangulation2<EEK>::InsertPolygonWithHolesConstraint(triPtr, pwhPtr);
+}
+
+void ConstrainedTriangulation2_EEK_GetConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count)
+{
+	ConstrainedTriangulation2<EEK>::GetConstraints(ptr, constraints, startIndex, count);
+}
+
+void ConstrainedTriangulation2_EEK_GetIncidentConstraints(void* ptr, int vertexIndex, TriEdgeConstraint2* constraints, int startIndex, int count)
+{
+	ConstrainedTriangulation2<EEK>::GetIncidentConstraints(ptr, vertexIndex, constraints, startIndex, count);
+}
+
+void ConstrainedTriangulation2_EEK_RemoveConstraint(void* ptr, int faceIndex, int neighbourIndex)
+{
+	ConstrainedTriangulation2<EEK>::RemoveConstraint(ptr, faceIndex, neighbourIndex);
+}
+
+void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(void* ptr, int vertexIndex)
+{
+	ConstrainedTriangulation2<EEK>::RemoveIncidentConstraints(ptr, vertexIndex);
 }
 
 void Test()
 {
-	ConstrainedTriangulation2<EEK>::Triangulation_2 t;
-
-	for (auto edge = t.constrained_edges_begin(); edge != t.constrained_edges_end(); ++edge)
-	{
-		
-	}
-
+	ConstrainedTriangulation2<EEK>::Face face;
 
 }

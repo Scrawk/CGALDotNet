@@ -14,8 +14,14 @@ namespace CGALDotNet.Triangulations
 
         internal override string Name => "EEK";
 
+        public override string ToString()
+        {
+            return string.Format("[DelaunayTriangulationKernel2<{0}>: ]", Name);
+        }
+
         internal override IntPtr Create()
         {
+            Console.WriteLine(" DelaunayTriangulation2_EEK_Create");
             return DelaunayTriangulation2_EEK_Create();
         }
 

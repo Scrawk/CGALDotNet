@@ -18,18 +18,6 @@ class TriangulationMap
 
 private:
 
-	/*
-	typedef CGAL::Triangulation_vertex_base_with_info_2<int, K> Vb_info;
-	typedef CGAL::Triangulation_face_base_with_info_2<int, K> Fb_info;
-	typedef CGAL::Triangulation_data_structure_2<Vb_info, Fb_info> Tds;
-	typedef CGAL::Triangulation_2<K, Tds> Triangulation_2;
-
-	typedef CGAL::Constrained_triangulation_face_base_2<K> CFb;
-	typedef CGAL::Triangulation_face_base_with_info_2<int, K, CFb> CFb_info;
-	typedef CGAL::Triangulation_data_structure_2<Vb_info, CFb_info> CTds;
-	typedef CGAL::Constrained_triangulation_2<K, CTds> CTriangulation_2;
-	*/
-
 	IndexMap<VERTEX> vertexMap;
 
 	IndexMap<FACE> faceMap;
@@ -73,6 +61,9 @@ public:
 	template<class TRI>
 	VERTEX* FindVertex(TRI& model, int index)
 	{
+		if (index == NULL_INDEX) 
+			return nullptr;
+
 		SetVertexIndices(model);
 		BuildVertexMap(model);
 		return vertexMap.Find(index);
@@ -81,6 +72,9 @@ public:
 	template<class TRI>
 	FACE* FindFace(TRI& model, int index)
 	{
+		if (index == NULL_INDEX)
+			return nullptr;
+
 		SetFaceIndices(model);
 		BuildFaceMap(model);
 		return faceMap.Find(index);

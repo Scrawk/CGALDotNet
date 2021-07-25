@@ -21,11 +21,21 @@
 #include <CGAL/Constrained_triangulation_face_base_2.h>
 #include <CGAL/Constrained_triangulation_plus_2.h>
 
+struct TriEdgeConstraint2
+{
+	int FaceIndex[2];
+};
+
 template<class K>
 class ConstrainedTriangulation2
 {
 
 public:
+
+	typedef CGAL::No_constraint_intersection_tag Tag1;
+	typedef CGAL::No_constraint_intersection_requiring_constructions_tag Tag2;
+	typedef CGAL::Exact_predicates_tag Tag3;
+	typedef CGAL::Exact_intersections_tag Tag4;
 
 	typedef CGAL::Triangulation_vertex_base_with_info_2<int, K> Vb;
 	typedef CGAL::Constrained_triangulation_face_base_2<K> CFb;
@@ -33,11 +43,16 @@ public:
 
 	typedef CGAL::Triangulation_data_structure_2<Vb, Fb> Tds;
 
-	typedef CGAL::Constrained_triangulation_2<K, Tds> Triangulation_2;
+	typedef CGAL::Constrained_triangulation_2<K, Tds, Tag4> Triangulation_2;
 	typedef typename Triangulation_2::Point Point_2;
 
 	typedef typename Triangulation_2::Finite_faces_iterator Finite_faces;
 	typedef typename Triangulation_2::Finite_vertices_iterator Finite_vertices;
+
+	typedef typename Triangulation_2::Face_circulator Face_circulator;
+	typedef typename Triangulation_2::Edge_circulator Edge_circulator;
+	typedef typename Triangulation_2::Vertex_circulator Vertex_circulator;
+
 	typedef typename Triangulation_2::Face_handle Face;
 	typedef typename Triangulation_2::Vertex_handle Vertex;
 	typedef typename Tds::Edge Edge;
@@ -439,39 +454,179 @@ public:
 		return count;
 	}
 
-	static BOOL IsConstrained(void* ptr, int faceIndex, int neighbourIndex)
+	static BOOL HasIncidentConstraints(void* ptr, int index)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		auto vert = tri->map.FindVertex(tri->model, index);
+
+		if (vert != nullptr)
+			return tri->model.are_there_incident_constraints(*vert);
+		else
+			return FALSE;
+	}
+
+	static int IncidentConstraintCount(void* ptr, int index)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		int count = 0;
+
+		auto vert = tri->map.FindVertex(tri->model, index);
+		if (vert != nullptr)
+		{
+			auto edge = (*vert)->incident_edges(), end(edge);
+			if (edge != nullptr)
+			{
+				do
+				{
+					if (!tri->model.is_infinite(edge->first) &&
+						tri->model.is_constrained(*edge))
+						++count;
+
+				} while (++edge != end);
+			}
+		}
+
+		return count;
+	}
+
+	static void InsertSegmentConstraint(void* ptr, Point2d a, Point2d b)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		tri->model.insert_constraint(a.ToCGAL<K>(), b.ToCGAL<K>());
+		tri->map.OnModelChanged();
+	}
+
+	static void InsertSegmentConstraint(void* ptr, int vertIndex1, int vertIndex2)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		auto vert1 = tri->map.FindVertex(tri->model, vertIndex1);
+		auto vert2 = tri->map.FindVertex(tri->model, vertIndex2);
+
+		if (vert1 != nullptr && vert2 != nullptr)
+		{
+			tri->model.insert_constraint(*vert1, *vert2);
+			tri->map.OnModelChanged();
+		}
+
+	}
+
+	static void InsertSegmentConstraints(void* ptr, Segment2d* segments, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		for (int i = 0; i < count; i++)
+		{
+			auto a = segments[startIndex + i].a.ToCGAL<K>();
+			auto b = segments[startIndex + i].b.ToCGAL<K>();
+
+			tri->model.insert_constraint(a, b);
+		}
+		
+		tri->map.OnModelChanged();
+	}
+
+	static void InsertPolygonConstraint(void* triPtr, void* polyPtr)
+	{
+		auto tri = CastToTriangulation2(triPtr);
+
+		auto polygon = Polygon2<K>::CastToPolygon2(polyPtr);
+		tri->model.insert_constraint(polygon->vertices_begin(), polygon->vertices_end(), true);
+		tri->map.OnModelChanged();
+	}
+
+	static void InsertPolygonWithHolesConstraint(void* triPtr, void* pwhPtr)
+	{
+		auto tri = CastToTriangulation2(triPtr);
+
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		if (!pwh->is_unbounded())
+			tri->model.insert_constraint(pwh->outer_boundary().vertices_begin(), pwh->outer_boundary().vertices_end(), true);
+
+		for (auto& hole : pwh->holes())
+			tri->model.insert_constraint(hole.vertices_begin(), hole.vertices_end(), true);
+
+		tri->map.OnModelChanged();
+	}
+
+	static void GetConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		//tri->map.SetVertexIndices(tri->model);
+		tri->map.SetFaceIndices(tri->model);
+
+		for (auto edge = tri->model.constrained_edges_begin(); edge != tri->model.constrained_edges_end(); ++edge)
+		{
+			if (!tri->model.is_infinite(edge->first))
+			{
+				constraints[i].FaceIndex[0] = edge->first->info();
+				constraints[i].FaceIndex[1] = edge->second;
+
+				if (i++ >= count) return;
+			}
+		}
+	}
+
+	static void GetIncidentConstraints(void* ptr, int vertexIndex,  TriEdgeConstraint2* constraints, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		int i = startIndex;
+
+		auto vert = tri->map.FindVertex(tri->model, vertexIndex);
+		if (vert != nullptr)
+		{
+			//tri->map.SetVertexIndices(tri->model);
+			tri->map.SetFaceIndices(tri->model);
+
+			auto edge = (*vert)->incident_edges(), end(edge);
+			if (edge != nullptr)
+			{
+				do
+				{
+					if (!tri->model.is_infinite(edge->first) && tri->model.is_constrained(*edge))
+					{
+						constraints[i].FaceIndex[0] = edge->first->info();
+						constraints[i].FaceIndex[1] = edge->second;
+
+						if (i++ >= count) return;
+					}
+
+				} while (++edge != end);
+			}
+			
+		}
+	}
+
+	static void RemoveConstraint(void* ptr, int faceIndex, int neighbourIndex)
 	{
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
 		auto neighbour = tri->map.FindFace(tri->model, neighbourIndex);
 
-		for (auto edge = tri->model.constrained_edges_begin(); edge != tri->model.constrained_edges_end(); ++edge)
+		if (face != nullptr && neighbour != nullptr)
 		{
-			if (edge->first.info() == faceIndex)
-			{
-				int n = TriUtil::NeighbourIndex(*face, *neighbour);
-
-				if (edge->second == n)
-					return TRUE;
-			}
+			int n = TriUtil::NeighbourIndex(*face, *neighbour);
+			if (n != NULL_INDEX)
+				tri->model.remove_constraint(*face, n);
 		}
-
-		return FALSE;
 	}
 
-	static BOOL HasIncidentConstraints(void* ptr)
-	{
-		auto tri = CastToTriangulation2(ptr);
-	}
-
-	static void InsertConstraint(void* ptr, Point2d a, Point2d b)
+	static void RemoveIncidentConstraints(void* ptr, int vertexIndex)
 	{
 		auto tri = CastToTriangulation2(ptr);
 
-		tri->model.insert_constraint(a.ToCGAL<K>(), b.ToCGAL<K>());
-
-		tri->map.OnModelChanged();
+		auto vert = tri->map.FindVertex(tri->model, vertexIndex);
+		if (vert != nullptr)
+		{
+			tri->model.remove_incident_constraints(*vert);
+		}
 	}
 
 };

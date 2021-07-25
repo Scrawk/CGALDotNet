@@ -62,7 +62,27 @@ extern "C"
 
 	CGALWRAPPER_API int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(void* ptr);
 
-	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertConstraint(void* ptr, Point2d a, Point2d b);
+	CGALWRAPPER_API BOOL ConstrainedTriangulation2_EEK_HasIncidentConstraints(void* ptr, int index);
+
+	CGALWRAPPER_API int ConstrainedTriangulation2_EEK_IncidentConstraintCount(void* ptr, int index);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertSegmentConstraintFromPoints(void* ptr, Point2d a, Point2d b);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertSegmentConstraintFromVertices(void* ptr, int vertIndex1, int vertIndex2);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertSegmentConstraints(void* ptr, Segment2d* segments, int startIndex, int count);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertPolygonConstraint(void* triPtr, void* polyPtr);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(void* triPtr, void* pwhPtr);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_GetConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_GetIncidentConstraints(void* ptr, int vertexIndex, TriEdgeConstraint2* constraints, int startIndex, int count);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_RemoveConstraint(void* ptr, int faceIndex, int neighbourIndex);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(void* ptr, int vertexIndex);
 
 
 }

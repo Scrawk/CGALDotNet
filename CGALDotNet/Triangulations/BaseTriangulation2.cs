@@ -14,22 +14,22 @@ namespace CGALDotNet.Triangulations
 
         }
 
-        internal BaseTriangulation2(CGALKernel kernel)
+        internal BaseTriangulation2(BaseTriangulationKernel2 kernel)
         {
-            Kernel = kernel.TriangulationKernel2;
+            Kernel = kernel;
             Ptr = Kernel.Create();
         }
 
-        internal BaseTriangulation2(CGALKernel kernel, Point2d[] points)
+        internal BaseTriangulation2(BaseTriangulationKernel2 kernel, Point2d[] points)
         {
-            Kernel = kernel.TriangulationKernel2;
+            Kernel = kernel;
             Ptr = Kernel.Create();
             InsertPoints(points);
         }
 
-        internal BaseTriangulation2(CGALKernel kernel, IntPtr ptr) : base(ptr)
+        internal BaseTriangulation2(BaseTriangulationKernel2 kernel, IntPtr ptr) : base(ptr)
         {
-            Kernel = kernel.TriangulationKernel2;
+            Kernel = kernel;
         }
 
         protected private BaseTriangulationKernel2 Kernel { get; private set; }

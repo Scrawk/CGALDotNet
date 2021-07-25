@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CGALDotNetConsole": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

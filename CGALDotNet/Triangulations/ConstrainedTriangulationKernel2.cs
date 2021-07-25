@@ -10,7 +10,27 @@ namespace CGALDotNet.Triangulations
     {
         internal abstract int ConstrainedEdgesCount(IntPtr ptr);
 
-        internal abstract void InsertConstraint(IntPtr ptr, Segment2d segment);
+        internal abstract bool HasIncidentConstraints(IntPtr ptr, int index);
+
+        internal abstract int IncidentConstraintCount(IntPtr ptr, int index);
+
+        internal abstract void InsertSegmentConstraintFromPoints(IntPtr ptr, Point2d a, Point2d b);
+
+        internal abstract void InsertSegmentConstraintFromVertices(IntPtr ptr, int vertIndex1, int vertIndex2);
+
+        internal abstract void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+
+        internal abstract void InsertPolygonConstraint(IntPtr triPtr, IntPtr polyPtr);
+
+        internal abstract void InsertPolygonWithHolesConstraint(IntPtr triPtr, IntPtr pwhPtr);
+
+        internal abstract void GetConstraints(IntPtr ptr, TriEdgeConstraint2[] constraints, int startIndex, int count);
+
+        internal abstract void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdgeConstraint2[] constraints, int startIndex, int count);
+
+        internal abstract void RemoveConstraint(IntPtr ptr, int faceIndex, int neighbourIndex);
+
+        internal abstract void RemoveIncidentConstraints(IntPtr ptr, int vertexIndex);
 
     }
 }

@@ -20,24 +20,45 @@ namespace CGALDotNetConsole.Examples
                 new Point2d(0, 0),
                 new Point2d(5, 0),
                 new Point2d(5, 5),
-                new Point2d(2, 2),
+                //new Point2d(2, 2),
                 new Point2d(0, 5)
             };
 
-            var tri = new ConstrainedTriangulation2<EEK>(points);
+            var polygon = new Polygon2<EEK>(points);
 
-            //tri.InsertConstraint(new Segment2d(points[0], points[3]));
+            var tri = new ConstrainedTriangulation2<EEK>(polygon);
 
+            int constraintCount = tri.ConstrainedEdgeCount;
+
+            int incidentCount = tri.IncidentConstraintCount(0);
+
+            Console.WriteLine("Constraint count = " + constraintCount);
+
+            Console.WriteLine("Has constraint for vert = " + tri.HasIncidentConstraint(0));
+
+            Console.WriteLine("Incident constraint count for vert =" + incidentCount);
+
+            Console.WriteLine();
+            Console.WriteLine("Constraints");
+
+            var constraints = new TriEdgeConstraint2[constraintCount];
+            tri.GetConstraints(constraints);
+
+            foreach (var constraint in constraints)
+                Console.WriteLine(constraint);
+
+            Console.WriteLine();
+            Console.WriteLine("Incident constraints");
+
+            constraints = new TriEdgeConstraint2[incidentCount];
+            tri.GetIncidentConstraints(0, constraints);
+
+            foreach (var constraint in constraints)
+                Console.WriteLine(constraint);
+
+            Console.WriteLine();
             tri.Print();
 
-            points = new Point2d[tri.VertexCount];
-            tri.GetPoints(points);
-
-            Console.WriteLine("Points " + points.Length);
-            Console.WriteLine();
-
-            for (int i = 0; i < points.Length; i++)
-                Console.WriteLine("Point " + i + " = " + points[i]);
         }
     }
 }

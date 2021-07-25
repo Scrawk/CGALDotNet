@@ -64,19 +64,22 @@ namespace CGALDotNet.Triangulations
     public abstract class Triangulation2 : BaseTriangulation2
     {
 
-        internal Triangulation2(CGALKernel kernel) : base(kernel)
+        internal Triangulation2(CGALKernel kernel) 
+            : base(kernel.TriangulationKernel2)
         {
-
+            TriangulationKernel = Kernel as TriangulationKernel2;
         }
 
-        internal Triangulation2(CGALKernel kernel, Point2d[] points) : base(kernel, points)
+        internal Triangulation2(CGALKernel kernel, Point2d[] points)
+            : base(kernel.TriangulationKernel2, points)
         {
-            TriangulationKernel = kernel.TriangulationKernel2;
+            TriangulationKernel = Kernel as TriangulationKernel2;
         }
 
-        internal Triangulation2(CGALKernel kernel, IntPtr ptr) : base(kernel, ptr)
+        internal Triangulation2(CGALKernel kernel, IntPtr ptr) 
+            : base(kernel.TriangulationKernel2, ptr)
         {
-            TriangulationKernel = kernel.TriangulationKernel2;
+            TriangulationKernel = Kernel as TriangulationKernel2;
         }
 
         protected private TriangulationKernel2 TriangulationKernel { get; private set; }
