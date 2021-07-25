@@ -154,6 +154,11 @@ namespace CGALDotNet.Triangulations
             TriangulationKernel.GetConstraints(Ptr, constraints, 0, constraints.Length);
         }
 
+        public void GetConstraints(Segment2d[] constraints)
+        {
+            TriangulationKernel.GetConstraints(Ptr, constraints, 0, constraints.Length);
+        }
+
         public void GetIncidentConstraints(int vertexIndex, TriEdgeConstraint2[] constraints)
         {
             TriangulationKernel.GetIncidentConstraints(Ptr, vertexIndex, constraints, 0, constraints.Length);

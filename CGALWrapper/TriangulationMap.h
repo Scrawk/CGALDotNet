@@ -81,6 +81,13 @@ public:
 	}
 
 	template<class TRI>
+	void SetIndices(TRI& model)
+	{
+		SetVertexIndices(model);
+		SetFaceIndices(model);
+	}
+
+	template<class TRI>
 	void SetVertexIndices(TRI& model)
 	{
 		if (vertexMap.indicesSet)

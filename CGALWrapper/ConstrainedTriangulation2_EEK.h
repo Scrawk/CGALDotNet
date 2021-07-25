@@ -76,7 +76,9 @@ extern "C"
 
 	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(void* triPtr, void* pwhPtr);
 
-	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_GetConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count);
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_GetEdgeConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_GetSegmentConstraints(void* ptr, Segment2d* constraints, int startIndex, int count);
 
 	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_GetIncidentConstraints(void* ptr, int vertexIndex, TriEdgeConstraint2* constraints, int startIndex, int count);
 

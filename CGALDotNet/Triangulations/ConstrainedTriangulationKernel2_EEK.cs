@@ -193,7 +193,12 @@ namespace CGALDotNet.Triangulations
 
         internal override void GetConstraints(IntPtr ptr, TriEdgeConstraint2[] constraints, int startIndex, int count)
         {
-            ConstrainedTriangulation2_EEK_GetConstraints(ptr, constraints, startIndex, count);
+            ConstrainedTriangulation2_EEK_GetEdgeConstraints(ptr, constraints, startIndex, count);
+        }
+
+        internal override void GetConstraints(IntPtr ptr, Segment2d[] constraints, int startIndex, int count)
+        {
+            ConstrainedTriangulation2_EEK_GetSegmentConstraints(ptr, constraints, startIndex, count);
         }
 
         internal override void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdgeConstraint2[] constraints, int startIndex, int count)
@@ -326,7 +331,10 @@ namespace CGALDotNet.Triangulations
         private static extern void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(IntPtr triPtr, IntPtr pwhPtr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ConstrainedTriangulation2_EEK_GetConstraints(IntPtr ptr, [Out] TriEdgeConstraint2[] constraints, int startIndex, int count);
+        private static extern void ConstrainedTriangulation2_EEK_GetEdgeConstraints(IntPtr ptr, [Out] TriEdgeConstraint2[] constraints, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ConstrainedTriangulation2_EEK_GetSegmentConstraints(IntPtr ptr, [Out] Segment2d[] constraints, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ConstrainedTriangulation2_EEK_GetIncidentConstraints(IntPtr ptr, int vertexIndex, [Out] TriEdgeConstraint2[] constraints, int startIndex, int count);

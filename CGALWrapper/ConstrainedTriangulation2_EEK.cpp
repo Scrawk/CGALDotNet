@@ -176,7 +176,12 @@ void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(void* triPtr
 	ConstrainedTriangulation2<EEK>::InsertPolygonWithHolesConstraint(triPtr, pwhPtr);
 }
 
-void ConstrainedTriangulation2_EEK_GetConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetEdgeConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count)
+{
+	ConstrainedTriangulation2<EEK>::GetConstraints(ptr, constraints, startIndex, count);
+}
+
+void ConstrainedTriangulation2_EEK_GetSegmentConstraints(void* ptr, Segment2d* constraints, int startIndex, int count)
 {
 	ConstrainedTriangulation2<EEK>::GetConstraints(ptr, constraints, startIndex, count);
 }

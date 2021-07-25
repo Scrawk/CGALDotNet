@@ -234,24 +234,18 @@ public:
 
 	static BOOL GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment)
 	{
+		if (neighbourIndex < 0 || neighbourIndex > 2)
+			return FALSE;
+
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
-		auto neighbour = tri->map.FindFace(tri->model, neighbourIndex);
-
-		if (face != nullptr && neighbour != nullptr)
+		if (face != nullptr)
 		{
 			if (tri->model.is_infinite(*face))
 				return FALSE;
 
-			int n = TriUtil::NeighbourIndex(*face, *neighbour);
-			if (n == NULL_INDEX)
-				return FALSE;
-
-			if (tri->model.is_infinite(*neighbour))
-				return FALSE;
-
-			auto seg = tri->model.segment(*face, n);
+			auto seg = tri->model.segment(*face, neighbourIndex);
 			segment = Segment2d::FromCGAL<K>(seg[0], seg[1]);
 
 			return TRUE;
@@ -397,24 +391,18 @@ public:
 
 	static BOOL FlipEdge(void* ptr, int faceIndex, int neighbourIndex)
 	{
+		if (neighbourIndex < 0 || neighbourIndex > 2)
+			return FALSE;
+
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
-		auto neighbour = tri->map.FindFace(tri->model, neighbourIndex);
-
-		if (face != nullptr && neighbour != nullptr)
+		if (face != nullptr)
 		{
 			if (tri->model.is_infinite(*face))
 				return FALSE;
 
-			int n = TriUtil::NeighbourIndex(*face, *neighbour);
-			if (n == NULL_INDEX)
-				return FALSE;
-
-			if (tri->model.is_infinite(*neighbour))
-				return FALSE;
-
-			tri->model.flip(*face, n);
+			tri->model.flip(*face, neighbourIndex);
 			tri->map.OnModelChanged();
 			return TRUE;
 		}
