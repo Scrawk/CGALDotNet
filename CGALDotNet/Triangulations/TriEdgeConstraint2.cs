@@ -8,31 +8,14 @@ namespace CGALDotNet.Triangulations
 {
     public struct TriEdgeConstraint2
     {
-        public int FaceIndex0;
-        public int FaceIndex1;
+        public int FaceIndex;
+        public int NeighbourIndex;
 
         public override string ToString()
         {
-            return string.Format("[TriEdgeConstraint2: Face0={0}, Face1={1},]",
-                    FaceIndex0, FaceIndex1);
+            return string.Format("[TriEdgeConstraint2: FaceIndex={0}, NeighbourIndex={1}]", 
+                FaceIndex, NeighbourIndex);
         }
 
-        unsafe public int this[int i]
-        {
-            get
-            {
-                if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("TriEdgeConstraint2 vertex index out of range.");
-
-                fixed (TriEdgeConstraint2* array = &this) { return ((int*)array)[i]; }
-            }
-            set
-            {
-                if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("TriEdgeConstraint2 vertex index out of range.");
-
-                fixed (int* array = &FaceIndex0) { array[i] = value; }
-            }
-        }
     }
 }

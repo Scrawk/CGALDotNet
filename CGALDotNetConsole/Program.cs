@@ -42,7 +42,7 @@ namespace CGALDotNetConsole
 
             //ConstrainedTriangulation2Examples.CreateConstrainedTriangulation();
 
-            ConstrainedTriangulation2Examples.GetPolygonIndices();
+            //ConstrainedTriangulation2Examples.GetPolygonIndices();
 
             //PolygonPartition2Examples.CreatePolygonPartition();
 

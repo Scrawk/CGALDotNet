@@ -23,7 +23,8 @@
 
 struct TriEdgeConstraint2
 {
-	int FaceIndex[2];
+	int FaceIndex;
+	int NeighbourIndex;
 };
 
 template<class K>
@@ -480,8 +481,7 @@ public:
 			{
 				do
 				{
-					if (!tri->model.is_infinite(edge->first) &&
-						tri->model.is_constrained(*edge))
+					if (tri->model.is_constrained(*edge))
 						++count;
 
 				} while (++edge != end);
@@ -558,18 +558,30 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		//tri->map.SetVertexIndices(tri->model);
+		tri->map.SetVertexIndices(tri->model);
 		tri->map.SetFaceIndices(tri->model);
 
 		for (auto edge = tri->model.constrained_edges_begin(); edge != tri->model.constrained_edges_end(); ++edge)
 		{
 			if (!tri->model.is_infinite(edge->first))
 			{
-				constraints[i].FaceIndex[0] = edge->first->info();
-				constraints[i].FaceIndex[1] = edge->second;
-
-				if (i++ >= count) return;
+				constraints[i].FaceIndex = edge->first->info();
+				constraints[i].NeighbourIndex = edge->second;
 			}
+			else
+			{
+				auto neighbour = edge->first->neighbor(edge->second);
+				auto n = neighbour->index(edge->first);
+
+				if (!tri->model.is_infinite(neighbour))
+					constraints[i].FaceIndex = neighbour->info();
+				else
+					constraints[i].FaceIndex = NULL_INDEX;
+
+				constraints[i].NeighbourIndex = n;
+			}
+
+			if (i++ >= count) return;
 		}
 	}
 
@@ -581,7 +593,7 @@ public:
 		auto vert = tri->map.FindVertex(tri->model, vertexIndex);
 		if (vert != nullptr)
 		{
-			//tri->map.SetVertexIndices(tri->model);
+			tri->map.SetVertexIndices(tri->model);
 			tri->map.SetFaceIndices(tri->model);
 
 			auto edge = (*vert)->incident_edges(), end(edge);
@@ -589,10 +601,26 @@ public:
 			{
 				do
 				{
-					if (!tri->model.is_infinite(edge->first) && tri->model.is_constrained(*edge))
+					if (tri->model.is_constrained(*edge))
 					{
-						constraints[i].FaceIndex[0] = edge->first->info();
-						constraints[i].FaceIndex[1] = edge->second;
+						if (!tri->model.is_infinite(edge->first))
+						{
+							constraints[i].FaceIndex = edge->first->info();
+							constraints[i].NeighbourIndex = edge->second;
+						}
+						else
+						{
+							auto neighbour = edge->first->neighbor(edge->second);
+							auto n = neighbour->index(edge->first);
+
+							if (!tri->model.is_infinite(neighbour))
+								constraints[i].FaceIndex = neighbour->info();
+							else
+								constraints[i].FaceIndex = NULL_INDEX;
+
+
+							constraints[i].NeighbourIndex = n;
+						}
 
 						if (i++ >= count) return;
 					}
@@ -605,16 +633,15 @@ public:
 
 	static void RemoveConstraint(void* ptr, int faceIndex, int neighbourIndex)
 	{
+		if (neighbourIndex < 0 || neighbourIndex > 2)
+			return;
+
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
-		auto neighbour = tri->map.FindFace(tri->model, neighbourIndex);
-
-		if (face != nullptr && neighbour != nullptr)
+		if (face != nullptr)
 		{
-			int n = TriUtil::NeighbourIndex(*face, *neighbour);
-			if (n != NULL_INDEX)
-				tri->model.remove_constraint(*face, n);
+			tri->model.remove_constraint(*face, neighbourIndex);
 		}
 	}
 

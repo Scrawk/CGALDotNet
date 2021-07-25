@@ -15,7 +15,7 @@ namespace CGALDotNet.Triangulations
 
         public ConstrainedTriangulation2() : base(new K())
         {
-            Console.WriteLine("ConstrainedTriangulation2<K>");
+
         }
 
         public ConstrainedTriangulation2(Point2d[] points) : base(new K(), points)

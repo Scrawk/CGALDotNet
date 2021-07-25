@@ -11,148 +11,164 @@ namespace CGALDotNet.Polygons
 
         internal override string Name => "EEK";
 
-        internal override void ClearBuffer()
+        internal override IntPtr Create()
         {
-            PolygonBoolean2_EEK_ClearBuffer();
+            return PolygonBoolean2_EEK_Create();
         }
 
-        internal override IntPtr CopyBufferItem(int index)
+        internal override void Release(IntPtr ptr)
         {
-            return PolygonBoolean2_EEK_CopyBufferItem(index);
+            PolygonBoolean2_EEK_Release(ptr);
         }
 
-        internal override bool DoIntersect(Polygon2 poly1, Polygon2 poly2)
+        internal override void ClearBuffer(IntPtr ptr)
         {
-            return PolygonBoolean2_EEK_DoIntersect_P_P(poly1.Ptr, poly2.Ptr);
+            PolygonBoolean2_EEK_ClearBuffer(ptr);
         }
 
-        internal override bool DoIntersect(Polygon2 poly1, PolygonWithHoles2 poly2)
+        internal override IntPtr CopyBufferItem(IntPtr ptr, int index)
         {
-            return PolygonBoolean2_EEK_DoIntersect_P_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_CopyBufferItem(ptr, index);
         }
 
-        internal override bool DoIntersect(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
+        internal override bool DoIntersect(IntPtr ptr, Polygon2 poly1, Polygon2 poly2)
         {
-            return PolygonBoolean2_EEK_DoIntersect_PWH_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_DoIntersect_P_P(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override int Intersect(Polygon2 poly1, Polygon2 poly2)
+        internal override bool DoIntersect(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2)
         {
-            return PolygonBoolean2_EEK_Intersect_P_P(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_DoIntersect_P_PWH(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override int Intersect(Polygon2 poly1, PolygonWithHoles2 poly2)
+        internal override bool DoIntersect(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
         {
-            return PolygonBoolean2_EEK_Intersect_P_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_DoIntersect_PWH_PWH(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override int Intersect(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
+        internal override int Intersect(IntPtr ptr, Polygon2 poly1, Polygon2 poly2)
         {
-            return PolygonBoolean2_EEK_Intersect_PWH_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_Intersect_P_P(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override bool Join(Polygon2 poly1, Polygon2 poly2, out IntPtr result)
+        internal override int Intersect(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2)
         {
-            return PolygonBoolean2_EEK_Join_P_P(poly1.Ptr, poly2.Ptr, out result);
+            return PolygonBoolean2_EEK_Intersect_P_PWH(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override bool Join(Polygon2 poly1, PolygonWithHoles2 poly2, out IntPtr result)
+        internal override int Intersect(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
         {
-            return PolygonBoolean2_EEK_Join_P_PWH(poly1.Ptr, poly2.Ptr, out result);
+            return PolygonBoolean2_EEK_Intersect_PWH_PWH(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override bool Join(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2, out IntPtr result)
+        internal override bool Join(IntPtr ptr, Polygon2 poly1, Polygon2 poly2, out IntPtr result)
         {
-            return PolygonBoolean2_EEK_Join_PWH_PWH(poly1.Ptr, poly2.Ptr, out result);
+            return PolygonBoolean2_EEK_Join_P_P(ptr, poly1.Ptr, poly2.Ptr, out result);
         }
 
-        internal override int Difference(Polygon2 poly1, Polygon2 poly2)
+        internal override bool Join(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2, out IntPtr result)
         {
-            return PolygonBoolean2_EEK_Difference_P_P(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_Join_P_PWH(ptr, poly1.Ptr, poly2.Ptr, out result);
         }
 
-        internal override int Difference(Polygon2 poly1, PolygonWithHoles2 poly2)
+        internal override bool Join(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2, out IntPtr result)
         {
-            return PolygonBoolean2_EEK_Difference_P_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_Join_PWH_PWH(ptr, poly1.Ptr, poly2.Ptr, out result);
         }
 
-        internal override int Difference(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
+        internal override int Difference(IntPtr ptr, Polygon2 poly1, Polygon2 poly2)
         {
-            return PolygonBoolean2_EEK_Difference_PWH_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_Difference_P_P(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override int SymmetricDifference(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
+        internal override int Difference(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2)
         {
-            return PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_Difference_P_PWH(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override int SymmetricDifference(Polygon2 poly1, Polygon2 poly2)
+        internal override int Difference(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
         {
-            return PolygonBoolean2_EEK_SymmetricDifference_P_P(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_Difference_PWH_PWH(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override int SymmetricDifference(Polygon2 poly1, PolygonWithHoles2 poly2)
+        internal override int SymmetricDifference(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2)
         {
-            return PolygonBoolean2_EEK_SymmetricDifference_P_PWH(poly1.Ptr, poly2.Ptr);
+            return PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(ptr, poly1.Ptr, poly2.Ptr);
         }
 
-        internal override int Complement(PolygonWithHoles2 poly)
+        internal override int SymmetricDifference(IntPtr ptr, Polygon2 poly1, Polygon2 poly2)
         {
-            return PolygonBoolean2_EEK_Complement_PWH(poly.Ptr);
+            return PolygonBoolean2_EEK_SymmetricDifference_P_P(ptr, poly1.Ptr, poly2.Ptr);
+        }
+
+        internal override int SymmetricDifference(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2)
+        {
+            return PolygonBoolean2_EEK_SymmetricDifference_P_PWH(ptr, poly1.Ptr, poly2.Ptr);
+        }
+
+        internal override int Complement(IntPtr ptr, PolygonWithHoles2 poly)
+        {
+            return PolygonBoolean2_EEK_Complement_PWH(ptr, poly.Ptr);
         }
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void PolygonBoolean2_EEK_ClearBuffer();
+        private static extern IntPtr PolygonBoolean2_EEK_Create();
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonBoolean2_EEK_CopyBufferItem(int index);
+        private static extern void PolygonBoolean2_EEK_Release(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonBoolean2_EEK_DoIntersect_P_P(IntPtr ptr1, IntPtr ptr2);
+        private static extern void PolygonBoolean2_EEK_ClearBuffer(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonBoolean2_EEK_DoIntersect_P_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern IntPtr PolygonBoolean2_EEK_CopyBufferItem(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonBoolean2_EEK_DoIntersect_PWH_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern bool PolygonBoolean2_EEK_DoIntersect_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonBoolean2_EEK_Join_P_P(IntPtr ptr1, IntPtr ptr2, out IntPtr result);
+        private static extern bool PolygonBoolean2_EEK_DoIntersect_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonBoolean2_EEK_Join_P_PWH(IntPtr ptr1, IntPtr ptr2, out IntPtr result);
+        private static extern bool PolygonBoolean2_EEK_DoIntersect_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonBoolean2_EEK_Join_PWH_PWH(IntPtr ptr1, IntPtr ptr2, out IntPtr result);
+        private static extern bool PolygonBoolean2_EEK_Join_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2, out IntPtr result);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_Intersect_P_P(IntPtr ptr1, IntPtr ptr2);
+        private static extern bool PolygonBoolean2_EEK_Join_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2, out IntPtr result);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_Intersect_P_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern bool PolygonBoolean2_EEK_Join_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2, out IntPtr result);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_Intersect_PWH_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern int PolygonBoolean2_EEK_Intersect_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_Difference_P_P(IntPtr ptr1, IntPtr ptr2);
+        private static extern int PolygonBoolean2_EEK_Intersect_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_Difference_P_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern int PolygonBoolean2_EEK_Intersect_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_Difference_PWH_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern int PolygonBoolean2_EEK_Difference_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_SymmetricDifference_P_P(IntPtr ptr1, IntPtr ptr2);
+        private static extern int PolygonBoolean2_EEK_Difference_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_SymmetricDifference_P_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern int PolygonBoolean2_EEK_Difference_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(IntPtr ptr1, IntPtr ptr2);
+        private static extern int PolygonBoolean2_EEK_SymmetricDifference_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int PolygonBoolean2_EEK_Complement_PWH(IntPtr ptr);
+        private static extern int PolygonBoolean2_EEK_SymmetricDifference_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int PolygonBoolean2_EEK_Complement_PWH(IntPtr ptr0, IntPtr ptr1);
     }
 }

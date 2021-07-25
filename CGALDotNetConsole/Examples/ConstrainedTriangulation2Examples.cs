@@ -19,14 +19,18 @@ namespace CGALDotNetConsole.Examples
             {
                 new Point2d(0, 0),
                 new Point2d(5, 0),
+                new Point2d(6, 2),
+                new Point2d(6, 3),
                 new Point2d(5, 5),
-                //new Point2d(2, 2),
+                new Point2d(2, 2),
                 new Point2d(0, 5)
             };
 
             var polygon = new Polygon2<EEK>(points);
 
             var tri = new ConstrainedTriangulation2<EEK>(polygon);
+
+            tri.RemoveConstraint(3, 2);
 
             int constraintCount = tri.ConstrainedEdgeCount;
 
@@ -36,7 +40,7 @@ namespace CGALDotNetConsole.Examples
 
             Console.WriteLine("Has constraint for vert = " + tri.HasIncidentConstraint(0));
 
-            Console.WriteLine("Incident constraint count for vert =" + incidentCount);
+            Console.WriteLine("Incident constraint count for vert = " + incidentCount);
 
             Console.WriteLine();
             Console.WriteLine("Constraints");

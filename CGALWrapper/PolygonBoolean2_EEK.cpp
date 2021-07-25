@@ -1,119 +1,106 @@
 #include "pch.h"
 #include "PolygonBoolean2_EEK.h"
 #include "PolygonBoolean2.h"
+#include "Util.h"
 #include <vector>
 #include <list>
 
-using PWH = CGAL::Polygon_with_holes_2<EEK>;
-using LIST = std::vector<PWH>;
-auto buffer = LIST();
-
-void PolygonBoolean2_EEK_ClearBuffer()
+void* PolygonBoolean2_EEK_Create()
 {
-	buffer.clear();
+	return Util::Create<PolygonBoolean2<EEK>>();
 }
 
-void* PolygonBoolean2_EEK_CopyBufferItem(int index)
+void PolygonBoolean2_EEK_Release(void* ptr)
 {
-	return new PWH(buffer[index]);
+	Util::Release<PolygonBoolean2<EEK>>(ptr);
 }
 
-BOOL PolygonBoolean2_EEK_DoIntersect_P_P(void* ptr1, void* ptr2)
+void PolygonBoolean2_EEK_ClearBuffer(void* ptr)
 {
-	return PolygonBoolean2<EEK>::DoIntersect_P_P(ptr1, ptr2);
+	PolygonBoolean2<EEK>::ClearBuffer(ptr);
 }
 
-BOOL PolygonBoolean2_EEK_DoIntersect_P_PWH(void* ptr1, void* ptr2)
+void* PolygonBoolean2_EEK_CopyBufferItem(void* ptr, int index)
 {
-	return PolygonBoolean2<EEK>::DoIntersect_P_PWH(ptr1, ptr2);
+	return PolygonBoolean2<EEK>::CopyBufferItem(ptr, index);
 }
 
-BOOL PolygonBoolean2_EEK_DoIntersect_PWH_PWH(void* ptr1, void* ptr2)
+BOOL PolygonBoolean2_EEK_DoIntersect_P_P(void* ptr0, void* ptr1, void* ptr2)
 {
-	return PolygonBoolean2<EEK>::DoIntersect_PWH_PWH(ptr1, ptr2);
+	return PolygonBoolean2<EEK>::DoIntersect_P_P(ptr0, ptr1, ptr2);
 }
 
-BOOL PolygonBoolean2_EEK_Join_P_P(void* ptr1, void* ptr2, void** resultPtr)
+BOOL PolygonBoolean2_EEK_DoIntersect_P_PWH(void* ptr0, void* ptr1, void* ptr2)
 {
-	return PolygonBoolean2<EEK>::Join_P_P(ptr1, ptr2, resultPtr);
+	return PolygonBoolean2<EEK>::DoIntersect_P_PWH(ptr0, ptr1, ptr2);
 }
 
-BOOL PolygonBoolean2_EEK_Join_P_PWH(void* ptr1, void* ptr2, void** resultPtr)
+BOOL PolygonBoolean2_EEK_DoIntersect_PWH_PWH(void* ptr0, void* ptr1, void* ptr2)
 {
-	return PolygonBoolean2<EEK>::Join_P_PWH(ptr1, ptr2, resultPtr);
+	return PolygonBoolean2<EEK>::DoIntersect_PWH_PWH(ptr0, ptr1, ptr2);
 }
 
-BOOL PolygonBoolean2_EEK_Join_PWH_PWH(void* ptr1, void* ptr2, void** resultPtr)
+BOOL PolygonBoolean2_EEK_Join_P_P(void* ptr0, void* ptr1, void* ptr2, void** resultPtr)
 {
-	return PolygonBoolean2<EEK>::Join_PWH_PWH(ptr1, ptr2, resultPtr);
+	return PolygonBoolean2<EEK>::Join_P_P(ptr0, ptr1, ptr2, resultPtr);
 }
 
-int PolygonBoolean2_EEK_Intersect_P_P(void* ptr1, void* ptr2)
+BOOL PolygonBoolean2_EEK_Join_P_PWH(void* ptr0, void* ptr1, void* ptr2, void** resultPtr)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::Intersect_P_P(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Join_P_PWH(ptr0, ptr1, ptr2, resultPtr);
 }
 
-int PolygonBoolean2_EEK_Intersect_P_PWH(void* ptr1, void* ptr2)
+BOOL PolygonBoolean2_EEK_Join_PWH_PWH(void* ptr0, void* ptr1, void* ptr2, void** resultPtr)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::Intersect_P_PWH(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Join_PWH_PWH(ptr0, ptr1, ptr2, resultPtr);
 }
 
-int PolygonBoolean2_EEK_Intersect_PWH_PWH(void* ptr1, void* ptr2)
+int PolygonBoolean2_EEK_Intersect_P_P(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::Intersect_PWH_PWH(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Intersect_P_P(ptr0, ptr1, ptr2);
 }
 
-int PolygonBoolean2_EEK_Difference_P_P(void* ptr1, void* ptr2)
+int PolygonBoolean2_EEK_Intersect_P_PWH(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::Difference_P_P(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Intersect_P_PWH(ptr0, ptr1, ptr2);
 }
 
-int PolygonBoolean2_EEK_Difference_P_PWH(void* ptr1, void* ptr2)
+int PolygonBoolean2_EEK_Intersect_PWH_PWH(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::Difference_P_PWH(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Intersect_PWH_PWH(ptr0, ptr1, ptr2);
 }
 
-int PolygonBoolean2_EEK_Difference_PWH_PWH(void* ptr1, void* ptr2)
+int PolygonBoolean2_EEK_Difference_P_P(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::Difference_PWH_PWH(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Difference_P_P(ptr0, ptr1, ptr2);
 }
 
-int PolygonBoolean2_EEK_SymmetricDifference_P_P(void* ptr1, void* ptr2)
+int PolygonBoolean2_EEK_Difference_P_PWH(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::SymmetricDifference_P_P(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Difference_P_PWH(ptr0, ptr1, ptr2);
 }
 
-int PolygonBoolean2_EEK_SymmetricDifference_P_PWH(void* ptr1, void* ptr2)
+int PolygonBoolean2_EEK_Difference_PWH_PWH(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::SymmetricDifference_P_PWH(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::Difference_PWH_PWH(ptr0, ptr1, ptr2);
 }
 
-int PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(void* ptr1, void* ptr2)
+int PolygonBoolean2_EEK_SymmetricDifference_P_P(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::SymmetricDifference_PWH_PWH(ptr1, ptr2, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::SymmetricDifference_P_P(ptr0, ptr1, ptr2);
 }
 
-int PolygonBoolean2_EEK_Complement_PWH(void* ptr)
+int PolygonBoolean2_EEK_SymmetricDifference_P_PWH(void* ptr0, void* ptr1, void* ptr2)
 {
-	buffer.clear();
-	PolygonBoolean2<EEK>::Complement_PWH(ptr, buffer);
-	return (int)buffer.size();
+	return PolygonBoolean2<EEK>::SymmetricDifference_P_PWH(ptr0, ptr1, ptr2);
+}
+
+int PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(void* ptr0, void* ptr1, void* ptr2)
+{
+	return PolygonBoolean2<EEK>::SymmetricDifference_PWH_PWH(ptr0, ptr1, ptr2);
+}
+
+int PolygonBoolean2_EEK_Complement_PWH(void* ptr0, void* ptr1)
+{
+	return PolygonBoolean2<EEK>::Complement_PWH(ptr0, ptr1);
 }

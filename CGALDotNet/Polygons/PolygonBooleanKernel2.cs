@@ -6,47 +6,47 @@ namespace CGALDotNet.Polygons
 {
     internal abstract class PolygonBooleanKernel2
     {
-        internal PolygonBooleanKernel2()
-        {
-
-        }
 
         internal abstract string Name { get; }
 
-        internal abstract void ClearBuffer();
+        internal abstract IntPtr Create();
 
-        internal abstract IntPtr CopyBufferItem(int index);
+        internal abstract void Release(IntPtr ptr);
 
-        internal abstract bool DoIntersect(Polygon2 poly1, Polygon2 poly2);
+        internal abstract void ClearBuffer(IntPtr ptr);
 
-        internal abstract bool DoIntersect(Polygon2 poly1, PolygonWithHoles2 poly2);
+        internal abstract IntPtr CopyBufferItem(IntPtr ptr, int index);
 
-        internal abstract bool DoIntersect(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
+        internal abstract bool DoIntersect(IntPtr ptr, Polygon2 poly1, Polygon2 poly2);
 
-        internal abstract bool Join(Polygon2 poly1, Polygon2 poly2, out IntPtr result);
+        internal abstract bool DoIntersect(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2);
 
-        internal abstract bool Join(Polygon2 poly1, PolygonWithHoles2 poly2, out IntPtr result);
+        internal abstract bool DoIntersect(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
 
-        internal abstract bool Join(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2, out IntPtr result);
+        internal abstract bool Join(IntPtr ptr, Polygon2 poly1, Polygon2 poly2, out IntPtr result);
 
-        internal abstract int Intersect(Polygon2 poly, Polygon2 poly2);
+        internal abstract bool Join(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2, out IntPtr result);
 
-        internal abstract int Intersect(Polygon2 poly1, PolygonWithHoles2 poly2);
+        internal abstract bool Join(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2, out IntPtr result);
 
-        internal abstract int Intersect(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
+        internal abstract int Intersect(IntPtr ptr, Polygon2 poly, Polygon2 poly2);
 
-        internal abstract int Difference(Polygon2 poly1, Polygon2 poly2);
+        internal abstract int Intersect(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2);
 
-        internal abstract int Difference(Polygon2 poly1, PolygonWithHoles2 poly2);
+        internal abstract int Intersect(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
 
-        internal abstract int Difference(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
+        internal abstract int Difference(IntPtr ptr, Polygon2 poly1, Polygon2 poly2);
 
-        internal abstract int SymmetricDifference(Polygon2 poly1, Polygon2 poly2);
+        internal abstract int Difference(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2);
 
-        internal abstract int SymmetricDifference(Polygon2 poly1, PolygonWithHoles2 poly2);
+        internal abstract int Difference(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
 
-        internal abstract int SymmetricDifference(PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
+        internal abstract int SymmetricDifference(IntPtr ptr, Polygon2 poly1, Polygon2 poly2);
 
-        internal abstract int Complement(PolygonWithHoles2 poly);
+        internal abstract int SymmetricDifference(IntPtr ptr, Polygon2 poly1, PolygonWithHoles2 poly2);
+
+        internal abstract int SymmetricDifference(IntPtr ptr, PolygonWithHoles2 poly1, PolygonWithHoles2 poly2);
+
+        internal abstract int Complement(IntPtr ptr, PolygonWithHoles2 poly);
     }
 }

@@ -30,7 +30,7 @@ namespace CGALDotNetConsole.Examples
             var polygon1 = new Polygon2<EEK>(points1);
             var polygon2 = new Polygon2<EEK>(points2);
 
-            Console.WriteLine("Polygons intersect = " + PolygonBoolean2<EEK>.DoIntersect(polygon1, polygon2));
+            Console.WriteLine("Polygons intersect = " + PolygonBoolean2<EEK>.Instance.DoIntersect(polygon1, polygon2));
 
             Console.WriteLine();
         }
@@ -62,7 +62,7 @@ namespace CGALDotNetConsole.Examples
 
             var result = new List<PolygonWithHoles2<EEK>>();
 
-            Console.WriteLine("Polygons join = " + PolygonBoolean2<EEK>.Join(polygon1, polygon2, result));
+            Console.WriteLine("Polygons join = " + PolygonBoolean2<EEK>.Instance.Join(polygon1, polygon2, result));
             Console.WriteLine("");
 
             foreach (var poly in result)
@@ -98,7 +98,7 @@ namespace CGALDotNetConsole.Examples
 
             var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2<EEK>.Intersect(polygon1, polygon2, result);
+            PolygonBoolean2<EEK>.Instance.Intersect(polygon1, polygon2, result);
 
             foreach(var poly in result)
                 poly.Print();
@@ -133,7 +133,7 @@ namespace CGALDotNetConsole.Examples
 
             var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2<EEK>.Difference(polygon1, polygon2, result);
+            PolygonBoolean2<EEK>.Instance.Difference(polygon1, polygon2, result);
 
             foreach (var poly in result)
                 poly.Print();
@@ -168,7 +168,7 @@ namespace CGALDotNetConsole.Examples
 
             var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2<EEK>.SymmetricDifference(polygon1, polygon2, result);
+            PolygonBoolean2<EEK>.Instance.SymmetricDifference(polygon1, polygon2, result);
 
             foreach (var poly in result)
                 poly.Print();
@@ -201,7 +201,7 @@ namespace CGALDotNetConsole.Examples
 
             var result = new List<PolygonWithHoles2<EEK>>();
 
-            PolygonBoolean2<EEK>.Complement(polygon, result);
+            PolygonBoolean2<EEK>.Instance.Complement(polygon, result);
 
             foreach (var poly in result)
                 poly.Print();
