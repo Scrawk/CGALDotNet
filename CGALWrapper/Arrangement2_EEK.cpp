@@ -34,7 +34,12 @@ BOOL Arrangement2_EEK_IsEmpty(void* ptr)
 
 void Arrangement2_EEK_Assign(void* ptr, void* ptrOther)
 {
-	return Arrangement2<EEK>::Assign(ptr, ptrOther);
+	Arrangement2<EEK>::Assign(ptr, ptrOther);
+}
+
+void* Arrangement2_EEK_Overlay(void* ptr, void* ptrOther)
+{
+	return Arrangement2<EEK>::Overlay(ptr, ptrOther);
 }
 
 int Arrangement2_EEK_VertexCount(void* ptr)

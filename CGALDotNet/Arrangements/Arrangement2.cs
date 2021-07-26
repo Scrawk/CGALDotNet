@@ -35,6 +35,12 @@ namespace CGALDotNet.Arrangements
             Kernel.Assign(Ptr, other.Ptr);
         }
 
+        public Arrangement2<K> Overlay(Arrangement2<K> other)
+        {
+            var ptr = Kernel.Overlay(Ptr, other.Ptr);
+            return new Arrangement2<K>(ptr);
+        }
+
         public Arrangement2<K> Copy()
         {
             var copy = new Arrangement2<K>();
@@ -171,6 +177,11 @@ namespace CGALDotNet.Arrangements
         public void InsertPoint(Point2d point)
         {
             Kernel.InsertPoint(Ptr, point);
+        }
+
+        public void InsertSegment(Point2d a, Point2d b, bool nonIntersecting)
+        {
+            Kernel.InsertSegment(Ptr, new Segment2d(a, b), nonIntersecting);
         }
 
         public void InsertSegment(Segment2d segment, bool nonIntersecting)

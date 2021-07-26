@@ -395,9 +395,9 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public static Quaternion3d FromEuler(Vector3d euler)
         {
-            double heading = MathUtil.ToRadians(euler.y);
-            double attitude = MathUtil.ToRadians(euler.z);
-            double bank = MathUtil.ToRadians(euler.x);
+            double heading = CGALGlobal.ToRadians(euler.y);
+            double attitude = CGALGlobal.ToRadians(euler.z);
+            double bank = CGALGlobal.ToRadians(euler.x);
 
             double c1 = Math.Cos(heading / 2);
             double s1 = Math.Sin(heading / 2);

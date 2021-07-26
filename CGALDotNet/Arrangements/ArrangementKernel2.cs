@@ -27,6 +27,8 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void Assign(IntPtr ptr, IntPtr ptrOther);
 
+        internal abstract IntPtr Overlay(IntPtr ptr, IntPtr ptrOther);
+
         internal abstract int VertexCount(IntPtr ptr);
 
         internal abstract int IsolatedVerticesCount(IntPtr ptr);

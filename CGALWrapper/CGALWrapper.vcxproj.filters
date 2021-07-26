@@ -34,6 +34,9 @@
     <Filter Include="Source Files\Triangulations">
       <UniqueIdentifier>{52bfc570-b5b1-4323-b124-201edfd0b624}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Geometry">
+      <UniqueIdentifier>{e994d2c5-19a5-484a-a5d4-a184067961f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -123,6 +126,12 @@
     <ClInclude Include="ArrangementMap.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
+    <ClInclude Include="Intersections.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Intersections_EEK.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -151,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="ConstrainedTriangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
+    </ClCompile>
+    <ClCompile Include="Intersections_EEK.cpp">
+      <Filter>Source Files\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

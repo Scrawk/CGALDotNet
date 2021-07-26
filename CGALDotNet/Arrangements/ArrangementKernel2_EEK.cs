@@ -44,6 +44,11 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_Assign(ptr, ptrOther);
         }
 
+        internal override IntPtr Overlay(IntPtr ptr, IntPtr ptrOther)
+        {
+            return Arrangement2_EEK_Overlay(ptr, ptrOther);
+        }
+
         internal override int VertexCount(IntPtr ptr)
         {
             return Arrangement2_EEK_VertexCount(ptr);
@@ -186,6 +191,9 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_Assign(IntPtr ptr, IntPtr ptrOther);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr Arrangement2_EEK_Overlay(IntPtr ptr, IntPtr ptrOther);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern int Arrangement2_EEK_VertexCount(IntPtr ptr);

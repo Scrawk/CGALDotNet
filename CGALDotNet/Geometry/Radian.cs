@@ -30,22 +30,22 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// 90 degrees.
         /// </summary>
-        public readonly static Radian A90 = new Radian(90 * MathUtil.DEG_TO_RAD);
+        public readonly static Radian A90 = new Radian(90 * CGALGlobal.DEG_TO_RAD);
 
         /// <summary>
         /// 180 degrees.
         /// </summary>
-        public readonly static Radian A180 = new Radian(180 * MathUtil.DEG_TO_RAD);
+        public readonly static Radian A180 = new Radian(180 * CGALGlobal.DEG_TO_RAD);
 
         /// <summary>
         /// 270 degrees.
         /// </summary>
-        public readonly static Radian A270 = new Radian(270 * MathUtil.DEG_TO_RAD);
+        public readonly static Radian A270 = new Radian(270 * CGALGlobal.DEG_TO_RAD);
 
         /// <summary>
         /// 360 degrees.
         /// </summary>
-        public readonly static Radian A360 = new Radian(360 * MathUtil.DEG_TO_RAD);
+        public readonly static Radian A360 = new Radian(360 * CGALGlobal.DEG_TO_RAD);
 
         /// <summary>
         /// Create a new radian from a value.
@@ -154,7 +154,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Radian(Degree v)
         {
-            return new Radian(v.angle * MathUtil.DEG_TO_RAD);
+            return new Radian(v.angle * CGALGlobal.DEG_TO_RAD);
         }
 
         /// <summary>

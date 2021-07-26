@@ -135,13 +135,13 @@ namespace CGALDotNet.Polygons
 
         public Point2d GetPointWrapped(int index)
         {
-            index = MathUtil.Wrap(index, Count);
+            index = CGALGlobal.Wrap(index, Count);
             return Kernel.GetPoint(Ptr, index);
         }
 
         public Point2d GetPointClamped(int index)
         {
-            index = MathUtil.Clamp(index, 0, Count - 1);
+            index = CGALGlobal.Clamp(index, 0, Count - 1);
             return Kernel.GetPoint(Ptr, index);
         }
 

@@ -18,6 +18,8 @@ extern "C"
 
 	CGALWRAPPER_API void Arrangement2_EEK_Assign(void* ptr, void* ptrOther);
 
+	CGALWRAPPER_API void* Arrangement2_EEK_Overlay(void* ptr, void* ptrOther);
+
 	CGALWRAPPER_API int Arrangement2_EEK_VertexCount(void* ptr);
 
 	CGALWRAPPER_API int Arrangement2_EEK_IsolatedVerticesCount(void* ptr);

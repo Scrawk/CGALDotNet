@@ -167,7 +167,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Degree(Radian v)
         {
-            return new Degree(v.angle * MathUtil.RAD_TO_DEG);
+            return new Degree(v.angle * CGALGlobal.RAD_TO_DEG);
         }
 
         /// <summary>

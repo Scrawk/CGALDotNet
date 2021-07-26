@@ -11,6 +11,7 @@
 #include <CGAL/Arrangement_2.h>
 #include <CGAL/Arr_extended_dcel.h>
 #include <CGAL/Arr_batched_point_location.h>
+#include <CGAL/Arr_overlay_2.h>
 
 struct ArrVertex2
 {
@@ -133,6 +134,15 @@ public:
 		auto arr = CastToArrangement(ptr);
 		auto other = CastToArrangement(ptrOther);
 		arr->model.assign(other->model);
+	}
+
+	static void* Overlay(void* ptr, void* ptrOther)
+	{
+		auto arr = CastToArrangement(ptr);
+		auto other = CastToArrangement(ptrOther);
+		auto result = new Arrangement2();
+		overlay(arr->model, other->model, result->model);
+		return result;
 	}
 
 	static int VertexCount(void* ptr)

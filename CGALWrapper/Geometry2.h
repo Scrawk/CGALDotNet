@@ -25,6 +25,14 @@ struct Point2d
     }
 
     template<class K>
+    static Point2d FromCGAL(CGAL::Vector_2<K> v)
+    {
+        double x = CGAL::to_double(v.x());
+        double y = CGAL::to_double(v.y());
+        return { x, y };
+    }
+
+    template<class K>
     CGAL::Vector_2<K> ToVector()
     {
         return CGAL::Vector_2<K>(x, y);
@@ -79,6 +87,26 @@ struct Segment2d
     }
 };
 
+struct Line2d
+{
+    double a, b, c;
+
+    template<class K, class LINE>
+    LINE ToCGAL()
+    {
+        return { a, b, c };
+    }
+
+    template<class K>
+    static Line2d FromCGAL(K a, K b, K c)
+    {
+        double A = CGAL::to_double(a);
+        double B = CGAL::to_double(b);
+        double C = CGAL::to_double(c);
+        return { A, B, C };
+    }
+};
+
 struct Triangle2d
 {
     Point2d a;
@@ -118,6 +146,26 @@ struct Ray2d
         auto Pos = Point2d::FromCGAL<K>(pos);
         auto Dir = Vector2d::FromCGAL<K>(dir);
         return { Pos, Dir };
+    }
+};
+
+struct Box2d
+{
+    Point2d min;
+    Point2d max;
+
+    template<class K, class BOX>
+    BOX ToCGAL()
+    {
+        return { min.ToCGAL<K>(), max.ToCGAL<K>() };
+    }
+
+    template<class K>
+    static Box2d FromCGAL(CGAL::Point_2<K> min, CGAL::Point_2<K> max)
+    {
+        auto Min = Point2d::FromCGAL<K>(min);
+        auto Max = Point2d::FromCGAL<K>(max);
+        return { Min, Max };
     }
 };
 

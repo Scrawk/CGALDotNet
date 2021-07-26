@@ -4,6 +4,11 @@
         <name>CGALDotNet</name>
     </assembly>
     <members>
+        <member name="M:CGALDotNet.CGALGlobal.Wrap(System.Int32,System.Int32)">
+            <summary>
+            Wrap a value between 0 and count-1 (inclusive).
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Geometry.Box2d.Intersects(CGALDotNet.Geometry.Box2d)">
             <summary>
             Returns true if this box intersects the other box.
@@ -199,6 +204,46 @@
         <member name="M:CGALDotNet.Geometry.Degree.ToString(System.String)">
             <summary>
             Angles as a string.
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Line2d">
+            <summary>
+             Represents a line from three coefficients
+             a, b and c, where ax + by + c = 0 holds.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2d.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+             Create a new line from three coefficients
+             a, b and c, where ax + by + c = 0 holds.
+            </summary>
+            <param name="a">The constant in ax.</param>
+            <param name="b">The constant in by</param>
+            <param name="c">The constant c</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2d.#ctor(System.Double,System.Double)">
+            <summary>
+             Create a new line from the slope and the y 
+             intercept, where y = mx + b holds.
+            </summary>
+            <param name="m">The lines slope.</param>
+            <param name="b">The y intercept.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2d.#ctor(CGALDotNet.Geometry.Point2d,CGALDotNet.Geometry.Point2d)">
+            <summary>
+            Create a new line that passes through the two points.
+            </summary>
+            <param name="p1">Point 1.</param>
+            <param name="p2">Point 2.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2d.X(System.Double)">
+            <summary>
+            Calculates the X coordinate of a point on the line by its Y coordinate.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2d.Y(System.Double)">
+            <summary>
+            Calculates the Y coordinate of a point on the line by its X coordinate.
             </summary>
         </member>
         <member name="T:CGALDotNet.Geometry.Matrix2x2d">
@@ -2231,11 +2276,6 @@
             Round vector.
             </summary>
             <param name="digits">number of digits to round to.</param>
-        </member>
-        <member name="M:CGALDotNet.MathUtil.Wrap(System.Int32,System.Int32)">
-            <summary>
-            Wrap a value between 0 and count-1 (inclusive).
-            </summary>
         </member>
     </members>
 </doc>
