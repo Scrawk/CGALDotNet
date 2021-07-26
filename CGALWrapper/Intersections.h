@@ -203,7 +203,7 @@ public:
     static BOOL DoIntersect(Ray2d ray, Ray2d ray2)
     {
         auto r = ray.ToCGAL<K, Ray2>();
-        auto r2 = ray.ToCGAL<K, Ray2>();
+        auto r2 = ray2.ToCGAL<K, Ray2>();
         return CGAL::do_intersect(r, r2);
     }
 
@@ -226,6 +226,138 @@ public:
         auto r = ray.ToCGAL<K, Ray2>();
         auto b = box.ToCGAL<K, Box2>();
         return CGAL::do_intersect(r, b);
+    }
+
+    //segment
+
+    static BOOL DoIntersect(Segment2d segment, Point2d point)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto p = point.ToCGAL<K>();
+        return CGAL::do_intersect(s, p);
+    }
+
+    static BOOL DoIntersect(Segment2d segment, Line2d line)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto l = line.ToCGAL<K, Line2>();
+        return CGAL::do_intersect(s, l);
+    }
+
+    static BOOL DoIntersect(Segment2d segment, Ray2d ray)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto r = ray.ToCGAL<K, Ray2>();
+        return CGAL::do_intersect(s, r);
+    }
+
+    static BOOL DoIntersect(Segment2d segment, Segment2d segment2)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto s2 = segment2.ToCGAL<K, Segment2>();
+        return CGAL::do_intersect(s, s2);
+    }
+
+    static BOOL DoIntersect(Segment2d segment, Triangle2d triangle)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        return CGAL::do_intersect(s, t);
+    }
+
+    static BOOL DoIntersect(Segment2d segment, Box2d box)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto b = box.ToCGAL<K, Box2>();
+        return CGAL::do_intersect(s, b);
+    }
+
+    //triangle
+
+    static BOOL DoIntersect(Triangle2d triangle, Point2d point)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto p = point.ToCGAL<K>();
+        return CGAL::do_intersect(t, p);
+    }
+
+    static BOOL DoIntersect(Triangle2d triangle, Line2d line)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto l = line.ToCGAL<K, Line2>();
+        return CGAL::do_intersect(t, l);
+    }
+
+    static BOOL DoIntersect(Triangle2d triangle, Ray2d ray)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto r = ray.ToCGAL<K, Ray2>();
+        return CGAL::do_intersect(t, r);
+    }
+
+    static BOOL DoIntersect(Triangle2d triangle, Segment2d segment)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto s = segment.ToCGAL<K, Segment2>();
+        return CGAL::do_intersect(t, s);
+    }
+
+    static BOOL DoIntersect(Triangle2d triangle, Triangle2d triangle2)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto t2 = triangle2.ToCGAL<K, Triangle2>();
+        return CGAL::do_intersect(t, t2);
+    }
+
+    static BOOL DoIntersect(Triangle2d triangle, Box2d box)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto b = box.ToCGAL<K, Box2>();
+        return CGAL::do_intersect(t, b);
+    }
+
+    //box
+
+    static BOOL DoIntersect(Box2d box, Point2d point)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto p = point.ToCGAL<K>();
+        return CGAL::do_intersect(b, p);
+    }
+
+    static BOOL DoIntersect(Box2d box, Line2d line)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto l = line.ToCGAL<K, Line2>();
+        return CGAL::do_intersect(b, l);
+    }
+
+    static BOOL DoIntersect(Box2d box, Ray2d ray)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto r = ray.ToCGAL<K, Ray2>();
+        return CGAL::do_intersect(b, r);
+    }
+
+    static BOOL DoIntersect(Box2d box, Segment2d segment)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto s = segment.ToCGAL<K, Segment2>();
+        return CGAL::do_intersect(b, s);
+    }
+
+    static BOOL DoIntersect(Box2d box, Triangle2d triangle)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        return CGAL::do_intersect(b, t);
+    }
+
+    static BOOL DoIntersect(Box2d box, Box2d box2)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto b2 = box2.ToCGAL<K, Box2>();
+        return CGAL::do_intersect(b, b2);
     }
 
     //Point
@@ -393,7 +525,7 @@ public:
     static IntersectionResult2d Intersection(Ray2d ray, Ray2d ray2)
     {
         auto r = ray.ToCGAL<K, Ray2>();
-        auto r2 = ray.ToCGAL<K, Ray2>();
+        auto r2 = ray2.ToCGAL<K, Ray2>();
 
         const auto result = CGAL::intersection(r, r2);
         if (result)
@@ -432,6 +564,228 @@ public:
         auto b = box.ToCGAL<K, Box2>();
 
         const auto result = CGAL::intersection(r, b);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    //Segment
+
+    static IntersectionResult2d Intersection(Segment2d segment, Point2d point)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto p = point.ToCGAL<K>();
+
+        const auto result = CGAL::intersection(s, p);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Segment2d segment, Line2d line)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto l = line.ToCGAL<K, Line2>();
+
+        const auto result = CGAL::intersection(s, l);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Segment2d segment, Ray2d ray)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto r = ray.ToCGAL<K, Ray2>();
+
+        const auto result = CGAL::intersection(s, r);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Segment2d segment, Segment2d segment2)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto s2 = segment2.ToCGAL<K, Segment2>();
+
+        const auto result = CGAL::intersection(s, s2);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Segment2d segment, Triangle2d triangle)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto t = triangle.ToCGAL<K, Triangle2>();
+
+        const auto result = CGAL::intersection(s, t);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Segment2d segment, Box2d box)
+    {
+        auto s = segment.ToCGAL<K, Segment2>();
+        auto b = box.ToCGAL<K, Box2>();
+
+        const auto result = CGAL::intersection(s, b);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    //Triangle
+
+    static IntersectionResult2d Intersection(Triangle2d triangle, Point2d point)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto p = point.ToCGAL<K>();
+
+        const auto result = CGAL::intersection(t, p);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Triangle2d triangle, Line2d line)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto l = line.ToCGAL<K, Line2>();
+
+        const auto result = CGAL::intersection(t, l);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Triangle2d triangle, Ray2d ray)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto r = ray.ToCGAL<K, Ray2>();
+
+        const auto result = CGAL::intersection(t, r);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Triangle2d triangle, Segment2d segment)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto s = segment.ToCGAL<K, Segment2>();
+
+        const auto result = CGAL::intersection(t, s);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Triangle2d triangle, Triangle2d triangle2)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto t2 = triangle2.ToCGAL<K, Triangle2>();
+
+        const auto result = CGAL::intersection(t, t2);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Triangle2d triangle, Box2d box)
+    {
+        auto t = triangle.ToCGAL<K, Triangle2>();
+        auto b = box.ToCGAL<K, Box2>();
+
+        const auto result = CGAL::intersection(t, b);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    //Box
+
+    static IntersectionResult2d Intersection(Box2d box, Point2d point)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto p = point.ToCGAL<K>();
+
+        const auto result = CGAL::intersection(b, p);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Box2d box, Line2d line)
+    {
+        auto b = box.ToCGAL<K, Box2>();;
+        auto l = line.ToCGAL<K, Line2>();
+
+        const auto result = CGAL::intersection(b, l);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Box2d box, Ray2d ray)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto r = ray.ToCGAL<K, Ray2>();
+
+        const auto result = CGAL::intersection(b, r);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Box2d box, Segment2d segment)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto s = segment.ToCGAL<K, Segment2>();
+
+        const auto result = CGAL::intersection(b, s);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Box2d box, Triangle2d triangle)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto t = triangle.ToCGAL<K, Triangle2>();
+
+        const auto result = CGAL::intersection(b, t);
+        if (result)
+            return boost::apply_visitor(Intersection_visitor(), *result);
+        else
+            return {};
+    }
+
+    static IntersectionResult2d Intersection(Box2d box, Box2d box2)
+    {
+        auto b = box.ToCGAL<K, Box2>();
+        auto b2 = box2.ToCGAL<K, Box2>();
+
+        const auto result = CGAL::intersection(b, b2);
         if (result)
             return boost::apply_visitor(Intersection_visitor(), *result);
         else
