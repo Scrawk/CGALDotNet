@@ -4,6 +4,7 @@
 
 #define NULL_INDEX -1
 
+#include <cstdbool>
 #include <CGAL/Cartesian.h>
 #include <CGAL/Homogeneous.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>

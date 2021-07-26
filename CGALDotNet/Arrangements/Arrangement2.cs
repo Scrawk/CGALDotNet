@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Arrangements
 {
@@ -10,11 +11,6 @@ namespace CGALDotNet.Arrangements
     public sealed class Arrangement2<K> : Arrangement2 where K : CGALKernel, new()
     {
         public Arrangement2() : base(new K())
-        {
-
-        }
-
-        public Arrangement2(Segment2d[] points) : base(new K(), points)
         {
 
         }
@@ -48,31 +44,32 @@ namespace CGALDotNet.Arrangements
             return copy;
         }
 
+
+        public void InsertPolygon(Polygon2<K> polygon, bool nonIntersecting)
+        {
+            Kernel.InsertPolygon(Ptr, polygon.Ptr, nonIntersecting);
+        }
+
     }
 
     public abstract class Arrangement2 : CGALObject
     {
         private Arrangement2()
         {
-
+            CreateLocator(ARR_LOCATOR.WALK);   
         }
 
         internal Arrangement2(CGALKernel kernel)
         {
             Kernel = kernel.ArrangementKernel2;
             Ptr = Kernel.Create();
-        }
-
-        internal Arrangement2(CGALKernel kernel, Segment2d[] segments)
-        {
-            Kernel = kernel.ArrangementKernel2;
-            Ptr = Kernel.Create();
-            InsertSegments(segments);
+            CreateLocator(ARR_LOCATOR.WALK);
         }
 
         internal Arrangement2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.ArrangementKernel2;
+            CreateLocator(ARR_LOCATOR.WALK);
         }
 
         protected private ArrangementKernel2 Kernel { get; private set; }
@@ -100,7 +97,7 @@ namespace CGALDotNet.Arrangements
             Kernel.Clear(Ptr);
         }
 
-        public bool CheckIfValid()
+        public bool IsValid()
         {
             return Kernel.IsValid(Ptr);
         }
@@ -189,9 +186,9 @@ namespace CGALDotNet.Arrangements
             Kernel.InsertSegment(Ptr, segment, nonIntersecting);
         }
 
-        public void InsertSegments(Segment2d[] segments)
+        public void InsertSegments(Segment2d[] segments, bool nonItersecting)
         {
-            Kernel.InsertSegments(Ptr, segments, 0, segments.Length);
+            Kernel.InsertSegments(Ptr, segments, 0, segments.Length, nonItersecting);
         }
 
         public bool RemoveVertex(int index)

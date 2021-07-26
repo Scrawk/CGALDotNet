@@ -137,14 +137,19 @@ void Arrangement2_EEK_InsertPoint(void* ptr, Point2d point)
 	Arrangement2<EEK>::InsertPoint(ptr, point);
 }
 
+void Arrangement2_EEK_InsertPolygon(void* ptr, void* polyPtr, BOOL nonItersecting)
+{
+	Arrangement2<EEK>::InsertPolygon(ptr, polyPtr, nonItersecting);
+}
+
 void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
 {
 	Arrangement2<EEK>::InsertSegment(ptr, segment, nonItersecting);
 }
 
-void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count, BOOL nonItersecting)
 {
-	Arrangement2<EEK>::InsertSegments(ptr, segments, startIndex, count);
+	Arrangement2<EEK>::InsertSegments(ptr, segments, startIndex, count, nonItersecting);
 }
 
 BOOL Arrangement2_EEK_RemoveVertexByIndex(void* ptr, int index)

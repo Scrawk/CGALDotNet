@@ -144,14 +144,19 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_InsertPoint(ptr, point);
         }
 
+        internal override void InsertPolygon(IntPtr ptr, IntPtr polyPtr, bool nonItersecting)
+        {
+            Arrangement2_EEK_InsertPolygon(ptr, polyPtr, nonItersecting);
+        }
+
         internal override void InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting)
         {
             Arrangement2_EEK_InsertSegment(ptr, segment, nonItersecting);
         }
 
-        internal override void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count, bool nonItersecting)
         {
-            Arrangement2_EEK_InsertSegments(ptr, segments, startIndex, count);
+            Arrangement2_EEK_InsertSegments(ptr, segments, startIndex, count, nonItersecting);
         }
 
         internal override bool RemoveVertexByIndex(IntPtr ptr, int index)
@@ -253,10 +258,13 @@ namespace CGALDotNet.Arrangements
         private static extern void Arrangement2_EEK_InsertPoint(IntPtr ptr, Point2d point);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_InsertPolygon(IntPtr ptr, IntPtr polyPtr, bool nonItersecting);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void Arrangement2_EEK_InsertSegments(IntPtr ptr, [In] Segment2d[] points, int startIndex, int count);
+        private static extern void Arrangement2_EEK_InsertSegments(IntPtr ptr, [In] Segment2d[] points, int startIndex, int count, bool nonItersecting);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Arrangement2_EEK_RemoveVertexByIndex(IntPtr ptr, int index);

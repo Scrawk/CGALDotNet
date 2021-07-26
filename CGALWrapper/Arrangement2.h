@@ -4,6 +4,8 @@
 #include "Geometry2.h"
 #include "ArrMultiLocator.h"
 #include "ArrangementMap.h"
+#include "Polygon2.h"
+#include "PolygonWithHoles2.h"
 
 #include <vector>
 #include "CGAL/Point_2.h"
@@ -355,26 +357,50 @@ public:
 		arr->map.OnModelChanged();
 	}
 
+	static void InsertPolygon(void* ptr, void* polyPtr, BOOL nonItersecting)
+	{
+		auto arr = CastToArrangement(ptr);;
+
+		auto polygon = Polygon2<EEK>::CastToPolygon2(polyPtr);
+
+		for (int i = 0; i < polygon->container().size(); i++)
+		{
+			auto a = polygon->vertex(i + 0);
+			auto b = polygon->vertex(i + 1);
+
+			auto segment = Segment2d::FromCGAL(a, b);
+
+			if (nonItersecting)
+				arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
+			else
+				arr->locator.InsertSegment<Segment_2>(arr->model, segment);
+		}
+
+		arr->map.OnModelChanged();
+	}
+
 	static void InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
 	{
 		auto arr = CastToArrangement(ptr);
 
 		if(nonItersecting)
-			arr->locator.InsertSegment<Segment_2>(arr->model, segment);
-		else
 			arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
+		else
+			arr->locator.InsertSegment<Segment_2>(arr->model, segment);
 
 		arr->map.OnModelChanged();
 	}
 
-	static void InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	static void InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count, BOOL nonItersecting)
 	{
 		auto arr = CastToArrangement(ptr);
 
 		for (auto i = startIndex; i < count; i++)
 		{
-			auto seg = segments[i].ToCGAL<K, Segment_2>();
-			CGAL::insert(arr->model, seg);
+			if (nonItersecting)
+				arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segments[i]);
+			else
+				arr->locator.InsertSegment<Segment_2>(arr->model, segments[i]);
 		}
 
 		arr->map.OnModelChanged();

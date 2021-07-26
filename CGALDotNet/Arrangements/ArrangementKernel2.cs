@@ -67,9 +67,11 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void InsertPoint(IntPtr ptr, Point2d point);
 
+        internal abstract void InsertPolygon(IntPtr ptr, IntPtr polyPtr, bool nonItersecting);
+
         internal abstract void InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
 
-        internal abstract void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+        internal abstract void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count, bool nonItersecting);
 
         internal abstract bool RemoveVertexByIndex(IntPtr ptr, int index);
 
