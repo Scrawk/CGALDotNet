@@ -363,10 +363,18 @@ public:
 
 		auto polygon = Polygon2<EEK>::CastToPolygon2(polyPtr);
 
-		for (int i = 0; i < polygon->container().size(); i++)
+		int count = (int)polygon->container().size();
+
+		for (int i = 0; i < count; i++)
 		{
-			auto a = polygon->vertex(i + 0);
-			auto b = polygon->vertex(i + 1);
+			int i0 = i;
+			int i1 = i + 1;
+
+			if (i == count - 1)
+				i1 = 0;
+
+			auto a = polygon->vertex(i0);
+			auto b = polygon->vertex(i1);
 
 			auto segment = Segment2d::FromCGAL(a, b);
 

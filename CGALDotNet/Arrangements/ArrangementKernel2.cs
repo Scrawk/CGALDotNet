@@ -8,11 +8,6 @@ namespace CGALDotNet.Arrangements
 {
     internal abstract class ArrangementKernel2
     {
-        internal ArrangementKernel2()
-        {
-
-        }
-
         internal abstract string Name { get; }
 
         internal abstract IntPtr Create();

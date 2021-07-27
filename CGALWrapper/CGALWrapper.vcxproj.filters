@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Geometry">
       <UniqueIdentifier>{e994d2c5-19a5-484a-a5d4-a184067961f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Hulls">
+      <UniqueIdentifier>{e348a134-e84d-4f25-925a-bb64636fd6b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hulls">
+      <UniqueIdentifier>{58adffc0-ff8b-4646-be31-1a01eec5cadd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -132,6 +138,12 @@
     <ClInclude Include="Intersections_EEK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="ConvexHull2.h">
+      <Filter>Header Files\Hulls</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvexHull2_EEK.h">
+      <Filter>Header Files\Hulls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -163,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="Intersections_EEK.cpp">
       <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvexHull2_EEK.cpp">
+      <Filter>Source Files\Hulls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

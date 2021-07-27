@@ -215,6 +215,11 @@ namespace CGALDotNet
             throw new NotImplementedException();
         }
 
+        public static Vector3d OrthogonalVector(Vector3d u, Vector3d v, Vector3d w)
+        {
+            throw new NotImplementedException();
+        }
+
         public static bool Parallel(Line2d l1, Line2d l2)
         {
             throw new NotImplementedException();

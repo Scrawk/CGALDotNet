@@ -5,6 +5,7 @@ using System.Text;
 using CGALDotNet.Polygons;
 using CGALDotNet.Arrangements;
 using CGALDotNet.Triangulations;
+using CGALDotNet.Hulls;
 
 namespace CGALDotNet
 {
@@ -25,6 +26,8 @@ namespace CGALDotNet
         internal abstract DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 { get; }
 
         internal abstract ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 { get; }
+
+        internal abstract ConvexHullKernel2 ConvexHullKernel2 { get; }
     }
 
     public class EEK : CGALKernel
@@ -46,5 +49,7 @@ namespace CGALDotNet
         internal override DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 => DelaunayTriangulationKernel2_EEK.Instance;
 
         internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => ConstrainedTriangulationKernel2_EEK.Instance;
+
+        internal override ConvexHullKernel2 ConvexHullKernel2 => ConvexHullKernel2_EEK.Instance;
     }
 }
