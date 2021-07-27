@@ -122,12 +122,54 @@ extern "C"
 
 	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_RayLine(Ray2d ray, Line2d line);
 
-	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_Rayay(Ray2d ray, Ray2d ray2);
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_RayRay(Ray2d ray, Ray2d ray2);
 
 	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_RaySegment(Ray2d ray, Segment2d segment);
 
 	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_RayTriangle(Ray2d ray, Triangle2d triangle);
 
 	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_RayBox(Ray2d ray, Box2d box);
+
+	//segment
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_SegmentPoint(Segment2d segment, Point2d point);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_SegmentLine(Segment2d segment, Line2d line);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_SegmentRay(Segment2d segment, Ray2d ray);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_SegmentSegment(Segment2d segment, Segment2d segment2);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_SegmentTriangle(Segment2d segment, Triangle2d triangle);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_SegmentBox(Segment2d segment, Box2d box);
+
+	//triangle
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_TrianglePoint(Triangle2d triangle, Point2d point);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_TriangleLine(Triangle2d triangle, Line2d line);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_TriangleRay(Triangle2d triangle, Ray2d ray);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_TriangleSegment(Triangle2d triangle, Segment2d segment);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_TriangleTriangle(Triangle2d triangle, Triangle2d triangle2);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_TriangleBox(Triangle2d triangle, Box2d box);
+
+	//box
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_BoxPoint(Box2d box, Point2d point);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_BoxLine(Box2d box, Line2d line);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_BoxRay(Box2d box, Ray2d ray);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_BoxSegment(Box2d box, Segment2d segment);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_BoxTriangle(Box2d box, Triangle2d triangle);
+
+	CGALWRAPPER_API IntersectionResult2d Intersections_EEK_Intersection_BoxBox(Box2d box, Box2d box2);
 };
 

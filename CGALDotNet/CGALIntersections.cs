@@ -20,8 +20,17 @@ namespace CGALDotNet
 
     public struct IntersectionResult2d
     {
+
         public INTERSECTION_RESULT_2D type;
         private Point2d a, b, c;
+
+        public IntersectionResult2d(INTERSECTION_RESULT_2D type)
+        {
+            this.type = type;
+            this.a = Point2d.Zero;
+            this.b = Point2d.Zero;
+            this.c = Point2d.Zero;
+        }
 
         public override string ToString()
         {
@@ -45,6 +54,174 @@ namespace CGALDotNet
 
     public static class CGALIntersections
     {
+        public static bool DoIntersect(IGeometry2d shape1, IGeometry2d shape2)
+        {
+            if(shape1 is Point2d point1)
+            {
+                if (shape2 is Line2d line2)
+                    return DoIntersect(point1, line2);
+                else if (shape2 is Segment2d segment2)
+                    return DoIntersect(point1, segment2);
+                else if (shape2 is Ray2d ray2)
+                    return DoIntersect(point1, ray2);
+                else if (shape2 is Triangle2d tri2)
+                    return DoIntersect(point1, tri2);
+                else if (shape2 is Box2d box2)
+                    return DoIntersect(point1, box2);
+            }
+            else if (shape1 is Line2d line1)
+            {
+                if (shape2 is Line2d line3)
+                    return DoIntersect(line1, line3);
+                else if (shape2 is Segment2d segment3)
+                    return DoIntersect(line1, segment3);
+                else if (shape2 is Ray2d ray3)
+                    return DoIntersect(line1, ray3);
+                else if (shape2 is Triangle2d tri3)
+                    return DoIntersect(line1, tri3);
+                else if (shape2 is Box2d box3)
+                    return DoIntersect(line1, box3);
+            }
+            else if (shape1 is Segment2d segment1)
+            {
+                if (shape2 is Line2d line4)
+                    return DoIntersect(segment1, line4);
+                else if (shape2 is Segment2d segment4)
+                    return DoIntersect(segment1, segment4);
+                else if (shape2 is Ray2d ray4)
+                    return DoIntersect(segment1, ray4);
+                else if (shape2 is Triangle2d tri4)
+                    return DoIntersect(segment1, tri4);
+                else if (shape2 is Box2d box4)
+                    return DoIntersect(segment1, box4);
+            }
+            else if (shape1 is Ray2d ray1)
+            {
+                if (shape2 is Line2d line5)
+                    return DoIntersect(ray1, line5);
+                else if (shape2 is Segment2d segment5)
+                    return DoIntersect(ray1, segment5);
+                else if (shape2 is Ray2d ray5)
+                    return DoIntersect(ray1, ray5);
+                else if (shape2 is Triangle2d tri5)
+                    return DoIntersect(ray1, tri5);
+                else if (shape2 is Box2d box5)
+                    return DoIntersect(ray1, box5);
+            }
+            else if (shape1 is Triangle2d tri1)
+            {
+                if (shape2 is Line2d line6)
+                    return DoIntersect(tri1, line6);
+                else if (shape2 is Segment2d segment6)
+                    return DoIntersect(tri1, segment6);
+                else if (shape2 is Ray2d ray6)
+                    return DoIntersect(tri1, ray6);
+                else if (shape2 is Triangle2d tri6)
+                    return DoIntersect(tri1, tri6);
+                else if (shape2 is Box2d box6)
+                    return DoIntersect(tri1, box6);
+            }
+            else if (shape1 is Box2d box1)
+            {
+                if (shape2 is Line2d line7)
+                    return DoIntersect(box1, line7);
+                else if (shape2 is Segment2d segment7)
+                    return DoIntersect(box1, segment7);
+                else if (shape2 is Ray2d ray7)
+                    return DoIntersect(box1, ray7);
+                else if (shape2 is Triangle2d tri7)
+                    return DoIntersect(box1, tri7);
+                else if (shape2 is Box2d box7)
+                    return DoIntersect(box1, box7);
+            }
+    
+            return false;
+        }
+
+        public static IntersectionResult2d Intersection(IGeometry2d shape1, IGeometry2d shape2)
+        {
+            if (shape1 is Point2d point1)
+            {
+                if (shape2 is Line2d line2)
+                    return Intersection(point1, line2);
+                else if (shape2 is Segment2d segment2)
+                    return Intersection(point1, segment2);
+                else if (shape2 is Ray2d ray2)
+                    return Intersection(point1, ray2);
+                else if (shape2 is Triangle2d tri2)
+                    return Intersection(point1, tri2);
+                else if (shape2 is Box2d box2)
+                    return Intersection(point1, box2);
+            }
+            else if (shape1 is Line2d line1)
+            {
+                if (shape2 is Line2d line3)
+                    return Intersection(line1, line3);
+                else if (shape2 is Segment2d segment3)
+                    return Intersection(line1, segment3);
+                else if (shape2 is Ray2d ray3)
+                    return Intersection(line1, ray3);
+                else if (shape2 is Triangle2d tri3)
+                    return Intersection(line1, tri3);
+                else if (shape2 is Box2d box3)
+                    return Intersection(line1, box3);
+            }
+            else if (shape1 is Segment2d segment1)
+            {
+                if (shape2 is Line2d line4)
+                    return Intersection(segment1, line4);
+                else if (shape2 is Segment2d segment4)
+                    return Intersection(segment1, segment4);
+                else if (shape2 is Ray2d ray4)
+                    return Intersection(segment1, ray4);
+                else if (shape2 is Triangle2d tri4)
+                    return Intersection(segment1, tri4);
+                else if (shape2 is Box2d box4)
+                    return Intersection(segment1, box4);
+            }
+            else if (shape1 is Ray2d ray1)
+            {
+                if (shape2 is Line2d line5)
+                    return Intersection(ray1, line5);
+                else if (shape2 is Segment2d segment5)
+                    return Intersection(ray1, segment5);
+                else if (shape2 is Ray2d ray5)
+                    return Intersection(ray1, ray5);
+                else if (shape2 is Triangle2d tri5)
+                    return Intersection(ray1, tri5);
+                else if (shape2 is Box2d box5)
+                    return Intersection(ray1, box5);
+            }
+            else if (shape1 is Triangle2d tri1)
+            {
+                if (shape2 is Line2d line6)
+                    return Intersection(tri1, line6);
+                else if (shape2 is Segment2d segment6)
+                    return Intersection(tri1, segment6);
+                else if (shape2 is Ray2d ray6)
+                    return Intersection(tri1, ray6);
+                else if (shape2 is Triangle2d tri6)
+                    return Intersection(tri1, tri6);
+                else if (shape2 is Box2d box6)
+                    return Intersection(tri1, box6);
+            }
+            else if (shape1 is Box2d box1)
+            {
+                if (shape2 is Line2d line7)
+                    return Intersection(box1, line7);
+                else if (shape2 is Segment2d segment7)
+                    return Intersection(box1, segment7);
+                else if (shape2 is Ray2d ray7)
+                    return Intersection(box1, ray7);
+                else if (shape2 is Triangle2d tri7)
+                    return Intersection(box1, tri7);
+                else if (shape2 is Box2d box7)
+                    return Intersection(box1, box7);
+            }
+
+            return new IntersectionResult2d();
+        }
+
         //point 
 
         public static bool DoIntersect(Point2d point, Line2d line)

@@ -48,8 +48,8 @@ namespace CGALDotNetConsole
 
             //PolygonPartition2Examples.CreatePolygonPartition();
 
-            //IntersectionExamples.PointIntersections();
-            //IntersectionExamples.LineIntersections();
+            IntersectionExamples.PointIntersections();
+            IntersectionExamples.LineIntersections();
 
         }
 

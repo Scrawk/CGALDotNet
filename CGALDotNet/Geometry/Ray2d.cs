@@ -5,7 +5,7 @@ namespace CGALDotNet.Geometry
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Ray2d : IEquatable<Ray2d>
+    public struct Ray2d : IEquatable<Ray2d>, IGeometry2d
     {
 
         public Point2d Position;

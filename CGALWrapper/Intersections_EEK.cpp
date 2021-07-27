@@ -265,7 +265,7 @@ IntersectionResult2d Intersections_EEK_Intersection_RayRay(Ray2d ray, Ray2d ray2
 	return Intersections<EEK>::Intersection(ray, ray2);
 }
 
-IntersectionResult2d Intersections_EEK_Intersection_Rayegment(Ray2d ray, Segment2d segment)
+IntersectionResult2d Intersections_EEK_Intersection_RaySegment(Ray2d ray, Segment2d segment)
 {
 	return Intersections<EEK>::Intersection(ray, segment);
 }
@@ -278,4 +278,100 @@ IntersectionResult2d Intersections_EEK_Intersection_RayTriangle(Ray2d ray, Trian
 IntersectionResult2d Intersections_EEK_Intersection_RayBox(Ray2d ray, Box2d box)
 {
 	return Intersections<EEK>::Intersection(ray, box);
+}
+
+//Segment
+
+IntersectionResult2d Intersections_EEK_Intersection_SegmentPoint(Segment2d segment, Point2d point)
+{
+	return Intersections<EEK>::Intersection(segment, point);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_SegmentLine(Segment2d segment, Line2d line)
+{
+	return Intersections<EEK>::Intersection(segment, line);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_SegmentRay(Segment2d segment, Ray2d ray)
+{
+	return Intersections<EEK>::Intersection(segment, ray);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_SegmentSegment(Segment2d segment, Segment2d segment2)
+{
+	return Intersections<EEK>::Intersection(segment, segment);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_SegmentTriangle(Segment2d segment, Triangle2d triangle)
+{
+	return Intersections<EEK>::Intersection(segment, triangle);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_SegmentBox(Segment2d segment, Box2d box)
+{
+	return Intersections<EEK>::Intersection(segment, box);
+}
+
+//Triangle
+
+IntersectionResult2d Intersections_EEK_Intersection_TrianglePoint(Triangle2d triangle, Point2d point)
+{
+	return Intersections<EEK>::Intersection(triangle, point);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_TriangleLine(Triangle2d triangle, Line2d line)
+{
+	return Intersections<EEK>::Intersection(triangle, line);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_TriangleRay(Triangle2d triangle, Ray2d ray)
+{
+	return Intersections<EEK>::Intersection(triangle, ray);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_TriangleSegment(Triangle2d triangle, Segment2d segment)
+{
+	return Intersections<EEK>::Intersection(triangle, segment);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_TriangleTriangle(Triangle2d triangle, Triangle2d triangle2)
+{
+	return Intersections<EEK>::Intersection(triangle, triangle2);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_TriangleBox(Triangle2d triangle, Box2d box)
+{
+	return Intersections<EEK>::Intersection(triangle, box);
+}
+
+//Box
+
+IntersectionResult2d Intersections_EEK_Intersection_BoxPoint(Box2d box, Point2d point)
+{
+	return Intersections<EEK>::Intersection(box, point);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_BoxLine(Box2d box, Line2d line)
+{
+	return Intersections<EEK>::Intersection(box, line);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_BoxRay(Box2d box, Ray2d ray)
+{
+	return Intersections<EEK>::Intersection(box, ray);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_BoxSegment(Box2d box, Segment2d segment)
+{
+	return Intersections<EEK>::Intersection(box, segment);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_BoxTriangle(Box2d box, Triangle2d triangle)
+{
+	return Intersections<EEK>::Intersection(box, triangle);
+}
+
+IntersectionResult2d Intersections_EEK_Intersection_BoxBox(Box2d box, Box2d box2)
+{
+	return Intersections<EEK>::Intersection(box, box2);
 }

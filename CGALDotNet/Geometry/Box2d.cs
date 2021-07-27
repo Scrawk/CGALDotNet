@@ -6,7 +6,7 @@ namespace CGALDotNet.Geometry
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Box2d : IEquatable<Box2d>
+    public struct Box2d : IEquatable<Box2d>, IGeometry2d
     {
 
         public Point2d Min;
@@ -162,6 +162,20 @@ namespace CGALDotNet.Geometry
         {
             Min = Min.Rounded(digits);
             Max = Max.Rounded(digits);
+        }
+
+        /// <summary>
+        /// Get the boxs corner vertices.
+        /// </summary>
+        /// <returns>The corner vertices.</returns>
+        public Point2d[] GetCorners()
+        {
+            var corners = new Point2d[4];
+            corners[0] = new Point2d(Min.x, Min.y);
+            corners[1] = new Point2d(Max.x, Min.y);
+            corners[2] = new Point2d(Max.x, Max.y);
+            corners[3] = new Point2d(Min.x, Max.y);
+            return corners;
         }
 
         /// <summary>

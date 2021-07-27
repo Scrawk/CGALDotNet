@@ -12,7 +12,7 @@ namespace CGALDotNet.Geometry
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Line2d : IEquatable<Line2d>
+    public struct Line2d : IEquatable<Line2d>, IGeometry2d
     {
 
         public double A, B, C;

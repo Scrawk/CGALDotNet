@@ -7,7 +7,7 @@ namespace CGALDotNet.Geometry
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Point2d : IEquatable<Point2d>
+    public struct Point2d : IEquatable<Point2d>, IGeometry2d
     {
         public double x, y;
 
