@@ -52,6 +52,21 @@ namespace CGALDotNet.Geometry
         public readonly static Point3d NegativeInfinity = new Point3d(double.NegativeInfinity);
 
         /// <summary>
+        /// 3D point to 2D point.
+        /// </summary>
+        public Point2d xy => new Point2d(x, y);
+
+        /// <summary>
+        /// 3D point to 4D point with w as 0.
+        /// </summary>
+        public Point4d xyz0 => new Point4d(x, y, z, 0);
+
+        /// <summary>
+        /// 3D point to 4D point with w as 1.
+        /// </summary>
+        public Point4d xyz1 => new Point4d(x, y, z, 1);
+
+        /// <summary>
         /// A point all with the value v.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -148,7 +163,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3d operator +(double s, Point3d v1)
         {
-            return new Point3d(v1.x + s, v1.z + s, v1.z + s);
+            return new Point3d(s + v1.x, s + v1.z, s + v1.z);
         }
 
         /// <summary>
@@ -322,7 +337,7 @@ namespace CGALDotNet.Geometry
             double x = v0.x - v1.x;
             double y = v0.y - v1.y;
             double z = v0.z - v1.z;
-            return x * x + y * y;
+            return x * x + y * y + z * z;
         }
 
 
@@ -420,8 +435,8 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// A rounded point.
         /// </summary>
-        /// <param name="digits"></param>
-        /// <returns></returns>
+        /// <param name="digits">The number of digits to round to.</param>
+        /// <returns>The rounded point</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point3d Rounded(int digits = 0)
         {
@@ -429,6 +444,18 @@ namespace CGALDotNet.Geometry
             double y = Math.Round(this.y, digits);
             double z = Math.Round(this.z, digits);
             return new Point3d(x, y, z);
+        }
+
+        /// <summary>
+        /// Round the point.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Round(int digits = 0)
+        {
+            x = Math.Round(x, digits);
+            y = Math.Round(y, digits);
+            z = Math.Round(z, digits);
         }
 
     }

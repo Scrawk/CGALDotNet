@@ -65,6 +65,46 @@ namespace CGALDotNet.Geometry
         {
             return Position + (Point2d)(t * Direction);
         }
+
+        /// <summary>
+        /// Transform the ray by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix2x2d m)
+        {
+            Position = m * Position;
+            Direction = m * Direction;
+        }
+
+        /// <summary>
+        /// Transform the ray by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix3x3d m)
+        {
+            Position = m * Position;
+            Direction = m * Direction;
+        }
+
+        /// <summary>
+        /// Transform the ray by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix4x4d m)
+        {
+            Position = m * Position;
+            Direction = m * Direction;
+        }
+
+        /// <summary>
+        /// Round the rays position and direction.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            Position = Position.Rounded(digits);
+            Direction = Direction.Rounded(digits);
+        }
     }
 }
 

@@ -211,12 +211,109 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double Trace
         {
             get
             {
                 return m00 + m11 + m22 + m33;
             }
+        }
+
+        /// <summary>
+        /// Multiply a vector by a matrix.
+        /// </summary>
+        public static Vector2d operator *(Matrix4x4d m, Vector2d v)
+        {
+            Vector4d v1 = v.xy00;
+            Vector4d v2 = new Vector4d();
+
+            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z + m.m03 * v1.w;
+            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z + m.m13 * v1.w;
+            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z + m.m23 * v1.w;
+            v2.w = m.m30 * v1.x + m.m31 * v1.y + m.m32 * v1.z + m.m33 * v1.w;
+
+            return v2.xy;
+        }
+
+        /// <summary>
+        /// Multiply a vector by a matrix.
+        /// </summary>
+        public static Vector3d operator *(Matrix4x4d m, Vector3d v)
+        {
+            Vector4d v1 = v.xyz0;
+            Vector4d v2 = new Vector4d();
+
+            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z + m.m03 * v1.w;
+            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z + m.m13 * v1.w;
+            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z + m.m23 * v1.w;
+            v2.w = m.m30 * v1.x + m.m31 * v1.y + m.m32 * v1.z + m.m33 * v1.w;
+
+            return v2.xyz;
+        }
+
+        /// <summary>
+        /// Multiply a vector by a matrix.
+        /// </summary>
+        public static Vector4d operator *(Matrix4x4d m, Vector4d v)
+        {
+            Vector4d v2 = new Vector4d();
+
+            v2.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z + m.m03 * v.w;
+            v2.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z + m.m13 * v.w;
+            v2.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z + m.m23 * v.w;
+            v2.w = m.m30 * v.x + m.m31 * v.y + m.m32 * v.z + m.m33 * v.w;
+
+            return v2;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        public static Point2d operator *(Matrix4x4d m, Point2d v)
+        {
+            Point4d v1 = v.xy01;
+            Point4d v2 = new Point4d();
+
+            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z + m.m03 * v1.w;
+            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z + m.m13 * v1.w;
+            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z + m.m23 * v1.w;
+            v2.w = m.m30 * v1.x + m.m31 * v1.y + m.m32 * v1.z + m.m33 * v1.w;
+
+            return v2.xy;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        public static Point3d operator *(Matrix4x4d m, Point3d v)
+        {
+            Point4d v1 = v.xyz1;
+            Point4d v2 = new Point4d();
+
+            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z + m.m03 * v1.w;
+            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z + m.m13 * v1.w;
+            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z + m.m23 * v1.w;
+            v2.w = m.m30 * v1.x + m.m31 * v1.y + m.m32 * v1.z + m.m33 * v1.w;
+
+            return v2.xyz;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        public static Point4d operator *(Matrix4x4d m, Point4d v)
+        {
+            Point4d v2 = new Point4d();
+
+            v2.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z + m.m03 * v.w;
+            v2.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z + m.m13 * v.w;
+            v2.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z + m.m23 * v.w;
+            v2.w = m.m30 * v.x + m.m31 * v.y + m.m32 * v.z + m.m33 * v.w;
+
+            return v2;
         }
 
         /// <summary>

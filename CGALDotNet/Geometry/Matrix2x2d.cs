@@ -134,12 +134,41 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double Trace
         {
             get
             {
                 return m00 + m11;
             }
+        }
+
+        /// <summary>
+        /// Multiply  a vector by a matrix.
+        /// </summary>
+        public static Vector2d operator *(Matrix2x2d m, Vector2d v)
+        {
+            Vector2d v2 = new Vector2d();
+
+            v2.x = m.m00 * v.x + m.m01 * v.y;
+            v2.y = m.m10 * v.x + m.m11 * v.y;
+
+            return v2;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        public static Point2d operator *(Matrix2x2d m, Point2d v)
+        {
+            Point2d v2 = new Point2d();
+
+            v2.x = m.m00 * v.x + m.m01 * v.y;
+            v2.y = m.m10 * v.x + m.m11 * v.y;
+
+            return v2;
         }
 
         /// <summary>

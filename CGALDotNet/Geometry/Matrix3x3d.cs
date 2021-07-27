@@ -154,12 +154,73 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double Trace
         {
             get
             {
                 return m00 + m11 + m22;
             }
+        }
+
+        /// <summary>
+        /// Multiply  a vector by a matrix.
+        /// </summary>
+        public static Vector2d operator *(Matrix3x3d m, Vector2d v)
+        {
+            Vector3d v1 = v.xy0;
+            Vector3d v2 = new Vector3d();
+
+            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z;
+            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z;
+            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z;
+
+            return v2.xy;
+        }
+
+        /// <summary>
+        /// Multiply  a vector by a matrix.
+        /// </summary>
+        public static Vector3d operator *(Matrix3x3d m, Vector3d v)
+        {
+            Vector3d v2 = new Vector3d();
+
+            v2.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z;
+            v2.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z;
+            v2.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z;
+
+            return v2;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        public static Point2d operator *(Matrix3x3d m, Point2d v)
+        {
+            Point3d v1 = v.xy1;
+            Point3d v2 = new Point3d();
+
+            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z;
+            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z;
+            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z;
+
+            return v2.xy;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        public static Point3d operator *(Matrix3x3d m, Point3d v)
+        {
+            Point3d v2 = new Point3d();
+
+            v2.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z;
+            v2.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z;
+            v2.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z;
+
+            return v2;
         }
 
         /// <summary>

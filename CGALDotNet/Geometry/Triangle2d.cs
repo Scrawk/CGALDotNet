@@ -126,6 +126,50 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Transform the triangle by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix2x2d m)
+        {
+            A = m * A;
+            B = m * B;
+            C = m * C;
+        }
+
+        /// <summary>
+        /// Transform the triangle by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix3x3d m)
+        {
+            A = m * A;
+            B = m * B;
+            C = m * C;
+        }
+
+        /// <summary>
+        /// Transform the triangle by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix4x4d m)
+        {
+            A = m * A;
+            B = m * B;
+            C = m * C;
+        }
+
+        /// <summary>
+        /// Round the triangles points.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            A = A.Rounded(digits);
+            B = B.Rounded(digits);
+            C = C.Rounded(digits);
+        }
+
+        /// <summary>
         /// Creates a circle that has all 3 points on its circumference.
         /// From MathWorld: http://mathworld.wolfram.com/Circumcircle.html.
         /// Fails if the points are colinear.

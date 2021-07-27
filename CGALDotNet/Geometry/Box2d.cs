@@ -125,6 +125,46 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Transform the box by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix2x2d m)
+        {
+            Min = m * Min;
+            Max = m * Max;
+        }
+
+        /// <summary>
+        /// Transform the box by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix3x3d m)
+        {
+            Min = m * Min;
+            Max = m * Max;
+        }
+
+        /// <summary>
+        /// Transform the box by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix4x4d m)
+        {
+            Min = m * Min;
+            Max = m * Max;
+        }
+
+        /// <summary>
+        /// Round the boxs min and max values.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            Min = Min.Rounded(digits);
+            Max = Max.Rounded(digits);
+        }
+
+        /// <summary>
         /// Returns true if this box intersects the other box.
         /// </summary>
         public bool Intersects(Box2d a)

@@ -59,6 +59,16 @@ namespace CGALDotNet.Geometry
         public readonly static Vector4d NegativeInfinity = new Vector4d(double.NegativeInfinity);
 
         /// <summary>
+        /// 4D vector to 2D vector.
+        /// </summary>
+        public Vector2d xy => new Vector2d(x, y);
+
+        /// <summary>
+        /// 4D vector to 3D vector.
+        /// </summary>
+        public Vector3d xyz => new Vector3d(x, y, z);
+
+        /// <summary>
         /// A vector all with the value v.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -479,17 +489,31 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Round vector.
+        /// A rounded vector.
         /// </summary>
-        /// <param name="digits">number of digits to round to.</param>
+        /// <param name="digits">The number of digits to round to.</param>
+        /// <returns>The rounded vector</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4d Rounded(int digits)
+        public Vector4d Rounded(int digits = 0)
         {
             double x = Math.Round(this.x, digits);
             double y = Math.Round(this.y, digits);
             double z = Math.Round(this.z, digits);
             double w = Math.Round(this.w, digits);
             return new Vector4d(x, y, z, w);
+        }
+
+        /// <summary>
+        /// Round the vector.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Round(int digits = 0)
+        {
+            x = Math.Round(x, digits);
+            y = Math.Round(y, digits);
+            z = Math.Round(z, digits);
+            w = Math.Round(w, digits);
         }
 
     }

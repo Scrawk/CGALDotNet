@@ -25,7 +25,8 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
             arr.Print();
         }
 
@@ -44,7 +45,8 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
 
             var points = new Point2d[arr.VertexCount];
             arr.GetPoints(points);
@@ -82,7 +84,8 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
 
             arr.Print(true);
 
@@ -103,9 +106,9 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
-
-            //arr.SetIndices();
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
+            
             arr.CreateLocator(ARR_LOCATOR.NAIVE);
 
             ArrQuery result;
@@ -131,9 +134,9 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
 
-            //arr.SetIndices();
             arr.CreateLocator(ARR_LOCATOR.WALK);
 
             var queries = new Point2d[]
@@ -169,9 +172,9 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
 
-            //arr.SetIndices();
             arr.CreateLocator(ARR_LOCATOR.WALK);
 
             ArrQuery result;
@@ -198,7 +201,8 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
             arr.CreateLocator(ARR_LOCATOR.WALK);
 
             arr.InsertPoint(p4);
@@ -206,7 +210,6 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine("Removed by point " + arr.RemoveVertex(p4) + "\n");
 
             arr.InsertPoint(p4);
-            //arr.SetIndices();
 
             Console.WriteLine("Removed by index " + arr.RemoveVertex(3) + "\n");
 
@@ -229,12 +232,13 @@ namespace CGALDotNetConsole.Examples
                 new Segment2d(p3, p1)
             };
 
-            var arr = new Arrangement2<EEK>(segments);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertSegments(segments, true);
+
             arr.CreateLocator(ARR_LOCATOR.WALK);
 
             Console.WriteLine("Removed by segment " + arr.RemoveEdge(new Segment2d(p2, p1)) + "\n");
 
-            //arr.SetIndices();
             Console.WriteLine("Removed by index " + arr.RemoveEdge(3) + "\n");
 
             arr.Print(true);
