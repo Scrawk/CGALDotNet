@@ -140,96 +140,96 @@ namespace CGALDotNet
 
         public static bool DoIntersect(Segment2d segment, Point2d point)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_SegmentPoint(segment, point);
         }
 
         public static bool DoIntersect(Segment2d segment, Line2d line)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_SegmentLine(segment, line);
         }
 
         public static bool DoIntersect(Segment2d segment, Ray2d ray)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_SegmentRay(segment, ray);
         }
 
         public static bool DoIntersect(Segment2d segment, Segment2d segment2)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_SegmentSegment(segment, segment2);
         }
 
         public static bool DoIntersect(Segment2d segment, Triangle2d triangle)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_SegmentTriangle(segment, triangle);
         }
 
         public static bool DoIntersect(Segment2d segment, Box2d box)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_SegmentBox(segment, box);
         }
 
         //triangle
 
         public static bool DoIntersect(Triangle2d triangle, Point2d point)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_TrianglePoint(triangle, point);
         }
 
         public static bool DoIntersect(Triangle2d triangle, Line2d line)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_TriangleLine(triangle, line);
         }
 
         public static bool DoIntersect(Triangle2d triangle, Ray2d ray)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_TriangleRay(triangle, ray);
         }
 
-        public static bool DoIntersect(Triangle2d triangle, Segment2d segment2)
+        public static bool DoIntersect(Triangle2d triangle, Segment2d segment)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_TriangleSegment(triangle, segment);
         }
 
         public static bool DoIntersect(Triangle2d triangle, Triangle2d triangle2)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_TriangleTriangle(triangle, triangle2);
         }
 
         public static bool DoIntersect(Triangle2d triangle, Box2d box)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_TriangleBox(triangle, box);
         }
 
         //box
 
         public static bool DoIntersect(Box2d box, Point2d point)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_BoxPoint(box, point);
         }
 
         public static bool DoIntersect(Box2d box, Line2d line)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_BoxLine(box, line);
         }
 
         public static bool DoIntersect(Box2d box, Ray2d ray)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_BoxRay(box, ray);
         }
 
-        public static bool DoIntersect(Box2d box, Segment2d segment2)
+        public static bool DoIntersect(Box2d box, Segment2d segment)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_BoxSegment(box, segment);
         }
 
-        public static bool DoIntersect(Box2d box, Triangle2d triangle2)
+        public static bool DoIntersect(Box2d box, Triangle2d triangle)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_BoxTriangle(box, triangle);
         }
 
-        public static bool DoIntersect(Box2d box, Box2d box2)
+        public static bool DoIntersect(Box2d box, Box2d boxd)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_DoIntersect_BoxBox(box, boxd);
         }
 
         //Intersections
@@ -329,96 +329,96 @@ namespace CGALDotNet
 
         public static IntersectionResult2d Intersection(Segment2d segment, Point2d point)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_SegmentPoint(segment, point);
         }
 
         public static IntersectionResult2d Intersection(Segment2d segment, Line2d line)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_SegmentLine(segment, line);
         }
 
         public static IntersectionResult2d Intersection(Segment2d segment, Ray2d ray)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_SegmentRay(segment, ray);
         }
 
         public static IntersectionResult2d Intersection(Segment2d segment, Segment2d segment2)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_SegmentSegment(segment, segment2);
         }
 
         public static IntersectionResult2d Intersection(Segment2d segment, Triangle2d triangle)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_SegmentTriangle(segment, triangle);
         }
 
         public static IntersectionResult2d Intersection(Segment2d segment, Box2d box)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_SegmentBox(segment, box);
         }
 
         //triangle
 
         public static IntersectionResult2d Intersection(Triangle2d triangle, Point2d point)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_TrianglePoint(triangle, point);
         }
 
         public static IntersectionResult2d Intersection(Triangle2d triangle, Line2d line)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_TriangleLine(triangle, line);
         }
 
         public static IntersectionResult2d Intersection(Triangle2d triangle, Ray2d ray)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_TriangleRay(triangle, ray);
         }
 
-        public static IntersectionResult2d Intersection(Triangle2d triangle, Segment2d segment2)
+        public static IntersectionResult2d Intersection(Triangle2d triangle, Segment2d segment)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_TriangleSegment(triangle, segment);
         }
 
         public static IntersectionResult2d Intersection(Triangle2d triangle, Triangle2d triangle2)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_TriangleTriangle(triangle, triangle2);
         }
 
         public static IntersectionResult2d Intersection(Triangle2d triangle, Box2d box)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_TriangleBox(triangle, box);
         }
 
         //box
 
         public static IntersectionResult2d Intersection(Box2d box, Point2d point)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_BoxPoint(box, point);
         }
 
         public static IntersectionResult2d Intersection(Box2d box, Line2d line)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_BoxLine(box, line);
         }
 
         public static IntersectionResult2d Intersection(Box2d box, Ray2d ray)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_BoxRay(box, ray);
         }
 
-        public static IntersectionResult2d Intersection(Box2d box, Segment2d segment2)
+        public static IntersectionResult2d Intersection(Box2d box, Segment2d segment)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_BoxSegment(box, segment);
         }
 
-        public static IntersectionResult2d Intersection(Box2d box, Triangle2d triangle2)
+        public static IntersectionResult2d Intersection(Box2d box, Triangle2d triangle)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_BoxTriangle(box, triangle);
         }
 
-        public static IntersectionResult2d Intersection(Box2d box, Box2d box2)
+        public static IntersectionResult2d Intersection(Box2d box, Box2d boxd)
         {
-            throw new NotImplementedException();
+            return Intersections_EEK_Intersection_BoxBox(box, boxd);
         }
 
         //point
@@ -478,6 +478,65 @@ namespace CGALDotNet
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool Intersections_EEK_DoIntersect_RayBox(Ray2d ray, Box2d box);
 
+        //segment
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_SegmentPoint(Segment2d segment, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_SegmentLine(Segment2d segment, Line2d line);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_SegmentRay(Segment2d segment, Ray2d ray);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_SegmentSegment(Segment2d segment, Segment2d segment2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_SegmentTriangle(Segment2d segment, Triangle2d triangle);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_SegmentBox(Segment2d segment, Box2d box);
+
+        //triangle
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_TrianglePoint(Triangle2d triangle, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_TriangleLine(Triangle2d triangle, Line2d line);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_TriangleRay(Triangle2d triangle, Ray2d ray);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_TriangleSegment(Triangle2d triangle, Segment2d segment);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_TriangleTriangle(Triangle2d triangle, Triangle2d triangle2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_TriangleBox(Triangle2d triangle, Box2d box);
+
+        //box
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_BoxPoint(Box2d box, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_BoxLine(Box2d box, Line2d line);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_BoxRay(Box2d box, Ray2d ray);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_BoxSegment(Box2d box, Segment2d segment);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_BoxTriangle(Box2d box, Triangle2d triangle);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool Intersections_EEK_DoIntersect_BoxBox(Box2d box, Box2d box2);
 
         //point
 
@@ -535,5 +594,65 @@ namespace CGALDotNet
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntersectionResult2d Intersections_EEK_Intersection_RayBox(Ray2d ray, Box2d box);
+
+        //segment
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_SegmentPoint(Segment2d segment, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_SegmentLine(Segment2d segment, Line2d line);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_SegmentRay(Segment2d segment, Ray2d ray);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_SegmentSegment(Segment2d segment, Segment2d segment2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_SegmentTriangle(Segment2d segment, Triangle2d triangle);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_SegmentBox(Segment2d segment, Box2d box);
+
+        //triangle
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_TrianglePoint(Triangle2d triangle, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_TriangleLine(Triangle2d triangle, Line2d line);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_TriangleRay(Triangle2d triangle, Ray2d ray);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_TriangleSegment(Triangle2d triangle, Segment2d segment);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_TriangleTriangle(Triangle2d triangle, Triangle2d triangle2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_TriangleBox(Triangle2d triangle, Box2d box);
+
+        //box
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_BoxPoint(Box2d box, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_BoxLine(Box2d box, Line2d line);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_BoxRay(Box2d box, Ray2d ray);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_BoxSegment(Box2d box, Segment2d segment);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_BoxTriangle(Box2d box, Triangle2d triangle);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntersectionResult2d Intersections_EEK_Intersection_BoxBox(Box2d box, Box2d box2);
     }
 }
