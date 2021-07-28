@@ -455,5 +455,52 @@ namespace CGALDotNet.Geometry
             y = Math.Round(y, digits);
         }
 
+        /// <summary>
+        /// Check if the geometries intersects.
+        /// </summary>
+        /// <param name="geometry">The geometry to check.</param>
+        /// <returns>True if there is a intersection.</returns>
+        public bool DoIntersect(IGeometry2d geometry)
+        {
+            return CGALIntersections.DoIntersect(this, geometry);
+        }
+
+        /// <summary>
+        /// Find the intersection with this geometry.
+        /// </summary>
+        /// <param name="geometry">The geometry to check.</param>
+        /// <returns>The intersection result.</returns>
+        public IntersectionResult2d Intersection(IGeometry2d geometry)
+        {
+            return CGALIntersections.Intersection(this, geometry);
+        }
+
+        /// <summary>
+        /// Transform the point by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix2x2d m)
+        {
+            this = m * this;
+        }
+
+        /// <summary>
+        /// Transform the box by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix3x3d m)
+        {
+            this = m * this;
+        }
+
+        /// <summary>
+        /// Transform the box by the matrix.
+        /// </summary>
+        /// <param name="m">The transform.</param>
+        public void Transform(Matrix4x4d m)
+        {
+            this = m * this;
+        }
+
     }
 }

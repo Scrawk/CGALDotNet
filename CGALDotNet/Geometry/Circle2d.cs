@@ -6,7 +6,7 @@ namespace CGALDotNet.Geometry
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Circle2d : IEquatable<Circle2d>, IGeometry2d
+    public struct Circle2d : IEquatable<Circle2d>
     {
 
         public Point2d Center;
