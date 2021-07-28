@@ -64,6 +64,8 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void InsertPolygon(IntPtr ptr, IntPtr polyPtr, bool nonItersecting);
 
+        internal abstract void InsertPolygonWithHoles(IntPtr ptr, IntPtr pwhPtr, bool nonItersecting);
+
         internal abstract void InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
 
         internal abstract void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count, bool nonItersecting);

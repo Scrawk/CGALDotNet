@@ -360,11 +360,9 @@ public:
 	static void InsertPolygon(void* ptr, void* polyPtr, BOOL nonItersecting)
 	{
 		auto arr = CastToArrangement(ptr);;
-
 		auto polygon = Polygon2<EEK>::CastToPolygon2(polyPtr);
 
 		int count = (int)polygon->container().size();
-
 		for (int i = 0; i < count; i++)
 		{
 			int i0 = i;
@@ -384,6 +382,43 @@ public:
 				arr->locator.InsertSegment<Segment_2>(arr->model, segment);
 		}
 
+		arr->map.OnModelChanged();
+	}
+
+	static void InsertPolygon(Arrangement2* arr, Polygon2<K>* polygon, BOOL nonItersecting)
+	{
+		int count = (int)polygon->container().size();
+		for (int i = 0; i < count; i++)
+		{
+			int i0 = i;
+			int i1 = i + 1;
+
+			if (i == count - 1)
+				i1 = 0;
+
+			auto a = polygon->vertex(i0);
+			auto b = polygon->vertex(i1);
+
+			auto segment = Segment2d::FromCGAL(a, b);
+
+			if (nonItersecting)
+				arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
+			else
+				arr->locator.InsertSegment<Segment_2>(arr->model, segment);
+		}
+	}
+
+	static void InsertPolygonWithHoles(void* ptr, void* pwhPtr, BOOL nonItersecting)
+	{
+		auto arr = CastToArrangement(ptr);
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		if (!pwh->is_unbounded())
+			InsertPolygon(&arr, &pwh->outer_boundary(), nonItersecting);
+			
+		for (auto& hole : pwh->holes())
+			InsertPolygon(&arr, &hole, nonItersecting);
+			
 		arr->map.OnModelChanged();
 	}
 

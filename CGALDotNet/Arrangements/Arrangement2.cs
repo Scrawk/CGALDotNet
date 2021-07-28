@@ -50,6 +50,10 @@ namespace CGALDotNet.Arrangements
             Kernel.InsertPolygon(Ptr, polygon.Ptr, nonIntersecting);
         }
 
+        public void InsertPolygon(PolygonWithHoles2<K> polygon, bool nonIntersecting)
+        {
+            Kernel.InsertPolygon(Ptr, polygon.Ptr, nonIntersecting);
+        }
     }
 
     public abstract class Arrangement2 : CGALObject

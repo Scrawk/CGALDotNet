@@ -142,6 +142,11 @@ void Arrangement2_EEK_InsertPolygon(void* ptr, void* polyPtr, BOOL nonItersectin
 	Arrangement2<EEK>::InsertPolygon(ptr, polyPtr, nonItersecting);
 }
 
+void Arrangement2_EEK_InsertPolygonWithHoles(void* ptr, void* pwhPtr, BOOL nonItersecting)
+{
+	Arrangement2<EEK>::InsertPolygonWithHoles(ptr, pwhPtr, nonItersecting);
+}
+
 void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
 {
 	Arrangement2<EEK>::InsertSegment(ptr, segment, nonItersecting);

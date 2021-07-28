@@ -149,6 +149,11 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_InsertPolygon(ptr, polyPtr, nonItersecting);
         }
 
+        internal override void InsertPolygonWithHoles(IntPtr ptr, IntPtr pwhPtr, bool nonItersecting)
+        {
+            Arrangement2_EEK_InsertPolygonWithHoles(ptr, pwhPtr, nonItersecting);
+        }
+
         internal override void InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting)
         {
             Arrangement2_EEK_InsertSegment(ptr, segment, nonItersecting);
@@ -259,6 +264,9 @@ namespace CGALDotNet.Arrangements
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_InsertPolygon(IntPtr ptr, IntPtr polyPtr, bool nonItersecting);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Arrangement2_EEK_InsertPolygonWithHoles(IntPtr ptr, IntPtr pwhPtr, bool nonItersecting);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Arrangement2_EEK_InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);

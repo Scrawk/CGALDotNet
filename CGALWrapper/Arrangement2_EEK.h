@@ -60,6 +60,8 @@ extern "C"
 
 	CGALWRAPPER_API void Arrangement2_EEK_InsertPolygon(void* ptr, void* polyPtr, BOOL nonItersecting);
 
+	CGALWRAPPER_API void Arrangement2_EEK_InsertPolygonWithHoles(void* ptr, void* pwhPtr, BOOL nonItersecting);
+
 	CGALWRAPPER_API void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting);
 
 	CGALWRAPPER_API void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count, BOOL nonItersecting);
