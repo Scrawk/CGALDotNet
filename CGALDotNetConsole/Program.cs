@@ -9,7 +9,7 @@ namespace CGALDotNetConsole
         static void Main(string[] args)
         {
 
-            Geometry2Examples.Transform();
+            //Geometry2Examples.Transform();
 
             //Polygon2Examples.CreateSimplePolygon();
             //Polygon2Examples.CreateRelativelySimplePolygon();
@@ -48,8 +48,10 @@ namespace CGALDotNetConsole
 
             //PolygonPartition2Examples.CreatePolygonPartition();
 
-            IntersectionExamples.PointIntersections();
-            IntersectionExamples.LineIntersections();
+            //IntersectionExamples.PointIntersections();
+            //IntersectionExamples.LineIntersections();
+
+            IntersectionExamples.Test();
 
         }
 

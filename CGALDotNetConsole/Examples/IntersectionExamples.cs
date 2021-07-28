@@ -102,6 +102,21 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine("Line intersection box result = " + PrintResult(CGALIntersections.Intersection(line0, box)));
         }
 
+        public static void Test()
+        {
+            Console.WriteLine("Test \n");
+
+            var box = new Box2d(-5, 5);
+
+            var triangle = new Triangle2d(new Point2d(0, 0), new Point2d(10, 0), new Point2d(0, 10));
+
+            Console.WriteLine(box);
+            Console.WriteLine(triangle);
+
+            Console.WriteLine("Intersection result = " + PrintResult(CGALIntersections.Intersection(box, triangle)));
+
+        }
+
         private static string PrintResult(IntersectionResult2d result)
         {
             switch (result.type)
@@ -126,6 +141,10 @@ namespace CGALDotNetConsole.Examples
 
                 case INTERSECTION_RESULT_2D.TRIANGLE2:
                     return "Triangle " + result.Triangle;
+
+                case INTERSECTION_RESULT_2D.POLYGON2:
+                        return "Polygon " + result;
+                    
             }
 
             return "None";

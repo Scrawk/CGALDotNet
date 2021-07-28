@@ -29,13 +29,15 @@ enum INTERSECTION_RESULT_2D : int
     RAY2,
     SEGMENT2,
     BOX2,
-    TRIANGLE2
+    TRIANGLE2,
+    POLYGON2
 };
 
 struct IntersectionResult2d
 {
+    Point2d points[6];
+    int count;
     INTERSECTION_RESULT_2D type;
-    Point2d a, b, c;
 };
 
 template<class K>
@@ -48,133 +50,307 @@ class Intersections
     typedef CGAL::Segment_2<K> Segment2;
     typedef CGAL::Triangle_2<K> Triangle2;
     typedef CGAL::Iso_rectangle_2<K> Box2;
+    typedef std::vector<Point2> Polygon2;
 
-    /*
-    struct Intersection_visitor 
-    {
-        IntersectionResult2d operator()(const Point2& p) const
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::POINT2;
-            result.a = Point2d::FromCGAL(p);
-            return result;
-        }
-
-        IntersectionResult2d operator()(const Line2& l) const
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::LINE2;
-            result.a.x = CGAL::to_double(l.a());
-            result.a.y = CGAL::to_double(l.b());
-            result.b.x = CGAL::to_double(l.c());
-            return result;
-        }
-
-        IntersectionResult2d operator()(const Ray2& r) const
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::RAY2;
-            result.a = Point2d::FromCGAL(r.point());
-            result.b = Point2d::FromCGAL(r.to_vector());
-            return result;
-        }
-  
-        IntersectionResult2d operator()(const Segment2& s) const
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::SEGMENT2;
-            result.a = Point2d::FromCGAL(s.source());
-            result.b = Point2d::FromCGAL(s.target());
-            return result;
-        }
-
-        IntersectionResult2d operator()(const Triangle2& t) const
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::TRIANGLE2;
-            result.a = Point2d::FromCGAL(t[0]);
-            result.b = Point2d::FromCGAL(t[1]);
-            result.c = Point2d::FromCGAL(t[2]);
-            return result;
-        }
-
-        IntersectionResult2d operator()(const Box2& b) const
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::BOX2;
-            result.a = Point2d::FromCGAL(b.min);
-            result.b = Point2d::FromCGAL(b.max);
-            return result;
-        }
-
-    };
-    */
-
-    static IntersectionResult2d ToResult(CGAL::Object obj)
+    static IntersectionResult2d ToPoint(CGAL::Object obj)
     {
         if (obj.is_empty())
             return {};
 
-        Point2 p;
-        Segment2 s;
-        Line2 l;
-        Ray2 r;
-        Triangle2 t;
-        Box2 b;
+        Point2 point;
 
-        if (assign(p, obj))
+        if (assign(point, obj))
         {
             IntersectionResult2d result = {};
             result.type = INTERSECTION_RESULT_2D::POINT2;
-            result.a = Point2d::FromCGAL(p);
+            result.count = 1;
+            result.points[0] = Point2d::FromCGAL(point);
             return result;
         }
-        else if (assign(s, obj))
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::SEGMENT2;
-            result.a = Point2d::FromCGAL(s.source());
-            result.b = Point2d::FromCGAL(s.target());
-            return result;
-        }
-        else if (assign(l, obj))
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::LINE2;
-            result.a.x = CGAL::to_double(l.a());
-            result.a.y = CGAL::to_double(l.b());
-            result.b.x = CGAL::to_double(l.c());
-            return result;
-        }
-        else if (assign(r, obj))
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::RAY2;
-            result.a = Point2d::FromCGAL(r.point());
-            result.b = Point2d::FromCGAL(r.to_vector());
-            return result;
-        }
-        else if (assign(t, obj))
-        {
-            IntersectionResult2d result = {};
-            result.type = INTERSECTION_RESULT_2D::TRIANGLE2;
-            result.a = Point2d::FromCGAL(t[0]);
-            result.b = Point2d::FromCGAL(t[1]);
-            result.c = Point2d::FromCGAL(t[2]);
-            return result;
-        }
-        else if (assign(b, obj))
+
+        return {};
+    }
+
+    static IntersectionResult2d ToBox(CGAL::Object obj)
+    {
+        if (obj.is_empty())
+            return {};
+
+        Box2 box;
+
+        if (assign(box, obj))
         {
             IntersectionResult2d result = {};
             result.type = INTERSECTION_RESULT_2D::BOX2;
-            result.a = Point2d::FromCGAL(b.min());
-            result.b = Point2d::FromCGAL(b.max());
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(box.min());
+            result.points[1] = Point2d::FromCGAL(box.max());
             return result;
         }
-        else
-        {
+
+        return {};
+    }
+
+    static IntersectionResult2d ToPointOrSegment(CGAL::Object obj)
+    {
+        if (obj.is_empty())
             return {};
+
+        Point2 point;
+        Segment2 seg;
+
+        if (assign(point, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POINT2;
+            result.count = 1;
+            result.points[0] = Point2d::FromCGAL(point);
+            return result;
         }
+        else if (assign(seg, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::SEGMENT2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(seg.source());
+            result.points[1] = Point2d::FromCGAL(seg.target());
+            return result;
+        }
+
+        return {};
+    }
+
+    static IntersectionResult2d ToPointSegmentTriangleOrPolygon(CGAL::Object obj)
+    {
+        if (obj.is_empty())
+            return {};
+
+        Point2 point;
+        Segment2 seg;
+        Triangle2 tri;
+        Polygon2 polygon;
+
+        if (assign(point, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POINT2;
+            result.count = 1;
+            result.points[0] = Point2d::FromCGAL(point);
+            return result;
+        }
+        else if (assign(seg, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::SEGMENT2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(seg.source());
+            result.points[1] = Point2d::FromCGAL(seg.target());
+            return result;
+        }
+        else if (assign(tri, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::TRIANGLE2;
+            result.count = 3;
+            result.points[0] = Point2d::FromCGAL(tri[0]);
+            result.points[1] = Point2d::FromCGAL(tri[1]);
+            result.points[2] = Point2d::FromCGAL(tri[2]);
+            return result;
+        }
+        else if (assign(polygon, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POLYGON2;
+            result.count = (int)polygon.size();
+
+            for (int i = 0; i < result.count; i++)
+                result.points[i] = Point2d::FromCGAL(polygon[i]);
+
+            return result;
+        }
+
+        return {};
+    }
+
+    static IntersectionResult2d ToPointOrRay(CGAL::Object obj)
+    {
+        if (obj.is_empty())
+            return {};
+
+        Point2 point;
+        Ray2 ray;
+
+        if (assign(point, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POINT2;
+            result.count = 1;
+            result.points[0] = Point2d::FromCGAL(point);
+            return result;
+        }
+        else if (assign(ray, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::RAY2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(ray.point());
+            result.points[1] = Point2d::FromCGAL(ray.to_vector());
+            return result;
+        }
+
+        return {};
+    }
+
+    static IntersectionResult2d ToPointOrLine(CGAL::Object obj)
+    {
+        if (obj.is_empty())
+            return {};
+
+        Point2 point;
+        Line2 line;
+
+        if (assign(point, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POINT2;
+            result.count = 1;
+            result.points[0] = Point2d::FromCGAL(point);
+            return result;
+        }
+        else if (assign(line, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::LINE2;
+            result.count = 2;
+            result.points[0].x = CGAL::to_double(line.a());
+            result.points[0].y = CGAL::to_double(line.b());
+            result.points[1].x = CGAL::to_double(line.c());
+            return result;
+        }
+
+        return {};
+    }
+
+    static IntersectionResult2d ToPointSegmentOrRay(CGAL::Object obj)
+    {
+        if (obj.is_empty())
+            return {};
+
+        Point2 point;
+        Segment2 seg;
+        Ray2 ray;
+
+        if (assign(point, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POINT2;
+            result.count = 1;
+            result.points[0] = Point2d::FromCGAL(point);
+            return result;
+        }
+        else if (assign(seg, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::SEGMENT2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(seg.source());
+            result.points[1] = Point2d::FromCGAL(seg.target());
+            return result;
+        }
+        else if (assign(ray, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::RAY2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(ray.point());
+            result.points[1] = Point2d::FromCGAL(ray.to_vector());
+            return result;
+        }
+
+        return {};
+    }
+
+    static IntersectionResult2d ToAny(CGAL::Object obj)
+    {
+        if (obj.is_empty())
+            return {};
+
+        Point2 point;
+        Segment2 seg;
+        Line2 line;
+        Ray2 ray;
+        Triangle2 tri;
+        Box2 box;
+        Polygon2 polygon;
+
+        if (assign(point, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POINT2;
+            result.count = 1;
+            result.points[0] = Point2d::FromCGAL(point);
+            return result;
+        }
+        else if (assign(seg, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::SEGMENT2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(seg.source());
+            result.points[1] = Point2d::FromCGAL(seg.target());
+            return result;
+        }
+        else if (assign(line, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::LINE2;
+            result.count = 2;
+            result.points[0].x = CGAL::to_double(line.a());
+            result.points[0].y = CGAL::to_double(line.b());
+            result.points[1].x = CGAL::to_double(line.c());
+            return result;
+        }
+        else if (assign(ray, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::RAY2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(ray.point());
+            result.points[1] = Point2d::FromCGAL(ray.to_vector());
+            return result;
+        }
+        else if (assign(tri, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::TRIANGLE2;
+            result.count = 3;
+            result.points[0] = Point2d::FromCGAL(tri[0]);
+            result.points[1] = Point2d::FromCGAL(tri[1]);
+            result.points[2] = Point2d::FromCGAL(tri[2]);
+            return result;
+        }
+        else if (assign(box, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::BOX2;
+            result.count = 2;
+            result.points[0] = Point2d::FromCGAL(box.min());
+            result.points[1] = Point2d::FromCGAL(box.max());
+            return result;
+        }
+        else if (assign(polygon, obj))
+        {
+            IntersectionResult2d result = {};
+            result.type = INTERSECTION_RESULT_2D::POLYGON2;
+            result.count = (int)polygon.size();
+
+            for(int i = 0; i < result.count; i++)
+                result.points[i] = Point2d::FromCGAL(polygon[i]);
+
+            return result;
+        }
+
+        return {};
     }
 
 public:
@@ -443,7 +619,7 @@ public:
         auto p = point.ToCGAL<K>();
         auto l = line.ToCGAL<K, Line2>();
 
-        return ToResult(CGAL::intersection(p, l));
+        return ToPoint(CGAL::intersection(p, l));
     }
 
     static IntersectionResult2d Intersection(Point2d point, Ray2d ray)
@@ -451,7 +627,7 @@ public:
         auto p = point.ToCGAL<K>();
         auto r = ray.ToCGAL<K, Ray2>();
 
-        return ToResult(CGAL::intersection(p, r));
+        return ToPoint(CGAL::intersection(p, r));
     }
 
     static IntersectionResult2d Intersection(Point2d point, Segment2d segment)
@@ -459,7 +635,7 @@ public:
         auto p = point.ToCGAL<K>();
         auto s = segment.ToCGAL<K, Segment2>();
 
-        return ToResult(CGAL::intersection(p, s));
+        return ToPoint(CGAL::intersection(p, s));
     }
 
     static IntersectionResult2d Intersection(Point2d point, Triangle2d triangle)
@@ -467,7 +643,7 @@ public:
         auto p = point.ToCGAL<K>();
         auto t = triangle.ToCGAL<K, Triangle2>();
 
-        return ToResult(CGAL::intersection(p, t));
+        return ToPoint(CGAL::intersection(p, t));
     }
 
     static IntersectionResult2d Intersection(Point2d point, Box2d box)
@@ -475,7 +651,7 @@ public:
         auto p = point.ToCGAL<K>();
         auto b = box.ToCGAL<K, Box2>();
 
-        return ToResult(CGAL::intersection(p, b));
+        return ToPoint(CGAL::intersection(p, b));
     }
 
     //Line
@@ -485,7 +661,7 @@ public:
         auto p = point.ToCGAL<K>();
         auto l = line.ToCGAL<K, Line2>();
 
-        return ToResult(CGAL::intersection(p, l));
+        return ToPoint(CGAL::intersection(p, l));
     }
 
     static IntersectionResult2d Intersection(Line2d line, Line2d line2)
@@ -493,7 +669,7 @@ public:
         auto l = line.ToCGAL<K, Line2>();
         auto l2 = line2.ToCGAL<K, Line2>();
 
-        return ToResult(CGAL::intersection(l, l2));
+        return ToPointOrLine(CGAL::intersection(l, l2));
     }
 
     static IntersectionResult2d Intersection(Line2d line, Ray2d ray)
@@ -501,7 +677,7 @@ public:
         auto l = line.ToCGAL<K, Line2>();
         auto r = ray.ToCGAL<K, Ray2>();
 
-        return ToResult(CGAL::intersection(l, r));
+        return ToPointOrRay(CGAL::intersection(l, r));
  
     }
 
@@ -510,7 +686,7 @@ public:
         auto l = line.ToCGAL<K, Line2>();
         auto s = segment.ToCGAL<K, Segment2>();
 
-        return ToResult(CGAL::intersection(l, s));
+        return ToPointOrSegment(CGAL::intersection(l, s));
     }
 
     static IntersectionResult2d Intersection(Line2d line, Triangle2d triangle)
@@ -518,7 +694,7 @@ public:
         auto l = line.ToCGAL<K, Line2>();
         auto t = triangle.ToCGAL<K, Triangle2>();
 
-        return ToResult(CGAL::intersection(l, t));
+        return ToPointOrSegment(CGAL::intersection(l, t));
     }
 
     static IntersectionResult2d Intersection(Line2d line, Box2d box)
@@ -526,7 +702,7 @@ public:
         auto l = line.ToCGAL<K, Line2>();
         auto b = box.ToCGAL<K, Box2>();
 
-        return ToResult(CGAL::intersection(l, b));
+        return ToPointOrSegment(CGAL::intersection(l, b));
     }
 
     //Ray
@@ -536,7 +712,7 @@ public:
         auto r = ray.ToCGAL<K, Ray2>();
         auto p = point.ToCGAL<K>();
 
-        return ToResult(CGAL::intersection(r, p));
+        return ToPoint(CGAL::intersection(r, p));
     }
 
     static IntersectionResult2d Intersection(Ray2d ray, Line2d line)
@@ -544,7 +720,7 @@ public:
         auto r = ray.ToCGAL<K, Ray2>();
         auto l = line.ToCGAL<K, Line2>();
 
-        return ToResult(CGAL::intersection(r, l));
+        return ToPointOrRay(CGAL::intersection(r, l));
     }
 
     static IntersectionResult2d Intersection(Ray2d ray, Ray2d ray2)
@@ -552,7 +728,7 @@ public:
         auto r = ray.ToCGAL<K, Ray2>();
         auto r2 = ray2.ToCGAL<K, Ray2>();
 
-        return ToResult(CGAL::intersection(r, r2));
+        return ToPointSegmentOrRay(CGAL::intersection(r, r2));
     }
 
     static IntersectionResult2d Intersection(Ray2d ray, Segment2d segment)
@@ -560,7 +736,7 @@ public:
         auto r = ray.ToCGAL<K, Ray2>();
         auto s = segment.ToCGAL<K, Segment2>();
 
-        return ToResult(CGAL::intersection(r, s));
+        return ToPointOrSegment(CGAL::intersection(r, s));
     }
 
     static IntersectionResult2d Intersection(Ray2d ray, Triangle2d triangle)
@@ -568,7 +744,7 @@ public:
         auto r = ray.ToCGAL<K, Ray2>();
         auto t = triangle.ToCGAL<K, Triangle2>();
 
-        return ToResult(CGAL::intersection(r, t));
+        return ToPointOrSegment(CGAL::intersection(r, t));
     }
 
     static IntersectionResult2d Intersection(Ray2d ray, Box2d box)
@@ -576,7 +752,7 @@ public:
         auto r = ray.ToCGAL<K, Ray2>();;
         auto b = box.ToCGAL<K, Box2>();
 
-        return ToResult(CGAL::intersection(r, b));
+        return ToPointOrSegment(CGAL::intersection(r, b));
     }
 
     //Segment
@@ -586,7 +762,7 @@ public:
         auto s = segment.ToCGAL<K, Segment2>();
         auto p = point.ToCGAL<K>();
 
-        return ToResult(CGAL::intersection(s, p));
+        return ToPoint(CGAL::intersection(s, p));
     }
 
     static IntersectionResult2d Intersection(Segment2d segment, Line2d line)
@@ -594,7 +770,7 @@ public:
         auto s = segment.ToCGAL<K, Segment2>();
         auto l = line.ToCGAL<K, Line2>();
 
-        return ToResult(CGAL::intersection(s, l));
+        return ToPointOrSegment(CGAL::intersection(s, l));
     }
 
     static IntersectionResult2d Intersection(Segment2d segment, Ray2d ray)
@@ -602,7 +778,7 @@ public:
         auto s = segment.ToCGAL<K, Segment2>();
         auto r = ray.ToCGAL<K, Ray2>();
 
-        return ToResult(CGAL::intersection(s, r));
+        return ToPointOrSegment(CGAL::intersection(s, r));
     }
 
     static IntersectionResult2d Intersection(Segment2d segment, Segment2d segment2)
@@ -610,7 +786,7 @@ public:
         auto s = segment.ToCGAL<K, Segment2>();
         auto s2 = segment2.ToCGAL<K, Segment2>();
 
-        return ToResult(CGAL::intersection(s, s2));
+        return ToPointOrSegment(CGAL::intersection(s, s2));
     }
 
     static IntersectionResult2d Intersection(Segment2d segment, Triangle2d triangle)
@@ -618,7 +794,7 @@ public:
         auto s = segment.ToCGAL<K, Segment2>();
         auto t = triangle.ToCGAL<K, Triangle2>();
 
-        return ToResult(CGAL::intersection(s, t));
+        return ToPointOrSegment(CGAL::intersection(s, t));
     }
 
     static IntersectionResult2d Intersection(Segment2d segment, Box2d box)
@@ -626,7 +802,7 @@ public:
         auto s = segment.ToCGAL<K, Segment2>();
         auto b = box.ToCGAL<K, Box2>();
 
-        return ToResult(CGAL::intersection(s, b));
+        return ToPointOrSegment(CGAL::intersection(s, b));
     }
 
     //Triangle
@@ -636,7 +812,7 @@ public:
         auto t = triangle.ToCGAL<K, Triangle2>();
         auto p = point.ToCGAL<K>();
 
-        return ToResult(CGAL::intersection(t, p));
+        return ToPoint(CGAL::intersection(t, p));
     }
 
     static IntersectionResult2d Intersection(Triangle2d triangle, Line2d line)
@@ -644,7 +820,7 @@ public:
         auto t = triangle.ToCGAL<K, Triangle2>();
         auto l = line.ToCGAL<K, Line2>();
 
-        return ToResult(CGAL::intersection(t, l));
+        return ToPointOrSegment(CGAL::intersection(t, l));
     }
 
     static IntersectionResult2d Intersection(Triangle2d triangle, Ray2d ray)
@@ -652,7 +828,7 @@ public:
         auto t = triangle.ToCGAL<K, Triangle2>();
         auto r = ray.ToCGAL<K, Ray2>();
 
-        return ToResult(CGAL::intersection(t, r));
+        return ToPointOrSegment(CGAL::intersection(t, r));
     }
 
     static IntersectionResult2d Intersection(Triangle2d triangle, Segment2d segment)
@@ -660,7 +836,7 @@ public:
         auto t = triangle.ToCGAL<K, Triangle2>();
         auto s = segment.ToCGAL<K, Segment2>();
 
-        return ToResult(CGAL::intersection(t, s));
+        return ToPointOrSegment(CGAL::intersection(t, s));
     }
 
     static IntersectionResult2d Intersection(Triangle2d triangle, Triangle2d triangle2)
@@ -668,7 +844,7 @@ public:
         auto t = triangle.ToCGAL<K, Triangle2>();
         auto t2 = triangle2.ToCGAL<K, Triangle2>();
 
-        return ToResult(CGAL::intersection(t, t2));
+        return ToPointSegmentTriangleOrPolygon(CGAL::intersection(t, t2));
     }
 
     static IntersectionResult2d Intersection(Triangle2d triangle, Box2d box)
@@ -676,7 +852,7 @@ public:
         auto t = triangle.ToCGAL<K, Triangle2>();
         auto b = box.ToCGAL<K, Box2>();
 
-        return ToResult(CGAL::intersection(t, b));
+        return ToPointSegmentTriangleOrPolygon(CGAL::intersection(t, b));
     }
 
     //Box
@@ -686,7 +862,7 @@ public:
         auto b = box.ToCGAL<K, Box2>();
         auto p = point.ToCGAL<K>();
 
-        return ToResult(CGAL::intersection(b, p));
+        return ToPoint(CGAL::intersection(b, p));
     }
 
     static IntersectionResult2d Intersection(Box2d box, Line2d line)
@@ -694,7 +870,7 @@ public:
         auto b = box.ToCGAL<K, Box2>();;
         auto l = line.ToCGAL<K, Line2>();
 
-        return ToResult(CGAL::intersection(b, l));
+        return ToPointOrSegment(CGAL::intersection(b, l));
     }
 
     static IntersectionResult2d Intersection(Box2d box, Ray2d ray)
@@ -702,7 +878,7 @@ public:
         auto b = box.ToCGAL<K, Box2>();
         auto r = ray.ToCGAL<K, Ray2>();
 
-        return ToResult(CGAL::intersection(b, r));
+        return ToPointOrSegment(CGAL::intersection(b, r));
     }
 
     static IntersectionResult2d Intersection(Box2d box, Segment2d segment)
@@ -710,7 +886,7 @@ public:
         auto b = box.ToCGAL<K, Box2>();
         auto s = segment.ToCGAL<K, Segment2>();
 
-        return ToResult(CGAL::intersection(b, s));
+        return ToPointOrSegment(CGAL::intersection(b, s));
     }
 
     static IntersectionResult2d Intersection(Box2d box, Triangle2d triangle)
@@ -718,7 +894,7 @@ public:
         auto b = box.ToCGAL<K, Box2>();
         auto t = triangle.ToCGAL<K, Triangle2>();
 
-        return ToResult(CGAL::intersection(b, t));
+        return ToPointSegmentTriangleOrPolygon(CGAL::intersection(b, t));
     }
 
     static IntersectionResult2d Intersection(Box2d box, Box2d box2)
@@ -726,7 +902,7 @@ public:
         auto b = box.ToCGAL<K, Box2>();
         auto b2 = box2.ToCGAL<K, Box2>();
 
-        return ToResult(CGAL::intersection(b, b2));
+        return ToBox(CGAL::intersection(b, b2));
     }
     
 

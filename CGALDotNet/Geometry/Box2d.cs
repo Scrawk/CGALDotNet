@@ -233,15 +233,15 @@ namespace CGALDotNet.Geometry
             return c;
         }
 
-        public static Box2d CalculateBounds(IList<Point2d> vertices)
+        public static Box2d CalculateBounds(IList<Point2d> points)
         {
             Point2d min = Point2d.PositiveInfinity;
             Point2d max = Point2d.NegativeInfinity;
 
-            int count = vertices.Count;
+            int count = points.Count;
             for (int i = 0; i < count; i++)
             {
-                var v = vertices[i];
+                var v = points[i];
                 if (v.x < min.x) min.x = v.x;
                 if (v.y < min.y) min.y = v.y;
 

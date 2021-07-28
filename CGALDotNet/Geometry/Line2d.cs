@@ -56,6 +56,82 @@ namespace CGALDotNet.Geometry
             C = p1.x * p2.y - p2.x * p1.y;
         }
 
+        /// <summary>
+        /// Find the slope of the line.
+        /// </summary>
+        public double Slope
+        {
+            get
+            {
+                if (B == 0) return 0;
+                return -A / B;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the line is ascending
+        /// (that is, makes an angle with the positive
+        /// direction of the X axis that lies in (0, pi/2).
+        /// </summary>
+        public bool IsAscending
+        {
+            get
+            {
+                return (B == 0 || (-A / B) >= 0);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the line is vertical
+        /// (that is, makes an angle with the positive
+        /// direction of the X axis that is equal to pi/2.
+        /// </summary>
+        public bool IsVertical
+        {
+            get
+            {
+                return B == 0 && A != 0;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the line is descending
+        /// (that is, makes an angle with the positive
+        /// direction of the X axis that lies in (pi/2, pi).
+        /// </summary>
+        public bool IsDescending
+        {
+            get
+            {
+                return (B == 0 || (-A / B) < 0);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the line is horizontal
+        /// (that is, makes an angle with the positive
+        /// direction of the X axis that is equal to pi.
+        /// </summary>
+        public bool IsHorizontal
+        {
+            get
+            {
+                return (A == 0 && B != 0);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the line is degenerate
+        /// (e.g.two equal points were passed to the constructor).
+        /// </summary>
+        public bool IsDegenerate
+        {
+            get
+            {
+                return (A == 0 && B == 0 && C == 0);
+            }
+        }
+
         public static bool operator ==(Line2d i1, Line2d i2)
         {
             return i1.A == i2.A && i1.B == i2.B && i1.C == i2.C;
