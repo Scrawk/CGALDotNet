@@ -78,6 +78,17 @@ namespace CGALDotNet.Polygons
         /// <returns></returns>
         public static Polygon2<K> KochStar(double size, int iterations)
         {
+            return KochStar(Point2d.Zero, size, iterations);
+        }
+
+        /// <summary>
+        /// https://rosettacode.org/wiki/Koch_curve#C.2B.2B
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="iterations"></param>
+        /// <returns></returns>
+        public static Polygon2<K> KochStar(Point2d center, double size, int iterations)
+        {
             double sqrt3_2 = Math.Sqrt(3) / 2.0;
             double length = size * sqrt3_2 * 0.95;
 
@@ -98,7 +109,7 @@ namespace CGALDotNet.Polygons
             points.RemoveAt(last);
             points.Reverse();
 
-            var offset = new Point2d(size / 2);
+            var offset = center + new Point2d(size / 2);
             for (int i = 0; i < points.Count; ++i)
                 points[i] -= offset;
             

@@ -144,6 +144,15 @@
     <ClInclude Include="ConvexHull2_EEK.h">
       <Filter>Header Files\Hulls</Filter>
     </ClInclude>
+    <ClInclude Include="CGALGlobal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALGlobal_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry3.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -178,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="ConvexHull2_EEK.cpp">
       <Filter>Source Files\Hulls</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALGlobal_EEK.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -52,6 +52,11 @@ namespace CGALDotNet.Geometry
         public readonly static Vector3d NegativeInfinity = new Vector3d(double.NegativeInfinity);
 
         /// <summary>
+        /// 3D vector to 3D swizzle vector.
+        /// </summary>
+        public Vector3d xzy => new Vector3d(x, z, y);
+
+        /// <summary>
         /// 3D vector to 2D vector.
         /// </summary>
         public Vector2d xy => new Vector2d(x, y);

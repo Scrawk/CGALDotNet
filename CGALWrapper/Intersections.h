@@ -8,7 +8,6 @@
 #include <CGAL/Segment_2.h>
 #include <CGAL/Vector_2.h>
 #include <CGAL/Triangle_2.h>
-#include <CGAL/Vector_2.h>
 #include <CGAL/Line_2.h>
 #include <CGAL/Iso_rectangle_2.h>
 #include <CGAL/Ray_2.h>
@@ -46,7 +45,7 @@ class Intersections
 
     typedef CGAL::Point_2<K> Point2;
     typedef CGAL::Line_2<K> Line2;
-    typedef CGAL::Line_2<K> Ray2;
+    typedef CGAL::Ray_2<K> Ray2;
     typedef CGAL::Segment_2<K> Segment2;
     typedef CGAL::Triangle_2<K> Triangle2;
     typedef CGAL::Iso_rectangle_2<K> Box2;
@@ -193,7 +192,7 @@ class Intersections
             IntersectionResult2d result = {};
             result.type = INTERSECTION_RESULT_2D::RAY2;
             result.count = 2;
-            result.points[0] = Point2d::FromCGAL(ray.point());
+            result.points[0] = Point2d::FromCGAL(ray.source());
             result.points[1] = Point2d::FromCGAL(ray.to_vector());
             return result;
         }
@@ -262,7 +261,7 @@ class Intersections
             IntersectionResult2d result = {};
             result.type = INTERSECTION_RESULT_2D::RAY2;
             result.count = 2;
-            result.points[0] = Point2d::FromCGAL(ray.point());
+            result.points[0] = Point2d::FromCGAL(ray.source());
             result.points[1] = Point2d::FromCGAL(ray.to_vector());
             return result;
         }
@@ -315,7 +314,7 @@ class Intersections
             IntersectionResult2d result = {};
             result.type = INTERSECTION_RESULT_2D::RAY2;
             result.count = 2;
-            result.points[0] = Point2d::FromCGAL(ray.point());
+            result.points[0] = Point2d::FromCGAL(ray.source());
             result.points[1] = Point2d::FromCGAL(ray.to_vector());
             return result;
         }

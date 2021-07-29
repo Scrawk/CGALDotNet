@@ -226,5 +226,16 @@ namespace CGALDotNet.Geometry
         {
             return string.Format("{0} radians", angle.ToString(f));
         }
+
+        /// <summary>
+        /// A rounded angle.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        /// <returns>The rounded angle</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public double Rounded(int digits = 0)
+        {
+            return Math.Round(angle, digits);
+        }
     }
 }

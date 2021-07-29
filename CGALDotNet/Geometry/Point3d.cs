@@ -52,6 +52,11 @@ namespace CGALDotNet.Geometry
         public readonly static Point3d NegativeInfinity = new Point3d(double.NegativeInfinity);
 
         /// <summary>
+        /// 3D point to 3D swizzle point.
+        /// </summary>
+        public Point3d xzy => new Point3d(x, z, y);
+
+        /// <summary>
         /// 3D point to 2D point.
         /// </summary>
         public Point2d xy => new Point2d(x, y);

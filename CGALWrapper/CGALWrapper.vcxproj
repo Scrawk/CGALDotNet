@@ -163,8 +163,11 @@
     <ClInclude Include="Arrangement2_EEK.h" />
     <ClInclude Include="ArrangementMap.h" />
     <ClInclude Include="ArrMultiLocator.h" />
+    <ClInclude Include="CGALGlobal.h" />
+    <ClInclude Include="CGALGlobal_EEK.h" />
     <ClInclude Include="ConvexHull2.h" />
     <ClInclude Include="ConvexHull2_EEK.h" />
+    <ClInclude Include="Geometry3.h" />
     <ClInclude Include="Intersections.h" />
     <ClInclude Include="CGALWrapper.h" />
     <ClInclude Include="ConstrainedTriangulation2.h" />
@@ -195,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrangement2_EEK.cpp" />
+    <ClCompile Include="CGALGlobal_EEK.cpp" />
     <ClCompile Include="ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="ConvexHull2_EEK.cpp" />
     <ClCompile Include="DelaunayTriangulation2_EEK.cpp" />
