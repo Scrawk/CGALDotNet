@@ -1,0 +1,142 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+using CGALDotNet;
+using CGALDotNet.Geometry;
+
+namespace CGALDotNet.Polygons
+{
+    public static class PolygonFactory<K> where K : CGALKernel, new()
+    {
+
+        public static Polygon2<K> Create()
+        {
+            return new Polygon2<K>();
+        }
+
+        public static Polygon2<K> FromTriangle(Triangle2d tri)
+        {
+            var points = new Point2d[] { tri.A, tri.B, tri.C };
+            return new Polygon2<K>(points);
+        }
+
+        public static Polygon2<K> FromBox(Point2d min, Point2d max)
+        {
+            var box = new Box2d(min, max);
+            return FromBox(box);
+        }
+
+        public static Polygon2<K> FromBox(Box2d box)
+        {
+            var points = box.GetCorners();
+            return new Polygon2<K>(points);
+        }
+
+        public static Polygon2<K> FromCircle(double radius, int segments)
+        {
+            return FromCircle(new Circle2d(Point2d.Zero, radius), segments);
+        }
+
+        public static Polygon2<K> FromCircle(Point2d center, double radius, int segments)
+        {
+            return FromCircle(new Circle2d(center, radius), segments);
+        }
+
+        public static Polygon2<K> FromCircle(Circle2d circle, int segments)
+        {
+            segments = Math.Max(3, segments);
+
+            double pi = Math.PI;
+            var points = new Point2d[segments];
+
+            double rotate = Rotation(segments);
+
+            for (int i = 0; i < segments; i++)
+            {
+                double theta = 2.0 * pi * i / segments + rotate;
+
+                double x = -circle.Radius * Math.Cos(theta);
+                double y = -circle.Radius * Math.Sin(theta);
+
+                points[i] = circle.Center + new Point2d(x, y);
+            }
+
+            return new Polygon2<K>(points);
+        }
+
+        private static double Rotation(int segments)
+        {
+            return (((segments - 2) * 180) / segments) * CGALGlobal.DEG_TO_RAD * 0.5;
+        }
+
+        /// <summary>
+        /// https://rosettacode.org/wiki/Koch_curve#C.2B.2B
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="iterations"></param>
+        /// <returns></returns>
+        public static Polygon2<K> KochStar(double size, int iterations)
+        {
+            double sqrt3_2 = Math.Sqrt(3) / 2.0;
+            double length = size * sqrt3_2 * 0.95;
+
+            double x = (size - length) / 2.0;
+            double y = size / 2.0 - length * sqrt3_2 / 3.0;
+
+            var points = new List<Point2d>(4);
+
+            points.Add(new Point2d(x, y));
+            points.Add(new Point2d(x + length / 2, y + length * sqrt3_2));
+            points.Add(new Point2d(x + length, y));
+            points.Add(new Point2d(x, y));
+
+            for (int i = 0; i < iterations; ++i)
+                points = KochNext(points);
+
+            int last = points.Count - 1;
+            points.RemoveAt(last);
+            points.Reverse();
+
+            var offset = new Point2d(size / 2);
+            for (int i = 0; i < points.Count; ++i)
+                points[i] -= offset;
+            
+            return new Polygon2<K>(points.ToArray());
+        }
+
+        /// <summary>
+        /// https://rosettacode.org/wiki/Koch_curve#C.2B.2B
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        private static List<Point2d> KochNext(List<Point2d> points)
+        {
+            double sqrt3_2 = Math.Sqrt(3) / 2.0;
+            int size = points.Count;
+            var output = new List<Point2d>(4 * (size - 1) + 1);
+
+            double x0 = 0, y0 = 0, x1 = 0, y1 = 0;
+
+            for (int i = 0; i + 1 < size; ++i)
+            {
+                x0 = points[i].x;
+                y0 = points[i].y;
+                x1 = points[i + 1].x;
+                y1 = points[i + 1].y;
+                double dy = y1 - y0;
+                double dx = x1 - x0;
+
+                output.Add(new Point2d(x0, y0));
+                output.Add(new Point2d(x0 + dx / 3.0, y0 + dy / 3.0));
+                output.Add(new Point2d(x0 + dx / 2.0 - dy * sqrt3_2 / 3, y0 + dy / 2.0 + dx * sqrt3_2 / 3.0));
+                output.Add(new Point2d(x0 + 2.0 * dx / 3.0, y0 + 2.0 * dy / 3.0));
+            }
+
+            output.Add(new Point2d(x1, y1));
+
+            return output;
+        }
+
+    }
+}

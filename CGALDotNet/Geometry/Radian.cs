@@ -30,6 +30,11 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// 90 degrees.
         /// </summary>
+        public readonly static Radian A45 = new Radian(45 * CGALGlobal.DEG_TO_RAD);
+
+        /// <summary>
+        /// 90 degrees.
+        /// </summary>
         public readonly static Radian A90 = new Radian(90 * CGALGlobal.DEG_TO_RAD);
 
         /// <summary>
@@ -79,9 +84,9 @@ namespace CGALDotNet.Geometry
         /// Negate the angle.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Radian v)
+        public static Radian operator -(Radian v)
         {
-            return new Point2d(-v.angle);
+            return new Radian(-v.angle);
         }
 
         /// <summary>

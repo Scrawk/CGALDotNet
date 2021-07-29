@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+    <PackageReference Include="coverlet.collector" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CGALDotNet\CGALDotNet.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(SolutionDir)x64\$(ConfigurationName)\CGALWrapper.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\gmp.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1&quot; /y&#xD;&#xA;xcopy &quot;C:\dev\vcpkg\installed\x64-windows\bin\mpfr-6.dll&quot; &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1&quot; /y" />
+  </Target>
+
+</Project>

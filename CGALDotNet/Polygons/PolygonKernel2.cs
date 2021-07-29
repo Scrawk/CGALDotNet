@@ -8,10 +8,6 @@ namespace CGALDotNet.Polygons
 {
     internal abstract class PolygonKernel2
     {
-        internal PolygonKernel2()
-        {
-
-        }
 
         internal abstract string Name { get; }
 
