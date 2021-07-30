@@ -13,13 +13,13 @@ namespace CGALDotNet.Geometry
     public struct Line3d : IEquatable<Line3d>
     {
 
-        public Point2d Position;
-        public Vector2d Direction;
+        public Point3d Position;
+        public Vector3d Direction;
 
-        public Line3d(Point2d position, Vector2d direction)
+        public Line3d(Point3d position, Vector3d direction)
         {
             Position = position;
-            Direction = direction;
+            Direction = direction.Normalized;
         }
 
         public static bool operator ==(Line3d i1, Line3d i2)
@@ -60,6 +60,24 @@ namespace CGALDotNet.Geometry
             return string.Format("[Line3d: Position={0}, Direction={1}]", Position, Direction);
         }
 
+        /// <summary>
+        /// Normalize the lines direction.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Normalize()
+        {
+            Direction.Normalize();
+        }
+
+        /// <summary>
+        /// Round the lines position and direction.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            Position = Position.Rounded(digits);
+            Direction = Direction.Rounded(digits);
+        }
 
     }
 

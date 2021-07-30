@@ -112,56 +112,58 @@ public:
 
     static BOOL LeftTurn(Point2d p, Point2d q, Point2d r)
     {
-        return CGAL::left_turn(p, q, r);
+        return CGAL::left_turn(p.ToCGAL<K>(), q.ToCGAL<K>(), r.ToCGAL<K>());
     }
 
     static BOOL RightTurn(Point2d p, Point2d q, Point2d r)
     {
-        return CGAL::right_turn(p, q, r);
+        return CGAL::right_turn(p.ToCGAL<K>(), q.ToCGAL<K>(), r.ToCGAL<K>());
     }
 
     static CGAL::Orientation Orientation(Point2d p, Point2d q, Point2d r)
     {
-        return CGAL::orientation(p, q, r);
+        return CGAL::orientation(p.ToCGAL<K>(), q.ToCGAL<K>(), r.ToCGAL<K>());
     }
 
     static CGAL::Orientation Orientation(Vector2d u, Vector2d v)
     {
-        return CGAL::orientation(u, v);
+        return CGAL::orientation(u.ToCGAL<K>(), v.ToCGAL<K>());
     }
 
     static CGAL::Orientation Orientation(Point3d p, Point3d q, Point3d r, Point3d s)
     {
-        return CGAL::orientation(p, q, r, s);
+        return CGAL::orientation(p.ToCGAL<K>(), q.ToCGAL<K>(), r.ToCGAL<K>(), s.ToCGAL<K>());
     }
 
     static CGAL::Orientation Orientation(Vector3d u, Vector3d v, Vector3d w)
     {
-        return CGAL::orientation(u, v, w);
+        return CGAL::orientation(u.ToCGAL<K>(), v.ToCGAL<K>(), w.ToCGAL<K>());
     }
 
     static Vector3d OrthogonalVector(Point3d p, Point3d q, Point3d r)
     {
-        return CGAL::orthogonal_vector(p, q, r);
-    }
-
-    static Vector3d OrthogonalVector(Vector3d u, Vector3d v, Vector3d w)
-    {
-        return CGAL::orthogonal_vector(u, v, w);
+        auto v = CGAL::orthogonal_vector(p.ToCGAL<K>(), q.ToCGAL<K>(), r.ToCGAL<K>());
+        return Vector3d::FromCGAL<K>(v);
     }
 
     static BOOL Parallel(Line2d l1, Line2d l2)
     {
-        return CGAL::parallel(l1, l2);
+        auto L1 = l1.ToCGAL<K, Line2>();
+        auto L2 = l2.ToCGAL<K, Line2>();
+        return CGAL::parallel(L1, L2);
     }
 
     static BOOL Parallel(Ray2d r1, Ray2d r2)
     {
-        return CGAL::parallel(r1, r2);
+        auto R1 = r1.ToCGAL<K, Ray2>();
+        auto R2 = r2.ToCGAL<K, Ray2>();
+        return CGAL::parallel(R1, R2);
     }
 
     static BOOL Parallel(Segment2d s1, Segment2d s2)
     {
-        return CGAL::parallel(s1, s2);
+        auto S1 = s1.ToCGAL<K, Segment2>();
+        auto S2 = s2.ToCGAL<K, Segment2>();
+        return CGAL::parallel(S1, S2);
     }
 };

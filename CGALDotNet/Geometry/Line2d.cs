@@ -210,12 +210,43 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Create two points on the line.
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        private void TwoPoints(out Point2d p1, out Point2d p2)
+        {
+            double x1, y1, x2, y2;
+
+            if (IsHorizontal)
+            {
+                x1 = -1;
+                y1 = Y(x1);
+
+                x2 = 1;
+                y2 = Y(x2);
+            }
+            else
+            {
+                y1 = -1;
+                x1 = X(y1);
+
+                y2 = 1;
+                x2 = X(y2);
+            }
+
+            p1 = new Point2d(x1, y1);
+            p2 = new Point2d(x2, y2);
+        }
+
+        /// <summary>
         /// Transform the line by the matrix.
         /// </summary>
         /// <param name="m">The transform.</param>
         public void Transform(Matrix2x2d m)
         {
-            throw new NotImplementedException();
+            TwoPoints(out Point2d p1, out Point2d p2);
+            this = new Line2d(m * p1, m * p2);
         }
 
         /// <summary>
@@ -224,7 +255,8 @@ namespace CGALDotNet.Geometry
         /// <param name="m">The transform.</param>
         public void Transform(Matrix3x3d m)
         {
-            throw new NotImplementedException();
+            TwoPoints(out Point2d p1, out Point2d p2);
+            this = new Line2d(m * p1, m * p2);
         }
 
         /// <summary>
@@ -233,7 +265,19 @@ namespace CGALDotNet.Geometry
         /// <param name="m">The transform.</param>
         public void Transform(Matrix4x4d m)
         {
-            throw new NotImplementedException();
+            TwoPoints(out Point2d p1, out Point2d p2);
+            this = new Line2d(m * p1, m * p2);
+        }
+
+        /// <summary>
+        /// Round the lines values.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            A = Math.Round(A, digits);
+            B = Math.Round(B, digits);
+            C = Math.Round(C, digits);
         }
 
     }

@@ -366,7 +366,7 @@ namespace CGALDotNet
         /// <returns>Returns true if p, q, and r form a left turn.</returns>
         public static bool LeftTurn(Point2d p, Point2d q, Point2d r)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_LeftTurn_Point2(p, q, r);
         }
 
         /// <summary>
@@ -378,11 +378,13 @@ namespace CGALDotNet
         /// <returns>Returns true if p, q, and r form a right turn.</returns>
         public static bool RightTurn(Point2d p, Point2d q, Point2d r)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_RightTurn_Point2(p, q, r);
         }
 
         /// <summary>
-        /// returns CGAL::LEFT_TURN, if r lies to the left of the oriented line l defined by p and q, returns CGAL::RIGHT_TURN if r lies to the right of l, and returns CGAL::COLLINEAR if r lies on l.
+        /// returns CGAL::LEFT_TURN, if r lies to the left of the oriented 
+        /// line l defined by p and q, returns CGAL::RIGHT_TURN if r lies 
+        /// to the right of l, and returns CGAL::COLLINEAR if r lies on l.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="q"></param>
@@ -390,22 +392,27 @@ namespace CGALDotNet
         /// <returns></returns>
         public static CGAL_ORIENTATION Orientation(Point2d p, Point2d q, Point2d r)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_Orientation_Point2(p, q, r);
         }
 
         /// <summary>
-        /// returns CGAL::LEFT_TURN if u and v form a left turn, returns CGAL::RIGHT_TURN if u and v form a right turn, and returns CGAL::COLLINEAR if u and v are collinear.
+        /// returns CGAL::LEFT_TURN if u and v form a left turn, returns 
+        /// CGAL::RIGHT_TURN if u and v form a right turn, and returns 
+        /// CGAL::COLLINEAR if u and v are collinear.
         /// </summary>
         /// <param name="u"></param>
         /// <param name="v"></param>
         /// <returns></returns>
         public static CGAL_ORIENTATION Orientation(Vector2d u, Vector2d v)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_Orientation_Vector2(u, v);
         }
 
         /// <summary>
-        /// returns CGAL::POSITIVE, if s lies on the positive side of the oriented plane h defined by p, q, and r, returns CGAL::NEGATIVE if s lies on the negative side of h, and returns CGAL::COPLANAR if s lies on h.
+        /// returns CGAL::POSITIVE, if s lies on the positive side of the 
+        /// oriented plane h defined by p, q, and r, returns CGAL::NEGATIVE
+        /// if s lies on the negative side of h, and returns CGAL::COPLANAR 
+        /// if s lies on h.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="q"></param>
@@ -414,11 +421,13 @@ namespace CGALDotNet
         /// <returns></returns>
         public static CGAL_ORIENTATION Orientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_Orientation_Point3(p, q, r, s);
         }
 
         /// <summary>
-        /// returns CGAL::NEGATIVE if u, v and w are negatively oriented, CGAL::POSITIVE if u, v and w are positively oriented, and CGAL::COPLANAR if u, v and w are coplanar.
+        /// returns CGAL::NEGATIVE if u, v and w are negatively oriented, 
+        /// CGAL::POSITIVE if u, v and w are positively oriented,
+        /// and CGAL::COPLANAR if u, v and w are coplanar.
         /// </summary>
         /// <param name="u"></param>
         /// <param name="v"></param>
@@ -426,52 +435,56 @@ namespace CGALDotNet
         /// <returns></returns>
         public static CGAL_ORIENTATION Orientation(Vector3d u, Vector3d v, Vector3d w)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_Orientation_Vector3(u, v, w);
         }
 
         /// <summary>
-        /// computes an orthogonal vector of the plane defined by p, q and r, which is directed to the positive side of this plane.
+        /// computes an orthogonal vector of the plane defined by p, q
+        /// and r, which is directed to the positive side of this plane.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="q"></param>
         /// <param name="r"></param>
-        /// <returns></returns>
+        /// <returns>computes an orthogonal vector of the plane</returns>
         public static Vector3d OrthogonalVector(Point3d p, Point3d q, Point3d r)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_OrthogonalVector_Point3(p, q, r);
         }
 
         /// <summary>
-        /// returns true, if l1 and l2 are parallel or if one of those (or both) is degenerate.
+        /// returns true, if l1 and l2 are parallel or if one of those 
+        /// (or both) is degenerate.
         /// </summary>
         /// <param name="l1"></param>
         /// <param name="l2"></param>
-        /// <returns></returns>
+        /// <returns>returns true, if l1 and l2 are parallel</returns>
         public static bool Parallel(Line2d l1, Line2d l2)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_Parallel_Line2(l1, l2);
         }
 
         /// <summary>
-        /// returns true, if r1 and r2 are parallel or if one of those (or both) is degenerate.
+        /// returns true, if r1 and r2 are parallel or if one of 
+        /// those (or both) is degenerate.
         /// </summary>
         /// <param name="r1"></param>
         /// <param name="r2"></param>
-        /// <returns></returns>
+        /// <returns>returns true, if r1 and r2 are parallel</returns>
         public static bool Parallel(Ray2d r1, Ray2d r2)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_Parallel_Ray2(r1, r2);
         }
 
         /// <summary>
-        /// returns true, if s1 and s2 are parallel or if one of those (or both) is degenerate.
+        /// returns true, if s1 and s2 are parallel or if one of 
+        /// those (or both) is degenerate.
         /// </summary>
         /// <param name="s1"></param>
         /// <param name="s2"></param>
-        /// <returns></returns>
+        /// <returns>returns true, if s1 and s2 are parallel</returns>
         public static bool Parallel(Segment2d s1, Segment2d s2)
         {
-            throw new NotImplementedException();
+            return CGALGlobal_EEK_Parallel_Segment2(s1, s2);
         }
 
 
@@ -522,6 +535,36 @@ namespace CGALDotNet
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern Line3d CGALGlobal_EEK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool CGALGlobal_EEK_LeftTurn_Point2(Point2d p, Point2d q, Point2d r);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool CGALGlobal_EEK_RightTurn_Point2(Point2d p, Point2d q, Point2d r);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Point2(Point2d p, Point2d q, Point2d r);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Vector2(Vector2d u, Vector2d v);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Vector3(Vector3d u, Vector3d v, Vector3d w);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern Vector3d CGALGlobal_EEK_OrthogonalVector_Point3(Point3d p, Point3d q, Point3d r);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool CGALGlobal_EEK_Parallel_Line2(Line2d l1, Line2d l2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool CGALGlobal_EEK_Parallel_Ray2(Ray2d r1, Ray2d r2);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern bool CGALGlobal_EEK_Parallel_Segment2(Segment2d s1, Segment2d s2);
 
     }
 }

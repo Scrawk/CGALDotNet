@@ -117,6 +117,15 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Normalize the lines direction.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Normalize()
+        {
+            Direction.Normalize();
+        }
+
+        /// <summary>
         /// Round the rays position and direction.
         /// </summary>
         /// <param name="digits">number of digits to round to.</param>

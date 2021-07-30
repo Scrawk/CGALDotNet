@@ -39,5 +39,11 @@ namespace CGALDotNet.Geometry
         /// <param name="m">The transform.</param>
         void Transform(Matrix4x4d m);
 
+        /// <summary>
+        /// Round the geometrys values.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        void Round(int digits);
+
     }
 }

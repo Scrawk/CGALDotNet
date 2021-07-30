@@ -53,25 +53,13 @@ namespace CGALDotNetTest
             Assert.AreEqual(CGALGlobal.ApproxAngle(w.xzy, u.xzy).Rounded(6), 135.0);
         }
 
-
-        [TestMethod]
-        public void ApproxDihedralAngle()
-        {
-            var p = new Point3d(1, 1, 0);
-            var q = new Point3d(-1, 1, 0);
-            var r = new Point3d(1, 0, 1);
-            var s = new Point3d(-1, 0, 1);
-
-            var d = CGALGlobal.ApproxDihedralAngle(p, q, r, s);
-        }
-
         [TestMethod]
         public void AreOrderedAlongLine()
         {
             var p2 = new Point2d(1, 0);
             var q2 = new Point2d(2, 0);
             var r2 = new Point2d(3, 0);
-  
+
             Assert.IsTrue(CGALGlobal.AreOrderedAlongLine(p2, q2, r2));
 
             var p3 = new Point3d(1, 0, 0);
@@ -124,14 +112,12 @@ namespace CGALDotNetTest
             var p = new Point3d(1, 0, 0);
             var q = new Point3d(1, 1, 0);
 
-            var line = CGALGlobal.Bisector(p, q);
-            Console.WriteLine(line);
+            Assert.AreEqual(CGALGlobal.Bisector(p, q), new Line2d(0, -2, 0));
 
-            var l1 = new Line2d(Point2d.Zero, new Point2d(1, 0));
-            var l2 = new Line2d(Point2d.Zero, new Point2d(1, 1));
+            var l1 = new Line2d(new Point2d(0, 0), new Point2d(1, 0));
+            var l2 = new Line2d(new Point2d(0, 1), new Point2d(1, 1));
 
-            line = CGALGlobal.Bisector(l1, l2);
-            Console.WriteLine(line);
+            Assert.AreEqual(CGALGlobal.Bisector(l1, l2), new Line2d(0, 2, -1));
         }
 
         [TestMethod]
@@ -152,25 +138,64 @@ namespace CGALDotNetTest
         [TestMethod]
         public void CoplanarOrientation()
         {
-            var p = new Point3d(1, 0, 0);
-            var q = new Point3d(2, 0, 0);
-            var r = new Point3d(1, 1, 0);
-            var s = new Point3d(2, 1, 0);
-            var t = new Point3d(2, 0, 1);
+            var p = new Point3d(0, 0, 0);
+            var q = new Point3d(1, 0, 0);
+            var r = new Point3d(0, -1, 0);
+            var s = new Point3d(1, -1, 0);
+            var t = new Point3d(0, 0, 1);
 
             Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, s), CGAL_ORIENTATION.POSITIVE);
+            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, t), CGAL_ORIENTATION.ZERO);
+            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, t.xzy), CGAL_ORIENTATION.NEGATIVE);
         }
 
         [TestMethod]
         public void EquidistantLine()
         {
             var p = new Point3d(1, 0, 0);
-            var q = new Point3d(2, 0, 0);
-            var r = new Point3d(1, 1, 0);
-            var s = new Point3d(2, 1, 0);
-            var t = new Point3d(2, 0, 1);
+            var q = new Point3d(0, 1, 0);
+            var r = new Point3d(0, 0, 1);
 
-            Console.WriteLine(CGALGlobal.EquidistantLine(p, q, r));
+            var l1 = CGALGlobal.EquidistantLine(p, q, r);
+            l1.Normalize();
+            l1.Round(2);
+
+            var pos = new Point3d(0.33);
+            var dir = new Vector3d(0.58);
+
+            var l2 = new Line3d(pos, dir);
+            l2.Round(2);
+
+            Assert.AreEqual(l1, l2);
+        }
+
+        [TestMethod]
+        public void OrthogonalVector()
+        {
+            var p = new Point3d(1, 0, 0);
+            var q = new Point3d(1, 1, 0);
+            var r = new Point3d(0, 1, 0);
+
+            Assert.AreEqual(CGALGlobal.OrthogonalVector(p, q, r), new Vector3d(0,0,1));
+        }
+
+        [TestMethod]
+        public void Parallel()
+        {
+            var l1 = new Line2d(new Point2d(0, 0), new Point2d(1, 0));
+            var l2 = new Line2d(new Point2d(1, 0), new Point2d(1, 0));
+
+            Assert.IsTrue(CGALGlobal.Parallel(l1 ,l2));
+
+            var r1 = new Ray2d(new Point2d(0, 0), new Vector2d(1, 0));
+            var r2 = new Ray2d(new Point2d(1, 0), new Vector2d(1, 0));
+
+            Assert.IsTrue(CGALGlobal.Parallel(r1, r2));
+
+            var s1 = new Segment2d(new Point2d(0, 0), new Point2d(1, 0));
+            var s2 = new Segment2d(new Point2d(1, 0), new Point2d(1, 0));
+
+            Assert.IsTrue(CGALGlobal.Parallel(s1, s2));
         }
     }
 }

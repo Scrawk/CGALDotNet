@@ -84,3 +84,54 @@ Line3d CGALGlobal_EEK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r)
 {
 	return CGALGlobal<EEK>::EquidistantLine(p, q, r);
 }
+
+
+BOOL CGALGlobal_EEK_LeftTurn_Point2(Point2d p, Point2d q, Point2d r)
+{
+	return CGALGlobal<EEK>::LeftTurn(p, q, r);
+}
+
+BOOL CGALGlobal_EEK_RightTurn_Point2(Point2d p, Point2d q, Point2d r)
+{
+	return CGALGlobal<EEK>::RightTurn(p, q, r);
+}
+
+CGAL::Orientation CGALGlobal_EEK_Orientation_Point2(Point2d p, Point2d q, Point2d r)
+{
+	return CGALGlobal<EEK>::Orientation(p, q, r);
+}
+
+CGAL::Orientation CGALGlobal_EEK_Orientation_Vector2(Vector2d u, Vector2d v)
+{
+	return CGALGlobal<EEK>::Orientation(u, v);
+}
+
+CGAL::Orientation CGALGlobal_EEK_Orientation_Point3(Point3d p, Point3d q, Point3d r, Point3d s)
+{
+	return CGALGlobal<EEK>::Orientation(p, q, r, s);
+}
+
+CGAL::Orientation CGALGlobal_EEK_Orientation_Vector3(Vector3d u, Vector3d v, Vector3d w)
+{
+	return CGALGlobal<EEK>::Orientation(u, v, w);
+}
+
+Vector3d CGALGlobal_EEK_OrthogonalVector_Point3(Point3d p, Point3d q, Point3d r)
+{
+	return CGALGlobal<EEK>::OrthogonalVector(p, q, r);
+}
+
+BOOL CGALGlobal_EEK_Parallel_Line2(Line2d l1, Line2d l2)
+{
+	return CGALGlobal<EEK>::Parallel(l1, l2);
+}
+
+BOOL CGALGlobal_EEK_Parallel_Ray2(Ray2d r1, Ray2d r2)
+{
+	return CGALGlobal<EEK>::Parallel(r1, r2);
+}
+
+BOOL CGALGlobal_EEK_Parallel_Segment2(Segment2d s1, Segment2d s2)
+{
+	return CGALGlobal<EEK>::Parallel(s1, s2);
+}
