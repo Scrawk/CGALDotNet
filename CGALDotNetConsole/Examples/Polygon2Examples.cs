@@ -187,5 +187,16 @@ namespace CGALDotNetConsole.Examples
                 Console.WriteLine(p);
             
         }
+
+        public static void SimplifyPolygon()
+        {
+            Console.WriteLine("Simplify polygon example\n");
+
+            var polygon = PolygonFactory<EEK>.FromDounut(10, 5, 20);
+            polygon.Print();
+
+            var after = PolygonSimplification2<EEK>.Instance.Simplify(polygon, 0.5);
+            after.Print();
+        }
     }
 }

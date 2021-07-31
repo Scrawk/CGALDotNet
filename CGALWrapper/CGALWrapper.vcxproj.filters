@@ -153,6 +153,12 @@
     <ClInclude Include="Geometry3.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="PolygonSimplification2.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonSimplification2_EEK.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="CGALGlobal_EEK.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonSimplification2.cpp">
+      <Filter>Source Files\Polygons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

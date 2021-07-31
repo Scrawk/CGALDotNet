@@ -185,6 +185,8 @@
     <ClInclude Include="PolygonBoolean2_EEK.h" />
     <ClInclude Include="PolygonPartition2.h" />
     <ClInclude Include="PolygonPartition2_EEK.h" />
+    <ClInclude Include="PolygonSimplification2.h" />
+    <ClInclude Include="PolygonSimplification2_EEK.h" />
     <ClInclude Include="PolygonWithHoles2.h" />
     <ClInclude Include="PolygonWithHoles2_EEK.h" />
     <ClInclude Include="resource.h" />
@@ -212,6 +214,7 @@
     <ClCompile Include="Polygon2_EEK.cpp" />
     <ClCompile Include="PolygonBoolean2_EEK.cpp" />
     <ClCompile Include="PolygonPartition2_EEK.cpp" />
+    <ClCompile Include="PolygonSimplification2.cpp" />
     <ClCompile Include="PolygonWithHoles2_EEK.cpp" />
     <ClCompile Include="Triangulation2_EEK.cpp" />
   </ItemGroup>

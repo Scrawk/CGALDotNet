@@ -343,58 +343,7 @@ namespace CGALDotNet.Polygons
         {
             var orientation = FindOrientation(POLYGON_ELEMENT.BOUNDARY);
             return Kernel.ContainsPoint(Ptr, point, orientation, inculdeBoundary);
-
-            /*
-            if (ContainsPoint(POLYGON_ELEMENT.BOUNDARY, point, inculdeBoundary))
-            {
-                for (int i = 0; i < HoleCount; i++)
-                {
-                    if (ContainsPoint(POLYGON_ELEMENT.HOLE, point, inculdeBoundary, i))
-                        return false;
-                }
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            */
         }
-
-        /*
-        private bool ContainsPoint(POLYGON_ELEMENT element, Point2d point, bool inculdeBoundary = true, int index = 0)
-        {
-            if (element == POLYGON_ELEMENT.BOUNDARY)
-            {
-                if (IsUnbounded)
-                    return true;
-
-                var side = OrientedSide(element, point);
-
-                if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
-                    return false;
-
-                if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
-                    return true;
-
-                return side == CGAL_ORIENTED_SIDE.ON_POSITIVE_SIDE;
-            }
-            else
-            {
-                ErrorUtil.CheckBounds(index, HoleCount);
-                var side = OrientedSide(element, point, index);
-
-                if (side == CGAL_ORIENTED_SIDE.UNDETERMINED)
-                    return false;
-
-                if (inculdeBoundary && side == CGAL_ORIENTED_SIDE.ON_BOUNDARY)
-                    return true;
-
-                return side == CGAL_ORIENTED_SIDE.ON_NEGATIVE_SIDE;
-            }
-        }
-        */
 
         public void Translate(POLYGON_ELEMENT element, Point2d translation, int index = 0)
         {
@@ -455,6 +404,7 @@ namespace CGALDotNet.Polygons
             if (!IsUnbounded)
             {
                 var element = POLYGON_ELEMENT.BOUNDARY;
+                builder.AppendLine("Boundary point count = " + PointCount(element));
                 builder.AppendLine("Boundary is simple = " + FindIfSimple(element));
                 builder.AppendLine("Boundary is convex = " + FindIfConvex(element));
                 builder.AppendLine("Boundary orientation = " + FindOrientation(element));
@@ -463,7 +413,9 @@ namespace CGALDotNet.Polygons
 
             for (int i = 0; i < HoleCount; i++)
             {
+                builder.AppendLine("");
                 var element = POLYGON_ELEMENT.HOLE;
+                builder.AppendLine("Hole " + i + " point count = " + PointCount(element, i));
                 builder.AppendLine("Hole " + i + " is simple = " + FindIfSimple(element, i));
                 builder.AppendLine("Hole " + i + " is convex = " + FindIfConvex(element, i));
                 builder.AppendLine("Hole " + i + " is orientation = " + FindOrientation(element, i));

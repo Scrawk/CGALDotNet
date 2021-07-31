@@ -7,30 +7,91 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
+    /// <summary>
+    /// Factory for creating polygons.
+    /// </summary>
+    /// <typeparam name="K">The kernel type.</typeparam>
     public static class PolygonFactory<K> where K : CGALKernel, new()
     {
-
+        /// <summary>
+        /// Create a empty polygon.
+        /// </summary>
+        /// <returns></returns>
         public static Polygon2<K> Create()
         {
             return new Polygon2<K>();
         }
 
+        /// <summary>
+        /// Create a polygon from a triangle.
+        /// </summary>
+        /// <param name="tri">The triangle.</param>
+        /// <returns>The created polygon.</returns>
         public static Polygon2<K> FromTriangle(Triangle2d tri)
         {
             var points = new Point2d[] { tri.A, tri.B, tri.C };
             return new Polygon2<K>(points);
         }
 
+        /// <summary>
+        /// Create a polygon from a box.
+        /// </summary>
+        /// <param name="min">The boxs min point.</param>
+        /// <param name="max">The boxs max point.</param>
+        /// <returns>The created polygon.</returns>
         public static Polygon2<K> FromBox(Point2d min, Point2d max)
         {
             var box = new Box2d(min, max);
             return FromBox(box);
         }
 
+        /// <summary>
+        /// Create a polygon from a box.
+        /// </summary>
+        /// <param name="box">The box.</param>
+        /// <returns>The created polygon.</returns>
         public static Polygon2<K> FromBox(Box2d box)
         {
             var points = box.GetCorners();
             return new Polygon2<K>(points);
+        }
+
+        /// <summary>
+        /// Create a polygon from a dounut.
+        /// Outer radius must be greater than inner.
+        /// </summary>
+        /// <param name="outer">The outer radius.</param>
+        /// <param name="inner">The inner radius</param>
+        /// <param name="segments">The number of segments.</param>
+        /// <returns>The created polygon with holes</returns>
+        public static PolygonWithHoles2<K> FromDounut(double outer, double inner, int segments)
+        {
+            return FromDounut(outer, inner, segments);
+        }
+
+
+        /// <summary>
+        /// Create a polygon from a dounut.
+        /// Outer radius must be greater than inner.
+        /// </summary>
+        /// <param name="center">The center position of the polygon.</param>
+        /// <param name="outer">The outer radius.</param>
+        /// <param name="inner">The inner radius</param>
+        /// <param name="segments">The number of segments.</param>
+        /// <returns>The created polygon with holes</returns>
+        public static PolygonWithHoles2<K> FromDounut(Point2d center, double outer, double inner, int segments)
+        {
+            var boundary = FromCircle(new Circle2d(center, outer), segments);
+            var pwh = new PolygonWithHoles2<K>(boundary);
+
+            if (inner < outer)
+            {
+                var hole = FromCircle(new Circle2d(center, inner), segments);
+                hole.Reverse();
+                pwh.AddHole(hole);
+            }
+
+            return pwh;
         }
 
         public static Polygon2<K> FromCircle(double radius, int segments)
