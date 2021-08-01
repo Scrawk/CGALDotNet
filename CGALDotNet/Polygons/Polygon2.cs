@@ -151,6 +151,12 @@ namespace CGALDotNet.Polygons
             Kernel.GetPoints(Ptr, points, 0, Count);
         }
 
+        public void GetSegments(Segment2d[] segments)
+        {
+            ErrorUtil.CheckBounds(segments, 0, Count);
+            Kernel.GetSegments(Ptr, segments, 0, Count);
+        }
+
         public void GetPoints(List<Point2d> points)
         {
             for (int i = 0; i < Count; i++)

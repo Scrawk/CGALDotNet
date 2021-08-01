@@ -45,6 +45,19 @@ namespace CGALDotNet.Polygons
             return FromBox(box);
         }
 
+
+        /// <summary>
+        /// Create a polygon from a box.
+        /// </summary>
+        /// <param name="min">The boxs min point.</param>
+        /// <param name="max">The boxs max point.</param>
+        /// <returns>The created polygon.</returns>
+        public static Polygon2<K> FromBox(double min, double max)
+        {
+            var box = new Box2d(min, max);
+            return FromBox(box);
+        }
+
         /// <summary>
         /// Create a polygon from a box.
         /// </summary>

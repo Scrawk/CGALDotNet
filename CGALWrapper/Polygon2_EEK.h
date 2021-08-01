@@ -22,6 +22,8 @@ extern "C"
 
 	CGALWRAPPER_API void Polygon2_EEK_GetPoints(void* ptr, Point2d * points, int startIndex, int count);
 
+	CGALWRAPPER_API void Polygon2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count);
+
 	CGALWRAPPER_API void Polygon2_EEK_SetPoint(void* ptr, int index, Point2d point);
 
 	CGALWRAPPER_API void Polygon2_EEK_SetPoints(void* ptr, Point2d * points, int startIndex, int count);

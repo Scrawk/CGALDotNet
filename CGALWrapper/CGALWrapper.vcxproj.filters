@@ -159,6 +159,15 @@
     <ClInclude Include="PolygonSimplification2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
+    <ClInclude Include="PolygonVisibility2.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonVisibility2_EEK.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="ConformingTriangulation2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -198,6 +207,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PolygonSimplification2.cpp">
+      <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonVisibility2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
   </ItemGroup>

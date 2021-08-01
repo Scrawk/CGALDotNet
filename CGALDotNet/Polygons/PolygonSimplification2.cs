@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace CGALDotNet.Polygons
 {
 
-
     public sealed class PolygonSimplification2<K> : PolygonSimplification2 where K : CGALKernel, new()
     {
 

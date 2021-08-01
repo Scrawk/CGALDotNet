@@ -190,13 +190,12 @@ namespace CGALDotNetConsole.Examples
 
         public static void SimplifyPolygon()
         {
-            Console.WriteLine("Simplify polygon example\n");
+            Console.WriteLine("Compute visibility example\n");
 
-            var polygon = PolygonFactory<EEK>.FromDounut(10, 5, 20);
-            polygon.Print();
+            var polygon = PolygonFactory<EEK>.FromBox(-5, 5);
+            //polygon.Print();
 
-            var after = PolygonSimplification2<EEK>.Instance.Simplify(polygon, 0.5);
-            after.Print();
+            PolygonVisibility2<EEK>.Instance.ComputeVisibility(polygon, new Point2d(-10, 0));
         }
     }
 }

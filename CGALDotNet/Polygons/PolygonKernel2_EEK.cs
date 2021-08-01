@@ -50,6 +50,11 @@ namespace CGALDotNet.Polygons
             Polygon2_EEK_GetPoints(ptr, points, startIndex, count);
         }
 
+        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        {
+            Polygon2_EEK_GetSegments(ptr, segments, startIndex, count);
+        }
+
         internal override void SetPoint(IntPtr ptr, int index, Point2d point)
         {
             Polygon2_EEK_SetPoint(ptr, index, point);
@@ -135,6 +140,9 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Polygon2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Polygon2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Polygon2_EEK_SetPoint(IntPtr ptr, int index, Point2d point);

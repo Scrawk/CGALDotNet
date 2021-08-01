@@ -21,6 +21,7 @@ public:
 
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Aff_transformation_2<K> Transformation_2;
+	typedef CGAL::Segment_2<K> Segment_2;
 
 	inline static Polygon_2* CastToPolygon2(void* ptr)
 	{
@@ -71,6 +72,29 @@ public:
 		{
 			auto point = polygon->vertex(i);
 			points[startIndex + i] = Point2d::FromCGAL<K>(point);
+		}
+	}
+
+	static int Wrap(int v, int count)
+	{
+		int r = v % count;
+		return r < 0 ? r + count : r;
+	}
+
+	static void GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	{
+		auto polygon = CastToPolygon2(ptr);
+
+		for (auto i = 0; i < count; i++)
+		{
+			int i0 = Wrap(i + 0, count);
+			int i1 = Wrap(i + 1, count);
+
+			auto v0 = polygon->vertex(i0);
+			auto v1 = polygon->vertex(i1);
+
+			segments[startIndex + i].a = Point2d::FromCGAL<K>(v0);
+			segments[startIndex + i].b = Point2d::FromCGAL<K>(v1);
 		}
 	}
 
