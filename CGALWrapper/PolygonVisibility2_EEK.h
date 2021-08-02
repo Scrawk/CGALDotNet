@@ -10,6 +10,6 @@ extern "C"
 
 	CGALWRAPPER_API void PolygonVisibility2_EEK_Release(void* ptr);
 
-	CGALWRAPPER_API void PolygonVisibility2_EEK_ComputeVisibility(void* ptr, Point2d point, Segment2d* segments, int startIndex, int count);
+	CGALWRAPPER_API void* PolygonVisibility2_EEK_ComputeVisibility(Point2d point, Segment2d* segments, int startIndex, int count);
 
 }

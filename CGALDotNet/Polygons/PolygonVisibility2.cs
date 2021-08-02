@@ -16,12 +16,21 @@ namespace CGALDotNet.Polygons
 
         }
 
-        public void ComputeVisibility(Polygon2<K> polygon, Point2d point)
+        public Polygon2<K> ComputeVisibility(Polygon2<K> polygon, Point2d point)
         {
-            int count = polygon.Count;
-            var segments = new Segment2d[count];
-            polygon.GetSegments(segments);
-            Kernel.ComputeVisibility(polygon.Ptr, point, segments, 0, count);
+            if (polygon.ContainsPoint(point))
+            {
+                int count = polygon.Count;
+                var segments = new Segment2d[count];
+                polygon.GetSegments(segments);
+
+                var ptr = Kernel.ComputeVisibility(point, segments, 0, count);
+                return new Polygon2<K>(ptr);
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }

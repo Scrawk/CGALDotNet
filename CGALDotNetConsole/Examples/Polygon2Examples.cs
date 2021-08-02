@@ -195,7 +195,20 @@ namespace CGALDotNetConsole.Examples
             var polygon = PolygonFactory<EEK>.FromBox(-5, 5);
             //polygon.Print();
 
-            PolygonVisibility2<EEK>.Instance.ComputeVisibility(polygon, new Point2d(-10, 0));
+            var visibility = PolygonVisibility2<EEK>.Instance.ComputeVisibility(polygon, new Point2d(0, 0));
+
+            if (visibility != null)
+            {
+                
+                visibility.Print();
+
+                var points = new Point2d[4];
+                polygon.GetPoints(points);
+
+                foreach (var p in points)
+                    Console.WriteLine(p);
+
+            }
         }
     }
 }

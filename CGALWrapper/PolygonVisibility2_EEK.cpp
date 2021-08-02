@@ -13,7 +13,7 @@ void PolygonVisibility2_EEK_Release(void* ptr)
 	Util::Release<PolygonVisibility2<EEK>>(ptr);
 }
 
-void PolygonVisibility2_EEK_ComputeVisibility(void* ptr, Point2d point, Segment2d* segments, int startIndex, int count)
+void* PolygonVisibility2_EEK_ComputeVisibility(Point2d point, Segment2d* segments, int startIndex, int count)
 {
-	PolygonVisibility2<EEK>::ComputeVisibility(ptr, point, segments, startIndex, count);
+	return PolygonVisibility2<EEK>::ComputeVisibility(point, segments, startIndex, count);
 }

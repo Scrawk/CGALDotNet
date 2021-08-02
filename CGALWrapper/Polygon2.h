@@ -23,21 +23,41 @@ public:
 	typedef CGAL::Aff_transformation_2<K> Transformation_2;
 	typedef CGAL::Segment_2<K> Segment_2;
 
+	/// <summary>
+	/// Cast pointer to polygon.
+	/// </summary>
+	/// <param name="ptr">The polygon pointer.</param>
+	/// <returns>The polygon.</returns>
 	inline static Polygon_2* CastToPolygon2(void* ptr)
 	{
 		return static_cast<Polygon_2*>(ptr);
 	}
 
+	/// <summary>
+	/// Create a new polygon object.
+	/// </summary>
+	/// <returns>The new polygon object.</returns>
 	inline static Polygon_2* CreatePolygon2()
 	{
 		return new Polygon_2();
 	}
 
+	/// <summary>
+	/// Create a new polygon from a copy of 
+	/// a existing polygon.
+	/// </summary>
+	/// <param name="poly">The polygon to copy.</param>
+	/// <returns>The new polygon object.</returns>
 	inline static Polygon_2* CreatePolygon2(const Polygon_2& poly)
 	{
 		return new Polygon_2(poly);
 	}
 
+	/// <summary>
+	/// Return the number of points in the polygon.
+	/// </summary>
+	/// <param name="ptr">The polygon pointer.</param>
+	/// <returns>The number of points in the polygon.</returns>
 	static int Count(void* ptr)
 	{
 		auto polygon = CastToPolygon2(ptr);

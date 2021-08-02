@@ -23,9 +23,9 @@ namespace CGALDotNet.Polygons
             PolygonVisibility2_EEK_Release(ptr);
         }
 
-        internal override void ComputeVisibility(IntPtr polyPtr, Point2d point, Segment2d[] segments, int startIndex, int count)
+        internal override IntPtr ComputeVisibility(Point2d point, Segment2d[] segments, int startIndex, int count)
         {
-            PolygonVisibility2_EEK_ComputeVisibility(polyPtr, point, segments, startIndex, count);
+            return PolygonVisibility2_EEK_ComputeVisibility(point, segments, startIndex, count);
         }
 
 
@@ -36,7 +36,7 @@ namespace CGALDotNet.Polygons
         private static extern void PolygonVisibility2_EEK_Release(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonVisibility2_EEK_ComputeVisibility(IntPtr polyPtr, Point2d point, [In] Segment2d[] segments, int startIndex, int count);
+        private static extern IntPtr PolygonVisibility2_EEK_ComputeVisibility(Point2d point, [In] Segment2d[] segments, int startIndex, int count);
 
     }
 }

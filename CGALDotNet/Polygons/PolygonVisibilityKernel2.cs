@@ -15,7 +15,7 @@ namespace CGALDotNet.Polygons
 
         internal abstract void Release(IntPtr ptr);
 
-        internal abstract void ComputeVisibility(IntPtr polyPtr, Point2d point, Segment2d[] segments, int startIndex, int count);
+        internal abstract IntPtr ComputeVisibility(Point2d point, Segment2d[] segments, int startIndex, int count);
 
     }
 }
