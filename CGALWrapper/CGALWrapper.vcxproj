@@ -166,6 +166,7 @@
     <ClInclude Include="CGALGlobal.h" />
     <ClInclude Include="CGALGlobal_EEK.h" />
     <ClInclude Include="ConformingTriangulation2.h" />
+    <ClInclude Include="ConformingTriangulation2_EEK.h" />
     <ClInclude Include="ConvexHull2.h" />
     <ClInclude Include="ConvexHull2_EEK.h" />
     <ClInclude Include="Geometry3.h" />
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClCompile Include="Arrangement2_EEK.cpp" />
     <ClCompile Include="CGALGlobal_EEK.cpp" />
+    <ClCompile Include="ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="ConvexHull2_EEK.cpp" />
     <ClCompile Include="DelaunayTriangulation2_EEK.cpp" />

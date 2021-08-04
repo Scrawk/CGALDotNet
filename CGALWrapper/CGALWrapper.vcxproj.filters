@@ -168,6 +168,9 @@
     <ClInclude Include="ConformingTriangulation2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
+    <ClInclude Include="ConformingTriangulation2_EEK.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="PolygonVisibility2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="ConformingTriangulation2_EEK.cpp">
+      <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

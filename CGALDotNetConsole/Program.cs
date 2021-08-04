@@ -1,6 +1,8 @@
 ﻿using System;
 
 using CGALDotNetConsole.Examples;
+using CGALDotNet.Triangulations;
+using CGALDotNet.Geometry;
 
 namespace CGALDotNetConsole
 {
@@ -9,7 +11,17 @@ namespace CGALDotNetConsole
         static void Main(string[] args)
         {
 
-            Polygon2Examples.SimplifyPolygon();
+            //Polygon2Examples.SimplifyPolygon();
+
+            var points = new Point2d[]
+            {
+                new Point2d(-10,-10),
+                new Point2d(10,-10),
+                new Point2d(10,10),
+                new Point2d(-10,10)
+            };
+
+            ConformingTriangulation.MakeConforming(points, 0, 4);
 
             //Geometry2Examples.Transform();
 

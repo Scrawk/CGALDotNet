@@ -404,7 +404,7 @@ namespace CGALDotNet.Polygons
         public bool ContainsPoint(Point2d point, bool inculdeBoundary = true)
         {
             if (IsSimple)
-                return Kernel.ContainsPoint(Ptr, point, Orientation, inculdeBoundary);
+                 return Kernel.ContainsPoint(Ptr, point, Orientation, inculdeBoundary);
             else
                 return false;
         }
