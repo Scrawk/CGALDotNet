@@ -243,7 +243,7 @@ namespace CGALDotNet
         /// <param name="p"></param>
         /// <param name="q"></param>
         /// <param name="r"></param>
-        /// <returns>returns true, iff p, q, and r are collinear</returns>
+        /// <returns>returns true, if p, q, and r are collinear</returns>
         public static bool Collinear(Point2d p, Point2d q, Point2d r)
         {
             return CGALGlobal_EEK_Collinear_Point2(p, q, r);

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CGALDotNet\CGALDotNet.csproj" />
+    <ProjectReference Include="..\CGeom2D\CGeom2D.csproj" />
   </ItemGroup>
 
   <ItemGroup>

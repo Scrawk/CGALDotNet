@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 
-namespace CGALDotNet.Geometry
+namespace CGeom2D.Geometry
 {
 
     /// <summary>
@@ -12,7 +12,7 @@ namespace CGALDotNet.Geometry
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Line2d : IEquatable<Line2d>, IGeometry2d
+    public struct Line2d : IEquatable<Line2d>
     {
 
         public double A, B, C;
@@ -190,30 +190,11 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Check if the geometries intersects.
-        /// </summary>
-        /// <param name="geometry">The geometry to check.</param>
-        /// <returns>True if there is a intersection.</returns>
-        public bool DoIntersect(IGeometry2d geometry)
-        {
-            return CGALIntersections.DoIntersect(this, geometry);
-        }
-
-        /// <summary>
-        /// Find the intersection with this geometry.
-        /// </summary>
-        /// <param name="geometry">The geometry to check.</param>
-        /// <returns>The intersection result.</returns>
-        public IntersectionResult2d Intersection(IGeometry2d geometry)
-        {
-            return CGALIntersections.Intersection(this, geometry);
-        }
-
-        /// <summary>
         /// Create two points on the line.
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
+        /// <param name="len"></param>
         public void TwoPoints(out Point2d p1, out Point2d p2, double len = 1)
         {
             double x1, y1, x2, y2;
@@ -237,47 +218,6 @@ namespace CGALDotNet.Geometry
 
             p1 = new Point2d(x1, y1);
             p2 = new Point2d(x2, y2);
-        }
-
-        /// <summary>
-        /// Transform the line by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix2x2d m)
-        {
-            TwoPoints(out Point2d p1, out Point2d p2);
-            this = new Line2d(m * p1, m * p2);
-        }
-
-        /// <summary>
-        /// Transform the line by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix3x3d m)
-        {
-            TwoPoints(out Point2d p1, out Point2d p2);
-            this = new Line2d(m * p1, m * p2);
-        }
-
-        /// <summary>
-        /// Transform the line by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix4x4d m)
-        {
-            TwoPoints(out Point2d p1, out Point2d p2);
-            this = new Line2d(m * p1, m * p2);
-        }
-
-        /// <summary>
-        /// Round the lines values.
-        /// </summary>
-        /// <param name="digits">number of digits to round to.</param>
-        public void Round(int digits)
-        {
-            A = Math.Round(A, digits);
-            B = Math.Round(B, digits);
-            C = Math.Round(C, digits);
         }
 
     }

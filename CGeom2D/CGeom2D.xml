@@ -1,0 +1,496 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CGeom2D</name>
+    </assembly>
+    <members>
+        <member name="T:CGeom2D.Geometry.Line2d">
+            <summary>
+             Represents a line from three coefficients
+             a, b and c, where ax + by + c = 0 holds.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Line2d.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+             Create a new line from three coefficients
+             a, b and c, where ax + by + c = 0 holds.
+            </summary>
+            <param name="a">The constant in ax.</param>
+            <param name="b">The constant in by</param>
+            <param name="c">The constant c</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Line2d.#ctor(System.Double,System.Double)">
+            <summary>
+             Create a new line from the slope and the y 
+             intercept, where y = mx + b holds.
+            </summary>
+            <param name="m">The lines slope.</param>
+            <param name="b">The y intercept.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Line2d.#ctor(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Create a new line that passes through the two points.
+            </summary>
+            <param name="p1">Point 1.</param>
+            <param name="p2">Point 2.</param>
+        </member>
+        <member name="P:CGeom2D.Geometry.Line2d.Slope">
+            <summary>
+            Find the slope of the line.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Geometry.Line2d.IsAscending">
+            <summary>
+            Determines whether the line is ascending
+            (that is, makes an angle with the positive
+            direction of the X axis that lies in (0, pi/2).
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Geometry.Line2d.IsVertical">
+            <summary>
+            Determines whether the line is vertical
+            (that is, makes an angle with the positive
+            direction of the X axis that is equal to pi/2.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Geometry.Line2d.IsDescending">
+            <summary>
+            Determines whether the line is descending
+            (that is, makes an angle with the positive
+            direction of the X axis that lies in (pi/2, pi).
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Geometry.Line2d.IsHorizontal">
+            <summary>
+            Determines whether the line is horizontal
+            (that is, makes an angle with the positive
+            direction of the X axis that is equal to pi.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Geometry.Line2d.IsDegenerate">
+            <summary>
+            Determines whether the line is degenerate
+            (e.g.two equal points were passed to the constructor).
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Line2d.X(System.Double)">
+            <summary>
+            Calculates the X coordinate of a point on the line by its Y coordinate.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Line2d.Y(System.Double)">
+            <summary>
+            Calculates the Y coordinate of a point on the line by its X coordinate.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Line2d.TwoPoints(CGeom2D.Geometry.Point2d@,CGeom2D.Geometry.Point2d@,System.Double)">
+            <summary>
+            Create two points on the line.
+            </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <param name="len"></param>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2d.UnitX">
+            <summary>
+            The unit x point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2d.UnitY">
+            <summary>
+            The unit y point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2d.Zero">
+            <summary>
+            A point of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2d.One">
+            <summary>
+            A point of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2d.Half">
+            <summary>
+            A point of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2d.PositiveInfinity">
+            <summary>
+            A point of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2d.NegativeInfinity">
+            <summary>
+            A point of negative infinity.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.#ctor(System.Double)">
+            <summary>
+            A point all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.#ctor(System.Double,System.Double)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Geometry.Point2d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGeom2D.Geometry.Point2d.SqrMagnitude">
+            <summary>
+            The length of the point from the origin squared.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Addition(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Add two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Addition(CGeom2D.Geometry.Point2d,System.Double)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Addition(System.Double,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_UnaryNegation(CGeom2D.Geometry.Point2d)">
+            <summary>
+            Negate point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Subtraction(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Subtract two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Subtraction(CGeom2D.Geometry.Point2d,System.Double)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Subtraction(System.Double,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Multiply(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Multiply two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Multiply(CGeom2D.Geometry.Point2d,System.Double)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Multiply(System.Double,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Division(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Divide two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Division(CGeom2D.Geometry.Point2d,System.Double)">
+            <summary>
+            Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Equality(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.op_Inequality(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Are these points not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.Equals(System.Object)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.Equals(CGeom2D.Geometry.Point2d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2d.SqrDistance(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+            <summary>
+            Square distance between two points.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2i.UnitX">
+            <summary>
+            The unit x point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2i.UnitY">
+            <summary>
+            The unit y point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2i.Zero">
+            <summary>
+            A point of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2i.One">
+            <summary>
+            A point of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2i.MaxValue">
+            <summary>
+            A point of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Geometry.Point2i.MinValue">
+            <summary>
+            A point of negative infinity.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.#ctor(CGeom2D.Numerics.Int128)">
+            <summary>
+            A point all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.#ctor(CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Geometry.Point2i.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGeom2D.Geometry.Point2i.SqrMagnitude">
+            <summary>
+            The length of the point from the origin squared.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Addition(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Add two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Addition(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Addition(CGeom2D.Numerics.Int128,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_UnaryNegation(CGeom2D.Geometry.Point2i)">
+            <summary>
+            Negate point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Subtraction(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Subtract two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Subtraction(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Subtraction(CGeom2D.Numerics.Int128,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Multiply(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Multiply two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Multiply(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Multiply(CGeom2D.Numerics.Int128,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Division(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Divide two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Division(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Equality(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.op_Inequality(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Are these points not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.Equals(System.Object)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.Equals(CGeom2D.Geometry.Point2i)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Point2i.SqrDistance(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Square distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Area2(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Cross product area of a quadrilateral.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Left(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Is c left of the line ab.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Right(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Is c right of the line ab.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.LeftOn(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Is c left of or on the line ab.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.RightOn(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Is c right of or on the line ab.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Collinear(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            Do the 3 points form a striaght line.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.InCone(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            True if b is within the cone formed by the
+            edges incident at the from vertex of edge.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.IntersectsProper(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
+            <summary>
+            Returns true if the two segments intersect
+            and are not collinear. Does not handle point
+            on segment cases.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Intersects(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
+            <summary>
+            True if the segments intersect.
+            Handles all edge cases.
+            Collinear segments count as no intersection.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Between(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
+            <summary>
+            True if any end point of the segments are 
+            in between the other segment.
+            Point on point is considered between.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Between(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+            <summary>
+            True if c lies in between the segment ab.
+            c on a or b is considered between.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Predicates.Xor(System.Boolean,System.Boolean)">
+            <summary>
+            True if only one argument is true.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>F:\Projects\Visual Studio Projects\CGALDotNet\CGeom2D\CGeom2D.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\CGeom2D.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\CGeom2D.pdb&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)CGeom2D.xml&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CGALDotNet\CGALDotNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Common.Collections">
+      <HintPath>..\..\Common\Common.Collections\bin\Release\netstandard2.0\Common.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Core">
+      <HintPath>..\..\Common\Common.Core\bin\Release\netstandard2.0\Common.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -4,6 +4,8 @@ using CGALDotNetConsole.Examples;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Geometry;
 
+using CGeom2D.Geometry;
+
 namespace CGALDotNetConsole
 {
     class Program
@@ -11,17 +13,25 @@ namespace CGALDotNetConsole
         static void Main(string[] args)
         {
 
+            var collection = new PointCollection(Point2i.Zero, 1000000);
+
+            collection.RandomFill(100, 0);
+
+            foreach (var point in collection)
+                Console.WriteLine(point);
+
+
             //Polygon2Examples.SimplifyPolygon();
 
-            var points = new Point2d[]
-            {
-                new Point2d(-10,-10),
-                new Point2d(10,-10),
-                new Point2d(10,10),
-                new Point2d(-10,10)
-            };
+            //var points = new Point2d[]
+            //{
+            //    new Point2d(-10,-10),
+            //    new Point2d(10,-10),
+             //   new Point2d(10,10),
+             //   new Point2d(-10,10)
+            //};
 
-            ConformingTriangulation.MakeConforming(points, 0, 4);
+            //ConformingTriangulation.MakeConforming(points, 0, 4);
 
             //Geometry2Examples.Transform();
 
