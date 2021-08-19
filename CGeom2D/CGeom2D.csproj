@@ -18,10 +18,6 @@
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\CGALDotNet\CGALDotNet.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Common.Collections">
       <HintPath>..\..\Common\Common.Collections\bin\Release\netstandard2.0\Common.Collections.dll</HintPath>
     </Reference>

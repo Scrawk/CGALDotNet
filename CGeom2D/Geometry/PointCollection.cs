@@ -29,9 +29,28 @@ namespace CGeom2D.Geometry
 
         private List<Point2i> Points { get; set; }
 
+        private List<int>[] Segments { get; set; }
+
         public void Clear()
         {
             Points.Clear();
+            Segments = null;
+        }
+
+        public IEnumerator<Point2i> GetEnumerator()
+        {
+            foreach (var point in Points)
+                yield return point;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public Point2i GetPoint(int i)
+        {
+            return Points[i];
         }
 
         public Point2i ToPoint2i(Point2d point)
@@ -60,21 +79,31 @@ namespace CGeom2D.Geometry
                 double y = rnd.NextDouble(-range, range);
 
                 var point = new Point2d(x, y);
-
                 Points.Add(ToPoint2i(point));
             }
 
         }
 
-        public IEnumerator<Point2i> GetEnumerator()
+        public void AddSegment(int a, int b)
         {
-            foreach (var point in Points)
-                yield return point;
-        }
+            if (Segments == null)
+                Segments = new List<int>[PointCount];
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            int order = SweepEvent.Compare(GetPoint(a), GetPoint(b));
+
+            if (order == 0) return;
+
+            if(order == 1)
+            {
+                int tmp = a;
+                a = b;
+                b = tmp;
+            }
+
+            if (Segments[a] == null)
+                Segments[a] = new List<int>();
+
+            Segments[a].Add(b);
         }
 
         public void ToList(List<Point2d> points)
@@ -93,9 +122,15 @@ namespace CGeom2D.Geometry
         {
             var line = new SweepLine();
 
-            foreach(var point in Points)
-                line.Add(new SweepEvent(point));
+            for(int a = 0; a < Segments.Length; a++)
+            {
+                var list = Segments[a];
+                if (list == null || list.Count == 0) continue;
 
+                var e = new SweepEvent(this, a, new List<int>(list));
+                line.AddEvent(e);
+            }
+                
             return line;
         }
     }

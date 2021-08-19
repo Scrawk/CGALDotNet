@@ -189,37 +189,6 @@ namespace CGeom2D.Geometry
             return (-C - A * x) / B;
         }
 
-        /// <summary>
-        /// Create two points on the line.
-        /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="len"></param>
-        public void TwoPoints(out Point2d p1, out Point2d p2, double len = 1)
-        {
-            double x1, y1, x2, y2;
-
-            if (IsHorizontal)
-            {
-                x1 = -len;
-                y1 = Y(x1);
-
-                x2 = len;
-                y2 = Y(x2);
-            }
-            else
-            {
-                y1 = -len;
-                x1 = X(y1);
-
-                y2 = len;
-                x2 = X(y2);
-            }
-
-            p1 = new Point2d(x1, y1);
-            p2 = new Point2d(x2, y2);
-        }
-
     }
 
 }

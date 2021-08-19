@@ -6,6 +6,12 @@ using CGeom2D.Numerics;
 
 namespace CGeom2D.Geometry
 {
+    public enum INTERSECTION
+    {
+        NONE,
+        POINT_ON_POINT
+    }
+
     public static class Predicates
     {
 

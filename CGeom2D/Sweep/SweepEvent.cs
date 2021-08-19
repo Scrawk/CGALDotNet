@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
-using CGeom2D.Numerics;
 using CGeom2D.Geometry;
 
 namespace CGeom2D.Sweep
 {
-    public class SweepEvent : IComparable<SweepEvent>, IComparer<SweepEvent>
+
+    public class SweepEvent : IComparable<SweepEvent>
     {
 
-        public static readonly IComparer<SweepEvent> Comparer = new SweepEvent();
-
-        private SweepEvent()
+        public SweepEvent(PointCollection collection, int startPoint, List<int> endPoints)
         {
-      
+            Collection = collection;
+            StartPoint = startPoint;
+            EndPoints = endPoints;
         }
 
-        public SweepEvent(Point2i point)
-        {
-            Point = point;
-        }
+        public Point2i Point => Collection.GetPoint(StartPoint);
 
-        public Point2i Point;
+        private PointCollection Collection { get; set; }
+
+        private int StartPoint { get; set; }
+
+        private List<int> EndPoints { get; set; }
 
         public override string ToString()
         {
@@ -32,15 +31,16 @@ namespace CGeom2D.Sweep
 
         public int CompareTo(SweepEvent other)
         {
-            if (Point.x != other.Point.x)
-                return Point.x.CompareTo(other.Point.x);
-            else
-                return Point.y.CompareTo(other.Point.y);
+            return Compare(Point, other.Point);
         }
 
-        public int Compare(SweepEvent x, SweepEvent y)
+        public static int Compare(Point2i a, Point2i b)
         {
-            return x.CompareTo(y);
+            if (a.x != b.x)
+                return a.x.CompareTo(b.x);
+            else
+                return a.y.CompareTo(b.y);
         }
+
     }
 }

@@ -83,14 +83,6 @@
             Calculates the Y coordinate of a point on the line by its X coordinate.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Line2d.TwoPoints(CGeom2D.Geometry.Point2d@,CGeom2D.Geometry.Point2d@,System.Double)">
-            <summary>
-            Create two points on the line.
-            </summary>
-            <param name="p1"></param>
-            <param name="p2"></param>
-            <param name="len"></param>
-        </member>
         <member name="F:CGeom2D.Geometry.Point2d.UnitX">
             <summary>
             The unit x point.
