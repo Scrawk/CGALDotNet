@@ -15,15 +15,24 @@ namespace CGALDotNetConsole
 
             var collection = new PointCollection(Point2i.Zero, 1000000);
 
-            collection.RandomFill(10, 0, 100);
+            collection.AddPoint(0, 0);
+            collection.AddPoint(5, 0);
+            collection.AddPoint(2, 2);
+            collection.AddPoint(4, -4);
+            collection.AddPoint(6, -6);
+            collection.AddPoint(8, -4);
 
             collection.AddSegment(0, 1);
-            collection.AddSegment(2, 3);
+            collection.AddSegment(0, 2);
+            collection.AddSegment(0, 3);
+            collection.AddSegment(3, 4);
+            collection.AddSegment(3, 5);
 
             var line = collection.CreateSweepLine();
 
             line.Run();
 
+    
 
             //Polygon2Examples.SimplifyPolygon();
 

@@ -53,6 +53,11 @@ namespace CGeom2D.Geometry
             return Points[i];
         }
 
+        public void AddPoint(double x, double y)
+        {
+            Points.Add(ToPoint2i(new Point2d(x, y)));
+        }
+
         public Point2i ToPoint2i(Point2d point)
         {
             Int128 x = new Int128(point.x * Scale) - Origin.x;
@@ -106,13 +111,13 @@ namespace CGeom2D.Geometry
             Segments[a].Add(b);
         }
 
-        public void ToList(List<Point2d> points)
+        public void GetPoints(List<Point2d> points)
         {
             foreach (var point in Points)
                 points.Add(ToPoint2d(point));
         }
 
-        public void ToList(List<Point2i> points)
+        public void GetPoints(List<Point2i> points)
         {
             foreach (var point in Points)
                 points.Add(point);

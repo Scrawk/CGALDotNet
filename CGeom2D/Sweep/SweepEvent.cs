@@ -20,13 +20,32 @@ namespace CGeom2D.Sweep
 
         private PointCollection Collection { get; set; }
 
-        private int StartPoint { get; set; }
+        public int StartPoint { get; private set; }
 
-        private List<int> EndPoints { get; set; }
+        public List<int> EndPoints { get; private set; }
 
         public override string ToString()
         {
-            return string.Format("[SweepEvent: Point={0}]", Point);
+            int count = EndPoints.Count;
+            string endPoints = "{";
+
+            for(int i = 0; i < count; i++)
+            {
+                endPoints += EndPoints[i];
+
+                if (i < count-1)
+                    endPoints += ",";
+            }
+
+            endPoints += "}";
+
+            return string.Format("[SweepEvent: Point={0}, StartPoint={1}, EndPoints={2}]", 
+                Point, StartPoint, endPoints);
+        }
+
+        public Point2i GetEndPoint(int b)
+        {
+            return Collection.GetPoint(b);
         }
 
         public int CompareTo(SweepEvent other)
@@ -37,9 +56,39 @@ namespace CGeom2D.Sweep
         public static int Compare(Point2i a, Point2i b)
         {
             if (a.x != b.x)
-                return a.x.CompareTo(b.x);
+            {
+                //Left to right
+                if (a.x < b.x)
+                    return -1;
+                else
+                    return 1;
+            }
+            else if (a.y != b.y)
+            {
+                //top to bottom
+                if (a.y > b.y)
+                    return -1;
+                else
+                    return 1;
+            }
             else
-                return a.y.CompareTo(b.y);
+            {
+                //equal
+                return 0;
+            }
+        }
+
+        public bool RemoveSegment(int a, int b)
+        {
+            if (StartPoint != a)
+                return false;
+            else
+                return EndPoints.Remove(b);
+        }
+
+        public bool RemoveEndPoint(int b)
+        {
+            return EndPoints.Remove(b);
         }
 
     }

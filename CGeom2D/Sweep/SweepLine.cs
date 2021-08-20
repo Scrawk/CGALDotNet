@@ -66,24 +66,35 @@ namespace CGeom2D.Sweep
             var e = PopEvent();
             if (e == null) return false;
 
+            Console.WriteLine();
             Console.WriteLine("Handle event " + e);
-
+            
             foreach (var ev in EventLine)
             {
-                var result = Intersect(e, ev);
-                HandleIntersection(result);
+                //var result = Intersect(e, ev);
+                //HandleIntersection(result);
             }
+
+            RemovePastEvents(e);
+            RemoveEmptyEvents();
 
             Console.WriteLine("Add to event line " + e);
 
             EventLine.Add(e);
 
+            Console.WriteLine("Event line");
+
+            foreach (var ev in EventLine)
+            {
+                Console.WriteLine(ev);
+            }
+            
             return true;
         }
 
         private INTERSECTION Intersect(SweepEvent e1, SweepEvent e2)
         {
-            Console.WriteLine("Intersect " + e1 + " with " + e2);
+            Console.WriteLine("Check Intersection " + e1 + " with " + e2);
 
             return INTERSECTION.NONE;
         }
@@ -91,6 +102,57 @@ namespace CGeom2D.Sweep
         private void HandleIntersection(INTERSECTION result)
         {
             Console.WriteLine("Handle intersect " + result);
+        }
+
+        private void RemovePastEvents(SweepEvent e)
+        {
+            Console.WriteLine("remove past end points");
+
+            var A = e.Point;
+            Console.WriteLine("A(" + e.StartPoint + ") = " + A);
+
+            foreach (var ev in EventLine)
+            {
+                var remove = new List<int>();
+
+                foreach (int b in ev.EndPoints)
+                {
+                    var B = ev.GetEndPoint(b);
+
+                    Console.WriteLine("B(" + b + ")  = " + B);
+
+                    int order = SweepEvent.Compare(B, A);
+
+                    Console.WriteLine("Order " + order);
+
+                    if (order < 1)
+                        remove.Add(b);
+                }
+
+                foreach (int b in remove)
+                {
+                    Console.WriteLine("Remove " + b);
+                    ev.RemoveEndPoint(b);
+                }
+            }
+        }
+
+        private void RemoveEmptyEvents()
+        {
+            Console.WriteLine("remove empty events");
+
+            var remove = new List<SweepEvent>();
+
+            foreach (var ev in EventLine)
+            {
+                if (ev.EndPoints.Count == 0)
+                    remove.Add(ev);
+            }
+
+            foreach (var ev in remove)
+            {
+                EventLine.Remove(ev);
+            }
         }
 
     }
