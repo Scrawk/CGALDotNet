@@ -3,69 +3,71 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
-using REAL = System.Double;
+using REAL = CGeom2D.Numerics.Int128;
 
-namespace CGeom2D.Geometry
+namespace CGeom2D.Points
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Point2d : IEquatable<Point2d>
+    public struct Point3i : IEquatable<Point3i>
     {
-        public double x, y;
+        public REAL x, y, z;
 
         /// <summary>
         /// The unit x point.
         /// </summary>
-	    public readonly static Point2d UnitX = new Point2d(1, 0);
+	    public readonly static Point3i UnitX = new Point3i(1, 0, 0);
 
         /// <summary>
         /// The unit y point.
         /// </summary>
-	    public readonly static Point2d UnitY = new Point2d(0, 1);
+	    public readonly static Point3i UnitY = new Point3i(0, 1, 0);
+
+        /// <summary>
+        /// The unit z point.
+        /// </summary>
+        public readonly static Point3i UnitZ = new Point3i(0, 0, 1);
 
         /// <summary>
         /// A point of zeros.
         /// </summary>
-	    public readonly static Point2d Zero = new Point2d(0);
+	    public readonly static Point3i Zero = new Point3i(0);
 
         /// <summary>
         /// A point of ones.
         /// </summary>
-	    public readonly static Point2d One = new Point2d(1);
+	    public readonly static Point3i One = new Point3i(1);
 
         /// <summary>
-        /// A point of 0.5.
+        /// A point of max value.
         /// </summary>
-        public readonly static Point2d Half = new Point2d(0.5);
+        public readonly static Point3i MaxValue = new Point3i(REAL.MaxValue);
 
         /// <summary>
-        /// A point of positive infinity.
+        /// A point of min value.
         /// </summary>
-        public readonly static Point2d PositiveInfinity = new Point2d(double.PositiveInfinity);
-
-        /// <summary>
-        /// A point of negative infinity.
-        /// </summary>
-        public readonly static Point2d NegativeInfinity = new Point2d(double.NegativeInfinity);
+        public readonly static Point3i MinValue = new Point3i(REAL.MinValue);
 
         /// <summary>
         /// A point all with the value v.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d(REAL v)
+        public Point3i(REAL v)
         {
             this.x = v;
             this.y = v;
+            this.z = v;
         }
 
         /// <summary>
         /// A point from the varibles.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d(REAL x, REAL y)
+        public Point3i(REAL x, REAL y, REAL z)
         {
             this.x = x;
             this.y = y;
+            this.z = z;
         }
 
         /// <summary>
@@ -77,15 +79,15 @@ namespace CGeom2D.Geometry
         {
             get
             {
-                if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("Point2d index out of range.");
+                if ((uint)i >= 3)
+                    throw new IndexOutOfRangeException("Point3i index out of range.");
 
-                fixed (Point2d* array = &this) { return ((REAL*)array)[i]; }
+                fixed (Point3i* array = &this) { return ((REAL*)array)[i]; }
             }
             set
             {
-                if ((uint)i >= 2)
-                    throw new IndexOutOfRangeException("Point2d index out of range.");
+                if ((uint)i >= 3)
+                    throw new IndexOutOfRangeException("Point3i index out of range.");
 
                 fixed (REAL* array = &x) { array[i] = value; }
             }
@@ -99,7 +101,7 @@ namespace CGeom2D.Geometry
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
-                return x * x + y * y;
+                return (x * x + y * y + z * z);
             }
         }
 
@@ -107,126 +109,126 @@ namespace CGeom2D.Geometry
         /// Add two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(Point2d v1, Point2d v2)
+        public static Point3i operator +(Point3i v1, Point3i v2)
         {
-            return new Point2d(v1.x + v2.x, v1.y + v2.y);
+            return new Point3i(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
         }
 
         /// <summary>
         /// Add point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(Point2d v1, double s)
+        public static Point3i operator +(Point3i v1, REAL s)
         {
-            return new Point2d(v1.x + s, v1.y + s);
+            return new Point3i(v1.x + s, v1.z + s, v1.z + s);
         }
 
         /// <summary>
         /// Add point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator +(double s, Point2d v1)
+        public static Point3i operator +(REAL s, Point3i v1)
         {
-            return new Point2d(s + v1.x, s + v1.y);
+            return new Point3i(s + v1.x, s + v1.z, s + v1.z);
         }
 
         /// <summary>
         /// Negate point.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Point2d v)
+        public static Point3i operator -(Point3i v)
         {
-            return new Point2d(-v.x, -v.y);
+            return new Point3i(-v.x, -v.y, -v.z);
         }
 
         /// <summary>
         /// Subtract two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Point2d v1, Point2d v2)
+        public static Point3i operator -(Point3i v1, Point3i v2)
         {
-            return new Point2d(v1.x - v2.x, v1.y - v2.y);
+            return new Point3i(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
         }
 
         /// <summary>
         /// Subtract point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Point2d v1, double s)
+        public static Point3i operator -(Point3i v1, REAL s)
         {
-            return new Point2d(v1.x - s, v1.y - s);
+            return new Point3i(v1.x - s, v1.y - s, v1.z - s);
         }
 
         /// <summary>
         /// Subtract point and scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(double s, Point2d v1)
+        public static Point3i operator -(REAL s, Point3i v1)
         {
-            return new Point2d(s - v1.x, s - v1.y);
+            return new Point3i(s - v1.x, s - v1.y, s - v1.z);
         }
 
         /// <summary>
         /// Multiply two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(Point2d v1, Point2d v2)
+        public static Point3i operator *(Point3i v1, Point3i v2)
         {
-            return new Point2d(v1.x * v2.x, v1.y * v2.y);
+            return new Point3i(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
         }
 
         /// <summary>
         /// Multiply a point and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(Point2d v, double s)
+        public static Point3i operator *(Point3i v, REAL s)
         {
-            return new Point2d(v.x * s, v.y * s);
+            return new Point3i(v.x * s, v.y * s, v.z * s);
         }
 
         /// <summary>
         /// Multiply a point and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator *(double s, Point2d v)
+        public static Point3i operator *(REAL s, Point3i v)
         {
-            return new Point2d(v.x * s, v.y * s);
+            return new Point3i(v.x * s, v.y * s, v.z * s);
         }
 
         /// <summary>
         /// Divide two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator /(Point2d v1, Point2d v2)
+        public static Point3i operator /(Point3i v1, Point3i v2)
         {
-            return new Point2d(v1.x / v2.x, v1.y / v2.y);
+            return new Point3i(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
         }
 
         /// <summary>
         /// Divide a point and a scalar.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator /(Point2d v, double s)
+        public static Point3i operator /(Point3i v, REAL s)
         {
-            return new Point2d(v.x / s, v.y / s);
+            return new Point3i(v.x / s, v.y / s, v.z / s);
         }
 
         /// <summary>
         /// Are these points equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Point2d v1, Point2d v2)
+        public static bool operator ==(Point3i v1, Point3i v2)
         {
-            return (v1.x == v2.x && v1.y == v2.y);
+            return (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
         }
 
         /// <summary>
         /// Are these points not equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Point2d v1, Point2d v2)
+        public static bool operator !=(Point3i v1, Point3i v2)
         {
-            return (v1.x != v2.x || v1.y != v2.y);
+            return (v1.x != v2.x || v1.y != v2.y || v1.z != v2.z);
         }
 
         /// <summary>
@@ -235,8 +237,8 @@ namespace CGeom2D.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
         {
-            if (!(obj is Point2d)) return false;
-            Point2d v = (Point2d)obj;
+            if (!(obj is Point3i)) return false;
+            Point3i v = (Point3i)obj;
             return this == v;
         }
 
@@ -244,7 +246,7 @@ namespace CGeom2D.Geometry
         /// Are these points equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Point2d v)
+        public bool Equals(Point3i v)
         {
             return this == v;
         }
@@ -260,6 +262,7 @@ namespace CGeom2D.Geometry
                 int hash = (int)2166136261;
                 hash = (hash * 16777619) ^ x.GetHashCode();
                 hash = (hash * 16777619) ^ y.GetHashCode();
+                hash = (hash * 16777619) ^ z.GetHashCode();
                 return hash;
             }
         }
@@ -270,7 +273,7 @@ namespace CGeom2D.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
-            return string.Format("{0},{1}", x, y);
+            return string.Format("{0},{1},{2}", x, y, z);
         }
 
         /// <summary>
@@ -279,20 +282,20 @@ namespace CGeom2D.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string f)
         {
-            return string.Format("{0},{1}", x.ToString(f), y.ToString(f));
+            return string.Format("{0},{1},{2}", x.ToString(f), y.ToString(f), z.ToString(f));
         }
 
         /// <summary>
         /// Square distance between two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SqrDistance(Point2d v0, Point2d v1)
+        public static REAL SqrDistance(Point3i v0, Point3i v1)
         {
             REAL x = v0.x - v1.x;
             REAL y = v0.y - v1.y;
-            return x * x + y * y;
+            REAL z = v0.z - v1.z;
+            return x * x + y * y + z * z;
         }
-
 
     }
 }

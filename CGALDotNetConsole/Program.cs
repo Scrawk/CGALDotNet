@@ -1,10 +1,9 @@
 ﻿using System;
 
 using CGALDotNetConsole.Examples;
-using CGALDotNet.Triangulations;
-using CGALDotNet.Geometry;
 
 using CGeom2D.Geometry;
+using CGeom2D.Points;
 
 namespace CGALDotNetConsole
 {
@@ -16,7 +15,7 @@ namespace CGALDotNetConsole
             var collection = new PointCollection(Point2i.Zero, 1000000);
 
             collection.AddPoint(0, 0);
-            collection.AddPoint(5, 0);
+            collection.AddPoint(4, 0);
             collection.AddPoint(2, 2);
             collection.AddPoint(4, -4);
             collection.AddPoint(6, -6);
@@ -30,7 +29,13 @@ namespace CGALDotNetConsole
 
             var line = collection.CreateSweepLine();
 
-            line.Run();
+            SweepEvent e;
+
+            do
+            {
+                e = line.PopEvent();
+            }
+            while (line.HandleEvent(e));
 
     
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using CGeom2D.Geometry;
 
-namespace CGeom2D.Sweep
+namespace CGeom2D.Points
 {
 
     public class SweepEvent : IComparable<SweepEvent>
@@ -89,6 +89,17 @@ namespace CGeom2D.Sweep
         public bool RemoveEndPoint(int b)
         {
             return EndPoints.Remove(b);
+        }
+
+        public Line2d Line(double len)
+        {
+            var point = Collection.ToPoint2d(Point);
+            var x = point.x;
+
+            var p1 = new Point2d(x, -len);
+            var p2 = new Point2d(x, len);
+
+            return new Line2d(p1, p2);
         }
 
     }

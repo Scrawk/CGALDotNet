@@ -4,6 +4,84 @@
         <name>CGeom2D</name>
     </assembly>
     <members>
+        <member name="M:CGeom2D.Geometry.Box2d.Transform(CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.Transform(CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.Transform(CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.Round(System.Int32)">
+            <summary>
+            Round the boxs min and max values.
+            </summary>
+            <param name="digits">number of digits to round to.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.GetCorners">
+            <summary>
+            Get the boxs corner vertices.
+            </summary>
+            <returns>The corner vertices.</returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.Intersects(CGeom2D.Geometry.Box2d)">
+            <summary>
+            Returns true if this box intersects the other box.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.Contains(CGeom2D.Geometry.Box2d)">
+            <summary>
+            Does the box contain the other box.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.Contains(CGeom2D.Points.Point2d)">
+            <summary>
+            Does the box contain the point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2d.Closest(CGeom2D.Points.Point2d)">
+            <summary>
+            Find the closest point to the box.
+            If point inside box return point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2i.GetCorners">
+            <summary>
+            Get the boxs corner vertices.
+            </summary>
+            <returns>The corner vertices.</returns>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2i.Intersects(CGeom2D.Geometry.Box2i)">
+            <summary>
+            Returns true if this box intersects the other box.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2i.Contains(CGeom2D.Geometry.Box2i)">
+            <summary>
+            Does the box contain the other box.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2i.Contains(CGeom2D.Points.Point2i)">
+            <summary>
+            Does the box contain the point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Geometry.Box2i.Closest(CGeom2D.Points.Point2i)">
+            <summary>
+            Find the closest point to the box.
+            If point inside box return point.
+            </summary>
+        </member>
         <member name="T:CGeom2D.Geometry.Line2d">
             <summary>
              Represents a line from three coefficients
@@ -27,7 +105,7 @@
             <param name="m">The lines slope.</param>
             <param name="b">The y intercept.</param>
         </member>
-        <member name="M:CGeom2D.Geometry.Line2d.#ctor(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Geometry.Line2d.#ctor(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Create a new line that passes through the two points.
             </summary>
@@ -83,316 +161,3041 @@
             Calculates the Y coordinate of a point on the line by its X coordinate.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2d.UnitX">
+        <member name="M:CGeom2D.Geometry.Segment2d.Transform(CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Transform the segment by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Segment2d.Transform(CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Transform the segment by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Segment2d.Transform(CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Transform the segment by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Geometry.Segment2d.Round(System.Int32)">
+            <summary>
+            Round the segments points.
+            </summary>
+            <param name="digits">number of digits to round to.</param>
+        </member>
+        <member name="T:CGeom2D.MathUtil">
+            <summary>
+            Global utility functions.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.MathUtil.RAD_TO_DEG">
+            <summary>
+            Convert radians to degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.MathUtil.DEG_TO_RAD">
+            <summary>
+            Convert degrees to radians.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.MathUtil.Clamp(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Clamp v to min and max.
+            </summary>
+            <param name="v">The value v.</param>
+            <param name="min">The min value.</param>
+            <param name="max">The max value.</param>
+            <returns>The clamped value.</returns>
+        </member>
+        <member name="M:CGeom2D.MathUtil.Clamp(System.Double,System.Double,System.Double)">
+            <summary>
+            Clamp v to min and max.
+            </summary>
+            <param name="v">The value v.</param>
+            <param name="min">The min value.</param>
+            <param name="max">The max value.</param>
+            <returns>The clamped value.</returns>
+        </member>
+        <member name="M:CGeom2D.MathUtil.Clamp01(System.Double)">
+            <summary>
+            Clamp v to 0 and 1.
+            </summary>
+            <param name="v">The value v.</param>
+            <returns>The clamped value</returns>
+        </member>
+        <member name="M:CGeom2D.MathUtil.Wrap(System.Int32,System.Int32)">
+            <summary>
+            Wrap a value between 0 and count-1 (inclusive).
+            </summary>
+            <param name="v">The value v</param>
+            <param name="count">The value to wrap at.</param>
+            <returns>The value between 0 and count-1 (inclusive).</returns>
+        </member>
+        <member name="M:CGeom2D.MathUtil.ToRadians(System.Double)">
+            <summary>
+            Convert radians to degrees.
+            </summary>
+            <param name="degrees">The angle in degrees.</param>
+            <returns>The angle in radians.</returns>
+        </member>
+        <member name="M:CGeom2D.MathUtil.Sin(CGeom2D.Numerics.Radian)">
+            <summary>
+            Sin func using radians.
+            </summary>
+            <param name="radian">The input in radians.</param>
+            <returns>The output in radians.</returns>
+        </member>
+        <member name="M:CGeom2D.MathUtil.Cos(CGeom2D.Numerics.Radian)">
+            <summary>
+            Cos func using radians.
+            </summary>
+            <param name="radian">The input in radians.</param>
+            <returns>The output in radians.</returns>
+        </member>
+        <member name="M:CGeom2D.MathUtil.Tan(CGeom2D.Numerics.Radian)">
+            <summary>
+            Tan func using radians.
+            </summary>
+            <param name="radian">The input in radians.</param>
+            <returns>The output in radians.</returns>
+        </member>
+        <member name="T:CGeom2D.Numerics.Degree">
+            <summary>
+            Represents a angle in degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Degree.angle">
+            <summary>
+            The angle in degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Degree.A0">
+            <summary>
+            0 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Degree.A90">
+            <summary>
+            90 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Degree.A180">
+            <summary>
+            180 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Degree.A270">
+            <summary>
+            270 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Degree.A360">
+            <summary>
+            360 degrees.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.#ctor(System.Double)">
+            <summary>
+            Create a new degree from a value.
+            </summary>
+            <param name="angle">The angle in degrees.</param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Addition(CGeom2D.Numerics.Degree,CGeom2D.Numerics.Degree)">
+            <summary>
+            Add two angles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Addition(CGeom2D.Numerics.Degree,System.Double)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_UnaryNegation(CGeom2D.Numerics.Degree)">
+            <summary>
+            Negate the angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Addition(System.Double,CGeom2D.Numerics.Degree)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Subtraction(CGeom2D.Numerics.Degree,CGeom2D.Numerics.Degree)">
+            <summary>
+            Subtract two angles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Subtraction(CGeom2D.Numerics.Degree,System.Double)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Subtraction(System.Double,CGeom2D.Numerics.Degree)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Multiply(CGeom2D.Numerics.Degree,CGeom2D.Numerics.Degree)">
+            <summary>
+            Multiply two angles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Multiply(CGeom2D.Numerics.Degree,System.Double)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Multiply(System.Double,CGeom2D.Numerics.Degree)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Division(CGeom2D.Numerics.Degree,CGeom2D.Numerics.Degree)">
+            <summary>
+            Divide two angles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Division(CGeom2D.Numerics.Degree,System.Double)">
+            <summary>
+            Divide a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Implicit(CGeom2D.Numerics.Radian)~CGeom2D.Numerics.Degree">
+            <summary>
+            Cast from a radian to degrees.
+            </summary>
+            <param name="v">The angle in radians.</param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Equality(CGeom2D.Numerics.Degree,CGeom2D.Numerics.Degree)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.op_Inequality(CGeom2D.Numerics.Degree,CGeom2D.Numerics.Degree)">
+            <summary>
+            Are these angles not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.Equals(System.Object)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.Equals(CGeom2D.Numerics.Degree)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.GetHashCode">
+            <summary>
+            Angles hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.ToString">
+            <summary>
+            Angles as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.ToString(System.String)">
+            <summary>
+            Angles as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Degree.Rounded(System.Int32)">
+            <summary>
+            A rounded angle.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded angle</returns>
+        </member>
+        <member name="T:CGeom2D.Numerics.Matrix2x2d">
+            <summary>
+            Matrix is column major. Data is accessed as: row + (column*2). 
+            Matrices can be indexed like 2D arrays but in an expression like mat[a, b], 
+            a refers to the row index, while b refers to the column index 
+            (note that this is the opposite way round to Cartesian coordinates).
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix2x2d.m00">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix2x2d.m10">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix2x2d.Identity">
+            <summary>
+            The Matrix Idenity.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.#ctor(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.#ctor(System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.#ctor(System.Double[0:,0:])">
+            <summary>
+            A matrix copied from a array of varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix2x2d.Item(System.Int32)">
+            <summary>
+            Access the varible at index i
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix2x2d.Item(System.Int32,System.Int32)">
+            <summary>
+            Access the varible at index ij
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix2x2d.Transpose">
+            <summary>
+            The transpose of the matrix. The rows and columns are flipped.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix2x2d.Determinant">
+            <summary>
+            The determinate of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix2x2d.Inverse">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix2x2d.Trace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Multiply(CGeom2D.Numerics.Matrix2x2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Multiply  a vector by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Multiply(CGeom2D.Numerics.Matrix2x2d,CGeom2D.Points.Point2d)">
+            <summary>
+            Multiply a point by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Addition(CGeom2D.Numerics.Matrix2x2d,CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Add two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Subtraction(CGeom2D.Numerics.Matrix2x2d,CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Subtract two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Multiply(CGeom2D.Numerics.Matrix2x2d,CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Multiply two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Multiply(CGeom2D.Numerics.Matrix2x2d,System.Double)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Multiply(System.Double,CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Equality(CGeom2D.Numerics.Matrix2x2d,CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.op_Inequality(CGeom2D.Numerics.Matrix2x2d,CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Are these matrices not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.Equals(System.Object)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.Equals(CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.GetHashCode">
+            <summary>
+            Matrices hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.ToString">
+            <summary>
+            A matrix as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.TryInverse(CGeom2D.Numerics.Matrix2x2d@)">
+            <summary>
+            The Inverse of the matrix copied into mInv.
+            Returns false if the matrix has no inverse.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.GetColumn(System.Int32)">
+            <summary>
+            Get the ith column as a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.SetColumn(System.Int32,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Set the ith column from avector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.GetRow(System.Int32)">
+            <summary>
+            Get the ith row as a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.SetRow(System.Int32,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Set the ith row from avector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.Rotate(CGeom2D.Numerics.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix2x2d.ToMatrix3x3d">
+            <summary>
+            Convert to a float precision 3 dimension matrix.
+            </summary>
+        </member>
+        <member name="T:CGeom2D.Numerics.Matrix3x3d">
+            <summary>
+            Matrix is column major. Data is accessed as: row + (column*3). 
+            Matrices can be indexed like 2D arrays but in an expression like mat[a, b], 
+            a refers to the row index, while b refers to the column index 
+            (note that this is the opposite way round to Cartesian coordinates).
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix3x3d.m00">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix3x3d.m10">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix3x3d.m20">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix3x3d.Identity">
+            <summary>
+            The Matrix Idenity.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.#ctor(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.#ctor(System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.#ctor(System.Double[0:,0:])">
+            <summary>
+            A matrix copied from a array of varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix3x3d.Item(System.Int32)">
+            <summary>
+            Access the varible at index i
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix3x3d.Item(System.Int32,System.Int32)">
+            <summary>
+            Access the varible at index ij
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix3x3d.Transpose">
+            <summary>
+            The transpose of the matrix. The rows and columns are flipped.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix3x3d.Determinant">
+            <summary>
+            The determinate of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix3x3d.Inverse">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix3x3d.Trace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Multiply(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Multiply  a vector by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Multiply(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Multiply  a vector by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Multiply(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Points.Point2d)">
+            <summary>
+            Multiply a point by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Multiply(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Multiply a point by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Addition(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Add two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Subtraction(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Subtract two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Multiply(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Multiply two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Multiply(CGeom2D.Numerics.Matrix3x3d,System.Double)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Multiply(System.Double,CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Equality(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.op_Inequality(CGeom2D.Numerics.Matrix3x3d,CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Are these matrices not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.Equals(System.Object)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.Equals(CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.GetHashCode">
+            <summary>
+            Matrices hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.ToString">
+            <summary>
+            A matrix as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.TryInverse(CGeom2D.Numerics.Matrix3x3d@)">
+            <summary>
+            The Inverse of the matrix copied into mInv.
+            Returns false if the matrix has no inverse.
+            A matrix multipled by its inverse is the idenity.
+            Invert a 3x3 using cofactors.  This is about 8 times faster than
+            the Numerical Recipes code which uses Gaussian elimination.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.GetColumn(System.Int32)">
+            <summary>
+            Get the ith column as a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.SetColumn(System.Int32,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Set the ith column from avector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.GetRow(System.Int32)">
+            <summary>
+            Get the ith row as a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.SetRow(System.Int32,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Set the ith row from avector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.ToMatrix4x4d">
+            <summary>
+            Convert to a double precision 4 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.Translate(CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Create a translation out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.Scale(CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.Scale(System.Double)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.RotateX(CGeom2D.Numerics.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.RotateY(CGeom2D.Numerics.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.RotateZ(CGeom2D.Numerics.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix3x3d.Rotate(CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a rotation out of a vector.
+            </summary>
+        </member>
+        <member name="T:CGeom2D.Numerics.Matrix4x4d">
+            <summary>
+            Matrix is column major. Data is accessed as: row + (column*4). 
+            Matrices can be indexed like 2D arrays but in an expression like mat[a, b], 
+            a refers to the row index, while b refers to the column index 
+            (note that this is the opposite way round to Cartesian coordinates).
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix4x4d.m00">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix4x4d.m10">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix4x4d.m20">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix4x4d.m30">
+            <summary>
+            The matrix
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Matrix4x4d.Identity">
+            <summary>
+            The Matrix Idenity.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.#ctor(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.#ctor(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            A matrix from the following column vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.#ctor(System.Double)">
+            <summary>
+            A matrix from the following varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.#ctor(System.Double[0:,0:])">
+            <summary>
+            A matrix copied from a array of varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix4x4d.Item(System.Int32)">
+            <summary>
+            Access the varible at index i
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix4x4d.Item(System.Int32,System.Int32)">
+            <summary>
+            Access the varible at index ij
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix4x4d.Transpose">
+            <summary>
+            The transpose of the matrix. The rows and columns are flipped.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix4x4d.Determinant">
+            <summary>
+            The determinate of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix4x4d.Adjoint">
+            <summary>
+            The adjoint of a matrix. 
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix4x4d.Inverse">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Matrix4x4d.Trace">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Multiply a vector by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Multiply a vector by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Multiply a vector by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Points.Point2d)">
+            <summary>
+            Multiply a point by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Points.Point3d)">
+            <summary>
+            Multiply a point by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Multiply a point by a matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Addition(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Add two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Subtraction(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Subtract two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Multiply two matrices.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(CGeom2D.Numerics.Matrix4x4d,System.Double)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Multiply(System.Double,CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Multiply a matrix by a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Equality(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.op_Inequality(CGeom2D.Numerics.Matrix4x4d,CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Are these matrices not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.Equals(System.Object)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.Equals(CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Are these matrices equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.GetHashCode">
+            <summary>
+            Matrices hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.ToString">
+            <summary>
+            A matrix as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.Minor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            The minor of a matrix. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.TryInverse(CGeom2D.Numerics.Matrix4x4d@)">
+            <summary>
+            The inverse of the matrix.
+            A matrix multipled by its inverse is the idenity.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.GetColumn(System.Int32)">
+            <summary>
+            Get the ith column as a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.SetColumn(System.Int32,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Set the ith column from a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.GetRow(System.Int32)">
+            <summary>
+            Get the ith row as a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.SetRow(System.Int32,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Set the ith row from a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.ToMatrix3x3d">
+            <summary>
+            Convert to a 3 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.TranslateRotateScale(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a translation, rotation and scale.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.TranslateRotate(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Quaternion3d)">
+            <summary>
+            Create a translation and rotation.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.TranslateScale(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a translation and scale.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.RotateScale(CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a rotation and scale.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.Translate(CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a translation out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.Scale(CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.Scale(System.Double)">
+            <summary>
+            Create a scale out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.RotateX(CGeom2D.Numerics.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.RotateY(CGeom2D.Numerics.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.RotateZ(CGeom2D.Numerics.Radian)">
+            <summary>
+            Create a rotation out of a angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.Rotate(CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a rotation out of a vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Matrix4x4d.LookAt(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Creates the matrix need to look at target from position.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A Quaternion from varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.#ctor(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Radian)">
+            <summary>
+            A Quaternion from a vector axis and angle.
+            The axis is the up direction and the angle is the rotation.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.#ctor(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            A quaternion with the rotation required to
+            rotation from the from direction to the to direction.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Quaternion3d.Conjugate">
+            <summary>
+            Returns the conjugate of a quaternion value.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Quaternion3d.Inverse">
+            <summary>
+            The inverse of the quaternion.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Quaternion3d.Magnitude">
+            <summary>
+            The length of the quaternion.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Quaternion3d.SqrMagnitude">
+            <summary>
+            The sqr length of the quaternion.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Quaternion3d.Normalized">
+            <summary>
+            The a normalized quaternion.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.op_Multiply(CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Quaternion3d)">
+            <summary>
+            Multiply two quternions together.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.op_Multiply(CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Multiply a quaternion and a vector together.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.op_Multiply(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Quaternion3d)">
+            <summary>
+            Multiply a quaternion and a vector together.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.op_Equality(CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Quaternion3d)">
+            <summary>
+            Are these Quaternions equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.op_Inequality(CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Quaternion3d)">
+            <summary>
+            Are these Quaternions not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.Equals(CGeom2D.Numerics.Quaternion3d)">
+            <summary>
+            Are these Quaternions equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.Equals(System.Object)">
+            <summary>
+            Are these Quaternions equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.GetHashCode">
+            <summary>
+            Quaternions hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.ToString">
+            <summary>
+            Quaternion as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.ToString(System.String)">
+            <summary>
+            Quaternion as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.ToMatrix3x3d">
+            <summary>
+            Convert to a 3 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.ToMatrix4x4d">
+            <summary>
+            Convert to a 4 dimension matrix.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.Normalize">
+            <summary>
+            The normalize the quaternion.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.Dot(CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Quaternion3d)">
+            <summary>
+            The dot product of two quaternion..
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.Slerp(CGeom2D.Numerics.Quaternion3d,CGeom2D.Numerics.Quaternion3d,System.Double)">
+            <summary>
+            Slerp the quaternion from the from rotation to the to rotation by t.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.FromEuler(CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Create a rotation out of a vector in degrees.
+            Uses Unity euler axis (+x right, +y up, +z forward)
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.RotateX(CGeom2D.Numerics.Radian)">
+            <summary>
+            Returns a 4x4 matrix that rotates around the x-axis.
+            </summary>
+            <param name="radian">
+            The clockwise rotation angle when looking along the x-axis towards the origin.
+            </param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.RotateY(CGeom2D.Numerics.Radian)">
+            <summary>
+            Returns a 4x4 matrix that rotates around the y-axis.
+            </summary>
+            <param name="radian">
+            The clockwise rotation angle when looking along the y-axis towards the origin.
+            </param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Quaternion3d.RotateZ(CGeom2D.Numerics.Radian)">
+            <summary>
+            Returns a 4x4 matrix that rotates around the z-axis.
+            </summary>
+            <param name="radian">
+            The clockwise rotation angle when looking along the z-axis towards the origin.
+            </param>
+        </member>
+        <member name="T:CGeom2D.Numerics.Radian">
+            <summary>
+            Represents a angle in degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.angle">
+            <summary>
+            The angle in radians.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.PI">
+            <summary>
+            Pi.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.Ae0">
+            <summary>
+            0 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.A45">
+            <summary>
+            90 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.A90">
+            <summary>
+            90 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.A180">
+            <summary>
+            180 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.A270">
+            <summary>
+            270 degrees.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Radian.A360">
+            <summary>
+            360 degrees.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.#ctor(System.Double)">
+            <summary>
+            Create a new radian from a value.
+            </summary>
+            <param name="angle">The angle in radians.</param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Addition(CGeom2D.Numerics.Radian,CGeom2D.Numerics.Radian)">
+            <summary>
+            Add two angles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Addition(CGeom2D.Numerics.Radian,System.Double)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_UnaryNegation(CGeom2D.Numerics.Radian)">
+            <summary>
+            Negate the angle.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Addition(System.Double,CGeom2D.Numerics.Radian)">
+            <summary>
+            Add angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Subtraction(CGeom2D.Numerics.Radian,CGeom2D.Numerics.Radian)">
+            <summary>
+            Subtract two angles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Subtraction(CGeom2D.Numerics.Radian,System.Double)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Subtraction(System.Double,CGeom2D.Numerics.Radian)">
+            <summary>
+            Subtract angle and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Multiply(CGeom2D.Numerics.Radian,CGeom2D.Numerics.Radian)">
+            <summary>
+            Multiply two angles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Multiply(CGeom2D.Numerics.Radian,System.Double)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Multiply(System.Double,CGeom2D.Numerics.Radian)">
+            <summary>
+            Multiply a angle and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Implicit(CGeom2D.Numerics.Degree)~CGeom2D.Numerics.Radian">
+            <summary>
+            Cast from a degrees to radians.
+            </summary>
+            <param name="v">The angle in radians.</param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Equality(CGeom2D.Numerics.Radian,CGeom2D.Numerics.Radian)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.op_Inequality(CGeom2D.Numerics.Radian,CGeom2D.Numerics.Radian)">
+            <summary>
+            Are these angles not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.Equals(System.Object)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.Equals(CGeom2D.Numerics.Radian)">
+            <summary>
+            Are these angles equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.GetHashCode">
+            <summary>
+            Angles hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.ToString">
+            <summary>
+            Angles as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.ToString(System.String)">
+            <summary>
+            Angles as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Radian.Rounded(System.Int32)">
+            <summary>
+            A rounded angle.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded angle</returns>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector2d.UnitX">
+            <summary>
+            The unit x vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector2d.UnitY">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector2d.Zero">
+            <summary>
+            A vector of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector2d.One">
+            <summary>
+            A vector of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector2d.Half">
+            <summary>
+            A vector of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector2d.PositiveInfinity">
+            <summary>
+            A vector of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector2d.NegativeInfinity">
+            <summary>
+            A vector of negative infinity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.xy0">
+            <summary>
+            2D vector to 3D vector with z as 0.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.xy1">
+            <summary>
+            2D vector to 3D vector with z as 1.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.xy00">
+            <summary>
+            2D vector to 4D vector with z as 0 and w as 0.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.xy01">
+            <summary>
+            2D vector to 4D vector with z as 0 and w as 1.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.#ctor(System.Double)">
+            <summary>
+            A vector all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.#ctor(System.Double,System.Double)">
+            <summary>
+            A vector from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.Magnitude">
+            <summary>
+            The length of the vector.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.SqrMagnitude">
+            <summary>
+            The length of the vector squared.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.Normalized">
+            <summary>
+            The vector normalized.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.PerpendicularCCW">
+            <summary>
+            Counter clock-wise perpendicular.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector2d.PerpendicularCW">
+            <summary>
+            Clock-wise perpendicular.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Addition(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Add two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Addition(CGeom2D.Numerics.Vector2d,System.Double)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Addition(System.Double,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_UnaryNegation(CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Negate vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Subtraction(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Subtract two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Subtraction(CGeom2D.Numerics.Vector2d,System.Double)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Subtraction(System.Double,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Multiply(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Multiply(CGeom2D.Numerics.Vector2d,System.Double)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Multiply(System.Double,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Division(CGeom2D.Numerics.Vector2d,System.Double)">
+            <summary>
+            Divide a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Explicit(CGeom2D.Points.Point2d)~CGeom2D.Numerics.Vector2d">
+            <summary>
+            Explict cast from point.
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Equality(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.op_Inequality(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Are these vectors not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Equals(System.Object)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Equals(CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Dot(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            The dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.AbsDot(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            The abs dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Normalize">
+            <summary>
+            Normalize the vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Cross(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Cross two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Min(CGeom2D.Numerics.Vector2d,System.Double)">
+            <summary>
+            The minimum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Min(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            The minimum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Max(CGeom2D.Numerics.Vector2d,System.Double)">
+            <summary>
+            The maximum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Max(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            The maximum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Clamp(CGeom2D.Numerics.Vector2d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Clamp(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Lerp(CGeom2D.Numerics.Vector2d,CGeom2D.Numerics.Vector2d,System.Double)">
+            <summary>
+            Lerp between two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Rounded(System.Int32)">
+            <summary>
+            A rounded vector.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded vector</returns>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector2d.Round(System.Int32)">
+            <summary>
+            Round the vector.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.UnitX">
+            <summary>
+            The unit x vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.UnitY">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.UnitZ">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.Zero">
+            <summary>
+            A vector of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.One">
+            <summary>
+            A vector of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.Half">
+            <summary>
+            A vector of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.PositiveInfinity">
+            <summary>
+            A vector of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector3d.NegativeInfinity">
+            <summary>
+            A vector of negative infinity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.xzy">
+            <summary>
+            3D vector to 3D swizzle vector.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.xy">
+            <summary>
+            3D vector to 2D vector.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.xyz0">
+            <summary>
+            3D vector to 4D vector with w as 0.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.xyz1">
+            <summary>
+            3D vector to 4D vector with w as 1.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.#ctor(System.Double)">
+            <summary>
+            A vector all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            A vector from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.Magnitude">
+            <summary>
+            The length of the vector.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.SqrMagnitude">
+            <summary>
+            The length of the vector squared.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector3d.Normalized">
+            <summary>
+            The vector normalized.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Addition(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Add two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Addition(CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Addition(System.Double,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_UnaryNegation(CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Negate vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Subtraction(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Subtract two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Subtraction(CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Subtraction(System.Double,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Multiply(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Multiply(CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Multiply(System.Double,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Division(CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            Divide a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Explicit(CGeom2D.Points.Point3d)~CGeom2D.Numerics.Vector3d">
+            <summary>
+            Explict cast from point.
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Equality(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.op_Inequality(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Are these vectors not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Equals(System.Object)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Equals(CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Dot(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            The dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.AbsDot(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            The abs dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Normalize">
+            <summary>
+            Normalize the vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Cross(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Cross two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Orthonormal(CGeom2D.Numerics.Vector3d@,CGeom2D.Numerics.Vector3d@,CGeom2D.Numerics.Vector3d@)">
+            <summary>
+            Create a set of orthonormal vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Min(CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            The minimum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Min(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            The minimum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Max(CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            The maximum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Max(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            The maximum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Clamp(CGeom2D.Numerics.Vector3d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Clamp(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Lerp(CGeom2D.Numerics.Vector3d,CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            Lerp between two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Rounded(System.Int32)">
+            <summary>
+            A rounded vector.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded vector</returns>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector3d.Round(System.Int32)">
+            <summary>
+            Round the vector.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.UnitX">
+            <summary>
+            The unit x vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.UnitY">
+            <summary>
+            The unit y vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.UnitZ">
+            <summary>
+            The unit z vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.UnitW">
+            <summary>
+            The unit w vector.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.Zero">
+            <summary>
+            A vector of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.One">
+            <summary>
+            A vector of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.Half">
+            <summary>
+            A vector of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.PositiveInfinity">
+            <summary>
+            A vector of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Numerics.Vector4d.NegativeInfinity">
+            <summary>
+            A vector of negative infinity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector4d.xy">
+            <summary>
+            4D vector to 2D vector.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector4d.xyz">
+            <summary>
+            4D vector to 3D vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.#ctor(System.Double)">
+            <summary>
+            A vector all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A vector from the varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.#ctor(CGeom2D.Numerics.Vector2d,System.Double,System.Double)">
+            <summary>
+            A vector from a 2d vector and the z and w varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.#ctor(CGeom2D.Numerics.Vector3d,System.Double)">
+            <summary>
+            A vector from a 3d vector and the w varible.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector4d.Magnitude">
+            <summary>
+            The length of the vector.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector4d.SqrMagnitude">
+            <summary>
+            The length of the vector squared.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Numerics.Vector4d.Normalized">
+            <summary>
+            The vector normalized.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Addition(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Add two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Addition(CGeom2D.Numerics.Vector4d,System.Double)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Addition(System.Double,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Add vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_UnaryNegation(CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Negate vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Subtraction(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Subtract two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Subtraction(CGeom2D.Numerics.Vector4d,System.Double)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Subtraction(System.Double,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Subtract vector and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Multiply(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Dot porduct of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Multiply(CGeom2D.Numerics.Vector4d,System.Double)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Multiply(System.Double,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Multiply a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Division(CGeom2D.Numerics.Vector4d,System.Double)">
+            <summary>
+            Divide a vector and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Equality(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.op_Inequality(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Are these vectors not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Equals(System.Object)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Equals(CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Are these vectors equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Dot(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            The dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.AbsDot(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            The abs dot product of two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Normalize">
+            <summary>
+            Normalize the vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Min(CGeom2D.Numerics.Vector4d,System.Double)">
+            <summary>
+            The minimum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Min(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            The minimum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Max(CGeom2D.Numerics.Vector4d,System.Double)">
+            <summary>
+            The maximum value between s and each component in vector.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Max(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            The maximum value between each component in vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Clamp(CGeom2D.Numerics.Vector4d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Clamp(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Lerp(CGeom2D.Numerics.Vector4d,CGeom2D.Numerics.Vector4d,System.Double)">
+            <summary>
+            Lerp between two vectors.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Rounded(System.Int32)">
+            <summary>
+            A rounded vector.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded vector</returns>
+        </member>
+        <member name="M:CGeom2D.Numerics.Vector4d.Round(System.Int32)">
+            <summary>
+            Round the vector.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="F:CGeom2D.Points.Point2d.UnitX">
             <summary>
             The unit x point.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2d.UnitY">
+        <member name="F:CGeom2D.Points.Point2d.UnitY">
             <summary>
             The unit y point.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2d.Zero">
+        <member name="F:CGeom2D.Points.Point2d.Zero">
             <summary>
             A point of zeros.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2d.One">
+        <member name="F:CGeom2D.Points.Point2d.One">
             <summary>
             A point of ones.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2d.Half">
+        <member name="F:CGeom2D.Points.Point2d.Half">
             <summary>
             A point of 0.5.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2d.PositiveInfinity">
+        <member name="F:CGeom2D.Points.Point2d.PositiveInfinity">
             <summary>
             A point of positive infinity.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2d.NegativeInfinity">
+        <member name="F:CGeom2D.Points.Point2d.NegativeInfinity">
             <summary>
             A point of negative infinity.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.#ctor(System.Double)">
+        <member name="P:CGeom2D.Points.Point2d.xy0">
+            <summary>
+            2D point to 3D point with z as 0.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point2d.xy1">
+            <summary>
+            2D point to 3D point with z as 1.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point2d.xy00">
+            <summary>
+            2D point to 4D point with z as 0 and w as 0.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point2d.xy01">
+            <summary>
+            2D point to 4D point with z as 0 and w as 1.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.#ctor(System.Double)">
             <summary>
             A point all with the value v.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.#ctor(System.Double,System.Double)">
+        <member name="M:CGeom2D.Points.Point2d.#ctor(System.Double,System.Double)">
             <summary>
             A point from the varibles.
             </summary>
         </member>
-        <member name="P:CGeom2D.Geometry.Point2d.Item(System.Int32)">
+        <member name="P:CGeom2D.Points.Point2d.Item(System.Int32)">
             <summary>
             Array accessor for variables. 
             </summary>
             <param name="i">The variables index.</param>
             <returns>The variable value</returns>
         </member>
-        <member name="P:CGeom2D.Geometry.Point2d.SqrMagnitude">
+        <member name="P:CGeom2D.Points.Point2d.Magnitude">
+            <summary>
+            The length of the point from the origin.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point2d.SqrMagnitude">
             <summary>
             The length of the point from the origin squared.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Addition(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Addition(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Add two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Addition(CGeom2D.Geometry.Point2d,System.Double)">
+        <member name="M:CGeom2D.Points.Point2d.op_Addition(CGeom2D.Points.Point2d,System.Double)">
             <summary>
             Add point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Addition(System.Double,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Addition(System.Double,CGeom2D.Points.Point2d)">
             <summary>
             Add point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_UnaryNegation(CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_UnaryNegation(CGeom2D.Points.Point2d)">
             <summary>
             Negate point.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Subtraction(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Subtraction(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Subtract two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Subtraction(CGeom2D.Geometry.Point2d,System.Double)">
+        <member name="M:CGeom2D.Points.Point2d.op_Subtraction(CGeom2D.Points.Point2d,System.Double)">
             <summary>
             Subtract point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Subtraction(System.Double,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Subtraction(System.Double,CGeom2D.Points.Point2d)">
             <summary>
             Subtract point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Multiply(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Multiply(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Multiply two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Multiply(CGeom2D.Geometry.Point2d,System.Double)">
+        <member name="M:CGeom2D.Points.Point2d.op_Multiply(CGeom2D.Points.Point2d,System.Double)">
             <summary>
             Multiply a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Multiply(System.Double,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Multiply(System.Double,CGeom2D.Points.Point2d)">
             <summary>
             Multiply a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Division(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Division(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Divide two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Division(CGeom2D.Geometry.Point2d,System.Double)">
+        <member name="M:CGeom2D.Points.Point2d.op_Division(CGeom2D.Points.Point2d,System.Double)">
             <summary>
             Divide a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Equality(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Equality(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Are these points equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.op_Inequality(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.op_Inequality(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Are these points not equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.Equals(System.Object)">
+        <member name="M:CGeom2D.Points.Point2d.Equals(System.Object)">
             <summary>
             Are these points equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.Equals(CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.Equals(CGeom2D.Points.Point2d)">
             <summary>
             Are these points equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.GetHashCode">
+        <member name="M:CGeom2D.Points.Point2d.GetHashCode">
             <summary>
             Vectors hash code. 
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.ToString">
+        <member name="M:CGeom2D.Points.Point2d.ToString">
             <summary>
             Vector as a string.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.ToString(System.String)">
+        <member name="M:CGeom2D.Points.Point2d.ToString(System.String)">
             <summary>
             Vector as a string.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2d.SqrDistance(CGeom2D.Geometry.Point2d,CGeom2D.Geometry.Point2d)">
+        <member name="M:CGeom2D.Points.Point2d.Distance(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
+            <summary>
+            Distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.SqrDistance(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
             <summary>
             Square distance between two points.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2i.UnitX">
+        <member name="M:CGeom2D.Points.Point2d.Min(CGeom2D.Points.Point2d,System.Double)">
+            <summary>
+            The minimum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Min(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
+            <summary>
+            The minimum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Max(CGeom2D.Points.Point2d,System.Double)">
+            <summary>
+            The maximum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Max(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
+            <summary>
+            The maximum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Clamp(CGeom2D.Points.Point2d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Clamp(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Lerp(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d,System.Double)">
+            <summary>
+            Lerp between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Rounded(System.Int32)">
+            <summary>
+            A rounded point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded point</returns>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Round(System.Int32)">
+            <summary>
+            Round the point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Transform(CGeom2D.Numerics.Matrix2x2d)">
+            <summary>
+            Transform the point by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Transform(CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.Transform(CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="F:CGeom2D.Points.Point2i.UnitX">
             <summary>
             The unit x point.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2i.UnitY">
+        <member name="F:CGeom2D.Points.Point2i.UnitY">
             <summary>
             The unit y point.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2i.Zero">
+        <member name="F:CGeom2D.Points.Point2i.Zero">
             <summary>
             A point of zeros.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2i.One">
+        <member name="F:CGeom2D.Points.Point2i.One">
             <summary>
             A point of ones.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2i.MaxValue">
+        <member name="F:CGeom2D.Points.Point2i.MaxValue">
             <summary>
-            A point of positive infinity.
+            A point of max value.
             </summary>
         </member>
-        <member name="F:CGeom2D.Geometry.Point2i.MinValue">
+        <member name="F:CGeom2D.Points.Point2i.MinValue">
             <summary>
-            A point of negative infinity.
+            A point of min value.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.#ctor(CGeom2D.Numerics.Int128)">
+        <member name="M:CGeom2D.Points.Point2i.#ctor(CGeom2D.Numerics.Int128)">
             <summary>
             A point all with the value v.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.#ctor(CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128)">
+        <member name="M:CGeom2D.Points.Point2i.#ctor(CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128)">
             <summary>
             A point from the varibles.
             </summary>
         </member>
-        <member name="P:CGeom2D.Geometry.Point2i.Item(System.Int32)">
+        <member name="P:CGeom2D.Points.Point2i.Item(System.Int32)">
             <summary>
             Array accessor for variables. 
             </summary>
             <param name="i">The variables index.</param>
             <returns>The variable value</returns>
         </member>
-        <member name="P:CGeom2D.Geometry.Point2i.SqrMagnitude">
+        <member name="P:CGeom2D.Points.Point2i.SqrMagnitude">
             <summary>
             The length of the point from the origin squared.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Addition(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Addition(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Add two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Addition(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+        <member name="M:CGeom2D.Points.Point2i.op_Addition(CGeom2D.Points.Point2i,CGeom2D.Numerics.Int128)">
             <summary>
             Add point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Addition(CGeom2D.Numerics.Int128,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Addition(CGeom2D.Numerics.Int128,CGeom2D.Points.Point2i)">
             <summary>
             Add point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_UnaryNegation(CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_UnaryNegation(CGeom2D.Points.Point2i)">
             <summary>
             Negate point.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Subtraction(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Subtraction(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Subtract two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Subtraction(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+        <member name="M:CGeom2D.Points.Point2i.op_Subtraction(CGeom2D.Points.Point2i,CGeom2D.Numerics.Int128)">
             <summary>
             Subtract point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Subtraction(CGeom2D.Numerics.Int128,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Subtraction(CGeom2D.Numerics.Int128,CGeom2D.Points.Point2i)">
             <summary>
             Subtract point and scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Multiply(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Multiply(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Multiply two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Multiply(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+        <member name="M:CGeom2D.Points.Point2i.op_Multiply(CGeom2D.Points.Point2i,CGeom2D.Numerics.Int128)">
             <summary>
             Multiply a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Multiply(CGeom2D.Numerics.Int128,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Multiply(CGeom2D.Numerics.Int128,CGeom2D.Points.Point2i)">
             <summary>
             Multiply a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Division(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Division(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Divide two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Division(CGeom2D.Geometry.Point2i,CGeom2D.Numerics.Int128)">
+        <member name="M:CGeom2D.Points.Point2i.op_Division(CGeom2D.Points.Point2i,CGeom2D.Numerics.Int128)">
             <summary>
             Divide a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Equality(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Equality(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Are these points equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.op_Inequality(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.op_Inequality(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Are these points not equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.Equals(System.Object)">
+        <member name="M:CGeom2D.Points.Point2i.Equals(System.Object)">
             <summary>
             Are these points equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.Equals(CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.Equals(CGeom2D.Points.Point2i)">
             <summary>
             Are these points equal.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.GetHashCode">
+        <member name="M:CGeom2D.Points.Point2i.GetHashCode">
             <summary>
             Vectors hash code. 
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.ToString">
+        <member name="M:CGeom2D.Points.Point2i.ToString">
             <summary>
             Vector as a string.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.ToString(System.String)">
+        <member name="M:CGeom2D.Points.Point2i.ToString(System.String)">
             <summary>
             Vector as a string.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Point2i.SqrDistance(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Points.Point2i.SqrDistance(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Square distance between two points.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Area2(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="F:CGeom2D.Points.Point3d.UnitX">
+            <summary>
+            The unit x point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3d.UnitY">
+            <summary>
+            The unit y point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3d.UnitZ">
+            <summary>
+            The unit z point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3d.Zero">
+            <summary>
+            A point of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3d.One">
+            <summary>
+            A point of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3d.Half">
+            <summary>
+            A point of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3d.PositiveInfinity">
+            <summary>
+            A point of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3d.NegativeInfinity">
+            <summary>
+            A point of negative infinity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point3d.xzy">
+            <summary>
+            3D point to 3D swizzle point.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point3d.xy">
+            <summary>
+            3D point to 2D point.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point3d.xyz0">
+            <summary>
+            3D point to 4D point with w as 0.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point3d.xyz1">
+            <summary>
+            3D point to 4D point with w as 1.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.#ctor(System.Double)">
+            <summary>
+            A point all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point3d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGeom2D.Points.Point3d.Magnitude">
+            <summary>
+            The length of the point from the origin.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point3d.SqrMagnitude">
+            <summary>
+            The length of the point from the origin squared.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Addition(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Add two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Addition(CGeom2D.Points.Point3d,System.Double)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Addition(System.Double,CGeom2D.Points.Point3d)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_UnaryNegation(CGeom2D.Points.Point3d)">
+            <summary>
+            Negate point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Subtraction(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Subtract two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Subtraction(CGeom2D.Points.Point3d,System.Double)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Subtraction(System.Double,CGeom2D.Points.Point3d)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Multiply(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Multiply two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Multiply(CGeom2D.Points.Point3d,System.Double)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Multiply(System.Double,CGeom2D.Points.Point3d)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Division(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Divide two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Division(CGeom2D.Points.Point3d,System.Double)">
+            <summary>
+            Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Equality(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Inequality(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Are these points not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Equals(System.Object)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Equals(CGeom2D.Points.Point3d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Distance(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.SqrDistance(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Square distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Min(CGeom2D.Points.Point3d,System.Double)">
+            <summary>
+            The minimum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Min(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            The minimum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Max(CGeom2D.Points.Point3d,System.Double)">
+            <summary>
+            The maximum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Max(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            The maximum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Clamp(CGeom2D.Points.Point3d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Clamp(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Lerp(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d,System.Double)">
+            <summary>
+            Lerp between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Rounded(System.Int32)">
+            <summary>
+            A rounded point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded point</returns>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Round(System.Int32)">
+            <summary>
+            Round the point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Transform(CGeom2D.Numerics.Matrix3x3d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.Transform(CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="F:CGeom2D.Points.Point3i.UnitX">
+            <summary>
+            The unit x point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3i.UnitY">
+            <summary>
+            The unit y point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3i.UnitZ">
+            <summary>
+            The unit z point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3i.Zero">
+            <summary>
+            A point of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3i.One">
+            <summary>
+            A point of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3i.MaxValue">
+            <summary>
+            A point of max value.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point3i.MinValue">
+            <summary>
+            A point of min value.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.#ctor(CGeom2D.Numerics.Int128)">
+            <summary>
+            A point all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.#ctor(CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point3i.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGeom2D.Points.Point3i.SqrMagnitude">
+            <summary>
+            The length of the point from the origin squared.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Addition(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
+            <summary>
+            Add two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Addition(CGeom2D.Points.Point3i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Addition(CGeom2D.Numerics.Int128,CGeom2D.Points.Point3i)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_UnaryNegation(CGeom2D.Points.Point3i)">
+            <summary>
+            Negate point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Subtraction(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
+            <summary>
+            Subtract two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Subtraction(CGeom2D.Points.Point3i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Subtraction(CGeom2D.Numerics.Int128,CGeom2D.Points.Point3i)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Multiply(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
+            <summary>
+            Multiply two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Multiply(CGeom2D.Points.Point3i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Multiply(CGeom2D.Numerics.Int128,CGeom2D.Points.Point3i)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Division(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
+            <summary>
+            Divide two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Division(CGeom2D.Points.Point3i,CGeom2D.Numerics.Int128)">
+            <summary>
+            Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Equality(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Inequality(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
+            <summary>
+            Are these points not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.Equals(System.Object)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.Equals(CGeom2D.Points.Point3i)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.SqrDistance(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
+            <summary>
+            Square distance between two points.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.UnitX">
+            <summary>
+            The unit x point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.UnitY">
+            <summary>
+            The unit y point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.UnitZ">
+            <summary>
+            The unit z point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.UnitW">
+            <summary>
+            The unit z point.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.Zero">
+            <summary>
+            A point of zeros.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.One">
+            <summary>
+            A point of ones.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.Half">
+            <summary>
+            A point of 0.5.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.PositiveInfinity">
+            <summary>
+            A point of positive infinity.
+            </summary>
+        </member>
+        <member name="F:CGeom2D.Points.Point4d.NegativeInfinity">
+            <summary>
+            A point of negative infinity.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point4d.xy">
+            <summary>
+            4D point to 2D point.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point4d.xyz">
+            <summary>
+            4D point to 3D point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.#ctor(System.Double)">
+            <summary>
+            A point all with the value v.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
+        <member name="P:CGeom2D.Points.Point4d.Item(System.Int32)">
+            <summary>
+            Array accessor for variables. 
+            </summary>
+            <param name="i">The variables index.</param>
+            <returns>The variable value</returns>
+        </member>
+        <member name="P:CGeom2D.Points.Point4d.SqrMagnitude">
+            <summary>
+            The length of the point from the origin squared.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Addition(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Add two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Addition(CGeom2D.Points.Point4d,System.Double)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Addition(System.Double,CGeom2D.Points.Point4d)">
+            <summary>
+            Add point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_UnaryNegation(CGeom2D.Points.Point4d)">
+            <summary>
+            Negate point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Subtraction(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Subtract two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Subtraction(CGeom2D.Points.Point4d,System.Double)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Subtraction(System.Double,CGeom2D.Points.Point4d)">
+            <summary>
+            Subtract point and scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Multiply(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Multiply two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Multiply(CGeom2D.Points.Point4d,System.Double)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Multiply(System.Double,CGeom2D.Points.Point4d)">
+            <summary>
+            Multiply a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Division(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Divide two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Division(CGeom2D.Points.Point4d,System.Double)">
+            <summary>
+            Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Equality(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.op_Inequality(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Are these points not equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Equals(System.Object)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Equals(CGeom2D.Points.Point4d)">
+            <summary>
+            Are these points equal.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.GetHashCode">
+            <summary>
+            Vectors hash code. 
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.ToString">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.ToString(System.String)">
+            <summary>
+            Vector as a string.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Distance(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.SqrDistance(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Square distance between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Min(CGeom2D.Points.Point4d,System.Double)">
+            <summary>
+            The minimum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Min(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            The minimum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Max(CGeom2D.Points.Point4d,System.Double)">
+            <summary>
+            The maximum value between s and each component in point.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Max(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            The maximum value between each component in points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Clamp(CGeom2D.Points.Point4d,System.Double,System.Double)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Clamp(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d,CGeom2D.Points.Point4d)">
+            <summary>
+            Clamp each component to specified min and max.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Lerp(CGeom2D.Points.Point4d,CGeom2D.Points.Point4d,System.Double)">
+            <summary>
+            Lerp between two points.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Rounded(System.Int32)">
+            <summary>
+            A rounded point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+            <returns>The rounded point</returns>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Round(System.Int32)">
+            <summary>
+            Round the point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGeom2D.Points.Point4d.Transform(CGeom2D.Numerics.Matrix4x4d)">
+            <summary>
+            Transform the box by the matrix.
+            </summary>
+            <param name="m">The transform.</param>
+        </member>
+        <member name="M:CGeom2D.Predicates.Area2(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Cross product area of a quadrilateral.
             </summary>
@@ -401,7 +3204,7 @@
             <param name="c"></param>
             <returns></returns>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Left(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Predicates.Left(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Is c left of the line ab.
             </summary>
@@ -410,7 +3213,7 @@
             <param name="c"></param>
             <returns></returns>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Right(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Predicates.Right(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Is c right of the line ab.
             </summary>
@@ -419,7 +3222,7 @@
             <param name="c"></param>
             <returns></returns>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.LeftOn(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Predicates.LeftOn(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Is c left of or on the line ab.
             </summary>
@@ -428,7 +3231,7 @@
             <param name="c"></param>
             <returns></returns>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.RightOn(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Predicates.RightOn(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Is c right of or on the line ab.
             </summary>
@@ -437,7 +3240,7 @@
             <param name="c"></param>
             <returns></returns>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Collinear(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Predicates.Collinear(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             Do the 3 points form a striaght line.
             </summary>
@@ -446,40 +3249,40 @@
             <param name="c"></param>
             <returns></returns>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.InCone(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Predicates.InCone(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             True if b is within the cone formed by the
             edges incident at the from vertex of edge.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.IntersectsProper(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
+        <member name="M:CGeom2D.Predicates.IntersectsProper(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
             <summary>
             Returns true if the two segments intersect
             and are not collinear. Does not handle point
             on segment cases.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Intersects(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
+        <member name="M:CGeom2D.Predicates.Intersects(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
             <summary>
             True if the segments intersect.
             Handles all edge cases.
             Collinear segments count as no intersection.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Between(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
+        <member name="M:CGeom2D.Predicates.Between(CGeom2D.Geometry.Segment2i,CGeom2D.Geometry.Segment2i)">
             <summary>
             True if any end point of the segments are 
             in between the other segment.
             Point on point is considered between.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Between(CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i,CGeom2D.Geometry.Point2i)">
+        <member name="M:CGeom2D.Predicates.Between(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
             True if c lies in between the segment ab.
             c on a or b is considered between.
             </summary>
         </member>
-        <member name="M:CGeom2D.Geometry.Predicates.Xor(System.Boolean,System.Boolean)">
+        <member name="M:CGeom2D.Predicates.Xor(System.Boolean,System.Boolean)">
             <summary>
             True if only one argument is true.
             </summary>

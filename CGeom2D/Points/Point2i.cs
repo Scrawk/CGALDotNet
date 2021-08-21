@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 using REAL = CGeom2D.Numerics.Int128;
 
-namespace CGeom2D.Geometry
+namespace CGeom2D.Points
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
@@ -34,12 +34,12 @@ namespace CGeom2D.Geometry
 	    public readonly static Point2i One = new Point2i(1);
 
         /// <summary>
-        /// A point of positive infinity.
+        /// A point of max value.
         /// </summary>
         public readonly static Point2i MaxValue = new Point2i(REAL.MaxValue);
 
         /// <summary>
-        /// A point of negative infinity.
+        /// A point of min value.
         /// </summary>
         public readonly static Point2i MinValue = new Point2i(REAL.MinValue);
 

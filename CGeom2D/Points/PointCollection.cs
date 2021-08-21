@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGeom2D.Numerics;
-using CGeom2D.Sweep;
 
-namespace CGeom2D.Geometry
+namespace CGeom2D.Points
 {
     public class PointCollection : IEnumerable<Point2i>
     {

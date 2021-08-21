@@ -2,6 +2,10 @@
 using System.Runtime.InteropServices;
 
 using CGeom2D.Numerics;
+using CGeom2D.Points;
+
+using REAL = CGeom2D.Numerics.Int128;
+using POINT2 = CGeom2D.Points.Point2i;
 
 namespace CGeom2D.Geometry
 {
@@ -10,15 +14,15 @@ namespace CGeom2D.Geometry
     public struct Segment2i : IEquatable<Segment2i>
     {
 
-        public Point2i A;
+        public POINT2 A;
 
-        public Point2i B;
+        public POINT2 B;
 
-        public Point2i C => A;
+        public POINT2 C => A;
 
-        public Point2i D => B;
+        public POINT2 D => B;
 
-        public Segment2i(Point2i a, Point2i b)
+        public Segment2i(POINT2 a, POINT2 b)
         {
             A = a;
             B = b;
@@ -26,27 +30,27 @@ namespace CGeom2D.Geometry
 
         public Segment2i(Int128 ax, Int128 ay, Int128 bx, Int128 by)
         {
-            A = new Point2i(ax, ay);
-            B = new Point2i(bx, by);
+            A = new POINT2(ax, ay);
+            B = new POINT2(bx, by);
         }
 
-        public Int128 SqrLength => Point2i.SqrDistance(A, B);
+        public Int128 SqrLength => POINT2.SqrDistance(A, B);
 
-        unsafe public Point2i this[int i]
+        unsafe public POINT2 this[int i]
         {
             get
             {
                 if ((uint)i >= 2)
                     throw new IndexOutOfRangeException("Segment2i index out of range.");
 
-                fixed (Segment2i* array = &this) { return ((Point2i*)array)[i]; }
+                fixed (Segment2i* array = &this) { return ((POINT2*)array)[i]; }
             }
             set
             {
                 if ((uint)i >= 2)
                     throw new IndexOutOfRangeException("Segment2i index out of range.");
 
-                fixed (Point2i* array = &A) { array[i] = value; }
+                fixed (POINT2* array = &A) { array[i] = value; }
             }
         }
 
@@ -56,7 +60,7 @@ namespace CGeom2D.Geometry
             return new Segment2i(seg.A + s, seg.B + s);
         }
 
-        public static Segment2i operator +(Segment2i seg, Point2i v)
+        public static Segment2i operator +(Segment2i seg, POINT2 v)
         {
             return new Segment2i(seg.A + v, seg.B + v);
         }
@@ -66,7 +70,7 @@ namespace CGeom2D.Geometry
             return new Segment2i(seg.A - s, seg.B - s);
         }
 
-        public static Segment2i operator -(Segment2i seg, Point2i v)
+        public static Segment2i operator -(Segment2i seg, POINT2 v)
         {
             return new Segment2i(seg.A - v, seg.B - v);
         }

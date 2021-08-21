@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGeom2D.Numerics;
+using CGeom2D.Geometry;
+using CGeom2D.Points;
 
-namespace CGeom2D.Geometry
+namespace CGeom2D
 {
     public enum INTERSECTION
     {

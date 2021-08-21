@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
+using CGeom2D.Numerics;
+using CGeom2D.Points;
+
+using REAL = System.Double;
+using POINT2 = CGeom2D.Points.Point2d;
 
 namespace CGeom2D.Geometry
 {
@@ -15,7 +20,7 @@ namespace CGeom2D.Geometry
     public struct Line2d : IEquatable<Line2d>
     {
 
-        public double A, B, C;
+        public REAL A, B, C;
 
         /// <summary>
         ///  Create a new line from three coefficients
@@ -24,7 +29,7 @@ namespace CGeom2D.Geometry
         /// <param name="a">The constant in ax.</param>
         /// <param name="b">The constant in by</param>
         /// <param name="c">The constant c</param>
-        public Line2d(double a, double b, double c)
+        public Line2d(REAL a, REAL b, REAL c)
         {
             A = a;
             B = b;
@@ -37,7 +42,7 @@ namespace CGeom2D.Geometry
         /// </summary>
         /// <param name="m">The lines slope.</param>
         /// <param name="b">The y intercept.</param>
-        public Line2d(double m, double b)
+        public Line2d(REAL m, REAL b)
         {
             A = m;
             B = 1;
@@ -49,7 +54,7 @@ namespace CGeom2D.Geometry
         /// </summary>
         /// <param name="p1">Point 1.</param>
         /// <param name="p2">Point 2.</param>
-        public Line2d(Point2d p1, Point2d p2)
+        public Line2d(POINT2 p1, POINT2 p2)
         {
             A = p1.y - p2.y;
             B = p2.x - p1.x;
@@ -59,7 +64,7 @@ namespace CGeom2D.Geometry
         /// <summary>
         /// Find the slope of the line.
         /// </summary>
-        public double Slope
+        public REAL Slope
         {
             get
             {
@@ -174,7 +179,7 @@ namespace CGeom2D.Geometry
         /// <summary>
         /// Calculates the X coordinate of a point on the line by its Y coordinate.
         /// </summary>
-        public double X(double y)
+        public REAL X(REAL y)
         {
             if (A == 0) return 0;
             return (-C - B * y) / A;
@@ -183,7 +188,7 @@ namespace CGeom2D.Geometry
         /// <summary>
         /// Calculates the Y coordinate of a point on the line by its X coordinate.
         /// </summary>
-        public double Y(double x)
+        public REAL Y(REAL x)
         {
             if (B == 0) return 0;
             return (-C - A * x) / B;
