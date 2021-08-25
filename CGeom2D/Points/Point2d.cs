@@ -17,12 +17,12 @@ namespace CGeom2D.Points
         /// <summary>
         /// The unit x point.
         /// </summary>
-	    public readonly static Point2d UnitX = new Point2d(1, 0);
+	    public readonly static Point2d UnitX = new Point2d(1.0, 0.0);
 
         /// <summary>
         /// The unit y point.
         /// </summary>
-	    public readonly static Point2d UnitY = new Point2d(0, 1);
+	    public readonly static Point2d UnitY = new Point2d(0.0, 1.0);
 
         /// <summary>
         /// A point of zeros.
@@ -80,13 +80,23 @@ namespace CGeom2D.Points
         }
 
         /// <summary>
-        /// A point from the varibles.
+        /// A point from the x,y varibles.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2d(REAL x, REAL y)
         {
             this.x = x;
             this.y = y;
+        }
+
+        /// <summary>
+        /// A point from the x,y varibles.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2d(Int128 x, Int128 y)
+        {
+            this.x = (double)x;
+            this.y = (double)y;
         }
 
         /// <summary>
@@ -245,7 +255,19 @@ namespace CGeom2D.Points
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2d operator /(Point2d v, REAL s)
         {
-            return new Point2d(v.x / s, v.y / s);
+            if (s != 0)
+                return new Point2d(v.x / s, v.y / s);
+            else
+                return Zero;
+        }
+
+        /// <summary>
+        /// Explict cast from Int128 point.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Point2d(Point2i p)
+        {
+            return new Point2d(p.x, p.y);
         }
 
         /// <summary>

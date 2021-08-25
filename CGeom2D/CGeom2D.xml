@@ -112,6 +112,13 @@
             <param name="p1">Point 1.</param>
             <param name="p2">Point 2.</param>
         </member>
+        <member name="M:CGeom2D.Geometry.Line2d.#ctor(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
+            <summary>
+            Create a new line that passes through the two points.
+            </summary>
+            <param name="p1">Point 1.</param>
+            <param name="p2">Point 2.</param>
+        </member>
         <member name="P:CGeom2D.Geometry.Line2d.Slope">
             <summary>
             Find the slope of the line.
@@ -2207,7 +2214,12 @@
         </member>
         <member name="M:CGeom2D.Points.Point2d.#ctor(System.Double,System.Double)">
             <summary>
-            A point from the varibles.
+            A point from the x,y varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.#ctor(CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128)">
+            <summary>
+            A point from the x,y varibles.
             </summary>
         </member>
         <member name="P:CGeom2D.Points.Point2d.Item(System.Int32)">
@@ -2285,6 +2297,11 @@
         <member name="M:CGeom2D.Points.Point2d.op_Division(CGeom2D.Points.Point2d,System.Double)">
             <summary>
             Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2d.op_Explicit(CGeom2D.Points.Point2i)~CGeom2D.Points.Point2d">
+            <summary>
+            Explict cast from Int128 point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point2d.op_Equality(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
@@ -2435,7 +2452,12 @@
         </member>
         <member name="M:CGeom2D.Points.Point2i.#ctor(CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128)">
             <summary>
-            A point from the varibles.
+            A point from the x,y varibles.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2i.#ctor(System.Double,System.Double)">
+            <summary>
+            A point from the x,y varibles.
             </summary>
         </member>
         <member name="P:CGeom2D.Points.Point2i.Item(System.Int32)">
@@ -2508,6 +2530,11 @@
         <member name="M:CGeom2D.Points.Point2i.op_Division(CGeom2D.Points.Point2i,CGeom2D.Numerics.Int128)">
             <summary>
             Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point2i.op_Implicit(CGeom2D.Points.Point2d)~CGeom2D.Points.Point2i">
+            <summary>
+            Implicit cast from double point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point2i.op_Equality(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
@@ -2620,6 +2647,11 @@
             A point from the varibles.
             </summary>
         </member>
+        <member name="M:CGeom2D.Points.Point3d.#ctor(CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128,CGeom2D.Numerics.Int128)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
         <member name="P:CGeom2D.Points.Point3d.Item(System.Int32)">
             <summary>
             Array accessor for variables. 
@@ -2695,6 +2727,11 @@
         <member name="M:CGeom2D.Points.Point3d.op_Division(CGeom2D.Points.Point3d,System.Double)">
             <summary>
             Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3d.op_Explicit(CGeom2D.Points.Point3i)~CGeom2D.Points.Point3d">
+            <summary>
+            Explicit cast from Int128 point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point3d.op_Equality(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
@@ -2847,6 +2884,11 @@
             A point from the varibles.
             </summary>
         </member>
+        <member name="M:CGeom2D.Points.Point3i.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            A point from the varibles.
+            </summary>
+        </member>
         <member name="P:CGeom2D.Points.Point3i.Item(System.Int32)">
             <summary>
             Array accessor for variables. 
@@ -2917,6 +2959,11 @@
         <member name="M:CGeom2D.Points.Point3i.op_Division(CGeom2D.Points.Point3i,CGeom2D.Numerics.Int128)">
             <summary>
             Divide a point and a scalar.
+            </summary>
+        </member>
+        <member name="M:CGeom2D.Points.Point3i.op_Implicit(CGeom2D.Points.Point3d)~CGeom2D.Points.Point3i">
+            <summary>
+            Implicit cast from  double point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point3i.op_Equality(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using CGALDotNetConsole.Examples;
 
@@ -12,7 +13,7 @@ namespace CGALDotNetConsole
         static void Main(string[] args)
         {
 
-            var collection = new PointCollection(Point2i.Zero, 1000000);
+            var collection = new PointCollection(1000000);
 
             collection.AddPoint(0, 0);
             collection.AddPoint(4, 0);
@@ -30,7 +31,6 @@ namespace CGALDotNetConsole
             var line = collection.CreateSweepLine();
 
             SweepEvent e;
-
             do
             {
                 e = line.PopEvent();

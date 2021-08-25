@@ -14,9 +14,12 @@ namespace CGeom2D.Points
             Collection = collection;
             StartPoint = startPoint;
             EndPoints = endPoints;
+            Bounds = FindBounds();
         }
 
         public Point2i Point => Collection.GetPoint(StartPoint);
+
+        public Box2i Bounds { get; private set; }
 
         private PointCollection Collection { get; set; }
 
@@ -50,32 +53,12 @@ namespace CGeom2D.Points
 
         public int CompareTo(SweepEvent other)
         {
-            return Compare(Point, other.Point);
+            return Collection.Comparer.Compare(Point, other.Point);
         }
 
-        public static int Compare(Point2i a, Point2i b)
+        public int Compare(Point2i a, Point2i b)
         {
-            if (a.x != b.x)
-            {
-                //Left to right
-                if (a.x < b.x)
-                    return -1;
-                else
-                    return 1;
-            }
-            else if (a.y != b.y)
-            {
-                //top to bottom
-                if (a.y > b.y)
-                    return -1;
-                else
-                    return 1;
-            }
-            else
-            {
-                //equal
-                return 0;
-            }
+            return Collection.Comparer.Compare(a, b);
         }
 
         public bool RemoveSegment(int a, int b)
@@ -91,15 +74,37 @@ namespace CGeom2D.Points
             return EndPoints.Remove(b);
         }
 
-        public Line2d Line(double len)
+        public Line2d CreateLine()
         {
-            var point = Collection.ToPoint2d(Point);
-            var x = point.x;
+            Point2d p1, p2;
 
-            var p1 = new Point2d(x, -len);
-            var p2 = new Point2d(x, len);
+            if (Collection.Comparer.Axis == SWEEP.X)
+            {
+                p1 = Collection.ToPoint2d(Bounds.Corner00);
+                p2 = Collection.ToPoint2d(Bounds.Corner01);
+            }
+            else
+            {
+                p1 = Collection.ToPoint2d(Bounds.Corner01);
+                p2 = Collection.ToPoint2d(Bounds.Corner11);
+            }
 
             return new Line2d(p1, p2);
+        }
+
+        private Box2i FindBounds()
+        {
+            var list = new List<Point2i>();
+            list.Add(Point);
+
+            for (int i = 0; i < EndPoints.Count; i++)
+            {
+                int b = EndPoints[i];
+                var p = GetEndPoint(b);
+                list.Add(p);
+            }
+
+            return Box2i.CalculateBounds(list);
         }
 
     }

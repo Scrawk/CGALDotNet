@@ -24,6 +24,12 @@ namespace CGeom2D.Geometry
             B = b;
         }
 
+        public Segment2d(Point2i a, Point2i b)
+        {
+            A = (POINT2)a;
+            B = (POINT2)b;
+        }
+
         public Segment2d(REAL ax, REAL ay, REAL bx, REAL by)
         {
             A = new POINT2(ax, ay);
@@ -81,6 +87,11 @@ namespace CGeom2D.Geometry
         public static Segment2d operator /(Segment2d seg, REAL s)
         {
             return new Segment2d(seg.A / s, seg.B / s);
+        }
+
+        public static explicit operator Segment2d(Segment2i seg)
+        {
+            return new Segment2d(seg.A, seg.B);
         }
 
         public static bool operator ==(Segment2d s1, Segment2d s2)

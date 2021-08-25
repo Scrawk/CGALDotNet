@@ -37,6 +37,26 @@ namespace CGeom2D.Geometry
             Max = max;
         }
 
+        public POINT2 Corner00
+        {
+            get { return Min; }
+        }
+
+        public POINT2 Corner10
+        {
+            get { return new POINT2(Max.x, Min.y); }
+        }
+
+        public POINT2 Corner11
+        {
+            get { return Max; }
+        }
+
+        public POINT2 Corner01
+        {
+            get { return new POINT2(Min.x, Max.y); }
+        }
+
         public POINT2 Size
         {
             get { return new POINT2(Width, Height); }
@@ -85,6 +105,11 @@ namespace CGeom2D.Geometry
         public static Box2i operator /(Box2i box, REAL s)
         {
             return new Box2i(box.Min / s, box.Max / s);
+        }
+
+        public static implicit operator Box2i(Box2d box)
+        {
+            return new Box2i(box.Min, box.Max);
         }
 
         public static bool operator ==(Box2i b1, Box2i b2)

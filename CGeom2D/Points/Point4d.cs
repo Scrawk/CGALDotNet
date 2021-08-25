@@ -233,7 +233,10 @@ namespace CGeom2D.Points
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point4d operator /(Point4d v, REAL s)
         {
-            return new Point4d(v.x / s, v.y / s, v.z / s, v.w / s);
+            if (s != 0)
+                return new Point4d(v.x / s, v.y / s, v.z / s, v.w / s);
+            else
+                return Zero;
         }
 
         /// <summary>

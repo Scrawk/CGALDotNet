@@ -62,6 +62,18 @@ namespace CGeom2D.Geometry
         }
 
         /// <summary>
+        /// Create a new line that passes through the two points.
+        /// </summary>
+        /// <param name="p1">Point 1.</param>
+        /// <param name="p2">Point 2.</param>
+        public Line2d(Point2i p1, Point2i p2)
+        {
+            A = (REAL)(p1.y - p2.y);
+            B = (REAL)(p2.x - p1.x);
+            C = (REAL)(p1.x * p2.y - p2.x * p1.y);
+        }
+
+        /// <summary>
         /// Find the slope of the line.
         /// </summary>
         public REAL Slope

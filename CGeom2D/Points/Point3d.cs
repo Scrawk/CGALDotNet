@@ -17,17 +17,17 @@ namespace CGeom2D.Points
         /// <summary>
         /// The unit x point.
         /// </summary>
-	    public readonly static Point3d UnitX = new Point3d(1, 0, 0);
+	    public readonly static Point3d UnitX = new Point3d(1.0, 0.0, 0.0);
 
         /// <summary>
         /// The unit y point.
         /// </summary>
-	    public readonly static Point3d UnitY = new Point3d(0, 1, 0);
+	    public readonly static Point3d UnitY = new Point3d(0.0, 1.0, 0.0);
 
         /// <summary>
         /// The unit z point.
         /// </summary>
-        public readonly static Point3d UnitZ = new Point3d(0, 0, 1);
+        public readonly static Point3d UnitZ = new Point3d(0.0, 0.0, 1.0);
 
         /// <summary>
         /// A point of zeros.
@@ -94,6 +94,17 @@ namespace CGeom2D.Points
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        /// <summary>
+        /// A point from the varibles.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point3d(Int128 x, Int128 y, Int128 z)
+        {
+            this.x = (double)x;
+            this.y = (double)y;
+            this.z = (double)z;
         }
 
         /// <summary>
@@ -252,7 +263,19 @@ namespace CGeom2D.Points
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3d operator /(Point3d v, REAL s)
         {
-            return new Point3d(v.x / s, v.y / s, v.z / s);
+            if (s != 0)
+                return new Point3d(v.x / s, v.y / s, v.z / s);
+            else
+                return Zero;
+        }
+
+        /// <summary>
+        /// Explicit cast from Int128 point.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Point3d(Point3i p)
+        {
+            return new Point3d(p.x, p.y, p.z);
         }
 
         /// <summary>

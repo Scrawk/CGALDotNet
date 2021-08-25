@@ -16,17 +16,17 @@ namespace CGeom2D.Points
         /// <summary>
         /// The unit x point.
         /// </summary>
-	    public readonly static Point3i UnitX = new Point3i(1, 0, 0);
+	    public readonly static Point3i UnitX = new Point3i(1.0, 0.0, 0.0);
 
         /// <summary>
         /// The unit y point.
         /// </summary>
-	    public readonly static Point3i UnitY = new Point3i(0, 1, 0);
+	    public readonly static Point3i UnitY = new Point3i(0.0, 1.0, 0.0);
 
         /// <summary>
         /// The unit z point.
         /// </summary>
-        public readonly static Point3i UnitZ = new Point3i(0, 0, 1);
+        public readonly static Point3i UnitZ = new Point3i(0.0, 0.0, 1.0);
 
         /// <summary>
         /// A point of zeros.
@@ -68,6 +68,18 @@ namespace CGeom2D.Points
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+
+        /// <summary>
+        /// A point from the varibles.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point3i(double x, double y, double z)
+        {
+            this.x = (REAL)x;
+            this.y = (REAL)y;
+            this.z = (REAL)z;
         }
 
         /// <summary>
@@ -210,7 +222,19 @@ namespace CGeom2D.Points
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3i operator /(Point3i v, REAL s)
         {
-            return new Point3i(v.x / s, v.y / s, v.z / s);
+            if (s != 0)
+                return new Point3i(v.x / s, v.y / s, v.z / s);
+            else
+                return Zero;
+        }
+
+        /// <summary>
+        /// Implicit cast from  double point.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Point3i(Point3d p)
+        {
+            return new Point3i(p.x, p.y, p.z);
         }
 
         /// <summary>
