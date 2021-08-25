@@ -8,34 +8,23 @@ using CGeom2D.Points;
 
 namespace CGeom2D
 {
-    public enum INTERSECTION
-    {
-        NONE,
-        POINT_ON_POINT
-    }
-
     public static class Predicates
     {
 
         /// <summary>
         /// Cross product area of a quadrilateral.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
         public static Int128 Area2(Point2i a, Point2i b, Point2i c)
         {
-            return (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
+            checked
+            {
+                return (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
+            }
         }
 
         /// <summary>
         /// Is c left of the line ab.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
         public static bool Left(Point2i a, Point2i b, Point2i c)
         {
             return Area2(a, b, c) > 0;
@@ -44,10 +33,6 @@ namespace CGeom2D
         /// <summary>
         /// Is c right of the line ab.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
         public static bool Right(Point2i a, Point2i b, Point2i c)
         {
             return Area2(a, b, c) < 0;
@@ -56,10 +41,6 @@ namespace CGeom2D
         /// <summary>
         /// Is c left of or on the line ab.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
         public static bool LeftOn(Point2i a, Point2i b, Point2i c)
         {
             return Area2(a, b, c) >= 0;
@@ -68,10 +49,6 @@ namespace CGeom2D
         /// <summary>
         /// Is c right of or on the line ab.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
         public static bool RightOn(Point2i a, Point2i b, Point2i c)
         {
             return Area2(a, b, c) <= 0;
@@ -80,10 +57,6 @@ namespace CGeom2D
         /// <summary>
         /// Do the 3 points form a striaght line.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
         public static bool Collinear(Point2i a, Point2i b, Point2i c)
         {
             return Area2(a, b, c) == 0;
@@ -154,10 +127,10 @@ namespace CGeom2D
         {
             if (!Collinear(a, b, c)) return false;
 
-            if (a[0] != b[0])
-                return (a[0] <= c[0] && c[0] <= b[0]) || (a[0] >= c[0] && c[0] >= b[0]);
+            if (a.x != b.x)
+                return (a.x <= c.x && c.x <= b.x) || (a.x >= c.x && c.x >= b.x);
             else
-                return (a[1] <= c[1] && c[1] <= b[1]) || (a[1] >= c[1] && c[1] >= b[1]);
+                return (a.y <= c.y && c.y <= b.y) || (a.y >= c.y && c.y >= b.y);
         }
 
         /// <summary>

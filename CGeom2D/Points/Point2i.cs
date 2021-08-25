@@ -16,12 +16,12 @@ namespace CGeom2D.Points
         /// <summary>
         /// The unit x point.
         /// </summary>
-	    public readonly static Point2i UnitX = new Point2i(1.0, 0.0);
+	    public readonly static Point2i UnitX = new Point2i(1, 0);
 
         /// <summary>
         /// The unit y point.
         /// </summary>
-	    public readonly static Point2i UnitY = new Point2i(0.0, 1.0);
+	    public readonly static Point2i UnitY = new Point2i(0, 1);
 
         /// <summary>
         /// A point of zeros.
@@ -61,16 +61,6 @@ namespace CGeom2D.Points
         {
             this.x = x;
             this.y = y;
-        }
-
-        /// <summary>
-        /// A point from the x,y varibles.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2i(double x, double y)
-        {
-            this.x = (REAL)x;
-            this.y = (REAL)y;
         }
 
         /// <summary>
@@ -225,7 +215,7 @@ namespace CGeom2D.Points
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Point2i(Point2d p)
         {
-            return new Point2i(p.x, p.y);
+            return new Point2i((REAL)p.x, (REAL)p.y);
         }
 
         /// <summary>

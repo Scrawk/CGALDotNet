@@ -90,16 +90,6 @@ namespace CGeom2D.Points
         }
 
         /// <summary>
-        /// A point from the x,y varibles.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2d(Int128 x, Int128 y)
-        {
-            this.x = (double)x;
-            this.y = (double)y;
-        }
-
-        /// <summary>
         /// Array accessor for variables. 
         /// </summary>
         /// <param name="i">The variables index.</param>
@@ -267,7 +257,7 @@ namespace CGeom2D.Points
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Point2d(Point2i p)
         {
-            return new Point2d(p.x, p.y);
+            return new Point2d((double)p.x, (double)p.y);
         }
 
         /// <summary>

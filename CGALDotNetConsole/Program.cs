@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using CGALDotNetConsole.Examples;
 
+using CGeom2D;
 using CGeom2D.Geometry;
 using CGeom2D.Points;
 
@@ -37,16 +38,14 @@ namespace CGALDotNetConsole
             }
             while (line.HandleEvent(e));
 
-    
-
             //Polygon2Examples.SimplifyPolygon();
 
             //var points = new Point2d[]
             //{
             //    new Point2d(-10,-10),
             //    new Point2d(10,-10),
-             //   new Point2d(10,10),
-             //   new Point2d(-10,10)
+            //   new Point2d(10,10),
+            //   new Point2d(-10,10)
             //};
 
             //ConformingTriangulation.MakeConforming(points, 0, 4);

@@ -97,17 +97,6 @@ namespace CGeom2D.Points
         }
 
         /// <summary>
-        /// A point from the varibles.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point3d(Int128 x, Int128 y, Int128 z)
-        {
-            this.x = (double)x;
-            this.y = (double)y;
-            this.z = (double)z;
-        }
-
-        /// <summary>
         /// Array accessor for variables. 
         /// </summary>
         /// <param name="i">The variables index.</param>
@@ -275,7 +264,7 @@ namespace CGeom2D.Points
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Point3d(Point3i p)
         {
-            return new Point3d(p.x, p.y, p.z);
+            return new Point3d((double)p.x, (double)p.y, (double)p.z);
         }
 
         /// <summary>
