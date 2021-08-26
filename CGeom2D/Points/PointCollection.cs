@@ -11,6 +11,11 @@ namespace CGeom2D.Points
     public class PointCollection : IEnumerable<Point2i>
     {
 
+        private enum BETWEEN_ORDER
+        {
+            NONE, ABC, ACB
+        }
+
         public PointCollection(double scale) :
             this(new SweepComparer(SWEEP.X), Point2i.Zero, scale)
         {
@@ -63,14 +68,24 @@ namespace CGeom2D.Points
             return GetEnumerator();
         }
 
-        public Point2i GetPoint(int i)
+        public Point2i GetPoint2i(int i)
         {
             return Points[i];
+        }
+
+        public Point2d GetPoint2d(int i)
+        {
+            return ToPoint2d(Points[i]);
         }
 
         public void AddPoint(double x, double y)
         {
             Points.Add(ToPoint2i(new Point2d(x, y)));
+        }
+
+        public void AddPoint(Point2d point)
+        {
+            Points.Add(ToPoint2i(point));
         }
 
         public Point2i ToPoint2i(Point2d point)
@@ -133,21 +148,41 @@ namespace CGeom2D.Points
             if (Segments == null)
                 Segments = new List<int>[PointCount];
 
-            int order = Comparer.Compare(GetPoint(a), GetPoint(b));
+            var comparision = Comparer.Comparison(GetPoint2i(a), GetPoint2i(b));
 
-            if (order == 0) 
+            if (comparision == COMPARISON.EQUAL) 
                 return;
-            else if(order == 1)
-            {
-                int tmp = a;
-                a = b;
-                b = tmp;
-            }
+            else if(comparision == COMPARISON.LARGER)
+                MathUtil.Swap(ref a, ref b);
 
+            var order = FindBetweenOrder(a, b, out int c);
+
+            if (order == BETWEEN_ORDER.NONE)
+            {
+                TryAddSegment(a, b);
+            }
+            else
+            {
+                if (order == BETWEEN_ORDER.ABC)
+                {
+                    TryAddSegment(a, b);
+                    TryAddSegment(b, c);
+                }
+                else
+                {
+                    TryAddSegment(a, c);
+                    TryAddSegment(c, b);
+                }
+            }
+         
+        }
+
+        private void TryAddSegment(int a, int b)
+        {
             if (Segments[a] == null)
                 Segments[a] = new List<int>();
 
-            if(!Segments[a].Contains(b))
+            if (!Segments[a].Contains(b))
                 Segments[a].Add(b);
         }
 
@@ -183,12 +218,12 @@ namespace CGeom2D.Points
                 if (list == null || list.Count == 0) continue;
 
                 var segments = new List<Segment2d>(list.Count);
-                var A = ToPoint2d(GetPoint(a));
+                var A = ToPoint2d(GetPoint2i(a));
 
                 for (int j = 0; j < list.Count; j++)
                 {
                     int b = list[j];
-                    var B = ToPoint2d(GetPoint(b));
+                    var B = ToPoint2d(GetPoint2i(b));
                     segments.Add(new Segment2d(A, B));
                 }
 
@@ -210,6 +245,31 @@ namespace CGeom2D.Points
             }
                 
             return line;
+        }
+
+        private BETWEEN_ORDER FindBetweenOrder(int a, int b, out int c)
+        {
+            c = -1;
+            var list = Segments[a];
+            if (list == null || list.Count == 0) 
+                return BETWEEN_ORDER.NONE;
+
+            var A = GetPoint2i(a);
+            var B = GetPoint2i(b);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                c = list[i];
+                var C = GetPoint2i(c);
+
+                if (Predicates.Between(A, B, C))
+                    return BETWEEN_ORDER.ABC;
+
+                if (Predicates.Between(A, C, B))
+                    return BETWEEN_ORDER.ACB;
+            }
+
+            return BETWEEN_ORDER.NONE;
         }
 
     }

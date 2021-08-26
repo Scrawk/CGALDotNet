@@ -65,7 +65,6 @@ namespace CGeom2D
             if (v < 0.0) v = 0.0;
             if (v > 1.0) v = 1.0;
             return v;
-
         }
 
         /// <summary>
@@ -123,6 +122,17 @@ namespace CGeom2D
         public static Radian Tan(Radian radian)
         {
             return new Radian(Math.Tan(radian.angle));
+        }
+
+        /// <summary>
+        /// Swap the value of a and b.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Swap<T>(ref T a,  ref T b)
+        {
+            T tmp = a;
+            a = b;
+            b = tmp;
         }
 
     }

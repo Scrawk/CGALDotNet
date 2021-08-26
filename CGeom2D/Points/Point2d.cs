@@ -252,10 +252,10 @@ namespace CGeom2D.Points
         }
 
         /// <summary>
-        /// Explict cast from Int128 point.
+        /// Implicit cast from Int128 point.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Point2d(Point2i p)
+        public static implicit operator Point2d(Point2i p)
         {
             return new Point2d((double)p.x, (double)p.y);
         }

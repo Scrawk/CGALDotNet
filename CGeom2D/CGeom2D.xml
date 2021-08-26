@@ -268,6 +268,11 @@
             <param name="radian">The input in radians.</param>
             <returns>The output in radians.</returns>
         </member>
+        <member name="M:CGeom2D.MathUtil.Swap``1(``0@,``0@)">
+            <summary>
+            Swap the value of a and b.
+            </summary>
+        </member>
         <member name="T:CGeom2D.Numerics.Degree">
             <summary>
             Represents a angle in degrees.
@@ -2294,9 +2299,9 @@
             Divide a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Points.Point2d.op_Explicit(CGeom2D.Points.Point2i)~CGeom2D.Points.Point2d">
+        <member name="M:CGeom2D.Points.Point2d.op_Implicit(CGeom2D.Points.Point2i)~CGeom2D.Points.Point2d">
             <summary>
-            Explict cast from Int128 point.
+            Implicit cast from Int128 point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point2d.op_Equality(CGeom2D.Points.Point2d,CGeom2D.Points.Point2d)">
@@ -2522,9 +2527,9 @@
             Divide a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Points.Point2i.op_Implicit(CGeom2D.Points.Point2d)~CGeom2D.Points.Point2i">
+        <member name="M:CGeom2D.Points.Point2i.op_Explicit(CGeom2D.Points.Point2d)~CGeom2D.Points.Point2i">
             <summary>
-            Implicit cast from double point.
+            Explicit cast from double point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point2i.op_Equality(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
@@ -2714,9 +2719,9 @@
             Divide a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Points.Point3d.op_Explicit(CGeom2D.Points.Point3i)~CGeom2D.Points.Point3d">
+        <member name="M:CGeom2D.Points.Point3d.op_Implicit(CGeom2D.Points.Point3i)~CGeom2D.Points.Point3d">
             <summary>
-            Explicit cast from Int128 point.
+            implicit cast from Int128 point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point3d.op_Equality(CGeom2D.Points.Point3d,CGeom2D.Points.Point3d)">
@@ -2941,9 +2946,9 @@
             Divide a point and a scalar.
             </summary>
         </member>
-        <member name="M:CGeom2D.Points.Point3i.op_Implicit(CGeom2D.Points.Point3d)~CGeom2D.Points.Point3i">
+        <member name="M:CGeom2D.Points.Point3i.op_Explicit(CGeom2D.Points.Point3d)~CGeom2D.Points.Point3i">
             <summary>
-            Implicit cast from  double point.
+            Explicit cast from  double point.
             </summary>
         </member>
         <member name="M:CGeom2D.Points.Point3i.op_Equality(CGeom2D.Points.Point3i,CGeom2D.Points.Point3i)">
@@ -3281,8 +3286,8 @@
         </member>
         <member name="M:CGeom2D.Predicates.Between(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
-            True if c lies in between the segment ab.
-            c on a or b is considered between.
+            True if b lies in between the segment ac.
+            b on a or c is considered between.
             </summary>
         </member>
         <member name="M:CGeom2D.Predicates.Xor(System.Boolean,System.Boolean)">

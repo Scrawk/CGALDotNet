@@ -120,17 +120,17 @@ namespace CGeom2D
         }
 
         /// <summary>
-        /// True if c lies in between the segment ab.
-        /// c on a or b is considered between.
+        /// True if b lies in between the segment ac.
+        /// b on a or c is considered between.
         /// </summary>
         public static bool Between(Point2i a, Point2i b, Point2i c)
         {
             if (!Collinear(a, b, c)) return false;
 
-            if (a.x != b.x)
-                return (a.x <= c.x && c.x <= b.x) || (a.x >= c.x && c.x >= b.x);
+            if (a.x != c.x)
+                return (a.x <= b.x && b.x <= c.x) || (a.x >= b.x && b.x >= c.x);
             else
-                return (a.y <= c.y && c.y <= b.y) || (a.y >= c.y && c.y >= b.y);
+                return (a.y <= b.y && b.y <= c.y) || (a.y >= b.y && b.y >= c.y);
         }
 
         /// <summary>

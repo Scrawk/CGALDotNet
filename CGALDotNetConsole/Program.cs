@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
 
 using CGALDotNetConsole.Examples;
 
@@ -9,9 +11,9 @@ using CGeom2D.Points;
 
 namespace CGALDotNetConsole
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
 
             var collection = new PointCollection(1000000);
@@ -38,61 +40,23 @@ namespace CGALDotNetConsole
             }
             while (line.HandleEvent(e));
 
-            //Polygon2Examples.SimplifyPolygon();
+            //BenchmarkRunner.Run<BenchmarkDemo>();
 
-            //var points = new Point2d[]
-            //{
-            //    new Point2d(-10,-10),
-            //    new Point2d(10,-10),
-            //   new Point2d(10,10),
-            //   new Point2d(-10,10)
-            //};
+        }
 
-            //ConformingTriangulation.MakeConforming(points, 0, 4);
+        [MemoryDiagnoser]
+        public class BenchmarkDemo
+        {
 
-            //Geometry2Examples.Transform();
+            Point2i a = new Point2i(1, 2);
+            Point2i b = new Point2i(3, 4);
+            Point2i c = new Point2i(5, 6);
 
-            //Polygon2Examples.CreateSimplePolygon();
-            //Polygon2Examples.CreateRelativelySimplePolygon();
-            //Polygon2Examples.CreateConcavePolygon();
-            //Polygon2Examples.CreateNonSimplePolygon();
-            //Polygon2Examples.PolygonContainsPoint();
-            //Polygon2Examples.CreatePolygonWithHoles();
-            //Polygon2Examples.PolygonWithHolesContainsPoint();
-            //Polygon2Examples.TransformPolygon();
-
-            //Polygon2BooleanExamples.DoIntersect();
-            //Polygon2BooleanExamples.Join();
-            //Polygon2BooleanExamples.Intersect();
-            //Polygon2BooleanExamples.Difference();
-            //Polygon2BooleanExamples.SymmetricDifference();
-            //Polygon2BooleanExamples.Complement();
-
-            //Arrangement2Examples.CreateArrangement();
-            //Arrangement2Examples.GetGeometryExample();
-            //Arrangement2Examples.GetElementsExample();
-            //Arrangement2Examples.PointQueryExample();
-            //Arrangement2Examples.BatchedPointQueryExample();
-            //Arrangement2Examples.RayQueryExample();
-            //Arrangement2Examples.RemoveVertex();
-            //Arrangement2Examples.RemoveEdge();
-
-            //Triangulation2Examples.CreateTriangulation();
-            //Triangulation2Examples.GetPointsAndIndices();
-            //Triangulation2Examples.GetVerticesAndFaces();
-
-            //DelaunayTriangulation2Examples.CreateDelaunayTriangulation();
-
-            //ConstrainedTriangulation2Examples.CreateConstrainedTriangulation();
-
-            //ConstrainedTriangulation2Examples.GetPolygonIndices();
-
-            //PolygonPartition2Examples.CreatePolygonPartition();
-
-            //IntersectionExamples.PointIntersections();
-            //IntersectionExamples.LineIntersections();
-
-            //IntersectionExamples.Test();
+            [Benchmark]
+            public void BenchmarkFunc1()
+            {
+                var area = Predicates.Area2(a, b, c);
+            }
 
         }
 

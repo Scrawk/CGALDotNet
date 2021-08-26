@@ -62,9 +62,8 @@ namespace CGeom2D.Points
                 foreach (int b in ev.EndPoints)
                 {
                     var B = ev.GetEndPoint(b);
-                    int order = e.Compare(B, A);
 
-                    if (order < 1)
+                    if (e.Comparison(B, A) < COMPARISON.LARGER)
                         remove.Add(b);
                 }
 

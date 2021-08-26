@@ -17,7 +17,7 @@ namespace CGeom2D.Points
             Bounds = FindBounds();
         }
 
-        public Point2i Point => Collection.GetPoint(StartPoint);
+        public Point2i Point => Collection.GetPoint2i(StartPoint);
 
         public Box2i Bounds { get; private set; }
 
@@ -48,7 +48,7 @@ namespace CGeom2D.Points
 
         public Point2i GetEndPoint(int b)
         {
-            return Collection.GetPoint(b);
+            return Collection.GetPoint2i(b);
         }
 
         public int CompareTo(SweepEvent other)
@@ -56,9 +56,9 @@ namespace CGeom2D.Points
             return Collection.Comparer.Compare(Point, other.Point);
         }
 
-        public int Compare(Point2i a, Point2i b)
+        public COMPARISON Comparison(Point2i a, Point2i b)
         {
-            return Collection.Comparer.Compare(a, b);
+            return Collection.Comparer.Comparison(a, b);
         }
 
         public bool RemoveSegment(int a, int b)
@@ -81,12 +81,20 @@ namespace CGeom2D.Points
             if (Collection.Comparer.Axis == SWEEP.X)
             {
                 p1 = Collection.ToPoint2d(Bounds.Corner00);
-                p2 = Collection.ToPoint2d(Bounds.Corner01);
+
+                if(Bounds.Size.y == 0)
+                    p2 = p1 + Point2d.UnitY;
+                else
+                    p2 = Collection.ToPoint2d(Bounds.Corner01);
             }
             else
             {
                 p1 = Collection.ToPoint2d(Bounds.Corner01);
-                p2 = Collection.ToPoint2d(Bounds.Corner11);
+
+                if (Bounds.Size.x == 0)
+                    p2 = p1 + Point2d.UnitX;
+                else
+                    p2 = Collection.ToPoint2d(Bounds.Corner11);
             }
 
             return new Line2d(p1, p2);

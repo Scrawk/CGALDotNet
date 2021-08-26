@@ -13,12 +13,12 @@ namespace CGeom2D
 
     public enum BOUNDED_SIDE
     {
-        ON_UNBOUNDED_SIDE = -1,
-        ON_BOUNDARY = 0,
-        ON_BOUNDED_SIDE = 1
+        UNBOUNDED_SIDE = -1,
+        BOUNDARY = 0,
+        BOUNDED_SIDE = 1
     }
 
-    public enum COMPARISON_RESULT
+    public enum COMPARISON
     {
         SMALLER = -1,
         EQUAL = 0,
@@ -32,11 +32,11 @@ namespace CGeom2D
         POSITIVE = 1
     }
 
-    public enum CLOCK_DIR
+    public enum CLOCK
     {
-        CLOCKWISE = -1,
+        CW = -1,
         ZERO = 0,
-        COUNTER_CLOCKWISE = 1
+        CCW = 1
     }
 
     public enum ORIENTATION
@@ -48,9 +48,9 @@ namespace CGeom2D
 
     public enum ORIENTED_SIDE
     {
-        ON_NEGATIVE_SIDE = -1,
-        ON_BOUNDARY = 0,
-        ON_POSITIVE_SIDE = 1,
+        NEGATIVE_SIDE = -1,
+        BOUNDARY = 0,
+        POSITIVE_SIDE = 1,
         UNDETERMINED = 2
     }
 }

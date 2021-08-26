@@ -107,9 +107,9 @@ namespace CGeom2D.Geometry
             return new Box2i(box.Min / s, box.Max / s);
         }
 
-        public static implicit operator Box2i(Box2d box)
+        public static explicit operator Box2i(Box2d box)
         {
-            return new Box2i(box.Min, box.Max);
+            return new Box2i((POINT2)box.Min, (POINT2)box.Max);
         }
 
         public static bool operator ==(Box2i b1, Box2i b2)

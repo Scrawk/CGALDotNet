@@ -14,12 +14,22 @@ namespace CGeom2D.Points
 
         public SWEEP Axis { get; private set; }
 
+        public COMPARISON Comparison(SweepEvent a, SweepEvent b)
+        {
+            return (COMPARISON)Compare(a, b);
+        }
+
         public int Compare(SweepEvent a, SweepEvent b)
         {
             if(Axis == SWEEP.X)
                 return SweepComparerX.Instance.Compare(a.Point, b.Point);
             else
                 return SweepComparerY.Instance.Compare(a.Point, b.Point);
+        }
+
+        public COMPARISON Comparison(Point2i a, Point2i b)
+        {
+            return (COMPARISON)Compare(a, b);
         }
 
         public int Compare(Point2i a, Point2i b)

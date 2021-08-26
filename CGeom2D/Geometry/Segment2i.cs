@@ -85,9 +85,9 @@ namespace CGeom2D.Geometry
             return new Segment2i(seg.A / s, seg.B / s);
         }
 
-        public static implicit operator Segment2i(Segment2d seg)
+        public static explicit operator Segment2i(Segment2d seg)
         {
-            return new Segment2i(seg.A, seg.B);
+            return new Segment2i((POINT2)seg.A, (POINT2)seg.B);
         }
 
         public static bool operator ==(Segment2i s1, Segment2i s2)

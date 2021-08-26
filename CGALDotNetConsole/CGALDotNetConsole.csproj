@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CGALDotNet\CGALDotNet.csproj" />
     <ProjectReference Include="..\CGeom2D\CGeom2D.csproj" />
   </ItemGroup>
