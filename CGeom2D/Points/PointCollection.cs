@@ -155,6 +155,25 @@ namespace CGeom2D.Points
             else if(comparision == COMPARISON.LARGER)
                 MathUtil.Swap(ref a, ref b);
 
+            var list = new List<int>();
+            FindBetweenOrder(a, b, list);
+
+            if (list.Count > 0)
+            {
+
+                for (int i = 0; i < list.Count / 2; i++)
+                {
+                    int A = list[i * 2 + 0];
+                    int B = list[i * 2 + a];
+                    TryAddSegment(A, B);
+                }
+            }
+            else
+            {
+                TryAddSegment(a, b);
+            }
+
+            /*
             var order = FindBetweenOrder(a, b, out int c);
 
             if (order == BETWEEN_ORDER.NONE)
@@ -174,7 +193,7 @@ namespace CGeom2D.Points
                     TryAddSegment(c, b);
                 }
             }
-         
+         */
         }
 
         private void TryAddSegment(int a, int b)
@@ -270,6 +289,34 @@ namespace CGeom2D.Points
             }
 
             return BETWEEN_ORDER.NONE;
+        }
+
+        private void FindBetweenOrder(int a, int b, List<int> results)
+        {
+            var list = Segments[a];
+            if (list == null || list.Count == 0)
+                return;
+
+            var A = GetPoint2i(a);
+            var B = GetPoint2i(b);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var c = list[i];
+                var C = GetPoint2i(c);
+
+                if (Predicates.Between(A, B, C))
+                {
+                    results.Add(a, b);
+                    results.Add(b, c);
+                }
+                else if (Predicates.Between(A, C, B))
+                {
+                    results.Add(a, c);
+                    results.Add(c, b);
+                }
+            }
+
         }
 
     }

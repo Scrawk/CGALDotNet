@@ -4,6 +4,25 @@
         <name>CGeom2D</name>
     </assembly>
     <members>
+        <member name="M:CGeom2D.Arrangements.SegmentArrangement.Intersects(CGeom2D.Geometry.Segment2d,CGeom2D.Geometry.Segment2d,System.Double@)">
+            <summary>
+            Do the two segments intersect.
+            </summary>
+            <param name="ab">a segment</param>
+            <param name="cd">other segment</param>
+            <param name="t">Intersection point = ab.A + t * (ab.B - ab.A)</param>
+            <returns>If they intersect</returns>
+        </member>
+        <member name="M:CGeom2D.Arrangements.SegmentArrangement.Intersects(CGeom2D.Geometry.Segment2d,CGeom2D.Geometry.Segment2d,System.Double@,System.Double@)">
+            <summary>
+            Do the two segments intersect.
+            </summary>
+            <param name="ab">a segment</param>
+            <param name="cd">other segment</param>
+            <param name="s">Intersection point = ab.A + s * (ab.B - ab.A)</param>
+            <param name="t">Intersection point = cd.A + t * (cd.B - cd.A)</param>
+            <returns>If they intersect</returns>
+        </member>
         <member name="M:CGeom2D.Geometry.Box2d.Transform(CGeom2D.Numerics.Matrix2x2d)">
             <summary>
             Transform the box by the matrix.
@@ -3234,22 +3253,22 @@
         </member>
         <member name="M:CGeom2D.Predicates.Left(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
-            Is c left of the line ab.
+            Is b left of the line ac.
             </summary>
         </member>
         <member name="M:CGeom2D.Predicates.Right(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
-            Is c right of the line ab.
+            Is b right of the line ac.
             </summary>
         </member>
         <member name="M:CGeom2D.Predicates.LeftOn(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
-            Is c left of or on the line ab.
+            Is b left of or on the line ac.
             </summary>
         </member>
         <member name="M:CGeom2D.Predicates.RightOn(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">
             <summary>
-            Is c right of or on the line ab.
+            Is b right of or on the line ac.
             </summary>
         </member>
         <member name="M:CGeom2D.Predicates.Collinear(CGeom2D.Points.Point2i,CGeom2D.Points.Point2i,CGeom2D.Points.Point2i)">

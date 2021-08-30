@@ -88,7 +88,13 @@ namespace CGeom2D.Points
 
         private void HandleIntersections(SweepEvent e)
         {
+            foreach (var ev in EventLine)
+            {
+                if(e.Bounds.Intersects(ev.Bounds))
+                {
 
+                }
+            }
         }
 
         private INTERSECTION Intersect(SweepEvent e1, SweepEvent e2)

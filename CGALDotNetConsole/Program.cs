@@ -8,6 +8,8 @@ using CGALDotNetConsole.Examples;
 using CGeom2D;
 using CGeom2D.Geometry;
 using CGeom2D.Points;
+using CGeom2D.Numerics;
+using CGeom2D.Arrangements;
 
 namespace CGALDotNetConsole
 {
@@ -16,31 +18,7 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var collection = new PointCollection(1000000);
-
-            collection.AddPoint(0, 0);
-            collection.AddPoint(4, 0);
-            collection.AddPoint(2, 2);
-            collection.AddPoint(4, -4);
-            collection.AddPoint(6, -6);
-            collection.AddPoint(8, -4);
-
-            collection.AddSegment(0, 1);
-            collection.AddSegment(0, 2);
-            collection.AddSegment(0, 3);
-            collection.AddSegment(3, 4);
-            collection.AddSegment(3, 5);
-
-            var line = collection.CreateSweepLine();
-
-            SweepEvent e;
-            do
-            {
-                e = line.PopEvent();
-            }
-            while (line.HandleEvent(e));
-
-            //BenchmarkRunner.Run<BenchmarkDemo>();
+            BenchmarkRunner.Run<BenchmarkDemo>();
 
         }
 
@@ -48,15 +26,25 @@ namespace CGALDotNetConsole
         public class BenchmarkDemo
         {
 
-            Point2i a = new Point2i(1, 2);
-            Point2i b = new Point2i(3, 4);
-            Point2i c = new Point2i(5, 6);
+            private List<Segment2d> segments;
+
+
+            [GlobalSetup]
+            public void Setup()
+            {
+                segments = SegmentArrangement.RandomSegments(10, 0, 10);
+            }
 
             [Benchmark]
-            public void BenchmarkFunc1()
+            public void Func1()
             {
-                var area = Predicates.Area2(a, b, c);
+                var arr = new SegmentArrangement();
+
+                var output = arr.Run(segments);
+                
             }
+
+
 
         }
 

@@ -18,12 +18,13 @@ namespace CGeom2D
         {
             checked
             {
-                return (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
+                //return (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
+                return (c.x - a.x) * (b.y - a.y) - (b.x - a.x) * (c.y - a.y);
             }
         }
 
         /// <summary>
-        /// Is c left of the line ab.
+        /// Is b left of the line ac.
         /// </summary>
         public static bool Left(Point2i a, Point2i b, Point2i c)
         {
@@ -31,7 +32,7 @@ namespace CGeom2D
         }
 
         /// <summary>
-        /// Is c right of the line ab.
+        /// Is b right of the line ac.
         /// </summary>
         public static bool Right(Point2i a, Point2i b, Point2i c)
         {
@@ -39,7 +40,7 @@ namespace CGeom2D
         }
 
         /// <summary>
-        /// Is c left of or on the line ab.
+        /// Is b left of or on the line ac.
         /// </summary>
         public static bool LeftOn(Point2i a, Point2i b, Point2i c)
         {
@@ -47,7 +48,7 @@ namespace CGeom2D
         }
 
         /// <summary>
-        /// Is c right of or on the line ab.
+        /// Is b right of or on the line ac.
         /// </summary>
         public static bool RightOn(Point2i a, Point2i b, Point2i c)
         {
@@ -69,11 +70,11 @@ namespace CGeom2D
         public static bool InCone(Point2i a0, Point2i a, Point2i a1, Point2i b)
         {
             //if a is a convex vertex.
-            if (LeftOn(a, a1, a0))
-                return Left(a, b, a0) && Left(b, a, a1);
+            if (LeftOn(a, a0, a1))
+                return Left(a, a0, b) && Left(b, a1, a);
 
             //else a is reflex vertex.
-            return !(LeftOn(a, b, a1) && LeftOn(b, a, a0));
+            return !(LeftOn(a, a1, b) && LeftOn(b, a0, a));
         }
 
         /// <summary>

@@ -11,13 +11,6 @@ namespace CGeom2D
         INTERSECT
     }
 
-    public enum BOUNDED_SIDE
-    {
-        UNBOUNDED_SIDE = -1,
-        BOUNDARY = 0,
-        BOUNDED_SIDE = 1
-    }
-
     public enum COMPARISON
     {
         SMALLER = -1,
@@ -46,11 +39,4 @@ namespace CGeom2D
         POSITIVE = 1
     }
 
-    public enum ORIENTED_SIDE
-    {
-        NEGATIVE_SIDE = -1,
-        BOUNDARY = 0,
-        POSITIVE_SIDE = 1,
-        UNDETERMINED = 2
-    }
 }
