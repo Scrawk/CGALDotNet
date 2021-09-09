@@ -111,12 +111,12 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_IsConvex(ptr, index);
         }
 
-        internal override CGAL_ORIENTATION Orientation(IntPtr ptr, int index)
+        internal override ORIENTATION Orientation(IntPtr ptr, int index)
         {
             return PolygonWithHoles2_EEK_Orientation(ptr, index);
         }
 
-        internal override CGAL_ORIENTED_SIDE OrientedSide(IntPtr ptr, int index, Point2d point)
+        internal override ORIENTED_SIDE OrientedSide(IntPtr ptr, int index, Point2d point)
         {
             return PolygonWithHoles2_EEK_OrientedSide(ptr, index, point);
         }
@@ -146,7 +146,7 @@ namespace CGALDotNet.Polygons
             PolygonWithHoles2_EEK_Transform(ptr, index, translation, rotation, scale);
         }
 
-        internal override bool ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary)
+        internal override bool ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary)
         {
             return PolygonWithHoles2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
         }
@@ -212,10 +212,10 @@ namespace CGALDotNet.Polygons
         private static extern bool PolygonWithHoles2_EEK_IsConvex(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION PolygonWithHoles2_EEK_Orientation(IntPtr ptr, int index);
+        private static extern ORIENTATION PolygonWithHoles2_EEK_Orientation(IntPtr ptr, int index);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTED_SIDE PolygonWithHoles2_EEK_OrientedSide(IntPtr ptr, int index, Point2d point);
+        private static extern ORIENTED_SIDE PolygonWithHoles2_EEK_OrientedSide(IntPtr ptr, int index, Point2d point);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double PolygonWithHoles2_EEK_SignedArea(IntPtr ptr, int index);
@@ -233,6 +233,6 @@ namespace CGALDotNet.Polygons
         private static extern void PolygonWithHoles2_EEK_Transform(IntPtr ptr, int index, Point2d translation, double rotation, double scale);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool PolygonWithHoles2_EEK_ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation,bool inculdeBoundary);
+        private static extern bool PolygonWithHoles2_EEK_ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation,bool inculdeBoundary);
     }
 }

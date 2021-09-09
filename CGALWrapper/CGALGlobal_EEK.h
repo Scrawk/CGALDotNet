@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+
 #include "CGALWrapper.h"
 #include "Geometry2.h"
 #include "CGALGlobal.h"

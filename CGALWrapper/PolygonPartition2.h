@@ -56,7 +56,7 @@ public:
 	{
 		auto par = CastToPolygonPartition2(ptr);
 
-		auto copy = Polygon2<K>::CreatePolygon2();
+		auto copy = Polygon2<K>::NewPolygon2();
 
 		for (const Point_2& p : par->buffer[index])
 			copy->push_back(p);

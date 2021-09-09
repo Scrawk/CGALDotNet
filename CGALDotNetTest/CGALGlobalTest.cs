@@ -18,22 +18,22 @@ namespace CGALDotNetTest
             var v2 = new Vector2d(0, 1);
             var w2 = new Vector2d(-1, 1);
 
-            Assert.AreEqual(CGALGlobal.Angle(t2, u2), CGAL_ANGLE.ACUTE);
-            Assert.AreEqual(CGALGlobal.Angle(u2, v2), CGAL_ANGLE.RIGHT);
-            Assert.AreEqual(CGALGlobal.Angle(w2, u2), CGAL_ANGLE.OBTUSE);
+            Assert.AreEqual(CGALGlobal.Angle(t2, u2), ANGLE.ACUTE);
+            Assert.AreEqual(CGALGlobal.Angle(u2, v2), ANGLE.RIGHT);
+            Assert.AreEqual(CGALGlobal.Angle(w2, u2), ANGLE.OBTUSE);
 
             var t3 = new Vector3d(1, 1, 0);
             var u3 = new Vector3d(1, 0, 0);
             var v3 = new Vector3d(0, 1, 0);
             var w3 = new Vector3d(-1, 1, 0);
 
-            Assert.AreEqual(CGALGlobal.Angle(t3, u3), CGAL_ANGLE.ACUTE);
-            Assert.AreEqual(CGALGlobal.Angle(u3, v3), CGAL_ANGLE.RIGHT);
-            Assert.AreEqual(CGALGlobal.Angle(w3, u3), CGAL_ANGLE.OBTUSE);
+            Assert.AreEqual(CGALGlobal.Angle(t3, u3), ANGLE.ACUTE);
+            Assert.AreEqual(CGALGlobal.Angle(u3, v3), ANGLE.RIGHT);
+            Assert.AreEqual(CGALGlobal.Angle(w3, u3), ANGLE.OBTUSE);
 
-            Assert.AreEqual(CGALGlobal.Angle(t3.xzy, u3.xzy), CGAL_ANGLE.ACUTE);
-            Assert.AreEqual(CGALGlobal.Angle(u3.xzy, v3.xzy), CGAL_ANGLE.RIGHT);
-            Assert.AreEqual(CGALGlobal.Angle(w3.xzy, u3.xzy), CGAL_ANGLE.OBTUSE);
+            Assert.AreEqual(CGALGlobal.Angle(t3.xzy, u3.xzy), ANGLE.ACUTE);
+            Assert.AreEqual(CGALGlobal.Angle(u3.xzy, v3.xzy), ANGLE.RIGHT);
+            Assert.AreEqual(CGALGlobal.Angle(w3.xzy, u3.xzy), ANGLE.OBTUSE);
         }
 
         [TestMethod]
@@ -144,9 +144,9 @@ namespace CGALDotNetTest
             var s = new Point3d(1, -1, 0);
             var t = new Point3d(0, 0, 1);
 
-            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, s), CGAL_ORIENTATION.POSITIVE);
-            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, t), CGAL_ORIENTATION.ZERO);
-            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, t.xzy), CGAL_ORIENTATION.NEGATIVE);
+            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, s), ORIENTATION.POSITIVE);
+            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, t), ORIENTATION.ZERO);
+            Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, t.xzy), ORIENTATION.NEGATIVE);
         }
 
         [TestMethod]

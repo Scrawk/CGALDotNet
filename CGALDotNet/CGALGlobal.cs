@@ -131,7 +131,7 @@ namespace CGALDotNet
         /// <param name="v">The second vector.</param>
         /// <returns>CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
         /// angle formed by the two vectors u and v.</returns>
-        public static CGAL_ANGLE Angle(Vector2d u, Vector2d v)
+        public static ANGLE Angle(Vector2d u, Vector2d v)
         {
             return CGALGlobal_EEK_Angle_Vector2(u, v);
         }
@@ -144,7 +144,7 @@ namespace CGALDotNet
         /// <param name="v">The second vector.</param>
         /// <returns>CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
         /// angle formed by the two vectors u and v.</returns>
-        public static CGAL_ANGLE Angle(Vector3d u, Vector3d v)
+        public static ANGLE Angle(Vector3d u, Vector3d v)
         {
             return CGALGlobal_EEK_Angle_Vector3(u, v);
         }
@@ -320,7 +320,7 @@ namespace CGALDotNet
         /// <param name="q"></param>
         /// <param name="r"></param>
         /// <returns>If p,q,r are collinear, then CGAL_COLLINEAR is returned.</returns>
-        public static CGAL_ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r)
+        public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r)
         {
             return CGALGlobal_EEK_CoplanarOrientation_3Point3(p, q, r);
         }
@@ -339,7 +339,7 @@ namespace CGALDotNet
         /// <param name="r"></param>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static CGAL_ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r, Point3d s)
+        public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
             return CGALGlobal_EEK_CoplanarOrientation_4Point3(p, q, r, s);
         }
@@ -390,7 +390,7 @@ namespace CGALDotNet
         /// <param name="q"></param>
         /// <param name="r"></param>
         /// <returns></returns>
-        public static CGAL_ORIENTATION Orientation(Point2d p, Point2d q, Point2d r)
+        public static ORIENTATION Orientation(Point2d p, Point2d q, Point2d r)
         {
             return CGALGlobal_EEK_Orientation_Point2(p, q, r);
         }
@@ -403,7 +403,7 @@ namespace CGALDotNet
         /// <param name="u"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        public static CGAL_ORIENTATION Orientation(Vector2d u, Vector2d v)
+        public static ORIENTATION Orientation(Vector2d u, Vector2d v)
         {
             return CGALGlobal_EEK_Orientation_Vector2(u, v);
         }
@@ -419,7 +419,7 @@ namespace CGALDotNet
         /// <param name="r"></param>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static CGAL_ORIENTATION Orientation(Point3d p, Point3d q, Point3d r, Point3d s)
+        public static ORIENTATION Orientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
             return CGALGlobal_EEK_Orientation_Point3(p, q, r, s);
         }
@@ -433,7 +433,7 @@ namespace CGALDotNet
         /// <param name="v"></param>
         /// <param name="w"></param>
         /// <returns></returns>
-        public static CGAL_ORIENTATION Orientation(Vector3d u, Vector3d v, Vector3d w)
+        public static ORIENTATION Orientation(Vector3d u, Vector3d v, Vector3d w)
         {
             return CGALGlobal_EEK_Orientation_Vector3(u, v, w);
         }
@@ -489,10 +489,10 @@ namespace CGALDotNet
 
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ANGLE CGALGlobal_EEK_Angle_Vector2(Vector2d u, Vector2d v);
+        private static extern ANGLE CGALGlobal_EEK_Angle_Vector2(Vector2d u, Vector2d v);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ANGLE CGALGlobal_EEK_Angle_Vector3(Vector3d u, Vector3d v);
+        private static extern ANGLE CGALGlobal_EEK_Angle_Vector3(Vector3d u, Vector3d v);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double CGALGlobal_EEK_ApproxAngle_Vector3(Vector3d u, Vector3d v);
@@ -528,10 +528,10 @@ namespace CGALDotNet
         private static extern bool CGALGlobal_EEK_Coplanar_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION CGALGlobal_EEK_CoplanarOrientation_3Point3(Point3d p, Point3d q, Point3d r);
+        private static extern ORIENTATION CGALGlobal_EEK_CoplanarOrientation_3Point3(Point3d p, Point3d q, Point3d r);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION CGALGlobal_EEK_CoplanarOrientation_4Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern ORIENTATION CGALGlobal_EEK_CoplanarOrientation_4Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern Line3d CGALGlobal_EEK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r);
@@ -543,16 +543,16 @@ namespace CGALDotNet
         private static extern bool CGALGlobal_EEK_RightTurn_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Vector2(Vector2d u, Vector2d v);
+        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Vector2(Vector2d u, Vector2d v);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION CGALGlobal_EEK_Orientation_Vector3(Vector3d u, Vector3d v, Vector3d w);
+        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Vector3(Vector3d u, Vector3d v, Vector3d w);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern Vector3d CGALGlobal_EEK_OrthogonalVector_Point3(Point3d p, Point3d q, Point3d r);

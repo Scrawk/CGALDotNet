@@ -23,66 +23,66 @@ namespace CGALDotNet
 
     public static class CGALEnum
     {
-        public static CGAL_BOUNDED_SIDE Opposite(CGAL_BOUNDED_SIDE e) => (CGAL_BOUNDED_SIDE)(-(int)e);
+        public static BOUNDED_SIDE Opposite(BOUNDED_SIDE e) => (BOUNDED_SIDE)(-(int)e);
 
-        public static CGAL_COMPARISON_RESULT Opposite(CGAL_COMPARISON_RESULT e) => (CGAL_COMPARISON_RESULT)(-(int)e);
+        public static COMPARISON_RESULT Opposite(COMPARISON_RESULT e) => (COMPARISON_RESULT)(-(int)e);
 
-        public static CGAL_SIGN Opposite(CGAL_SIGN e) => (CGAL_SIGN)(-(int)e);
+        public static SIGN Opposite(SIGN e) => (SIGN)(-(int)e);
 
-        public static CGAL_CLOCK_DIR Opposite(CGAL_CLOCK_DIR e) => (CGAL_CLOCK_DIR)(-(int)e);
+        public static CLOCK_DIR Opposite(CLOCK_DIR e) => (CLOCK_DIR)(-(int)e);
 
-        public static CGAL_ORIENTATION Opposite(CGAL_ORIENTATION e) => (CGAL_ORIENTATION)(-(int)e);
+        public static ORIENTATION Opposite(ORIENTATION e) => (ORIENTATION)(-(int)e);
 
-        public static CGAL_ORIENTED_SIDE Opposite(CGAL_ORIENTED_SIDE e) => (CGAL_ORIENTED_SIDE)(-(int)e);
+        public static ORIENTED_SIDE Opposite(ORIENTED_SIDE e) => (ORIENTED_SIDE)(-(int)e);
 
-        public static bool SameOrientation(CGAL_ORIENTATION e1, CGAL_ORIENTED_SIDE e2) => e1 == (CGAL_ORIENTATION)e2;
+        public static bool SameOrientation(ORIENTATION e1, ORIENTED_SIDE e2) => e1 == (ORIENTATION)e2;
 
-        public static bool OppositeOrientation(CGAL_ORIENTATION e1, CGAL_ORIENTED_SIDE e2) => Opposite(e1) == (CGAL_ORIENTATION)e2;
+        public static bool OppositeOrientation(ORIENTATION e1, ORIENTED_SIDE e2) => Opposite(e1) == (ORIENTATION)e2;
     }
 
-    public enum CGAL_ANGLE 
+    public enum ANGLE 
     { 
         OBTUSE = -1, 
         RIGHT = 0, 
         ACUTE = 1 
     }
 
-    public enum CGAL_BOUNDED_SIDE
+    public enum BOUNDED_SIDE
     { 
         ON_UNBOUNDED_SIDE = -1, 
         ON_BOUNDARY = 0, 
         ON_BOUNDED_SIDE = 1
     }
 
-    public enum CGAL_COMPARISON_RESULT 
+    public enum COMPARISON_RESULT 
     { 
         SMALLER = -1, 
         EQUAL = 0, 
         LARGER = 1
     }
 
-    public enum CGAL_SIGN 
+    public enum SIGN 
     { 
         NEGATIVE = -1, 
         ZERO = 0, 
         POSITIVE = 1
     }
 
-    public enum CGAL_CLOCK_DIR
+    public enum CLOCK_DIR
     {
         CLOCKWISE = -1,
         ZERO = 0,
         COUNTER_CLOCKWISE = 1
     }
 
-    public enum CGAL_ORIENTATION
+    public enum ORIENTATION
     {
         NEGATIVE = -1,
         ZERO = 0,
         POSITIVE = 1
     }
 
-    public enum CGAL_ORIENTED_SIDE
+    public enum ORIENTED_SIDE
     { 
         ON_NEGATIVE_SIDE = -1, 
         ON_BOUNDARY = 0,

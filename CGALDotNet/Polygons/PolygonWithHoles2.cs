@@ -285,7 +285,7 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public CGAL_ORIENTATION FindOrientation(POLYGON_ELEMENT element, int index = 0)
+        public ORIENTATION FindOrientation(POLYGON_ELEMENT element, int index = 0)
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.Orientation(Ptr, BOUNDARY_INDEX);
@@ -296,7 +296,7 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public CGAL_ORIENTED_SIDE OrientedSide(POLYGON_ELEMENT element, Point2d point, int index = 0)
+        public ORIENTED_SIDE OrientedSide(POLYGON_ELEMENT element, Point2d point, int index = 0)
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
                 return Kernel.OrientedSide(Ptr, BOUNDARY_INDEX, point);

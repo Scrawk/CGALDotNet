@@ -37,9 +37,9 @@ namespace CGALDotNet.Polygons
 
         internal abstract bool IsConvex(IntPtr ptr);
 
-        internal abstract CGAL_ORIENTATION Orientation(IntPtr ptr);
+        internal abstract ORIENTATION Orientation(IntPtr ptr);
 
-        internal abstract CGAL_ORIENTED_SIDE OrientedSide(IntPtr ptr, Point2d point);
+        internal abstract ORIENTED_SIDE OrientedSide(IntPtr ptr, Point2d point);
 
         internal abstract double SignedArea(IntPtr ptr);
 
@@ -51,6 +51,6 @@ namespace CGALDotNet.Polygons
 
         internal abstract void Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
-        internal abstract bool ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary);
+        internal abstract bool ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary);
     }
 }

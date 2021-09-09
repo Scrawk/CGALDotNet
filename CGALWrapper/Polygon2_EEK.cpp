@@ -1,16 +1,16 @@
 #include "pch.h"
-#include "Util.h"
 #include "Polygon2_EEK.h"
+#include "Util.h"
 #include "Polygon2.h"
 
 void* Polygon2_EEK_Create()
 {
-	return Util::Create<Polygon2<EEK>::Polygon_2>();
+	return Polygon2<EEK>::NewPolygon2();
 }
 
 void Polygon2_EEK_Release(void* ptr)
 {
-	Util::Release<Polygon2<EEK>::Polygon_2>(ptr);
+	Polygon2<EEK>::DeletePolygon2(ptr);
 }
 
 int Polygon2_EEK_Count(void* ptr)

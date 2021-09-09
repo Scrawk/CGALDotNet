@@ -3,28 +3,49 @@ using System.Collections.Generic;
 
 namespace CGALDotNet
 {
+    /// <summary>
+    /// Base class for objects that referrence a CGAL object.
+    /// </summary>
     public abstract class CGALObject : IDisposable
     {
-
+        /// <summary>
+        /// The pointer to the unmanged CGAL object.
+        /// </summary>
         private IntPtr m_ptr;
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public CGALObject()
         {
             m_ptr = IntPtr.Zero;
         }
 
+        /// <summary>
+        /// Constructor taking a referrence to a CGAL object.
+        /// </summary>
+        /// <param name="ptr">A pointer to a CGAL object.</param>
         internal CGALObject(IntPtr ptr)
         {
             m_ptr = ptr;
         }
 
+        /// <summary>
+        /// The destuctor.
+        /// </summary>
         ~CGALObject()
         {
             Release();
         }
 
+        /// <summary>
+        /// Has the object been disposed.
+        /// </summary>
         public bool IsDisposed { get; private set; }
 
+        /// <summary>
+        /// Get the ptr to the CGAL object.
+        /// </summary>
         internal IntPtr Ptr 
         { 
             get
@@ -38,13 +59,18 @@ namespace CGALDotNet
             }
         }
 
-
+        /// <summary>
+        /// Dispose the CGAl object.
+        /// </summary>
         public void Dispose()
         {
             Release();
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Release the CGAL object.
+        /// </summary>
         private void Release()
         {
             if (!IsDisposed)
@@ -57,8 +83,14 @@ namespace CGALDotNet
             }
         }
 
+        /// <summary>
+        /// Allow derived class to release the unmanaged memory.
+        /// </summary>
         protected abstract void ReleasePtr();
 
+        /// <summary>
+        /// Check if the object is still valid.
+        /// </summary>
         protected void CheckPtr()
         {
             if(IsDisposed)

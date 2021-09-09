@@ -21,29 +21,5 @@ namespace CGALDotNet.Geometry
         /// <returns>The intersection result.</returns>
         IntersectionResult2d Intersection(IGeometry2d geometry);
 
-        /// <summary>
-        /// Transform the geometry by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        void Transform(Matrix2x2d m);
-
-        /// <summary>
-        /// Transform the geometry by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        void Transform(Matrix3x3d m);
-
-        /// <summary>
-        /// Transform the geometry by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        void Transform(Matrix4x4d m);
-
-        /// <summary>
-        /// Round the geometrys values.
-        /// </summary>
-        /// <param name="digits">number of digits to round to.</param>
-        void Round(int digits);
-
     }
 }

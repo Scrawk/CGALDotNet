@@ -37,8 +37,7 @@ namespace CGALDotNetConsole.Examples
             var m4 = Matrix4x4d.TranslateRotateScale(t, r, s);
 
             ray.Transform(m4);
-            ray.Round(1);
-
+     
             Console.WriteLine("After " + ray);
 
         }

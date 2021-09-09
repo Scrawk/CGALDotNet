@@ -65,7 +65,7 @@ namespace CGALDotNet.Polygons
     /// <summary>
     /// The abstract polygon definition.
     /// </summary>
-    public abstract class Polygon2 : CGALObject, IEnumerable<Point2d>, IPolygon2
+    public abstract class Polygon2 : CGALObject, IEnumerable<Point2d>
     {
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace CGALDotNet.Polygons
         /// The polygons orientation.
         /// Must be updated to find orientation.
         /// </summary>
-        private CGAL_ORIENTATION m_orientation;
+        private ORIENTATION m_orientation;
 
         /// <summary>
         /// Default constructor.
@@ -150,7 +150,7 @@ namespace CGALDotNet.Polygons
         /// The polygons orientation.
         /// Certain actions depend on the polygons orientation.
         /// </summary>
-        public CGAL_ORIENTATION Orientation
+        public ORIENTATION Orientation
         {
             get
             {
@@ -166,23 +166,23 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// The orientation expressed as the clock direction.
         /// </summary>
-        public CGAL_CLOCK_DIR ClockDir => (CGAL_CLOCK_DIR)Orientation;
+        public CLOCK_DIR ClockDir => (CLOCK_DIR)Orientation;
 
         /// <summary>
         /// Is the polygon degenerate.
         /// Polygons with < 3 points are degenerate.
         /// </summary>
-        public bool IsDegenerate => Count < 3 || Orientation == CGAL_ORIENTATION.ZERO;
+        public bool IsDegenerate => Count < 3 || Orientation == ORIENTATION.ZERO;
 
         /// <summary>
         /// Is the polygon cw orientated.
         /// </summary>
-        public bool IsClockWise => ClockDir == CGAL_CLOCK_DIR.CLOCKWISE;
+        public bool IsClockWise => ClockDir == CLOCK_DIR.CLOCKWISE;
 
         /// <summary>
         /// Is the polygon ccw orientated.
         /// </summary>
-        public bool IsCounterClockWise => ClockDir == CGAL_CLOCK_DIR.COUNTER_CLOCKWISE;
+        public bool IsCounterClockWise => ClockDir == CLOCK_DIR.COUNTER_CLOCKWISE;
 
         /// <summary>
         /// Is the polygon updated.
@@ -214,7 +214,7 @@ namespace CGALDotNet.Polygons
         {
             Count = 0;
             Kernel.Clear(Ptr);
-            Update(false, CGAL_ORIENTATION.ZERO);
+            Update(false, ORIENTATION.ZERO);
         }
 
         /// <summary>
@@ -348,12 +348,12 @@ namespace CGALDotNet.Polygons
         /// Must be simple to determine.
         /// </summary>
         /// <returns>The polygons orientations.</returns>
-        public CGAL_ORIENTATION FindOrientation()
+        public ORIENTATION FindOrientation()
         {
             if (IsSimple)
                 return Kernel.Orientation(Ptr);
             else
-                return CGAL_ORIENTATION.ZERO;
+                return ORIENTATION.ZERO;
         }
 
         /// <summary>
@@ -362,12 +362,12 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The orientated side of the polygon the point is on.</returns>
-        public CGAL_ORIENTED_SIDE OrientedSide(Point2d point)
+        public ORIENTED_SIDE OrientedSide(Point2d point)
         {
             if (IsSimple)
                 return Kernel.OrientedSide(Ptr, point);
             else
-                return CGAL_ORIENTED_SIDE.UNDETERMINED;
+                return ORIENTED_SIDE.UNDETERMINED;
         }
 
         /// <summary>
@@ -539,7 +539,7 @@ namespace CGALDotNet.Polygons
             else
             {
                 IsSimple = false;
-                Orientation = CGAL_ORIENTATION.ZERO;
+                Orientation = ORIENTATION.ZERO;
             }
         }
 
@@ -549,7 +549,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="isSimple">Is the polygon simepl.</param>
         /// <param name="orientation">The polygons orientation.</param>
-        protected void Update(bool isSimple, CGAL_ORIENTATION orientation)
+        protected void Update(bool isSimple, ORIENTATION orientation)
         {
             IsSimple = isSimple;
             Orientation = orientation;

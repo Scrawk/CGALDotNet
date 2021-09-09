@@ -80,12 +80,12 @@ namespace CGALDotNet.Polygons
             return Polygon2_EEK_IsConvex(ptr);
         }
 
-        internal override CGAL_ORIENTATION Orientation(IntPtr ptr)
+        internal override ORIENTATION Orientation(IntPtr ptr)
         {
             return Polygon2_EEK_Orientation(ptr);
         }
 
-        internal override CGAL_ORIENTED_SIDE OrientedSide(IntPtr ptr, Point2d point)
+        internal override ORIENTED_SIDE OrientedSide(IntPtr ptr, Point2d point)
         {
             return Polygon2_EEK_OrientedSide(ptr, point);
         }
@@ -115,7 +115,7 @@ namespace CGALDotNet.Polygons
             Polygon2_EEK_Transform(ptr,  translation, rotation, scale);
         }
 
-        internal override bool ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary)
+        internal override bool ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary)
         {
             return Polygon2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
         }
@@ -160,10 +160,10 @@ namespace CGALDotNet.Polygons
         private static extern bool Polygon2_EEK_IsConvex(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTATION Polygon2_EEK_Orientation(IntPtr ptr);
+        private static extern ORIENTATION Polygon2_EEK_Orientation(IntPtr ptr);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern CGAL_ORIENTED_SIDE Polygon2_EEK_OrientedSide(IntPtr ptr, Point2d point);
+        private static extern ORIENTED_SIDE Polygon2_EEK_OrientedSide(IntPtr ptr, Point2d point);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double Polygon2_EEK_SignedArea(IntPtr ptr);
@@ -181,7 +181,7 @@ namespace CGALDotNet.Polygons
         private static extern void Polygon2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool Polygon2_EEK_ContainsPoint(IntPtr ptr, Point2d point, CGAL_ORIENTATION orientation, bool inculdeBoundary);
+        private static extern bool Polygon2_EEK_ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary);
 
     }
 }

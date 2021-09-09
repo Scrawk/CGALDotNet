@@ -475,32 +475,5 @@ namespace CGALDotNet.Geometry
             return CGALIntersections.Intersection(this, geometry);
         }
 
-        /// <summary>
-        /// Transform the point by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix2x2d m)
-        {
-            this = m * this;
-        }
-
-        /// <summary>
-        /// Transform the box by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix3x3d m)
-        {
-            this = m * this;
-        }
-
-        /// <summary>
-        /// Transform the box by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix4x4d m)
-        {
-            this = m * this;
-        }
-
     }
 }

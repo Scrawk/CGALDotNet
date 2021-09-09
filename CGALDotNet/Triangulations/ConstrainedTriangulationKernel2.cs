@@ -34,9 +34,9 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void RemoveIncidentConstraints(IntPtr ptr, int vertexIndex);
 
-        internal abstract int GetPolygonIndices(IntPtr ptrTri, IntPtr polyPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
+        internal abstract int GetPolygonIndices(IntPtr ptrTri, IntPtr polyPtr, int[] indices, int startIndex, int count, ORIENTATION orientation);
 
-        internal abstract int GetPolygonWithHolesIndices(IntPtr ptrTri, IntPtr pwhPtr, int[] indices, int startIndex, int count, CGAL_ORIENTATION orientation);
+        internal abstract int GetPolygonWithHolesIndices(IntPtr ptrTri, IntPtr pwhPtr, int[] indices, int startIndex, int count, ORIENTATION orientation);
 
     }
 }

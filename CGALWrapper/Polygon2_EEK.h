@@ -2,9 +2,8 @@
 
 #include "CGALWrapper.h"
 #include "Geometry2.h"
-
-#include <CGAL/Polygon_2.h>
 #include <CGAL/enum.h>
+
 
 extern "C"
 {
