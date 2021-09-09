@@ -179,6 +179,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="IndexMap.h" />
     <ClInclude Include="Intersections_EEK.h" />
+    <ClInclude Include="IsoRectangle2_EEK.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Geometry2.h" />
     <ClInclude Include="Polygon2.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="ConvexHull2_EEK.cpp" />
     <ClCompile Include="DelaunayTriangulation2_EEK.cpp" />
     <ClCompile Include="Intersections_EEK.cpp" />
+    <ClCompile Include="IsoRectangle2_EEK.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

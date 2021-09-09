@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Triangulations;
 
 namespace CGALDotNet.Polygons
 {
@@ -58,6 +59,27 @@ namespace CGALDotNet.Polygons
             var copy = new Polygon2<K>(Kernel.Copy(Ptr));
             copy.Update(IsSimple, Orientation);
             return copy;
+        }
+
+        /// <summary>
+        /// Triangulate the polygon.
+        /// </summary>
+        /// <param name="indices">The triangle indices.</param>
+        public void Triangulate(List<int> indices)
+        {
+            var ct = new ConstrainedTriangulation2<K>();
+            ct.GetPolygonIndices(this, indices);
+        }
+
+        /// <summary>
+        /// Partition the polygon into sub polygons.
+        /// </summary>
+        /// <param name="type">The type of partion.</param>
+        /// <param name="polygons">The sub polygons.</param>
+        public void Partition(POLYGON_PARTION type, List<Polygon2<K>> polygons)
+        {
+            var par = new PolygonPartition2<K>();
+            par.Partition(type, this, polygons);
         }
 
     }
@@ -516,7 +538,7 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Release the polygons unmanaged pointer.
+        /// Release the unmanaged pointer.
         /// </summary>
         protected override void ReleasePtr()
         {

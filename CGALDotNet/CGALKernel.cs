@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
 using CGALDotNet.Arrangements;
 using CGALDotNet.Triangulations;
@@ -11,6 +12,8 @@ namespace CGALDotNet
 {
     public abstract class CGALKernel
     {
+        internal abstract GeometryKernel2 GeometryKernel2 { get; }
+
         internal abstract PolygonKernel2 PolygonKernel2 { get; }
 
         internal abstract PolygonWithHolesKernel2 PolygonWithHolesKernel2 { get; }
@@ -37,6 +40,8 @@ namespace CGALDotNet
     public class EEK : CGALKernel
     {
         public static readonly EEK Instance = new EEK();
+
+        internal override GeometryKernel2 GeometryKernel2 => GeometryKernel2_EEK.Instance;
 
         internal override PolygonKernel2 PolygonKernel2 => PolygonKernel2_EEK.Instance;
 

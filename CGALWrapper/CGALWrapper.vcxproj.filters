@@ -171,6 +171,9 @@
     <ClInclude Include="ConformingTriangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
+    <ClInclude Include="IsoRectangle2_EEK.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="ConformingTriangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
+    </ClCompile>
+    <ClCompile Include="IsoRectangle2_EEK.cpp">
+      <Filter>Source Files\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

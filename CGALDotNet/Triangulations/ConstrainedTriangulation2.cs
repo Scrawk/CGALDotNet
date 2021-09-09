@@ -71,6 +71,8 @@ namespace CGALDotNet.Triangulations
 
         public void GetPolygonIndices(Polygon2<K> polygon, List<int> indices)
         {
+            InsertPolygonConstraint(polygon);
+
             int count = IndiceCount;
             if (count == 0) return;
 
@@ -85,6 +87,8 @@ namespace CGALDotNet.Triangulations
 
         public void GetPolygonIndices(PolygonWithHoles2<K> pwh, List<int> indices)
         {
+            InsertPolygonConstraint(pwh);
+
             int count = IndiceCount;
             if (count == 0) return;
 
