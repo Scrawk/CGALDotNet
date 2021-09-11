@@ -72,14 +72,23 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Partition the polygon into sub polygons.
+        /// Do the polygons intersect.
         /// </summary>
-        /// <param name="type">The type of partion.</param>
-        /// <param name="polygons">The sub polygons.</param>
-        public void Partition(POLYGON_PARTION type, List<Polygon2<K>> polygons)
+        /// <param name="polygon">The other polygon.</param>
+        /// <returns>Do the polygons intersect.</returns>
+        public bool Intersects(Polygon2<K> polygon)
         {
-            var par = new PolygonPartition2<K>();
-            par.Partition(type, this, polygons);
+            return PolygonBoolean2<K>.Instance.DoIntersect(this, polygon);
+        }
+
+        /// <summary>
+        /// Do the polygons intersect.
+        /// </summary>
+        /// <param name="polygon">The other polygon.</param>
+        /// <returns>Do the polygons intersect.</returns>
+        public bool Intersects(PolygonWithHoles2<K> polygon)
+        {
+            return PolygonBoolean2<K>.Instance.DoIntersect(this, polygon);
         }
 
     }
@@ -327,6 +336,7 @@ namespace CGALDotNet.Polygons
             int count = Math.Max(Count, points.Length);
             ErrorUtil.CheckBounds(points, 0, count);
             Kernel.SetPoints(Ptr, points, 0, count);
+            Count = count;
             IsUpdated = false;
         }
 
@@ -396,8 +406,8 @@ namespace CGALDotNet.Polygons
         /// Find the polygons signed area. 
         /// Must be simple to determine.
         /// </summary>
-        /// <returns>The signed area is positive if polygon is cw 
-        /// and negation if ccw.</returns>
+        /// <returns>The signed area is positive if polygon is ccw 
+        /// and negation if cw.</returns>
         public double FindSignedArea()
         {
             if (IsSimple)

@@ -47,6 +47,7 @@ namespace CGALDotNetTest.Polygons
             Assert.IsTrue(poly.IsSimple);
             Assert.IsTrue(poly.IsCounterClockWise);
             Assert.IsTrue(poly.Orientation == ORIENTATION.POSITIVE);
+            Assert.IsTrue(poly.ClockDir == CLOCK_DIR.COUNTER_CLOCKWISE);
             Assert.IsTrue(poly.FindIfConvex());
         }
 
@@ -67,6 +68,7 @@ namespace CGALDotNetTest.Polygons
             Assert.IsTrue(poly.IsSimple);
             Assert.IsTrue(poly.IsCounterClockWise);
             Assert.IsTrue(poly.Orientation == ORIENTATION.POSITIVE);
+            Assert.IsTrue(poly.ClockDir == CLOCK_DIR.COUNTER_CLOCKWISE);
             Assert.IsFalse(poly.FindIfConvex());
         }
 
@@ -87,6 +89,7 @@ namespace CGALDotNetTest.Polygons
             Assert.IsFalse(poly.IsSimple);
             Assert.IsTrue(poly.IsDegenerate);
             Assert.IsTrue(poly.Orientation == ORIENTATION.ZERO);
+            Assert.IsTrue(poly.ClockDir == CLOCK_DIR.ZERO);
 
         }
 
@@ -148,6 +151,104 @@ namespace CGALDotNetTest.Polygons
             Assert.AreEqual(new Point2d(1, 1), poly.GetPointWrapped(2));
             Assert.AreEqual(new Point2d(-1, 1), poly.GetPointWrapped(3));
             Assert.AreEqual(new Point2d(-1, -1), poly.GetPointWrapped(4));
+        }
+
+        [TestMethod]
+        public void GetPoints()
+        {
+            var expected = new Point2d[]
+            {
+                new Point2d(-1, -1),
+                new Point2d(1, -1),
+                new Point2d(1, 1),
+                new Point2d(-1, 1)
+            };
+
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            var points = new Point2d[4];
+            poly.GetPoints(points);
+
+            CollectionAssert.AreEqual(expected, points);
+        }
+
+        [TestMethod]
+        public void GetSegments()
+        {
+            var p0 = new Point2d(-1, -1);
+            var p1 = new Point2d(1, -1);
+            var p2 = new Point2d(1, 1);
+            var p3 = new Point2d(-1, 1);
+
+            var expected = new Segment2d[]
+            {
+                new Segment2d(p0, p1),
+                new Segment2d(p1, p2),
+                new Segment2d(p2, p3),
+                new Segment2d(p3, p0)
+            };
+
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            var segments = new Segment2d[4];
+            poly.GetSegments(segments);
+
+            CollectionAssert.AreEqual(expected, segments);
+        }
+
+        [TestMethod]
+        public void SetPoint()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            var p0 = new Point2d(2, 3);
+            var p3 = new Point2d(4, 5);
+
+            poly.SetPoint(0, p0);
+            poly.SetPoint(3, p3);
+
+            Assert.AreEqual(p0, poly.GetPoint(0));
+            Assert.AreEqual(p3, poly.GetPoint(3));
+        }
+
+        [TestMethod]
+        public void SetPoints()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            var expected = new Point2d[]
+            {
+                new Point2d(-2, -2),
+                new Point2d(2, -2),
+                new Point2d(4, -2),
+                new Point2d(4, 2),
+                new Point2d(2, 2),
+                new Point2d(-2, 2)
+            };
+
+            poly.SetPoints(expected);
+
+            var points = new Point2d[6];
+            poly.GetPoints(points);
+
+            CollectionAssert.AreEqual(expected, points);
+        }
+
+        [TestMethod]
+        public void Reverse()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            Assert.AreEqual(ORIENTATION.POSITIVE, poly.Orientation);
+            Assert.AreEqual(CLOCK_DIR.COUNTER_CLOCKWISE, poly.ClockDir);
+            Assert.AreEqual(4.0, poly.FindSignedArea());
+
+            poly.Reverse();
+
+            Assert.AreEqual(ORIENTATION.NEGATIVE, poly.Orientation);
+            Assert.AreEqual(CLOCK_DIR.CLOCKWISE, poly.ClockDir);
+            Assert.AreEqual(-4.0, poly.FindSignedArea());
+
         }
     }
 }
