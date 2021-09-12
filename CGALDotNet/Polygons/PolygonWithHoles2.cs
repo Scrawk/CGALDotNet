@@ -174,7 +174,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         private PolygonWithHoles2()
         {
-
+            CheckFlag = POLYGON_CHECK.ALL;
         }
 
         /// <summary>
@@ -183,6 +183,7 @@ namespace CGALDotNet.Polygons
         /// <param name="kernel"></param>
         internal PolygonWithHoles2(CGALKernel kernel)
         {
+            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
             Ptr = Kernel.Create();
         }
@@ -194,6 +195,7 @@ namespace CGALDotNet.Polygons
         /// <param name="boundary">A CCW polygon.</param>
         internal PolygonWithHoles2(CGALKernel kernel, Polygon2 boundary)
         {
+            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
             CheckBoundary(boundary);
             Ptr = Kernel.CreateFromPolygon(boundary.Ptr);
@@ -207,6 +209,7 @@ namespace CGALDotNet.Polygons
         /// <param name="boundary">A CCW set of points.</param>
         internal PolygonWithHoles2(CGALKernel kernel, Point2d[] boundary)
         {
+            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
             Ptr = Kernel.Create();
             SetPoints(POLYGON_ELEMENT.BOUNDARY, boundary, 0);
@@ -220,6 +223,7 @@ namespace CGALDotNet.Polygons
         /// <param name="ptr"></param>
         internal PolygonWithHoles2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
+            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
             HoleCount = Kernel.HoleCount(Ptr);
         }
@@ -239,6 +243,11 @@ namespace CGALDotNet.Polygons
         /// The polygon kernel.
         /// </summary>
         protected private PolygonWithHolesKernel2 Kernel { get; private set; }
+
+        /// <summary>
+        /// What checks should the polygon do.
+        /// </summary>
+        public POLYGON_CHECK CheckFlag { get; set; }
 
         /// <summary>
         /// Clear the polygon.
@@ -262,7 +271,9 @@ namespace CGALDotNet.Polygons
                 return Kernel.PointCount(Ptr, BOUNDARY_INDEX);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 return Kernel.PointCount(Ptr, index);
             }
         }
@@ -282,7 +293,9 @@ namespace CGALDotNet.Polygons
             }
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 Kernel.RemoveHole(Ptr, index);
                 HoleCount--;
             }
@@ -299,7 +312,9 @@ namespace CGALDotNet.Polygons
                 Kernel.ReversePolygon(Ptr, BOUNDARY_INDEX);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 Kernel.ReversePolygon(Ptr, index);
             }
         }
@@ -316,15 +331,22 @@ namespace CGALDotNet.Polygons
             if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
-                ErrorUtil.CheckBounds(pointIndex, count);
+
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(pointIndex, count);
+
                 return Kernel.GetPoint(Ptr, BOUNDARY_INDEX, pointIndex);
             }
             else
             {
-                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(holeIndex, HoleCount);
+
                 int count = Kernel.PointCount(Ptr, holeIndex);
 
-                ErrorUtil.CheckBounds(pointIndex, count);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(pointIndex, count);
+
                 return Kernel.GetPoint(Ptr, holeIndex, pointIndex);
             }
         }
@@ -340,15 +362,22 @@ namespace CGALDotNet.Polygons
             if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
-                ErrorUtil.CheckBounds(points, 0, count);
+
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(points, 0, count);
+
                 Kernel.GetPoints(Ptr, points, BOUNDARY_INDEX, 0, count);
             }
             else
             {
-                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(holeIndex, HoleCount);
+
                 int count = Kernel.PointCount(Ptr, holeIndex);
 
-                ErrorUtil.CheckBounds(points, 0, count);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(points, 0, count);
+
                 Kernel.GetPoints(Ptr, points, holeIndex, 0, count);
             }
         }
@@ -385,15 +414,22 @@ namespace CGALDotNet.Polygons
             if (element == POLYGON_ELEMENT.BOUNDARY)
             {
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
-                ErrorUtil.CheckBounds(pointIndex, count);
+
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(pointIndex, count);
+
                 Kernel.SetPoint(Ptr, BOUNDARY_INDEX, pointIndex, point);
             }
             else
             {
-                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(holeIndex, HoleCount);
+
                 int count = Kernel.PointCount(Ptr, holeIndex);
 
-                ErrorUtil.CheckBounds(pointIndex, count);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(pointIndex, count);
+
                 Kernel.SetPoint(Ptr, holeIndex, pointIndex, point);
             }
         }
@@ -412,18 +448,23 @@ namespace CGALDotNet.Polygons
                 int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                 count = Math.Max(count, points.Length);
 
-                ErrorUtil.CheckBounds(points, 0, count);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(points, 0, count);
+
                 Kernel.SetPoints(Ptr, points, BOUNDARY_INDEX, 0, count);
                 IsUnbounded = count > 0;
             }
             else
             {
-                ErrorUtil.CheckBounds(holeIndex, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(holeIndex, HoleCount);
 
                 int count = Kernel.PointCount(Ptr, holeIndex);
                 count = Math.Max(count, points.Length);
 
-                ErrorUtil.CheckBounds(points, 0, count);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(points, 0, count);
+
                 Kernel.SetPoints(Ptr, points, holeIndex, 0, count);
             }
         }
@@ -461,7 +502,9 @@ namespace CGALDotNet.Polygons
                 return Kernel.IsSimple(Ptr, BOUNDARY_INDEX);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 return Kernel.IsSimple(Ptr, index);
             }
         }
@@ -478,7 +521,9 @@ namespace CGALDotNet.Polygons
                 return Kernel.IsConvex(Ptr, BOUNDARY_INDEX);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 return Kernel.IsConvex(Ptr, index);
             }
         }
@@ -495,7 +540,9 @@ namespace CGALDotNet.Polygons
                 return Kernel.Orientation(Ptr, BOUNDARY_INDEX);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 return Kernel.Orientation(Ptr, index);
             }
         }
@@ -513,7 +560,9 @@ namespace CGALDotNet.Polygons
                 return Kernel.OrientedSide(Ptr, BOUNDARY_INDEX, point);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 return Kernel.OrientedSide(Ptr, index, point);
             }
         }
@@ -532,7 +581,9 @@ namespace CGALDotNet.Polygons
                 return Kernel.SignedArea(Ptr, BOUNDARY_INDEX);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 return Kernel.SignedArea(Ptr, index);
             }
         }
@@ -611,7 +662,9 @@ namespace CGALDotNet.Polygons
                 Kernel.Translate(Ptr, BOUNDARY_INDEX, translation);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 Kernel.Translate(Ptr, index, translation);
             }
         }
@@ -641,7 +694,9 @@ namespace CGALDotNet.Polygons
                 Kernel.Rotate(Ptr, BOUNDARY_INDEX, rotation.angle);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 Kernel.Rotate(Ptr, index, rotation.angle);
             }
         }
@@ -671,7 +726,9 @@ namespace CGALDotNet.Polygons
                 Kernel.Scale(Ptr, BOUNDARY_INDEX, scale);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 Kernel.Scale(Ptr, index, scale);
             }
         }
@@ -705,7 +762,9 @@ namespace CGALDotNet.Polygons
                 Kernel.Transform(Ptr, BOUNDARY_INDEX, translation, rotation.angle, scale);
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
                 Kernel.Transform(Ptr, index, translation, rotation.angle, scale);
             }
         }
@@ -760,6 +819,9 @@ namespace CGALDotNet.Polygons
         /// <returns></returns>
         public static bool IsValidBoundary(Polygon2 polygon)
         {
+            if (!polygon.CheckFlag.HasFlag(POLYGON_CHECK.IS_VALID_BOUNDARY))
+                return true;
+
             return polygon.IsSimple && polygon.IsCounterClockWise;
         }
 
@@ -772,6 +834,9 @@ namespace CGALDotNet.Polygons
         /// <returns></returns>
         public static bool IsValidHole(PolygonWithHoles2 pwh, Polygon2 polygon)
         {
+            if (!polygon.CheckFlag.HasFlag(POLYGON_CHECK.IS_VALID_HOLE))
+                return true;
+
             return polygon.IsSimple && polygon.IsClockWise && pwh.ContainsPolygon(polygon);
         }
 

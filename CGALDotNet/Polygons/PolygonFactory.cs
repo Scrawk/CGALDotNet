@@ -13,13 +13,22 @@ namespace CGALDotNet.Polygons
     /// <typeparam name="K">The kernel type.</typeparam>
     public static class PolygonFactory<K> where K : CGALKernel, new()
     {
+
+        /// <summary>
+        /// Default check flag.
+        /// </summary>
+        public static POLYGON_CHECK CheckFlag = POLYGON_CHECK.ALL;
+
         /// <summary>
         /// Create a empty polygon.
         /// </summary>
         /// <returns></returns>
         public static Polygon2<K> Create()
         {
-            return new Polygon2<K>();
+            var poly = new Polygon2<K>();
+            poly.CheckFlag = CheckFlag;
+
+            return poly;
         }
 
         /// <summary>
@@ -30,7 +39,10 @@ namespace CGALDotNet.Polygons
         public static Polygon2<K> FromTriangle(Triangle2d tri)
         {
             var points = new Point2d[] { tri.A, tri.B, tri.C };
-            return new Polygon2<K>(points);
+            var poly = new Polygon2<K>(points);
+            poly.CheckFlag = CheckFlag;
+
+            return poly;
         }
 
         /// <summary>
@@ -44,7 +56,6 @@ namespace CGALDotNet.Polygons
             var box = new Box2d(min, max);
             return FromBox(box);
         }
-
 
         /// <summary>
         /// Create a polygon from a box.
@@ -66,7 +77,9 @@ namespace CGALDotNet.Polygons
         public static Polygon2<K> FromBox(Box2d box)
         {
             var points = box.GetCorners();
-            return new Polygon2<K>(points);
+            var poly = new Polygon2<K>(points);
+            poly.CheckFlag = CheckFlag;
+            return poly;
         }
 
         /// <summary>
@@ -79,7 +92,9 @@ namespace CGALDotNet.Polygons
         /// <returns>The created polygon with holes</returns>
         public static PolygonWithHoles2<K> FromDounut(double outer, double inner, int segments)
         {
-            return FromDounut(outer, inner, segments);
+            var poly = FromDounut(outer, inner, segments);
+            poly.CheckFlag = CheckFlag;
+            return poly;
         }
 
 
@@ -96,10 +111,12 @@ namespace CGALDotNet.Polygons
         {
             var boundary = FromCircle(new Circle2d(center, outer), segments);
             var pwh = new PolygonWithHoles2<K>(boundary);
+            pwh.CheckFlag = CheckFlag;
 
             if (inner < outer)
             {
                 var hole = FromCircle(new Circle2d(center, inner), segments);
+
                 hole.Reverse();
                 pwh.AddHole(hole);
             }
@@ -107,16 +124,35 @@ namespace CGALDotNet.Polygons
             return pwh;
         }
 
+        /// <summary>
+        /// Create a polygon from a circle.
+        /// </summary>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <param name="segments">The number of segments.</param>
+        /// <returns>The polygon.</returns>
         public static Polygon2<K> FromCircle(double radius, int segments)
         {
             return FromCircle(new Circle2d(Point2d.Zero, radius), segments);
         }
 
+        /// <summary>
+        /// Create a polygon from a circle.
+        /// </summary>
+        /// <param name="center">The center of the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <param name="segments">The number of segments.</param>
+        /// <returns></returns>
         public static Polygon2<K> FromCircle(Point2d center, double radius, int segments)
         {
             return FromCircle(new Circle2d(center, radius), segments);
         }
 
+        /// <summary>
+        /// Create a polygon from a circle.
+        /// </summary>
+        /// <param name="circle">The cirlce.</param>
+        /// <param name="segments">The number of segments.</param>
+        /// <returns></returns>
         public static Polygon2<K> FromCircle(Circle2d circle, int segments)
         {
             segments = Math.Max(3, segments);
@@ -136,7 +172,10 @@ namespace CGALDotNet.Polygons
                 points[i] = circle.Center + new Point2d(x, y);
             }
 
-            return new Polygon2<K>(points);
+            var poly = new Polygon2<K>(points);
+            poly.CheckFlag = CheckFlag;
+
+            return poly;
         }
 
         private static double Rotation(int segments)
@@ -152,7 +191,9 @@ namespace CGALDotNet.Polygons
         /// <returns></returns>
         public static Polygon2<K> KochStar(double size, int iterations)
         {
-            return KochStar(Point2d.Zero, size, iterations);
+            var poly = KochStar(Point2d.Zero, size, iterations);
+            poly.CheckFlag = CheckFlag;
+            return poly;
         }
 
         /// <summary>

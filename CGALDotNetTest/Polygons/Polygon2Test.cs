@@ -8,9 +8,20 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNetTest.Polygons
 {
+
     [TestClass]
     public class Polygon2Test
     {
+        [TestMethod]
+        public void CheckFlag()
+        {
+            var poly = new Polygon2<EEK>();
+            poly.CheckFlag = POLYGON_CHECK.NONE;
+
+            Console.WriteLine(poly.CheckFlag);
+        
+        }
+
         [TestMethod]
         public void CreatePolygon()
         {

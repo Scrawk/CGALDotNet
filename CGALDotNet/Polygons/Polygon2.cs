@@ -8,6 +8,16 @@ using CGALDotNet.Triangulations;
 
 namespace CGALDotNet.Polygons
 {
+    [Flags]
+    public enum POLYGON_CHECK
+    {
+        NONE = 0,
+        ARRAY_BOUNDS = 1,
+        IS_VALID_HOLE = 2,
+        IS_VALID_BOUNDARY = 4,
+        ALL = ~0
+    }
+
     /// <summary>
     /// Generic polygon definition.
     /// </summary>
@@ -116,7 +126,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         private Polygon2()
         {
-
+            CheckFlag = POLYGON_CHECK.ALL;
         }
 
         /// <summary>
@@ -125,6 +135,7 @@ namespace CGALDotNet.Polygons
         /// <param name="kernel">The polygon kernel.</param>
         internal Polygon2(CGALKernel kernel)
         {
+            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonKernel2;
             Ptr = Kernel.Create();
         }
@@ -136,6 +147,7 @@ namespace CGALDotNet.Polygons
         /// <param name="points">The points to construct from.</param>
         internal Polygon2(CGALKernel kernel, Point2d[] points)
         {
+            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonKernel2;
             Ptr = Kernel.Create();
             SetPoints(points);
@@ -150,6 +162,7 @@ namespace CGALDotNet.Polygons
         /// <param name="ptr">The polygons pointer.</param>
         internal Polygon2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
+            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonKernel2;
             Count = Kernel.Count(Ptr);
             Update();
@@ -227,6 +240,11 @@ namespace CGALDotNet.Polygons
         protected private PolygonKernel2 Kernel { get; private set; }
 
         /// <summary>
+        /// What checks should the polygon do.
+        /// </summary>
+        public POLYGON_CHECK CheckFlag { get; set; }
+
+        /// <summary>
         /// Array accessor for the polygon.
         /// Getting a point wraps around the polygon.
         /// </summary>
@@ -255,7 +273,9 @@ namespace CGALDotNet.Polygons
         /// <returns>The point at index.</returns>
         public Point2d GetPoint(int index)
         {
-            ErrorUtil.CheckBounds(index, Count);
+            if(CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(index, Count);
+                
             return Kernel.GetPoint(Ptr, index);
         }
 
@@ -289,7 +309,9 @@ namespace CGALDotNet.Polygons
         /// <param name="points">The point array to copy the data into.</param>
         public void GetPoints(Point2d[] points)
         {
-            ErrorUtil.CheckBounds(points, 0, Count);
+            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(points, 0, Count);
+
             Kernel.GetPoints(Ptr, points, 0, Count);
         }
 
@@ -299,7 +321,9 @@ namespace CGALDotNet.Polygons
         /// <param name="segments">The segment array to copy the data into.</param>
         public void GetSegments(Segment2d[] segments)
         {
-            ErrorUtil.CheckBounds(segments, 0, Count);
+            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(segments, 0, Count);
+
             Kernel.GetSegments(Ptr, segments, 0, Count);
         }
 
@@ -320,7 +344,9 @@ namespace CGALDotNet.Polygons
         /// <param name="point">The points value.</param>
         public void SetPoint(int index, Point2d point)
         {
-            ErrorUtil.CheckBounds(index, Count);
+            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(index, Count);
+
             Kernel.SetPoint(Ptr, index, point);
             IsUpdated = false;
         }
@@ -334,7 +360,10 @@ namespace CGALDotNet.Polygons
         public void SetPoints(Point2d[] points)
         {
             int count = Math.Max(Count, points.Length);
-            ErrorUtil.CheckBounds(points, 0, count);
+
+            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(points, 0, count);
+
             Kernel.SetPoints(Ptr, points, 0, count);
             Count = count;
             IsUpdated = false;
