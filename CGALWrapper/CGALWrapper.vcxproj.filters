@@ -57,121 +57,121 @@
     <ClInclude Include="CGALWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry2.h">
+    <ClInclude Include="Geometry\Geometry2.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Polygon2_EEK.h">
+    <ClInclude Include="Polygons\Polygon2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Polygon2.h">
+    <ClInclude Include="Polygons\Polygon2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonBoolean2.h">
+    <ClInclude Include="Polygons\PolygonBoolean2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonBoolean2_EEK.h">
+    <ClInclude Include="Polygons\PolygonBoolean2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonWithHoles2_EEK.h">
+    <ClInclude Include="Polygons\PolygonWithHoles2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonWithHoles2.h">
+    <ClInclude Include="Polygons\PolygonWithHoles2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Util.h">
+    <ClInclude Include="Utility\Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Arrangement2.h">
+    <ClInclude Include="Arrangments\Arrangement2.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
-    <ClInclude Include="Arrangement2_EEK.h">
+    <ClInclude Include="Arrangments\Arrangement2_EEK.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
-    <ClInclude Include="ArrMultiLocator.h">
+    <ClInclude Include="Arrangments\ArrMultiLocator.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulation2.h">
+    <ClInclude Include="Triangulations\Triangulation2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulation2_EEK.h">
+    <ClInclude Include="Triangulations\Triangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonPartition2_EEK.h">
+    <ClInclude Include="Polygons\PolygonPartition2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonPartition2.h">
+    <ClInclude Include="Polygons\PolygonPartition2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="IndexMap.h">
+    <ClInclude Include="Utility\IndexMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TriVertex2.h">
+    <ClInclude Include="Triangulations\TriVertex2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="TriFace2.h">
+    <ClInclude Include="Triangulations\TriFace2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="TriangulationMap.h">
+    <ClInclude Include="Triangulations\TriangulationMap.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="DelaunayTriangulation2.h">
+    <ClInclude Include="Triangulations\DelaunayTriangulation2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="DelaunayTriangulation2_EEK.h">
+    <ClInclude Include="Triangulations\DelaunayTriangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="TriUtil.h">
+    <ClInclude Include="Triangulations\TriUtil.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="ConstrainedTriangulation2.h">
+    <ClInclude Include="Triangulations\ConstrainedTriangulation2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="ConstrainedTriangulation2_EEK.h">
+    <ClInclude Include="Triangulations\ConstrainedTriangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="ArrangementMap.h">
+    <ClInclude Include="Arrangments\ArrangementMap.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
-    <ClInclude Include="Intersections.h">
+    <ClInclude Include="Geometry\Intersections.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Intersections_EEK.h">
+    <ClInclude Include="Geometry\Intersections_EEK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="ConvexHull2.h">
+    <ClInclude Include="Hull\ConvexHull2.h">
       <Filter>Header Files\Hulls</Filter>
     </ClInclude>
-    <ClInclude Include="ConvexHull2_EEK.h">
+    <ClInclude Include="Hull\ConvexHull2_EEK.h">
       <Filter>Header Files\Hulls</Filter>
     </ClInclude>
-    <ClInclude Include="CGALGlobal.h">
+    <ClInclude Include="Utility\CGALGlobal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CGALGlobal_EEK.h">
+    <ClInclude Include="Utility\CGALGlobal_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry3.h">
+    <ClInclude Include="Geometry\Geometry3.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonSimplification2.h">
+    <ClInclude Include="Polygons\PolygonSimplification2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonSimplification2_EEK.h">
+    <ClInclude Include="Polygons\PolygonSimplification2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonVisibility2.h">
+    <ClInclude Include="Polygons\PolygonVisibility2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonVisibility2_EEK.h">
+    <ClInclude Include="Polygons\PolygonVisibility2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="ConformingTriangulation2.h">
+    <ClInclude Include="Triangulations\ConformingTriangulation2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="ConformingTriangulation2_EEK.h">
+    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="IsoRectangle2_EEK.h">
+    <ClInclude Include="Geometry\IsoRectangle2_EEK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
@@ -179,49 +179,49 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Polygon2_EEK.cpp">
+    <ClCompile Include="Polygons\Polygon2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonBoolean2_EEK.cpp">
+    <ClCompile Include="Polygons\PolygonBoolean2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonWithHoles2_EEK.cpp">
+    <ClCompile Include="Polygons\PolygonWithHoles2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="Arrangement2_EEK.cpp">
+    <ClCompile Include="Arrangments\Arrangement2_EEK.cpp">
       <Filter>Source Files\Arrangements</Filter>
     </ClCompile>
-    <ClCompile Include="Triangulation2_EEK.cpp">
+    <ClCompile Include="Triangulations\Triangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonPartition2_EEK.cpp">
+    <ClCompile Include="Polygons\PolygonPartition2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="DelaunayTriangulation2_EEK.cpp">
+    <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
-    <ClCompile Include="ConstrainedTriangulation2_EEK.cpp">
+    <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
-    <ClCompile Include="Intersections_EEK.cpp">
+    <ClCompile Include="Geometry\Intersections_EEK.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="ConvexHull2_EEK.cpp">
+    <ClCompile Include="Hull\ConvexHull2_EEK.cpp">
       <Filter>Source Files\Hulls</Filter>
     </ClCompile>
-    <ClCompile Include="CGALGlobal_EEK.cpp">
+    <ClCompile Include="Utility\CGALGlobal_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonSimplification2.cpp">
+    <ClCompile Include="Polygons\PolygonSimplification2.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonVisibility2_EEK.cpp">
+    <ClCompile Include="Polygons\PolygonVisibility2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="ConformingTriangulation2_EEK.cpp">
+    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
-    <ClCompile Include="IsoRectangle2_EEK.cpp">
+    <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
   </ItemGroup>

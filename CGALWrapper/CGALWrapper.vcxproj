@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;CGALWRAPPER_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -143,7 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;CGALWRAPPER_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -159,72 +159,72 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Arrangement2.h" />
-    <ClInclude Include="Arrangement2_EEK.h" />
-    <ClInclude Include="ArrangementMap.h" />
-    <ClInclude Include="ArrMultiLocator.h" />
-    <ClInclude Include="CGALGlobal.h" />
-    <ClInclude Include="CGALGlobal_EEK.h" />
-    <ClInclude Include="ConformingTriangulation2.h" />
-    <ClInclude Include="ConformingTriangulation2_EEK.h" />
-    <ClInclude Include="ConvexHull2.h" />
-    <ClInclude Include="ConvexHull2_EEK.h" />
-    <ClInclude Include="Geometry3.h" />
-    <ClInclude Include="Intersections.h" />
+    <ClInclude Include="Arrangments\Arrangement2.h" />
+    <ClInclude Include="Arrangments\Arrangement2_EEK.h" />
+    <ClInclude Include="Arrangments\ArrangementMap.h" />
+    <ClInclude Include="Arrangments\ArrMultiLocator.h" />
+    <ClInclude Include="Utility\CGALGlobal.h" />
+    <ClInclude Include="Utility\CGALGlobal_EEK.h" />
+    <ClInclude Include="Triangulations\ConformingTriangulation2.h" />
+    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h" />
+    <ClInclude Include="Hull\ConvexHull2.h" />
+    <ClInclude Include="Hull\ConvexHull2_EEK.h" />
+    <ClInclude Include="Geometry\Geometry3.h" />
+    <ClInclude Include="Geometry\Intersections.h" />
     <ClInclude Include="CGALWrapper.h" />
-    <ClInclude Include="ConstrainedTriangulation2.h" />
-    <ClInclude Include="ConstrainedTriangulation2_EEK.h" />
-    <ClInclude Include="DelaunayTriangulation2.h" />
-    <ClInclude Include="DelaunayTriangulation2_EEK.h" />
+    <ClInclude Include="Triangulations\ConstrainedTriangulation2.h" />
+    <ClInclude Include="Triangulations\ConstrainedTriangulation2_EEK.h" />
+    <ClInclude Include="Triangulations\DelaunayTriangulation2.h" />
+    <ClInclude Include="Triangulations\DelaunayTriangulation2_EEK.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="IndexMap.h" />
-    <ClInclude Include="Intersections_EEK.h" />
-    <ClInclude Include="IsoRectangle2_EEK.h" />
+    <ClInclude Include="Utility\IndexMap.h" />
+    <ClInclude Include="Geometry\Intersections_EEK.h" />
+    <ClInclude Include="Geometry\IsoRectangle2_EEK.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Geometry2.h" />
-    <ClInclude Include="Polygon2.h" />
-    <ClInclude Include="Polygon2_EEK.h" />
-    <ClInclude Include="PolygonBoolean2.h" />
-    <ClInclude Include="PolygonBoolean2_EEK.h" />
-    <ClInclude Include="PolygonPartition2.h" />
-    <ClInclude Include="PolygonPartition2_EEK.h" />
-    <ClInclude Include="PolygonSimplification2.h" />
-    <ClInclude Include="PolygonSimplification2_EEK.h" />
-    <ClInclude Include="PolygonVisibility2.h" />
-    <ClInclude Include="PolygonVisibility2_EEK.h" />
-    <ClInclude Include="PolygonWithHoles2.h" />
-    <ClInclude Include="PolygonWithHoles2_EEK.h" />
+    <ClInclude Include="Geometry\Geometry2.h" />
+    <ClInclude Include="Polygons\Polygon2.h" />
+    <ClInclude Include="Polygons\Polygon2_EEK.h" />
+    <ClInclude Include="Polygons\PolygonBoolean2.h" />
+    <ClInclude Include="Polygons\PolygonBoolean2_EEK.h" />
+    <ClInclude Include="Polygons\PolygonPartition2.h" />
+    <ClInclude Include="Polygons\PolygonPartition2_EEK.h" />
+    <ClInclude Include="Polygons\PolygonSimplification2.h" />
+    <ClInclude Include="Polygons\PolygonSimplification2_EEK.h" />
+    <ClInclude Include="Polygons\PolygonVisibility2.h" />
+    <ClInclude Include="Polygons\PolygonVisibility2_EEK.h" />
+    <ClInclude Include="Polygons\PolygonWithHoles2.h" />
+    <ClInclude Include="Polygons\PolygonWithHoles2_EEK.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Triangulation2.h" />
-    <ClInclude Include="Triangulation2_EEK.h" />
-    <ClInclude Include="TriangulationMap.h" />
-    <ClInclude Include="TriFace2.h" />
-    <ClInclude Include="TriUtil.h" />
-    <ClInclude Include="TriVertex2.h" />
-    <ClInclude Include="Util.h" />
+    <ClInclude Include="Triangulations\Triangulation2.h" />
+    <ClInclude Include="Triangulations\Triangulation2_EEK.h" />
+    <ClInclude Include="Triangulations\TriangulationMap.h" />
+    <ClInclude Include="Triangulations\TriFace2.h" />
+    <ClInclude Include="Triangulations\TriUtil.h" />
+    <ClInclude Include="Triangulations\TriVertex2.h" />
+    <ClInclude Include="Utility\Util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Arrangement2_EEK.cpp" />
-    <ClCompile Include="CGALGlobal_EEK.cpp" />
-    <ClCompile Include="ConformingTriangulation2_EEK.cpp" />
-    <ClCompile Include="ConstrainedTriangulation2_EEK.cpp" />
-    <ClCompile Include="ConvexHull2_EEK.cpp" />
-    <ClCompile Include="DelaunayTriangulation2_EEK.cpp" />
-    <ClCompile Include="Intersections_EEK.cpp" />
-    <ClCompile Include="IsoRectangle2_EEK.cpp" />
+    <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
+    <ClCompile Include="Utility\CGALGlobal_EEK.cpp" />
+    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp" />
+    <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
+    <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />
+    <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp" />
+    <ClCompile Include="Geometry\Intersections_EEK.cpp" />
+    <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Polygon2_EEK.cpp" />
-    <ClCompile Include="PolygonBoolean2_EEK.cpp" />
-    <ClCompile Include="PolygonPartition2_EEK.cpp" />
-    <ClCompile Include="PolygonSimplification2.cpp" />
-    <ClCompile Include="PolygonVisibility2_EEK.cpp" />
-    <ClCompile Include="PolygonWithHoles2_EEK.cpp" />
-    <ClCompile Include="Triangulation2_EEK.cpp" />
+    <ClCompile Include="Polygons\Polygon2_EEK.cpp" />
+    <ClCompile Include="Polygons\PolygonBoolean2_EEK.cpp" />
+    <ClCompile Include="Polygons\PolygonPartition2_EEK.cpp" />
+    <ClCompile Include="Polygons\PolygonSimplification2.cpp" />
+    <ClCompile Include="Polygons\PolygonVisibility2_EEK.cpp" />
+    <ClCompile Include="Polygons\PolygonWithHoles2_EEK.cpp" />
+    <ClCompile Include="Triangulations\Triangulation2_EEK.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CGALWrapper.rc" />
