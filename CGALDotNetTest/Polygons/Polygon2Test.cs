@@ -248,6 +248,19 @@ namespace CGALDotNetTest.Polygons
             Assert.AreEqual(ORIENTATION.NEGATIVE, poly.Orientation);
             Assert.AreEqual(CLOCK_DIR.CLOCKWISE, poly.ClockDir);
             Assert.AreEqual(-4.0, poly.FindSignedArea());
+        }
+
+        [TestMethod]
+        public void OrientatedSide()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var p1 = new Point2d(0, 0);
+            var p2 = new Point2d(2, 2);
+            var p3 = new Point2d(1, 1);
+
+            Assert.AreEqual(ORIENTED_SIDE.ON_POSITIVE_SIDE, poly.OrientedSide(p1));
+            Assert.AreEqual(ORIENTED_SIDE.ON_NEGATIVE_SIDE, poly.OrientedSide(p2));
+            Assert.AreEqual(ORIENTED_SIDE.ON_BOUNDARY, poly.OrientedSide(p3));
 
         }
     }

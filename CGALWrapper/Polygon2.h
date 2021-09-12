@@ -262,6 +262,18 @@ public:
 	}
 
 	/// <summary>
+	/// Determine what side the point is on the polygons side.
+	/// </summary>
+	/// <param name="ptr">The polygon pointer.</param>
+	/// <param name="point">The point.</param>
+	/// <returns>Bounded side of point.</returns>
+	static CGAL::Bounded_side BoundedSide(void* ptr, Point2d point)
+	{
+		auto polygon = CastToPolygon2(ptr);
+		return polygon->bounded_side(point.ToCGAL<K>());
+	}
+
+	/// <summary>
 	/// The signed area of the polygon.
 	/// Positive area for CCW polygons and negative for CW.
 	/// </summary>

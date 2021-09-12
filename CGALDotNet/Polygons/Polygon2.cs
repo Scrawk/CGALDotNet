@@ -403,6 +403,20 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Find the bounded side the point lies on.
+        /// Must be simple to determine.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>The bounded side of the polygon the point is on.</returns>
+        public BOUNDED_SIDE BoundedSide(Point2d point)
+        {
+            if (IsSimple)
+                return Kernel.BoundedSide(Ptr, point);
+            else
+                return BOUNDED_SIDE.UNDETERMINED;
+        }
+
+        /// <summary>
         /// Find the polygons signed area. 
         /// Must be simple to determine.
         /// </summary>

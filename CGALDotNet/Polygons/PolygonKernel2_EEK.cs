@@ -90,6 +90,11 @@ namespace CGALDotNet.Polygons
             return Polygon2_EEK_OrientedSide(ptr, point);
         }
 
+        internal override BOUNDED_SIDE BoundedSide(IntPtr ptr, Point2d point)
+        {
+            return Polygon2_EEK_BoundedSide(ptr, point);
+        }
+
         internal override double SignedArea(IntPtr ptr)
         {
             return Polygon2_EEK_SignedArea(ptr);
@@ -164,6 +169,9 @@ namespace CGALDotNet.Polygons
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern ORIENTED_SIDE Polygon2_EEK_OrientedSide(IntPtr ptr, Point2d point);
+
+        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern BOUNDED_SIDE Polygon2_EEK_BoundedSide(IntPtr ptr, Point2d point);
 
         [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern double Polygon2_EEK_SignedArea(IntPtr ptr);

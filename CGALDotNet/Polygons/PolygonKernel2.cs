@@ -41,6 +41,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract ORIENTED_SIDE OrientedSide(IntPtr ptr, Point2d point);
 
+        internal abstract BOUNDED_SIDE BoundedSide(IntPtr ptr, Point2d point);
+
         internal abstract double SignedArea(IntPtr ptr);
 
         internal abstract void Translate(IntPtr ptr, Point2d translation);

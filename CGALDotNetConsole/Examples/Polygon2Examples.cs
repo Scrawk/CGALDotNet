@@ -149,7 +149,10 @@ namespace CGALDotNetConsole.Examples
             };
 
             var pwh = new PolygonWithHoles2<EEK>(bounds);
-            pwh.AddHole(new Polygon2<EEK>(points));
+            var hole = new Polygon2<EEK>(points);
+            pwh.AddHole(hole);
+
+            pwh.Print();
 
             Console.WriteLine("Contains point (0.0, 0.0) = " + pwh.ContainsPoint(new Point2d(0.0, 0.0)));
             Console.WriteLine("Contains point (9, 9) = " + pwh.ContainsPoint(new Point2d(9, 9)));

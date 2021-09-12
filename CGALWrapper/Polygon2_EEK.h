@@ -37,6 +37,8 @@ extern "C"
 
 	CGALWRAPPER_API CGAL::Oriented_side Polygon2_EEK_OrientedSide(void* ptr, Point2d point);
 
+	CGALWRAPPER_API CGAL::Bounded_side Polygon2_EEK_BoundedSide(void* ptr, Point2d point);
+
 	CGALWRAPPER_API double Polygon2_EEK_SignedArea(void* ptr);
 
 	CGALWRAPPER_API void Polygon2_EEK_Translate(void* ptr, Point2d translation);

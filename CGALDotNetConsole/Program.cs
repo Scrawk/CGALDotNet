@@ -14,20 +14,9 @@ namespace CGALDotNetConsole
     {
         public static void Main(string[] args)
         {
-            /*
-            var min = new Point2d(-1, -1);
-            var max = new Point2d(1, 1);
+            Polygon2Examples.PolygonWithHolesContainsPoint();
 
-            var point = new Point2d(0, 0);
-
-            var rec = new IsoRectangle2<EEK>(min, max);
-
-            Console.WriteLine(rec.Area);
-            Console.WriteLine(rec.BoundedSide(point));
-            Console.WriteLine(rec.ContainsPoint(point, true));
-            */
-
-            BenchmarkRunner.Run<BenchmarkDemo>();
+            //BenchmarkRunner.Run<BenchmarkDemo>();
         }
 
         [MemoryDiagnoser]

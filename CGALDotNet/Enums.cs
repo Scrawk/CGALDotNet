@@ -51,7 +51,8 @@ namespace CGALDotNet
     { 
         ON_UNBOUNDED_SIDE = -1, 
         ON_BOUNDARY = 0, 
-        ON_BOUNDED_SIDE = 1
+        ON_BOUNDED_SIDE = 1,
+        UNDETERMINED = 2
     }
 
     public enum COMPARISON_RESULT 
