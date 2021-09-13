@@ -1,5 +1,4 @@
 #include "../pch.h"
-#include "../Utility/Util.h"
 #include "PolygonWithHoles2_EEK.h"
 #include "PolygonWithHoles2.h"
 
@@ -7,12 +6,12 @@
 
 void* PolygonWithHoles2_EEK_Create()
 {
-	return Util::Create<PolygonWithHoles2<EEK>::Pwh_2>();
+	return PolygonWithHoles2<EEK>::NewPolygonWithHoles2();
 }
 
 void PolygonWithHoles2_EEK_Release(void* ptr)
 {
-	Util::Release<PolygonWithHoles2<EEK>::Pwh_2>(ptr);
+	PolygonWithHoles2<EEK>::DeletePolygonWithHoles2(ptr);
 }
 
 int PolygonWithHoles2_EEK_HoleCount(void* ptr)

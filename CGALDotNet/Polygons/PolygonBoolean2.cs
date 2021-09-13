@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace CGALDotNet.Polygons
 {
-
-    public enum CGAL_POLYGON_BOOLEAN 
+    /// <summary>
+    /// The type of boolean ops.
+    /// </summary>
+    public enum POLYGON_BOOLEAN 
     { 
         JOIN, 
         INTERSECT, 
@@ -12,38 +14,164 @@ namespace CGALDotNet.Polygons
         SYMMETRIC_DIFFERENCE
     };
 
+    /// <summary>
+    /// Generic polygon boolean class.
+    /// </summary>
+    /// <typeparam name="K">The type of kernel</typeparam>
     public class PolygonBoolean2<K> : PolygonBoolean2 where K : CGALKernel, new()
     {
-
+        /// <summary>
+        /// A static instance to the boolean class.
+        /// </summary>
         public static readonly PolygonBoolean2<K> Instance = new PolygonBoolean2<K>();
 
+        /// <summary>
+        /// Create a new object.
+        /// </summary>
         public PolygonBoolean2() : base(new K())
         {
 
         }
 
-        public bool IsValid(Polygon2<K> polygon)
+        /// <summary>
+        /// Perform the boolean op on the two polygons.
+        /// </summary>
+        /// <param name="op">The type of op.</param>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The result of the op.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Op(POLYGON_BOOLEAN op, Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
-            return polygon.IsSimple && polygon.IsCounterClockWise;
+            switch (op)
+            {
+                case POLYGON_BOOLEAN.JOIN:
+                    return Join(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.INTERSECT:
+                    return Intersect(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.DIFFERENCE:
+                    return Difference(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.SYMMETRIC_DIFFERENCE:
+                    return SymmetricDifference(polygon1, polygon2, result);
+            }
+
+            return false;
         }
 
+        /// <summary>
+        /// Perform the boolean op on the two polygons.
+        /// </summary>
+        /// <param name="op">The type of op.</param>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The result of the op.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Op(POLYGON_BOOLEAN op, Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        {
+            switch (op)
+            {
+                case POLYGON_BOOLEAN.JOIN:
+                    return Join(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.INTERSECT:
+                    return Intersect(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.DIFFERENCE:
+                    return Difference(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.SYMMETRIC_DIFFERENCE:
+                    return SymmetricDifference(polygon1, polygon2, result);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Perform the boolean op on the two polygons.
+        /// </summary>
+        /// <param name="op">The type of op.</param>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The result of the op.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Op(POLYGON_BOOLEAN op, PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        {
+            switch (op)
+            {
+                case POLYGON_BOOLEAN.JOIN:
+                    return Join(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.INTERSECT:
+                    return Intersect(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.DIFFERENCE:
+                    return Difference(polygon1, polygon2, result);
+
+                case POLYGON_BOOLEAN.SYMMETRIC_DIFFERENCE:
+                    return SymmetricDifference(polygon1, polygon2, result);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Is this a valid polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        /// <returns>If the polygon is simple and ccw.</returns>
+        public bool IsValid(Polygon2<K> polygon)
+        {
+            if (!CheckInput) 
+                return true;
+            else
+                return polygon.IsSimple && polygon.IsCounterClockWise;
+        }
+
+        /// <summary>
+        /// Check if the polygons intesect.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <returns>If the polygons intesect.</returns>
         public bool DoIntersect(Polygon2<K> polygon1, Polygon2<K> polygon2) 
         {
             CheckPolygons(polygon1, polygon2);
             return Kernel.DoIntersect(Ptr, polygon1, polygon2);
         }
 
+        /// <summary>
+        /// Check if the polygons intesect.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <returns>If the polygons intesect.</returns>
         public bool DoIntersect(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2)
         {
             CheckPolygon(polygon1);
             return Kernel.DoIntersect(Ptr, polygon1, polygon2);
         }
 
+        /// <summary>
+        /// Check if the polygons intesect.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <returns>If the polygons intesect.</returns>
         public bool DoIntersect(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2)
         {
             return Kernel.DoIntersect(Ptr, polygon1, polygon2);
         }
 
+        /// <summary>
+        /// The union of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The union of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
         public bool Join(Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygons(polygon1, polygon2);
@@ -59,6 +187,13 @@ namespace CGALDotNet.Polygons
             }
         }
 
+        /// <summary>
+        /// The union of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The union of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
         public bool Join(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygon(polygon1);
@@ -74,6 +209,13 @@ namespace CGALDotNet.Polygons
             }
         }
 
+        /// <summary>
+        /// The union of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The union of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
         public bool Join(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             if (Kernel.Join(Ptr, polygon1, polygon2, out IntPtr resultPtr))
@@ -87,72 +229,155 @@ namespace CGALDotNet.Polygons
             }
         }
 
-        public void Intersect(Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The intersection of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The intersection of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Intersect(Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygons(polygon1, polygon2);
             int count = Kernel.Intersect(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void Intersect(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The intersection of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The intersection of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Intersect(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygon(polygon1);
             int count = Kernel.Intersect(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void Intersect(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The intersection of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The intersection of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Intersect(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             int count = Kernel.Intersect(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void Difference(Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The difference of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The difference of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Difference(Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygons(polygon1, polygon2);
             int count = Kernel.Difference(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void Difference(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The difference of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The difference of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Difference(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygon(polygon1);
             int count = Kernel.Difference(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void Difference(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The difference of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The difference of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool Difference(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             int count = Kernel.Difference(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void SymmetricDifference(Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The symmetric difference of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The symmetric difference of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool SymmetricDifference(Polygon2<K> polygon1, Polygon2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygons(polygon1, polygon2);
             int count = Kernel.SymmetricDifference(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void SymmetricDifference(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The symmetric difference of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The symmetric difference of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool SymmetricDifference(Polygon2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             CheckPolygon(polygon1);
             int count = Kernel.SymmetricDifference(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
-        public void SymmetricDifference(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
+        /// <summary>
+        /// The symmetric difference of the two polygons.
+        /// </summary>
+        /// <param name="polygon1">A simple ccw polygon.</param>
+        /// <param name="polygon2">A simple ccw polygon.</param>
+        /// <param name="result">The symmetric difference of the polygons.</param>
+        /// <returns>If the op was performed and the result list changed.</returns>
+        public bool SymmetricDifference(PolygonWithHoles2<K> polygon1, PolygonWithHoles2<K> polygon2, List<PolygonWithHoles2<K>> result)
         {
             int count = Kernel.SymmetricDifference(Ptr, polygon1, polygon2);
             CopyBuffer(count, result);
+            return count != 0;
         }
 
+        /// <summary>
+        /// The complement of the polygon.
+        /// </summary>
+        /// <param name="polygon">A simple ccw polygon.</param>
+        /// <param name="result">The complement of the polygon.</param>
         public void Complement(PolygonWithHoles2<K> polygon, List<PolygonWithHoles2<K>> result)
         {
             int count = Kernel.Complement(Ptr, polygon);
             CopyBuffer(count, result);
         }
 
+        /// <summary>
+        /// Copy the unmanaged polygon objects created 
+        /// into the result list.
+        /// </summary>
+        /// <param name="count">The number of objects in the buffer.</param>
+        /// <param name="result">The result lis.</param>
         private void CopyBuffer(int count, List<PolygonWithHoles2<K>> result)
         {
             for (int i = 0; i < count; i++)
@@ -161,29 +386,50 @@ namespace CGALDotNet.Polygons
             ClearBuffer();
         }
 
+        /// <summary>
+        /// Copy the unmanaged polygon object.
+        /// </summary>
+        /// <param name="index">The index of the polygon in the buffer.</param>
+        /// <returns>The polygon copy.</returns>
         private PolygonWithHoles2<K> CopyBufferItem(int index)
         {
             var ptr = Kernel.CopyBufferItem(Ptr, index);
             return new PolygonWithHoles2<K>(ptr);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
         private void CheckPolygon(Polygon2<K> polygon)
         {
+            if (!CheckInput) return;
+
             if (!IsValid(polygon))
                 throw new Exception("Poylgon must be simple and counter clock wise for boolean op.");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon1"></param>
+        /// <param name="polygon2"></param>
         private void CheckPolygons(Polygon2<K> polygon1, Polygon2<K> polygon2)
         {
+            if (!CheckInput) return;
+
             if (!IsValid(polygon1))
-                throw new Exception("Poylgon must be simple for counter clock wise boolean op.");
+                throw new Exception("Poylgon must be simple and counter clock wise for boolean op.");
 
             if (!IsValid(polygon2))
-                throw new Exception("Poylgon must be simple for counter clock wise boolean op.");
+                throw new Exception("Poylgon must be simple and counter clock wise for boolean op.");
         }
 
     }
 
+    /// <summary>
+    /// Abstract base class for polygon boolean.
+    /// </summary>
     public abstract class PolygonBoolean2 : CGALObject
     {
         private PolygonBoolean2()
@@ -197,13 +443,29 @@ namespace CGALDotNet.Polygons
             Ptr = Kernel.Create();
         }
 
+        /// <summary>
+        /// Should the input polygon be checked.
+        /// Can disable for better performance if 
+        /// it is know all input if valid.
+        /// </summary>
+        public bool CheckInput = true;
+
+        /// <summary>
+        /// The polygon boolean kernel.
+        /// </summary>
         protected private PolygonBooleanKernel2 Kernel { get; private set; }
 
+        /// <summary>
+        /// Clear the unmanaged buffer.
+        /// </summary>
         protected void ClearBuffer()
         {
             Kernel.ClearBuffer(Ptr);
         }
 
+        /// <summary>
+        /// Release the unmanaged resourses.
+        /// </summary>
         protected override void ReleasePtr()
         {
             Kernel.Release(Ptr);

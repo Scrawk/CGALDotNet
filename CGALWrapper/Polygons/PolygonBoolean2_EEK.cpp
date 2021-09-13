@@ -1,18 +1,17 @@
 #include "../pch.h"
 #include "PolygonBoolean2_EEK.h"
 #include "PolygonBoolean2.h"
-#include "../Utility/Util.h"
 #include <vector>
 #include <list>
 
 void* PolygonBoolean2_EEK_Create()
 {
-	return Util::Create<PolygonBoolean2<EEK>>();
+	return PolygonBoolean2<EEK>::NewPolygonBoolean2();
 }
 
 void PolygonBoolean2_EEK_Release(void* ptr)
 {
-	Util::Release<PolygonBoolean2<EEK>>(ptr);
+	PolygonBoolean2<EEK>::DeletePolygonBoolean2(ptr);
 }
 
 void PolygonBoolean2_EEK_ClearBuffer(void* ptr)

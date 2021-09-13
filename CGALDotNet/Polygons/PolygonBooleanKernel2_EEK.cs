@@ -7,6 +7,10 @@ namespace CGALDotNet.Polygons
     internal sealed class PolygonBooleanKernel2_EEK : PolygonBooleanKernel2
     {
 
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
+
         internal static readonly PolygonBooleanKernel2 Instance = new PolygonBooleanKernel2_EEK();
 
         internal override string Name => "EEK";
@@ -111,64 +115,64 @@ namespace CGALDotNet.Polygons
             return PolygonBoolean2_EEK_Complement_PWH(ptr, poly.Ptr);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonBoolean2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonBoolean2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonBoolean2_EEK_ClearBuffer(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonBoolean2_EEK_CopyBufferItem(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonBoolean2_EEK_DoIntersect_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonBoolean2_EEK_DoIntersect_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonBoolean2_EEK_DoIntersect_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonBoolean2_EEK_Join_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2, out IntPtr result);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonBoolean2_EEK_Join_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2, out IntPtr result);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonBoolean2_EEK_Join_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2, out IntPtr result);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_Intersect_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_Intersect_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_Intersect_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_Difference_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_Difference_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_Difference_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_SymmetricDifference_P_P(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_SymmetricDifference_P_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_SymmetricDifference_PWH_PWH(IntPtr ptr0, IntPtr ptr1, IntPtr ptr2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonBoolean2_EEK_Complement_PWH(IntPtr ptr0, IntPtr ptr1);
     }
 }

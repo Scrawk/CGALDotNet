@@ -33,6 +33,22 @@ public:
 
 	}
 
+	inline static PolygonBoolean2* NewPolygonBoolean2()
+	{
+		return new PolygonBoolean2();
+	}
+
+	inline static void DeletePolygonBoolean2(void* ptr)
+	{
+		auto obj = static_cast<PolygonBoolean2*>(ptr);
+
+		if (obj != nullptr)
+		{
+			delete obj;
+			obj = nullptr;
+		}
+	}
+
 	inline static PolygonBoolean2* CastToBoolean2(void* ptr)
 	{
 		return static_cast<PolygonBoolean2*>(ptr);
