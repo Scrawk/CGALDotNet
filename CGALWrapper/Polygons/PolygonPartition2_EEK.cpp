@@ -1,16 +1,15 @@
-#include "../pch.h"
+
 #include "PolygonPartition2_EEK.h"
 #include "PolygonPartition2.h"
-#include "../Utility/Util.h"
 
 void* PolygonPartition2_EEK_Create()
 {
-	return Util::Create<PolygonPartition2<EEK>>();
+	return PolygonPartition2<EEK>::NewPolygonPartition2();
 }
 
 void PolygonPartition2_EEK_Release(void* ptr)
 {
-	Util::Release<PolygonPartition2<EEK>>(ptr);
+	PolygonPartition2<EEK>::DeletePolygonPartition2(ptr);
 }
 
 void PolygonPartition2_EEK_ClearBuffer(void* ptr)
@@ -31,6 +30,11 @@ void* PolygonPartition2_EEK_CopyBufferItem(void* ptr, int index)
 BOOL PolygonPartition2_EEK_Is_Y_Monotone(void* ptr, void* polyPtr)
 {
 	return PolygonPartition2<EEK>::Is_Y_Monotone(ptr, polyPtr);
+}
+
+BOOL PolygonPartition2_EEK_PartionIsValid(void* ptr, void* polyPtr)
+{
+	return PolygonPartition2<EEK>::PartionIsValid(ptr, polyPtr);
 }
 
 BOOL PolygonPartition2_EEK_ConvexPartitionIsValid(void* ptr, void* polyPtr)

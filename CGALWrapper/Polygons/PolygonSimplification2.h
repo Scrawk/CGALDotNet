@@ -7,19 +7,7 @@
 #include <CGAL/Polygon_2.h>
 #include <CGAL/Polygon_with_holes_2.h>
 #include <CGAL/Polyline_simplification_2/simplify.h>
-
-enum COST_FUNC : int
-{
-	SQ_DIST,
-	SCALED_SQ_DIST
-};
-
-enum STOP_FUNC : int
-{
-	BELOW_RATIO,
-	BELOW_THRESHOLD,
-	ABOVE_THRESHOLD
-};
+#include <CGAL/Polyline_simplification_2/Hybrid_squared_distance_cost.h>
 
 template<class K>
 class PolygonSimplification2
@@ -36,8 +24,24 @@ public:
 	typedef CGAL::Polyline_simplification_2::Stop_above_cost_threshold stop_above_threshold;
 
 	typedef CGAL::Polyline_simplification_2::Squared_distance_cost            sq_dist_cost;
-	//typedef CGAL::Polyline_simplification_2::Hybrid_squared_distance_cost     hsq_dist_cost;
+	typedef CGAL::Polyline_simplification_2::Hybrid_squared_distance_cost<K>  hsq_dist_cost;
 	typedef CGAL::Polyline_simplification_2::Scaled_squared_distance_cost     ssq_dist_cost;
+
+	inline static PolygonSimplification2* NewPolygonSimplification2()
+	{
+		return new PolygonSimplification2();
+	}
+
+	inline static void DeletePolygonSimplification2(void* ptr)
+	{
+		auto obj = static_cast<PolygonSimplification2*>(ptr);
+
+		if (obj != nullptr)
+		{
+			delete obj;
+			obj = nullptr;
+		}
+	}
 
 	inline static PolygonSimplification2* CastToPolygonSimplification2(void* ptr)
 	{
@@ -54,16 +58,49 @@ public:
 		return static_cast<Pwh_2*>(ptr);
 	}
 
-	static void* Simplify(void* polyPtr, double theshold)
+	static void* Simplify(void* polyPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold)
 	{
 		auto poly = CastToPolygon2(polyPtr);
 
-		sq_dist_cost cost;
-		stop_below_ratio stop(theshold);
+		size_t intThreshold = (size_t)std::round(theshold);
 
-		auto polygon = CGAL::Polyline_simplification_2::simplify(*poly, cost, stop);
+		Polygon_2 result;
 
-		return new Polygon_2(polygon);
+		switch (costFunc)
+		{
+
+		case COST_FUNC::SQUARE_DIST:
+			switch (stopFunc)
+			{
+			case STOP_FUNC::ABOVE_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(*poly, sq_dist_cost(), stop_above_threshold(theshold));
+				break;
+			case STOP_FUNC::BELOW_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(*poly, sq_dist_cost(), stop_below_threshold(intThreshold));
+				break;
+			case STOP_FUNC::BELOW_RATIO:
+				result = CGAL::Polyline_simplification_2::simplify(*poly, sq_dist_cost(), stop_below_ratio(theshold));
+				break;
+			}
+			break;
+
+		case COST_FUNC::SCALED_SQ_DIST:
+			switch (stopFunc)
+			{
+			case STOP_FUNC::ABOVE_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(*poly, ssq_dist_cost(), stop_above_threshold(theshold));
+				break;
+			case STOP_FUNC::BELOW_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(*poly, ssq_dist_cost(), stop_below_threshold(intThreshold));
+				break;
+			case STOP_FUNC::BELOW_RATIO:
+				result = CGAL::Polyline_simplification_2::simplify(*poly, ssq_dist_cost(), stop_below_ratio(theshold));
+				break;
+			}
+			break;
+		}
+
+		return new Polygon_2(result);
 	}
 
 	static void* SimplifyPolygonWithHoles(void* pwhPtr, double theshold)

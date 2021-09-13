@@ -118,19 +118,6 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Is this a valid polygon.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        /// <returns>If the polygon is simple and ccw.</returns>
-        public bool IsValid(Polygon2<K> polygon)
-        {
-            if (!CheckInput) 
-                return true;
-            else
-                return polygon.IsSimple && polygon.IsCounterClockWise;
-        }
-
-        /// <summary>
         /// Check if the polygons intesect.
         /// </summary>
         /// <param name="polygon1">A simple ccw polygon.</param>
@@ -398,9 +385,18 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// 
+        /// Is this a valid polygon.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon to check.</param>
+        /// <returns>If the polygon is simple and ccw.</returns>
+        public bool IsValid(Polygon2<K> polygon)
+        {
+            if (!CheckInput)
+                return true;
+            else
+                return polygon.IsSimple && polygon.IsCounterClockWise;
+        }
+
         private void CheckPolygon(Polygon2<K> polygon)
         {
             if (!CheckInput) return;
@@ -409,11 +405,6 @@ namespace CGALDotNet.Polygons
                 throw new Exception("Poylgon must be simple and counter clock wise for boolean op.");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon1"></param>
-        /// <param name="polygon2"></param>
         private void CheckPolygons(Polygon2<K> polygon1, Polygon2<K> polygon2)
         {
             if (!CheckInput) return;

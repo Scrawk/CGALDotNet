@@ -9,6 +9,9 @@ namespace CGALDotNet.Polygons
 {
     internal sealed class PolygonPartitionKernel2_EEK : PolygonPartitionKernel2
     {
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal static readonly PolygonPartitionKernel2 Instance = new PolygonPartitionKernel2_EEK();
 
@@ -44,6 +47,11 @@ namespace CGALDotNet.Polygons
             return PolygonPartition2_EEK_Is_Y_Monotone(ptr, polyPtr);
         }
 
+        internal override bool PartitionIsValid(IntPtr ptr, IntPtr polyPtr)
+        {
+            return PolygonPartition2_EEK_PartitionIsValid(ptr, polyPtr);
+        }
+
         internal override bool ConvexPartitionIsValid(IntPtr ptr, IntPtr polyPtr)
         {
             return PolygonPartition2_EEK_ConvexPartitionIsValid(ptr, polyPtr);
@@ -69,37 +77,40 @@ namespace CGALDotNet.Polygons
             return PolygonPartition2_EEK_OptimalConvexPartition(ptr, polyPtr);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonPartition2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonPartition2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonPartition2_EEK_ClearBuffer(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_BufferCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonPartition2_EEK_CopyBufferItem(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonPartition2_EEK_Is_Y_Monotone(IntPtr ptr, IntPtr polyPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonPartition2_EEK_PartitionIsValid(IntPtr ptr, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonPartition2_EEK_ConvexPartitionIsValid(IntPtr ptr, IntPtr polyPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_Y_MonotonePartition(IntPtr ptr, IntPtr polyPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_ApproxConvexPartition(IntPtr ptr, IntPtr polyPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_GreeneApproxConvexPartition(IntPtr ptr, IntPtr polyPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_OptimalConvexPartition(IntPtr ptr, IntPtr polyPtr);
 
     }

@@ -35,6 +35,22 @@ public:
 
 	}
 
+	inline static PolygonPartition2* NewPolygonPartition2()
+	{
+		return new PolygonPartition2();
+	}
+
+	inline static void DeletePolygonPartition2(void* ptr)
+	{
+		auto obj = static_cast<PolygonPartition2*>(ptr);
+
+		if (obj != nullptr)
+		{
+			delete obj;
+			obj = nullptr;
+		}
+	}
+
 	inline static PolygonPartition2* CastToPolygonPartition2(void* ptr)
 	{
 		return static_cast<PolygonPartition2*>(ptr);

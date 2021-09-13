@@ -31,7 +31,7 @@ namespace CGALDotNetConsole.Examples
 
             var results = new List<Polygon2<EEK>>();
 
-            part.Partition(POLYGON_PARTION.OPTIMAL_CONVEX, polygon, results);
+            part.Partition(POLYGON_PARTITION.OPTIMAL_CONVEX, polygon, results);
 
             foreach(var poly in results)
             {

@@ -4,6 +4,19 @@ using System.Collections.Generic;
 namespace CGALDotNet.Polygons
 {
 
+    public enum POLYGON_SIMP_COST_FUNC
+    {
+        SQUARE_DIST,
+        SCALED_SQ_DIST
+    };
+
+    public enum POLYGON_SIMP_STOP_FUNC
+    {
+        BELOW_RATIO,
+        BELOW_THRESHOLD,
+        ABOVE_THRESHOLD
+    };
+
     public sealed class PolygonSimplification2<K> : PolygonSimplification2 where K : CGALKernel, new()
     {
 

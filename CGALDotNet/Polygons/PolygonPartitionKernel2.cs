@@ -23,6 +23,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract bool Is_Y_Monotone(IntPtr ptr, IntPtr polyPtr);
 
+        internal abstract bool PartitionIsValid(IntPtr ptr, IntPtr polyPtr);
+
         internal abstract bool ConvexPartitionIsValid(IntPtr ptr, IntPtr polyPtr);
 
         internal abstract int Y_MonotonePartition(IntPtr ptr, IntPtr polyPtr);

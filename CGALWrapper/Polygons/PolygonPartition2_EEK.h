@@ -18,6 +18,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL PolygonPartition2_EEK_Is_Y_Monotone(void* ptr, void* polyPtr);
 
+	CGALWRAPPER_API BOOL PolygonPartition2_EEK_PartionIsValid(void* ptr, void* polyPtr);
+
 	CGALWRAPPER_API BOOL PolygonPartition2_EEK_ConvexPartitionIsValid(void* ptr, void* polyPtr);
 
 	CGALWRAPPER_API int  PolygonPartition2_EEK_Y_MonotonePartition(void* ptr, void* polyPtr);

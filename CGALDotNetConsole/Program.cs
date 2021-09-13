@@ -7,6 +7,7 @@ using CGALDotNetConsole.Examples;
 
 using CGALDotNet;
 using CGALDotNet.Geometry;
+using CGALDotNet.Polygons;
 
 namespace CGALDotNetConsole
 {
@@ -14,44 +15,17 @@ namespace CGALDotNetConsole
     {
         public static void Main(string[] args)
         {
-            Polygon2Examples.PolygonWithHolesContainsPoint();
+            var star = PolygonFactory<EEK>.KochStar(10, 4);
 
-            //BenchmarkRunner.Run<BenchmarkDemo>();
-        }
+            var polygon = new PolygonWithHoles2<EEK>(star);
+            polygon.Print();
 
-        [MemoryDiagnoser]
-        public class BenchmarkDemo
-        {
+            var polygon2 = PolygonSimplification2<EEK>.Instance.Simplify(polygon, 0.5);
 
-            int[] list;
-
-            [GlobalSetup]
-            public void Setup()
-            {
-                list = new int[1000];
-                for (int i = 0; i < 1000; i++)
-                    list[i] = i;
-            }
-
-            [Benchmark]
-            public void Func1()
-            {
-                for (int i = 0; i < 1000; i++)
-                {
-                    var j = list[i];
-                }
-            }
-
-            [Benchmark]
-            public void Func2()
-            {
-                foreach(var i in list)
-                {
-
-                }
-            }
+            polygon2.Print();
 
         }
+
 
     }
 }
