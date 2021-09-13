@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Hulls">
       <UniqueIdentifier>{58adffc0-ff8b-4646-be31-1a01eec5cadd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Circlar">
+      <UniqueIdentifier>{024c45c4-a4b5-4e27-834d-320f1012d7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Circlar">
+      <UniqueIdentifier>{0b18a7ac-011a-4aaa-9829-a5d3ee47825c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -174,6 +180,12 @@
     <ClInclude Include="Geometry\IsoRectangle2_EEK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Circlar\Circle.h">
+      <Filter>Header Files\Circlar</Filter>
+    </ClInclude>
+    <ClInclude Include="Circlar\Circle_EEK.h">
+      <Filter>Header Files\Circlar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -223,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp">
       <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Circlar\Circle_EEK.cpp">
+      <Filter>Source Files\Circlar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

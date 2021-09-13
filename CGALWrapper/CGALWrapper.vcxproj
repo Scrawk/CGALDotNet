@@ -163,6 +163,8 @@
     <ClInclude Include="Arrangments\Arrangement2_EEK.h" />
     <ClInclude Include="Arrangments\ArrangementMap.h" />
     <ClInclude Include="Arrangments\ArrMultiLocator.h" />
+    <ClInclude Include="Circlar\Circle.h" />
+    <ClInclude Include="Circlar\Circle_EEK.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2.h" />
@@ -205,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
+    <ClCompile Include="Circlar\Circle_EEK.cpp" />
     <ClCompile Include="Utility\CGALGlobal_EEK.cpp" />
     <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />

@@ -23,4 +23,8 @@
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Circlar\" />
+  </ItemGroup>
+
 </Project>
