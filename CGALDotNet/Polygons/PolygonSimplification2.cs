@@ -45,6 +45,12 @@ namespace CGALDotNet.Polygons
                 return param;
             }
         }
+
+        public override string ToString()
+        {
+            return String.Format("[PolygonSimplificationParams: Cost={0}, Stop={1}, Threshold={2}, Elements={3}]",
+                cost, stop, threshold, elements);
+        }
     }
 
     /// <summary>

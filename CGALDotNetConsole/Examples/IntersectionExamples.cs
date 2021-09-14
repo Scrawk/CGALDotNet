@@ -119,7 +119,7 @@ namespace CGALDotNetConsole.Examples
 
         private static string PrintResult(IntersectionResult2d result)
         {
-            switch (result.type)
+            switch (result.Type)
             {
                 case INTERSECTION_RESULT_2D.NONE:
                     return "None";

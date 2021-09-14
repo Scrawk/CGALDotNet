@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Polygons;
 
 namespace CGALDotNet
 {
@@ -32,17 +33,27 @@ namespace CGALDotNet
         /// The point data for the intersection.
         /// Represents up to 6 points in xy order.
         /// </summary>
-        private fixed double data[12];
+        private fixed double Data[12];
 
         /// <summary>
         /// The number of points of data used.
         /// </summary>
-        private int count;
+        private int Count;
+
+        /// <summary>
+        /// Was there a intersection.
+        /// </summary>
+        public bool Hit => Type != INTERSECTION_RESULT_2D.NONE;
+
+        /// <summary>
+        /// Is the intersection a polygon.
+        /// </summary>
+        public bool IsPolygon => Type == INTERSECTION_RESULT_2D.POLYGON2;
 
         /// <summary>
         /// The intersection geometry type.
         /// </summary>
-        public INTERSECTION_RESULT_2D type;
+        public INTERSECTION_RESULT_2D Type;
 
         /// <summary>
         /// Array accessor for the point data.
@@ -66,7 +77,7 @@ namespace CGALDotNet
         /// <returns>esults information as string</returns>
         public override string ToString()
         {
-            return string.Format("[IntersectionResult2d: Type={0}, Count={1}]", type, count);
+            return string.Format("[IntersectionResult2d: Type={0}, Count={1}]", Type, Count);
         }
 
         /// <summary>
@@ -77,7 +88,7 @@ namespace CGALDotNet
         /// <summary>
         /// If result type was line get the line geometry.
         /// </summary>
-        public Line2d Line => new Line2d(data[0], data[1], data[2]);
+        public Line2d Line => new Line2d(Data[0], Data[1], Data[2]);
 
         /// <summary>
         /// If result type was ray get the ray geometry.
@@ -104,18 +115,61 @@ namespace CGALDotNet
         /// make up the polygon geometry.
         /// Should only ever have at most 6 points.
         /// </summary>
-        public Point2d[] Polygon
+        public Point2d[] PolygonPoints
         {
             get
             {
-                if (count > 6)
+                if (Count > 6)
                     throw new Exception("Unexpected number of polygon points.");
 
-                var points = new Point2d[count];
-                for (int i = 0; i < count; i++)
+                if (!IsPolygon)
+                    throw new Exception("Intersection not a polygon.");
+
+                var points = new Point2d[Count];
+                for (int i = 0; i < Count; i++)
                     points[i] = this[i];
 
                 return points;
+            }
+        }
+
+        /// <summary>
+        /// The intersection result as a polygon.
+        /// </summary>
+        /// <typeparam name="K">The polygons kernel.</typeparam>
+        /// <returns>The polygon.</returns>
+        public Polygon2<K> Polygon<K>() where K : CGALKernel, new()
+        {
+            return new Polygon2<K>(PolygonPoints);
+        }
+
+        /// <summary>
+        /// Get the intersection geometry.
+        /// </summary>
+        public IGeometry2d Geometry
+        {
+            get
+            {
+                if (IsPolygon)
+                    throw new Exception("Intersection is a polygon not a geometry.");
+
+                switch (Type)
+                {
+                    case INTERSECTION_RESULT_2D.POINT2:
+                        return Point;
+                    case INTERSECTION_RESULT_2D.LINE2:
+                        return Line;
+                    case INTERSECTION_RESULT_2D.RAY2:
+                        return Ray;
+                    case INTERSECTION_RESULT_2D.SEGMENT2:
+                        return Segment;
+                    case INTERSECTION_RESULT_2D.BOX2:
+                        return Box;
+                    case INTERSECTION_RESULT_2D.TRIANGLE2:
+                        return Triangle;
+                }
+
+                return null;
             }
         }
 
