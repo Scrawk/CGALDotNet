@@ -17,9 +17,6 @@ namespace CGALDotNetConsole
         {
             var star = PolygonFactory<EEK>.KochStar(10, 2);
 
-            var poly = new PolygonWithHoles2<EEK>(star);
-
-            Console.WriteLine(poly.FindBoundingBox(POLYGON_ELEMENT.BOUNDARY));
 
         }
 

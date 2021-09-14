@@ -58,46 +58,7 @@ public:
 
 	static void* ComputeVisibility(Point2d point, Segment2d* segments, int startIndex, int count)
 	{
-		std::vector<Segment_2> Segments;
-		for (int i = 0; i < count; i++)
-		{
-			auto seg = segments[i].ToCGAL<K, Segment_2>();
-			Segments.push_back(seg);
-		}
-
-		Arrangement_2 env;
-		CGAL::insert_non_intersecting_curves(env, Segments.begin(), Segments.end());
-
-		Point_2 q = point.ToCGAL<K>();
-		Location pl(env);
-		Type obj = pl.locate(q);
-
-		Face* face = boost::get<Arrangement_2::Face_const_handle>(&obj);
-
-		auto polygon = new Polygon_2();
-
-		bool non_regular = false;
-		if (non_regular)
-		{
-			Arrangement_2 non_regular_output;
-			NSPV non_regular_visibility(env);
-
-			for (Edge_const_iterator eit = non_regular_output.edges_begin(); eit != non_regular_output.edges_end(); ++eit)
-				polygon->push_back(eit->source()->point());
-		}
-		else
-		{
-			Arrangement_2 regular_output;
-			RSPV regular_visibility(env);
-			regular_visibility.compute_visibility(q, *face, regular_output);
-
-			for (Edge_const_iterator eit = regular_output.edges_begin(); eit != regular_output.edges_end(); ++eit)
-				polygon->push_back(eit->source()->point());
-
-		}
-
-		return polygon;
-
+		return nullptr;
 	}
 
 };
