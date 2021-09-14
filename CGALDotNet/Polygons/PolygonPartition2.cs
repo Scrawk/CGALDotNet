@@ -139,13 +139,13 @@ namespace CGALDotNet.Polygons
         /// Is this a valid polygon.
         /// </summary>
         /// <param name="polygon">The polygon to check.</param>
-        /// <returns>If the polygon is simple and ccw.</returns>
+        /// <returns>If the polygon is simple.</returns>
         public bool IsValid(Polygon2<K> polygon)
         {
             if (!CheckInput)
                 return true;
             else
-                return polygon.IsSimple && polygon.IsCounterClockWise;
+                return polygon.IsSimple;
         }
 
         private void CheckPolygon(Polygon2<K> polygon)
@@ -153,7 +153,7 @@ namespace CGALDotNet.Polygons
             if (!CheckInput) return;
 
             if (!IsValid(polygon))
-                throw new Exception("Poylgon must be simple and counter clock wise to partition.");
+                throw new Exception("Poylgon must be simple to partition.");
         }
 
         private void CheckPolygons(Polygon2<K> polygon1, Polygon2<K> polygon2)
@@ -161,10 +161,20 @@ namespace CGALDotNet.Polygons
             if (!CheckInput) return;
 
             if (!IsValid(polygon1))
-                throw new Exception("Poylgon must be simple and counter clock wise to partition.");
+                throw new Exception("Poylgon must be simple to partition.");
 
             if (!IsValid(polygon2))
-                throw new Exception("Poylgon must be simple and counter clock wise to partition.");
+                throw new Exception("Poylgon must be simple to partition.");
+        }
+
+        private bool PartitionIsValid(Polygon2<K> polygon)
+        {
+            return Kernel.PartitionIsValid(Ptr, polygon.Ptr);
+        }
+
+        private bool ConvexPartitionIsValid(Polygon2<K> polygon)
+        {
+            return Kernel.ConvexPartitionIsValid(Ptr, polygon.Ptr);
         }
 
     }

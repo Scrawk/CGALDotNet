@@ -15,21 +15,14 @@ namespace CGALDotNetConsole
     {
         public static void Main(string[] args)
         {
-            var star = PolygonFactory<EEK>.KochStar(10, 4);
+            var star = PolygonFactory<EEK>.KochStar(10, 2);
 
-            var circle = PolygonFactory<EEK>.FromCircle(2, 64);
-            circle.Reverse();
+            star.Reverse();
 
-            var polygon = new PolygonWithHoles2<EEK>(star);
-            polygon.AddHole(circle);
-            polygon.Print();
+            var results = new List<Polygon2<EEK>>();
+            PolygonPartition2<EEK>.Instance.OptimalConvex(star, results);
 
-            var param = PolygonSimplificationParams.Default;
-            param.elements = POLYGON_ELEMENT.BOUNDARY;
-    
-            var polygon2 = PolygonSimplification2<EEK>.Instance.Simplify(polygon, param);
-
-            polygon2.Print();
+            Console.WriteLine("Partitions = " + results.Count);
 
         }
 

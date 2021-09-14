@@ -32,7 +32,7 @@ BOOL PolygonPartition2_EEK_Is_Y_Monotone(void* ptr, void* polyPtr)
 	return PolygonPartition2<EEK>::Is_Y_Monotone(ptr, polyPtr);
 }
 
-BOOL PolygonPartition2_EEK_PartionIsValid(void* ptr, void* polyPtr)
+BOOL PolygonPartition2_EEK_PartitionIsValid(void* ptr, void* polyPtr)
 {
 	return PolygonPartition2<EEK>::PartionIsValid(ptr, polyPtr);
 }
