@@ -13,6 +13,8 @@ extern "C"
 
 	CGALWRAPPER_API int Polygon2_EEK_Count(void* ptr);
 
+	CGALWRAPPER_API Box2d Polygon2_EEK_GetBoundingBox(void* ptr);
+
 	CGALWRAPPER_API void* Polygon2_EEK_Copy(void* ptr);
 
 	CGALWRAPPER_API void Polygon2_EEK_Clear(void* ptr);

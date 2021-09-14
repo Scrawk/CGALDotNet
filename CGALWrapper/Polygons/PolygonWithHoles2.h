@@ -339,6 +339,24 @@ public:
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <param name="ptr"></param>
+	/// <param name="index"></param>
+	/// <returns></returns>
+	static Box2d GetBoundingBox(void* ptr, int index)
+	{
+		auto polygon = GetBoundaryOrHole(ptr, index);
+		if (polygon != nullptr)
+		{
+			auto box = polygon->bbox();
+			return Box2d::FromCGAL<K>(box);
+		}
+		else
+			return {};
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <param name="ptr">Pointer to the polygonWithHoles.</param>
 	/// <param name="index">The poylgon index. -1 for the boundary 
 	/// and a positive index for a hole polygon.</param>

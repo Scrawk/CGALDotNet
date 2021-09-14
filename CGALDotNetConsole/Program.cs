@@ -17,12 +17,9 @@ namespace CGALDotNetConsole
         {
             var star = PolygonFactory<EEK>.KochStar(10, 2);
 
-            star.Reverse();
+            var poly = new PolygonWithHoles2<EEK>(star);
 
-            var results = new List<Polygon2<EEK>>();
-            PolygonPartition2<EEK>.Instance.OptimalConvex(star, results);
-
-            Console.WriteLine("Partitions = " + results.Count);
+            Console.WriteLine(poly.FindBoundingBox(POLYGON_ELEMENT.BOUNDARY));
 
         }
 

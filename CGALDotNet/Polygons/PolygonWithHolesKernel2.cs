@@ -51,6 +51,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract bool IsUnbounded(IntPtr ptr);
 
+        internal abstract Box2d GetBoundingBox(IntPtr ptr, int index);
+
         internal abstract bool IsSimple(IntPtr ptr, int index);
 
         internal abstract bool IsConvex(IntPtr ptr, int index);

@@ -380,6 +380,15 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Find the bounding box for the polygon.
+        /// </summary>
+        /// <returns>The bounding box.</returns>
+        public Box2d FindBoundingBox()
+        {
+            return Kernel.GetBoundingBox(Ptr);
+        }
+
+        /// <summary>
         /// Find if the polygon is simple.
         /// </summary>
         /// <returns>True if simple.</returns>

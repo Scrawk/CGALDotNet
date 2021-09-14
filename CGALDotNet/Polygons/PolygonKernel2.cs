@@ -19,6 +19,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
+        internal abstract Box2d GetBoundingBox(IntPtr ptr);
+
         internal abstract void Clear(IntPtr ptr);
 
         internal abstract Point2d GetPoint(IntPtr ptr, int index);

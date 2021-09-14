@@ -11,6 +11,10 @@ namespace CGALDotNet.Polygons
     internal sealed class PolygonKernel2_EEK : PolygonKernel2
     {
 
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
+
         internal static readonly PolygonKernel2 Instance = new PolygonKernel2_EEK();
 
         internal override string Name => "EEK";
@@ -33,6 +37,11 @@ namespace CGALDotNet.Polygons
         internal override IntPtr Copy(IntPtr ptr)
         {
             return Polygon2_EEK_Copy(ptr);
+        }
+
+        internal override Box2d GetBoundingBox(IntPtr ptr)
+        {
+            return Polygon2_EEK_GetBoundingBox(ptr);
         }
 
         internal override void Clear(IntPtr ptr)
@@ -125,70 +134,73 @@ namespace CGALDotNet.Polygons
             return Polygon2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Polygon2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Polygon2_EEK_Count(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Polygon2_EEK_Copy(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern Box2d Polygon2_EEK_GetBoundingBox(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Clear(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d Polygon2_EEK_GetPoint(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_SetPoint(IntPtr ptr, int index, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_SetPoints(IntPtr ptr, [In] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Reverse(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Polygon2_EEK_IsSimple(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Polygon2_EEK_IsConvex(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern ORIENTATION Polygon2_EEK_Orientation(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern ORIENTED_SIDE Polygon2_EEK_OrientedSide(IntPtr ptr, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern BOUNDED_SIDE Polygon2_EEK_BoundedSide(IntPtr ptr, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern double Polygon2_EEK_SignedArea(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Translate(IntPtr ptr, Point2d translation);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Rotate(IntPtr ptr, double rotation);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Scale(IntPtr ptr, double scale);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Polygon2_EEK_ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary);
 
     }

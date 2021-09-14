@@ -7,6 +7,10 @@ namespace CGALDotNet.Polygons
     internal sealed class PolygonWithHolesKernel2_EEK : PolygonWithHolesKernel2
     {
 
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
+
         internal static readonly PolygonWithHolesKernel2_EEK Instance = new PolygonWithHolesKernel2_EEK();
 
         internal override string Name => "EEK";
@@ -101,6 +105,11 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_IsUnbounded(ptr);
         }
 
+        internal override Box2d GetBoundingBox(IntPtr ptr, int index)
+        {
+            return PolygonWithHoles2_EEK_GetBoundingBox(ptr, index);
+        }
+
         internal override bool IsSimple(IntPtr ptr, int index)
         {
             return PolygonWithHoles2_EEK_IsSimple(ptr, index);
@@ -151,88 +160,91 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonWithHoles2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonWithHoles2_EEK_HoleCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonWithHoles2_EEK_PointCount(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EEK_Copy(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_Clear(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_ClearBoundary(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPolygon(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPoints(Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d PolygonWithHoles2_EEK_GetPoint(IntPtr ptr, int polyIndex, int pointIndex);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_RemoveHole(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EEK_CopyPolygon(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_ReversePolygon(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonWithHoles2_EEK_IsUnbounded(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern Box2d PolygonWithHoles2_EEK_GetBoundingBox(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonWithHoles2_EEK_IsSimple(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonWithHoles2_EEK_IsConvex(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern ORIENTATION PolygonWithHoles2_EEK_Orientation(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern ORIENTED_SIDE PolygonWithHoles2_EEK_OrientedSide(IntPtr ptr, int index, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern double PolygonWithHoles2_EEK_SignedArea(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_Translate(IntPtr ptr, int index, Point2d translation);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_Rotate(IntPtr ptr, int index, double rotation);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_Scale(IntPtr ptr, int index, double scale);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_Transform(IntPtr ptr, int index, Point2d translation, double rotation, double scale);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonWithHoles2_EEK_ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation,bool inculdeBoundary);
     }
 }

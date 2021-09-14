@@ -80,6 +80,18 @@ public:
 	}
 
 	/// <summary>
+	/// Get the polygons bounding box.
+	/// </summary>
+	/// <param name="ptr">The polygon pointer.</param>
+	/// <returns>The bounding box.</returns>
+	static Box2d GetBoundingBox(void* ptr)
+	{
+		auto polygon = CastToPolygon2(ptr);
+		auto box = polygon->bbox();
+		return Box2d::FromCGAL<K>(box);
+	}
+
+	/// <summary>
 	/// Create a deep copy of the polygon.
 	/// </summary>
 	/// <param name="ptr">The polygon pointer to copy.</param>

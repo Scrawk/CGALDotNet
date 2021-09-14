@@ -94,6 +94,11 @@ BOOL PolygonWithHoles2_EEK_IsUnbounded(void* ptr)
 	return PolygonWithHoles2<EEK>::IsUnbounded(ptr);
 }
 
+Box2d PolygonWithHoles2_EEK_GetBoundingBox(void* ptr, int index)
+{
+	return PolygonWithHoles2<EEK>::GetBoundingBox(ptr, index);
+}
+
 BOOL PolygonWithHoles2_EEK_IsSimple(void* ptr, int index)
 {
 	return PolygonWithHoles2<EEK>::IsSimple(ptr, index);

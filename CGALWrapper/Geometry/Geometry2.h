@@ -5,8 +5,25 @@
 #include "CGAL/Vector_2.h"
 #include "CGAL/Segment_2.h"
 
+/*
+* Structs to pass data from C# and c++.
+* Must be c style layout.
+* 
+* A standard-layout class is a class that:
+*
+* Has no non-static data members of type non-standard-layout class (or array of such types) or reference,
+* Has no virtual functions and no virtual base classes,
+* Has the same access control for all non-static data members,
+* Has no non-standard-layout base classes,
+* Either has no non-static data members in the most derived class and at most one base class with non-static data members, 
+* or has no base classes with non-static data members, and
+* Has no base classes of the same type as the first non-static data member.
+*
+*/
+
 struct Point2d
 {
+
     double x;
     double y;
 
@@ -166,6 +183,21 @@ struct Box2d
         auto Min = Point2d::FromCGAL<K>(min);
         auto Max = Point2d::FromCGAL<K>(max);
         return { Min, Max };
+    }
+
+    template<class K>
+    static Box2d FromCGAL(CGAL::Bbox_2 box)
+    {
+        double xmin = CGAL::to_double(box.xmin());
+        double ymin = CGAL::to_double(box.ymin());
+
+        double xmax = CGAL::to_double(box.xmax());
+        double ymax = CGAL::to_double(box.ymax());
+
+        Point2d min = { xmin, ymin };
+        Point2d max = { xmax, ymax };
+
+        return { min, max };
     }
 };
 

@@ -492,6 +492,25 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Find the polygons bounding box.
+        /// </summary>
+        /// <param name="element">The element type.</param>
+        /// <param name="index">If element type is a hole this is the holes index.</param>
+        /// <returns>The polygons bounding box.</returns>
+        public Box2d FindBoundingBox(POLYGON_ELEMENT element, int index = 0)
+        {
+            if (element == POLYGON_ELEMENT.BOUNDARY)
+                return Kernel.GetBoundingBox(Ptr, BOUNDARY_INDEX);
+            else
+            {
+                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    ErrorUtil.CheckBounds(index, HoleCount);
+
+                return Kernel.GetBoundingBox(Ptr, index);
+            }
+        }
+
+        /// <summary>
         /// Find if the polygon is simple.
         /// </summary>
         /// <param name="element">The element type.</param>

@@ -17,6 +17,11 @@ int Polygon2_EEK_Count(void* ptr)
 	return Polygon2<EEK>::Count(ptr);
 }
 
+Box2d Polygon2_EEK_GetBoundingBox(void* ptr)
+{
+	return Polygon2<EEK>::GetBoundingBox(ptr);
+}
+
 void* Polygon2_EEK_Copy(void* ptr)
 {
 	return Polygon2<EEK>::Copy(ptr);
