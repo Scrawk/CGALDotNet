@@ -31,3 +31,10 @@ enum class CGAL_KERNEL : int
     EXACT_PREDICATES_EXACT_CONSTRUCTION_WITH_ROOT_OF = 4
 };
 
+enum class POLYGON_ELEMENT : int
+{
+    BOUNDARY,
+    HOLE,
+    ALL
+};
+

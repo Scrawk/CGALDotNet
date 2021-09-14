@@ -17,10 +17,17 @@ namespace CGALDotNetConsole
         {
             var star = PolygonFactory<EEK>.KochStar(10, 4);
 
+            var circle = PolygonFactory<EEK>.FromCircle(2, 64);
+            circle.Reverse();
+
             var polygon = new PolygonWithHoles2<EEK>(star);
+            polygon.AddHole(circle);
             polygon.Print();
 
-            var polygon2 = PolygonSimplification2<EEK>.Instance.Simplify(polygon, 0.5);
+            var param = PolygonSimplificationParams.Default;
+            param.elements = POLYGON_ELEMENT.BOUNDARY;
+    
+            var polygon2 = PolygonSimplification2<EEK>.Instance.Simplify(polygon, param);
 
             polygon2.Print();
 

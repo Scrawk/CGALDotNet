@@ -103,31 +103,90 @@ public:
 		return new Polygon_2(result);
 	}
 
-	static void* SimplifyPolygonWithHoles(void* pwhPtr, double theshold)
+	static Polygon_2 Simplify(const Polygon_2& poly, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold)
+	{
+
+		size_t intThreshold = (size_t)std::round(theshold);
+
+		Polygon_2 result;
+
+		switch (costFunc)
+		{
+
+		case COST_FUNC::SQUARE_DIST:
+			switch (stopFunc)
+			{
+			case STOP_FUNC::ABOVE_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(poly, sq_dist_cost(), stop_above_threshold(theshold));
+				break;
+			case STOP_FUNC::BELOW_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(poly, sq_dist_cost(), stop_below_threshold(intThreshold));
+				break;
+			case STOP_FUNC::BELOW_RATIO:
+				result = CGAL::Polyline_simplification_2::simplify(poly, sq_dist_cost(), stop_below_ratio(theshold));
+				break;
+			}
+			break;
+
+		case COST_FUNC::SCALED_SQ_DIST:
+			switch (stopFunc)
+			{
+			case STOP_FUNC::ABOVE_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(poly, ssq_dist_cost(), stop_above_threshold(theshold));
+				break;
+			case STOP_FUNC::BELOW_THRESHOLD:
+				result = CGAL::Polyline_simplification_2::simplify(poly, ssq_dist_cost(), stop_below_threshold(intThreshold));
+				break;
+			case STOP_FUNC::BELOW_RATIO:
+				result = CGAL::Polyline_simplification_2::simplify(poly, ssq_dist_cost(), stop_below_ratio(theshold));
+				break;
+			}
+			break;
+		}
+
+		return result;
+	}
+
+	static void* SimplifyPolygonWithHoles(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold, POLYGON_ELEMENT element)
 	{
 		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
 
 		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
 
-		sq_dist_cost cost;
-		stop_below_ratio stop(theshold);
-
 		Pwh_2* p = nullptr;
 
-		if (!pwh->is_unbounded())
+		if (element == POLYGON_ELEMENT::ALL || element == POLYGON_ELEMENT::BOUNDARY)
 		{
-			auto boundary = CGAL::Polyline_simplification_2::simplify(pwh->outer_boundary(), cost, stop);
-			p = new Pwh_2(boundary);
+			if (!pwh->is_unbounded())
+			{
+				auto boundary = Simplify(pwh->outer_boundary(), costFunc, stopFunc, threshold);
+				p = new Pwh_2(boundary);
+			}
+			else
+			{
+				p = new Pwh_2();
+			}
 		}
 		else
 		{
-			p = new Pwh_2();
+			if (!pwh->is_unbounded())
+				p = new Pwh_2(pwh->outer_boundary());
+			else
+				p = new Pwh_2();
 		}
 
-		for (auto hole : pwh->holes())
+		if (element == POLYGON_ELEMENT::ALL || element == POLYGON_ELEMENT::HOLE)
 		{
-			auto h = CGAL::Polyline_simplification_2::simplify(hole, cost, stop);
-			p->add_hole(h);
+			for (auto hole : pwh->holes())
+			{
+				auto h = Simplify(hole, costFunc, stopFunc, threshold);
+				p->add_hole(h);
+			}
+		}
+		else
+		{
+			for (auto hole : pwh->holes())
+				p->add_hole(hole);
 		}
 
 		return p;

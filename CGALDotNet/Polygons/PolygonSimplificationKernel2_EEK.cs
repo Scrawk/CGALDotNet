@@ -9,6 +9,9 @@ namespace CGALDotNet.Polygons
 {
     internal sealed class PolygonSimplificationKernel2_EEK : PolygonSimplificationKernel2
     {
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal static readonly PolygonSimplificationKernel2 Instance = new PolygonSimplificationKernel2_EEK();
 
@@ -24,26 +27,26 @@ namespace CGALDotNet.Polygons
             PolygonSimplification2_EEK_Release(ptr);
         }
 
-        internal override IntPtr SimplifyPolygon(IntPtr polyPtr, double theshold)
+        internal override IntPtr SimplifyPolygon(IntPtr polyPtr, PolygonSimplificationParams param)
         {
-            return PolygonSimplification2_EEK_Simplify(polyPtr, theshold);
+            return PolygonSimplification2_EEK_Simplify(polyPtr, param.cost, param.stop, param.threshold);
         }
 
-        internal override IntPtr SimplifyPolygonWithHoles(IntPtr pwhPtr, double theshold)
+        internal override IntPtr SimplifyPolygonWithHoles(IntPtr pwhPtr, PolygonSimplificationParams param)
         {
-            return PolygonSimplification2_EEK_SimplifyPolygonWithHoles(pwhPtr, theshold);
+            return PolygonSimplification2_EEK_SimplifyPolygonWithHoles(pwhPtr, param.cost, param.stop, param.threshold, param.elements);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonSimplification2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonSimplification2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonSimplification2_EEK_Simplify(IntPtr polyPtr, double theshold);
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr PolygonSimplification2_EEK_Simplify(IntPtr polyPtr, POLYGON_SIMP_COST_FUNC cost, POLYGON_SIMP_STOP_FUNC stop, double theshold);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr PolygonSimplification2_EEK_SimplifyPolygonWithHoles(IntPtr pwhPtr, double theshold);
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr PolygonSimplification2_EEK_SimplifyPolygonWithHoles(IntPtr pwhPtr, POLYGON_SIMP_COST_FUNC cost, POLYGON_SIMP_STOP_FUNC stop, double theshold, POLYGON_ELEMENT element);
     }
 }

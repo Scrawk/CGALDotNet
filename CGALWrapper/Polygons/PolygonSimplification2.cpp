@@ -19,7 +19,7 @@ void* PolygonSimplification2_EEK_Simplify(void* polyPtr, COST_FUNC costFunc, STO
 	return PolygonSimplification2<EEK>::Simplify(polyPtr, costFunc, stopFunc, theshold);
 }
 
-void* PolygonSimplification2_EEK_SimplifyPolygonWithHoles(void* pwhPtr, double theshold)
+void* PolygonSimplification2_EEK_SimplifyPolygonWithHoles(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold, POLYGON_ELEMENT element)
 {
-	return PolygonSimplification2<EEK>::SimplifyPolygonWithHoles(pwhPtr, theshold);
+	return PolygonSimplification2<EEK>::SimplifyPolygonWithHoles(pwhPtr, costFunc, stopFunc, theshold, element);
 }

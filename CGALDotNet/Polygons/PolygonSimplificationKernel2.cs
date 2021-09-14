@@ -15,9 +15,9 @@ namespace CGALDotNet.Polygons
 
         internal abstract void Release(IntPtr ptr);
 
-        internal abstract IntPtr SimplifyPolygon(IntPtr polyPtr, double theshold);
+        internal abstract IntPtr SimplifyPolygon(IntPtr polyPtr, PolygonSimplificationParams param);
 
-        internal abstract IntPtr SimplifyPolygonWithHoles(IntPtr polyPtr, double theshold);
+        internal abstract IntPtr SimplifyPolygonWithHoles(IntPtr polyPtr, PolygonSimplificationParams param);
 
     }
 }
