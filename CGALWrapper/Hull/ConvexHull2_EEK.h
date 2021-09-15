@@ -12,8 +12,7 @@ enum class HULL_METHOD : int
     BYKAT,
     EDDY,
     GRAHAM_ANDREW,
-    JARVIS,
-    MELKMAN
+    JARVIS
 };
 
 extern "C"

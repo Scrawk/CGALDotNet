@@ -17,8 +17,7 @@ namespace CGALDotNet.Hulls
         BYKAT,
         EDDY,
         GRAHAM_ANDREW,
-        JARVIS,
-        MELKMAN
+        JARVIS
     };
 
     /// <summary>

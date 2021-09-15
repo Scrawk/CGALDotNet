@@ -92,10 +92,6 @@ public:
 			CGAL::ch_jarvis(list.begin(), list.end(), std::back_inserter(out));
 			break;
 
-		case HULL_METHOD::MELKMAN:
-			CGAL::ch_melkman(list.begin(), list.end(), std::back_inserter(out));
-			break;
-
 		default:
 			CGAL::convex_hull_2(list.begin(), list.end(), std::back_inserter(out));
 			break;
