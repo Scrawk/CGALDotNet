@@ -16,7 +16,9 @@ extern "C"
 
 	CGALWRAPPER_API void* DelaunayTriangulation2_EEK_Copy(void* ptr);
 
-	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_IsValid(void* ptr);
+	CGALWRAPPER_API int DelaunayTriangulation2_EEK_BuildStamp(void* ptr);
+
+	CGALWRAPPER_API BOOL DelaunayTriangulation2_EEK_IsValid(void* ptr, int level);
 
 	CGALWRAPPER_API int DelaunayTriangulation2_EEK_VertexCount(void* ptr);
 

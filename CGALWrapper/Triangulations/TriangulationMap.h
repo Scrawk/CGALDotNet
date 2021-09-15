@@ -22,11 +22,18 @@ private:
 
 	IndexMap<FACE> faceMap;
 
+	int buildStamp;
+
 public:
 
 	TriangulationMap()
 	{
 
+	}
+
+	int BuildStamp()
+	{
+		return buildStamp;
 	}
 
 	template<class TRI>
@@ -50,11 +57,13 @@ public:
 
 	void OnVerticesChanged()
 	{
+		buildStamp++;
 		vertexMap.Clear();
 	}
 
 	void OnFacesChanged()
 	{
+		buildStamp++;
 		faceMap.Clear();
 	}
 

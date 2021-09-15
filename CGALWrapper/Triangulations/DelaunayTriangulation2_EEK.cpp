@@ -25,9 +25,14 @@ void* DelaunayTriangulation2_EEK_Copy(void* ptr)
 	return DelaunayTriangulation2<EEK>::Copy(ptr);
 }
 
-BOOL DelaunayTriangulation2_EEK_IsValid(void* ptr)
+int DelaunayTriangulation2_EEK_BuildStamp(void* ptr)
 {
-	return DelaunayTriangulation2<EEK>::IsValid(ptr);
+	return DelaunayTriangulation2<EEK>::BuildStamp(ptr);
+}
+
+BOOL DelaunayTriangulation2_EEK_IsValid(void* ptr, int level)
+{
+	return DelaunayTriangulation2<EEK>::IsValid(ptr, level);
 }
 
 int DelaunayTriangulation2_EEK_VertexCount(void* ptr)

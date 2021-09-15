@@ -103,7 +103,7 @@ namespace CGALDotNetConsole.Examples
             //if (tri.GetVertex(3, out vert))
             //    Console.WriteLine("Get Vert 3 = " + vert);
 
-            var faces = new TriFace2[tri.FaceCount];
+            var faces = new TriFace2[tri.TriangleCount];
             tri.GetFaces(faces);
 
             Console.WriteLine();

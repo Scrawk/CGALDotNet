@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using CGALDotNet.Geometry;
@@ -9,8 +10,11 @@ namespace CGALDotNet.Triangulations
 {
     internal abstract class BaseTriangulationKernel2
     {
+        protected const string DLL_NAME = "CGALWrapper.dll";
 
-        internal abstract string Name { get; }
+        protected const CallingConvention CDECL = CallingConvention.Cdecl;
+
+        internal string Name => "EEK";
 
         internal abstract IntPtr Create();
 
@@ -20,7 +24,9 @@ namespace CGALDotNet.Triangulations
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
-        internal abstract bool IsValid(IntPtr ptr);
+        internal abstract int BuildStamp(IntPtr ptr);
+
+        internal abstract bool IsValid(IntPtr ptr, int level);
 
         internal abstract int VertexCount(IntPtr ptr);
 

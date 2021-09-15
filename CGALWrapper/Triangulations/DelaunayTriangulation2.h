@@ -42,10 +42,6 @@ private:
 
 	Triangulation_2 model;
 
-	IndexMap<Vertex> vertexMap;
-
-	IndexMap<Face> faceMap;
-
 	TriangulationMap<K, Vertex, Face> map;
 
 public:
@@ -82,10 +78,16 @@ public:
 		return copy;
 	}
 
-	static BOOL IsValid(void* ptr)
+	static int BuildStamp(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		return tri->model.is_valid();
+		return tri->map.BuildStamp();
+	}
+
+	static BOOL IsValid(void* ptr, int level)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		return tri->model.is_valid(level);
 	}
 
 	static int VertexCount(void* ptr)

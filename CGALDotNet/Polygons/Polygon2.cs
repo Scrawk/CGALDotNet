@@ -126,7 +126,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         private Polygon2()
         {
-            CheckFlag = POLYGON_CHECK.ALL;
+            
         }
 
         /// <summary>
@@ -135,7 +135,6 @@ namespace CGALDotNet.Polygons
         /// <param name="kernel">The polygon kernel.</param>
         internal Polygon2(CGALKernel kernel)
         {
-            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonKernel2;
             Ptr = Kernel.Create();
         }
@@ -147,7 +146,6 @@ namespace CGALDotNet.Polygons
         /// <param name="points">The points to construct from.</param>
         internal Polygon2(CGALKernel kernel, Point2d[] points)
         {
-            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonKernel2;
             Ptr = Kernel.Create();
             SetPoints(points);
@@ -162,7 +160,6 @@ namespace CGALDotNet.Polygons
         /// <param name="ptr">The polygons pointer.</param>
         internal Polygon2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
-            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonKernel2;
             Count = Kernel.Count(Ptr);
             Update();
@@ -242,7 +239,7 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// What checks should the polygon do.
         /// </summary>
-        public POLYGON_CHECK CheckFlag { get; set; }
+        public POLYGON_CHECK CheckFlag = POLYGON_CHECK.ALL;
 
         /// <summary>
         /// Array accessor for the polygon.

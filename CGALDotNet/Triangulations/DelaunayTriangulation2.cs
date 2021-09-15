@@ -40,7 +40,7 @@ namespace CGALDotNet.Triangulations
         public override string ToString()
         {
             return string.Format("[DelaunayTriangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
-                Kernel.Name, VertexCount, FaceCount);
+                Kernel.Name, VertexCount, TriangleCount);
         }
 
         public DelaunayTriangulation2<K> Copy()

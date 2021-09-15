@@ -24,9 +24,14 @@ void* ConstrainedTriangulation2_EEK_Copy(void* ptr)
 	return ConstrainedTriangulation2<EEK>::Copy(ptr);
 }
 
-BOOL ConstrainedTriangulation2_EEK_IsValid(void* ptr)
+int ConstrainedTriangulation2_EEK_BuildStamp(void* ptr)
 {
-	return ConstrainedTriangulation2<EEK>::IsValid(ptr);
+	return ConstrainedTriangulation2<EEK>::BuildStamp(ptr);
+}
+
+BOOL ConstrainedTriangulation2_EEK_IsValid(void* ptr, int level)
+{
+	return ConstrainedTriangulation2<EEK>::IsValid(ptr, level);
 }
 
 int ConstrainedTriangulation2_EEK_VertexCount(void* ptr)

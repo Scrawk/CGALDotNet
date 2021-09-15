@@ -24,16 +24,6 @@ public:
 	typedef CGAL::Segment_2<K> Segment_2;
 
 	/// <summary>
-	/// Cast pointer to polygon.
-	/// </summary>
-	/// <param name="ptr">The polygon pointer.</param>
-	/// <returns>The polygon.</returns>
-	inline static Polygon_2* CastToPolygon2(void* ptr)
-	{
-		return static_cast<Polygon_2*>(ptr);
-	}
-
-	/// <summary>
 	/// Create a new polygon object.
 	/// </summary>
 	/// <returns>The new polygon object.</returns>
@@ -55,6 +45,16 @@ public:
 			delete obj;
 			obj = nullptr;
 		}
+	}
+
+	/// <summary>
+	/// Cast pointer to polygon.
+	/// </summary>
+	/// <param name="ptr">The polygon pointer.</param>
+	/// <returns>The polygon.</returns>
+	inline static Polygon_2* CastToPolygon2(void* ptr)
+	{
+		return static_cast<Polygon_2*>(ptr);
 	}
 
 	/// <summary>

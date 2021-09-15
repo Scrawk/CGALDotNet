@@ -38,10 +38,6 @@ private:
 
 	Triangulation_2 model;
 
-	IndexMap<Vertex> vertexMap;
-
-	IndexMap<Face> faceMap;
-
 	TriangulationMap<K, Vertex, Face> map;
 
 public:
@@ -54,6 +50,22 @@ public:
 	~Triangulation2()
 	{
 
+	}
+
+	inline static Triangulation2* NewTriangulation2()
+	{
+		return new Triangulation2();
+	}
+
+	inline static void DeleteTriangulation2(void* ptr)
+	{
+		auto obj = static_cast<Triangulation2*>(ptr);
+
+		if (obj != nullptr)
+		{
+			delete obj;
+			obj = nullptr;
+		}
 	}
 
 	inline static Triangulation2* CastToTriangulation2(void* ptr)
@@ -71,17 +83,21 @@ public:
 	static void* Copy(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
-
 		auto copy = new Triangulation2<K>();
 		copy->model = tri->model;
-
 		return copy;
 	}
 
-	static BOOL IsValid(void* ptr)
+	static int BuildStamp(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		return tri->model.is_valid();
+		return tri->map.BuildStamp();
+	}
+
+	static BOOL IsValid(void* ptr, int level)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		return tri->model.is_valid(level);
 	}
 
 	static int VertexCount(void* ptr)

@@ -12,8 +12,6 @@ namespace CGALDotNet.Triangulations
 
         internal static readonly ConstrainedTriangulationKernel2 Instance = new ConstrainedTriangulationKernel2_EEK();
 
-        internal override string Name => "EEK";
-
         public override string ToString()
         {
             return string.Format("[ConstrainedTriangulationKernel2<{0}>: ]", Name);
@@ -39,9 +37,14 @@ namespace CGALDotNet.Triangulations
             return ConstrainedTriangulation2_EEK_Copy(ptr);
         }
 
-        internal override bool IsValid(IntPtr ptr)
+        internal override int BuildStamp(IntPtr ptr)
         {
-            return ConstrainedTriangulation2_EEK_IsValid(ptr);
+            return ConstrainedTriangulation2_EEK_BuildStamp(ptr);
+        }
+
+        internal override bool IsValid(IntPtr ptr, int level)
+        {
+            return ConstrainedTriangulation2_EEK_IsValid(ptr, level);
         }
 
         internal override int VertexCount(IntPtr ptr)
@@ -226,129 +229,132 @@ namespace CGALDotNet.Triangulations
             return ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(ptrTri, pwhPtr, indices, startIndex, count, orientation);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr ConstrainedTriangulation2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_Clear(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr ConstrainedTriangulation2_EEK_Copy(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool ConstrainedTriangulation2_EEK_IsValid(IntPtr ptr);
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int ConstrainedTriangulation2_EEK_BuildStamp(IntPtr ptr, int level);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool ConstrainedTriangulation2_EEK_IsValid(IntPtr ptr, int level);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int ConstrainedTriangulation2_EEK_VertexCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int ConstrainedTriangulation2_EEK_FaceCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertPoint(IntPtr ptr, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertPoints(IntPtr ptr, [In] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertPolygon(IntPtr triPtr, IntPtr polyPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertPolygonWithHoles(IntPtr triPtr, IntPtr pwhPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_GetVertex(IntPtr ptr, int index, [Out] out TriVertex2 vertex);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetVertices(IntPtr ptr, [Out] TriVertex2[] vertices, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_GetFace(IntPtr ptr, int index, [Out] out TriFace2 triFace);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetFaces(IntPtr ptr, [Out] TriFace2[] faces, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_GetSegment(IntPtr ptr, int faceIndex, int neighbourIndex, [Out] out Segment2d segment);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_GetTriangle(IntPtr ptr, int faceIndex, [Out] out Triangle2d triangle);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetTriangles(IntPtr ptr, [Out] Triangle2d[] triangles, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_GetCircumcenter(IntPtr ptr, int faceIndex, [Out] out Point2d circumcenter);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetCircumcenters(IntPtr ptr, [Out] Point2d[] circumcenters, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_LocateFace(IntPtr ptr, Point2d point, [Out] out TriFace2 face);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, [Out] out TriVertex2 vertex);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_RemoveVertex(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
 
         //Constrained only.
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_HasIncidentConstraints(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int ConstrainedTriangulation2_EEK_IncidentConstraintCount(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertSegmentConstraintFromPoints(IntPtr ptr, Point2d a, Point2d b);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertSegmentConstraintFromVertices(IntPtr ptr, int vertIndex1, int vertIndex2);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertSegmentConstraints(IntPtr ptr, [In] Segment2d[] segments, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertPolygonConstraint(IntPtr triPtr, IntPtr polyPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(IntPtr triPtr, IntPtr pwhPtr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetEdgeConstraints(IntPtr ptr, [Out] TriEdgeConstraint2[] constraints, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetSegmentConstraints(IntPtr ptr, [Out] Segment2d[] constraints, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetIncidentConstraints(IntPtr ptr, int vertexIndex, [Out] TriEdgeConstraint2[] constraints, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_RemoveConstraint(IntPtr ptr, int faceIndex, int neighbourIndex);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(IntPtr ptr, int vertexIndex);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int ConstrainedTriangulation2_EEK_GetPolygonIndices(IntPtr ptrTri, IntPtr polyPtr, [Out] int[] indices, int startIndex, int count, ORIENTATION orientation);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(IntPtr ptrTri, IntPtr pwhPtr, [Out] int[] indices, int startIndex, int count, ORIENTATION orientation);
 
     }

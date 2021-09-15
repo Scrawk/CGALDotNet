@@ -1,17 +1,15 @@
 #pragma once
-#include "../pch.h"
-#include "../Utility/Util.h"
 #include "Triangulation2_EEK.h"
 #include "Triangulation2.h"
 
 void* Triangulation2_EEK_Create()
 {
-	return Util::Create<Triangulation2<EEK>>();
+	return Triangulation2<EEK>::NewTriangulation2();
 }
 
 void Triangulation2_EEK_Release(void* ptr)
 {
-	Util::Release<Triangulation2<EEK>>(ptr);
+	Triangulation2<EEK>::DeleteTriangulation2(ptr);
 }
 
 void Triangulation2_EEK_Clear(void* ptr)
@@ -24,9 +22,14 @@ void* Triangulation2_EEK_Copy(void* ptr)
 	return Triangulation2<EEK>::Copy(ptr);
 }
 
-BOOL Triangulation2_EEK_IsValid(void* ptr)
+int Triangulation2_EEK_BuildStamp(void* ptr)
 {
-	return Triangulation2<EEK>::IsValid(ptr);
+	return Triangulation2<EEK>::BuildStamp(ptr);
+}
+
+BOOL Triangulation2_EEK_IsValid(void* ptr, int level)
+{
+	return Triangulation2<EEK>::IsValid(ptr, level);
 }
 
 int Triangulation2_EEK_VertexCount(void* ptr)
