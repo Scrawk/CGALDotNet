@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet;
+using CGALDotNet.Circular;
 using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons

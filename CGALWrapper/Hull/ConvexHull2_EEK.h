@@ -5,13 +5,24 @@
 
 #include <CGAL/enum.h>
 
+enum class HULL_METHOD : int
+{
+	DEFAULT,
+    AKL_TOUSSAINT,
+    BYKAT,
+    EDDY,
+    GRAHAM_ANDREW,
+    JARVIS,
+    MELKMAN
+};
+
 extern "C"
 {
 	CGALWRAPPER_API void* ConvexHull2_EEK_Create();
 
 	CGALWRAPPER_API void ConvexHull2_EEK_Release(void* ptr);
 
-	CGALWRAPPER_API void* ConvexHull2_EEK_CreateHull(Point2d* points, int startIndex, int count);
+	CGALWRAPPER_API void* ConvexHull2_EEK_CreateHull(Point2d* points, int startIndex, int count, HULL_METHOD method);
 
 	CGALWRAPPER_API void* ConvexHull2_EEK_UpperHull(Point2d* points, int startIndex, int count);
 

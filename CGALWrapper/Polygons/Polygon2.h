@@ -28,7 +28,7 @@ public:
 	/// </summary>
 	/// <param name="ptr">The polygon pointer.</param>
 	/// <returns>The polygon.</returns>
-	static Polygon_2* CastToPolygon2(void* ptr)
+	inline static Polygon_2* CastToPolygon2(void* ptr)
 	{
 		return static_cast<Polygon_2*>(ptr);
 	}
@@ -37,7 +37,7 @@ public:
 	/// Create a new polygon object.
 	/// </summary>
 	/// <returns>The new polygon object.</returns>
-	static Polygon_2* NewPolygon2()
+	inline static Polygon_2* NewPolygon2()
 	{
 		return new Polygon_2();
 	}
@@ -46,7 +46,7 @@ public:
 	/// Delete the polygon object.
 	/// </summary>
 	/// <param name="ptr">A pointer to the polygon.</param>
-	static void DeletePolygon2(void* ptr)
+	inline static void DeletePolygon2(void* ptr)
 	{
 		auto obj = static_cast<Polygon_2*>(ptr);
 
@@ -63,7 +63,7 @@ public:
 	/// </summary>
 	/// <param name="poly">The polygon to copy.</param>
 	/// <returns>The new polygon object.</returns>
-	static Polygon_2* CreatePolygon2(const Polygon_2& poly)
+	inline static Polygon_2* CreatePolygon2(const Polygon_2& poly)
 	{
 		return new Polygon_2(poly);
 	}

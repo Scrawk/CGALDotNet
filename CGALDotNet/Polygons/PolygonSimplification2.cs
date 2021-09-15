@@ -29,9 +29,11 @@ namespace CGALDotNet.Polygons
     {
         public POLYGON_SIMP_COST_FUNC cost;
         public POLYGON_SIMP_STOP_FUNC stop;
-        public POLYGON_ELEMENT elements;
         public double threshold;
 
+        /// <summary>
+        /// The default param settings.
+        /// </summary>
         public static PolygonSimplificationParams Default
         {
             get
@@ -39,17 +41,20 @@ namespace CGALDotNet.Polygons
                 var param = new PolygonSimplificationParams();
                 param.stop = POLYGON_SIMP_STOP_FUNC.BELOW_THRESHOLD;
                 param.cost = POLYGON_SIMP_COST_FUNC.SQUARE_DIST;
-                param.elements = POLYGON_ELEMENT.ALL;
                 param.threshold = 0.5;
 
                 return param;
             }
         }
 
+        /// <summary>
+        /// The param as a string.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return String.Format("[PolygonSimplificationParams: Cost={0}, Stop={1}, Threshold={2}, Elements={3}]",
-                cost, stop, threshold, elements);
+            return String.Format("[PolygonSimplificationParams: Cost={0}, Stop={1}, Threshold={2}]",
+                cost, stop, threshold);
         }
     }
 
@@ -93,7 +98,44 @@ namespace CGALDotNet.Polygons
         /// <returns>The simplified polygon.</returns>
         public PolygonWithHoles2<K> Simplify(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param)
         {
-            var ptr = Kernel.SimplifyPolygonWithHoles(polygon.Ptr, param);
+            var ptr = Kernel.SimplifyPolygonWithHoles_All(polygon.Ptr, param);
+            return new PolygonWithHoles2<K>(ptr);
+        }
+
+        /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to simplify. Must be simple.</param>
+        /// <param name="param">The simplification parameters.</param>
+        /// <returns>The simplified polygon.</returns>
+        public PolygonWithHoles2<K> SimplifyBoundary(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param)
+        {
+            var ptr = Kernel.SimplifyPolygonWithHoles_Boundary(polygon.Ptr, param);
+            return new PolygonWithHoles2<K>(ptr);
+        }
+
+        /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to simplify. Must be simple.</param>
+        /// <param name="param">The simplification parameters.</param>
+        /// <returns>The simplified polygon.</returns>
+        public PolygonWithHoles2<K> SimplifyHoles(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param)
+        {
+            var ptr = Kernel.SimplifyPolygonWithHoles_Holes(polygon.Ptr, param);
+            return new PolygonWithHoles2<K>(ptr);
+        }
+
+        /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to simplify. Must be simple.</param>
+        /// <param name="param">The simplification parameters.</param>
+        /// <param name="index">The hole index to simplify.</param>
+        /// <returns>The simplified polygon.</returns>
+        public PolygonWithHoles2<K> SimplifyHole(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param, int index)
+        {
+            var ptr = Kernel.SimplifyPolygonWithHoles_Hole(polygon.Ptr, param, index);
             return new PolygonWithHoles2<K>(ptr);
         }
 

@@ -1,6 +1,8 @@
-#include "../pch.h"
+
 #include "Polygon2_EEK.h"
 #include "Polygon2.h"
+
+#include <CGAL/Polygon_2.h>
 
 void* Polygon2_EEK_Create()
 {

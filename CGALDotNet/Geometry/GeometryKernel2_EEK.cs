@@ -6,6 +6,10 @@ namespace CGALDotNet.Geometry
 {
     internal sealed class GeometryKernel2_EEK : GeometryKernel2
     {
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
+
         internal static readonly GeometryKernel2 Instance = new GeometryKernel2_EEK();
 
         internal override string Name => "EEK";
@@ -44,25 +48,25 @@ namespace CGALDotNet.Geometry
             return IsoRectangle2_EEK_ContainsPoint(ptr, point, inculdeBoundary);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr IsoRectangle2_EEK_Create(Point2d min, Point2d max);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void IsoRectangle2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d IsoRectangle2_EEK_GetMin(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d IsoRectangle2_EEK_GetMax(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern double IsoRectangle2_EEK_Area(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern BOUNDED_SIDE IsoRectangle2_EEK_BoundedSide(IntPtr ptr, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool IsoRectangle2_EEK_ContainsPoint(IntPtr ptr, Point2d point,  bool inculdeBoundary);
     }
 }

@@ -27,6 +27,12 @@ extern "C"
 
 	CGALWRAPPER_API void* PolygonSimplification2_EEK_Simplify(void* polyPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold);
 
-	CGALWRAPPER_API void* PolygonSimplification2_EEK_SimplifyPolygonWithHoles(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold, POLYGON_ELEMENT element);
+	CGALWRAPPER_API void* PolygonSimplification2_EEK_SimplifyPolygonWithHoles_All(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold);
+
+	CGALWRAPPER_API void* PolygonSimplification2_EEK_SimplifyPolygonWithHoles_Boundary(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold);
+
+	CGALWRAPPER_API void* PolygonSimplification2_EEK_SimplifyPolygonWithHoles_Holes(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold);
+
+	CGALWRAPPER_API void* PolygonSimplification2_EEK_SimplifyPolygonWithHoles_Hole(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double theshold, int index);
 
 }

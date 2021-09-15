@@ -10,6 +10,9 @@ namespace CGALDotNet.Hulls
 {
     internal sealed class ConvexHullKernel2_EEK : ConvexHullKernel2
     {
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal static readonly ConvexHullKernel2 Instance = new ConvexHullKernel2_EEK();
 
@@ -25,9 +28,9 @@ namespace CGALDotNet.Hulls
             ConvexHull2_EEK_Release(ptr);
         }
 
-        internal override IntPtr CreateHull(Point2d[] points, int startIndex, int count)
+        internal override IntPtr CreateHull(Point2d[] points, int startIndex, int count, HULL_METHOD method)
         {
-            return ConvexHull2_EEK_CreateHull(points, startIndex, count);
+            return ConvexHull2_EEK_CreateHull(points, startIndex, count, method);
         }
 
         internal override IntPtr UpperHull(Point2d[] points, int startIndex, int count)
@@ -50,25 +53,25 @@ namespace CGALDotNet.Hulls
             return IsStronglyConvexCW(points, startIndex, count);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr ConvexHull2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void ConvexHull2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr ConvexHull2_EEK_CreateHull([In] Point2d[] points, int startIndex, int count);
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr ConvexHull2_EEK_CreateHull([In] Point2d[] points, int startIndex, int count, HULL_METHOD method);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ConvexHull2_EEK_UpperHull([In] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ConvexHull2_EEK_LowerHull([In] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern bool ConvexHull2_EEK_IsStronglyConvexCCW([In] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern bool ConvexHull2_EEK_IsStronglyConvexCW([In] Point2d[] points, int startIndex, int count);
     }
 }

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
 
-namespace CGALDotNet
+namespace CGALDotNet.Geometry
 {
     /// <summary>
     /// Enum for the type of intersection geomerty.

@@ -2,6 +2,8 @@
 #include "PolygonWithHoles2_EEK.h"
 #include "PolygonWithHoles2.h"
 
+#include <CGAL/Polygon_2.h>
+#include <CGAL/Polygon_with_holes_2.h>
 #include <CGAL/Boolean_set_operations_2.h>
 
 void* PolygonWithHoles2_EEK_Create()
@@ -148,5 +150,6 @@ BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orienta
 {
 	return PolygonWithHoles2<EEK>::ContainsPoint(ptr, point, orientation, inculdeBoundary);
 }
+
 
 

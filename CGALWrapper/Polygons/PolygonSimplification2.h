@@ -147,48 +147,95 @@ public:
 		return result;
 	}
 
-	static void* SimplifyPolygonWithHoles(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold, POLYGON_ELEMENT element)
+	static void* SimplifyPolygonWithHoles_All(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold)
 	{
 		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
-
 		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
 
 		Pwh_2* p = nullptr;
 
-		if (element == POLYGON_ELEMENT::ALL || element == POLYGON_ELEMENT::BOUNDARY)
+		if (!pwh->is_unbounded())
 		{
-			if (!pwh->is_unbounded())
-			{
-				auto boundary = Simplify(pwh->outer_boundary(), costFunc, stopFunc, threshold);
-				p = new Pwh_2(boundary);
-			}
-			else
-			{
-				p = new Pwh_2();
-			}
+			auto boundary = Simplify(pwh->outer_boundary(), costFunc, stopFunc, threshold);
+			p = new Pwh_2(boundary);
 		}
 		else
+			p = new Pwh_2();
+
+		for (auto hole : pwh->holes())
 		{
-			if (!pwh->is_unbounded())
-				p = new Pwh_2(pwh->outer_boundary());
-			else
-				p = new Pwh_2();
+			auto h = Simplify(hole, costFunc, stopFunc, threshold);
+			p->add_hole(h);
 		}
 
-		if (element == POLYGON_ELEMENT::ALL || element == POLYGON_ELEMENT::HOLE)
+		return p;
+	}
+
+	static void* SimplifyPolygonWithHoles_Boundary(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold)
+	{
+		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
+		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
+
+		Pwh_2* p = nullptr;
+
+		if (!pwh->is_unbounded())
 		{
-			for (auto hole : pwh->holes())
+			auto boundary = Simplify(pwh->outer_boundary(), costFunc, stopFunc, threshold);
+			p = new Pwh_2(boundary);
+		}
+		else
+			p = new Pwh_2();
+
+		for (auto hole : pwh->holes())
+			p->add_hole(hole);
+		
+		return p;
+	}
+
+	static void* SimplifyPolygonWithHoles_Holes(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold)
+	{
+		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
+		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
+
+		Pwh_2* p = nullptr;
+
+		if (!pwh->is_unbounded())
+			p = new Pwh_2(pwh->outer_boundary());
+		else
+			p = new Pwh_2();
+
+		for (auto hole : pwh->holes())
+			p->add_hole(hole);
+
+		return p;
+	}
+
+	static void* SimplifyPolygonWithHoles_Hole(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold, int index)
+	{
+		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
+		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
+
+		Pwh_2* p = nullptr;
+
+		if (!pwh->is_unbounded())
+			p = new Pwh_2(pwh->outer_boundary());
+		else
+			p = new Pwh_2();
+
+		int count = 0;
+		for (auto hole : pwh->holes())
+		{
+			if (count == index)
 			{
 				auto h = Simplify(hole, costFunc, stopFunc, threshold);
 				p->add_hole(h);
 			}
-		}
-		else
-		{
-			for (auto hole : pwh->holes())
+			else
 				p->add_hole(hole);
-		}
 
+			count++;
+		}
+			
 		return p;
 	}
 

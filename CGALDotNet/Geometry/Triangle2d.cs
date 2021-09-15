@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+using CGALDotNet.Circular;
+
 namespace CGALDotNet.Geometry
 {
     [Serializable]

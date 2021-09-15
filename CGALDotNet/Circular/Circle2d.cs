@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace CGALDotNet.Geometry
+using CGALDotNet.Geometry;
+
+namespace CGALDotNet.Circular
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]

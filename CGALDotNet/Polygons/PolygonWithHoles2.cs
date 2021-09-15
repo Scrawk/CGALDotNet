@@ -13,8 +13,7 @@ namespace CGALDotNet.Polygons
     public enum POLYGON_ELEMENT 
     { 
         BOUNDARY, 
-        HOLE,
-        ALL
+        HOLE
     }
 
     /// <summary>
