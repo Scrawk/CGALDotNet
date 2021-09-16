@@ -184,6 +184,7 @@ public:
 	static BOOL GetVertex(void* ptr, int index, TriVertex2& triVert)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 		
 		auto vert = tri->map.FindVertex(tri->model, index);
 		if (vert != nullptr)
@@ -216,6 +217,7 @@ public:
 	static BOOL GetFace(void* ptr, int index, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto face = tri->map.FindFace(tri->model, index);
 		if (face != nullptr)
@@ -338,6 +340,7 @@ public:
 	static BOOL LocateFace(void* ptr, Point2d point, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto face = tri->model.locate(point.ToCGAL<K>());
 		if (face != nullptr)

@@ -116,6 +116,51 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// The points distance from the segment.
+        /// </summary>
+        public double Distance(Point2d point)
+        {
+            return Math.Sqrt(SqrDistance(point));
+        }
+
+        /// <summary>
+        /// The points sqr distance from the segment.
+        /// </summary>
+        public double SqrDistance(Point2d point)
+        {
+            return Point2d.SqrDistance(Closest(point), point);
+        }
+
+        /// <summary>
+        /// The closest point on segment to point.
+        /// </summary>
+        /// <param name="point">point</param>
+        public Point2d Closest(Point2d point)
+        {
+            double t;
+            Closest(point, out t);
+            return A + (B - A) * t;
+        }
+
+        /// <summary>
+        /// The closest point on segment to point.
+        /// </summary>
+        /// <param name="point">point</param>
+        /// <param name="t">closest point = A + t * (B - A)</param>
+        public void Closest(Point2d point, out double t)
+        {
+            t = 0.0;
+            Point2d ab = B - A;
+            Point2d ap = point - A;
+
+            double len = ab.x * ab.x + ab.y * ab.y;
+            if (len == 0.0) return;
+
+            t = (ab.x * ap.x + ab.y * ap.y) / len;
+            t = CGALGlobal.Clamp01(t);
+        }
+
+        /// <summary>
         /// Check if the geometries intersects.
         /// </summary>
         /// <param name="geometry">The geometry to check.</param>

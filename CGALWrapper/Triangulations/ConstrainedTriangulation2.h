@@ -21,7 +21,7 @@
 #include <CGAL/Constrained_triangulation_face_base_2.h>
 #include <CGAL/Constrained_triangulation_plus_2.h>
 
-struct TriEdgeConstraint2
+struct TriEdge2
 {
 	int FaceIndex;
 	int NeighbourIndex;
@@ -194,6 +194,7 @@ public:
 	static BOOL GetVertex(void* ptr, int index, TriVertex2& triVert)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto vert = tri->map.FindVertex(tri->model, index);
 		if (vert != nullptr)
@@ -214,8 +215,7 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		tri->map.SetVertexIndices(tri->model);
-		tri->map.SetFaceIndices(tri->model);
+		tri->map.SetIndices(tri->model);
 
 		for (const auto& vert : tri->model.finite_vertex_handles())
 		{
@@ -227,6 +227,7 @@ public:
 	static BOOL GetFace(void* ptr, int index, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto face = tri->map.FindFace(tri->model, index);
 		if (face != nullptr)
@@ -246,8 +247,7 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		tri->map.SetVertexIndices(tri->model);
-		tri->map.SetFaceIndices(tri->model);
+		tri->map.SetIndices(tri->model);
 
 		for (const auto& face : tri->model.finite_face_handles())
 			faces[i++] = TriFace2::FromFace(tri->model, face);
@@ -350,6 +350,7 @@ public:
 	static BOOL LocateFace(void* ptr, Point2d point, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto face = tri->model.locate(point.ToCGAL<K>());
 		if (face != nullptr)
@@ -543,13 +544,12 @@ public:
 		tri->map.OnModelChanged();
 	}
 
-	static void GetConstraints(void* ptr, TriEdgeConstraint2* constraints, int startIndex, int count)
+	static void GetConstraints(void* ptr, TriEdge2* constraints, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		tri->map.SetVertexIndices(tri->model);
-		tri->map.SetFaceIndices(tri->model);
+		tri->map.SetIndices(tri->model);
 
 		for (auto edge = tri->model.constrained_edges_begin(); edge != tri->model.constrained_edges_end(); ++edge)
 		{
@@ -592,7 +592,7 @@ public:
 		}
 	}
 
-	static void GetIncidentConstraints(void* ptr, int vertexIndex,  TriEdgeConstraint2* constraints, int startIndex, int count)
+	static void GetIncidentConstraints(void* ptr, int vertexIndex,  TriEdge2* constraints, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
@@ -624,7 +624,6 @@ public:
 								constraints[i].FaceIndex = neighbour->info();
 							else
 								constraints[i].FaceIndex = NULL_INDEX;
-
 
 							constraints[i].NeighbourIndex = n;
 						}

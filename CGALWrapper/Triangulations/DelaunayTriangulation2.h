@@ -174,6 +174,7 @@ public:
 	static BOOL GetVertex(void* ptr, int index, TriVertex2& triVert)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto vert = tri->map.FindVertex(tri->model, index);
 		if (vert != nullptr)
@@ -194,8 +195,7 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		tri->map.SetVertexIndices(tri->model);
-		tri->map.SetFaceIndices(tri->model);
+		tri->map.SetIndices(tri->model);
 
 		for (const auto& vert : tri->model.finite_vertex_handles())
 		{
@@ -208,6 +208,7 @@ public:
 	static BOOL GetFace(void* ptr, int index, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto face = tri->map.FindFace(tri->model, index);
 		if (face != nullptr)
@@ -227,8 +228,7 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		tri->map.SetVertexIndices(tri->model);
-		tri->map.SetFaceIndices(tri->model);
+		tri->map.SetIndices(tri->model);
 
 		for (const auto& face : tri->model.finite_face_handles())
 			faces[i++] = TriFace2::FromFace(tri->model, face);
@@ -332,6 +332,7 @@ public:
 	static BOOL LocateFace(void* ptr, Point2d point, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetIndices(tri->model);
 
 		auto face = tri->model.locate(point.ToCGAL<K>());
 		if (face != nullptr)

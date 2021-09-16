@@ -194,7 +194,7 @@ namespace CGALDotNet.Triangulations
             ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(triPtr, pwhPtr);
         }
 
-        internal override void GetConstraints(IntPtr ptr, TriEdgeConstraint2[] constraints, int startIndex, int count)
+        internal override void GetConstraints(IntPtr ptr, TriEdge2[] constraints, int startIndex, int count)
         {
             ConstrainedTriangulation2_EEK_GetEdgeConstraints(ptr, constraints, startIndex, count);
         }
@@ -204,7 +204,7 @@ namespace CGALDotNet.Triangulations
             ConstrainedTriangulation2_EEK_GetSegmentConstraints(ptr, constraints, startIndex, count);
         }
 
-        internal override void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdgeConstraint2[] constraints, int startIndex, int count)
+        internal override void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdge2[] constraints, int startIndex, int count)
         {
             ConstrainedTriangulation2_EEK_GetIncidentConstraints(ptr, vertexIndex, constraints, startIndex, count);
         }
@@ -242,7 +242,7 @@ namespace CGALDotNet.Triangulations
         private static extern IntPtr ConstrainedTriangulation2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int ConstrainedTriangulation2_EEK_BuildStamp(IntPtr ptr, int level);
+        private static extern int ConstrainedTriangulation2_EEK_BuildStamp(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_IsValid(IntPtr ptr, int level);
@@ -337,13 +337,13 @@ namespace CGALDotNet.Triangulations
         private static extern void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(IntPtr triPtr, IntPtr pwhPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void ConstrainedTriangulation2_EEK_GetEdgeConstraints(IntPtr ptr, [Out] TriEdgeConstraint2[] constraints, int startIndex, int count);
+        private static extern void ConstrainedTriangulation2_EEK_GetEdgeConstraints(IntPtr ptr, [Out] TriEdge2[] constraints, int startIndex, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_GetSegmentConstraints(IntPtr ptr, [Out] Segment2d[] constraints, int startIndex, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void ConstrainedTriangulation2_EEK_GetIncidentConstraints(IntPtr ptr, int vertexIndex, [Out] TriEdgeConstraint2[] constraints, int startIndex, int count);
+        private static extern void ConstrainedTriangulation2_EEK_GetIncidentConstraints(IntPtr ptr, int vertexIndex, [Out] TriEdge2[] constraints, int startIndex, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_RemoveConstraint(IntPtr ptr, int faceIndex, int neighbourIndex);

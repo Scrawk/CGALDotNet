@@ -45,7 +45,7 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine();
             Console.WriteLine("Constraints");
 
-            var constraints = new TriEdgeConstraint2[constraintCount];
+            var constraints = new TriEdge2[constraintCount];
             tri.GetConstraints(constraints);
 
             foreach (var constraint in constraints)
@@ -54,7 +54,7 @@ namespace CGALDotNetConsole.Examples
             Console.WriteLine();
             Console.WriteLine("Incident constraints");
 
-            constraints = new TriEdgeConstraint2[incidentCount];
+            constraints = new TriEdge2[incidentCount];
             tri.GetIncidentConstraints(0, constraints);
 
             foreach (var constraint in constraints)

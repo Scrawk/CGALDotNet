@@ -6,14 +6,20 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Triangulations
 {
-    public struct TriEdgeConstraint2
+    public struct TriEdge2
     {
         public int FaceIndex;
         public int NeighbourIndex;
 
+        public TriEdge2(int faceIndex, int neighbourIndex)
+        {
+            FaceIndex = faceIndex;
+            NeighbourIndex = neighbourIndex;
+        }
+
         public override string ToString()
         {
-            return string.Format("[TriEdgeConstraint2: FaceIndex={0}, NeighbourIndex={1}]", 
+            return string.Format("[TriEdge2:  FaceIndex={0}, NeighbourIndex={1}]", 
                 FaceIndex, NeighbourIndex);
         }
 

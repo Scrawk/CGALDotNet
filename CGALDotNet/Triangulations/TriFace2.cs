@@ -4,38 +4,26 @@ using System.Text;
 
 namespace CGALDotNet.Triangulations
 {
-    public struct TriFace2
+
+    public unsafe struct TriFace2
     {
         public bool IsInfinite;
 
         public int Index;
 
-        public int VertexIndex0;
-        public int VertexIndex1;
-        public int VertexIndex2;
+        public fixed int VertexIndex[3];
 
         public override string ToString()
         {
             return string.Format("[TriFace2: Index={0}, IsInfinite={1}, Vertex0={2}, Vertex1={3}, Vertex2={4}]",
-                Index, IsInfinite, VertexIndex0, VertexIndex1, VertexIndex2);
+                Index, IsInfinite, VertexIndex[0], VertexIndex[1], VertexIndex[2]);
         }
 
-        unsafe public int this[int i]
+        public int GetVertexIndex(int i)
         {
-            get
-            {
-                if ((uint)i >= 3)
-                    throw new IndexOutOfRangeException("TriFace2 vertex index out of range.");
-
-                fixed (TriFace2* array = &this) { return ((int*)array)[i]; }
-            }
-            set
-            {
-                if ((uint)i >= 3)
-                    throw new IndexOutOfRangeException("TriFace2 vertex index out of range.");
-
-                fixed (int* array = &VertexIndex0) { array[i] = value; }
-            }
+            i = CGALGlobal.Wrap(i, 3);
+            return VertexIndex[i];
         }
+
     }
 }

@@ -24,11 +24,11 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void InsertPolygonWithHolesConstraint(IntPtr triPtr, IntPtr pwhPtr);
 
-        internal abstract void GetConstraints(IntPtr ptr, TriEdgeConstraint2[] constraints, int startIndex, int count);
+        internal abstract void GetConstraints(IntPtr ptr, TriEdge2[] constraints, int startIndex, int count);
 
         internal abstract void GetConstraints(IntPtr ptr, Segment2d[] constraints, int startIndex, int count);
 
-        internal abstract void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdgeConstraint2[] constraints, int startIndex, int count);
+        internal abstract void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdge2[] constraints, int startIndex, int count);
 
         internal abstract void RemoveConstraint(IntPtr ptr, int faceIndex, int neighbourIndex);
 

@@ -8,6 +8,7 @@ using CGALDotNetConsole.Examples;
 using CGALDotNet;
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
+using CGALDotNet.Triangulations;
 
 namespace CGALDotNetConsole
 {
@@ -15,7 +16,13 @@ namespace CGALDotNetConsole
     {
         public static void Main(string[] args)
         {
-            var star = PolygonFactory<EEK>.KochStar(10, 2);
+
+            var t = new Triangulation2<EEK>();
+            t.InsertPoint(new Point2d(-5, -5));
+            t.InsertPoint(new Point2d(5, -5));
+            t.InsertPoint(new Point2d(0, 5));
+
+            //Console.WriteLine("Build Stamp " + t.BuildStamp);
 
 
         }

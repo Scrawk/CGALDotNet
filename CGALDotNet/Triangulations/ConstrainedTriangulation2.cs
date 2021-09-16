@@ -153,7 +153,7 @@ namespace CGALDotNet.Triangulations
             TriangulationKernel.InsertSegmentConstraints(Ptr, segments, 0, segments.Length);
         }
 
-        public void GetConstraints(TriEdgeConstraint2[] constraints)
+        public void GetConstraints(TriEdge2[] constraints)
         {
             TriangulationKernel.GetConstraints(Ptr, constraints, 0, constraints.Length);
         }
@@ -163,7 +163,7 @@ namespace CGALDotNet.Triangulations
             TriangulationKernel.GetConstraints(Ptr, constraints, 0, constraints.Length);
         }
 
-        public void GetIncidentConstraints(int vertexIndex, TriEdgeConstraint2[] constraints)
+        public void GetIncidentConstraints(int vertexIndex, TriEdge2[] constraints)
         {
             TriangulationKernel.GetIncidentConstraints(Ptr, vertexIndex, constraints, 0, constraints.Length);
         }
