@@ -28,7 +28,7 @@ public:
 
 	TriangulationMap()
 	{
-
+		
 	}
 
 	int BuildStamp()
@@ -103,6 +103,7 @@ public:
 			return;
 
 		vertexMap.Clear();
+		model.infinite_vertex()->info() = -1;
 
 		for (auto& vert : model.finite_vertex_handles())
 		{
@@ -136,6 +137,7 @@ public:
 			return;
 
 		faceMap.Clear();
+		model.infinite_face()->info() = -1;
 
 		for (auto& face : model.finite_face_handles())
 			face->info() = faceMap.NextIndex();

@@ -23,11 +23,15 @@ struct TriFace2
 	}
 
 	template<class TRI, class FACE>
-	static TriFace2 FromFace(TRI& tri, FACE face)
+	static TriFace2 FromFace(const TRI& tri, FACE face)
 	{
 		TriFace2 triFace;
 		triFace.IsInfinite = tri.is_infinite(face);
-		triFace.Index = face->info();
+
+		if(triFace.IsInfinite)
+			triFace.Index = NULL_INDEX;
+		else
+			triFace.Index = face->info();
 
 		for (int j = 0; j < 3; j++)
 		{

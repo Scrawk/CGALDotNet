@@ -3,11 +3,22 @@
 #include <map>
 
 template<class T>
-struct IndexMap
+class IndexMap
 {
+private:
+
 	int nextIndex = 0;
 
 	std::map<int, T> map;
+
+public:
+
+	IndexMap()
+	{
+		nextIndex = 0;
+		indicesSet = false;
+		mapBuilt = false;
+	}
 
 	bool indicesSet = false;
 

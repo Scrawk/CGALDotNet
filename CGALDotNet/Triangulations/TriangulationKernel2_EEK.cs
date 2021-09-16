@@ -37,6 +37,11 @@ namespace CGALDotNet.Triangulations
             return Triangulation2_EEK_Copy(ptr);
         }
 
+        internal override void SetIndices(IntPtr ptr)
+        {
+            Triangulation2_EEK_SetIndices(ptr);
+        }
+
         internal override int BuildStamp(IntPtr ptr)
         {
             return Triangulation2_EEK_BuildStamp(ptr);
@@ -163,6 +168,9 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Triangulation2_EEK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation2_EEK_SetIndices(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Triangulation2_EEK_BuildStamp(IntPtr ptr);

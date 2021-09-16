@@ -24,6 +24,8 @@ namespace CGALDotNet.Triangulations
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
+        internal abstract void SetIndices(IntPtr ptr);
+
         internal abstract int BuildStamp(IntPtr ptr);
 
         internal abstract bool IsValid(IntPtr ptr, int level);

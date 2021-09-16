@@ -44,7 +44,7 @@ public:
 
 	Triangulation2()
 	{
-
+		map.OnModelChanged();
 	}
 
 	~Triangulation2()
@@ -86,6 +86,13 @@ public:
 		auto copy = new Triangulation2<K>();
 		copy->model = tri->model;
 		return copy;
+	}
+
+	static void SetIndices(void* ptr)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		tri->map.OnModelChanged();
+		tri->map.SetIndices(tri->model);
 	}
 
 	static int BuildStamp(void* ptr)
@@ -307,7 +314,6 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 
 		auto face = tri->map.FindFace(tri->model, faceIndex);
-
 		if (face != nullptr)
 		{
 			if (tri->model.is_infinite(*face))

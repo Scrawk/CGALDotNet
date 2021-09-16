@@ -22,6 +22,11 @@ void* Triangulation2_EEK_Copy(void* ptr)
 	return Triangulation2<EEK>::Copy(ptr);
 }
 
+void Triangulation2_EEK_SetIndices(void* ptr)
+{
+	Triangulation2<EEK>::SetIndices(ptr);
+}
+
 int Triangulation2_EEK_BuildStamp(void* ptr)
 {
 	return Triangulation2<EEK>::BuildStamp(ptr);
@@ -136,6 +141,7 @@ BOOL Triangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour)
 {
 	return Triangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
+
 
 
 

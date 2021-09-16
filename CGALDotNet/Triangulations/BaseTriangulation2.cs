@@ -95,6 +95,14 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
+        /// Force the face and vertex indices to be set.
+        /// </summary>
+        public void ForceSetIndices()
+        {
+            Kernel.SetIndices(Ptr);
+        }
+
+        /// <summary>
         /// Inserts point p in the triangulation.
         ///If point p coincides with an already existing vertex the triangulation remains unchanged.
         ///If point p is on an edge, the two incident faces are split in two.
@@ -212,7 +220,7 @@ namespace CGALDotNet.Triangulations
         /// Get the segment between the face and a neighbour.
         /// </summary>
         /// <param name="faceIndex">The faces index</param>
-        /// <param name="neighbourIndex">The neighbour (1-3) index in the face.</param>
+        /// <param name="neighbourIndex">The neighbour (0-2) index in the face.</param>
         /// <param name="segment">The segment.</param>
         /// <returns>True if the face was found.</returns>
         public bool GetSegment(int faceIndex, int neighbourIndex, out Segment2d segment)
@@ -364,13 +372,14 @@ namespace CGALDotNet.Triangulations
                         var p1 = vertex1.Point;
                         var p2 = vertex2.Point;
 
-                        segment = new Segment2d(p1, p2);
-                        var sqdist = segment.SqrDistance(point);
+                        var seg = new Segment2d(p1, p2);
+                        var sqdist = seg.SqrDistance(point);
 
                         if (sqdist < min)
                         {
                             min = sqdist;
                             closest = new TriEdge2(face.Index, i);
+                            segment = new Segment2d(p1, p2);
                         }
                     }
                 }
@@ -417,7 +426,7 @@ namespace CGALDotNet.Triangulations
         /// Flip a edge between the face and a neighbour.
         /// </summary>
         /// <param name="faceIndex">The faces index</param>
-        /// <param name="neighbourIndex">The neighbour (1-3) index in the face.</param>
+        /// <param name="neighbourIndex">The neighbour (0-2) index in the face.</param>
         /// <returns>True if the edge was flipped.</returns>
         public bool FlipEdge(int faceIndex, int neighbourIndex)
         {

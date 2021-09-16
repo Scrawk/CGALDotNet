@@ -37,6 +37,11 @@ namespace CGALDotNet.Triangulations
             return ConstrainedTriangulation2_EEK_Copy(ptr);
         }
 
+        internal override void SetIndices(IntPtr ptr)
+        {
+            throw new NotImplementedException();
+        }
+
         internal override int BuildStamp(IntPtr ptr)
         {
             return ConstrainedTriangulation2_EEK_BuildStamp(ptr);

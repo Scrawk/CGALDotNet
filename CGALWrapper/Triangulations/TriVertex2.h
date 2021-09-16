@@ -25,7 +25,7 @@ struct TriVertex2
 	}
 
 	template<class K, class TRI, class VERT>
-	static TriVertex2 FromVertex(TRI tri, VERT vert, int degree)
+	static TriVertex2 FromVertex(const TRI& tri, VERT vert, int degree)
 	{
 		TriVertex2 triVertex;
 		triVertex.Point = Point2d::FromCGAL<K>(vert->point());
