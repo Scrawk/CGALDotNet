@@ -125,6 +125,11 @@ void DelaunayTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcente
 	DelaunayTriangulation2<EEK>::GetCircumcenters(ptr, circumcenters, startIndex, count);
 }
 
+int DelaunayTriangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index)
+{
+	return DelaunayTriangulation2<EEK>::NeighbourIndex(ptr, faceIndex, index);
+}
+
 BOOL DelaunayTriangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face)
 {
 	return DelaunayTriangulation2<EEK>::LocateFace(ptr, point, face);

@@ -54,6 +54,8 @@ extern "C"
 
 	CGALWRAPPER_API void Triangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count);
 
+	CGALWRAPPER_API int Triangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index);
+
 	CGALWRAPPER_API BOOL Triangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face);
 
 	CGALWRAPPER_API BOOL Triangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, BOOL ifNoCollision, TriVertex2& vertex);

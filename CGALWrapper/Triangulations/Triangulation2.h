@@ -343,6 +343,30 @@ public:
 		}
 	}
 
+	static int NeighbourIndex(void* ptr, int faceIndex, int index)
+	{
+		if (index < 0 || index > 2)
+			return -1;
+
+		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetFaceIndices(tri->model);
+
+		auto face = tri->map.FindFace(tri->model, faceIndex);
+		if (face != nullptr)
+		{
+			auto neighbour = (*face)->neighbor(index);
+
+			if (neighbour != nullptr)
+				return neighbour->info();
+			else
+				return -1;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+
 	static BOOL LocateFace(void* ptr, Point2d point, TriFace2& triFace)
 	{
 		auto tri = CastToTriangulation2(ptr);

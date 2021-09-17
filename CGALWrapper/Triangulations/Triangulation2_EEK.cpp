@@ -122,6 +122,11 @@ void Triangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int 
 	Triangulation2<EEK>::GetCircumcenters(ptr, circumcenters, startIndex, count);
 }
 
+int Triangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index)
+{
+	return Triangulation2<EEK>::NeighbourIndex(ptr, faceIndex, index);
+}
+
 BOOL Triangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face)
 {
 	return Triangulation2<EEK>::LocateFace(ptr, point, face);
@@ -141,6 +146,19 @@ BOOL Triangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour)
 {
 	return Triangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
+
+/*
+void Test()
+{
+	auto t = Triangulation2<EEK>::Triangulation_2();
+
+	for (const auto& face : t.finite_face_handles())
+	{
+		auto n = face->neighbor(0);
+	}
+}
+*/
+
 
 
 

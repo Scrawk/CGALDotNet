@@ -8,6 +8,7 @@
 #include "TriUtil.h"
 #include "TriVertex2.h"
 #include "TriFace2.h"
+#include "TriEdge2.h"
 #include "TriangulationMap.h"
 
 #include "CGAL/Segment_2.h"
@@ -21,11 +22,7 @@
 #include <CGAL/Constrained_triangulation_face_base_2.h>
 #include <CGAL/Constrained_triangulation_plus_2.h>
 
-struct TriEdge2
-{
-	int FaceIndex;
-	int NeighbourIndex;
-};
+
 
 template<class K>
 class ConstrainedTriangulation2
@@ -351,6 +348,30 @@ public:
 		{
 			auto c = tri->model.circumcenter(face);
 			circumcenters[i++] = Point2d::FromCGAL<K>(c);
+		}
+	}
+
+	static int NeighbourIndex(void* ptr, int faceIndex, int index)
+	{
+		if (index < 0 || index > 2)
+			return -1;
+
+		auto tri = CastToTriangulation2(ptr);
+		tri->map.SetFaceIndices(tri->model);
+
+		auto face = tri->map.FindFace(tri->model, faceIndex);
+		if (face != nullptr)
+		{
+			auto neighbour = (*face)->neighbor(index);
+
+			if (neighbour != nullptr)
+				return neighbour->info();
+			else
+				return -1;
+		}
+		else
+		{
+			return -1;
 		}
 	}
 

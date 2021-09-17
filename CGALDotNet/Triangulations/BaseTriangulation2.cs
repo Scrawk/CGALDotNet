@@ -15,6 +15,13 @@ namespace CGALDotNet.Triangulations
         ALL = ~0
     }
 
+    public enum TRIANGULATION_TYPE
+    {
+        REGULAR,
+        DELAUNAY,
+        CONSTRAINED
+    }
+
     /// <summary>
     /// Base triangulation class for Triangulation, DelaunayTriangulation 
     /// and ConstrainedTriangulation.
@@ -104,10 +111,10 @@ namespace CGALDotNet.Triangulations
 
         /// <summary>
         /// Inserts point p in the triangulation.
-        ///If point p coincides with an already existing vertex the triangulation remains unchanged.
-        ///If point p is on an edge, the two incident faces are split in two.
-        ///If point p is strictly inside a face of the triangulation, the face is split in three.
-        ///If point p is strictly outside the convex hull, p is linked to all visible points on the 
+        ///If point coincides with an already existing vertex the triangulation remains unchanged.
+        ///If point is on an edge, the two incident faces are split in two.
+        ///If point is strictly inside a face of the triangulation, the face is split in three.
+        ///If point is strictly outside the convex hull, p is linked to all visible points on the 
         ///convex hull to form the new triangulation.
         /// </summary>
         /// <param name="point">The point to insert.</param>
@@ -118,10 +125,10 @@ namespace CGALDotNet.Triangulations
 
         /// <summary>
         /// Inserts points into the triangulation.
-        ///If point p coincides with an already existing vertex the triangulation remains unchanged.
-        ///If point p is on an edge, the two incident faces are split in two.
-        ///If point p is strictly inside a face of the triangulation, the face is split in three.
-        ///If point p is strictly outside the convex hull, p is linked to all visible points on the 
+        ///If point coincides with an already existing vertex the triangulation remains unchanged.
+        ///If point is on an edge, the two incident faces are split in two.
+        ///If point is strictly inside a face of the triangulation, the face is split in three.
+        ///If point is strictly outside the convex hull, p is linked to all visible points on the 
         ///convex hull to form the new triangulation.
         /// </summary>
         /// <param name="point">The point to insert.</param>
@@ -160,6 +167,27 @@ namespace CGALDotNet.Triangulations
             }
 
             Kernel.GetIndices(Ptr, indices, 0, indices.Length);
+        }
+
+        /// <summary>
+        /// Get the vertices point.
+        /// </summary>
+        /// <param name="index">The vertex index.</param>
+        /// <param name="point">The vertices point.</param>
+        /// <returns>True if the vertex was found.</returns>
+        public bool GetPoint(int index, out Point2d point)
+        {
+            TriVertex2 vertex;
+            if(Kernel.GetVertex(Ptr, index, out vertex))
+            {
+                point = vertex.Point;
+                return true;
+            }
+            else
+            {
+                point = new Point2d();
+                return false;
+            }
         }
 
         /// <summary>
@@ -284,6 +312,21 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
+        /// Get the index of the faces neighbour.
+        /// </summary>
+        /// <param name="faceIndex">The faces index.</param>
+        /// <param name="neighbourIndex">The neighbour (0-2) index in the face.</param>
+        /// <returns>The index of the neighbour face in the triangulation. 
+        /// -1 if there is no neighbour face at this index.</returns>
+        public int NeighbourIndex(int faceIndex, int neighbourIndex)
+        {
+            if (neighbourIndex < 0 || neighbourIndex > 2)
+                return -1;
+
+            return Kernel.NeighbourIndex(Ptr, faceIndex, neighbourIndex);
+        }
+
+        /// <summary>
         /// Locate the face the point hits.
         /// </summary>
         /// <param name="point">The point.</param>
@@ -378,7 +421,9 @@ namespace CGALDotNet.Triangulations
                         if (sqdist < min)
                         {
                             min = sqdist;
-                            closest = new TriEdge2(face.Index, i);
+
+                            int neighboutIndex = CGALGlobal.Wrap(i - 1, 3);
+                            closest = new TriEdge2(face.Index, neighboutIndex);
                             segment = new Segment2d(p1, p2);
                         }
                     }
@@ -430,6 +475,9 @@ namespace CGALDotNet.Triangulations
         /// <returns>True if the edge was flipped.</returns>
         public bool FlipEdge(int faceIndex, int neighbourIndex)
         {
+            if (neighbourIndex < 0 || neighbourIndex > 2)
+                return false;
+
             return Kernel.FlipEdge(Ptr, faceIndex, neighbourIndex);
         }
 

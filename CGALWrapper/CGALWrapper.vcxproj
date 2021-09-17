@@ -165,6 +165,7 @@
     <ClInclude Include="Arrangments\ArrMultiLocator.h" />
     <ClInclude Include="Circlar\Circle.h" />
     <ClInclude Include="Circlar\Circle_EEK.h" />
+    <ClInclude Include="Triangulations\TriEdge2.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2.h" />

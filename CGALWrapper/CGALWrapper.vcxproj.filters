@@ -186,6 +186,9 @@
     <ClInclude Include="Circlar\Circle_EEK.h">
       <Filter>Header Files\Circlar</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulations\TriEdge2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

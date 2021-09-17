@@ -124,6 +124,11 @@ void ConstrainedTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumce
 	ConstrainedTriangulation2<EEK>::GetCircumcenters(ptr, circumcenters, startIndex, count);
 }
 
+int ConstrainedTriangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index)
+{
+	return ConstrainedTriangulation2<EEK>::NeighbourIndex(ptr, faceIndex, index);
+}
+
 BOOL ConstrainedTriangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face)
 {
 	return ConstrainedTriangulation2<EEK>::LocateFace(ptr, point, face);
