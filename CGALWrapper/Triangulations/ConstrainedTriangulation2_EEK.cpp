@@ -216,6 +216,7 @@ void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(void* ptr, int vert
 	ConstrainedTriangulation2<EEK>::RemoveIncidentConstraints(ptr, vertexIndex);
 }
 
+/*
 int ConstrainedTriangulation2_EEK_GetPolygonIndices(void* ptrTri, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
 {
 	return ConstrainedTriangulation2<EEK>::GetPolygonIndices(ptrTri, polyPtr, indices, startIndex, count, orientation);
@@ -224,4 +225,10 @@ int ConstrainedTriangulation2_EEK_GetPolygonIndices(void* ptrTri, void* polyPtr,
 int ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(void* ptrTri, void* pwhPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
 {
 	return ConstrainedTriangulation2<EEK>::GetPolygonWithHolesIndices(ptrTri, pwhPtr, indices, startIndex, count, orientation);
+}
+*/
+
+int ConstrainedTriangulation2_EEK_MarkDomains(void* ptr, int* indices, int startIndex, int count)
+{
+	return ConstrainedTriangulation2<EEK>::MarkDomains(ptr, indices, startIndex, count);
 }

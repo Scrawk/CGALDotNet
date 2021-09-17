@@ -149,6 +149,7 @@ namespace CGALDotNetTest
             Assert.AreEqual(CGALGlobal.CoplanarOrientation(p, q, r, t.xzy), ORIENTATION.NEGATIVE);
         }
 
+        /*
         [TestMethod]
         public void EquidistantLine()
         {
@@ -168,6 +169,7 @@ namespace CGALDotNetTest
 
             Assert.AreEqual(l1, l2);
         }
+        */
 
         [TestMethod]
         public void OrthogonalVector()

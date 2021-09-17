@@ -20,8 +20,8 @@ namespace CGALDotNetConsole
         {
             var box = PolygonFactory<EEK>.FromBox(-1, 1);
 
-
-
+            var tri = new ConstrainedTriangulation2<EEK>();
+            tri.InsertPolygonConstraint(box);
 
             //BenchmarkRunner.Run<BenckMark>();
         }

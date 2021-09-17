@@ -146,6 +146,15 @@ public:
 	}
 
 	template<class TRI>
+	void SetFaceIndices(TRI& model, int value)
+	{
+		faceMap.mapBuilt = false;
+
+		for (auto& face : model.finite_face_handles())
+			face->info() = value;
+	}
+
+	template<class TRI>
 	void BuildFaceMap(TRI& model)
 	{
 		if (faceMap.mapBuilt)

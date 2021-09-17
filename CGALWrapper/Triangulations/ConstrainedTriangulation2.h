@@ -14,6 +14,7 @@
 #include "CGAL/Segment_2.h"
 
 #include <vector>
+#include <list>
 #include "CGAL/Point_2.h"
 #include <CGAL/Constrained_triangulation_2.h>
 #include <CGAL/Triangulation_face_base_with_info_2.h>
@@ -690,6 +691,7 @@ public:
 		}
 	}
 
+	/*
 	static int GetPolygonIndices(void* ptrTri, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
 	{
 		auto tri = CastToTriangulation2(ptrTri);
@@ -743,6 +745,97 @@ public:
 				num++;
 			}
 		}
+
+		return num * 3;
+	}
+	*/
+
+	void MarkDomains(Triangulation_2& ct, Face start, int index, std::list<Edge>& border)
+	{
+		if (start->info() != -1)
+			return;
+		
+		std::list<Face> queue;
+		queue.push_back(start);
+
+		while (!queue.empty())
+		{
+			Face fh = queue.front();
+			queue.pop_front();
+
+			if (fh->info() == -1) 
+			{
+				fh->info() = index;
+
+				for (int i = 0; i < 3; i++) 
+				{
+					Edge e(fh, i);
+					Face n = fh->neighbor(i);
+
+					if (n->info() == -1) 
+					{
+						if (ct.is_constrained(e)) 
+							border.push_back(e);
+						else 
+							queue.push_back(n);
+					}
+				}
+			}
+		}
+	}
+
+	//explore set of facets connected with non constrained edges,
+	//and attribute to each such set a nesting level.
+	//We start from facets incident to the infinite vertex, with a nesting
+	//level of 0. Then we recursively consider the non-explored facets incident
+	//to constrained edges bounding the former set and increase the nesting level by 1.
+	//Facets in the domain are those with an odd nesting level.
+	void MarkDomains(Triangulation_2& cdt)
+	{
+		for (Face f : cdt.all_face_handles())
+			f->info() = -1;
+		
+		std::list<Edge> border;
+		MarkDomains(cdt, cdt.infinite_face(), 0, border);
+
+		while (!border.empty()) 
+		{
+			Edge e = border.front();
+			border.pop_front();
+			Face n = e.first->neighbor(e.second);
+
+			if (n->info() == -1) 
+			{
+				MarkDomains(cdt, n, e.first->info() + 1, border);
+			}
+		}
+	}
+
+	static int MarkDomains(void* ptr, int* indices, int startIndex, int count)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		tri->map.SetVertexIndices(tri->model);
+		tri->map.SetFaceIndices(tri->model, 0);
+		tri->MarkDomains(tri->model);
+
+		int num = 0;
+		int index = startIndex;
+
+		for (Face face : tri->model.finite_face_handles())
+		{
+			if (face->info() % 2 == 1)
+			{
+				indices[index * 3 + 0] = face->vertex(0)->info();
+				indices[index * 3 + 1] = face->vertex(1)->info();
+				indices[index * 3 + 2] = face->vertex(2)->info();
+
+				index++;
+				num++;
+			}
+		}
+
+		tri->map.SetFaceIndices(tri->model);
 
 		return num * 3;
 	}
