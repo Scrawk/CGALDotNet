@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Geometry
 {
+    /// <summary>
+    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry.h file.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Segment2d : IEquatable<Segment2d>, IGeometry2d

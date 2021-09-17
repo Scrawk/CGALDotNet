@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace CGALDotNet.Geometry
 {
+
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Point4d : IEquatable<Point4d>

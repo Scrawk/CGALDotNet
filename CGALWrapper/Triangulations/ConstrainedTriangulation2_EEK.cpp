@@ -24,6 +24,11 @@ void* ConstrainedTriangulation2_EEK_Copy(void* ptr)
 	return ConstrainedTriangulation2<EEK>::Copy(ptr);
 }
 
+void ConstrainedTriangulation_EEK_SetIndices(void* ptr)
+{
+	ConstrainedTriangulation2<EEK>::SetIndices(ptr);
+}
+
 int ConstrainedTriangulation2_EEK_BuildStamp(void* ptr)
 {
 	return ConstrainedTriangulation2<EEK>::BuildStamp(ptr);

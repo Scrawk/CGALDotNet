@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace CGALDotNet.Geometry
 {
+
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Vector2d : IEquatable<Vector2d>

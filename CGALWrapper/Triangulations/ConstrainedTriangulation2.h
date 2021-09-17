@@ -68,7 +68,7 @@ public:
 
 	ConstrainedTriangulation2()
 	{
-
+		map.OnModelChanged();
 	}
 
 	~ConstrainedTriangulation2()
@@ -96,6 +96,13 @@ public:
 		copy->model = tri->model;
 
 		return copy;
+	}
+
+	static void SetIndices(void* ptr)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		tri->map.OnModelChanged();
+		tri->map.SetIndices(tri->model);
 	}
 
 	static int BuildStamp(void* ptr)

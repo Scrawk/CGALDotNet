@@ -28,7 +28,8 @@ namespace CGALDotNetConsole.Examples
 
             var polygon = new Polygon2<EEK>(points);
 
-            var tri = new ConstrainedTriangulation2<EEK>(polygon);
+            var tri = new ConstrainedTriangulation2<EEK>();
+            tri.InsertPolygonConstraint(polygon);
 
             tri.RemoveConstraint(3, 2);
 
@@ -80,7 +81,8 @@ namespace CGALDotNetConsole.Examples
 
             var polygon = new Polygon2<EEK>(points);
 
-            var tri = new ConstrainedTriangulation2<EEK>(polygon);
+            var tri = new ConstrainedTriangulation2<EEK>();
+            tri.InsertPolygonConstraint(polygon);
 
             var indices = new List<int>();
             tri.GetPolygonIndices(polygon, indices);

@@ -23,16 +23,6 @@ namespace CGALDotNet.Triangulations
 
         }
 
-        public ConstrainedTriangulation2(Polygon2<K> polygon) : base(new K())
-        {
-            InsertPolygonConstraint(polygon);
-        }
-
-        public ConstrainedTriangulation2(PolygonWithHoles2<K> polygon) : base(new K())
-        {
-            InsertPolygonConstraint(polygon);
-        }
-
         internal ConstrainedTriangulation2(IntPtr ptr) : base(new K(), ptr)
         {
 

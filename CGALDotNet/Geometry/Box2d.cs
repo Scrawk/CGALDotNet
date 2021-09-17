@@ -4,53 +4,95 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Geometry
 {
+    /// <summary>
+    /// Box struct defined by a min and max point.
+    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry2.h file.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Box2d : IEquatable<Box2d>, IGeometry2d
     {
 
+        /// <summary>
+        /// The boxs min point.
+        /// </summary>
         public Point2d Min;
 
+        /// <summary>
+        /// The boxs max point.
+        /// </summary>
         public Point2d Max;
 
+        /// <summary>
+        /// Construct a box from a min and max value.
+        /// </summary>
+        /// <param name="min">The x,y min value.</param>
+        /// <param name="max">The x,y max value.</param>
         public Box2d(double min, double max)
         {
             Min = new Point2d(min);
             Max = new Point2d(max);
         }
 
+        /// <summary>
+        /// Construct a box from a min and max values.
+        /// </summary>
+        /// <param name="minX">The x min value.</param>
+        /// <param name="minY">The y min value.</param>
+        /// <param name="maxX">The x max value.</param>
+        /// <param name="maxY">The y max value.</param>
         public Box2d(double minX, double minY, double maxX, double maxY)
         {
             Min = new Point2d(minX, minY);
             Max = new Point2d(maxX, maxY);
         }
 
+        /// <summary>
+        /// Construct a box from a min and max points.
+        /// </summary>
+        /// <param name="min">The min point.</param>
+        /// <param name="max">The max point.</param>
         public Box2d(Point2d min, Point2d max)
         {
             Min = min;
             Max = max;
         }
 
+        /// <summary>
+        /// The boxes center point.
+        /// </summary>
         public Point2d Center
         {
             get { return (Min + Max) * 0.5; }
         }
 
+        /// <summary>
+        /// The width and height of the box as a point.
+        /// </summary>
         public Point2d Size
         {
             get { return new Point2d(Width, Height); }
         }
 
+        /// <summary>
+        /// The boxs width.
+        /// </summary>
         public double Width
         {
             get { return Max.x - Min.x; }
         }
 
+        /// <summary>
+        /// The boxs height.
+        /// </summary>
         public double Height
         {
             get { return Max.y - Min.y; }
         }
 
+        /// <summary>
+        /// The area of the box.
+        /// </summary>
         public double Area
         {
             get { return (Max.x - Min.x) * (Max.y - Min.y); }
@@ -96,6 +138,11 @@ namespace CGALDotNet.Geometry
             return b1.Min != b2.Min || b1.Max != b2.Max;
         }
 
+        /// <summary>
+        /// Is the box equal to this object.
+        /// </summary>
+        /// <param name="obj">The object to compare.</param>
+        /// <returns>If the box and object are equal.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Box2d)) return false;
@@ -103,11 +150,20 @@ namespace CGALDotNet.Geometry
             return this == box;
         }
 
+        /// <summary>
+        /// Is the box equal to the other box.
+        /// </summary>
+        /// <param name="box">The other box to compare.</param>
+        /// <returns>If the box and other box are equal.</returns>
         public bool Equals(Box2d box)
         {
             return this == box;
         }
 
+        /// <summary>
+        /// The boxes hashcode.
+        /// </summary>
+        /// <returns>The boxes hashcode.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -119,6 +175,10 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// The box as a string.
+        /// </summary>
+        /// <returns>The box as a string.</returns>
         public override string ToString()
         {
             return string.Format("[Box2d: Min={0}, Max={1}, Width={2}, Height={3}]", Min, Max, Width, Height);
@@ -201,6 +261,8 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Returns true if this box intersects the other box.
         /// </summary>
+        /// <param name="a">The other box.</param>
+        /// <returns>True if the boxes intersect.</returns>
         public bool Intersects(Box2d a)
         {
             if (Max.x < a.Min.x || Min.x > a.Max.x) return false;
@@ -209,8 +271,10 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Does the box contain the other box.
+        /// Does the box contain the other box
         /// </summary>
+        /// <param name="a">The other box.</param>
+        /// <returns>True if the box contains the box.</returns>
         public bool Contains(Box2d a)
         {
             if (a.Max.x > Max.x || a.Min.x < Min.x) return false;
@@ -221,6 +285,8 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Does the box contain the point.
         /// </summary>
+        /// <param name="p">The point.</param>
+        /// <returns>True if the box contains the point.</returns>
         public bool Contains(Point2d p)
         {
             if (p.x > Max.x || p.x < Min.x) return false;
@@ -232,6 +298,8 @@ namespace CGALDotNet.Geometry
         /// Find the closest point to the box.
         /// If point inside box return point.
         /// </summary>
+        /// <param name="p">The point.</param>
+        /// <returns></returns>
         public Point2d Closest(Point2d p)
         {
             Point2d c;
@@ -253,6 +321,11 @@ namespace CGALDotNet.Geometry
             return c;
         }
 
+        /// <summary>
+        /// Find the min and max points and return the box.
+        /// </summary>
+        /// <param name="points">The point array.</param>
+        /// <returns>The bounding box.</returns>
         public static Box2d CalculateBounds(IList<Point2d> points)
         {
             Point2d min = Point2d.PositiveInfinity;
@@ -272,6 +345,12 @@ namespace CGALDotNet.Geometry
             return new Box2d(min, max);
         }
 
+        /// <summary>
+        /// Find the min and max of a and b and return the box.
+        /// </summary>
+        /// <param name="a">point a</param>
+        /// <param name="b">point b</param>
+        /// <returns>The bounding box.</returns>
         public static Box2d CalculateBounds(Point2d a, Point2d b)
         {
             double xmin = Math.Min(a.x, b.x);
@@ -282,6 +361,11 @@ namespace CGALDotNet.Geometry
             return new Box2d(xmin, ymin, xmax, ymax);
         }
 
+        /// <summary>
+        /// Find the min and max points of the segments and return the box.
+        /// </summary>
+        /// <param name="segments">The segment array.</param>
+        /// <returns>The bounding box.</returns>
         public static Box2d CalculateBounds(IList<Segment2d> segments)
         {
             Point2d min = Point2d.PositiveInfinity;

@@ -5,6 +5,10 @@ using System.Runtime.CompilerServices;
 
 namespace CGALDotNet.Geometry
 {
+    /// <summary>
+    /// A 2D point struct.
+    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry2.h file.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Point2d : IEquatable<Point2d>, IGeometry2d

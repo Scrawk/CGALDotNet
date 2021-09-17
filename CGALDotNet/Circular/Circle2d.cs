@@ -6,6 +6,9 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Circular
 {
+    /// <summary>
+    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry.h file.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Circle2d : IEquatable<Circle2d>

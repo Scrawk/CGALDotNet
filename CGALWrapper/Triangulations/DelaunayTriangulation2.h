@@ -48,7 +48,7 @@ public:
 
 	DelaunayTriangulation2()
 	{
-
+		map.OnModelChanged();
 	}
 
 	~DelaunayTriangulation2()
@@ -76,6 +76,13 @@ public:
 		copy->model = tri->model;
 
 		return copy;
+	}
+
+	static void SetIndices(void* ptr)
+	{
+		auto tri = CastToTriangulation2(ptr);
+		tri->map.OnModelChanged();
+		tri->map.SetIndices(tri->model);
 	}
 
 	static int BuildStamp(void* ptr)
@@ -467,11 +474,13 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit, ++i)
+		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
 		{
+			if (i >= count) return;
+
 			CGAL::Object o = tri->model.dual(eit);
 			if (auto seg = CGAL::object_cast<K::Segment_2>(&o))
-				segments[i] = Segment2d::FromCGAL<K>(seg->source(), seg->target());
+				segments[i++] = Segment2d::FromCGAL<K>(seg->source(), seg->target());
 		}
 	}
 
@@ -480,11 +489,13 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit, ++i)
+		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
 		{
+			if (i >= count) return;
+
 			CGAL::Object o = tri->model.dual(eit);
 			if (auto ray = CGAL::object_cast<K::Ray_2>(&o))
-				rays[i] = Ray2d::FromCGAL<K>(ray->source(), ray->to_vector());
+				rays[i++] = Ray2d::FromCGAL<K>(ray->source(), ray->to_vector());
 		}
 	}
 

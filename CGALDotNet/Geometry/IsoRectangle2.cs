@@ -4,7 +4,10 @@ using System.Text;
 
 namespace CGALDotNet.Geometry
 {
-
+    /// <summary>
+    /// The generic IsoRectangle wrapper for a CGAL object.
+    /// </summary>
+    /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class IsoRectangle2<K> : IsoRectangle2 where K : CGALKernel, new()
     {
         /// <summary>
@@ -75,26 +78,47 @@ namespace CGALDotNet.Geometry
         /// </summary>
         protected private GeometryKernel2 Kernel { get; private set; }
 
+        /// <summary>
+        /// The rectangles min point.
+        /// </summary>
         public Point2d Min
         {
             get { return Kernel.IsoRectangle_GetMin(Ptr);  }
         }
 
+        /// <summary>
+        /// The rectangles max point.
+        /// </summary>
         public Point2d Max
         {
             get { return Kernel.IsoRectangle_GetMax(Ptr); }
         }
 
+        /// <summary>
+        /// The rectangles area.
+        /// </summary>
         public double Area
         {
             get { return Kernel.IsoRectangle_Area(Ptr); }
         }
 
+        /// <summary>
+        /// The side the rectangle the point is on.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>If the point is iside, outside or on boundary.</returns>
         public BOUNDED_SIDE BoundedSide(Point2d point)
         {
             return Kernel.IsoRectangle_BoundedSide(Ptr, point);
         }
 
+        /// <summary>
+        /// Does the rectangle contain the point.
+        /// </summary>
+        /// <param name="point">The point</param>
+        /// <param name="includeBoundary">Should a point on 
+        /// the boundary count as being inside.</param>
+        /// <returns>Does the rectangle contain the point</returns>
         public bool ContainsPoint(Point2d point, bool includeBoundary)
         {
             return Kernel.IsoRectangle_ContainsPoint(Ptr, point, includeBoundary);

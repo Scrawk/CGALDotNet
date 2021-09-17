@@ -9,12 +9,15 @@ namespace CGALDotNet.Geometry
     /// <summary>
     ///  Represents a line from three coefficients
     ///  a, b and c, where ax + by + c = 0 holds.
+    ///  WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry2.h file.
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Line2d : IEquatable<Line2d>, IGeometry2d
     {
-
+        /// <summary>
+        /// The lines coefficients where ax + by + c = 0 holds.
+        /// </summary>
         public double A, B, C;
 
         /// <summary>
@@ -142,6 +145,11 @@ namespace CGALDotNet.Geometry
             return i1.A != i2.A || i1.B != i2.B || i1.C != i2.C;
         }
 
+        /// <summary>
+        /// Is the line equal to this object.
+        /// </summary>
+        /// <param name="obj">The object to compare.</param>
+        /// <returns>If the line and object are equal.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Line2d)) return false;
@@ -149,11 +157,20 @@ namespace CGALDotNet.Geometry
             return this == line;
         }
 
+        /// <summary>
+        /// Is the line equal to the other box.
+        /// </summary>
+        /// <param name="line">The other line to compare.</param>
+        /// <returns>If the line and other line are equal.</returns>
         public bool Equals(Line2d line)
         {
             return this == line;
         }
 
+        /// <summary>
+        /// The lines hashcode.
+        /// </summary>
+        /// <returns>The lines hashcode.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -166,6 +183,10 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// The line as a string.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Line2d: A={0}, B={1}, C={2}]", A, B, C);
@@ -174,6 +195,8 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Calculates the X coordinate of a point on the line by its Y coordinate.
         /// </summary>
+        /// <param name="y">The y value.</param>
+        /// <returns>X(y)</returns>
         public double X(double y)
         {
             if (A == 0) return 0;
@@ -183,6 +206,8 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Calculates the Y coordinate of a point on the line by its X coordinate.
         /// </summary>
+        /// <param name="x">The x value.</param>
+        /// <returns>Y(x)</returns>
         public double Y(double x)
         {
             if (B == 0) return 0;

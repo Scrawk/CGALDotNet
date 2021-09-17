@@ -25,6 +25,11 @@ void* DelaunayTriangulation2_EEK_Copy(void* ptr)
 	return DelaunayTriangulation2<EEK>::Copy(ptr);
 }
 
+void DelaunayTriangulation_EEK_SetIndices(void* ptr)
+{
+	DelaunayTriangulation2<EEK>::SetIndices(ptr);
+}
+
 int DelaunayTriangulation2_EEK_BuildStamp(void* ptr)
 {
 	return DelaunayTriangulation2<EEK>::BuildStamp(ptr);

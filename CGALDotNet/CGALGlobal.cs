@@ -348,6 +348,8 @@ namespace CGALDotNet
             return CGALGlobal_EEK_CoplanarOrientation_4Point3(p, q, r, s);
         }
 
+        /*
+
         /// <summary>
         /// Constructs the line which is at the same distance from the three points p, q and r.
         /// p, q and r are not collinear.
@@ -360,6 +362,8 @@ namespace CGALDotNet
         {
             return CGALGlobal_EEK_EquidistantLine_Line3(p, q, r);
         }
+
+        */
 
         /// <summary>
         /// Returns true if p, q, and r form a left turn.
@@ -537,8 +541,8 @@ namespace CGALDotNet
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern ORIENTATION CGALGlobal_EEK_CoplanarOrientation_4Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Line3d CGALGlobal_EEK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r);
+        //[DllImport(DLL_NAME, CallingConvention = CDECL)]
+        //private static extern Line3d CGALGlobal_EEK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool CGALGlobal_EEK_LeftTurn_Point2(Point2d p, Point2d q, Point2d r);

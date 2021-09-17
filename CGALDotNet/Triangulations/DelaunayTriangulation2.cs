@@ -22,16 +22,6 @@ namespace CGALDotNet.Triangulations
 
         }
 
-        public DelaunayTriangulation2(Polygon2<K> polygon) : base(new K())
-        {
-            InsertPolygon(polygon);
-        }
-
-        public DelaunayTriangulation2(PolygonWithHoles2<K> polygon) : base(new K())
-        {
-            InsertPolygon(polygon);
-        }
-
         internal DelaunayTriangulation2(IntPtr ptr) : base(new K(), ptr)
         {
 
@@ -82,6 +72,11 @@ namespace CGALDotNet.Triangulations
         }
 
         protected private DelaunayTriangulationKernel2 TriangulationKernel { get; private set; }
+
+        public void GetVoronoCount(out int numSegments, out int numRays)
+        {
+            TriangulationKernel.VoronoiCount(Ptr, out numSegments, out numRays);
+        }
 
         public Segment2d[] GetVoronoiSegments()
         {
