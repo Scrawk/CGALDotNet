@@ -1,18 +1,16 @@
 #pragma once
 
-#include "../pch.h"
-#include "../Utility/Util.h"
 #include "DelaunayTriangulation2_EEK.h"
 #include "DelaunayTriangulation2.h"
 
 void* DelaunayTriangulation2_EEK_Create()
 {
-	return Util::Create<DelaunayTriangulation2<EEK>>();
+	return DelaunayTriangulation2<EEK>::NewTriangulation2();
 }
 
 void DelaunayTriangulation2_EEK_Release(void* ptr)
 {
-	Util::Release<DelaunayTriangulation2<EEK>>(ptr);
+	DelaunayTriangulation2<EEK>::DeleteTriangulation2(ptr);
 }
 
 void DelaunayTriangulation2_EEK_Clear(void* ptr)

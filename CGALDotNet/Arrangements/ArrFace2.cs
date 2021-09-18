@@ -20,8 +20,8 @@ namespace CGALDotNet.Arrangements
 
         public override string ToString()
         {
-            return string.Format("[ArrFace2: IsFictitious={0}, IsUnbounded={1}, HasOuterEdges={2}]",
-                IsFictitious, IsUnbounded, HasOuterEdges);
+            return string.Format("[ArrFace2: Index={0}, HalfEdgeIndex={1}, IsFictitious={2}, IsUnbounded={3}, HasOuterEdges={4}]",
+                Index, HalfEdgeIndex, IsFictitious, IsUnbounded, HasOuterEdges);
         }
     }
 }

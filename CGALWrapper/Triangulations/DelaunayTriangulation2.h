@@ -56,6 +56,22 @@ public:
 
 	}
 
+	inline static DelaunayTriangulation2* NewTriangulation2()
+	{
+		return new DelaunayTriangulation2();
+	}
+
+	inline static void DeleteTriangulation2(void* ptr)
+	{
+		auto obj = static_cast<DelaunayTriangulation2*>(ptr);
+
+		if (obj != nullptr)
+		{
+			delete obj;
+			obj = nullptr;
+		}
+	}
+
 	inline static DelaunayTriangulation2* CastToTriangulation2(void* ptr)
 	{
 		return static_cast<DelaunayTriangulation2*>(ptr);

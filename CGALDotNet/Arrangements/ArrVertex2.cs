@@ -22,8 +22,8 @@ namespace CGALDotNet.Arrangements
 
         public override string ToString()
         {
-            return string.Format("[ArrVertex2: Point={0}, Degree={1}, IsIsolated={2}]",
-                Point, Degree, IsIsolated);
+            return string.Format("[ArrVertex2: Point={0}, Index={1}, FaceIndex={2}, Degree={3}, IsIsolated={4}]",
+                Point, Index, FaceIndex, Degree, IsIsolated);
         }
     }
 }

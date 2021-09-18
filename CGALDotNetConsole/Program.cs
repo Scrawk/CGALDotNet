@@ -9,6 +9,8 @@ using CGALDotNet;
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
 using CGALDotNet.Triangulations;
+using CGALDotNet.Arrangements;
+using CGALDotNet.DCEL;
 
 namespace CGALDotNetConsole
 {
@@ -20,8 +22,22 @@ namespace CGALDotNetConsole
         {
             var box = PolygonFactory<EEK>.FromBox(-1, 1);
 
-            var tri = new ConstrainedTriangulation2<EEK>();
-            tri.InsertPolygonConstraint(box);
+            var arr = new Arrangement2<EEK>();
+            arr.InsertPolygon(box, true);
+            //arr.Print(true);
+
+            var mesh = new DCELMesh();
+            mesh.FromArrangement(arr);
+            //mesh.Print();
+
+            var edge = mesh.GetHalfEdge(0);
+
+            //Console.WriteLine(edge.ToString());
+
+            foreach (var e in edge.EnumerateEdges())
+            {
+                Console.WriteLine(e);
+            }
 
             //BenchmarkRunner.Run<BenckMark>();
         }

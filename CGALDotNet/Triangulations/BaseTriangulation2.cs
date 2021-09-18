@@ -143,6 +143,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="points">The point array.</param>
         public void GetPoints(Point2d[] points)
         {
+            if (points == null || points.Length == 0)
+                return;
+
             if(CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
             {
                 int count = VertexCount;
@@ -159,6 +162,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="indices"></param>
         public void GetIndices(int[] indices)
         {
+            if (indices == null || indices.Length == 0)
+                return;
+
             if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
             {
                 int count = IndiceCount;
@@ -207,6 +213,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="vertices">The vertex array.</param>
         public void GetVertices(TriVertex2[] vertices)
         {
+            if (vertices == null || vertices.Length == 0)
+                return;
+
             if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
             {
                 int count = VertexCount;
@@ -234,6 +243,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="faces">A array of faces.</param>
         public void GetFaces(TriFace2[] faces)
         {
+            if (faces == null || faces.Length == 0)
+                return;
+
             if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
             {
                 int count = TriangleCount;
@@ -273,6 +285,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="triangules">A array of triangules.</param>
         public void GetTriangles(Triangle2d[] triangles)
         {
+            if (triangles == null || triangles.Length == 0)
+                return;
+
             if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
             {
                 int count = TriangleCount;
@@ -301,6 +316,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="circumcenters">A array of circumcenters.</param>
         public void GetCircumcenters(Point2d[] circumcenters)
         {
+            if (circumcenters == null || circumcenters.Length == 0)
+                return;
+
             if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
             {
                 int count = TriangleCount;

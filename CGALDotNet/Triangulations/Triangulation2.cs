@@ -70,6 +70,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="polygon">The polygon to insert/</param>
         public void InsertPolygon(Polygon2<K> polygon)
         {
+            if (polygon == null) 
+                return;
+
             Kernel.InsertPolygon(Ptr, polygon.Ptr);
         }
 
@@ -80,6 +83,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="polygon">The polygon to insert/</param>
         public void InsertPolygon(PolygonWithHoles2<K> pwh)
         {
+            if (pwh == null)
+                return;
+
             Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
         }
 
@@ -90,27 +96,47 @@ namespace CGALDotNet.Triangulations
     /// </summary>
     public abstract class Triangulation2 : BaseTriangulation2
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
         internal Triangulation2(CGALKernel kernel) 
             : base(kernel.TriangulationKernel2)
         {
             TriangulationKernel = Kernel as TriangulationKernel2;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <param name="points"></param>
         internal Triangulation2(CGALKernel kernel, Point2d[] points)
             : base(kernel.TriangulationKernel2, points)
         {
             TriangulationKernel = Kernel as TriangulationKernel2;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <param name="ptr"></param>
         internal Triangulation2(CGALKernel kernel, IntPtr ptr) 
             : base(kernel.TriangulationKernel2, ptr)
         {
             TriangulationKernel = Kernel as TriangulationKernel2;
         }
 
+        /// <summary>
+        /// The kernel with the functions unique to the triangulation.
+        /// </summary>
         protected private TriangulationKernel2 TriangulationKernel { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
         public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());

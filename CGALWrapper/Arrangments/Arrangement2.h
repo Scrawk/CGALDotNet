@@ -87,6 +87,8 @@ public:
 
 	typedef typename Arrangement_2::Halfedge_around_vertex_const_circulator Vertex_const_circulator;
 
+	typedef typename Arrangement_2::Halfedge_around_vertex_circulator Vertex_circulator;
+
 private:
 
 	Arrangement_2 model;
@@ -105,6 +107,22 @@ public:
 	~Arrangement2()
 	{
 
+	}
+
+	inline static Arrangement2* NewArrangement2()
+	{
+		return new Arrangement2();
+	}
+
+	inline static void DeleteArrangement2(void* ptr)
+	{
+		auto obj = static_cast<Arrangement2*>(ptr);
+
+		if (obj != nullptr)
+		{
+			delete obj;
+			obj = nullptr;
+		}
 	}
 
 	inline static Arrangement2* CastToArrangement(void* ptr)
@@ -221,22 +239,22 @@ public:
 
 		arr->map.SetIndices(arr->model);
 
-		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter, ++i)
+		for (auto vert = arr->model.vertices_begin(); vert != arr->model.vertices_end(); ++vert, ++i)
 		{
-			vertices[i].Index = iter->data();
-			vertices[i].Point = Point2d::FromCGAL<K>(iter->point());
-			vertices[i].Degree = (int)iter->degree();
-			vertices[i].IsIsolated = iter->is_isolated();
+			vertices[i].Index = vert->data();
+			vertices[i].Point = Point2d::FromCGAL<K>(vert->point());
+			vertices[i].Degree = (int)vert->degree();
+			vertices[i].IsIsolated = vert->is_isolated();
 
-			if (iter->is_isolated())
+			if (vert->is_isolated())
 			{
-				vertices[i].FaceIndex = iter->face()->data();
+				vertices[i].FaceIndex = vert->face()->data();
 				vertices[i].HalfEdgeIndex = -1;
 			}
 			else
 			{
 				vertices[i].FaceIndex = -1;
-				auto first = iter->incident_halfedges();
+				auto first = vert->incident_halfedges();
 				vertices[i].HalfEdgeIndex = first->data();
 			}
 		}
@@ -249,16 +267,16 @@ public:
 
 		arr->map.SetIndices(arr->model);
 
-		for (auto iter = arr->model.halfedges_begin(); iter != arr->model.halfedges_end(); ++iter, ++i)
+		for (auto edge = arr->model.halfedges_begin(); edge != arr->model.halfedges_end(); ++edge, ++i)
 		{
-			edges[i].IsFictitious = iter->is_fictitious();
-			edges[i].Index = iter->data();
-			edges[i].SourceIndex = iter->source()->data();
-			edges[i].TargetIndex = iter->target()->data();
-			edges[i].FaceIndex = iter->face()->data();
-			edges[i].NextIndex = iter->next()->data();
-			edges[i].PreviousIndex = iter->prev()->data();
-			edges[i].TwinIndex = iter->twin()->data();
+			edges[i].IsFictitious = edge->is_fictitious();
+			edges[i].Index = edge->data();
+			edges[i].SourceIndex = edge->source()->data();
+			edges[i].TargetIndex = edge->target()->data();
+			edges[i].FaceIndex = edge->face()->data();
+			edges[i].NextIndex = edge->next()->data();
+			edges[i].PreviousIndex = edge->prev()->data();
+			edges[i].TwinIndex = edge->twin()->data();
 		}
 	}
 
@@ -269,21 +287,24 @@ public:
 
 		arr->map.SetIndices(arr->model);
 
-		for (auto iter = arr->model.faces_begin(); iter != arr->model.faces_end(); ++iter, ++i)
+		for (auto face = arr->model.faces_begin(); face != arr->model.faces_end(); ++face, ++i)
 		{
-			faces[i].IsFictitious = iter->is_fictitious();
-			faces[i].IsUnbounded = iter->is_unbounded();
-			faces[i].HasOuterEdges = iter->has_outer_ccb();
-			faces[i].Index = iter->data();
+			if (!face->is_unbounded())
+			{
+				faces[i].IsFictitious = face->is_fictitious();
+				faces[i].IsUnbounded = face->is_unbounded();
+				faces[i].HasOuterEdges = face->has_outer_ccb();
+				faces[i].Index = face->data();
 
-			if (iter->has_outer_ccb())
-			{
-				auto first = iter->outer_ccb();
-				faces[i].HalfEdgeIndex = first->data();
-			}
-			else
-			{
-				faces[i].HalfEdgeIndex = -1;
+				if (face->has_outer_ccb())
+				{
+					auto first = face->outer_ccb();
+					faces[i].HalfEdgeIndex = first->data();
+				}
+				else
+				{
+					faces[i].HalfEdgeIndex = -1;
+				}
 			}
 		}
 	}
@@ -303,6 +324,8 @@ public:
 	static BOOL PointQuery(void* ptr, Point2d point, ArrQuery& result)
 	{
 		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
+
 		auto q = arr->locator.Locate(arr->model, point);
 		return HandleQuery(arr, q, result);
 	}
@@ -310,6 +333,7 @@ public:
 	static BOOL BatchedPointQuery(void* ptr, Point2d* p, ArrQuery* r, int startIndex, int count)
 	{
 		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
 
 		auto list = ToList(p, startIndex, count);
 		std::vector<Batch_Query_Result> results;
@@ -331,6 +355,7 @@ public:
 	static BOOL RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& result)
 	{
 		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
 
 		if (up)
 		{
@@ -406,6 +431,8 @@ public:
 			else
 				arr->locator.InsertSegment<Segment_2>(arr->model, segment);
 		}
+
+		arr->map.OnModelChanged();
 	}
 
 	static void InsertPolygonWithHoles(void* ptr, void* pwhPtr, BOOL nonItersecting)
@@ -555,7 +582,7 @@ private:
 
 		if (face = boost::get<Face_const>(&query))
 		{
-			arr->map.SetFaceIndices(arr->model);
+			arr->map.SetIndices(arr->model);
 			result.Element = ARR_ELEMENT_HIT::FACE;
 			result.Index = (*face)->data();
 			return TRUE;
@@ -563,7 +590,7 @@ private:
 
 		else if (edge = boost::get<Halfedge_const>(&query))
 		{
-			arr->map.SetEdgeIndices(arr->model);
+			arr->map.SetIndices(arr->model);
 			result.Element = ARR_ELEMENT_HIT::HALF_EDGE;
 			result.Index = (*edge)->data();
 			return TRUE;
@@ -571,7 +598,7 @@ private:
 
 		else if (vert = boost::get<Vertex_const>(&query))
 		{
-			arr->map.SetVertexIndices(arr->model);
+			arr->map.SetIndices(arr->model);
 			result.Element = ARR_ELEMENT_HIT::VERTEX;
 			result.Index = (*vert)->data();
 			return TRUE;

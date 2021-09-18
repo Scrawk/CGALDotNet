@@ -7,6 +7,13 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Arrangements
 {
+    [Flags]
+    public enum ARRANGEMENT_CHECK
+    {
+        NONE = 0,
+        ARRAY_BOUNDS = 1,
+        ALL = ~0
+    };
 
     public sealed class Arrangement2<K> : Arrangement2 where K : CGALKernel, new()
     {
@@ -96,6 +103,8 @@ namespace CGALDotNet.Arrangements
 
         public bool IsEmpty => Kernel.IsEmpty(Ptr);
 
+        public ARRANGEMENT_CHECK CheckFlag = ARRANGEMENT_CHECK.ALL;
+
         public void Clear()
         {
             Kernel.Clear(Ptr);
@@ -108,31 +117,56 @@ namespace CGALDotNet.Arrangements
 
         public void GetPoints(Point2d[] points)
         {
-            ErrorUtil.CheckBounds(points, 0, VertexCount);
+            if (points == null || points.Length == 0)  
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(points, 0, VertexCount);
+
             Kernel.GetPoints(Ptr, points, 0, points.Length);
         }
 
         public void GetSegments(Segment2d[] segments)
         {
-            ErrorUtil.CheckBounds(segments, 0, EdgeCount);
+            if (segments == null || segments.Length == 0) 
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(segments, 0, EdgeCount);
+
             Kernel.GetSegments(Ptr, segments, 0, segments.Length);
         }
 
         public void GetVertices(ArrVertex2[] vertices)
         {
-            ErrorUtil.CheckBounds(vertices, 0, VertexCount);
+            if (vertices == null || vertices.Length == 0) 
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(vertices, 0, VertexCount);
+
             Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
         }
 
         public void GetHalfEdges(ArrHalfEdge2[] edges)
         {
-            ErrorUtil.CheckBounds(edges, 0, HalfEdgeCount);
+            if (edges == null || edges.Length == 0)
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(edges, 0, HalfEdgeCount);
+
             Kernel.GetHalfEdges(Ptr, edges, 0, edges.Length);
         }
 
         public void GetFaces(ArrFace2[] faces)
         {
-            ErrorUtil.CheckBounds(faces, 0, FaceCount);
+            if (faces == null || faces.Length == 0)
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(faces, 0, FaceCount);
+
             Kernel.GetFaces(Ptr, faces, 0, faces.Length);
         }
 
@@ -161,7 +195,15 @@ namespace CGALDotNet.Arrangements
 
         public bool BatchedPointQuery(Point2d[] points, ArrQuery[] results)
         {
-            ErrorUtil.CheckBounds(results, 0, points.Length);
+            if (points == null || points.Length == 0)
+                return false;
+
+            if (results == null || results.Length == 0)
+                return false;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(results, 0, points.Length);
+
             return Kernel.BatchedPointQuery(Ptr, points, results, 0, points.Length);
         }
 
@@ -192,6 +234,9 @@ namespace CGALDotNet.Arrangements
 
         public void InsertSegments(Segment2d[] segments, bool nonItersecting)
         {
+            if (segments == null || segments.Length == 0)
+                return;
+
             Kernel.InsertSegments(Ptr, segments, 0, segments.Length, nonItersecting);
         }
 

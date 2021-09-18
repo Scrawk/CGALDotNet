@@ -113,8 +113,8 @@ public:
 
 		vertexMap.Clear();
 
-		for (auto iter = model.vertices_begin(); iter != model.vertices_end(); ++iter)
-			iter->set_data(vertexMap.NextIndex());
+		for (auto vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
+			vert->set_data(vertexMap.NextIndex());
 
 		vertexMap.indicesSet = true;
 	}
@@ -127,8 +127,8 @@ public:
 
 		vertexMap.ClearMap();
 
-		for (auto iter = model.vertices_begin(); iter != model.vertices_end(); ++iter)
-			vertexMap.Insert(iter->data(), iter);
+		for (auto vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
+			vertexMap.Insert(vert->data(), vert);
 
 		vertexMap.mapBuilt = true;
 	}
@@ -141,9 +141,14 @@ public:
 
 		faceMap.Clear();
 
-		for (auto iter = model.faces_begin(); iter != model.faces_end(); ++iter)
-			iter->set_data(faceMap.NextIndex());
-
+		for (auto face = model.faces_begin(); face != model.faces_end(); ++face)
+		{
+			if (!face->is_unbounded())
+				face->set_data(faceMap.NextIndex());
+			else
+				face->set_data(-1);
+		}
+			
 		faceMap.indicesSet = true;
 	}
 
@@ -155,9 +160,12 @@ public:
 
 		faceMap.ClearMap();
 
-		for (auto iter = model.faces_begin(); iter != model.faces_end(); ++iter)
-			faceMap.Insert(iter->data(), iter);
-
+		for (auto face = model.faces_begin(); face != model.faces_end(); ++face)
+		{
+			if(!face->is_unbounded())
+				faceMap.Insert(face->data(), face);
+		}
+			
 		faceMap.mapBuilt = true;
 	}
 
@@ -169,8 +177,8 @@ public:
 
 		edgeMap.Clear();
 
-		for (auto iter = model.halfedges_begin(); iter != model.halfedges_end(); ++iter)
-			iter->set_data(edgeMap.NextIndex());
+		for (auto edge = model.halfedges_begin(); edge != model.halfedges_end(); ++edge)
+			edge->set_data(edgeMap.NextIndex());
 
 		edgeMap.indicesSet = true;
 	}
@@ -183,8 +191,8 @@ public:
 
 		edgeMap.ClearMap();
 
-		for (auto iter = model.halfedges_begin(); iter != model.halfedges_end(); ++iter)
-			edgeMap.Insert(iter->data(), iter);
+		for (auto edge = model.halfedges_begin(); edge != model.halfedges_end(); ++edge)
+			edgeMap.Insert(edge->data(), edge);
 
 		edgeMap.mapBuilt = true;
 	}

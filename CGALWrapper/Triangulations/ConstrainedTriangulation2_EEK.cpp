@@ -1,17 +1,16 @@
 #pragma once
-#include "../pch.h"
-#include "../Utility/Util.h"
+
 #include "ConstrainedTriangulation2_EEK.h"
 #include "ConstrainedTriangulation2.h"
 
 void* ConstrainedTriangulation2_EEK_Create()
 {
-	return Util::Create<ConstrainedTriangulation2<EEK>>();
+	return ConstrainedTriangulation2<EEK>::NewTriangulation2();
 }
 
 void ConstrainedTriangulation2_EEK_Release(void* ptr)
 {
-	Util::Release<ConstrainedTriangulation2<EEK>>(ptr);
+	ConstrainedTriangulation2<EEK>::DeleteTriangulation2(ptr);
 }
 
 void ConstrainedTriangulation2_EEK_Clear(void* ptr)

@@ -26,8 +26,8 @@ namespace CGALDotNet.Arrangements
 
         public override string ToString()
         {
-            return string.Format("[ArrHalfEdge2: IsFictitious={0}]",
-                IsFictitious);
+            return string.Format("[ArrHalfEdge2: Index={0}, FaceIndex={1}, IsFictitious={2}]",
+                Index, FaceIndex, IsFictitious);
         }
     }
 }

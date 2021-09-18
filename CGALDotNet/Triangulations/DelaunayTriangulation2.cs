@@ -70,6 +70,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="polygon">The polygon to insert.</param>
         public void InsertPolygon(Polygon2<K> polygon)
         {
+            if (polygon == null)
+                return;
+
             Kernel.InsertPolygon(Ptr, polygon.Ptr);
         }
 
@@ -80,6 +83,9 @@ namespace CGALDotNet.Triangulations
         /// <param name="pwh">The polygon to insert.</param>
         public void InsertPolygon(PolygonWithHoles2<K> pwh)
         {
+            if (pwh == null)
+                return;
+
             Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
         }
 

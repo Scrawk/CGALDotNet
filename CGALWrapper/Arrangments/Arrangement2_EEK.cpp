@@ -1,5 +1,4 @@
-#include "../pch.h"
-#include "../Utility/Util.h"
+
 #include "Arrangement2_EEK.h"
 #include "Arrangement2.h"
 
@@ -9,12 +8,12 @@
 
 void* Arrangement2_EEK_Create()
 {
-	return Util::Create<Arrangement2<EEK>>();
+	return Arrangement2<EEK>::NewArrangement2();
 }
 
 void Arrangement2_EEK_Release(void* ptr)
 {
-	Util::Release<Arrangement2<EEK>>(ptr);
+	Arrangement2<EEK>::DeleteArrangement2(ptr);
 }
 
 BOOL Arrangement2_EEK_IsValid(void* ptr)
@@ -176,3 +175,36 @@ BOOL Arrangement2_EEK_RemoveEdgeBySegment(void* ptr, Segment2d segment)
 {
 	return Arrangement2<EEK>::RemoveEdge(ptr, segment);
 }
+
+/*
+void Test()
+{
+	auto arr = Arrangement2<EEK>::NewArrangement2();
+
+	for (auto v = arr->model.vertices_begin(); v != arr->model.vertices_end(); ++v)
+	{
+		if (v->is_isolated()) 
+		{
+			std::cout << "The vertex (" << v->point() << ") is isolated" << std::endl;
+			return;
+		}
+
+		Arrangement2<EEK>::Vertex_circulator first, curr;
+
+		do
+		{
+			// Note that the current halfedge is directed from u to v:
+			//Arrangement_2::Vertex_const_handle u = curr->source();
+
+			if (curr->face()->data() != -1)
+			{
+				v->face() = curr->face();
+			}
+
+		} while (++curr != first);
+		
+	}
+}
+*/
+
+
