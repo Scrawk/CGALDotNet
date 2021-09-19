@@ -151,5 +151,10 @@ BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orienta
 	return PolygonWithHoles2<EEK>::ContainsPoint(ptr, point, orientation, inculdeBoundary);
 }
 
+void* PolygonWithHoles2_EEK_ConnectHoles(void* ptr)
+{
+	return PolygonWithHoles2<EEK>::ConnectHoles(ptr);
+}
+
 
 

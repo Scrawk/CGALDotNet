@@ -160,6 +160,11 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
         }
 
+        internal override IntPtr ConnectHoles(IntPtr ptr)
+        {
+            return PolygonWithHoles2_EEK_ConnectHoles(ptr);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EEK_Create();
 
@@ -246,5 +251,8 @@ namespace CGALDotNet.Polygons
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonWithHoles2_EEK_ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation,bool inculdeBoundary);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr PolygonWithHoles2_EEK_ConnectHoles(IntPtr ptr);
     }
 }

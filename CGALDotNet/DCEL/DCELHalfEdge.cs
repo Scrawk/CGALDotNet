@@ -37,8 +37,8 @@ namespace CGALDotNet.DCEL
 
         public override string ToString()
         {
-            return string.Format("[DCELHalfEdge: Index={0}, FaceIndex={1}]",
-                Index, FaceIndex);
+            return string.Format("[DCELHalfEdge: Index={0}, NextIndex={1}, SourceIndex={2}, Targetndex={3}, FaceIndex={4}, PreviousIndex={5}, TwinIndex={6}]",
+                Index, NextIndex, SourceIndex, TargetIndex, FaceIndex, PreviousIndex, TwinIndex);
         }
 
         public IEnumerable<DCELHalfEdge> EnumerateEdges()
@@ -48,10 +48,27 @@ namespace CGALDotNet.DCEL
 
             do
             {
-                if (e.Index == -1) yield break;
                 yield return e;
 
-                if(e.NextIndex < 0 || e.NextIndex >= Mesh.HalfEdgeCount)
+                if(!Mesh.InHalfEdgeBounds(e.NextIndex))
+                    yield break;
+                else
+                    e = Mesh.GetHalfEdge(e.NextIndex);
+            }
+            while (e.Index != start.Index);
+        }
+
+        public IEnumerable<DCELVertex> EnumerateVertices()
+        {
+            var start = this;
+            var e = start;
+
+            do
+            {
+                if (Mesh.InVerticesBounds(e.SourceIndex))
+                    yield return Mesh.GetVertex(e.SourceIndex);
+
+                if (!Mesh.InHalfEdgeBounds(e.NextIndex))
                     yield break;
                 else
                     e = Mesh.GetHalfEdge(e.NextIndex);

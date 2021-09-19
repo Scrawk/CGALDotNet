@@ -32,5 +32,31 @@ namespace CGALDotNet.DCEL
             return string.Format("[DCELVertex: Point={0}, Index={1}, FaceIndex={2}]",
                 Point, Index, FaceIndex);
         }
+
+        public IEnumerable<DCELHalfEdge> EnumerateIncidentEdges()
+        {
+            var start = Mesh.GetHalfEdge(HalfEdgeIndex);
+            var e = start;
+
+            do
+            {
+                yield return e;
+
+                DCELHalfEdge twin, next;
+
+                if(Mesh.InHalfEdgeBounds(e.TwinIndex))
+                    twin = Mesh.GetHalfEdge(e.TwinIndex);
+                else
+                    yield break;
+
+                if (Mesh.InHalfEdgeBounds(twin.NextIndex))
+                    next = Mesh.GetHalfEdge(twin.NextIndex);
+                else
+                    yield break;
+
+                e = next;
+            }
+            while (e.Index != start.Index);
+        }
     }
 }

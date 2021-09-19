@@ -20,7 +20,7 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var box = PolygonFactory<EEK>.FromBox(-1, 1);
+            var box = PolygonFactory<EEK>.FromBox(-5, 5);
 
             var arr = new Arrangement2<EEK>();
             arr.InsertPolygon(box, true);
@@ -30,13 +30,23 @@ namespace CGALDotNetConsole
             mesh.FromArrangement(arr);
             //mesh.Print();
 
+            var vert = mesh.GetVertex(0);
+            var face = mesh.GetFace(0);
             var edge = mesh.GetHalfEdge(0);
 
-            //Console.WriteLine(edge.ToString());
-
-            foreach (var e in edge.EnumerateEdges())
+            foreach (var e in edge.EnumerateVertices())
             {
-                Console.WriteLine(e);
+                //Console.WriteLine(e);
+            }
+
+            foreach (var e in face.EnumerateEdges())
+            {
+                //Console.WriteLine(e);
+            }
+
+            foreach (var v in face.EnumerateVertices())
+            {
+                Console.WriteLine(v);
             }
 
             //BenchmarkRunner.Run<BenckMark>();

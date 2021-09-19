@@ -161,6 +161,17 @@ namespace CGALDotNet.Polygons
         {
             return PolygonBoolean2<K>.Instance.DoIntersect(polygon, this);
         }
+
+        /// <summary>
+        /// Connect all the holes of the polygon 
+        /// and return as a polygon.
+        /// </summary>
+        /// <returns>The connected polygon.</returns>
+        public Polygon2<K> ConnectHoles()
+        {
+            var ptr = Kernel.ConnectHoles(Ptr);
+            return new Polygon2<K>(ptr);
+        }
     }
 
     /// <summary>

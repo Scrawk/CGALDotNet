@@ -73,5 +73,7 @@ namespace CGALDotNet.Polygons
 
         internal abstract bool ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary);
 
+        internal abstract IntPtr ConnectHoles(IntPtr ptr);
+
     }
 }

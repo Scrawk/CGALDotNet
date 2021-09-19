@@ -9,8 +9,6 @@ namespace CGALDotNet.DCEL
     public class DCELMesh
     {
 
-        private const int NUM_UNBOUNDED_FACES = 1;
-
         public DCELMesh()
         {
             Vertices = new List<DCELVertex>();
@@ -58,6 +56,39 @@ namespace CGALDotNet.DCEL
             return Faces[index];
         }
 
+        public bool InVerticesBounds(int i)
+        {
+            return !(i < 0 || i >= VertexCount);
+        }
+
+        public bool InHalfEdgeBounds(int i)
+        {
+            return !(i < 0 || i >= HalfEdgeCount);
+        }
+
+        public bool InFaceBounds(int i)
+        {
+            return !(i < 0 || i >= FaceCount);
+        }
+
+        public IEnumerable<DCELVertex> EnumerateVertices()
+        {
+            foreach (var vert in Vertices)
+                yield return vert;
+        }
+
+        public IEnumerable<DCELHalfEdge> EnumerateEdges()
+        {
+            foreach (var edge in HalfEdges)
+                yield return edge;
+        }
+
+        public IEnumerable<DCELFace> EnumerateFaces()
+        {
+            foreach (var face in Faces)
+                yield return face;
+        }
+
         private void CreateVertices(Arrangement2 arrangement)
         {
             Vertices.Clear();
@@ -77,6 +108,7 @@ namespace CGALDotNet.DCEL
                 var arrVert = vertices[i];
                 var dcelVert = new DCELVertex(this);
 
+                dcelVert.Point = arrVert.Point;
                 dcelVert.Index = arrVert.Index;
                 dcelVert.FaceIndex = arrVert.FaceIndex;
                 dcelVert.HalfEdgeIndex = arrVert.HalfEdgeIndex;
@@ -89,7 +121,7 @@ namespace CGALDotNet.DCEL
         {
             Faces.Clear();
 
-            int count = arrangement.FaceCount - NUM_UNBOUNDED_FACES;
+            int count = arrangement.FaceCount;
             if (count <= 0) return;
 
             var faces = new ArrFace2[count];
@@ -153,6 +185,8 @@ namespace CGALDotNet.DCEL
         public void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
+
+            builder.AppendLine();
 
             foreach (var vert in Vertices)
                 builder.AppendLine(vert.ToString());

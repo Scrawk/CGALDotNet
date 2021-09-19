@@ -4,6 +4,7 @@
 
 #include <CGAL/Polygon_2.h>
 #include <CGAL/Polygon_with_holes_2.h>
+#include <CGAL/connect_holes.h>
 #include <CGAL/enum.h>
 
 #define BOUNDARY_INDEX -1
@@ -563,6 +564,21 @@ public:
 		{
 			return FALSE;
 		}
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="ptr"></param>
+	/// <returns></returns>
+	static void* ConnectHoles(void* ptr)
+	{
+		auto pwh = CastToPolygonWithHoles2(ptr);
+
+		std::list<Point_2> pts;
+		CGAL::connect_holes(*pwh, std::back_inserter(pts));
+
+		return new Polygon_2(pts.begin(), pts.end());
 	}
 
 private:

@@ -95,7 +95,7 @@ namespace CGALDotNet.Arrangements
 
         public int EdgeCount => Kernel.EdgeCount(Ptr);
 
-        public int FaceCount => Kernel.FaceCount(Ptr);
+        public int FaceCount => Kernel.FaceCount(Ptr) - UnboundedFaceCount;
 
         public int UnboundedFaceCount => Kernel.UnboundedFaceCount(Ptr);
 
