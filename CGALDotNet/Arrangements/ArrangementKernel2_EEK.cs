@@ -9,8 +9,17 @@ namespace CGALDotNet.Arrangements
 {
     internal sealed class ArrangementKernel2_EEK : ArrangementKernel2
     {
+        private const string DLL_NAME = "CGALWrapper.dll";
+
+        private const CallingConvention CDECL = CallingConvention.Cdecl;
+
 
         internal static readonly ArrangementKernel2 Instance = new ArrangementKernel2_EEK();
+
+        public override string ToString()
+        {
+            return string.Format("[ArrangementKernel2<{0}>: ]", Name);
+        }
 
         internal override string Name => "EEK";
 
@@ -99,14 +108,29 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_GetVertices(ptr, vertices, startIndex, count);
         }
 
+        internal override bool GetVertex(IntPtr ptr, int index, out ArrVertex2 arrVertex)
+        {
+            return Arrangement2_EEK_GetVertex(ptr, index, out arrVertex);
+        }
+
         internal override void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int startIndex, int count)
         {
             Arrangement2_EEK_GetHalfEdges(ptr, edges, startIndex, count);
         }
 
+        internal override bool GetHalfEdge(IntPtr ptr, int index, out ArrHalfEdge2 arrEdge)
+        {
+            return Arrangement2_EEK_GetHalfEdge(ptr, index, out arrEdge);
+        }
+
         internal override void GetFaces(IntPtr ptr, ArrFace2[] faces, int startIndex, int count)
         {
             Arrangement2_EEK_GetFaces(ptr, faces, startIndex, count);
+        }
+
+        internal override bool GetFace(IntPtr ptr, int index, out ArrFace2 arrFace)
+        {
+            return Arrangement2_EEK_GetFace(ptr, index, out arrFace);
         }
 
         internal override void CreateLocator(IntPtr ptr, ARR_LOCATOR type)
@@ -184,106 +208,115 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_RemoveEdgeBySegment(ptr, segment);
         }
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Arrangement2_EEK_Create();
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_Release(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_IsValid(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_Clear(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_IsEmpty(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_Assign(IntPtr ptr, IntPtr ptrOther);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Arrangement2_EEK_Overlay(IntPtr ptr, IntPtr ptrOther);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Arrangement2_EEK_VertexCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Arrangement2_EEK_IsolatedVerticesCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Arrangement2_EEK_VerticesAtInfinityCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Arrangement2_EEK_HalfEdgeCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Arrangement2_EEK_FaceCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Arrangement2_EEK_EdgeCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Arrangement2_EEK_UnboundedFaceCount(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_GetVertices(IntPtr ptr, [Out] ArrVertex2[] vertices, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Arrangement2_EEK_GetVertex(IntPtr ptr, int index, [Out] out ArrVertex2 arrVertex);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_GetHalfEdges(IntPtr ptr, [Out] ArrHalfEdge2[] edges, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Arrangement2_EEK_GetHalfEdge(IntPtr ptr, int index, [Out] out ArrHalfEdge2 arrEdge);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_GetFaces(IntPtr ptr, [Out] ArrFace2[] faces, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Arrangement2_EEK_GetFace(IntPtr ptr, int index, [Out] out ArrFace2 arrFace);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_CreateLocator(IntPtr ptr, ARR_LOCATOR type);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_ReleaseLocator(IntPtr ptr);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_PointQuery(IntPtr ptr, Point2d point, [Out] out ArrQuery result);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_BatchedPointQuery(IntPtr ptr, [Out] Point2d[] points, [Out] ArrQuery[] results, int startIndex, int count);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_RayQuery(IntPtr ptr, Point2d point, bool up, [Out] out ArrQuery result);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_IntersectsSegment(IntPtr ptr, Segment2d segment);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_InsertPoint(IntPtr ptr, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_InsertPolygon(IntPtr ptr, IntPtr polyPtr, bool nonItersecting);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_InsertPolygonWithHoles(IntPtr ptr, IntPtr pwhPtr, bool nonItersecting);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_InsertSegments(IntPtr ptr, [In] Segment2d[] points, int startIndex, int count, bool nonItersecting);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_RemoveVertexByIndex(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_RemoveVertexByPoint(IntPtr ptr, Point2d point);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_RemoveEdgeByIndex(IntPtr ptr, int index);
 
-        [DllImport("CGALWrapper.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_RemoveEdgeBySegment(IntPtr ptr, Segment2d segment);
 
 

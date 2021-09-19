@@ -189,6 +189,21 @@
     <ClInclude Include="Triangulations\TriEdge2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
+    <ClInclude Include="Arrangments\ArrFace2.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrangments\ArrHalfEdge2.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrangments\ArrVertex2.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrangments\SweepLine.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrangments\SweepLine_EEK.h">
+      <Filter>Header Files\Arrangements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -241,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="Circlar\Circle_EEK.cpp">
       <Filter>Source Files\Circlar</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrangments\SweepLine_EEK.cpp">
+      <Filter>Source Files\Arrangements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

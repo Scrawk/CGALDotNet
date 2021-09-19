@@ -7,6 +7,10 @@
 #include "../Polygons/Polygon2.h"
 #include "../Polygons/PolygonWithHoles2.h"
 
+#include "ArrVertex2.h"
+#include "ArrHalfEdge2.h"
+#include "ArrFace2.h"
+
 #include <vector>
 #include "CGAL/Point_2.h"
 #include <CGAL/Arr_segment_traits_2.h>
@@ -14,37 +18,6 @@
 #include <CGAL/Arr_extended_dcel.h>
 #include <CGAL/Arr_batched_point_location.h>
 #include <CGAL/Arr_overlay_2.h>
-
-struct ArrVertex2
-{
-	Point2d Point;
-	int Degree;
-	BOOL IsIsolated;
-	int Index;
-	int FaceIndex;
-	int HalfEdgeIndex;
-};
-
-struct ArrHalfEdge2
-{
-	BOOL IsFictitious;
-	int Index;
-	int SourceIndex;
-	int TargetIndex;
-	int FaceIndex;
-	int NextIndex;
-	int PreviousIndex;
-	int TwinIndex;
-};
-
-struct ArrFace2
-{
-	BOOL IsFictitious;
-	BOOL IsUnbounded;
-	BOOL HasOuterEdges;
-	int Index;
-	int HalfEdgeIndex;
-};
 
 enum class ARR_ELEMENT_HIT : int
 {
@@ -241,22 +214,25 @@ public:
 
 		for (auto vert = arr->model.vertices_begin(); vert != arr->model.vertices_end(); ++vert, ++i)
 		{
-			vertices[i].Index = vert->data();
-			vertices[i].Point = Point2d::FromCGAL<K>(vert->point());
-			vertices[i].Degree = (int)vert->degree();
-			vertices[i].IsIsolated = vert->is_isolated();
+			vertices[i] = ArrVertex2::FromVertex<K>(vert);
+		}
+	}
 
-			if (vert->is_isolated())
-			{
-				vertices[i].FaceIndex = vert->face()->data();
-				vertices[i].HalfEdgeIndex = -1;
-			}
-			else
-			{
-				vertices[i].FaceIndex = -1;
-				auto first = vert->incident_halfedges();
-				vertices[i].HalfEdgeIndex = first->data();
-			}
+	static BOOL GetVertex(void* ptr, int index, ArrVertex2& arrVert)
+	{
+		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
+
+		auto vert = arr->map.FindVertex(arr->model, index);
+		if (vert != nullptr)
+		{
+			arrVert = ArrVertex2::FromVertex<K>(*vert);
+			return TRUE;
+		}
+		else
+		{
+			arrVert = ArrVertex2::NullVertex();
+			return FALSE;
 		}
 	}
 
@@ -269,14 +245,25 @@ public:
 
 		for (auto edge = arr->model.halfedges_begin(); edge != arr->model.halfedges_end(); ++edge, ++i)
 		{
-			edges[i].IsFictitious = edge->is_fictitious();
-			edges[i].Index = edge->data();
-			edges[i].SourceIndex = edge->source()->data();
-			edges[i].TargetIndex = edge->target()->data();
-			edges[i].FaceIndex = edge->face()->data();
-			edges[i].NextIndex = edge->next()->data();
-			edges[i].PreviousIndex = edge->prev()->data();
-			edges[i].TwinIndex = edge->twin()->data();
+			edges[i] = ArrHalfEdge2::FromHalfEdge(edge);
+		}
+	}
+
+	static BOOL GetHalfEdge(void* ptr, int index, ArrHalfEdge2& arrEdge)
+	{
+		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
+
+		auto edge = arr->map.FindEdge(arr->model, index);
+		if (edge != nullptr)
+		{
+			arrEdge = ArrHalfEdge2::FromHalfEdge(*edge);
+			return TRUE;
+		}
+		else
+		{
+			arrEdge = ArrHalfEdge2::NullEdge();
+			return FALSE;
 		}
 	}
 
@@ -287,25 +274,36 @@ public:
 
 		arr->map.SetIndices(arr->model);
 
-		for (auto face = arr->model.faces_begin(); face != arr->model.faces_end(); ++face, ++i)
+		for (auto face = arr->model.faces_begin(); face != arr->model.faces_end(); ++face)
 		{
 			if (!face->is_unbounded())
-			{
-				faces[i].IsFictitious = face->is_fictitious();
-				faces[i].IsUnbounded = face->is_unbounded();
-				faces[i].HasOuterEdges = face->has_outer_ccb();
-				faces[i].Index = face->data();
+				faces[i++] = ArrFace2::FromFace(face);
+		}
+	}
 
-				if (face->has_outer_ccb())
-				{
-					auto first = face->outer_ccb();
-					faces[i].HalfEdgeIndex = first->data();
-				}
-				else
-				{
-					faces[i].HalfEdgeIndex = -1;
-				}
+	static BOOL GetFace(void* ptr, int index, ArrFace2& arrFace)
+	{
+		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
+
+		auto face = arr->map.FindFace(arr->model, index);
+		if (face != nullptr)
+		{
+			if (!(*face)->is_unbounded())
+			{
+				arrFace = ArrFace2::FromFace(*face);
+				return TRUE;
 			}
+			else
+			{
+				arrFace = ArrFace2::NullFace();
+				return FALSE;
+			}
+		}
+		else
+		{
+			arrFace = ArrFace2::NullFace();
+			return FALSE;
 		}
 	}
 

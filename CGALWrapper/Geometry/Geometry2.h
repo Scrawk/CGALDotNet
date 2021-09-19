@@ -102,6 +102,7 @@ struct Segment2d
         auto B = Point2d::FromCGAL<K>(b);
         return { A, B };
     }
+
 };
 
 struct Line2d

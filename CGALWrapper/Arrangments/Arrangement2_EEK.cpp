@@ -5,7 +5,6 @@
 #include <CGAL/Arr_segment_traits_2.h>
 #include <CGAL/Arrangement_2.h>
 
-
 void* Arrangement2_EEK_Create()
 {
 	return Arrangement2<EEK>::NewArrangement2();
@@ -91,14 +90,29 @@ void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int startInde
 	Arrangement2<EEK>::GetVertices(ptr, vertices, startIndex, count);
 }
 
+CGALWRAPPER_API BOOL Arrangement2_EEK_GetVertex(void* ptr, int index, ArrVertex2& arrVertex)
+{
+	return Arrangement2<EEK>::GetVertex(ptr, index, arrVertex);
+}
+
 void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count)
 {
 	Arrangement2<EEK>::GetHalfEdges(ptr, edges, startIndex, count);
 }
 
+CGALWRAPPER_API BOOL Arrangement2_EEK_GetHalfEdge(void* ptr, int index, ArrHalfEdge2& arrEdge)
+{
+	return Arrangement2<EEK>::GetHalfEdge(ptr, index, arrEdge);
+}
+
 void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count)
 {
 	Arrangement2<EEK>::GetFaces(ptr, faces, startIndex, count);
+}
+
+CGALWRAPPER_API BOOL Arrangement2_EEK_GetFace(void* ptr, int index, ArrFace2& arrFace)
+{
+	return Arrangement2<EEK>::GetFace(ptr, index, arrFace);
 }
 
 void Arrangement2_EEK_CreateLocator(void* ptr, ARR_LOCATOR type)
@@ -176,35 +190,6 @@ BOOL Arrangement2_EEK_RemoveEdgeBySegment(void* ptr, Segment2d segment)
 	return Arrangement2<EEK>::RemoveEdge(ptr, segment);
 }
 
-/*
-void Test()
-{
-	auto arr = Arrangement2<EEK>::NewArrangement2();
 
-	for (auto v = arr->model.vertices_begin(); v != arr->model.vertices_end(); ++v)
-	{
-		if (v->is_isolated()) 
-		{
-			std::cout << "The vertex (" << v->point() << ") is isolated" << std::endl;
-			return;
-		}
-
-		Arrangement2<EEK>::Vertex_circulator first, curr;
-
-		do
-		{
-			// Note that the current halfedge is directed from u to v:
-			//Arrangement_2::Vertex_const_handle u = curr->source();
-
-			if (curr->face()->data() != -1)
-			{
-				v->face() = curr->face();
-			}
-
-		} while (++curr != first);
-		
-	}
-}
-*/
 
 

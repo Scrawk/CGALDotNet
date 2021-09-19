@@ -44,9 +44,15 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int startIndex, int count);
 
+        internal abstract bool GetVertex(IntPtr ptr, int index, out ArrVertex2 arrVertex);
+
         internal abstract void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int startIndex, int count);
 
+        internal abstract bool GetHalfEdge(IntPtr ptr, int index, out ArrHalfEdge2 arrEdge);
+
         internal abstract void GetFaces(IntPtr ptr, ArrFace2[] faces, int startIndex, int count);
+
+        internal abstract bool GetFace(IntPtr ptr, int index, out ArrFace2 arrFace);
 
         internal abstract void CreateLocator(IntPtr ptr, ARR_LOCATOR type);
 
