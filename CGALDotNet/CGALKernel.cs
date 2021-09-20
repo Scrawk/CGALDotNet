@@ -28,6 +28,8 @@ namespace CGALDotNet
 
         internal abstract ArrangementKernel2 ArrangementKernel2 { get; }
 
+        internal abstract SweepLineKernel SweepLineKernel { get; }
+
         internal abstract TriangulationKernel2 TriangulationKernel2 { get; }
 
         internal abstract DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 { get; }
@@ -56,6 +58,8 @@ namespace CGALDotNet
         internal override PolygonVisibilityKernel2 PolygonVisibilityKernel2 => PolygonVisibilityKernel2_EEK.Instance;
 
         internal override ArrangementKernel2 ArrangementKernel2 => ArrangementKernel2_EEK.Instance;
+
+        internal override SweepLineKernel SweepLineKernel => SweepLineKernel_EEK.Instance;
 
         internal override TriangulationKernel2 TriangulationKernel2 => TriangulationKernel2_EEK.Instance;
 

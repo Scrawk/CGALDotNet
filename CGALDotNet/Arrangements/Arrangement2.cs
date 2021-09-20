@@ -16,13 +16,13 @@ namespace CGALDotNet.Arrangements
     };
 
     /// <summary>
-    /// 
+    /// The generic arrangment class.
     /// </summary>
-    /// <typeparam name="K"></typeparam>
+    /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class Arrangement2<K> : Arrangement2 where K : CGALKernel, new()
     {
         /// <summary>
-        /// 
+        /// The default constructor.
         /// </summary>
         public Arrangement2() : base(new K())
         {
@@ -30,16 +30,16 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Create a arrangement from a unmanaged ptr.
         /// </summary>
-        /// <param name="ptr"></param>
+        /// <param name="ptr">The unmanaged pointer.</param>
         internal Arrangement2(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
 
         /// <summary>
-        /// 
+        /// The arrangement as a string.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -49,19 +49,19 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Assigns the contents of another arrangement. 
         /// </summary>
-        /// <param name="other"></param>
+        /// <param name="other">The other arrangement.</param>
         public void Assign(Arrangement2<K> other)
         {
             Kernel.Assign(Ptr, other.Ptr);
         }
 
         /// <summary>
-        /// 
+        /// Computes the overlay of two arrangements and return as a new arrangement.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other arrangement.</param>
+        /// <returns>The overlay of both arrangements.</returns>
         public Arrangement2<K> Overlay(Arrangement2<K> other)
         {
             var ptr = Kernel.Overlay(Ptr, other.Ptr);
@@ -69,9 +69,9 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Create a deep copy of this arrangment.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The deep copy.</returns>
         public Arrangement2<K> Copy()
         {
             var copy = new Arrangement2<K>();
@@ -80,20 +80,20 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Insert the polygon into this arrangement.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="nonIntersecting"></param>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="nonIntersecting">If the polygon intersects anything else in the arramgement.</param>
         public void InsertPolygon(Polygon2<K> polygon, bool nonIntersecting)
         {
             Kernel.InsertPolygon(Ptr, polygon.Ptr, nonIntersecting);
         }
 
         /// <summary>
-        /// 
+        /// Insert the polygon into this arrangement.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="nonIntersecting"></param>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="nonIntersecting">If the polygon intersects anything else in the arramgement.</param>
         public void InsertPolygon(PolygonWithHoles2<K> polygon, bool nonIntersecting)
         {
             Kernel.InsertPolygon(Ptr, polygon.Ptr, nonIntersecting);
@@ -101,12 +101,12 @@ namespace CGALDotNet.Arrangements
     }
 
     /// <summary>
-    /// 
+    /// The abstract base class.
     /// </summary>
     public abstract class Arrangement2 : CGALObject
     {
         /// <summary>
-        /// 
+        /// The default constructor.
         /// </summary>
         private Arrangement2()
         {
@@ -114,9 +114,9 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Create a arrangement from the kernel.
         /// </summary>
-        /// <param name="kernel"></param>
+        /// <param name="kernel">The kernel.</param>
         internal Arrangement2(CGALKernel kernel)
         {
             Kernel = kernel.ArrangementKernel2;
@@ -125,10 +125,10 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Create a arrangement from the kernel and unmanaged pointer.
         /// </summary>
-        /// <param name="kernel"></param>
-        /// <param name="ptr"></param>
+        /// <param name="kernel">The kernel.</param>
+        /// <param name="ptr">The unmanaged pointer.</param>
         internal Arrangement2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.ArrangementKernel2;
@@ -136,62 +136,70 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// The arrangements kernel.
         /// </summary>
         protected private ArrangementKernel2 Kernel { get; private set; }
 
         /// <summary>
-        /// 
+        /// The number of vertices in the arrangement.
         /// </summary>
         public int VertexCount => Kernel.VertexCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of vertices in the arrangement that are i
         /// </summary>
         public int IsolatedVerticesCount => Kernel.IsolatedVerticesCount(Ptr);
 
         /// <summary>
-        /// 
+        /// returns the number of arrangement vertices that lie at infinity a
+        /// nd are not associated with valid points.
+        /// Such vertices are not considered to be regular arrangement 
+        /// vertices and VertexCount does not count them.
         /// </summary>
         public int VerticesAtInfinityCount => Kernel.VerticesAtInfinityCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of half edges.
         /// </summary>
         public int HalfEdgeCount => Kernel.HalfEdgeCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of edges. two half edges count as one edge.
         /// </summary>
         public int EdgeCount => Kernel.EdgeCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of faces in the arrangement not counting
+        /// the unbounded face.
         /// </summary>
         public int FaceCount => Kernel.FaceCount(Ptr) - UnboundedFaceCount;
 
         /// <summary>
-        /// 
+        /// returns the number of unbounded faces in the arrangement.
+        /// Such faces are not considered to be regular arrangement 
+        /// faces and FaceCount does not count them.
         /// </summary>
         public int UnboundedFaceCount => Kernel.UnboundedFaceCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The type of locator used to find element 
+        /// in the arrangement when queried.
+        /// Default is walk which is the best in most cases
         /// </summary>
         public ARR_LOCATOR Locator { get; private set; }
 
         /// <summary>
-        /// 
+        /// Is the arrangement empty.
         /// </summary>
         public bool IsEmpty => Kernel.IsEmpty(Ptr);
 
         /// <summary>
-        /// 
+        /// What checks should the arrangement.
         /// </summary>
         public ARRANGEMENT_CHECK CheckFlag = ARRANGEMENT_CHECK.ALL;
 
         /// <summary>
-        /// 
+        /// Clear the arrangement.
         /// </summary>
         public void Clear()
         {
@@ -199,8 +207,13 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// In particular, the functions checks the topological structure of the arrangement 
+        /// and assures that it is valid. In addition, the function performs several simple 
+        /// geometric tests to ensure the validity of some of the geometric properties of 
+        /// the arrangement. Namely, it checks that all arrangement vertices are associated 
+        /// with distinct points, and that the halfedges around every vertex are ordered clockwise.
         /// </summary>
+        /// 
         /// <returns></returns>
         public bool IsValid()
         {
@@ -208,9 +221,9 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Get a copy of all the points in the arrangement.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">A point array that is the length of the vertex count.</param>
         public void GetPoints(Point2d[] points)
         {
             if (points == null || points.Length == 0)  
@@ -223,9 +236,9 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Get a copy of all the segments in the arrangment.
         /// </summary>
-        /// <param name="segments"></param>
+        /// <param name="segments">A segment array that is the length of the edge count.</param>
         public void GetSegments(Segment2d[] segments)
         {
             if (segments == null || segments.Length == 0) 
@@ -238,9 +251,9 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Get a copy of all the vertices in the arrangement.
         /// </summary>
-        /// <param name="vertices"></param>
+        /// <param name="vertices">A vertices array that is the length of the vertex count.</param>
         public void GetVertices(ArrVertex2[] vertices)
         {
             if (vertices == null || vertices.Length == 0) 
@@ -253,20 +266,20 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Get the vertex from the arrangement.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="vertex"></param>
-        /// <returns></returns>
+        /// <param name="index">The index of the vertex.</param>
+        /// <param name="vertex">The vertex.</param>
+        /// <returns>True if the vertex was found.</returns>
         public bool GetVertex(int index, out ArrVertex2 vertex)
         {
             return Kernel.GetVertex(Ptr, index, out vertex);
         }
 
         /// <summary>
-        /// 
+        /// Get a copy of all the half edges in the arrangement.
         /// </summary>
-        /// <param name="edges"></param>
+        /// <param name="edges">A half edge array that is the length of the half edge count.</param>
         public void GetHalfEdges(ArrHalfEdge2[] edges)
         {
             if (edges == null || edges.Length == 0)
@@ -279,20 +292,20 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Get the half edge from the arrangement.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="edge"></param>
-        /// <returns></returns>
+        /// <param name="index">The index of the half edge.</param>
+        /// <param name="edge">The half edge.</param>
+        /// <returns>True if the half edge was found.</returns>
         public bool GetHalfEdge(int index, out ArrHalfEdge2 edge)
         {
             return Kernel.GetHalfEdge(Ptr, index, out edge);
         }
 
         /// <summary>
-        /// 
+        /// Get a copy of all the faces in the arrangement.
         /// </summary>
-        /// <param name="faces"></param>
+        /// <param name="faces">A face array that is the length of the facee count.</param>
         public void GetFaces(ArrFace2[] faces)
         {
             if (faces == null || faces.Length == 0)
@@ -305,20 +318,20 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Get the face from the arrangement.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="face"></param>
-        /// <returns></returns>
+        /// <param name="index">The index of the half edge.</param>
+        /// <param name="face">The face.</param>
+        /// <returns>True if the face was found.</returns>
         public bool GetFace(int index, out ArrFace2 face)
         {
             return Kernel.GetFace(Ptr, index, out face);
         }
 
         /// <summary>
-        /// 
+        /// Create the locator used to find query the arrangement.
         /// </summary>
-        /// <param name="locator"></param>
+        /// <param name="locator">The locator type.</param>
         public void CreateLocator(ARR_LOCATOR locator)
         {
             if (Locator == locator)
@@ -329,7 +342,8 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Release the locator. Default will be used..
+        /// Default is walk which is the best in most cases.
         /// </summary>
         public void ReleaseLocator()
         {
@@ -341,22 +355,22 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Query what the point hits in the arrangment.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="result"></param>
-        /// <returns></returns>
+        /// <param name="point">The point to query.</param>
+        /// <param name="result">What was hit.</param>
+        /// <returns>True if something was hit.</returns>
         public bool PointQuery(Point2d point, out ArrQuery result)
         {
             return Kernel.PointQuery(Ptr, point, out result);
         }
 
         /// <summary>
-        /// 
+        /// Query multiple points in the arrangment.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="results"></param>
-        /// <returns></returns>
+        /// <param name="points">The points to query.</param>
+        /// <param name="results">The results for each point.</param>
+        /// <returns>True if any point hit something.</returns>
         public bool BatchedPointQuery(Point2d[] points, ArrQuery[] results)
         {
             if (points == null || points.Length == 0)
@@ -372,23 +386,23 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Query using a ray going up or down (y axis) from the query point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="up"></param>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        public bool RayQuery(Point2d point, bool up, out ArrQuery result)
+        /// <param name="point">The point to start at.</param>
+        /// <param name="up">True to shoot ray up, false to shoot down.</param>
+        /// <param name="result">The result of what was hits.</param>
+        /// <returns>True if some thing was hit.</returns>
+        public bool VerticalRayQuery(Point2d point, bool up, out ArrQuery result)
         {
             return Kernel.RayQuery(Ptr, point, up, out result);
         }
 
         /// <summary>
-        /// 
+        /// Locate the faces at this point.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="face"></param>
-        /// <returns></returns>
+        /// <param name="point">The point to locate face at.</param>
+        /// <param name="face">The face.</param>
+        /// <returns>True if a face was located.</returns>
         public bool LocateFace(Point2d point, out ArrFace2 face)
         {
             face = new ArrFace2();
@@ -409,6 +423,8 @@ namespace CGALDotNet.Arrangements
                 return false;
             }
         }
+
+        /*
 
         /// <summary>
         /// 
@@ -463,32 +479,38 @@ namespace CGALDotNet.Arrangements
                 return false;
             }
         }
+        */
 
         /// <summary>
-        /// 
+        /// Find if the arrangement has a element that intersects the segment.
         /// </summary>
-        /// <param name="segment"></param>
-        /// <returns></returns>
+        /// <param name="segment">The segment.</param>
+        /// <returns>True if the segment intersects something in the arrangement.</returns>
         public bool IntersectsSegment(Segment2d segment)
         {
             return Kernel.IntersectsSegment(Ptr, segment);
         }
 
         /// <summary>
-        /// 
+        /// Inserts a given point into a given arrangement.
+        /// It uses a given point-location object to locate the given point in the given arrangement.
+        /// If the point conincides with an existing vertex, there is nothing left to do. if it lies 
+        /// on an edge, the edge is split at the point. Otherwise, the point is contained inside a face, 
+        /// and is inserted as an isolated vertex inside this face.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point to insert.</param>
         public void InsertPoint(Point2d point)
         {
             Kernel.InsertPoint(Ptr, point);
         }
 
         /// <summary>
-        /// 
+        /// Insert the segment in to the arrangement.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="nonIntersecting"></param>
+        /// <param name="a">The segments start point.</param>
+        /// <param name="b">The segments end point.</param>
+        /// <param name="nonIntersecting">True if the segment is know not to 
+        /// hit anything currently in the arrangement.</param>
         public void InsertSegment(Point2d a, Point2d b, bool nonIntersecting)
         {
             Kernel.InsertSegment(Ptr, new Segment2d(a, b), nonIntersecting);
@@ -498,17 +520,21 @@ namespace CGALDotNet.Arrangements
         /// 
         /// </summary>
         /// <param name="segment"></param>
-        /// <param name="nonIntersecting"></param>
+        /// <param name="b">The segments end point.</param>
+        /// <param name="nonIntersecting">True if the segment is know not to 
+        /// hit anything currently in the arrangement.</param>
         public void InsertSegment(Segment2d segment, bool nonIntersecting)
         {
             Kernel.InsertSegment(Ptr, segment, nonIntersecting);
         }
 
         /// <summary>
-        /// 
+        /// Insert a array of segments into the arrangement.
         /// </summary>
         /// <param name="segments"></param>
-        /// <param name="nonItersecting"></param>
+        /// <param name="b">The segments end point.</param>
+        /// <param name="nonIntersecting">True if the segments are known not to 
+        /// hit anything currently in the arrangement.</param>
         public void InsertSegments(Segment2d[] segments, bool nonItersecting)
         {
             if (segments == null || segments.Length == 0)
@@ -518,40 +544,56 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Attempts to removed a given vertex from a given arrangement.
+        /// The vertex can be removed if it is either an isolated vertex, 
+        /// (and has no incident edge,) or if it is a redundant vertex.That is, 
+        /// it has exactly two incident edges, whose associated curves can be 
+        /// merged to form a single x-monotone curve.The function returns a 
+        /// boolean value that indicates whether it succeeded removing the 
+        /// vertex from the arrangement.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index of the vertex in the arrangement.</param>
+        /// <returns>True if the vertex was removed.</returns>
         public bool RemoveVertex(int index)
         {
             return Kernel.RemoveVertexByIndex(Ptr, index);
         }
 
         /// <summary>
-        /// 
+        /// Attempts to removed a given vertex from a given arrangement.
+        /// The vertex can be removed if it is either an isolated vertex, 
+        /// (and has no incident edge,) or if it is a redundant vertex.That is, 
+        /// it has exactly two incident edges, whose associated curves can be 
+        /// merged to form a single x-monotone curve.The function returns a 
+        /// boolean value that indicates whether it succeeded removing the 
+        /// vertex from the arrangement.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The poisition of the vertex in the arrangement.</param>
+        /// <returns>True if the vertex was removed.</returns>
         public bool RemoveVertex(Point2d point)
         {
             return Kernel.RemoveVertexByPoint(Ptr, point);
         }
 
         /// <summary>
-        /// 
+        /// Removes an edge at the index from the arrangement.
+        /// Once the edge is removed, if the vertices associated with its endpoints 
+        /// become isolated, they are removed as well.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index of the one of the half edges in the arrangement.</param>
+        /// <returns>True if the edge was removed.</returns>
         public bool RemoveEdge(int index)
         {
             return Kernel.RemoveEdgeByIndex(Ptr, index);
         }
 
         /// <summary>
-        /// 
+        /// Removes an edge at the index from the arrangement.
+        /// Once the edge is removed, if the vertices associated with its endpoints 
+        /// become isolated, they are removed as well.
         /// </summary>
-        /// <param name="segment"></param>
-        /// <returns></returns>
+        /// <param name="segment">A segment with the same positions as the edge in the arrangement.</param>
+        /// <returns>True if the edge was removed.</returns>
         public bool RemoveEdge(Segment2d segment)
         {
             return Kernel.RemoveEdgeBySegment(Ptr, segment);
@@ -658,7 +700,7 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Release any unmanaged resources.
         /// </summary>
         protected override void ReleasePtr()
         {

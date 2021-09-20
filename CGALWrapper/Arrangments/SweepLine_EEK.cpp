@@ -37,14 +37,14 @@ BOOL SweepLine2_EEK_DoIntersect(void* ptr, Segment2d* segments, int startIndex, 
 	return SweepLine<EEK>::DoIntersect(ptr, segments, startIndex, count);
 }
 
-void SweepLine2_EEK_ComputeSubcurves(void* ptr, Segment2d* segments, int startIndex, int count)
+int SweepLine2_EEK_ComputeSubcurves(void* ptr, Segment2d* segments, int startIndex, int count)
 {
-	SweepLine<EEK>::ComputeSubcurves(ptr, segments, startIndex, count);
+	return SweepLine<EEK>::ComputeSubcurves(ptr, segments, startIndex, count);
 }
 
-void SweepLine2_EEK_ComputeIntersectionPoints(void* ptr, Segment2d* segments, int startIndex, int count)
+int SweepLine2_EEK_ComputeIntersectionPoints(void* ptr, Segment2d* segments, int startIndex, int count)
 {
-	SweepLine<EEK>::ComputeIntersectionPoints(ptr, segments, startIndex, count);
+	return SweepLine<EEK>::ComputeIntersectionPoints(ptr, segments, startIndex, count);
 }
 
 void SweepLine2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)

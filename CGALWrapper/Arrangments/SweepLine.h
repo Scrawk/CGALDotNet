@@ -77,20 +77,24 @@ public:
 		CGAL::do_curves_intersect(list.begin(), list.end());
 	}
 
-	static void ComputeSubcurves(void* ptr, Segment2d* segments, int startIndex, int count)
+	static int ComputeSubcurves(void* ptr, Segment2d* segments, int startIndex, int count)
 	{
 		auto sweep = CastToSweepLine(ptr);
 		auto list = ToList(segments, startIndex, count);
 
 		CGAL::compute_subcurves(list.begin(), list.end(), std::back_inserter(sweep->segmentBuffer));
+
+		return (int)sweep->segmentBuffer.size();
 	}
 
-	static void ComputeIntersectionPoints(void* ptr, Segment2d* segments, int startIndex, int count)
+	static int ComputeIntersectionPoints(void* ptr, Segment2d* segments, int startIndex, int count)
 	{
 		auto sweep = CastToSweepLine(ptr);
 		auto list = ToList(segments, startIndex, count);
 
 		CGAL::compute_intersection_points(list.begin(), list.end(), std::back_inserter(sweep->pointBuffer));
+
+		return (int)sweep->pointBuffer.size();
 	}
 
 	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)

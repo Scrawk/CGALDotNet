@@ -13,7 +13,6 @@ namespace CGALDotNet.Arrangements
 
         private const CallingConvention CDECL = CallingConvention.Cdecl;
 
-
         internal static readonly ArrangementKernel2 Instance = new ArrangementKernel2_EEK();
 
         public override string ToString()
