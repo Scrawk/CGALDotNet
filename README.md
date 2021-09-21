@@ -1,5 +1,5 @@
 # CGALDotNet
-C# wrapper for CGAL
+C# wrapper for [CGAL](https://www.cgal.org/)
 
 Work in progress. Only 64 bit windows binarys provided.
 
