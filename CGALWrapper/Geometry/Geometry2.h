@@ -103,6 +103,14 @@ struct Segment2d
         return { A, B };
     }
 
+    template<class K>
+    static Segment2d FromCGAL(CGAL::Segment_2<K> seg)
+    {
+        auto A = Point2d::FromCGAL<K>(seg.source());
+        auto B = Point2d::FromCGAL<K>(seg.target());
+        return { A, B };
+    }
+
 };
 
 struct Line2d

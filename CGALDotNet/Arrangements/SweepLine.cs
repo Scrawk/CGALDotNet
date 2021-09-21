@@ -110,8 +110,12 @@ namespace CGALDotNet.Arrangements
             int count = Kernel.ComputeSubcurves(Ptr, segments, 0, segments.Length);
 
             var subSegments = new Segment2d[count];
-            GetSegments(subSegments);
-            ClearSegmentBuffer();
+
+            if (count > 0)
+            {
+                GetSegments(subSegments);
+                ClearSegmentBuffer();
+            }
 
             return subSegments;
         }
@@ -130,8 +134,12 @@ namespace CGALDotNet.Arrangements
             int count = Kernel.ComputeIntersectionPoints(Ptr, segments, 0, segments.Length);
 
             var points = new Point2d[count];
-            GetPoints(points);
-            ClearPointBuffer();
+
+            if (count > 0)
+            {
+                GetPoints(points);
+                ClearPointBuffer();
+            }
 
             return points;
         }

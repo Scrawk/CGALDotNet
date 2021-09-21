@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 
-using CGALDotNetConsole.Examples;
-
 using CGALDotNet;
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
@@ -20,36 +18,28 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var box = PolygonFactory<EEK>.FromBox(-5, 5);
-
-            var arr = new Arrangement2<EEK>();
-            arr.InsertPolygon(box, true);
-            //arr.Print(true);
-
-            var mesh = new DCELMesh();
-            mesh.FromArrangement(arr);
-            //mesh.Print();
-
-            var vert = mesh.GetVertex(0);
-            var face = mesh.GetFace(0);
-            var edge = mesh.GetHalfEdge(0);
-
-            foreach (var e in edge.EnumerateVertices())
+            var segments = new Segment2d[]
             {
-                //Console.WriteLine(e);
-            }
+                new Segment2d(new Point2d(1,5), new Point2d(8,5)),
+                new Segment2d(new Point2d(1,1), new Point2d(8,8)),
+                new Segment2d(new Point2d(3,1), new Point2d(3,8)),
+                new Segment2d(new Point2d(8,5), new Point2d(8,8))
+            };
 
-            foreach (var e in face.EnumerateEdges())
-            {
-                //Console.WriteLine(e);
-            }
+            
+            var SubCurves = SweepLine<EEK>.Instance.ComputeSubcurves(segments);
 
-            foreach (var v in face.EnumerateVertices())
-            {
-                Console.WriteLine(v);
-            }
+            Console.WriteLine("Sub curves = " + SubCurves.Length);
 
-            //BenchmarkRunner.Run<BenckMark>();
+            foreach(var curve in SubCurves)
+                Console.WriteLine(curve);
+
+            var Points = SweepLine<EEK>.Instance.ComputeIntersectionPoints(segments);
+
+            Console.WriteLine("Points = " + Points.Length);
+
+            foreach (var points in Points)
+                Console.WriteLine(points);
         }
 
         public class BenckMark
