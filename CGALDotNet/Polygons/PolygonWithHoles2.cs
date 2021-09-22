@@ -186,7 +186,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         private PolygonWithHoles2()
         {
-            CheckFlag = POLYGON_CHECK.ALL;
+            IsUnbounded = true;
         }
 
         /// <summary>
@@ -195,9 +195,9 @@ namespace CGALDotNet.Polygons
         /// <param name="kernel"></param>
         internal PolygonWithHoles2(CGALKernel kernel)
         {
-            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
             Ptr = Kernel.Create();
+            IsUnbounded = true;
         }
 
         /// <summary>
@@ -207,7 +207,6 @@ namespace CGALDotNet.Polygons
         /// <param name="boundary">A CCW polygon.</param>
         internal PolygonWithHoles2(CGALKernel kernel, Polygon2 boundary)
         {
-            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
             CheckBoundary(boundary);
             Ptr = Kernel.CreateFromPolygon(boundary.Ptr);
@@ -221,10 +220,8 @@ namespace CGALDotNet.Polygons
         /// <param name="boundary">A CCW set of points.</param>
         internal PolygonWithHoles2(CGALKernel kernel, Point2d[] boundary)
         {
-            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
-            Ptr = Kernel.Create();
-            SetPoints(POLYGON_ELEMENT.BOUNDARY, boundary, 0);
+            Ptr = Kernel.CreateFromPoints(boundary, 0, boundary.Length);
             IsUnbounded = false;
         }
 
@@ -235,9 +232,9 @@ namespace CGALDotNet.Polygons
         /// <param name="ptr"></param>
         internal PolygonWithHoles2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
-            CheckFlag = POLYGON_CHECK.ALL;
             Kernel = kernel.PolygonWithHolesKernel2;
             HoleCount = Kernel.HoleCount(Ptr);
+            IsUnbounded = FindIfUnbounded();
         }
 
         /// <summary>
@@ -247,9 +244,47 @@ namespace CGALDotNet.Polygons
         public bool IsUnbounded { get; protected set; }
 
         /// <summary>
+        /// Number of points in the boindary polygon.
+        /// </summary>
+        public int Count => PointCount(POLYGON_ELEMENT.BOUNDARY);
+
+        /// <summary>
         /// The number of holes in polygon.
         /// </summary>
         public int HoleCount { get; protected set; }
+
+        /// <summary>
+        /// Is this a simple polygon.
+        /// Certains actions can only be carried out on simple polygons.
+        /// </summary>
+        public bool IsSimple => FindIfSimple(POLYGON_ELEMENT.BOUNDARY);
+
+        /// <summary>
+        /// The polygons orientation.
+        /// Certain actions depend on the polygons orientation.
+        /// </summary>
+        public ORIENTATION Orientation => FindOrientation(POLYGON_ELEMENT.BOUNDARY);
+
+        /// <summary>
+        /// The orientation expressed as the clock direction.
+        /// </summary>
+        public CLOCK_DIR ClockDir => (CLOCK_DIR)Orientation;
+
+        /// <summary>
+        /// Is the polygon degenerate.
+        /// Polygons with < 3 points are degenerate.
+        /// </summary>
+        public bool IsDegenerate => Count < 3 || Orientation == ORIENTATION.ZERO;
+
+        /// <summary>
+        /// Is the polygon cw orientated.
+        /// </summary>
+        public bool IsClockWise => ClockDir == CLOCK_DIR.CLOCKWISE;
+
+        /// <summary>
+        /// Is the polygon ccw orientated.
+        /// </summary>
+        public bool IsCounterClockWise => ClockDir == CLOCK_DIR.COUNTER_CLOCKWISE;
 
         /// <summary>
         /// The polygon kernel.
@@ -259,7 +294,7 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// What checks should the polygon do.
         /// </summary>
-        public POLYGON_CHECK CheckFlag { get; set; }
+        public POLYGON_CHECK CheckFlag = POLYGON_CHECK.ALL;
 
         /// <summary>
         /// Clear the polygon.

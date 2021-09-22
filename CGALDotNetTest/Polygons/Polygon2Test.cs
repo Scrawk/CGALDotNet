@@ -18,8 +18,7 @@ namespace CGALDotNetTest.Polygons
             var poly = new Polygon2<EEK>();
             poly.CheckFlag = POLYGON_CHECK.NONE;
 
-            Console.WriteLine(poly.CheckFlag);
-        
+            //Console.WriteLine(poly.CheckFlag);
         }
 
         [TestMethod]
@@ -262,6 +261,54 @@ namespace CGALDotNetTest.Polygons
         }
 
         [TestMethod]
+        public void FindBoudingBox()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            var box = poly.FindBoundingBox();
+
+            box.Round(2);
+
+            Assert.AreEqual(new Point2d(-1, -1), box.Min);
+            Assert.AreEqual(new Point2d(1, 1), box.Max);
+            Assert.AreEqual(2, box.Width);
+            Assert.AreEqual(2, box.Height);
+        }
+
+        [TestMethod]
+        public void FindIfSimple()
+        {
+            var poly = new Polygon2<EEK>();
+            var box = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            Assert.IsFalse(poly.FindIfSimple());
+            Assert.IsTrue(box.FindIfSimple());
+        }
+
+        [TestMethod]
+        public void FindIfConvex()
+        {
+            var poly = new Polygon2<EEK>();
+            var box = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            Assert.IsFalse(poly.FindIfConvex());
+            Assert.IsTrue(box.FindIfConvex());
+        }
+
+        [TestMethod]
+        public void FindIfOrientation()
+        {
+            var poly = new Polygon2<EEK>();
+            var box = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            Assert.AreEqual(ORIENTATION.ZERO, poly.FindOrientation());
+            Assert.AreEqual(ORIENTATION.POSITIVE, box.FindOrientation());
+
+            box.Reverse();
+            Assert.AreEqual(ORIENTATION.NEGATIVE, box.FindOrientation());
+        }
+
+        [TestMethod]
         public void OrientatedSide()
         {
             var poly = PolygonFactory<EEK>.FromBox(-1, 1);
@@ -272,7 +319,44 @@ namespace CGALDotNetTest.Polygons
             Assert.AreEqual(ORIENTED_SIDE.ON_POSITIVE_SIDE, poly.OrientedSide(p1));
             Assert.AreEqual(ORIENTED_SIDE.ON_NEGATIVE_SIDE, poly.OrientedSide(p2));
             Assert.AreEqual(ORIENTED_SIDE.ON_BOUNDARY, poly.OrientedSide(p3));
+        }
 
+        [TestMethod]
+        public void BoundedSide()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var p1 = new Point2d(0, 0);
+            var p2 = new Point2d(2, 2);
+            var p3 = new Point2d(1, 1);
+
+            Assert.AreEqual(BOUNDED_SIDE.ON_BOUNDED_SIDE, poly.BoundedSide(p1));
+            Assert.AreEqual(BOUNDED_SIDE.ON_UNBOUNDED_SIDE, poly.BoundedSide(p2));
+            Assert.AreEqual(BOUNDED_SIDE.ON_BOUNDARY, poly.BoundedSide(p3));
+        }
+
+        [TestMethod]
+        public void SignedArea()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            Assert.AreEqual(4.0, poly.FindSignedArea());
+            Assert.AreEqual(4.0, poly.FindArea());
+
+            poly.Reverse();
+            Assert.AreEqual(-4.0, poly.FindSignedArea());
+        }
+
+        [TestMethod]
+        public void ContainsPoint()
+        {
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var p1 = new Point2d(0, 0);
+            var p2 = new Point2d(2, 2);
+            var p3 = new Point2d(1, 1);
+
+            Assert.IsTrue(poly.ContainsPoint(p1));
+            Assert.IsFalse(poly.ContainsPoint(p2));
+            Assert.IsTrue(poly.ContainsPoint(p3));
         }
     }
 }

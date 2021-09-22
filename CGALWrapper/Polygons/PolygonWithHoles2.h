@@ -381,7 +381,7 @@ public:
 	static BOOL IsConvex(void* ptr, int index)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
-		if (polygon != nullptr)
+		if (polygon != nullptr && polygon->is_simple())
 			return polygon->is_convex();
 		else
 			return false;
@@ -397,7 +397,7 @@ public:
 	static CGAL::Orientation Orientation(void* ptr, int index)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
-		if (polygon != nullptr)
+		if (polygon != nullptr && polygon->is_simple())
 			return polygon->orientation();
 		else
 			return CGAL::Orientation::DEGENERATE;
@@ -414,7 +414,7 @@ public:
 	static CGAL::Oriented_side OrientedSide(void* ptr, int index, Point2d point)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
-		if (polygon != nullptr)
+		if (polygon != nullptr && polygon->is_simple())
 			return polygon->oriented_side(point.ToCGAL<EEK>());
 		else
 			return CGAL::Oriented_side::DEGENERATE;
@@ -430,7 +430,7 @@ public:
 	static double SignedArea(void* ptr, int index)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
-		if (polygon != nullptr)
+		if (polygon != nullptr && polygon->is_simple())
 			return CGAL::to_double(polygon->area());
 		else
 			return 0;

@@ -14,9 +14,9 @@ class SweepLine
 
 private:
 
-	typedef CGAL::Arr_segment_traits_2<K> Traits_2;
+	typedef CGAL::Arr_segment_traits_2<K> Traits;
 	typedef typename  K::Point_2 Point_2;
-	typedef typename  Traits_2::Curve_2 Segment_2;
+	typedef typename  Traits::Curve_2 Segment_2;
 
 	std::list<Point_2> pointBuffer;
 

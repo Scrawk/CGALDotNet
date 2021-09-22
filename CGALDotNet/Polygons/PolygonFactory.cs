@@ -92,7 +92,7 @@ namespace CGALDotNet.Polygons
         /// <returns>The created polygon with holes</returns>
         public static PolygonWithHoles2<K> FromDounut(double outer, double inner, int segments)
         {
-            var poly = FromDounut(outer, inner, segments);
+            var poly = FromDounut(Point2d.Zero, outer, inner, segments);
             poly.CheckFlag = CheckFlag;
             return poly;
         }

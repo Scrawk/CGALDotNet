@@ -18,28 +18,17 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var segments = new Segment2d[]
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+
+            var results = new List<Polygon2<EEK>>();
+            PolygonOffset2<EEK>.Instance.CreateInteriorOffset(poly, 0.1, results);
+
+            PolygonOffset2<EEK>.Instance.CreateExteriorOffset(poly, 0.1, results);
+
+            foreach (var p in results)
             {
-                new Segment2d(new Point2d(1,5), new Point2d(8,5)),
-                new Segment2d(new Point2d(1,1), new Point2d(8,8)),
-                new Segment2d(new Point2d(3,1), new Point2d(3,8)),
-                new Segment2d(new Point2d(8,5), new Point2d(8,8))
-            };
-
-            
-            var SubCurves = SweepLine<EEK>.Instance.ComputeSubcurves(segments);
-
-            Console.WriteLine("Sub curves = " + SubCurves.Length);
-
-            foreach(var curve in SubCurves)
-                Console.WriteLine(curve);
-
-            var Points = SweepLine<EEK>.Instance.ComputeIntersectionPoints(segments);
-
-            Console.WriteLine("Points = " + Points.Length);
-
-            foreach (var points in Points)
-                Console.WriteLine(points);
+                p.Print();
+            }
         }
 
         public class BenckMark

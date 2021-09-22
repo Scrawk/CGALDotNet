@@ -173,7 +173,7 @@ namespace CGALDotNet.Polygons
 
         /// <summary>
         /// Is this a simple polygon.
-        /// Certains actions can only be carried out on sime polygons.
+        /// Certains actions can only be carried out on simple polygons.
         /// </summary>
         public bool IsSimple
         {

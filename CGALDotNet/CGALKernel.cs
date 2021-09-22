@@ -24,7 +24,7 @@ namespace CGALDotNet
 
         internal abstract PolygonSimplificationKernel2 PolygonSimplificationKernel2 { get; }
 
-        internal abstract PolygonVisibilityKernel2 PolygonVisibilityKernel2 { get; }
+        internal abstract PolygonOffsetKernel2 PolygonOffsetKernel2 { get; }
 
         internal abstract ArrangementKernel2 ArrangementKernel2 { get; }
 
@@ -55,7 +55,7 @@ namespace CGALDotNet
 
         internal override PolygonSimplificationKernel2 PolygonSimplificationKernel2 => PolygonSimplificationKernel2_EEK.Instance;
 
-        internal override PolygonVisibilityKernel2 PolygonVisibilityKernel2 => PolygonVisibilityKernel2_EEK.Instance;
+        internal override PolygonOffsetKernel2 PolygonOffsetKernel2 => PolygonOffsetKernel2_EEK.Instance;
 
         internal override ArrangementKernel2 ArrangementKernel2 => ArrangementKernel2_EEK.Instance;
 

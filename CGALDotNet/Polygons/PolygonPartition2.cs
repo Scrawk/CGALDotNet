@@ -135,38 +135,6 @@ namespace CGALDotNet.Polygons
             Kernel.ClearBuffer(Ptr);
         }
 
-        /// <summary>
-        /// Is this a valid polygon.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        /// <returns>If the polygon is simple.</returns>
-        public bool IsValid(Polygon2<K> polygon)
-        {
-            if (!CheckInput)
-                return true;
-            else
-                return polygon.IsSimple;
-        }
-
-        private void CheckPolygon(Polygon2<K> polygon)
-        {
-            if (!CheckInput) return;
-
-            if (!IsValid(polygon))
-                throw new Exception("Poylgon must be simple to partition.");
-        }
-
-        private void CheckPolygons(Polygon2<K> polygon1, Polygon2<K> polygon2)
-        {
-            if (!CheckInput) return;
-
-            if (!IsValid(polygon1))
-                throw new Exception("Poylgon must be simple to partition.");
-
-            if (!IsValid(polygon2))
-                throw new Exception("Poylgon must be simple to partition.");
-        }
-
         private bool PartitionIsValid(Polygon2<K> polygon)
         {
             return Kernel.PartitionIsValid(Ptr, polygon.Ptr);
@@ -213,6 +181,38 @@ namespace CGALDotNet.Polygons
         protected void ClearBuffer()
         {
             Kernel.ClearBuffer(Ptr);
+        }
+
+        /// <summary>
+        /// Is this a valid polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        /// <returns>If the polygon is simple.</returns>
+        public bool IsValid(Polygon2 polygon)
+        {
+            if (!CheckInput)
+                return true;
+            else
+                return polygon.IsSimple;
+        }
+
+        protected void CheckPolygon(Polygon2 polygon)
+        {
+            if (!CheckInput) return;
+
+            if (!IsValid(polygon))
+                throw new Exception("Poylgon must be simple to partition.");
+        }
+
+        protected void CheckPolygons(Polygon2 polygon1, Polygon2 polygon2)
+        {
+            if (!CheckInput) return;
+
+            if (!IsValid(polygon1))
+                throw new Exception("Poylgon must be simple to partition.");
+
+            if (!IsValid(polygon2))
+                throw new Exception("Poylgon must be simple to partition.");
         }
 
         /// <summary>
