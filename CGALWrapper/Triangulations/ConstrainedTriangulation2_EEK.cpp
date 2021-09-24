@@ -3,6 +3,10 @@
 #include "ConstrainedTriangulation2_EEK.h"
 #include "ConstrainedTriangulation2.h"
 
+#include "MakeGabriel2.h"
+#include "MakeDelaunay2.h"
+//#include "OptimizeMesh2.h"
+
 void* ConstrainedTriangulation2_EEK_Create()
 {
 	return ConstrainedTriangulation2<EEK>::NewTriangulation2();
@@ -215,19 +219,57 @@ void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(void* ptr, int vert
 	ConstrainedTriangulation2<EEK>::RemoveIncidentConstraints(ptr, vertexIndex);
 }
 
-/*
-int ConstrainedTriangulation2_EEK_GetPolygonIndices(void* ptrTri, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
-{
-	return ConstrainedTriangulation2<EEK>::GetPolygonIndices(ptrTri, polyPtr, indices, startIndex, count, orientation);
-}
-
-int ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(void* ptrTri, void* pwhPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
-{
-	return ConstrainedTriangulation2<EEK>::GetPolygonWithHolesIndices(ptrTri, pwhPtr, indices, startIndex, count, orientation);
-}
-*/
-
 int ConstrainedTriangulation2_EEK_MarkDomains(void* ptr, int* indices, int startIndex, int count)
 {
 	return ConstrainedTriangulation2<EEK>::MarkDomains(ptr, indices, startIndex, count);
+}
+
+void ConstrainedTriangulation2_EEK_MakeDelaunay(void* ptr)
+{
+	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
+
+	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
+
+	std::vector<Point> points;
+	tri->GetPoints(points);
+
+	std::vector<std::pair<Point, Point>> constraints;
+	tri->GetConstraints(constraints);
+
+	MakeDelaunay2::Clear();
+	MakeDelaunay2::Insert(points);
+	MakeDelaunay2::Insert(constraints);
+	MakeDelaunay2::MakeConformingDelaunay();
+
+	points.clear();
+	MakeDelaunay2::GetPoints(points);
+
+	tri->Clear();
+	tri->InsertPoints(points);
+	tri->InsertConstraints(constraints);
+}
+
+void ConstrainedTriangulation2_EEK_MakeGabriel(void* ptr)
+{
+	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
+
+	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
+
+	std::vector<Point> points;
+	tri->GetPoints(points);
+
+	std::vector<std::pair<Point, Point>> constraints;
+	tri->GetConstraints(constraints);
+
+	MakeGaberiel2::Clear();
+	MakeGaberiel2::Insert(points);
+	MakeGaberiel2::Insert(constraints);
+	MakeGaberiel2::MakeConformingGabriel();
+
+	points.clear();
+	MakeGaberiel2::GetPoints(points);
+
+	tri->Clear();
+	tri->InsertPoints(points);
+	tri->InsertConstraints(constraints);
 }

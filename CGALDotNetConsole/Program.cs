@@ -18,17 +18,43 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
 
-            var results = new List<Polygon2<EEK>>();
-            PolygonOffset2<EEK>.Instance.CreateInteriorOffset(poly, 0.1, results);
+            var va = new Point2d(5.0, 5.0);
+            var vb = new Point2d(-5.0, 5.0);
+            var vc = new Point2d(4.0, 3.0);
+            var vd = new Point2d(5.0, -5.0);
+            var ve = new Point2d(6.0, 6.0);
+            var vf = new Point2d(-6.0, 6.0);
+            var vg = new Point2d(-6.0, -6.0);
+            var vh = new Point2d(6.0, -6.0);
 
-            PolygonOffset2<EEK>.Instance.CreateExteriorOffset(poly, 0.1, results);
+            var tri = new ConstrainedTriangulation2<EEK>();
+            tri.InsertPoint(va);
+            tri.InsertPoint(vb);
+            tri.InsertPoint(vc);
+            tri.InsertPoint(vd);
+            tri.InsertPoint(ve);
+            tri.InsertPoint(vf);
+            tri.InsertPoint(vg);
+            tri.InsertPoint(vh);
 
-            foreach (var p in results)
-            {
-                p.Print();
-            }
+            tri.InsertConstraint(va, vb);
+            tri.InsertConstraint(vb, vc);
+            tri.InsertConstraint(vc, vd);
+            tri.InsertConstraint(vd, va);
+            tri.InsertConstraint(ve, vf);
+            tri.InsertConstraint(vf, vg);
+            tri.InsertConstraint(vg, vh);
+            tri.InsertConstraint(vh, ve);
+
+            Console.WriteLine("Make Delaunay");
+            tri.MakeDelaunay();
+            tri.Print();
+
+            Console.WriteLine("Make Gabriel");
+            tri.MakeGabriel();
+            tri.Print();
+
         }
 
         public class BenckMark

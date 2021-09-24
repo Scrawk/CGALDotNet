@@ -19,13 +19,12 @@ class PolygonOffset2
 private:
 
 	typedef typename K::Point_2                   Point;
-	typedef typename CGAL::Polygon_2<K>					  Polygon_2;
+	typedef typename CGAL::Polygon_2<K>			  Polygon_2;
 	typedef CGAL::Polygon_with_holes_2<K>         Polygon_with_holes;
 	typedef CGAL::Straight_skeleton_2<K>		  Ss;
 	typedef boost::shared_ptr<Ss>			      SsPtr;
 	typedef boost::shared_ptr<Polygon_2>          PolygonPtr;
 	typedef std::vector<PolygonPtr>               PolygonPtrVector;
-
 
 	std::vector<Polygon_2*>  buffer;
 
@@ -113,3 +112,56 @@ public:
 	}
 
 };
+
+/*
+namespace PolygonOffset
+{
+
+	#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+	#include <CGAL/Exact_predicates_exact_constructions_kernel.h>
+	#include <CGAL/Polygon_2.h>
+	#include <CGAL/create_offset_polygons_2.h>
+	#include <boost/shared_ptr.hpp>
+	#include <vector>
+
+	typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+	typedef K::Point_2                   Point;
+	typedef CGAL::Polygon_2<K>           Polygon_2;
+	typedef CGAL::Straight_skeleton_2<K> Ss;
+	typedef boost::shared_ptr<Polygon_2> PolygonPtr;
+	typedef boost::shared_ptr<Ss> SsPtr;
+	typedef std::vector<PolygonPtr> PolygonPtrVector;
+
+	std::vector<Point> points;
+	std::vector<PolygonPtr> polygons;
+
+	void CreateOffsetPolygons(std::vector<Point2d> points)
+	{
+		std::vector<Point> points_IEK;
+		for (int i = 0; i < points.size(); i++)
+		{
+			auto p = points[i].ToCGAL<K>();
+			points_IEK.push_back(p);
+		}
+
+		SsPtr ss = CGAL::create_interior_straight_skeleton_2(points_IEK.begin(), points_IEK.end());
+
+		double lOffset = 1;
+		PolygonPtrVector offset_polygons = CGAL::create_offset_polygons_2<Polygon_2>(lOffset, *ss);
+	}
+
+	void CreateStraightSkeleton()
+	{
+		Polygon_2 poly;
+
+		// You can pass the polygon via an iterator pair
+		SsPtr iss = CGAL::create_interior_straight_skeleton_2(poly.vertices_begin(), poly.vertices_end());
+
+		// Or you can pass the polygon directly, as below.
+		// To create an exterior straight skeleton you need to specify a maximum offset.
+		double lMaxOffset = 5;
+		SsPtr oss = CGAL::create_exterior_straight_skeleton_2(lMaxOffset, poly);
+	}
+
+}
+*/

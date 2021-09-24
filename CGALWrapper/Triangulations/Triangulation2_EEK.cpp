@@ -2,6 +2,9 @@
 #include "Triangulation2_EEK.h"
 #include "Triangulation2.h"
 
+#include <CGAL/Constrained_Delaunay_triangulation_2.h>
+#include <CGAL/Triangulation_conformer_2.h>
+
 void* Triangulation2_EEK_Create()
 {
 	return Triangulation2<EEK>::NewTriangulation2();
@@ -147,17 +150,8 @@ BOOL Triangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour)
 	return Triangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
 
-/*
-void Test()
-{
-	auto t = Triangulation2<EEK>::Triangulation_2();
 
-	for (const auto& face : t.finite_face_handles())
-	{
-		auto n = face->neighbor(0);
-	}
-}
-*/
+
 
 
 

@@ -499,6 +499,25 @@ namespace CGALDotNet.Triangulations
             return Kernel.FlipEdge(Ptr, faceIndex, neighbourIndex);
         }
 
+        /*
+        public void MakeConformingGabriel()
+        {
+            Kernel.MakeGabriel(Ptr);
+        }
+
+        /// <summary>
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="iterations"></param>
+        /// <param name="angleBounds">0.125 is the default shape bound. It corresponds to abound 20.6 degree.</param>
+        /// <param name="lengthBounds">0.5 is the upper bound on the length of the longest edge.</param>
+        public void Optimize(int iterations, double angleBounds, double lengthBounds)
+        {
+            Kernel.Optimize(Ptr, iterations, angleBounds, lengthBounds);
+        }
+        */
+
         public void Print()
         {
             var builder = new StringBuilder();

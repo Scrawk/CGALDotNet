@@ -165,12 +165,6 @@
     <ClInclude Include="Polygons\PolygonSimplification2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\ConformingTriangulation2.h">
-      <Filter>Header Files\Triangulations</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h">
-      <Filter>Header Files\Triangulations</Filter>
-    </ClInclude>
     <ClInclude Include="Geometry\IsoRectangle2_EEK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
@@ -203,6 +197,15 @@
     </ClInclude>
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\MakeGabriel2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\OptimizeMesh2.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\MakeDelaunay2.h">
+      <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,9 +247,6 @@
     </ClCompile>
     <ClCompile Include="Polygons\PolygonSimplification2.cpp">
       <Filter>Source Files\Polygons</Filter>
-    </ClCompile>
-    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp">
-      <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
     <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp">
       <Filter>Source Files\Geometry</Filter>

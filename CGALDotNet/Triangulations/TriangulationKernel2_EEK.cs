@@ -249,5 +249,11 @@ namespace CGALDotNet.Triangulations
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Triangulation2_EEK_FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation2_EEK_MakeGabriel(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation2_EEK_Optimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds);
+
     }
 }

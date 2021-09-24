@@ -103,52 +103,6 @@ namespace CGALDotNet.Triangulations
             TriangulationKernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
         }
 
-        /*
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="indices"></param>
-        public void GetPolygonIndices(Polygon2<K> polygon, List<int> indices)
-        {
-            InsertPolygonConstraint(polygon);
-
-            int count = IndiceCount;
-            if (count == 0) return;
-
-            var orientation = polygon.Orientation;
-
-            int[] tmp = new int[count];
-            count = TriangulationKernel.GetPolygonIndices(Ptr, polygon.Ptr, tmp, 0, tmp.Length, orientation);
-
-            for (int i = 0; i < count; i++)
-                indices.Add(tmp[i]);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pwh"></param>
-        /// <param name="indices"></param>
-        public void GetPolygonIndices(PolygonWithHoles2<K> pwh, List<int> indices)
-        {
-            InsertPolygonConstraint(pwh);
-
-            int count = IndiceCount;
-            if (count == 0) return;
-
-            var orientation = pwh.FindOrientation(POLYGON_ELEMENT.BOUNDARY);
-
-            int[] tmp = new int[count];
-            count = TriangulationKernel.GetPolygonWithHolesIndices(Ptr, pwh.Ptr, tmp, 0, tmp.Length, orientation);
-
-            for (int i = 0; i < count; i++)
-                indices.Add(tmp[i]);
-        }
-
-        */
-
     }
 
     /// <summary>
@@ -222,9 +176,9 @@ namespace CGALDotNet.Triangulations
         /// Add a segment as a constraint.
         /// </summary>
         /// <param name="segment">The segment to add.</param>
-        public void InsertSegmentConstraint(Segment2d segment)
+        public void InsertConstraint(Segment2d segment)
         {
-            InsertSegmentConstraint(segment.A, segment.B);
+            InsertConstraint(segment.A, segment.B);
         }
 
         /// <summary>
@@ -232,7 +186,7 @@ namespace CGALDotNet.Triangulations
         /// </summary>
         /// <param name="a">The segments point a.</param>
         /// <param name="b">The segments point b.</param>
-        public void InsertSegmentConstraint(Point2d a, Point2d b)
+        public void InsertConstraint(Point2d a, Point2d b)
         {
             TriangulationKernel.InsertSegmentConstraintFromPoints(Ptr, a, b);
         }
@@ -241,7 +195,7 @@ namespace CGALDotNet.Triangulations
         /// Add a list of segments as constraint to the triangulation.
         /// </summary>
         /// <param name="segments">The segment array.</param>
-        public void InsertSegmentConstraints(Segment2d[] segments)
+        public void InsertConstraints(Segment2d[] segments)
         {
             TriangulationKernel.InsertSegmentConstraints(Ptr, segments, 0, segments.Length);
         }
@@ -311,6 +265,16 @@ namespace CGALDotNet.Triangulations
 
             for (int i = 0; i < count; i++)
                 indices.Add(tmp[i]);;
+        }
+
+        public void MakeDelaunay()
+        {
+            TriangulationKernel.MakeDelaunay(Ptr);
+        }
+
+        public void MakeGabriel()
+        {
+            TriangulationKernel.MakeGabriel(Ptr);
         }
 
         /// <summary>

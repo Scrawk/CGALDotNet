@@ -170,13 +170,14 @@
     <ClInclude Include="Circlar\Circle.h" />
     <ClInclude Include="Circlar\Circle_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine.h" />
+    <ClInclude Include="Triangulations\MakeDelaunay2.h" />
+    <ClInclude Include="Triangulations\OptimizeMesh2.h" />
     <ClInclude Include="Polygons\PolygonOffset2.h" />
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h" />
+    <ClInclude Include="Triangulations\MakeGabriel2.h" />
     <ClInclude Include="Triangulations\TriEdge2.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />
-    <ClInclude Include="Triangulations\ConformingTriangulation2.h" />
-    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h" />
     <ClInclude Include="Hull\ConvexHull2.h" />
     <ClInclude Include="Hull\ConvexHull2_EEK.h" />
     <ClInclude Include="Geometry\Geometry3.h" />
@@ -217,7 +218,6 @@
     <ClCompile Include="Circlar\Circle_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
     <ClCompile Include="Utility\CGALGlobal_EEK.cpp" />
-    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp" />

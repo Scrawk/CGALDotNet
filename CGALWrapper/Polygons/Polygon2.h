@@ -144,6 +144,16 @@ public:
 		}
 	}
 
+	static void GetPoints(Polygon_2* polygon, std::vector<Point2d>& points)
+	{
+		int count = (int)polygon->size();
+		for (auto i = 0; i < count; i++)
+		{
+			auto point = polygon->vertex(i);
+			points.push_back(Point2d::FromCGAL<K>(point));
+		}
+	}
+
 	inline static int Wrap(int v, int count)
 	{
 		int r = v % count;
@@ -206,7 +216,7 @@ public:
 				(*polygon)[i] = points[index].ToCGAL<K>();
 			else
 			{
-				//Adding more points than poygon currently contains
+				//Adding more points than polygon currently contains
 				//so push back instead.
 				polygon->push_back(points[index].ToCGAL<K>());
 			}

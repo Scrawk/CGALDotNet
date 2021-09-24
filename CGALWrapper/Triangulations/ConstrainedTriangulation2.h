@@ -102,6 +102,12 @@ public:
 		tri->map.ClearMaps();
 	}
 
+	void Clear()
+	{
+		model.clear();
+		map.ClearMaps();
+	}
+
 	static void* Copy(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -150,6 +156,12 @@ public:
 		tri->map.OnModelChanged();
 	}
 
+	void InsertPoints(const std::vector<Point_2>& points)
+	{
+		model.insert(points.begin(), points.end());
+		map.OnModelChanged();
+	}
+
 	static void InsertPoints(void* ptr, Point2d* points, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -193,6 +205,12 @@ public:
 
 		for (const auto& vert : tri->model.finite_vertex_handles())
 			points[i++] = Point2d::FromCGAL<K>(vert->point());
+	}
+
+	void GetPoints(std::vector<Point_2>& points)
+	{
+		for (const auto& vert : model.finite_vertex_handles())
+			points.push_back(vert->point());
 	}
 
 	static void GetIndices(void* ptr, int* indices, int startIndex, int count)
@@ -535,6 +553,18 @@ public:
 		tri->map.OnModelChanged();
 	}
 
+	void InsertConstraints(const std::vector<std::pair<Point_2, Point_2>>& constraints)
+	{
+		for (auto iter = constraints.begin(); iter != constraints.end(); iter++)
+		{
+			auto p1 = iter->first;
+			auto p2 = iter->second;
+			model.insert_constraint(p1, p2);
+		}
+
+		map.OnModelChanged();
+	}
+
 	static void InsertSegmentConstraint(void* ptr, int vertIndex1, int vertIndex2)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -589,6 +619,19 @@ public:
 		tri->map.OnModelChanged();
 	}
 
+	void GetConstraints(std::vector<std::pair<Point_2, Point_2>>& constraints)
+	{
+		map.SetIndices(model);
+
+		for (auto edge = model.constrained_edges_begin(); edge != model.constrained_edges_end(); ++edge)
+		{
+			auto seg = model.segment(edge->first, edge->second);
+			auto pair = std::make_pair(seg[0], seg[1]);
+
+			constraints.push_back(pair);
+		}
+	}
+
 	static void GetConstraints(void* ptr, TriEdge2* constraints, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -625,8 +668,7 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		int i = startIndex;
 
-		tri->map.SetVertexIndices(tri->model);
-		tri->map.SetFaceIndices(tri->model);
+		tri->map.SetIndices(tri->model);
 
 		for (auto edge = tri->model.constrained_edges_begin(); edge != tri->model.constrained_edges_end(); ++edge)
 		{
@@ -706,65 +748,6 @@ public:
 			tri->model.remove_incident_constraints(*vert);
 		}
 	}
-
-	/*
-	static int GetPolygonIndices(void* ptrTri, void* polyPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
-	{
-		auto tri = CastToTriangulation2(ptrTri);
-		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
-
-		int num = 0;
-		int index = startIndex;
-
-		tri->map.SetVertexIndices(tri->model);
-
-		for (auto& face : tri->model.finite_face_handles())
-		{
-			auto p = TriUtil::CenterPoint<Point_2>(face);
-
-			if (poly->oriented_side(p) == orientation)
-			{
-				indices[index * 3 + 0] = face->vertex(0)->info();
-				indices[index * 3 + 1] = face->vertex(1)->info();
-				indices[index * 3 + 2] = face->vertex(2)->info();
-
-				index++;
-				num++;
-			}
-		}
-
-		return num * 3;
-	}
-
-	static int GetPolygonWithHolesIndices(void* ptrTri, void* pwhPtr, int* indices, int startIndex, int count, CGAL::Orientation orientation)
-	{
-		auto tri = CastToTriangulation2(ptrTri);
-		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
-
-		int num = 0;
-		int index = startIndex;
-
-		tri->map.SetVertexIndices(tri->model);
-
-		for (auto& face : tri->model.finite_face_handles())
-		{
-			auto p = TriUtil::CenterPoint<Point_2>(face);
-			Point2d point = Point2d::FromCGAL(p);
-
-			if (PolygonWithHoles2<K>::ContainsPoint(*pwh, point, orientation, true))
-			{
-				indices[index * 3 + 0] = face->vertex(0)->info();
-				indices[index * 3 + 1] = face->vertex(1)->info();
-				indices[index * 3 + 2] = face->vertex(2)->info();
-
-				index++;
-				num++;
-			}
-		}
-
-		return num * 3;
-	}
-	*/
 
 	static int MarkDomains(void* ptr, int* indices, int startIndex, int count)
 	{

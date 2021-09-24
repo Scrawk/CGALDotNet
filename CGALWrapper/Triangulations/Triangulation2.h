@@ -33,7 +33,6 @@ public:
 	typedef typename Triangulation_2::Face_handle Face;
 	typedef typename Triangulation_2::Vertex_handle Vertex;
 
-
 private:
 
 	Triangulation_2 model;
@@ -78,6 +77,14 @@ public:
 		auto tri = CastToTriangulation2(ptr);
 		tri->model.clear();
 		tri->map.ClearMaps();
+		tri->map.OnModelChanged();
+	}
+
+	void Clear()
+	{
+		model.clear();
+		map.ClearMaps();
+		map.OnModelChanged();
 	}
 
 	static void* Copy(void* ptr)
@@ -160,6 +167,18 @@ public:
 			tri->model.insert(hole.vertices_begin(), hole.vertices_end());
 
 		tri->map.OnModelChanged();
+	}
+
+	void GetPoints(std::vector<Point_2>& points)
+	{
+		for (const auto& vert : model.finite_vertex_handles())
+			points.push_back(vert->point());
+	}
+
+	void InsertPoints(std::vector<Point_2>& points)
+	{
+		for (auto iter = points.begin(); iter != points.end(); ++iter)
+			model.insert(*iter);
 	}
 
 	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
@@ -423,6 +442,24 @@ public:
 			tri->model.remove(*vert);
 			tri->map.OnModelChanged();
 			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	static BOOL IsFlippable(void* ptr, int faceIndex, int neighbourIndex)
+	{
+		if (neighbourIndex < 0 || neighbourIndex > 2)
+			return FALSE;
+
+		auto tri = CastToTriangulation2(ptr);
+
+		auto face = tri->map.FindFace(tri->model, faceIndex);
+		if (face != nullptr)
+		{
+			return tri->model.is_flipable(*face, neighbourIndex);
 		}
 		else
 		{

@@ -229,21 +229,24 @@ namespace CGALDotNet.Triangulations
             ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(ptr, vertexIndex);
         }
 
-        /*
-        internal override int GetPolygonIndices(IntPtr ptrTri, IntPtr polyPtr, int[] indices, int startIndex, int count, ORIENTATION orientation)
-        {
-            return ConstrainedTriangulation2_EEK_GetPolygonIndices(ptrTri, polyPtr, indices, startIndex, count, orientation);
-        }
-
-        internal override int GetPolygonWithHolesIndices(IntPtr ptrTri, IntPtr pwhPtr, int[] indices, int startIndex, int count, ORIENTATION orientation)
-        {
-            return ConstrainedTriangulation2_EEK_GetPolygonWithHolesIndices(ptrTri, pwhPtr, indices, startIndex, count, orientation);
-        }
-        */
-
         internal override int MarkDomains(IntPtr ptr, int[] indices, int startIndex, int count)
         {
             return ConstrainedTriangulation2_EEK_MarkDomains(ptr, indices, startIndex, count);
+        }
+
+        internal override void MakeDelaunay(IntPtr ptr)
+        {
+            ConstrainedTriangulation2_EEK_MakeDelaunay(ptr);
+        }
+
+        internal override void MakeGabriel(IntPtr ptr)
+        {
+            ConstrainedTriangulation2_EEK_MakeGabriel(ptr);
+        }
+
+        internal override void Optimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds)
+        {
+            
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -382,6 +385,12 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int ConstrainedTriangulation2_EEK_MarkDomains(IntPtr ptr, [Out] int[] indices, int startIndex, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void ConstrainedTriangulation2_EEK_MakeDelaunay(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void ConstrainedTriangulation2_EEK_MakeGabriel(IntPtr ptr);
 
     }
 }
