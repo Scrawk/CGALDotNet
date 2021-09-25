@@ -114,6 +114,36 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Convert from cartesian to homogenous space.
+        /// </summary>
+        public HPoint2d Homogenous
+        {
+            get
+            {
+                return new HPoint2d(x, y, 1);
+            }
+        }
+
+        /// <summary>
+        /// Point as a vector.
+        /// </summary>
+        public Vector2d Vector2d
+        {
+            get
+            {
+                return new Vector2d(x, y);
+            }
+        }
+
+        /// <summary>
+        /// Convert from cartesian to homogenous space.
+        /// </summary>
+        public HPoint2d ToHomogenous(double w)
+        {
+            return new HPoint2d(x, y, w);
+        }
+
+        /// <summary>
         /// The length of the point from the origin.
         /// </summary>
         public double Magnitude
@@ -139,6 +169,24 @@ namespace CGALDotNet.Geometry
             {
                 return (x * x + y * y);
             }
+        }
+
+        /// <summary>
+        /// Add two point and vector.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2d operator +(Point2d v1, Vector2d v2)
+        {
+            return new Point2d(v1.x + v2.x, v1.y + v2.y);
+        }
+
+        /// <summary>
+        /// Add two point and vector.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2d operator +(Vector2d v1, Point2d v2)
+        {
+            return new Point2d(v1.x + v2.x, v1.y + v2.y);
         }
 
         /// <summary>

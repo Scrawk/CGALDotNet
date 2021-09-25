@@ -118,6 +118,36 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Convert from cartesian to homogenous space.
+        /// </summary>
+        public HPoint3d Homogenous
+        {
+            get
+            {
+                return new HPoint3d(x, y, 1);
+            }
+        }
+
+        /// <summary>
+        /// Convert from cartesian to homogenous space.
+        /// </summary>
+        public HPoint3d ToHomogenous(double w)
+        {
+            return new HPoint3d(x, y, w);
+        }
+
+        /// <summary>
+        /// Point as a vector.
+        /// </summary>
+        public Vector3d Vector3d
+        {
+            get
+            {
+                return new Vector3d(x, y, z);
+            }
+        }
+
+        /// <summary>
         /// The length of the point from the origin.
         /// </summary>
         public double Magnitude
@@ -146,6 +176,24 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Add two point and vector.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3d operator +(Point3d v1, Vector3d v2)
+        {
+            return new Point3d(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+        }
+
+        /// <summary>
+        /// Add two point and vector.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3d operator +(Vector3d v1, Point3d v2)
+        {
+            return new Point3d(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+        }
+
+        /// <summary>
         /// Add two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -160,7 +208,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3d operator +(Point3d v1, double s)
         {
-            return new Point3d(v1.x + s, v1.z + s, v1.z + s);
+            return new Point3d(v1.x + s, v1.y + s, v1.z + s);
         }
 
         /// <summary>
@@ -169,7 +217,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3d operator +(double s, Point3d v1)
         {
-            return new Point3d(s + v1.x, s + v1.z, s + v1.z);
+            return new Point3d(s + v1.x, s + v1.y, s + v1.z);
         }
 
         /// <summary>
@@ -345,7 +393,6 @@ namespace CGALDotNet.Geometry
             double z = v0.z - v1.z;
             return x * x + y * y + z * z;
         }
-
 
         /// <summary>
         /// The minimum value between s and each component in point.

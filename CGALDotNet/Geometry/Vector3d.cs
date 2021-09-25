@@ -95,6 +95,17 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// A vector from the varibles.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector3d(Vector2d v, double z)
+        {
+            this.x = v.x;
+            this.y = v.y;
+            this.z = z;
+        }
+
+        /// <summary>
         /// Array accessor for variables. 
         /// </summary>
         /// <param name="i">The variables index.</param>
@@ -360,6 +371,27 @@ namespace CGALDotNet.Geometry
         public static double AbsDot(Vector3d v0, Vector3d v1)
         {
             return Math.Abs(v0.x * v1.x + v0.y * v1.y + v0.z * v1.z);
+        }
+
+        /// <summary>
+        /// Distance between two vectors.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(Vector3d v0, Vector3d v1)
+        {
+            return Math.Sqrt(SqrDistance(v0, v1));
+        }
+
+        /// <summary>
+        /// Square distance between two vectors.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SqrDistance(Vector3d v0, Vector3d v1)
+        {
+            double x = v0.x - v1.x;
+            double y = v0.y - v1.y;
+            double z = v0.z - v1.z;
+            return x * x + y * y + z * z;
         }
 
         /// <summary>

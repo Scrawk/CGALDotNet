@@ -27,6 +27,57 @@ namespace CGALDotNet
         public const double DEG_TO_RAD = Math.PI / 180.0;
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="d"></param>
+        /// <param name="eps"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SafeDiv(double n, double d, double eps = 1e-6)
+        {
+            if (Math.Abs(d) < eps) return 0.0;
+            return n / d;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="eps"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsZero(double v, double eps = 1e-6)
+        {
+            return Math.Abs(v) < eps;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="eps"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsOne(double v, double eps = 1e-6)
+        {
+            return Math.Abs(1.0 - v) < eps;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v0"></param>
+        /// <param name="v1"></param>
+        /// <param name="eps"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AlmostEqual(double v0, double v1, double eps = 1e-6)
+        {
+            return Math.Abs(v0 - v1) < eps;
+        }
+
+        /// <summary>
         /// Clamp v to min and max.
         /// </summary>
         /// <param name="v">The value v.</param>
@@ -68,6 +119,20 @@ namespace CGALDotNet
             if (v > 1.0) v = 1.0;
             return v;
 
+        }
+
+        /// <summary>
+        /// Rescale value to be between min and max.
+        /// </summary>
+        /// <param name="value">Value to rescale</param>
+        /// <param name="min">Min value.</param>
+        /// <param name="max">Max value.</param>
+        /// <returns></returns>
+        public static double Normalize(double value, double min, double max)
+        {
+            double len = max - min;
+            if (len <= 0) return 0;
+            return (value - min) / len;
         }
 
         /// <summary>
@@ -125,6 +190,58 @@ namespace CGALDotNet
         public static Radian Tan(Radian radian)
         {
             return new Radian(Math.Tan(radian.angle));
+        }
+
+        /// <summary>
+        /// Create a shallow copy of the array.
+        /// </summary>
+        /// <typeparam name="T">The arrays type</typeparam>
+        /// <param name="array">The array to copy.</param>
+        /// <returns>The copied array</returns>
+        public static T[] Copy<T>(T[] array)
+        {
+            var dest = new T[array.Length];
+            Array.Copy(array, dest, array.Length);
+            return dest;
+        }
+
+        /// <summary>
+        /// Create a shallow copy of the array.
+        /// </summary>
+        /// <typeparam name="T">The arrays type</typeparam>
+        /// <param name="array">The array to copy.</param>
+        /// <returns>The copied array</returns>
+        public static T[,] Copy<T>(T[,] array)
+        {
+            var dest = new T[array.GetLength(0), array.GetLength(1)];
+            Array.Copy(array, dest, array.Length);
+            return dest;
+        }
+
+        /// <summary>
+        /// Create a shallow copy of the array.
+        /// </summary>
+        /// <typeparam name="T">The arrays type</typeparam>
+        /// <param name="array">The array to copy.</param>
+        /// <returns>The copied array</returns>
+        public static T[,,] Copy<T>(T[,,] array)
+        {
+            var dest = new T[array.GetLength(0), array.GetLength(1), array.GetLength(2)];
+            Array.Copy(array, dest, array.Length);
+            return dest;
+        }
+
+        /// <summary>
+        /// Add the item to the list a number of times.
+        /// </summary>
+        /// <typeparam name="T">The lists type</typeparam>
+        /// <param name="list">The list to add to.</param>
+        /// <param name="count">The number of items to added</param>
+        /// <param name="item">The item to add.</param>
+        public static void AddRange<T>(List<T> list, int count, T item)
+        {
+            for (int i = 0; i < count; i++)
+                list.Add(item);
         }
 
         /// <summary>

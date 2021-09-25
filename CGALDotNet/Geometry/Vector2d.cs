@@ -383,6 +383,26 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Distance between two vectors.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Distance(Vector2d v0, Vector2d v1)
+        {
+            return Math.Sqrt(SqrDistance(v0, v1));
+        }
+
+        /// <summary>
+        /// Square distance between two vectors.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SqrDistance(Vector2d v0, Vector2d v1)
+        {
+            double x = v0.x - v1.x;
+            double y = v0.y - v1.y;
+            return x * x + y * y;
+        }
+
+        /// <summary>
         /// Normalize the vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
