@@ -11,7 +11,7 @@ namespace CGALDotNet.Nurbs
 	{
 		public int degreeU, degreeV;
 		public List<double> knotsU, knotsV;
-		public HPoint3d[,] controlPoints;
+		public Vector4d[,] controlPoints;
 	}
 
 	/// <summary>
@@ -36,7 +36,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="knots_u">The knots on the first dimension.</param>
 		/// <param name="knots_v">The knots on the second dimension.</param>
 		/// <param name="control_points">The control points in cartesion coordinates.</param>
-		public NurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, Point3d[,] control_points)
+		public NurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, Vector3d[,] control_points)
 		{
 			DegreeU = degree_u;
 			DegreeV = degree_v;
@@ -46,11 +46,11 @@ namespace CGALDotNet.Nurbs
 			int width = control_points.GetLength(0);
 			int height = control_points.GetLength(1);
 
-			ControlPoints = new HPoint3d[width, height];
+			ControlPoints = new Vector4d[width, height];
 
 			for (int j = 0; j < height; j++)
 				for (int i = 0; i < width; i++)
-					ControlPoints[i, j] = control_points[i, j].Homogenous;
+					ControlPoints[i, j] = new Vector4d(control_points[i, j], 1);
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="knots_u">The knots on the first dimension.</param>
 		/// <param name="knots_v">The knots on the second dimension.</param>
 		/// <param name="control_points">The control points in cartesion coordinates.</param>
-		internal NurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, HPoint3d[,] control_points)
+		internal NurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, Vector4d[,] control_points)
 		{
 			DegreeU = degree_u;
 			DegreeV = degree_v;
@@ -71,11 +71,11 @@ namespace CGALDotNet.Nurbs
 			int width = control_points.GetLength(0);
 			int height = control_points.GetLength(1);
 
-			ControlPoints = new HPoint3d[width, height];
+			ControlPoints = new Vector4d[width, height];
 
 			for (int j = 0; j < height; j++)
 				for (int i = 0; i < width; i++)
-					ControlPoints[i, j] = control_points[i, j];
+					ControlPoints[i, j] = new Vector4d(control_points[i, j].xyz, 1);
 		}
 
 		/// <summary>
@@ -107,7 +107,7 @@ namespace CGALDotNet.Nurbs
 
 		public int ControlPointsHeight => ControlPoints.GetLength(1);
 
-		internal HPoint3d[,] ControlPoints { get; set; }
+		internal Vector4d[,] ControlPoints { get; set; }
 
 		public bool IsValid => NurbsCheck.SurfaceIsValid(this);
 
@@ -121,7 +121,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="i">The points first index.</param>
 		/// <param name="j">The points second index.</param>
 		/// <returns>The control point in cartesian coordinates.</returns>
-		public Point3d GetControlPoint(int i, int j)
+		public Vector3d GetControlPoint(int i, int j)
 		{
 			return NurbsUtil.HomogenousToCartesian(ControlPoints[i, j]);
 		}
@@ -130,7 +130,7 @@ namespace CGALDotNet.Nurbs
 		/// Get the control points
 		/// </summary>
 		/// <param name="points">The list to copy the points into.</param>
-		public void GetControlPoints(List<Point3d> points)
+		public void GetControlPoints(List<Vector3d> points)
 		{
 			for (int j = 0; j < ControlPoints.GetLength(1); j++)
 				for (int i = 0; i < ControlPoints.GetLength(0); i++)
@@ -143,9 +143,9 @@ namespace CGALDotNet.Nurbs
 		/// <param name="i">The points first index.</param>
 		/// <param name="j">The points second index.</param>
 		/// <param name="point">The control point in cartesian coordinates.</param>
-		public void SetControlPoint(int i, int j, Point3d point)
+		public void SetControlPoint(int i, int j, Vector3d point)
 		{
-			ControlPoints[i, j] = point.Homogenous;
+			ControlPoints[i, j] = new Vector4d(point, 1);
 		}
 
 		/// <summary>
@@ -153,7 +153,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="u">The parameter.</param>
 		/// <returns>The point at u,v.</returns>
-		public Point3d Point(double u, double v)
+		public Vector3d Point(double u, double v)
 		{
 			return NurbsEval.SurfacePoint(this, u, v);
 		}
@@ -163,9 +163,9 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="u">The parameter.</param>
 		/// <returns>The tanget at u,v.</returns>
-		public void Tangent(double u, double v, out Vector3d du, out Vector3d dv)
+		public (Vector3d, Vector3d) Tangent(double u, double v)
 		{
-			NurbsEval.SurfaceTangent(this, u, v, out du, out dv);
+			return NurbsEval.SurfaceTangent(this, u, v);
 		}
 
 		/// <summary>
@@ -236,16 +236,17 @@ namespace CGALDotNet.Nurbs
 		/// <param name="srf">The surface to split.</param>
 		/// <param name="u">The parameter to split the surface at</param>
 		/// <returns>The two new surfaces.</returns>
-		public static void SplitU(NurbsSurface3d srf, double u, out NurbsSurface3d left, out NurbsSurface3d right)
+		public static (NurbsSurface3d left, NurbsSurface3d right) SplitU(NurbsSurface3d srf, double u)
 		{
-			NurbsSurfaceParams3d leftParam, rightParam;
-			NurbsModify.SurfaceSplitU(srf, u, out leftParam, out rightParam);
+			var x = NurbsModify.SurfaceSplitU(srf, u);
 
-			left = new NurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
-			right = new NurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+			var left = new NurbsSurface3d(x.left.degreeU, x.left.degreeV, x.left.knotsU, x.left.knotsV, x.left.controlPoints);
+			var right = new NurbsSurface3d(x.right.degreeU, x.right.degreeV, x.right.knotsU, x.right.knotsV, x.right.controlPoints);
 
 			left.NormalizeKnotsU();
 			right.NormalizeKnotsU();
+
+			return (left, right);
 		}
 
 		/// <summary>
@@ -254,16 +255,17 @@ namespace CGALDotNet.Nurbs
 		/// <param name="srf">The surface to split.</param>
 		/// <param name="v">The parameter to split the surface at</param>
 		/// <returns>The two new surfaces.</returns>
-		public static void SplitV(NurbsSurface3d srf, double v, out NurbsSurface3d left, out NurbsSurface3d right)
+		public static (NurbsSurface3d, NurbsSurface3d) SplitV(NurbsSurface3d srf, double v)
 		{
-			NurbsSurfaceParams3d leftParam, rightParam;
-			NurbsModify.SurfaceSplitV(srf, v, out leftParam, out rightParam);
+			var x = NurbsModify.SurfaceSplitV(srf, v);
 
-			left = new NurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
-			right = new NurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+			var left = new NurbsSurface3d(x.left.degreeU, x.left.degreeV, x.left.knotsU, x.left.knotsV, x.left.controlPoints);
+			var right = new NurbsSurface3d(x.right.degreeU, x.right.degreeV, x.right.knotsU, x.right.knotsV, x.right.controlPoints);
 
 			left.NormalizeKnotsV();
 			right.NormalizeKnotsV();
+
+			return (left, right);
 		}
 	}
 
@@ -289,7 +291,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="knots_v">The knots on the second dimension.</param>
 		/// <param name="control_points">The control points in cartesion coordinates.</param>
 		/// <param name="weights">The weights.</param>
-		public RationalNurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, Point3d[,] control_points, double[,] weights)
+		public RationalNurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, Vector3d[,] control_points, double[,] weights)
 		{
 			DegreeU = degree_u;
 			DegreeV = degree_v;
@@ -299,7 +301,7 @@ namespace CGALDotNet.Nurbs
 			int width = control_points.GetLength(0);
 			int height = control_points.GetLength(1);
 
-			ControlPoints = new HPoint3d[width, height];
+			ControlPoints = new Vector4d[width, height];
 
 			for (int j = 0; j < height; j++)
 				for (int i = 0; i < width; i++)
@@ -315,7 +317,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="knots_u">The knots on the first dimension.</param>
 		/// <param name="knots_v">The knots on the second dimension.</param>
 		/// <param name="control_points">The control points in homogenous coordinates.</param>
-		public RationalNurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, HPoint3d[,] control_points)
+		public RationalNurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, Vector4d[,] control_points)
 		{
 			DegreeU = degree_u;
 			DegreeV = degree_v;
@@ -332,7 +334,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="j">The points second index.</param>
 		/// <param name="point">The control point in cartesian coordinates.</param>
 		/// <param name="weight">The control points weight.</param>
-		public void SetControlPoint(int i, int j, Point3d point, double weight)
+		public void SetControlPoint(int i, int j, Vector3d point, double weight)
 		{
 			ControlPoints[i,j] = NurbsUtil.CartesianToHomogenous(point, weight);
 		}
@@ -369,16 +371,17 @@ namespace CGALDotNet.Nurbs
 		/// <param name="srf">The surface to split.</param>
 		/// <param name="u">The parameter to split the surface at</param>
 		/// <returns>The two new surfaces.</returns>
-		public static void SplitU(RationalNurbsSurface3d srf, double u, out RationalNurbsSurface3d left, out RationalNurbsSurface3d right)
+		public static (RationalNurbsSurface3d, RationalNurbsSurface3d) SplitU(RationalNurbsSurface3d srf, double u)
         {
-			NurbsSurfaceParams3d leftParam, rightParam;
-			NurbsModify.SurfaceSplitU(srf, u, out leftParam, out rightParam);
+			var x = NurbsModify.SurfaceSplitU(srf, u);
 
-			left = new RationalNurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
-			right = new RationalNurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+			var left = new RationalNurbsSurface3d(x.left.degreeU, x.left.degreeV, x.left.knotsU, x.left.knotsV, x.left.controlPoints);
+			var right = new RationalNurbsSurface3d(x.right.degreeU, x.right.degreeV, x.right.knotsU, x.right.knotsV, x.right.controlPoints);
 
 			left.NormalizeKnotsU();
 			right.NormalizeKnotsU();
+
+			return (left, right);
 		}
 
 		/// <summary>
@@ -387,16 +390,17 @@ namespace CGALDotNet.Nurbs
 		/// <param name="srf">The surface to split.</param>
 		/// <param name="v">The parameter to split the surface at</param>
 		/// <returns>The two new surfaces.</returns>
-		public static void SplitV(RationalNurbsSurface3d srf, double v, out RationalNurbsSurface3d left, out RationalNurbsSurface3d right)
+		public static (RationalNurbsSurface3d, RationalNurbsSurface3d) SplitV(RationalNurbsSurface3d srf, double v)
 		{
-			NurbsSurfaceParams3d leftParam, rightParam;
-			NurbsModify.SurfaceSplitV(srf, v, out leftParam, out rightParam);
+			var x = NurbsModify.SurfaceSplitV(srf, v);
 
-			left = new RationalNurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
-			right = new RationalNurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+			var left = new RationalNurbsSurface3d(x.left.degreeU, x.left.degreeV, x.left.knotsU, x.left.knotsV, x.left.controlPoints);
+			var right = new RationalNurbsSurface3d(x.right.degreeU, x.right.degreeV, x.right.knotsU, x.right.knotsV, x.right.controlPoints);
 
 			left.NormalizeKnotsV();
 			right.NormalizeKnotsV();
+
+			return (left, right);
 		}
 
 	}

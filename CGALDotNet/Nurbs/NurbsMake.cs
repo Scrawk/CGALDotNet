@@ -19,7 +19,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="degree">The degree of the curve.</param>
 		/// <param name="points">The points to interp curve from.</param>
 		/// <returns>A curve that passes through all the points.</returns>
-		public static NurbsCurve2d FromPoints(int degree, IList<Point2d> points)
+		public static NurbsCurve2d FromPoints(int degree, IList<Vector2d> points)
 		{
 			if (points.Count < degree + 1)
 				throw new Exception("You need to supply at least degree + 1 points.");
@@ -57,7 +57,6 @@ namespace CGALDotNet.Nurbs
 			}
 
 			CGALGlobal.AddRange(knots, degree + 1, 1);
-
 			var A = new double[columns, columns];
 
 			for (int i = 0; i < columns; i++)
@@ -90,10 +89,10 @@ namespace CGALDotNet.Nurbs
 					solutions[i, j] = x[j];
 			}
 
-			var controlPts = new List<Point2d>(columns);
+			var controlPts = new List<Vector2d>(columns);
 			for (int j = 0; j < columns; j++)
 			{
-				var v = new Point2d();
+				var v = new Vector2d();
 
 				v.x = solutions[0, j];
 				v.y = solutions[1, j];
@@ -114,7 +113,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="degree">The degree of the curve.</param>
 		/// <param name="points">The points to interp curve from.</param>
 		/// <returns>A curve that passes through all the points.</returns>
-		public static NurbsCurve3d FromPoints(int degree, IList<Point3d> points)
+		public static NurbsCurve3d FromPoints(int degree, IList<Vector3d> points)
 		{
 			if (points.Count < degree + 1)
 				throw new Exception("You need to supply at least degree + 1 points.");
@@ -185,10 +184,10 @@ namespace CGALDotNet.Nurbs
 					solutions[i, j] = x[j];
 			}
 
-			var controlPts = new List<Point3d>(columns);
+			var controlPts = new List<Vector3d>(columns);
 			for (int j = 0; j < columns; j++)
 			{
-				var v = new Point3d();
+				var v = new Vector3d();
 
 				v.x = solutions[0, j];
 				v.y = solutions[1, j];
@@ -205,7 +204,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="controlPoints">Points in counter-clockwise form.</param>
 		/// <returns></returns>
-		public static NurbsCurve2d BezierCurve(IList<Point2d> controlPoints)
+		public static NurbsCurve2d BezierCurve(IList<Vector2d> controlPoints)
 		{
 			int count = controlPoints.Count;
 			int degree = count - 1;
@@ -225,7 +224,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="controlPoints">Points in counter-clockwise form.</param>
 		/// <returns></returns>
-		public static NurbsCurve3d BezierCurve(IList<HPoint3d> controlPoints)
+		public static NurbsCurve3d BezierCurve(IList<Vector3d> controlPoints)
 		{
 			int count = controlPoints.Count;
 			int degree = count - 1;
@@ -245,7 +244,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="controlPoints">Points in counter-clockwise form.</param>
 		/// <returns></returns>
-		public static RationalNurbsCurve2d RationalBezierCurve(IList<Point2d> controlPoints, IList<double> weights)
+		public static RationalNurbsCurve2d RationalBezierCurve(IList<Vector2d> controlPoints, IList<double> weights)
 		{
 			int count = controlPoints.Count;
 			int degree = count - 1;
@@ -265,7 +264,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="controlPoints">Points in counter-clockwise form.</param>
 		/// <returns></returns>
-		public static RationalNurbsCurve3d RationalBezierCurve(IList<Point3d> controlPoints, IList<double> weights)
+		public static RationalNurbsCurve3d RationalBezierCurve(IList<Vector3d> controlPoints, IList<double> weights)
 		{
 			int count = controlPoints.Count;
 			int degree = count - 1;
@@ -285,7 +284,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="center"></param>
 		/// <param name="radius">the radius</param>
-		public static RationalNurbsCurve2d Circle(Point2d center, double radius)
+		public static RationalNurbsCurve2d Circle(Vector2d center, double radius)
 		{
 			var unitX = Vector2d.UnitX;
 			var unitY = Vector2d.UnitY;
@@ -297,7 +296,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="center"></param>
 		/// <param name="radius">the radius</param>
-		public static RationalNurbsCurve3d Circle(Point3d center, double radius)
+		public static RationalNurbsCurve3d Circle(Vector3d center, double radius)
 		{
 			var unitX = Vector3d.UnitX;
 			var unitY = Vector3d.UnitY;
@@ -311,7 +310,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="radius">the radius</param>
 		/// <param name="startAngle">start angle of the ellipse arc, between 0 and 2pi, where 0 points at the xaxis</param>
 		/// <param name="endAngle">end angle of the arc, between 0 and 2pi, greater than the start angle</param>
-		public static RationalNurbsCurve2d Arc(Point2d center, double radius, double startAngle, double endAngle)
+		public static RationalNurbsCurve2d Arc(Vector2d center, double radius, double startAngle, double endAngle)
 		{
 			var unitX = Vector2d.UnitX;
 			var unitY = Vector2d.UnitY;
@@ -325,7 +324,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="radius">the radius</param>
 		/// <param name="startAngle">start angle of the ellipse arc, between 0 and 2pi, where 0 points at the xaxis</param>
 		/// <param name="endAngle">end angle of the arc, between 0 and 2pi, greater than the start angle</param>
-		public static RationalNurbsCurve3d Arc(Point3d center, double radius, double startAngle, double endAngle)
+		public static RationalNurbsCurve3d Arc(Vector3d center, double radius, double startAngle, double endAngle)
 		{
 			var unitX = Vector3d.UnitX;
 			var unitY = Vector3d.UnitY;
@@ -338,7 +337,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="center"></param>
 		/// <param name="xradius">the x radius</param>
 		/// <param name="yradius">the y radius</param>
-		public static RationalNurbsCurve2d Ellipse(Point2d center, double xradius, double yradius)
+		public static RationalNurbsCurve2d Ellipse(Vector2d center, double xradius, double yradius)
 		{
 			var unitX = Vector2d.UnitX;
 			var unitY = Vector2d.UnitY;
@@ -351,7 +350,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="center"></param>
 		/// <param name="xradius">the x radius</param>
 		/// <param name="yradius">the y radius</param>
-		public static RationalNurbsCurve3d Ellipse(Point3d center, double xradius, double yradius)
+		public static RationalNurbsCurve3d Ellipse(Vector3d center, double xradius, double yradius)
 		{
 			var unitX = Vector3d.UnitX;
 			var unitY = Vector3d.UnitY;
@@ -366,7 +365,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="yradius">the y radius</param>
 		/// <param name="startAngle">start angle of the ellipse arc, between 0 and 2pi, where 0 points at the xaxis</param>
 		/// <param name="endAngle">end angle of the arc, between 0 and 2pi, greater than the start angle</param>
-		public static RationalNurbsCurve2d EllipseArc(Point2d center, double xradius, double yradius, double startAngle, double endAngle)
+		public static RationalNurbsCurve2d EllipseArc(Vector2d center, double xradius, double yradius, double startAngle, double endAngle)
 		{
 			var unitX = Vector2d.UnitX;
 			var unitY = Vector2d.UnitY;
@@ -381,7 +380,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="yradius">the y radius</param>
 		/// <param name="startAngle">start angle of the ellipse arc, between 0 and 2pi, where 0 points at the xaxis</param>
 		/// <param name="endAngle">end angle of the arc, between 0 and 2pi, greater than the start angle</param>
-		public static RationalNurbsCurve3d EllipseArc(Point3d center, double xradius, double yradius, double startAngle, double endAngle)
+		public static RationalNurbsCurve3d EllipseArc(Vector3d center, double xradius, double yradius, double startAngle, double endAngle)
 		{
 			var unitX = Vector3d.UnitX;
 			var unitY = Vector3d.UnitY;
@@ -400,7 +399,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="xaxis">the x axis</param>
 		/// <param name="yaxis">the y axis</param>
 		/// <returns></returns>
-		public static RationalNurbsCurve2d EllipseArc(Point2d center, double xradius, double yradius, double startAngle, double endAngle, Vector2d xaxis, Vector2d yaxis)
+		public static RationalNurbsCurve2d EllipseArc(Vector2d center, double xradius, double yradius, double startAngle, double endAngle, Vector2d xaxis, Vector2d yaxis)
 		{
 			//if the end angle is less than the start angle, do a circle
 			if (endAngle < startAngle)
@@ -428,7 +427,7 @@ namespace CGALDotNet.Nurbs
 			var P0 = center + (xaxis * (xradius * Math.Cos(startAngle))) + (yaxis * (yradius * Math.Sin(startAngle)));
 			var T0 = (yaxis * Math.Cos(startAngle)) - (xaxis * Math.Sin(startAngle));
 
-			var controlPoints = new Point2d[numArcs * 2 + 1];
+			var controlPoints = new Vector2d[numArcs * 2 + 1];
 			var knots = new double[2 * numArcs + 3 + 1];
 
 			int index = 0;
@@ -505,7 +504,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="xaxis">the x axis</param>
 		/// <param name="yaxis">the y axis</param>
 		/// <returns></returns>
-		public static RationalNurbsCurve3d EllipseArc(Point3d center, double xradius, double yradius, double startAngle, double endAngle, Vector3d xaxis, Vector3d yaxis)
+		public static RationalNurbsCurve3d EllipseArc(Vector3d center, double xradius, double yradius, double startAngle, double endAngle, Vector3d xaxis, Vector3d yaxis)
 		{
 			//if the end angle is less than the start angle, do a circle
 			if (endAngle < startAngle)
@@ -533,7 +532,7 @@ namespace CGALDotNet.Nurbs
 			var P0 = center + (xaxis * (xradius * Math.Cos(startAngle))) + (yaxis * (yradius * Math.Sin(startAngle)));
 			var T0 = (yaxis * Math.Cos(startAngle)) - (xaxis * Math.Sin(startAngle));
 
-			var controlPoints = new Point3d[numArcs * 2 + 1];
+			var controlPoints = new Vector3d[numArcs * 2 + 1];
 			var knots = new double[2 * numArcs + 3 + 1];
 
 			int index = 0;
@@ -622,15 +621,15 @@ namespace CGALDotNet.Nurbs
 		/// <param name="b0">origin for ray 2</param>
 		/// <param name="b">direction of ray 2, assumed normalized</param>
 		/// <returns></returns>
-		private static bool IntersectRays(Point2d a0, Vector2d a, Point2d b0, Vector2d b, out CurveCurveIntersection result)
+		private static bool IntersectRays(Vector2d a0, Vector2d a, Vector2d b0, Vector2d b, out CurveCurveIntersection result)
 		{
 			result = new CurveCurveIntersection();
 
 			var dab = Vector2d.Dot(a, b);
-			var dab0 = Vector2d.Dot(a, b0.Vector2d);
-			var daa0 = Vector2d.Dot(a, a0.Vector2d);
-			var dbb0 = Vector2d.Dot(b, b0.Vector2d);
-			var dba0 = Vector2d.Dot(b, a0.Vector2d);
+			var dab0 = Vector2d.Dot(a, b0);
+			var daa0 = Vector2d.Dot(a, a0);
+			var dbb0 = Vector2d.Dot(b, b0);
+			var dba0 = Vector2d.Dot(b, a0);
 			var daa = Vector2d.Dot(a, a);
 			var dbb = Vector2d.Dot(b, b);
 			var div = daa * dbb - dab * dab;
@@ -658,15 +657,15 @@ namespace CGALDotNet.Nurbs
 		/// <param name="b0">origin for ray 2</param>
 		/// <param name="b">direction of ray 2, assumed normalized</param>
 		/// <returns></returns>
-		private static bool IntersectRays(Point3d a0, Vector3d a, Point3d b0, Vector3d b, out CurveCurveIntersection result)
+		private static bool IntersectRays(Vector3d a0, Vector3d a, Vector3d b0, Vector3d b, out CurveCurveIntersection result)
 		{
 			result = new CurveCurveIntersection();
 
 			var dab = Vector3d.Dot(a, b);
-			var dab0 = Vector3d.Dot(a, b0.Vector3d);
-			var daa0 = Vector3d.Dot(a, a0.Vector3d);
-			var dbb0 = Vector3d.Dot(b, b0.Vector3d);
-			var dba0 = Vector3d.Dot(b, a0.Vector3d);
+			var dab0 = Vector3d.Dot(a, b0);
+			var daa0 = Vector3d.Dot(a, a0);
+			var dbb0 = Vector3d.Dot(b, b0);
+			var dba0 = Vector3d.Dot(b, a0);
 			var daa = Vector3d.Dot(a, a);
 			var dbb = Vector3d.Dot(b, b);
 			var div = daa * dbb - dab * dab;

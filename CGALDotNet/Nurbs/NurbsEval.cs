@@ -15,21 +15,21 @@ namespace CGALDotNet.Nurbs
 		/// <param name="crv">Curve object</param>
 		/// <param name="u">Parameter to evaluate the curve at.</param>
 		/// <returns>Resulting point on the curve at parameter u.</returns>
-		internal static Point2d CurvePoint(NurbsCurve2d crv, double u)
+		internal static Vector2d CurvePoint(NurbsCurve2d crv, double u)
 		{
 			if (crv.IsRational)
 			{
 				// Compute point using homogenous coordinates
-				HPoint2d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
+				Vector3d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
 				// Convert back to cartesian coordinates
-				return pointw.Cartesian;
+				return NurbsUtil.HomogenousToCartesian(pointw);
 			}
 			else
 			{
 				// Compute point using homogenous coordinates but since curve is not
 				// rational the points xyz position will end up cartesian.
-				HPoint2d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
-				return pointw.Cartesian;
+				Vector3d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
+				return pointw.xy;
 			}
 		}
 
@@ -39,21 +39,21 @@ namespace CGALDotNet.Nurbs
 		/// <param name="crv">Curve object</param>
 		/// <param name="u">Parameter to evaluate the curve at.</param>
 		/// <returns>Resulting point on the curve at parameter u.</returns>
-		internal static Point3d CurvePoint(NurbsCurve3d crv, double u)
+		internal static Vector3d CurvePoint(NurbsCurve3d crv, double u)
 		{
 			if (crv.IsRational)
 			{
 				// Compute point using homogenous coordinates
-				HPoint3d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
+				Vector4d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
 				// Convert back to cartesian coordinates
-				return pointw.Cartesian;
+				return NurbsUtil.HomogenousToCartesian(pointw);
 			}
 			else
 			{
 				// Compute point using homogenous coordinates but since curve is not
 				// rational the points xyz position will end up cartesian.
-				HPoint3d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
-				return pointw.Cartesian;
+				Vector4d pointw = CurvePoint(crv.Degree, crv.Knots, crv.ControlPoints, u);
+				return pointw.xyz;
 			}
 		}
 
@@ -194,21 +194,21 @@ namespace CGALDotNet.Nurbs
 		/// <param name="u">Parameter to evaluate the surface at.</param>
 		/// <param name="v">Parameter to evaluate the surface at.</param>
 		/// <returns>Resulting point on the surface at (u, v).</returns>
-		internal static Point3d SurfacePoint(NurbsSurface3d srf, double u, double v)
+		internal static Vector3d SurfacePoint(NurbsSurface3d srf, double u, double v)
 		{
 			if (srf.IsRational)
 			{
 				// Compute point using homogenous coordinates
-				var pointw = SurfacePoint(srf.DegreeU, srf.DegreeV, srf.KnotsU, srf.KnotsV, srf.ControlPoints, u, v);
+				var pointw = SurfacePoint(srf.DegreeU, srf.DegreeV, srf.KnotsU, srf.KnotsV,srf.ControlPoints, u, v);
 				// Convert back to cartesian coordinates
-				return pointw.Cartesian;
+				return NurbsUtil.HomogenousToCartesian(pointw);
 			}
 			else
 			{
 				// Compute point using homogenous coordinates but since surface is not
 				// rational the points xyz position will end up cartesian.
 				var pointw = SurfacePoint(srf.DegreeU, srf.DegreeV, srf.KnotsU, srf.KnotsV, srf.ControlPoints, u, v);
-				return pointw.Cartesian;
+				return pointw.xyz;
 			}
 		}
 
@@ -222,8 +222,8 @@ namespace CGALDotNet.Nurbs
 		/// <returns>Derivatives of the surface at (u, v).</returns>
 		internal static Vector3d[,] SurfaceDerivatives(NurbsSurface3d srf, int num_ders, double u, double v)
 		{
-			if (srf.IsRational)
-			{
+			if(srf.IsRational)
+            {
 				var homo_ders = SurfaceDerivatives(srf.DegreeU, srf.DegreeV, srf.KnotsU, srf.KnotsV, srf.ControlPoints, num_ders, u, v);
 
 				var Aders = new Vector3d[num_ders + 1, num_ders + 1];
@@ -266,7 +266,7 @@ namespace CGALDotNet.Nurbs
 				return surf_ders;
 			}
 			else
-			{
+            {
 				var homo_ders = SurfaceDerivatives(srf.DegreeU, srf.DegreeV, srf.KnotsU, srf.KnotsV, srf.ControlPoints, num_ders, u, v);
 
 				var surf_ders = new Vector3d[num_ders + 1, num_ders + 1];
@@ -286,11 +286,13 @@ namespace CGALDotNet.Nurbs
 		/// <param name="u">Parameter in the u-direction</param>
 		/// <param name="v">Parameter in the v-direction</param>
 		/// <returns>Tuple with unit tangents along u- and v-directions</returns>
-		internal static void SurfaceTangent(NurbsSurface3d srf, double u, double v, out Vector3d du, out Vector3d dv)
+		internal static (Vector3d, Vector3d) SurfaceTangent(NurbsSurface3d srf, double u, double v)
 		{
 			var ptder = SurfaceDerivatives(srf, 1, u, v);
-			du = ptder[1, 0].Normalized;
-			dv = ptder[0, 1].Normalized;
+			var du = ptder[1, 0];
+			var dv = ptder[0, 1];
+
+			return (du.Normalized, dv.Normalized);
 		}
 
 		/// <summary>
@@ -315,9 +317,9 @@ namespace CGALDotNet.Nurbs
 		/// <param name="control_points">Control points of the curve.</param>
 		/// <param name="u">Parameter to evaluate the curve at.</param>
 		/// <returns>Resulting point on the curve at parameter u.</returns>
-		private static HPoint2d CurvePoint(int degree, IList<double> knots, IList<HPoint2d> control_points, double u)
+		private static Vector3d CurvePoint(int degree, IList<double> knots, IList<Vector3d> control_points, double u)
 		{
-			var point = new HPoint2d();
+			var point = new Vector3d();
 
 			// Find span and corresponding non-zero basis functions
 			int span = NurbsBasis.FindSpan(degree, knots, u);
@@ -338,9 +340,9 @@ namespace CGALDotNet.Nurbs
 		/// <param name="control_points">Control points of the curve.</param>
 		/// <param name="u">Parameter to evaluate the curve at.</param>
 		/// <returns>Resulting point on the curve at parameter u.</returns>
-		private static HPoint3d CurvePoint(int degree, IList<double> knots, IList<HPoint3d> control_points, double u)
+		private static Vector4d CurvePoint(int degree, IList<double> knots, IList<Vector4d> control_points, double u)
 		{
-			var point = new HPoint3d();
+			var point = new Vector4d();
 
 			// Find span and corresponding non-zero basis functions
 			int span = NurbsBasis.FindSpan(degree, knots, u);
@@ -362,7 +364,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="num_ders">Number of times to derivate.</param>
 		/// <param name="u">Parameter to evaluate the derivatives at.</param>
 		/// <returns>Derivatives of the curve at u.</returns>
-		private static Vector3d[] CurveDerivatives(int degree, IList<double> knots, IList<HPoint2d> control_points, int num_ders, double u)
+		private static Vector3d[] CurveDerivatives(int degree, IList<double> knots, IList<Vector3d> control_points, int num_ders, double u)
 		{
 			var curve_ders = new Vector3d[num_ders + 1];
 
@@ -376,11 +378,7 @@ namespace CGALDotNet.Nurbs
 			{
 				//curve_ders[k] = new Vector4d();
 				for (int j = 0; j <= degree; j++)
-                {
-					curve_ders[k].x += control_points[span - degree + j].x * ders[k, j];
-					curve_ders[k].y += control_points[span - degree + j].y * ders[k, j];
-				}
-
+					curve_ders[k] += control_points[span - degree + j] * ders[k, j];
 			}
 
 			return curve_ders;
@@ -395,7 +393,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="num_ders">Number of times to derivate.</param>
 		/// <param name="u">Parameter to evaluate the derivatives at.</param>
 		/// <returns>Derivatives of the curve at u.</returns>
-		private static Vector4d[] CurveDerivatives(int degree, IList<double> knots, IList<HPoint3d> control_points, int num_ders, double u)
+		private static Vector4d[] CurveDerivatives(int degree, IList<double> knots, IList<Vector4d> control_points, int num_ders, double u)
 		{
 			var curve_ders = new Vector4d[num_ders + 1];
 
@@ -409,12 +407,7 @@ namespace CGALDotNet.Nurbs
 			{
 				//curve_ders[k] = new Vector4d();
 				for (int j = 0; j <= degree; j++)
-				{
-					curve_ders[k].x += control_points[span - degree + j].x * ders[k, j];
-					curve_ders[k].y += control_points[span - degree + j].y * ders[k, j];
-					curve_ders[k].z += control_points[span - degree + j].z * ders[k, j];
-				}
-				
+					curve_ders[k] += control_points[span - degree + j] * ders[k, j];
 			}
 
 			return curve_ders;
@@ -431,11 +424,11 @@ namespace CGALDotNet.Nurbs
 		/// <param name="u">Parameter to evaluate the surface at.</param>
 		/// <param name="v">Parameter to evaluate the surface at.</param>
 		/// <returns>Resulting point on the surface at (u, v).</returns>
-		private static HPoint3d SurfacePoint(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v,
-			HPoint3d[,] control_points, double u, double v)
+		private static Vector4d SurfacePoint(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v,
+			Vector4d[,] control_points, double u, double v)
 		{
 			// Initialize result to 0s
-			var point = new HPoint3d();
+			var point = new Vector4d();
 
 			// Find span and non-zero basis functions
 			int span_u = NurbsBasis.FindSpan(degree_u, knots_u, u);
@@ -445,7 +438,7 @@ namespace CGALDotNet.Nurbs
 
 			for (int l = 0; l <= degree_v; l++)
 			{
-				var temp = new HPoint3d();
+				var temp = new Vector4d();
 				for (int k = 0; k <= degree_u; k++)
 					temp += control_points[span_u - degree_u + k, span_v - degree_v + l] * Nu[k];
 
@@ -468,7 +461,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="v">Parameter to evaluate the surface at.</param>
 		/// <returns>Derivatives of the surface at (u, v).</returns>
 		private static Vector4d[,] SurfaceDerivatives(int degree_u, int degree_v, IList<double> knots_u,
-					IList<double> knots_v, HPoint3d[,] control_points, int num_ders, double u, double v)
+					IList<double> knots_v, Vector4d[,] control_points, int num_ders, double u, double v)
 		{
 			var surf_ders = new Vector4d[num_ders + 1, num_ders + 1];
 
@@ -490,12 +483,7 @@ namespace CGALDotNet.Nurbs
 				{
 					temp[s] = new Vector4d();
 					for (int r = 0; r <= degree_u; r++)
-                    {
-						temp[s].x += control_points[span_u - degree_u + r, span_v - degree_v + s].x * ders_u[k, r];
-						temp[s].y += control_points[span_u - degree_u + r, span_v - degree_v + s].y * ders_u[k, r];
-						temp[s].z += control_points[span_u - degree_u + r, span_v - degree_v + s].z * ders_u[k, r];
-						temp[s].w += control_points[span_u - degree_u + r, span_v - degree_v + s].w * ders_u[k, r];
-					}
+						temp[s] += control_points[span_u - degree_u + r, span_v - degree_v + s] * ders_u[k, r];
 				}
 
 				int dd = Math.Min(num_ders - k, dv);

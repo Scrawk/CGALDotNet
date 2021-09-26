@@ -11,7 +11,7 @@ namespace CGALDotNet.Nurbs
     {
 		public int degree;
 		public List<double> knots;
-		public List<HPoint3d> controlPoints;
+		public List<Vector4d> controlPoints;
 	}
 
 	/// <summary>
@@ -34,12 +34,12 @@ namespace CGALDotNet.Nurbs
 		/// <param name="degree">The curves degree.</param>
 		/// <param name="knots">The curves knots.</param>
 		/// <param name="control_points">The curves control points.</param>
-		public NurbsCurve3d(int degree, IList<double> knots, IList<Point3d> control_points)
+		public NurbsCurve3d(int degree, IList<double> knots, IList<Vector3d> control_points)
 		{
 			Degree = degree;
 			Knots = knots.ToArray();
 
-			ControlPoints = new HPoint3d[control_points.Count];
+			ControlPoints = new Vector4d[control_points.Count];
 			for (int i = 0; i < control_points.Count; i++)
 				SetControlPoint(i, control_points[i]);
 		}
@@ -50,14 +50,14 @@ namespace CGALDotNet.Nurbs
 		/// <param name="degree">The curves degree.</param>
 		/// <param name="knots">The curves knots.</param>
 		/// <param name="control_points">The curves control points in cartesian coordinates.</param>
-		internal NurbsCurve3d(int degree, IList<double> knots, IList<HPoint3d> control_points)
+		internal NurbsCurve3d(int degree, IList<double> knots, IList<Vector4d> control_points)
 		{
 			Degree = degree;
 			Knots = knots.ToArray();
 
-			ControlPoints = new HPoint3d[control_points.Count];
+			ControlPoints = new Vector4d[control_points.Count];
 			for (int i = 0; i < control_points.Count; i++)
-				ControlPoints[i] = control_points[i];
+				ControlPoints[i] = new Vector4d(control_points[i].xyz, 1);
 				
 		}
 
@@ -86,7 +86,7 @@ namespace CGALDotNet.Nurbs
 		/// The w coordinate stores the weight.
 		/// If the curve is not rational then this is 1 by default.
 		/// </summary>
-		internal HPoint3d[] ControlPoints { get; set; }
+		internal Vector4d[] ControlPoints { get; set; }
 
 		/// <summary>
 		/// Is this a valid curve.
@@ -103,7 +103,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="i">The points index.</param>
 		/// <returns>The control point in cartesian coordinates.</returns>
-		public Point3d GetControlPoint(int i)
+		public Vector3d GetControlPoint(int i)
         {
 			return NurbsUtil.HomogenousToCartesian(ControlPoints[i]);
         }
@@ -112,7 +112,7 @@ namespace CGALDotNet.Nurbs
 		/// Get the control points
 		/// </summary>
 		/// <param name="points">The list to copy the points into.</param>
-		public void GetControlPoints(List<Point3d> points)
+		public void GetControlPoints(List<Vector3d> points)
         {
 			for (int i = 0; i < ControlPoints.Length; i++)
 				points.Add(NurbsUtil.HomogenousToCartesian(ControlPoints[i]));
@@ -123,9 +123,9 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="i">The points index.</param>
 		/// <param name="point">The control point in cartesian coordinates.</param>
-		public void SetControlPoint(int i, Point3d point)
+		public void SetControlPoint(int i, Vector3d point)
 		{
-			ControlPoints[i] = point.Homogenous;
+			ControlPoints[i] = new Vector4d(point, 1);
 		}
 
 		/// <summary>
@@ -133,7 +133,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="u">The parameter.</param>
 		/// <returns>The point at u.</returns>
-		public Point3d Point(double u)
+		public Vector3d Point(double u)
 		{
 			return NurbsEval.CurvePoint(this, u);
 		}
@@ -153,7 +153,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="samples">The numbers times to sample the curve.</param>
 		/// <param name="points">The list of sampled points.</param>
-		public void GetPoints(List<Point3d> points, int samples)
+		public void GetPoints(List<Vector3d> points, int samples)
         {
 			NurbsTess.GetPoints(this, points, 0, 1, samples);
         }
@@ -165,7 +165,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="end">The parameter to end sampling.</param>
 		/// <param name="samples">The numbers times to sample the curve.</param>
 		/// <param name="points">The list of sampled points.</param>
-		public void GetPoints(List<Point3d> points, double start, double end, int samples)
+		public void GetPoints(List<Vector3d> points, double start, double end, int samples)
 		{
 			NurbsTess.GetPoints(this, points, start, end, samples);
 		}
@@ -222,16 +222,17 @@ namespace CGALDotNet.Nurbs
 		/// <param name="crv">The curve to split.</param>
 		/// <param name="u">The parameter to split the curve at</param>
 		/// <returns>The two new curves.</returns>
-		public static void Split(NurbsCurve3d crv, double u, out NurbsCurve3d left, out NurbsCurve3d right)
+		public static (NurbsCurve3d left, NurbsCurve3d right) Split(NurbsCurve3d crv, double u)
 		{
-			NurbsCurveParams3d leftParam, rightParam;
-			NurbsModify.CurveSplit(crv, u, out leftParam, out rightParam);
+			var x = NurbsModify.CurveSplit(crv, u);
 
-			left = new NurbsCurve3d(leftParam.degree, leftParam.knots, leftParam.controlPoints);
-			right = new NurbsCurve3d(rightParam.degree, rightParam.knots, rightParam.controlPoints);
+			var left = new NurbsCurve3d(x.left.degree, x.left.knots, x.left.controlPoints);
+			var right = new NurbsCurve3d(x.right.degree, x.right.knots, x.right.controlPoints);
 
 			left.NormalizeKnots();
 			right.NormalizeKnots();
+
+			return (left, right);
 		}
 
 	}
@@ -257,12 +258,12 @@ namespace CGALDotNet.Nurbs
 		/// <param name="knots">The curves knots.</param>
 		/// <param name="control_points">The curves control points.</param>
 		/// <param name="weights">The curves weights.</param>
-		public RationalNurbsCurve3d(int degree, IList<double> knots, IList<Point3d> control_points, IList<double> weights)
+		public RationalNurbsCurve3d(int degree, IList<double> knots, IList<Vector3d> control_points, IList<double> weights)
 		{
 			Degree = degree;
 			Knots = knots.ToArray();
 
-			ControlPoints = new HPoint3d[control_points.Count];
+			ControlPoints = new Vector4d[control_points.Count];
 			for (int i = 0; i < control_points.Count; i++)
 				SetControlPoint(i, control_points[i], weights[i]);
 		}
@@ -274,12 +275,12 @@ namespace CGALDotNet.Nurbs
 		/// <param name="knots">The curves knots.</param>
 		/// <param name="control_points">The curves control points in homogenous coordinates 
 		/// with the weight as the w coordinate.</param>
-		public RationalNurbsCurve3d(int degree, IList<double> knots, IList<HPoint3d> control_points)
+		public RationalNurbsCurve3d(int degree, IList<double> knots, IList<Vector4d> control_points)
 		{
 			Degree = degree;
 			Knots = knots.ToArray();
 
-			ControlPoints = new HPoint3d[control_points.Count];
+			ControlPoints = new Vector4d[control_points.Count];
 			for (int i = 0; i < control_points.Count; i++)
 				ControlPoints[i] = control_points[i];
 		}
@@ -290,7 +291,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="i">The points index.</param>
 		/// <param name="point">The control point in cartesian coordinates.</param>
 		/// <param name="weight">The control points weight.</param>
-		public void SetControlPoint(int i, Point3d point, double weight)
+		public void SetControlPoint(int i, Vector3d point, double weight)
 		{
 			ControlPoints[i] = NurbsUtil.CartesianToHomogenous(point, weight);
 		}
@@ -314,16 +315,17 @@ namespace CGALDotNet.Nurbs
 		/// <param name="crv">The curve to split.</param>
 		/// <param name="u">The parameter to split the curve at</param>
 		/// <returns>The two new curves.</returns>
-		public static void Split(RationalNurbsCurve3d crv, double u, out RationalNurbsCurve3d left, out RationalNurbsCurve3d right)
+		public static (RationalNurbsCurve3d left, RationalNurbsCurve3d right) Split(RationalNurbsCurve3d crv, double u)
 		{
-			NurbsCurveParams3d leftParam, rightParam;
-			NurbsModify.CurveSplit(crv, u, out leftParam, out rightParam);
+			var x = NurbsModify.CurveSplit(crv, u);
 
-			left = new RationalNurbsCurve3d(leftParam.degree, leftParam.knots, leftParam.controlPoints);
-			right = new RationalNurbsCurve3d(rightParam.degree, rightParam.knots, rightParam.controlPoints);
+			var left = new RationalNurbsCurve3d(x.left.degree, x.left.knots, x.left.controlPoints);
+			var right = new RationalNurbsCurve3d(x.right.degree, x.right.knots, x.right.controlPoints);
 
 			left.NormalizeKnots();
 			right.NormalizeKnots();
+
+			return (left, right);
 		}
 
 	}

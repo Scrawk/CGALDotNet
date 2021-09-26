@@ -16,7 +16,7 @@ namespace CGALDotNet.Nurbs
         /// <param name="end">end parameter for sampling</param>
         /// <param name="numSamples">integer number of samples</param>
         /// <param name="points">The list of sampled points.</param>
-        internal static void GetPoints(NurbsCurve2d curve, List<Point2d> points, double start, double end, int numSamples)
+        internal static void GetPoints(NurbsCurve2d curve, List<Vector2d> points, double start, double end, int numSamples)
         {
             if (numSamples < 2)
                 numSamples = 2;
@@ -38,7 +38,7 @@ namespace CGALDotNet.Nurbs
         /// <param name="end">end parameter for sampling</param>
         /// <param name="numSamples">integer number of samples</param>
         /// <param name="points">The list of sampled points.</param>
-        internal static  void GetPoints(NurbsCurve3d curve, List<Point3d> points, double start, double end, int numSamples)
+        internal static  void GetPoints(NurbsCurve3d curve, List<Vector3d> points, double start, double end, int numSamples)
         {
             if (numSamples < 2)
                 numSamples = 2;
@@ -112,7 +112,7 @@ namespace CGALDotNet.Nurbs
             double span = (end - start) / (numSamples - 1);
 
             double len = 0;
-            Point2d previous = new Point2d();
+            Vector2d previous = new Vector2d();
 
             for (int i = 0; i < numSamples; i++)
             {
@@ -120,7 +120,7 @@ namespace CGALDotNet.Nurbs
                 var point = curve.Point(u);
 
                 if (i > 0)
-                    len += Point2d.Distance(previous, point);
+                    len += Vector2d.Distance(previous, point);
 
                 previous = point;
             }
@@ -144,7 +144,7 @@ namespace CGALDotNet.Nurbs
             double span = (end - start) / (numSamples - 1);
 
             double len = 0;
-            Point3d previous = new Point3d();
+            Vector3d previous = new Vector3d();
 
             for (int i = 0; i < numSamples; i++)
             {
@@ -152,7 +152,7 @@ namespace CGALDotNet.Nurbs
                 var point = curve.Point(u);
 
                 if (i > 0)
-                    len += Point3d.Distance(previous, point);
+                    len += Vector3d.Distance(previous, point);
 
                 previous = point;
             }
