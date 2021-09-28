@@ -68,7 +68,7 @@ namespace CGALDotNet.Triangulations
         /// May not retatin the poylgons edges.
         /// </summary>
         /// <param name="polygon"></param>
-        public void InsertPolygon(Polygon2<K> polygon)
+        public void Insert(Polygon2<K> polygon)
         {
             Kernel.InsertPolygon(Ptr, polygon.Ptr);
         }
@@ -78,7 +78,7 @@ namespace CGALDotNet.Triangulations
         /// May not retatin the poylgons edges.
         /// </summary>
         /// <param name="pwh"></param>
-        public void InsertPolygon(PolygonWithHoles2<K> pwh)
+        public void Insert(PolygonWithHoles2<K> pwh)
         {
             Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
         }
@@ -88,7 +88,7 @@ namespace CGALDotNet.Triangulations
         /// Will retatin the poylgons edges.
         /// </summary>
         /// <param name="polygon">The polygon to insert.</param>
-        public void InsertPolygonConstraint(Polygon2<K> polygon)
+        public void InsertConstraint(Polygon2<K> polygon)
         {
             TriangulationKernel.InsertPolygonConstraint(Ptr, polygon.Ptr);
         }
@@ -98,7 +98,7 @@ namespace CGALDotNet.Triangulations
         /// Will retatin the poylgons edges.
         /// </summary>
         /// <param name="pwh">The polygon to insert.</param>
-        public void InsertPolygonConstraint(PolygonWithHoles2<K> pwh)
+        public void InsertConstraint(PolygonWithHoles2<K> pwh)
         {
             TriangulationKernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
         }
@@ -267,14 +267,47 @@ namespace CGALDotNet.Triangulations
                 indices.Add(tmp[i]);;
         }
 
+        /// <summary>
+        /// Make the mesh delaunay.
+        /// </summary>
         public void MakeDelaunay()
         {
             TriangulationKernel.MakeDelaunay(Ptr);
         }
 
+        /// <summary>
+        /// Make the mesh 
+        /// </summary>
         public void MakeGabriel()
         {
             TriangulationKernel.MakeGabriel(Ptr);
+        }
+
+        /// <summary>
+        /// Refine the mesh into smaller triangles.
+        /// </summary>
+        /// <param name="angleBounds">Default shape bound. 0.125 corresponds to abound 20.6 degree. Max 0.125 value.</param>
+        /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
+        public void Refine(double angleBounds, double lengthBounds)
+        {
+            if (angleBounds > 0.125)
+                angleBounds = 0.125;
+
+            TriangulationKernel.RefineAndOptimize(Ptr, 0, angleBounds, lengthBounds);
+        }
+
+        /// <summary>
+        /// Refine the mesh into smaller triangles.
+        /// </summary>
+        /// <param name="angleBounds">Default shape bound. 0.125 corresponds to abound 20.6 degree. Max 0.125 value.</param>
+        /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
+        /// <param name="seeds">Seeds point in polygons that are not to be refined.</param>
+        public void Refine(double angleBounds, double lengthBounds, Point2d[] seeds)
+        {
+            if (angleBounds > 0.125)
+                angleBounds = 0.125;
+
+            TriangulationKernel.RefineAndOptimize(Ptr, 0, angleBounds, lengthBounds, seeds, 0, seeds.Length);
         }
 
         /// <summary>

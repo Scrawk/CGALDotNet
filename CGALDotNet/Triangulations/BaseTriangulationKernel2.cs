@@ -79,5 +79,7 @@ namespace CGALDotNet.Triangulations
 
         internal abstract bool FlipEdge(IntPtr ptr, int faceIndex, int neighbour);
 
+        internal abstract void Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+
     }
 }

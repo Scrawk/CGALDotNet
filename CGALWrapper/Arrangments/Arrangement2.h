@@ -122,6 +122,12 @@ public:
 		return arr->model.is_empty();
 	}
 
+	static int BuildStamp(void* ptr)
+	{
+		auto arr = CastToArrangement(ptr);
+		return arr->map.BuildStamp();
+	}
+
 	static void Assign(void* ptr, void* ptrOther)
 	{
 		auto arr = CastToArrangement(ptr);

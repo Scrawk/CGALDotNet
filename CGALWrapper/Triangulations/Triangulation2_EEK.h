@@ -64,5 +64,7 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Triangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour);
 
+	CGALWRAPPER_API void Triangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale);
+
 }
 

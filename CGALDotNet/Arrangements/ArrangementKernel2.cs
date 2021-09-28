@@ -20,6 +20,8 @@ namespace CGALDotNet.Arrangements
 
         internal abstract bool IsEmpty(IntPtr ptr);
 
+        internal abstract int BuildStamp(IntPtr ptr);
+
         internal abstract void Assign(IntPtr ptr, IntPtr ptrOther);
 
         internal abstract IntPtr Overlay(IntPtr ptr, IntPtr ptrOther);

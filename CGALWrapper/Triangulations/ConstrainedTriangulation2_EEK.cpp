@@ -2,10 +2,11 @@
 
 #include "ConstrainedTriangulation2_EEK.h"
 #include "ConstrainedTriangulation2.h"
+#include <CGAL/Aff_transformation_2.h>
 
 #include "MakeGabriel2.h"
 #include "MakeDelaunay2.h"
-//#include "OptimizeMesh2.h"
+#include "OptimizeMesh2.h"
 
 void* ConstrainedTriangulation2_EEK_Create()
 {
@@ -239,6 +240,7 @@ void ConstrainedTriangulation2_EEK_MakeDelaunay(void* ptr)
 	MakeDelaunay2::Clear();
 	MakeDelaunay2::Insert(points);
 	MakeDelaunay2::Insert(constraints);
+
 	MakeDelaunay2::MakeConformingDelaunay();
 
 	points.clear();
@@ -264,6 +266,7 @@ void ConstrainedTriangulation2_EEK_MakeGabriel(void* ptr)
 	MakeGaberiel2::Clear();
 	MakeGaberiel2::Insert(points);
 	MakeGaberiel2::Insert(constraints);
+
 	MakeGaberiel2::MakeConformingGabriel();
 
 	points.clear();
@@ -272,4 +275,63 @@ void ConstrainedTriangulation2_EEK_MakeGabriel(void* ptr)
 	tri->Clear();
 	tri->InsertPoints(points);
 	tri->InsertConstraints(constraints);
+}
+
+
+void ConstrainedTriangulation2_EEK_RefineAndOptimize(void* ptr, int iterations, double angleBounds, double lengthBounds)
+{
+	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
+
+	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
+
+	std::vector<Point> points;
+	tri->GetPoints(points);
+
+	std::vector<std::pair<Point, Point>> constraints;
+	tri->GetConstraints(constraints);
+
+	OptimizedMesh2::Clear();
+	OptimizedMesh2::Insert(points);
+	OptimizedMesh2::Insert(constraints);
+
+	OptimizedMesh2::RefineAndOptimizeNoSeeds(iterations, angleBounds, lengthBounds);
+
+	points.clear();
+	OptimizedMesh2::GetPoints(points);
+
+	tri->Clear();
+	tri->InsertPoints(points);
+	tri->InsertConstraints(constraints);
+
+}
+
+void ConstrainedTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* seeds, int start, int count)
+{
+	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
+
+	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
+
+	std::vector<Point> points;
+	tri->GetPoints(points);
+
+	std::vector<std::pair<Point, Point>> constraints;
+	tri->GetConstraints(constraints);
+
+	OptimizedMesh2::Clear();
+	OptimizedMesh2::Insert(points);
+	OptimizedMesh2::Insert(constraints);
+
+	OptimizedMesh2::RefineAndOptimizeWithSeeds(iterations, angleBounds, lengthBounds, seeds, start, count);
+
+	points.clear();
+	OptimizedMesh2::GetPoints(points);
+
+	tri->Clear();
+	tri->InsertPoints(points);
+	tri->InsertConstraints(constraints);
+}
+
+void ConstrainedTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
+{
+	ConstrainedTriangulation2<EEK>::Transform(ptr, translation, rotation, scale);
 }

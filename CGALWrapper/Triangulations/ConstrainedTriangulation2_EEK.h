@@ -98,5 +98,11 @@ extern "C"
 
 	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_MakeGabriel(void* ptr);
 
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_RefineAndOptimize(void* ptr, int iterations, double angleBounds, double lengthBounds);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* points, int start, int count);
+
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale);
+
 }
 

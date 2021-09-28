@@ -16,6 +16,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_IsEmpty(void* ptr);
 
+	CGALWRAPPER_API int Arrangement2_EEK_BuildStamp(void* ptr);
+
 	CGALWRAPPER_API void Arrangement2_EEK_Assign(void* ptr, void* ptrOther);
 
 	CGALWRAPPER_API void* Arrangement2_EEK_Overlay(void* ptr, void* ptrOther);

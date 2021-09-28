@@ -18,7 +18,9 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
+            var tri = new ConstrainedTriangulation2<EEK>();
 
+            /*
             var va = new Point2d(5.0, 5.0);
             var vb = new Point2d(-5.0, 5.0);
             var vc = new Point2d(4.0, 3.0);
@@ -28,7 +30,6 @@ namespace CGALDotNetConsole
             var vg = new Point2d(-6.0, -6.0);
             var vh = new Point2d(6.0, -6.0);
 
-            var tri = new ConstrainedTriangulation2<EEK>();
             tri.InsertPoint(va);
             tri.InsertPoint(vb);
             tri.InsertPoint(vc);
@@ -46,13 +47,30 @@ namespace CGALDotNetConsole
             tri.InsertConstraint(vf, vg);
             tri.InsertConstraint(vg, vh);
             tri.InsertConstraint(vh, ve);
+            */
 
-            Console.WriteLine("Make Delaunay");
-            tri.MakeDelaunay();
-            tri.Print();
+            var va = new Point2d(-2, 0);
+            var vb = new Point2d(0, -2);
+            var vc = new Point2d(2, 0);
+            var vd = new Point2d(0, 1);
+            var ve = new Point2d(2, 0.6);
 
-            Console.WriteLine("Make Gabriel");
-            tri.MakeGabriel();
+            tri.Insert(ve);
+            tri.InsertConstraint(va, vb);
+            tri.InsertConstraint(vb, vc);
+            tri.InsertConstraint(vc, vd);
+            tri.InsertConstraint(vd, va);
+
+            //Console.WriteLine("Make Delaunay");
+            //tri.MakeDelaunay();
+            //tri.Print();
+
+            //Console.WriteLine("Make Gabriel");
+            //tri.MakeGabriel();
+            //tri.Print();
+
+            tri.Refine(0.125, 0.5);
+
             tri.Print();
 
         }

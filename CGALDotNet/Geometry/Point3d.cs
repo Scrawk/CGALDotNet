@@ -129,11 +129,22 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Trucate the homogeous coordinate.
+        /// </summary>
+        public Point3d TruncatedHomogenous
+        {
+            get
+            {
+                return new Point3d(x, y, z);
+            }
+        }
+
+        /// <summary>
         /// Convert from cartesian to homogenous space.
         /// </summary>
         public HPoint3d ToHomogenous(double w)
         {
-            return new HPoint3d(x, y, w);
+            return new HPoint3d(x * w, y * w, w);
         }
 
         /// <summary>

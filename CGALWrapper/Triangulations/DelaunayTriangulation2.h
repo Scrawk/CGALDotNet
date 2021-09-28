@@ -15,9 +15,9 @@
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
-
 #include <CGAL/Delaunay_mesh_face_base_2.h>
 #include <CGAL/Delaunay_mesh_vertex_base_2.h>
+#include <CGAL/Aff_transformation_2.h>
 
 template<class K>
 class DelaunayTriangulation2
@@ -37,6 +37,7 @@ public:
 	typedef typename Triangulation_2::Face_handle Face;
 	typedef typename Triangulation_2::Vertex_handle Vertex;
 
+	typedef CGAL::Aff_transformation_2<K> Transformation_2;
 
 private:
 
@@ -537,6 +538,19 @@ public:
 			if (auto ray = CGAL::object_cast<K::Ray_2>(&o))
 				rays[i++] = Ray2d::FromCGAL<K>(ray->source(), ray->to_vector());
 		}
+	}
+
+	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+		Transformation_2 S(CGAL::SCALING, scale);
+
+		auto M = T * R * S;
+		for (auto& vert : tri->model.finite_vertex_handles())
+			vert->point() = M(vert->point());
 	}
 
 };

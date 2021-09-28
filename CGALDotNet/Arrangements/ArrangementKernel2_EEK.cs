@@ -47,6 +47,11 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_IsEmpty(ptr);
         }
 
+        internal override int BuildStamp(IntPtr ptr)
+        {
+            return Arrangement2_EEK_BuildStamp(ptr);
+        }
+
         internal override void Assign(IntPtr ptr, IntPtr ptrOther)
         {
             Arrangement2_EEK_Assign(ptr, ptrOther);
@@ -221,6 +226,9 @@ namespace CGALDotNet.Arrangements
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_IsEmpty(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int Arrangement2_EEK_BuildStamp(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_Assign(IntPtr ptr, IntPtr ptrOther);

@@ -13,9 +13,9 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="pt">Point in homogenous coordinates</param>
 		/// <returns>Point in cartesian coordinates</returns>
-		internal static Vector2d HomogenousToCartesian(Vector3d pt)
+		internal static Point2d HomogenousToCartesian(HPoint2d pt)
 		{
-			return pt.xy / pt.z;
+			return pt.Cartesian;
 		}
 
 
@@ -25,9 +25,9 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="pt">Point in homogenous coordinates</param>
 		/// <returns>Point in cartesian coordinates</returns>
-		internal static Vector3d HomogenousToCartesian(Vector4d pt)
+		internal static Point3d HomogenousToCartesian(HPoint3d pt)
 		{
-			return pt.xyz / pt.w;
+			return pt.Cartesian;
 		}
 
 		/// <summary>
@@ -36,9 +36,9 @@ namespace CGALDotNet.Nurbs
 		/// <param name="pt">Point in cartesian coordinates</param>
 		/// <param name="w">Weight</param>
 		/// <returns>point in homogenous coordinates</returns>
-		internal static Vector3d CartesianToHomogenous(Vector2d pt, double w)
+		internal static HPoint2d CartesianToHomogenous(Point2d pt, double w)
 		{
-			return new Vector3d(pt * w, w);
+			return new HPoint2d(pt.x * w, pt.y * w, w);
 		}
 
 		/// <summary>
@@ -47,9 +47,31 @@ namespace CGALDotNet.Nurbs
 		/// <param name="pt">Point in cartesian coordinates</param>
 		/// <param name="w">Weight</param>
 		/// <returns>point in homogenous coordinates</returns>
-		internal static Vector4d CartesianToHomogenous(Vector3d pt, double w)
+		internal static HPoint3d CartesianToHomogenous(Point3d pt, double w)
 		{
-			return new Vector4d(pt * w, w);
+			return new HPoint3d(pt.x * w, pt.y * w, pt.z * w, w);
+		}
+
+		/// <summary>
+		/// Convert an (n+1)d point to an nd point without perspective division
+		/// by truncating the last dimension
+		/// </summary>
+		/// <param name="pt">Point in homogenous coordinates</param>
+		/// <returns>Input point in cartesian coordinates</returns>
+		internal static Point2d TruncateHomogenous(HPoint2d pt)
+		{
+			return new Point2d(pt.x, pt.y);
+		}
+
+		/// <summary>
+		/// Convert an (n+1)d point to an nd point without perspective division
+		/// by truncating the last dimension
+		/// </summary>
+		/// <param name="pt">Point in homogenous coordinates</param>
+		/// <returns>Input point in cartesian coordinates</returns>
+		internal static Point3d TruncateHomogenous(HPoint3d pt)
+		{
+			return new Point3d(pt.x, pt.y, pt.z);
 		}
 
 		/// <summary>

@@ -190,6 +190,11 @@ namespace CGALDotNet.Triangulations
             DelaunayTriangulation2_EEK_VoronoiCount(ptr, out numSegments, out numRays);
         }
 
+        internal override void Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        {
+            DelaunayTriangulation2_EEK_Transform(ptr, translation, rotation, scale);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr DelaunayTriangulation2_EEK_Create();
 
@@ -293,6 +298,9 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation2_EEK_VoronoiCount(IntPtr ptr, [Out] out int numSegments, [Out] out int numRays);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
     }
 }

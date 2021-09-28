@@ -22,7 +22,7 @@
 
 #include <CGAL/Constrained_triangulation_face_base_2.h>
 #include <CGAL/Constrained_triangulation_plus_2.h>
-
+#include <CGAL/Aff_transformation_2.h>
 
 
 template<class K>
@@ -56,13 +56,11 @@ public:
 	typedef typename Triangulation_2::Vertex_handle Vertex;
 	typedef typename Tds::Edge Edge;
 
-private:
+	typedef CGAL::Aff_transformation_2<K> Transformation_2;
 
 	Triangulation_2 model;
 
 	TriangulationMap<K, Vertex, Face> map;
-
-public:
 
 	ConstrainedTriangulation2()
 	{
@@ -783,6 +781,19 @@ public:
 		tri->map.IncrementBuildStamp();
 
 		return num * 3;
+	}
+
+	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+		Transformation_2 S(CGAL::SCALING, scale);
+
+		auto M = T * R * S;
+		for (auto& vert : tri->model.finite_vertex_handles())
+			vert->point() = M(vert->point());
 	}
 
 	private:

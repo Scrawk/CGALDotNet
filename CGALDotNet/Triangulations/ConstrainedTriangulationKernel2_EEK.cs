@@ -244,9 +244,19 @@ namespace CGALDotNet.Triangulations
             ConstrainedTriangulation2_EEK_MakeGabriel(ptr);
         }
 
-        internal override void Optimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds)
+        internal override void RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds)
         {
-            
+            ConstrainedTriangulation2_EEK_RefineAndOptimize(ptr, iterations, angleBounds, lengthBounds);
+        }
+
+        internal override void RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] seeds, int start, int count)
+        {
+            ConstrainedTriangulation2_EEK_RefineAndOptimize(ptr, iterations, angleBounds, lengthBounds);
+        }
+
+        internal override void Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        {
+            ConstrainedTriangulation2_EEK_Transform(ptr, translation, rotation, scale);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -391,6 +401,15 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConstrainedTriangulation2_EEK_MakeGabriel(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int ConstrainedTriangulation2_EEK_RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lenthBounds);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int ConstrainedTriangulation2_EEK_RefineAndOptimizeWithSeeds(IntPtr ptr, int iterations, double angleBounds, double lenthBounds, Point2d[] seeds, int start, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void ConstrainedTriangulation2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
     }
 }

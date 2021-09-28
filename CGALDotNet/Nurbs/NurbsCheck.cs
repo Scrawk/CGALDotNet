@@ -206,19 +206,19 @@ namespace CGALDotNet.Nurbs
 		/// periodicity of knot vectors near the start and end
 		/// </summary>
 		/// <param name="degree">Degree of curve/surface</param>
-		/// <param name="vec">Array of any control points</param>
+		/// <param name="control_points">Array of any control points</param>
 		/// <returns>Whether knot vector is closed</returns>
-		private static bool IsArray1Closed(int degree, IList<Vector3d> vec)
+		private static bool IsArray1Closed(int degree, IList<HPoint2d> control_points)
 		{
 			for (int i = 0; i < degree; ++i)
 			{
-				int j = vec.Count - degree + i;
+				int j = control_points.Count - degree + i;
 
-				var pi = NurbsUtil.HomogenousToCartesian(vec[i]);
-				var pj = NurbsUtil.HomogenousToCartesian(vec[j]);
+				var pi = NurbsUtil.HomogenousToCartesian(control_points[i]);
+				var pj = NurbsUtil.HomogenousToCartesian(control_points[j]);
 
 				//check the weights
-				if (!CGALGlobal.IsZero(vec[i].z - vec[j].z))
+				if (!CGALGlobal.IsZero(control_points[i].w - control_points[j].w))
 					return false;
 
 				//check the control points
@@ -233,19 +233,19 @@ namespace CGALDotNet.Nurbs
 		/// periodicity of knot vectors near the start and end
 		/// </summary>
 		/// <param name="degree">Degree of curve/surface</param>
-		/// <param name="vec">Array of any control points</param>
+		/// <param name="control_points">Array of any control points</param>
 		/// <returns>Whether knot vector is closed</returns>
-		private static bool IsArray1Closed(int degree, IList<Vector4d> vec)
+		private static bool IsArray1Closed(int degree, IList<HPoint3d> control_points)
 		{
 			for (int i = 0; i < degree; ++i)
 			{
-				int j = vec.Count - degree + i;
+				int j = control_points.Count - degree + i;
 
-				var pi = NurbsUtil.HomogenousToCartesian(vec[i]);
-				var pj = NurbsUtil.HomogenousToCartesian(vec[j]);
+				var pi = NurbsUtil.HomogenousToCartesian(control_points[i]);
+				var pj = NurbsUtil.HomogenousToCartesian(control_points[j]);
 
 				//check the weights
-				if (!CGALGlobal.IsZero(vec[i].w - vec[j].w))
+				if (!CGALGlobal.IsZero(control_points[i].w - control_points[j].w))
 					return false;
 
 				//check the control points
@@ -262,7 +262,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="degree_u">Degree along u-direction</param>
 		/// <param name="arr">2D array of control points / weights</param>
 		/// <returns>Whether closed along u-direction</returns>
-		private static bool IsArray2ClosedU(int degree_u, Vector4d[,] arr)
+		private static bool IsArray2ClosedU(int degree_u, HPoint3d[,] arr)
 		{
 			for (int i = 0; i < degree_u; ++i)
 			{
@@ -290,21 +290,21 @@ namespace CGALDotNet.Nurbs
 		/// i.e., along columns.
 		/// </summary>
 		/// <param name="degree_v">Degree along v-direction</param>
-		/// <param name="arr">2D array of control points / weights</param>
+		/// <param name="control_points">2D array of control points / weights</param>
 		/// <returns>Whether closed along v-direction</returns>
-		private static bool IsArray2ClosedV(int degree_v, Vector4d[,] arr)
+		private static bool IsArray2ClosedV(int degree_v, HPoint3d[,] control_points)
 		{
-			for (int i = 0; i < arr.GetLength(0); ++i)
+			for (int i = 0; i < control_points.GetLength(0); ++i)
 			{
 				for (int j = 0; j < degree_v; j++)
 				{
-					int k = arr.GetLength(0) - degree_v + i;
+					int k = control_points.GetLength(0) - degree_v + i;
 
-					var pij = NurbsUtil.HomogenousToCartesian(arr[i, j]);
-					var pik = NurbsUtil.HomogenousToCartesian(arr[i, k]);
+					var pij = NurbsUtil.HomogenousToCartesian(control_points[i, j]);
+					var pik = NurbsUtil.HomogenousToCartesian(control_points[i, k]);
 
 					//Check the weights
-					if (!CGALGlobal.IsZero(arr[i, j].w - arr[i, k].w))
+					if (!CGALGlobal.IsZero(control_points[i, j].w - control_points[i, k].w))
 						return false;
 
 					if (!CGALGlobal.IsZero((pij - pik).Magnitude))

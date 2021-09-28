@@ -43,7 +43,7 @@ namespace CGALDotNet.Triangulations
         {
             Kernel = kernel;
             Ptr = Kernel.Create();
-            InsertPoints(points);
+            Insert(points);
         }
 
         internal BaseTriangulation2(BaseTriangulationKernel2 kernel, IntPtr ptr) : base(ptr)
@@ -118,7 +118,7 @@ namespace CGALDotNet.Triangulations
         ///convex hull to form the new triangulation.
         /// </summary>
         /// <param name="point">The point to insert.</param>
-        public void InsertPoint(Point2d point)
+        public void Insert(Point2d point)
         {
             Kernel.InsertPoint(Ptr, point);
         }
@@ -132,7 +132,7 @@ namespace CGALDotNet.Triangulations
         ///convex hull to form the new triangulation.
         /// </summary>
         /// <param name="point">The point to insert.</param>
-        public void InsertPoints(Point2d[] points)
+        public void Insert(Point2d[] points)
         {
             Kernel.InsertPoints(Ptr, points, 0, points.Length);
         }
@@ -499,24 +499,43 @@ namespace CGALDotNet.Triangulations
             return Kernel.FlipEdge(Ptr, faceIndex, neighbourIndex);
         }
 
-        /*
-        public void MakeConformingGabriel()
+        /// <summary>
+        /// Translate the triangulation.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        public void Translate(Point2d translation)
         {
-            Kernel.MakeGabriel(Ptr);
+            Kernel.Transform(Ptr, translation, 0, 1);
         }
 
         /// <summary>
-        /// 
-        /// 
+        /// Rotate the triangulation.
         /// </summary>
-        /// <param name="iterations"></param>
-        /// <param name="angleBounds">0.125 is the default shape bound. It corresponds to abound 20.6 degree.</param>
-        /// <param name="lengthBounds">0.5 is the upper bound on the length of the longest edge.</param>
-        public void Optimize(int iterations, double angleBounds, double lengthBounds)
+        /// <param name="rotation">The amount to rotate in radians.</param>
+        public void Rotate(Radian rotation)
         {
-            Kernel.Optimize(Ptr, iterations, angleBounds, lengthBounds);
+            Kernel.Transform(Ptr, Point2d.Zero, rotation.angle, 1);
         }
-        */
+
+        /// <summary>
+        /// Scale the triangulation.
+        /// </summary>
+        /// <param name="scale">The amount to scale.</param>
+        public void Scale(double scale)
+        {
+            Kernel.Transform(Ptr, Point2d.Zero, 0, scale);
+        }
+
+        /// <summary>
+        /// Transform the triangulation with a TRS matrix.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        /// <param name="rotation">The amount to rotate.</param>
+        /// <param name="scale">The amount to scale.</param>
+        public void Transform(Point2d translation, Radian rotation, double scale)
+        {
+            Kernel.Transform(Ptr, translation, rotation.angle, scale);
+        }
 
         public void Print()
         {

@@ -40,7 +40,9 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void MakeGabriel(IntPtr ptr);
 
-        internal abstract void Optimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds);
+        internal abstract void RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds);
+
+        internal abstract void RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int start, int count);
 
     }
 }

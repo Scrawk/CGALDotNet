@@ -102,4 +102,14 @@ namespace CGALDotNet
         ON_POSITIVE_SIDE = 1,
         UNDETERMINED = 2
     }
+
+    public enum MESH_OPTIMIZATION_CODE
+    {
+        BOUND_REACHED,
+        TIME_LIMIT_REACHED ,
+        CANT_IMPROVE_ANYMORE,
+        CONVERGENCE_REACHED,
+        MAX_ITERATIONS_RACHED,
+        ALL_VERTICES_FROZEN
+    };
 }

@@ -30,6 +30,11 @@ BOOL Arrangement2_EEK_IsEmpty(void* ptr)
 	return Arrangement2<EEK>::IsEmpty(ptr);
 }
 
+int Arrangement2_EEK_BuildStamp(void* ptr)
+{
+	return Arrangement2<EEK>::BuildStamp(ptr);
+}
+
 void Arrangement2_EEK_Assign(void* ptr, void* ptrOther)
 {
 	Arrangement2<EEK>::Assign(ptr, ptrOther);

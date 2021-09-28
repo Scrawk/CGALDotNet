@@ -138,7 +138,7 @@ namespace CGALDotNet.Polygons
         public void Triangulate(List<int> indices)
         {
             var ct = new ConstrainedTriangulation2<K>();
-            ct.InsertPolygonConstraint(this);
+            ct.InsertConstraint(this);
             ct.GetConstrainedDomainIndices(indices);
         }
 

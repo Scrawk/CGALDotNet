@@ -17,6 +17,11 @@ namespace CGALDotNet
         private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         /// <summary>
+        /// Default eps value used.
+        /// </summary>
+        public static double EPS = 1e-6;
+
+        /// <summary>
         /// Convert radians to degrees.
         /// </summary>
         public const double RAD_TO_DEG = 180.0 / Math.PI;

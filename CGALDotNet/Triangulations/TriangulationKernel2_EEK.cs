@@ -162,6 +162,11 @@ namespace CGALDotNet.Triangulations
             return Triangulation2_EEK_FlipEdge(ptr, faceIndex, neighbour);
         }
 
+        internal override void Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        {
+            Triangulation2_EEK_Transform(ptr, translation, rotation, scale);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Triangulation2_EEK_Create();
 
@@ -254,6 +259,9 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Triangulation2_EEK_Optimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
     }
 }

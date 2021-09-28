@@ -148,6 +148,11 @@ BOOL DelaunayTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour
 	return DelaunayTriangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
 
+void DelaunayTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
+{
+	DelaunayTriangulation2<EEK>::Transform(ptr, translation, rotation, scale);
+}
+
 //Delaunay only
 
 int DelaunayTriangulation2_EEK_VoronoiSegmentCount(void* ptr)

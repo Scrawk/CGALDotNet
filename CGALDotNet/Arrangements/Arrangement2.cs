@@ -199,6 +199,12 @@ namespace CGALDotNet.Arrangements
         public ARRANGEMENT_CHECK CheckFlag = ARRANGEMENT_CHECK.ALL;
 
         /// <summary>
+        /// A number that will change if the unmanaged 
+        /// arrangement model changes.
+        /// </summary>
+        public int BuildStamp => Kernel.BuildStamp(Ptr);
+
+        /// <summary>
         /// Clear the arrangement.
         /// </summary>
         public void Clear()

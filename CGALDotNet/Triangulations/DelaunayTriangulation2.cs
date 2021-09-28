@@ -68,7 +68,7 @@ namespace CGALDotNet.Triangulations
         /// May not retatin the poylgons edges.
         /// </summary>
         /// <param name="polygon">The polygon to insert.</param>
-        public void InsertPolygon(Polygon2<K> polygon)
+        public void Insert(Polygon2<K> polygon)
         {
             if (polygon == null)
                 return;
@@ -81,7 +81,7 @@ namespace CGALDotNet.Triangulations
         /// May not retatin the poylgons edges.
         /// </summary>
         /// <param name="pwh">The polygon to insert.</param>
-        public void InsertPolygon(PolygonWithHoles2<K> pwh)
+        public void Insert(PolygonWithHoles2<K> pwh)
         {
             if (pwh == null)
                 return;

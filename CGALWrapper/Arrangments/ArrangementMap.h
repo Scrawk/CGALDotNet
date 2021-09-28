@@ -21,11 +21,23 @@ private:
 
 	IndexMap<EDGE> edgeMap;
 
+	int buildStamp;
+
 public:
 
 	ArrangementMap()
 	{
 
+	}
+
+	int BuildStamp()
+	{
+		return buildStamp;
+	}
+
+	void IncrementBuildStamp()
+	{
+		++buildStamp;
 	}
 
 	template<class ARR>
@@ -59,16 +71,19 @@ public:
 
 	void OnVerticesChanged()
 	{
+		buildStamp++;
 		vertexMap.Clear();
 	}
 
 	void OnFacesChanged()
 	{
+		buildStamp++;
 		faceMap.Clear();
 	}
 
 	void OnEdgesChanged()
 	{
+		buildStamp++;
 		edgeMap.Clear();
 	}
 
