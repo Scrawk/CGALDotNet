@@ -198,58 +198,6 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// Create a shallow copy of the array.
-        /// </summary>
-        /// <typeparam name="T">The arrays type</typeparam>
-        /// <param name="array">The array to copy.</param>
-        /// <returns>The copied array</returns>
-        public static T[] Copy<T>(T[] array)
-        {
-            var dest = new T[array.Length];
-            Array.Copy(array, dest, array.Length);
-            return dest;
-        }
-
-        /// <summary>
-        /// Create a shallow copy of the array.
-        /// </summary>
-        /// <typeparam name="T">The arrays type</typeparam>
-        /// <param name="array">The array to copy.</param>
-        /// <returns>The copied array</returns>
-        public static T[,] Copy<T>(T[,] array)
-        {
-            var dest = new T[array.GetLength(0), array.GetLength(1)];
-            Array.Copy(array, dest, array.Length);
-            return dest;
-        }
-
-        /// <summary>
-        /// Create a shallow copy of the array.
-        /// </summary>
-        /// <typeparam name="T">The arrays type</typeparam>
-        /// <param name="array">The array to copy.</param>
-        /// <returns>The copied array</returns>
-        public static T[,,] Copy<T>(T[,,] array)
-        {
-            var dest = new T[array.GetLength(0), array.GetLength(1), array.GetLength(2)];
-            Array.Copy(array, dest, array.Length);
-            return dest;
-        }
-
-        /// <summary>
-        /// Add the item to the list a number of times.
-        /// </summary>
-        /// <typeparam name="T">The lists type</typeparam>
-        /// <param name="list">The list to add to.</param>
-        /// <param name="count">The number of items to added</param>
-        /// <param name="item">The item to add.</param>
-        public static void AddRange<T>(List<T> list, int count, T item)
-        {
-            for (int i = 0; i < count; i++)
-                list.Add(item);
-        }
-
-        /// <summary>
         /// Returns CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
         /// angle formed by the two vectors u and v.
         /// </summary>

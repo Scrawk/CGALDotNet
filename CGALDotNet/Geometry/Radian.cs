@@ -25,7 +25,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// 0 degrees.
         /// </summary>
-        public readonly static Radian Ae0 = new Radian(0);
+        public readonly static Radian A0 = new Radian(0);
 
         /// <summary>
         /// 90 degrees.

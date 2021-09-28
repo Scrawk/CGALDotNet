@@ -489,10 +489,10 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Matrix4x4d ToMatrix4x4d()
         {
-            return new Matrix4x4d(m00, m01, m02, 0.0f,
-                                  m10, m11, m12, 0.0f,
-                                  m20, m21, m22, 0.0f,
-                                  0.0f, 0.0f, 0.0f, 0.0f);
+            return new Matrix4x4d(m00, m01, m02, 0.0,
+                                  m10, m11, m12, 0.0,
+                                  m20, m21, m22, 0.0,
+                                  0.0, 0.0, 0.0,1.0f);
         }
 
         /// <summary>

@@ -68,7 +68,7 @@ namespace CGALDotNet.Nurbs
                 throw new ArgumentException("Matrix needs to be square.");
 
             int N = A.GetLength(0);
-            PA = CGALGlobal.Copy(A);
+            PA = NurbsUtil.Copy(A);
 
             int i, j, k, imax;
             double maxA, absA;

@@ -7,99 +7,63 @@ namespace CGALDotNet.Nurbs
 {
 	internal static class NurbsUtil
 	{
-		/// <summary>
-		/// Convert an nd point in homogenous coordinates to an (n-1)d point in cartesian
-		/// coordinates by perspective division
-		/// </summary>
-		/// <param name="pt">Point in homogenous coordinates</param>
-		/// <returns>Point in cartesian coordinates</returns>
-		internal static Point2d HomogenousToCartesian(HPoint2d pt)
-		{
-			return pt.Cartesian;
-		}
 
+        /// <summary>
+        /// Create a shallow copy of the array.
+        /// </summary>
+        /// <typeparam name="T">The arrays type</typeparam>
+        /// <param name="array">The array to copy.</param>
+        /// <returns>The copied array</returns>
+        public static T[] Copy<T>(T[] array)
+        {
+            var dest = new T[array.Length];
+            Array.Copy(array, dest, array.Length);
+            return dest;
+        }
 
-		/// <summary>
-		/// Convert an nd point in homogenous coordinates to an (n-1)d point in cartesian
-		/// coordinates by perspective division
-		/// </summary>
-		/// <param name="pt">Point in homogenous coordinates</param>
-		/// <returns>Point in cartesian coordinates</returns>
-		internal static Point3d HomogenousToCartesian(HPoint3d pt)
-		{
-			return pt.Cartesian;
-		}
+        /// <summary>
+        /// Create a shallow copy of the array.
+        /// </summary>
+        /// <typeparam name="T">The arrays type</typeparam>
+        /// <param name="array">The array to copy.</param>
+        /// <returns>The copied array</returns>
+        public static T[,] Copy<T>(T[,] array)
+        {
+            var dest = new T[array.GetLength(0), array.GetLength(1)];
+            Array.Copy(array, dest, array.Length);
+            return dest;
+        }
 
-		/// <summary>
-		/// Convert an nd point in cartesian coordinates to an (n+1)d point in homogenous coordinates
-		/// </summary>
-		/// <param name="pt">Point in cartesian coordinates</param>
-		/// <param name="w">Weight</param>
-		/// <returns>point in homogenous coordinates</returns>
-		internal static HPoint2d CartesianToHomogenous(Point2d pt, double w)
-		{
-			return new HPoint2d(pt.x * w, pt.y * w, w);
-		}
+        /// <summary>
+        /// Create a shallow copy of the array.
+        /// </summary>
+        /// <typeparam name="T">The arrays type</typeparam>
+        /// <param name="array">The array to copy.</param>
+        /// <returns>The copied array</returns>
+        public static T[,,] Copy<T>(T[,,] array)
+        {
+            var dest = new T[array.GetLength(0), array.GetLength(1), array.GetLength(2)];
+            Array.Copy(array, dest, array.Length);
+            return dest;
+        }
 
-		/// <summary>
-		/// Convert an nd point in cartesian coordinates to an (n+1)d point in homogenous coordinates
-		/// </summary>
-		/// <param name="pt">Point in cartesian coordinates</param>
-		/// <param name="w">Weight</param>
-		/// <returns>point in homogenous coordinates</returns>
-		internal static HPoint3d CartesianToHomogenous(Point3d pt, double w)
-		{
-			return new HPoint3d(pt.x * w, pt.y * w, pt.z * w, w);
-		}
+        /// <summary>
+        /// Add the item to the list a number of times.
+        /// </summary>
+        /// <typeparam name="T">The lists type</typeparam>
+        /// <param name="list">The list to add to.</param>
+        /// <param name="count">The number of items to added</param>
+        /// <param name="item">The item to add.</param>
+        public static void AddRange<T>(List<T> list, int count, T item)
+        {
+            for (int i = 0; i < count; i++)
+                list.Add(item);
+        }
 
-		/// <summary>
-		/// Convert an (n+1)d point to an nd point without perspective division
-		/// by truncating the last dimension
-		/// </summary>
-		/// <param name="pt">Point in homogenous coordinates</param>
-		/// <returns>Input point in cartesian coordinates</returns>
-		internal static Point2d TruncateHomogenous(HPoint2d pt)
-		{
-			return new Point2d(pt.x, pt.y);
-		}
-
-		/// <summary>
-		/// Convert an (n+1)d point to an nd point without perspective division
-		/// by truncating the last dimension
-		/// </summary>
-		/// <param name="pt">Point in homogenous coordinates</param>
-		/// <returns>Input point in cartesian coordinates</returns>
-		internal static Point3d TruncateHomogenous(HPoint3d pt)
-		{
-			return new Point3d(pt.x, pt.y, pt.z);
-		}
-
-		/// <summary>
-		/// Convert an (n+1)d point to an nd point without perspective division
-		/// by truncating the last dimension
-		/// </summary>
-		/// <param name="pt">Point in homogenous coordinates</param>
-		/// <returns>Input point in cartesian coordinates</returns>
-		internal static Vector2d TruncateHomogenous(Vector3d pt)
-		{
-			return pt.xy;
-		}
-
-		/// <summary>
-		/// Convert an (n+1)d point to an nd point without perspective division
-		/// by truncating the last dimension
-		/// </summary>
-		/// <param name="pt">Point in homogenous coordinates</param>
-		/// <returns>Input point in cartesian coordinates</returns>
-		internal static Vector3d TruncateHomogenous(Vector4d pt)
-		{
-			return pt.xyz;
-		}
-
-		/// <summary>
-		/// Compute the binomial coefficient
-		/// </summary>
-		internal static uint Binomial(int n, int k)
+        /// <summary>
+        /// Compute the binomial coefficient
+        /// </summary>
+        internal static uint Binomial(int n, int k)
 		{
 			uint result = 1;
 			if (k > n)

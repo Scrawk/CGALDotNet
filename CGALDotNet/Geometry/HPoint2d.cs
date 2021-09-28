@@ -35,7 +35,6 @@ namespace CGALDotNet.Geometry
         /// </summary>
 	    public readonly static HPoint2d One = new HPoint2d(1);
 
-
         /// <summary>
         /// A point all with the value v.
         /// </summary>
