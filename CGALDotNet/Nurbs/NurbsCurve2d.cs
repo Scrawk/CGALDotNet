@@ -48,6 +48,16 @@ namespace CGALDotNet.Nurbs
 		public abstract int Count { get; }
 
 		/// <summary>
+		/// Is this a valid curve.
+		/// </summary>
+		public bool IsValid => NurbsCheck.CurveIsValid(this);
+
+		/// <summary>
+		/// Is this a closed curve.
+		/// </summary>
+		public bool IsClosed => NurbsCheck.CurveIsClosed(this);
+
+		/// <summary>
 		/// Get the control point.
 		/// </summary>
 		/// <param name="i">The points index.</param>
@@ -90,7 +100,6 @@ namespace CGALDotNet.Nurbs
 			Transform(translation, Radian.A0, 1);
         }
 
-
 		/// <summary>
 		/// Rotate the triangulation.
 		/// </summary>
@@ -116,6 +125,46 @@ namespace CGALDotNet.Nurbs
 		/// <param name="rotation">The amount to rotate.</param>
 		/// <param name="scale">The amount to scale.</param>
 		public abstract void Transform(Point2d translation, Radian rotation, double scale);
+
+		/// <summary>
+		/// Get the tangent at parameter u.
+		/// </summary>
+		/// <param name="u">The parameter.</param>
+		/// <returns>The tangent at u.</returns>
+		public Vector2d Tangent(double u)
+		{
+			return NurbsEval.CurveTangent(this, u);
+		}
+
+		/// <summary>
+		/// Sample a curves tangents in a range of equally spaced parametric intervals.
+		/// </summary>
+		/// <param name="samples">The numbers times to sample the curve.</param>
+		/// <param name="tangents">The list of sampled points.</param>
+		public void GetTangents(List<Vector2d> tangents, int samples)
+		{
+			NurbsTess.GetTangents(this, tangents, 0, 1, samples);
+		}
+
+		/// <summary>
+		/// Get the tangent at parameter u.
+		/// </summary>
+		/// <param name="u">The parameter.</param>
+		/// <returns>The tangent at u.</returns>
+		public Vector2d Normal(double u, bool ccw = false)
+		{
+			return NurbsEval.CurveNormal(this, u, ccw);
+		}
+
+		/// <summary>
+		/// Sample a curves tangents in a range of equally spaced parametric intervals.
+		/// </summary>
+		/// <param name="samples">The numbers times to sample the curve.</param>
+		/// <param name="normals">The list of sampled points.</param>
+		public void GetNormals(List<Vector2d> normals, int samples, bool ccw = false)
+		{
+			NurbsTess.GetNormals(this, normals, 0, 1, samples, ccw);
+		}
 
 	}
 
