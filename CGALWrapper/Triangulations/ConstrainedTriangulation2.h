@@ -4,7 +4,6 @@
 #include "../Geometry/Geometry2.h"
 #include "../Polygons/Polygon2.h"
 #include "../Polygons/PolygonWithHoles2.h"
-#include "../Utility/IndexMap.h"
 #include "TriUtil.h"
 #include "TriVertex2.h"
 #include "TriFace2.h"
@@ -494,6 +493,19 @@ public:
 		}
 	}
 
+	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+		Transformation_2 S(CGAL::SCALING, scale);
+
+		auto M = T * R * S;
+		for (auto& vert : tri->model.finite_vertex_handles())
+			vert->point() = M(vert->point());
+	}
+
 	//Constrained only
 
 	static int ConstrainedEdgesCount(void* ptr)
@@ -551,18 +563,6 @@ public:
 		tri->map.OnModelChanged();
 	}
 
-	void InsertConstraints(const std::vector<std::pair<Point_2, Point_2>>& constraints)
-	{
-		for (auto iter = constraints.begin(); iter != constraints.end(); iter++)
-		{
-			auto p1 = iter->first;
-			auto p2 = iter->second;
-			model.insert_constraint(p1, p2);
-		}
-
-		map.OnModelChanged();
-	}
-
 	static void InsertSegmentConstraint(void* ptr, int vertIndex1, int vertIndex2)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -615,19 +615,6 @@ public:
 			tri->model.insert_constraint(hole.vertices_begin(), hole.vertices_end(), true);
 
 		tri->map.OnModelChanged();
-	}
-
-	void GetConstraints(std::vector<std::pair<Point_2, Point_2>>& constraints)
-	{
-		map.SetIndices(model);
-
-		for (auto edge = model.constrained_edges_begin(); edge != model.constrained_edges_end(); ++edge)
-		{
-			auto seg = model.segment(edge->first, edge->second);
-			auto pair = std::make_pair(seg[0], seg[1]);
-
-			constraints.push_back(pair);
-		}
 	}
 
 	static void GetConstraints(void* ptr, TriEdge2* constraints, int startIndex, int count)
@@ -781,19 +768,6 @@ public:
 		tri->map.IncrementBuildStamp();
 
 		return num * 3;
-	}
-
-	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
-	{
-		auto tri = CastToTriangulation2(ptr);
-
-		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
-		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
-		Transformation_2 S(CGAL::SCALING, scale);
-
-		auto M = T * R * S;
-		for (auto& vert : tri->model.finite_vertex_handles())
-			vert->point() = M(vert->point());
 	}
 
 	private:

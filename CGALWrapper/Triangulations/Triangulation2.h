@@ -4,7 +4,6 @@
 #include "../Geometry/Geometry2.h"
 #include "../Polygons/Polygon2.h"
 #include "../Polygons/PolygonWithHoles2.h"
-#include "../Utility/IndexMap.h"
 #include "TriUtil.h"
 #include "TriVertex2.h"
 #include "TriFace2.h"

@@ -153,6 +153,11 @@ BOOL ConstrainedTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighb
 	return ConstrainedTriangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
 }
 
+void ConstrainedTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
+{
+	ConstrainedTriangulation2<EEK>::Transform(ptr, translation, rotation, scale);
+}
+
 //Constrained only
 
 int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(void* ptr)
@@ -227,6 +232,7 @@ int ConstrainedTriangulation2_EEK_MarkDomains(void* ptr, int* indices, int start
 
 void ConstrainedTriangulation2_EEK_MakeDelaunay(void* ptr)
 {
+	/*
 	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
 
 	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
@@ -249,10 +255,13 @@ void ConstrainedTriangulation2_EEK_MakeDelaunay(void* ptr)
 	tri->Clear();
 	tri->InsertPoints(points);
 	tri->InsertConstraints(constraints);
+	*/
+	
 }
 
 void ConstrainedTriangulation2_EEK_MakeGabriel(void* ptr)
 {
+	/*
 	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
 
 	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
@@ -275,11 +284,13 @@ void ConstrainedTriangulation2_EEK_MakeGabriel(void* ptr)
 	tri->Clear();
 	tri->InsertPoints(points);
 	tri->InsertConstraints(constraints);
+	*/
 }
 
 
 void ConstrainedTriangulation2_EEK_RefineAndOptimize(void* ptr, int iterations, double angleBounds, double lengthBounds)
 {
+	/*
 	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
 
 	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
@@ -302,11 +313,13 @@ void ConstrainedTriangulation2_EEK_RefineAndOptimize(void* ptr, int iterations, 
 	tri->Clear();
 	tri->InsertPoints(points);
 	tri->InsertConstraints(constraints);
+	*/
 
 }
 
 void ConstrainedTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* seeds, int start, int count)
 {
+	/*
 	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
 
 	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
@@ -329,9 +342,6 @@ void ConstrainedTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int ite
 	tri->Clear();
 	tri->InsertPoints(points);
 	tri->InsertConstraints(constraints);
+	*/
 }
 
-void ConstrainedTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
-{
-	ConstrainedTriangulation2<EEK>::Transform(ptr, translation, rotation, scale);
-}

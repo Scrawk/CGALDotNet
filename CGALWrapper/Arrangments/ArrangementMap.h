@@ -2,7 +2,7 @@
 
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
-#include "../Utility/IndexMap.h"
+#include "../Utility//IndexMap.h"
 
 #include <vector>
 #include "CGAL/Point_2.h"

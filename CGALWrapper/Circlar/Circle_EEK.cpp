@@ -18,19 +18,3 @@ void Circle2_EEK_Release(void* ptr)
 {
 	Circle2<EEK>::DeleteCircle2(ptr);
 }
-
-void Test()
-{
-	typedef CGAL::Exact_predicates_exact_constructions_kernel Kernel;
-	typedef Kernel::Point_2                                   Point_2;
-	typedef Kernel::Circle_2                                  Circle_2;
-	typedef CGAL::Gps_circle_segment_traits_2<Kernel>         Traits_2;
-
-	typedef Traits_2::Curve_2                                 Curve_2;
-	typedef Traits_2::X_monotone_curve_2                      X_monotone_curve_2;
-
-	Circle_2 cir;
-
-	X_monotone_curve_2 crv;
-
-}

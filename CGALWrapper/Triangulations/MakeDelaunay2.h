@@ -11,7 +11,7 @@
 
 namespace MakeDelaunay2
 {
-
+	
 	typedef CGAL::Exact_predicates_exact_constructions_kernel K;
 	typedef CGAL::Constrained_Delaunay_triangulation_2<K> CDT;
 	typedef CDT::Point Point;
@@ -52,5 +52,6 @@ namespace MakeDelaunay2
 	{
 		cdt.clear();
 	}
+	
 
 };

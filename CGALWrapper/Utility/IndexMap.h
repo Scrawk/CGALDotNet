@@ -17,6 +17,7 @@ private:
 	std::map<int, T> map;
 
 public:
+
 	IndexMap()
 	{
 		nextIndex = 0;

@@ -64,6 +64,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL ConstrainedTriangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour);
 
+	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale);
+
 	//Constrained only
 
 	CGALWRAPPER_API int ConstrainedTriangulation2_EEK_ConstrainedEdgesCount(void* ptr);
@@ -102,7 +104,7 @@ extern "C"
 
 	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* points, int start, int count);
 
-	CGALWRAPPER_API void ConstrainedTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale);
+	
 
 }
 

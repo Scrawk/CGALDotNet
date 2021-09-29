@@ -12,6 +12,8 @@ namespace CGALDotNet.Triangulations
 
         internal static readonly DelaunayTriangulationKernel2 Instance = new DelaunayTriangulationKernel2_EEK();
 
+        internal override string Name => "EEK";
+
         public override string ToString()
         {
             return string.Format("[DelaunayTriangulationKernel2<{0}>: ]", Name);

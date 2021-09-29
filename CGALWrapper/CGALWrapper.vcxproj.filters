@@ -84,9 +84,6 @@
     <ClInclude Include="Polygons\PolygonWithHoles2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Arrangments\Arrangement2.h">
       <Filter>Header Files\Arrangements</Filter>
     </ClInclude>
@@ -207,6 +204,12 @@
     <ClInclude Include="Triangulations\MakeDelaunay2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulations\ConformingTriangulation2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -259,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

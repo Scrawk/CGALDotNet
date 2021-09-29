@@ -4,6 +4,11 @@ using System.Linq;
 
 using CGALDotNet.Geometry;
 
+
+/// <summary>
+/// Not part of CGAL.
+/// Implementation found https://github.com/pboyer/verb and https://github.com/pradeep-pyro/tinynurbs
+/// </summary>
 namespace CGALDotNet.Nurbs
 {
 	internal struct NurbsCurveParams2d

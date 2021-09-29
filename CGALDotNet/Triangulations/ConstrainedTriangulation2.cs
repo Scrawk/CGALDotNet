@@ -63,46 +63,6 @@ namespace CGALDotNet.Triangulations
             return new ConstrainedTriangulation2<K>(Kernel.Copy(Ptr));
         }
 
-        /// <summary>
-        /// Insert the polygons points into the triangulation.
-        /// May not retatin the poylgons edges.
-        /// </summary>
-        /// <param name="polygon"></param>
-        public void Insert(Polygon2<K> polygon)
-        {
-            Kernel.InsertPolygon(Ptr, polygon.Ptr);
-        }
-
-        /// <summary>
-        /// Insert the polygons points into the triangulation.
-        /// May not retatin the poylgons edges.
-        /// </summary>
-        /// <param name="pwh"></param>
-        public void Insert(PolygonWithHoles2<K> pwh)
-        {
-            Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
-        }
-
-        /// <summary>
-        /// Insert the polygons points and the edges as constraints into the triangulation.
-        /// Will retatin the poylgons edges.
-        /// </summary>
-        /// <param name="polygon">The polygon to insert.</param>
-        public void InsertConstraint(Polygon2<K> polygon)
-        {
-            TriangulationKernel.InsertPolygonConstraint(Ptr, polygon.Ptr);
-        }
-
-        /// <summary>
-        /// Insert the polygons points and the edges as constraints into the triangulation.
-        /// Will retatin the poylgons edges.
-        /// </summary>
-        /// <param name="pwh">The polygon to insert.</param>
-        public void InsertConstraint(PolygonWithHoles2<K> pwh)
-        {
-            TriangulationKernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
-        }
-
     }
 
     /// <summary>
@@ -151,6 +111,46 @@ namespace CGALDotNet.Triangulations
         /// The number of constrainted edges in the triangulation.
         /// </summary>
         public int ConstrainedEdgeCount => TriangulationKernel.ConstrainedEdgesCount(Ptr);
+
+        /// <summary>
+        /// Insert the polygons points into the triangulation.
+        /// May not retain the poylgons edges.
+        /// </summary>
+        /// <param name="polygon"></param>
+        public void Insert(Polygon2 polygon)
+        {
+            Kernel.InsertPolygon(Ptr, polygon.Ptr);
+        }
+
+        /// <summary>
+        /// Insert the polygons points into the triangulation.
+        /// May not retain the poylgons edges.
+        /// </summary>
+        /// <param name="pwh"></param>
+        public void Insert(PolygonWithHoles2 pwh)
+        {
+            Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
+        }
+
+        /// <summary>
+        /// Insert the polygons points and the edges as constraints into the triangulation.
+        /// Will retatin the poylgons edges.
+        /// </summary>
+        /// <param name="polygon">The polygon to insert.</param>
+        public void InsertConstraint(Polygon2 polygon)
+        {
+            TriangulationKernel.InsertPolygonConstraint(Ptr, polygon.Ptr);
+        }
+
+        /// <summary>
+        /// Insert the polygons points and the edges as constraints into the triangulation.
+        /// Will retatin the poylgons edges.
+        /// </summary>
+        /// <param name="pwh">The polygon to insert.</param>
+        public void InsertConstraint(PolygonWithHoles2 pwh)
+        {
+            TriangulationKernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
+        }
 
         /// <summary>
         /// Get the number of constrainted edges incident to this vertex.
@@ -265,49 +265,6 @@ namespace CGALDotNet.Triangulations
 
             for (int i = 0; i < count; i++)
                 indices.Add(tmp[i]);;
-        }
-
-        /// <summary>
-        /// Make the mesh delaunay.
-        /// </summary>
-        public void MakeDelaunay()
-        {
-            TriangulationKernel.MakeDelaunay(Ptr);
-        }
-
-        /// <summary>
-        /// Make the mesh 
-        /// </summary>
-        public void MakeGabriel()
-        {
-            TriangulationKernel.MakeGabriel(Ptr);
-        }
-
-        /// <summary>
-        /// Refine the mesh into smaller triangles.
-        /// </summary>
-        /// <param name="angleBounds">Default shape bound. 0.125 corresponds to abound 20.6 degree. Max 0.125 value.</param>
-        /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
-        public void Refine(double angleBounds, double lengthBounds)
-        {
-            if (angleBounds > 0.125)
-                angleBounds = 0.125;
-
-            TriangulationKernel.RefineAndOptimize(Ptr, 0, angleBounds, lengthBounds);
-        }
-
-        /// <summary>
-        /// Refine the mesh into smaller triangles.
-        /// </summary>
-        /// <param name="angleBounds">Default shape bound. 0.125 corresponds to abound 20.6 degree. Max 0.125 value.</param>
-        /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
-        /// <param name="seeds">Seeds point in polygons that are not to be refined.</param>
-        public void Refine(double angleBounds, double lengthBounds, Point2d[] seeds)
-        {
-            if (angleBounds > 0.125)
-                angleBounds = 0.125;
-
-            TriangulationKernel.RefineAndOptimize(Ptr, 0, angleBounds, lengthBounds, seeds, 0, seeds.Length);
         }
 
         /// <summary>

@@ -4,7 +4,6 @@
 #include "../Geometry/Geometry2.h"
 #include "../Polygons/Polygon2.h"
 #include "../Polygons/PolygonWithHoles2.h"
-#include "../Utility/IndexMap.h"
 #include "TriUtil.h"
 #include "TriVertex2.h"
 #include "TriFace2.h"
@@ -463,6 +462,19 @@ public:
 		}
 	}
 
+	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+		Transformation_2 S(CGAL::SCALING, scale);
+
+		auto M = T * R * S;
+		for (auto& vert : tri->model.finite_vertex_handles())
+			vert->point() = M(vert->point());
+	}
+
 	static void VoronoiCount(void* ptr, int& numSegments, int& numRays)
 	{
 		auto tri = CastToTriangulation2(ptr);
@@ -540,17 +552,5 @@ public:
 		}
 	}
 
-	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
-	{
-		auto tri = CastToTriangulation2(ptr);
-
-		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
-		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
-		Transformation_2 S(CGAL::SCALING, scale);
-
-		auto M = T * R * S;
-		for (auto& vert : tri->model.finite_vertex_handles())
-			vert->point() = M(vert->point());
-	}
 
 };

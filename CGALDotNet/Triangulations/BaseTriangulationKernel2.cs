@@ -14,12 +14,7 @@ namespace CGALDotNet.Triangulations
 
         protected const CallingConvention CDECL = CallingConvention.Cdecl;
 
-        public override string ToString()
-        {
-            return string.Format("[BaseTriangulationKernel2<{0}>: ]", Name);
-        }
-
-        internal string Name => "EEK";
+        internal abstract string Name { get; }
 
         internal abstract IntPtr Create();
 

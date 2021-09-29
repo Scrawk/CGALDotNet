@@ -18,7 +18,7 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var tri = new ConstrainedTriangulation2<EEK>();
+            var tri = new ConformingTriangulation2<EEK>();
 
             /*
             var va = new Point2d(5.0, 5.0);
@@ -61,13 +61,16 @@ namespace CGALDotNetConsole
             tri.InsertConstraint(vc, vd);
             tri.InsertConstraint(vd, va);
 
-            //Console.WriteLine("Make Delaunay");
-            //tri.MakeDelaunay();
-            //tri.Print();
+            Console.WriteLine("Before");
+            tri.Print();
 
-            //Console.WriteLine("Make Gabriel");
-            //tri.MakeGabriel();
-            //tri.Print();
+            Console.WriteLine("Make Delaunay");
+            tri.MakeDelaunay();
+            tri.Print();
+
+            Console.WriteLine("Make Gabriel");
+            tri.MakeGabriel();
+            tri.Print();
 
             tri.Refine(0.125, 0.5);
 
