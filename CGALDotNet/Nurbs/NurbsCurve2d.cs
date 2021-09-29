@@ -70,6 +70,13 @@ namespace CGALDotNet.Nurbs
 		public abstract Point2d GetCartesianControlPoint(int i);
 
 		/// <summary>
+		/// Get the control point.
+		/// </summary>
+		/// <param name="i">The points index.</param>
+		/// <returns>The control point in homogeneous coordinates.</returns>
+		public abstract HPoint2d GetHomogeneousControlPoint(int i);
+
+		/// <summary>
 		/// Get the control points
 		/// </summary>
 		/// <param name="points">The list to copy the points into.</param>
@@ -171,6 +178,19 @@ namespace CGALDotNet.Nurbs
 			NurbsTess.GetNormals(this, normals, 0, 1, samples, ccw);
 		}
 
+		/// <summary>
+		/// Normlize the curves knots so the first knot starts at 0
+		/// and the last knot ends at 1.
+		/// </summary>
+		public void NormalizeKnots()
+		{
+			double fisrt = Knots[0];
+			double last = Knots.Last();
+
+			for (int i = 0; i < Knots.Length; i++)
+				Knots[i] = CGALGlobal.Normalize(Knots[i], fisrt, last);
+		}
+
 	}
 
 	/// <summary>
@@ -253,6 +273,16 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
+		/// Get the control point.
+		/// </summary>
+		/// <param name="i">The points index.</param>
+		/// <returns>The control point in homogeneous coordinates.</returns>
+		public override HPoint2d GetHomogeneousControlPoint(int i)
+        {
+			return CartesianControlPoints[i].Homogenous;
+		}
+
+		/// <summary>
 		/// Get the control points
 		/// </summary>
 		/// <param name="points">The list to copy the points into.</param>
@@ -308,6 +338,37 @@ namespace CGALDotNet.Nurbs
 
 			for (int i = 0; i < Count; i++)
 				CartesianControlPoints[i] = M * CartesianControlPoints[i];
+		}
+
+		/// <summary>
+		/// Insert a new knot into the curve and return as a new curve.
+		/// </summary>
+		/// <param name="crv">The curve to insert the knot into.</param>
+		/// <param name="u">The parameter to insert the knot at.</param>
+		/// <param name="repeat">The number of times to repeat the knot.</param>
+		/// <returns>A new curve with the inserted knots.</returns>
+		public static NurbsCurve2d InsertKnot(NurbsCurve2d crv, double u, int repeat = 1)
+		{
+			var param = NurbsModify.CurveKnotInsert(crv, u, repeat);
+			return new NurbsCurve2d(param.degree, param.knots, param.controlPoints);
+		}
+
+		/// <summary>
+		/// Split the curve a the parameter and return the two new curves.
+		/// </summary>
+		/// <param name="crv">The curve to split.</param>
+		/// <param name="u">The parameter to split the curve at</param>
+		/// <returns>The two new curves.</returns>
+		public static void Split(NurbsCurve2d crv, double u, out NurbsCurve2d left, out NurbsCurve2d right)
+		{
+			NurbsCurveParams2d leftParam, rightParam;
+			NurbsModify.CurveSplit(crv, u, out leftParam, out rightParam);
+
+			left = new NurbsCurve2d(leftParam.degree, leftParam.knots, leftParam.controlPoints);
+			right = new NurbsCurve2d(rightParam.degree, rightParam.knots, rightParam.controlPoints);
+
+			left.NormalizeKnots();
+			right.NormalizeKnots();
 		}
 
 	}
@@ -392,6 +453,16 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
+		/// Get the control point.
+		/// </summary>
+		/// <param name="i">The points index.</param>
+		/// <returns>The control point in homogeneous coordinates.</returns>
+		public override HPoint2d GetHomogeneousControlPoint(int i)
+		{
+			return HomogeneousControlPoints[i];
+		}
+
+		/// <summary>
 		/// Get the control points
 		/// </summary>
 		/// <param name="points">The list to copy the points into.</param>
@@ -453,6 +524,37 @@ namespace CGALDotNet.Nurbs
 				HomogeneousControlPoints[i] = point.ToHomogenous(pointw.w);
 			}
 				
+		}
+
+		/// <summary>
+		/// Insert a new knot into the curve and return as a new curve.
+		/// </summary>
+		/// <param name="crv">The curve to insert the knot into.</param>
+		/// <param name="u">The parameter to insert the knot at.</param>
+		/// <param name="repeat">The number of times to repeat the knot.</param>
+		/// <returns>A new curve with the inserted knots.</returns>
+		public static RationalNurbsCurve2d InsertKnot(RationalNurbsCurve2d crv, double u, int repeat = 1)
+		{
+			var param = NurbsModify.CurveKnotInsert(crv, u, repeat);
+			return new RationalNurbsCurve2d(param.degree, param.knots, param.controlPoints);
+		}
+
+		/// <summary>
+		/// Split the curve a the parameter and return the two new curves.
+		/// </summary>
+		/// <param name="crv">The curve to split.</param>
+		/// <param name="u">The parameter to split the curve at</param>
+		/// <returns>The two new curves.</returns>
+		public static void Split(RationalNurbsCurve2d crv, double u, out RationalNurbsCurve2d left, out RationalNurbsCurve2d right)
+		{
+			NurbsCurveParams2d leftParam, rightParam;
+			NurbsModify.CurveSplit(crv, u, out leftParam, out rightParam);
+
+			left = new RationalNurbsCurve2d(leftParam.degree, leftParam.knots, leftParam.controlPoints);
+			right = new RationalNurbsCurve2d(rightParam.degree, rightParam.knots, rightParam.controlPoints);
+
+			left.NormalizeKnots();
+			right.NormalizeKnots();
 		}
 
 	}
