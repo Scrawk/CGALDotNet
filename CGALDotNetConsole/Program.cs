@@ -20,35 +20,6 @@ namespace CGALDotNetConsole
         {
             var tri = new ConformingTriangulation2<EEK>();
 
-            /*
-            var va = new Point2d(5.0, 5.0);
-            var vb = new Point2d(-5.0, 5.0);
-            var vc = new Point2d(4.0, 3.0);
-            var vd = new Point2d(5.0, -5.0);
-            var ve = new Point2d(6.0, 6.0);
-            var vf = new Point2d(-6.0, 6.0);
-            var vg = new Point2d(-6.0, -6.0);
-            var vh = new Point2d(6.0, -6.0);
-
-            tri.InsertPoint(va);
-            tri.InsertPoint(vb);
-            tri.InsertPoint(vc);
-            tri.InsertPoint(vd);
-            tri.InsertPoint(ve);
-            tri.InsertPoint(vf);
-            tri.InsertPoint(vg);
-            tri.InsertPoint(vh);
-
-            tri.InsertConstraint(va, vb);
-            tri.InsertConstraint(vb, vc);
-            tri.InsertConstraint(vc, vd);
-            tri.InsertConstraint(vd, va);
-            tri.InsertConstraint(ve, vf);
-            tri.InsertConstraint(vf, vg);
-            tri.InsertConstraint(vg, vh);
-            tri.InsertConstraint(vh, ve);
-            */
-
             var va = new Point2d(-2, 0);
             var vb = new Point2d(0, -2);
             var vc = new Point2d(2, 0);

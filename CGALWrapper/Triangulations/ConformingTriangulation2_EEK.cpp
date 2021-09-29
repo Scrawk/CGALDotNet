@@ -61,6 +61,11 @@ void ConformingTriangulation2_EEK_GetIndices(void* ptr, int* indices, int start,
 	ConformingTriangulation2<EEK>::GetIndices(ptr, indices, start, count);
 }
 
+void ConformingTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
+{
+	ConformingTriangulation2<EEK>::Transform(ptr, translation, rotation, scale);
+}
+
 void ConformingTriangulation2_EEK_InsertSegmentConstraint(void* ptr, Point2d a, Point2d b)
 {
 	ConformingTriangulation2<EEK>::InsertSegmentConstraint(ptr, a, b);

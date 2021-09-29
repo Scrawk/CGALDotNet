@@ -449,24 +449,6 @@ public:
 		}
 	}
 
-	static BOOL IsFlippable(void* ptr, int faceIndex, int neighbourIndex)
-	{
-		if (neighbourIndex < 0 || neighbourIndex > 2)
-			return FALSE;
-
-		auto tri = CastToTriangulation2(ptr);
-
-		auto face = tri->map.FindFace(tri->model, faceIndex);
-		if (face != nullptr)
-		{
-			return tri->model.is_flipable(*face, neighbourIndex);
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
 	static BOOL FlipEdge(void* ptr, int faceIndex, int neighbourIndex)
 	{
 		if (neighbourIndex < 0 || neighbourIndex > 2)

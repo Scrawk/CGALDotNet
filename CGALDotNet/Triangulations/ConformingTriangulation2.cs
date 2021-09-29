@@ -181,6 +181,44 @@ namespace CGALDotNet.Triangulations
             Kernel.GetIndices(Ptr, indices, 0, indices.Length);
         }
 
+        /// <summary>
+        /// Translate the triangulation.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        public void Translate(Point2d translation)
+        {
+            Kernel.Transform(Ptr, translation, 0, 1);
+        }
+
+        /// <summary>
+        /// Rotate the triangulation.
+        /// </summary>
+        /// <param name="rotation">The amount to rotate in radians.</param>
+        public void Rotate(Radian rotation)
+        {
+            Kernel.Transform(Ptr, Point2d.Zero, rotation.angle, 1);
+        }
+
+        /// <summary>
+        /// Scale the triangulation.
+        /// </summary>
+        /// <param name="scale">The amount to scale.</param>
+        public void Scale(double scale)
+        {
+            Kernel.Transform(Ptr, Point2d.Zero, 0, scale);
+        }
+
+        /// <summary>
+        /// Transform the triangulation with a TRS matrix.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        /// <param name="rotation">The amount to rotate.</param>
+        /// <param name="scale">The amount to scale.</param>
+        public void Transform(Point2d translation, Radian rotation, double scale)
+        {
+            Kernel.Transform(Ptr, translation, rotation.angle, scale);
+        }
+
         public void InsertConstraint(Point2d a, Point2d b)
         {
             Kernel.InsertSegmentConstraint(Ptr, a, b);
@@ -269,7 +307,7 @@ namespace CGALDotNet.Triangulations
             Console.WriteLine(builder.ToString());
         }
 
-        public virtual void Print(StringBuilder builder)
+        public void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
         }

@@ -16,6 +16,7 @@
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
 #include <CGAL/lloyd_optimize_mesh_2.h>
+#include <CGAL/Aff_transformation_2.h>
 
 template<class K>
 class ConformingTriangulation2
@@ -31,6 +32,8 @@ public:
 	typedef CGAL::Delaunay_mesher_2<CDT, Criteria>              Mesher;
 	typedef typename CDT::Vertex_handle Vertex;
 	typedef typename CDT::Point Point;
+
+	typedef CGAL::Aff_transformation_2<K> Transformation_2;
 
 	CDT model;
 
@@ -141,7 +144,7 @@ public:
 	static void GetIndices(void* ptr, int* indices, int startIndex, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int index = startIndex;
+		int index = 0;
 
 		std::map<Vertex, int> map;
 
@@ -150,6 +153,7 @@ public:
 			map.insert(std::pair<Vertex, int>(vert, index++));
 		}
 
+		index = startIndex;
 		for (auto face = tri->model.finite_faces_begin(); face != tri->model.finite_faces_end(); ++face)
 		{
 			auto i0 = map.find(face->vertex(0));
@@ -168,7 +172,22 @@ public:
 				indices[index * 3 + 1] = i1->second;
 				indices[index * 3 + 2] = i2->second;
 			}
+
+			index++;
 		}
+	}
+
+	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
+	{
+		auto tri = CastToTriangulation2(ptr);
+
+		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+		Transformation_2 S(CGAL::SCALING, scale);
+
+		auto M = T * R * S;
+		for (auto& vert : tri->model.finite_vertex_handles())
+			vert->point() = M(vert->point());
 	}
 
 	static void InsertSegmentConstraint(void* ptr, Point2d a, Point2d b)

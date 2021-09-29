@@ -39,6 +39,8 @@ namespace CGALDotNet.Triangulations
 
 		internal abstract void GetIndices(IntPtr ptr, int[] indices, int start, int count);
 
+		internal abstract void Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+
 		internal abstract void InsertSegmentConstraint(IntPtr ptr, Point2d a, Point2d b);
 
 		internal abstract void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int start, int count);

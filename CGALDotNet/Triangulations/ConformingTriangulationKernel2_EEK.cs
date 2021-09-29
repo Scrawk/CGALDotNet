@@ -77,6 +77,11 @@ namespace CGALDotNet.Triangulations
 			ConformingTriangulation2_EEK_GetIndices(ptr, indices, start, count);
 		}
 
+		internal override void Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        {
+			ConformingTriangulation2_EEK_Transform(ptr, translation, rotation, scale);
+		}
+
 		internal override void InsertSegmentConstraint(IntPtr ptr, Point2d a, Point2d b)
 		{
 			ConformingTriangulation2_EEK_InsertSegmentConstraint(ptr, a, b);
@@ -152,6 +157,9 @@ namespace CGALDotNet.Triangulations
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void ConformingTriangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int start, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void ConformingTriangulation2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void ConformingTriangulation2_EEK_InsertSegmentConstraint(IntPtr ptr, Point2d a, Point2d b);

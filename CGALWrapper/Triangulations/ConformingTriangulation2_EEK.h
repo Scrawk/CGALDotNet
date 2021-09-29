@@ -30,6 +30,8 @@ extern "C"
 
 	CGALWRAPPER_API void ConformingTriangulation2_EEK_GetIndices(void* ptr, int* indices, int start, int count);
 
+	CGALWRAPPER_API void ConformingTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale);
+
 	CGALWRAPPER_API void ConformingTriangulation2_EEK_InsertSegmentConstraint(void* ptr, Point2d a, Point2d b);
 
 	CGALWRAPPER_API void ConformingTriangulation2_EEK_InsertSegmentConstraints(void* ptr, Segment2d* segments, int start, int count);
