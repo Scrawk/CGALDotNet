@@ -7,10 +7,6 @@ namespace CGALDotNet.Polygons
     internal sealed class PolygonBooleanKernel2_EEK : PolygonBooleanKernel2
     {
 
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
-
         internal static readonly PolygonBooleanKernel2 Instance = new PolygonBooleanKernel2_EEK();
 
         internal override string Name => "EEK";

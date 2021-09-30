@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Polygons
 {
     internal abstract class PolygonBooleanKernel2
     {
+        protected const string DLL_NAME = "CGALWrapper.dll";
+
+        protected const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal abstract string Name { get; }
 

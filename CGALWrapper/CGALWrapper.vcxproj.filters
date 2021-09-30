@@ -210,6 +210,12 @@
     <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polygons\PolygonMinkowski.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygons\PolygonMinkowski_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -264,6 +270,9 @@
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
     <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -170,6 +170,8 @@
     <ClInclude Include="Circlar\Circle.h" />
     <ClInclude Include="Circlar\Circle_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine.h" />
+    <ClInclude Include="Polygons\PolygonMinkowski_EEK.h" />
+    <ClInclude Include="Polygons\PolygonMinkowski.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2.h" />
     <ClInclude Include="Triangulations\MakeDelaunay2.h" />
@@ -217,6 +219,7 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Circlar\Circle_EEK.cpp" />
+    <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp" />
     <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
     <ClCompile Include="Utility\CGALGlobal_EEK.cpp" />

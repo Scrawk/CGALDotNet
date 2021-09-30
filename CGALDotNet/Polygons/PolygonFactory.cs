@@ -36,6 +36,20 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="tri">The triangle.</param>
         /// <returns>The created polygon.</returns>
+        public static Polygon2<K> FromTriangle(Point2d a, Point2d b, Point2d c)
+        {
+            var points = new Point2d[] { a, b, c };
+            var poly = new Polygon2<K>(points);
+            poly.CheckFlag = CheckFlag;
+
+            return poly;
+        }
+
+        /// <summary>
+        /// Create a polygon from a triangle.
+        /// </summary>
+        /// <param name="tri">The triangle.</param>
+        /// <returns>The created polygon.</returns>
         public static Polygon2<K> FromTriangle(Triangle2d tri)
         {
             var points = new Point2d[] { tri.A, tri.B, tri.C };

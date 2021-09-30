@@ -32,6 +32,11 @@ public:
 		return new Pwh_2();
 	}
 
+	static Pwh_2* NewPolygonWithHoles2(Pwh_2* pwh)
+	{
+		return new Pwh_2(*pwh);
+	}
+
 	/// <summary>
 	/// Delete the polygon object.
 	/// </summary>
@@ -127,6 +132,16 @@ public:
 	{
 		auto pwh = CastToPolygonWithHoles2(ptr);
 		return new Pwh_2(*pwh);
+	}
+
+	/// <summary>
+	/// Copy the polygon.
+	/// </summary>
+	/// <param name="pwh">a polygon with holes</param>
+	/// <returns>The copy</returns>
+	static Pwh_2* Copy(Pwh_2& pwh)
+	{
+		return new Pwh_2(pwh);
 	}
 
 	/// <summary>
