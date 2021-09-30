@@ -61,6 +61,46 @@ namespace CGALDotNet.Nurbs
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public static Vector4d[,] ToVector(HPoint3d[,] points)
+        {
+            var vectors = new Vector4d[points.GetLength(0), points.GetLength(1)];
+
+            for (int i = 0; i < points.GetLength(0); i++)
+            {
+                for (int j = 0; j < points.GetLength(1); j++)
+                {
+                    vectors[i, j] = points[i, j].Vector4d;
+                }
+            }
+
+            return vectors;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public static Vector4d[,] ToVector(Point3d[,] points)
+        {
+            var vectors = new Vector4d[points.GetLength(0), points.GetLength(1)];
+
+            for (int i = 0; i < points.GetLength(0); i++)
+            {
+                for (int j = 0; j < points.GetLength(1); j++)
+                {
+                    vectors[i, j] = points[i, j].Vector4d;
+                }
+            }
+
+            return vectors;
+        }
+
+        /// <summary>
         /// Compute the binomial coefficient
         /// </summary>
         internal static uint Binomial(int n, int k)

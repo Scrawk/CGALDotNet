@@ -139,6 +139,16 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Point as vector.
+        /// </summary>
+        public Vector3d Vector3d => new Vector3d(x, y, z);
+
+        /// <summary>
+        /// Point as vector.
+        /// </summary>
+        public Vector4d Vector4d => new Vector4d(x, y, z, w);
+
+        /// <summary>
         /// Add two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

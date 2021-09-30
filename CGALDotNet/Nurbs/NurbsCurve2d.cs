@@ -94,7 +94,10 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="u">The parameter.</param>
 		/// <returns>The point at u.</returns>
-		public abstract Point2d CartesianPoint(double u);
+		public Point2d CartesianPoint(double u)
+        {
+			return NurbsEval.CartesianCurvePoint(this, u);
+		}
 
 		/// <summary>
 		/// Sample a curves points in a range of equally spaced parametric intervals.
@@ -303,16 +306,6 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Get the point at parameter u.
-		/// </summary>
-		/// <param name="u">The parameter.</param>
-		/// <returns>The point at u.</returns>
-		public override Point2d CartesianPoint(double u)
-		{
-			return NurbsEval.CartesianCurvePoint(this, u);
-		}
-
-		/// <summary>
 		/// Sample a curves points in a range of equally spaced parametric intervals.
 		/// </summary>
 		/// <param name="samples">The numbers times to sample the curve.</param>
@@ -480,16 +473,6 @@ namespace CGALDotNet.Nurbs
 		public override void SetCartesianControlPoint(int i, Point2d point)
 		{
 			HomogeneousControlPoints[i] = point.Homogenous;
-		}
-
-		/// <summary>
-		/// Get the point at parameter u.
-		/// </summary>
-		/// <param name="u">The parameter.</param>
-		/// <returns>The point at u.</returns>
-		public override Point2d CartesianPoint(double u)
-		{
-			return NurbsEval.CartesianCurvePoint(this, u);
 		}
 
 		/// <summary>

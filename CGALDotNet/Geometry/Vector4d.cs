@@ -135,6 +135,16 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Vector as homogeneous point.
+        /// </summary>
+        public HPoint3d HPoint3d => new HPoint3d(x, y, z, w);
+
+        /// <summary>
+        /// Vector as point.
+        /// </summary>
+        public Point3d Point3d => new Point3d(x, y, z);
+
+        /// <summary>
         /// The length of the vector.
         /// </summary>
         public double Magnitude

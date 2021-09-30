@@ -49,21 +49,39 @@ namespace CGALDotNet.Nurbs
 		/// <returns>Whether closed</returns>
 		internal static bool CurveIsClosed(BaseNurbsCurve2d crv)
 		{
-			if(crv.IsRational)
-            {
-				var curve = crv as RationalNurbsCurve2d;
-				return IsArray1Closed(crv.Degree, curve.HomogeneousControlPoints) &&
-						IsKnotVectorClosed(crv.Degree, crv.Knots);
-			}
-			else
-            {
-				var curve = crv as NurbsCurve2d;
-				return IsArray1Closed(crv.Degree, curve.CartesianControlPoints) &&
-					IsKnotVectorClosed(crv.Degree, crv.Knots);
-			}
+			return IsArray1Closed(crv) && IsKnotVectorClosed(crv);
 
 		}
 
+		/// <summary>
+		/// Returns whether the surface is valid
+		/// </summary>
+		/// <param name="srf">Surface object</param>
+		/// <returns>Whether valid</returns>
+		internal static bool SurfaceIsValid(BaseNurbsSurface3d srf)
+		{
+			return SurfaceIsValid(srf.DegreeU, srf.DegreeV, srf.KnotsU, srf.KnotsV, srf.Width, srf.Height);
+		}
+
+		/// <summary>
+		/// Checks whether the surface is closed along u-direction
+		/// </summary>
+		/// <param name="srf">Surface object</param>
+		/// <returns>Whether closed along u-direction</returns>
+		internal static bool SurfaceIsClosedU(BaseNurbsSurface3d srf)
+		{
+			return IsArray2ClosedU(srf) && IsKnotVectorClosedU(srf);
+		}
+
+		/// <summary>
+		/// Checks whether the surface is closed along v-direction
+		/// </summary>
+		/// <param name="srf">Surface object</param>
+		/// <returns>Whether closed along v-direction</returns>
+		internal static bool SurfaceIsClosedV(BaseNurbsSurface3d srf)
+		{
+			return IsArray2ClosedV(srf) && IsKnotVectorClosedV(srf);
+		}
 
 		/// <summary>
 		/// Checks if the relation between degree, number of knots, and
@@ -117,18 +135,41 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
+		/// Returns whether the surface is valid
+		/// </summary>
+		/// <param name="degree_u">Degree of surface along u-direction</param>
+		/// <param name="degree_v">Degree of surface along v-direction</param>
+		/// <param name="knots_u">Knot vector of surface along u-direction</param>
+		/// <param name="knots_v">Knot vector of surface along v-direction</param>
+		/// <param name="controlPointsLen0">The number of control point in first dimension.</param>
+		/// <param name="controlPointsLen1">The number of control point in second dimension.</param>
+		/// <returns>Whether valid</returns>
+		private static bool SurfaceIsValid(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, int controlPointsLen0, int controlPointsLen1)
+		{
+			if (degree_u < 1 || degree_u > 9 || degree_v < 1 || degree_v > 9)
+				return false;
+
+			if (!IsValidRelation(degree_u, knots_u.Count, controlPointsLen0) ||
+				!IsValidRelation(degree_v, knots_v.Count, controlPointsLen1))
+				return false;
+
+			if (!IsKnotVectorMonotonic(knots_u) || !IsKnotVectorMonotonic(knots_v))
+				return false;
+
+			return true;
+		}
+
+		/// <summary>
 		/// Returns whether the given knot vector is closed by checking the
 		/// periodicity of knot vectors near the start and end
 		/// </summary>
-		/// <param name="degree">Degree of curve/surface</param>
-		/// <param name="knots">Knot vector of curve/surface</param>
 		/// <returns>Whether knot vector is closed</returns>
-		private static bool IsKnotVectorClosed(int degree, IList<double> knots)
+		private static bool IsKnotVectorClosed(BaseNurbsCurve2d crv)
 		{
-			for (int i = 0; i < degree - 1; ++i)
+			for (int i = 0; i < crv.Degree - 1; ++i)
 			{
-				int j = knots.Count - degree + i;
-				if (!CGALGlobal.IsZero((knots[i + 1] - knots[i]) - (knots[j + 1] - knots[j])))
+				int j = crv.Knots.Length - crv.Degree + i;
+				if (!CGALGlobal.IsZero((crv.Knots[i + 1] - crv.Knots[i]) - (crv.Knots[j + 1] - crv.Knots[j])))
 					return false;
 			}
 			return true;
@@ -138,20 +179,13 @@ namespace CGALDotNet.Nurbs
 		/// Returns whether the given knot vector is closed by checking the
 		/// periodicity of knot vectors near the start and end
 		/// </summary>
-		/// <param name="degree">Degree of curve/surface</param>
-		/// <param name="control_points">Array of any control points</param>
 		/// <returns>Whether knot vector is closed</returns>
-		private static bool IsArray1Closed(int degree, IList<Point2d> control_points)
+		private static bool IsKnotVectorClosedU(BaseNurbsSurface3d srv)
 		{
-			for (int i = 0; i < degree; ++i)
+			for (int i = 0; i < srv.DegreeU - 1; ++i)
 			{
-				int j = control_points.Count - degree + i;
-
-				var pi = control_points[i];
-				var pj = control_points[j];
-
-				//check the control points
-				if (!CGALGlobal.IsZero((pi - pj).Magnitude))
+				int j = srv.KnotsU.Length - srv.DegreeU + i;
+				if (!CGALGlobal.IsZero((srv.KnotsU[i + 1] - srv.KnotsU[i]) - (srv.KnotsU[j + 1] - srv.KnotsU[j])))
 					return false;
 			}
 			return true;
@@ -161,25 +195,94 @@ namespace CGALDotNet.Nurbs
 		/// Returns whether the given knot vector is closed by checking the
 		/// periodicity of knot vectors near the start and end
 		/// </summary>
-		/// <param name="degree">Degree of curve/surface</param>
-		/// <param name="control_points">Array of any control points</param>
 		/// <returns>Whether knot vector is closed</returns>
-		private static bool IsArray1Closed(int degree, IList<HPoint2d> control_points)
+		private static bool IsKnotVectorClosedV(BaseNurbsSurface3d srv)
 		{
-			for (int i = 0; i < degree; ++i)
+			for (int i = 0; i < srv.DegreeV - 1; ++i)
 			{
-				int j = control_points.Count - degree + i;
+				int j = srv.KnotsV.Length - srv.DegreeV + i;
+				if (!CGALGlobal.IsZero((srv.KnotsV[i + 1] - srv.KnotsV[i]) - (srv.KnotsV[j + 1] - srv.KnotsV[j])))
+					return false;
+			}
+			return true;
+		}
 
-				var pi = control_points[i].Cartesian;
-				var pj = control_points[j].Cartesian;
+		/// <summary>
+		/// Returns whether the given knot vector is closed by checking the
+		/// periodicity of knot vectors near the start and end
+		/// </summary>
+		/// <returns>Whether knot vector is closed</returns>
+		private static bool IsArray1Closed(BaseNurbsCurve2d crv)
+		{
+			for (int i = 0; i < crv.Degree; ++i)
+			{
+				int j = crv.Count - crv.Degree + i;
+
+				var pi = crv.GetCartesianControlPoint(i);
+				var pj = crv.GetCartesianControlPoint(j);
 
 				//check the weights
-				if (!CGALGlobal.IsZero(control_points[i].w - control_points[j].w))
+				if (!CGALGlobal.IsZero(crv.GetHomogeneousControlPoint(i).w - crv.GetHomogeneousControlPoint(j).w))
 					return false;
 
 				//check the control points
 				if (!CGALGlobal.IsZero((pi - pj).Magnitude))
 					return false;
+			}
+			return true;
+		}
+
+		/// <summary>
+		/// Returns whether the 2D array is closed along the u-direction
+		/// i.e., along rows.
+		/// </summary>
+		/// <returns>Whether closed along u-direction</returns>
+		private static bool IsArray2ClosedU(BaseNurbsSurface3d srv)
+		{
+			for (int i = 0; i < srv.DegreeU; ++i)
+			{
+				for (int j = 0; j < srv.Height; ++j)
+				{
+					int k = srv.Height - srv.DegreeU + i;
+
+					var pij = srv.GetCartesianControlPoint(i, j);
+					var pkj = srv.GetCartesianControlPoint(k, j);
+
+					//Check the weights
+					if (!CGALGlobal.IsZero(srv.GetHomogeneousControlPoint(i, j).w - srv.GetHomogeneousControlPoint(k, j).w))
+						return false;
+
+					//Check the control points
+					if (!CGALGlobal.IsZero((pij - pkj).Magnitude))
+						return false;
+				}
+			}
+			return true;
+		}
+
+		/// <summary>
+		/// Returns whether the 2D array is closed along the v-direction
+		/// i.e., along columns.
+		/// </summary>
+		/// <returns>Whether closed along v-direction</returns>
+		private static bool IsArray2ClosedV(BaseNurbsSurface3d srv)
+		{
+			for (int i = 0; i < srv.Width; ++i)
+			{
+				for (int j = 0; j < srv.DegreeV; j++)
+				{
+					int k = srv.Width - srv.DegreeV + i;
+
+					var pij = srv.GetCartesianControlPoint(i, j);
+					var pik = srv.GetCartesianControlPoint(k, j);
+
+					//Check the weights
+					if (!CGALGlobal.IsZero(srv.GetHomogeneousControlPoint(i, j).w - srv.GetHomogeneousControlPoint(i, k).w))
+						return false;
+
+					if (!CGALGlobal.IsZero((pij - pik).Magnitude))
+						return false;
+				}
 			}
 			return true;
 		}

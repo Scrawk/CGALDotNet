@@ -148,15 +148,14 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Point as a vector.
+        /// Point as vector.
         /// </summary>
-        public Vector3d Vector3d
-        {
-            get
-            {
-                return new Vector3d(x, y, z);
-            }
-        }
+        public Vector3d Vector3d => new Vector3d(x, y, z);
+
+        /// <summary>
+        /// Point as vector.
+        /// </summary>
+        public Vector4d Vector4d => new Vector4d(x, y, z, 1);
 
         /// <summary>
         /// The length of the point from the origin.

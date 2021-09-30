@@ -107,6 +107,78 @@ namespace CGALDotNet.Nurbs
             return len;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="srf"></param>
+        /// <param name="points"></param>
+        /// <param name="startU"></param>
+        /// <param name="endU"></param>
+        /// <param name="numSamplesU"></param>
+        /// <param name="startV"></param>
+        /// <param name="endV"></param>
+        /// <param name="numSamplesV"></param>
+        internal static void GetCartesianPoints(BaseNurbsSurface3d srf, Point3d[,] points, 
+            double startU, double endU, int numSamplesU, 
+            double startV, double endV, int numSamplesV)
+        {
+            if (numSamplesU < 2)
+                numSamplesU = 2;
+
+            if (numSamplesV < 2)
+                numSamplesV = 2;
+
+            double spanU = (endU - startU) / (numSamplesU - 1);
+            double spanV = (endV - startV) / (numSamplesV - 1);
+
+            for (int j = 0; j < numSamplesV; j++)
+            {
+                for (int i = 0; i < numSamplesU; i++)
+                {
+                    double u = startU + spanU * i;
+                    double v = startV + spanV * j;
+                    points[i, j] = srf.CartesianPoint(u, v);
+                }
+        
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="srf"></param>
+        /// <param name="normals"></param>
+        /// <param name="startU"></param>
+        /// <param name="endU"></param>
+        /// <param name="numSamplesU"></param>
+        /// <param name="startV"></param>
+        /// <param name="endV"></param>
+        /// <param name="numSamplesV"></param>
+        internal static void GetNormals(BaseNurbsSurface3d srf, Vector3d[,] normals,
+             double startU, double endU, int numSamplesU,
+            double startV, double endV, int numSamplesV)
+        {
+            if (numSamplesU < 2)
+                numSamplesU = 2;
+
+            if (numSamplesV < 2)
+                numSamplesV = 2;
+
+            double spanU = (endU - startU) / (numSamplesU - 1);
+            double spanV = (endV - startV) / (numSamplesV - 1);
+
+            for (int j = 0; j < numSamplesV; j++)
+            {
+                for (int i = 0; i < numSamplesU; i++)
+                {
+                    double u = startU + spanU * i;
+                    double v = startV + spanV * j;
+                    normals[i, j] = srf.Normal(u, v);
+                }
+
+            }
+        }
+
     }
 
 }
