@@ -17,7 +17,7 @@ namespace CGALDotNet.PolyHedra
     }
 
     /// <summary>
-    /// Generic polygon definition.
+    /// Generic polhedron definition.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class Polyhedra3<K> : Polyhedra3 where K : CGALKernel, new()
@@ -31,9 +31,21 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
+        /// Create with a set size for each element.
+        /// </summary>
+        /// <param name="vertices">The number of vertices</param>
+        /// <param name="halfEdges">The number of halfedges</param>
+        /// <param name="faces">The number of faces</param>
+        public Polyhedra3(int vertices, int halfEdges, int faces) :
+            base(vertices, halfEdges, faces, new K())
+        {
+
+        }
+
+        /// <summary>
         /// Create from a set of points.
         /// </summary>
-        /// <param name="points">The polygons points.</param>
+        /// <param name="points">The polhedrons points.</param>
         public Polyhedra3(Point3d[] points) : base(new K(), points)
         {
 
@@ -42,20 +54,20 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Create from a pointer.
         /// </summary>
-        /// <param name="ptr">The polygons pointer.</param>
+        /// <param name="ptr">The polhedrons pointer.</param>
         internal Polyhedra3(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
 
         /// <summary>
-        /// The polygon as a string.
+        /// The polyhdron as a string.
         /// </summary>
-        /// <returns>The polygon as a string.</returns>
+        /// <returns>The polhedron as a string.</returns>
         public override string ToString()
         {
-            return string.Format("[Polyhedra3<{0}>:]",
-                Kernel.Name);
+            return string.Format("[Polyhedra3<{0}>: VertexCount={1}, FaceCount={2}]",
+                Kernel.Name, VertexCount, FaceCount);
         }
 
     }
@@ -77,7 +89,7 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polygon kernel.</param>
+        /// <param name="kernel">The polhedron kernel.</param>
         internal Polyhedra3(CGALKernel kernel)
         {
             Kernel = kernel.PolyhedronKernel3;
@@ -85,9 +97,22 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
+        /// Create with a set size for each element.
+        /// </summary>
+        /// <param name="vertices">The number of vertices.</param>
+        /// <param name="halfEdges">The number of halfedges.</param>
+        /// <param name="faces">The number of faces.</param>
+        /// <param name="kernel">The polyhedra kernel.</param>
+        internal Polyhedra3(int vertices, int halfEdges, int faces, CGALKernel kernel)
+        {
+            Kernel = kernel.PolyhedronKernel3;
+            Ptr = Kernel.CreateFromSize(vertices, halfEdges, faces);
+        }
+
+        /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polygon kernel.</param>
+        /// <param name="kernel">The polhedron kernel.</param>
         /// <param name="points">The points to construct from.</param>
         internal Polyhedra3(CGALKernel kernel, Point3d[] points)
         {
@@ -99,8 +124,8 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polygon kernel.</param>
-        /// <param name="ptr">The polygons pointer.</param>
+        /// <param name="kernel">The polhedron kernel.</param>
+        /// <param name="ptr">The polhedrons pointer.</param>
         internal Polyhedra3(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.PolyhedronKernel3;
@@ -108,17 +133,42 @@ namespace CGALDotNet.PolyHedra
 
         /// <summary>
         /// The polyhedron kernel.
-        /// Contains the functions to the unmanaged CGAL polygon.
+        /// Contains the functions to the unmanaged CGAL polhedron.
         /// </summary>
         protected private PolyhedronKernel3 Kernel { get; private set; }
 
         /// <summary>
-        /// What checks should the polygon do.
+        /// What checks should the polhedron do.
         /// </summary>
         public POLYHEDRON_CHECK CheckFlag = POLYHEDRON_CHECK.ALL;
 
+        public int VertexCount => Kernel.VertexCount(Ptr);
+
+        public int FaceCount => Kernel.FaceCount(Ptr);
+
+        public int HalfEdgeCount => Kernel.HalfEdgeCount(Ptr);
+
+        public int BorderEdgeCount => Kernel.BorderEdgeCount(Ptr);
+
+        public int BorderHalfEdgeCount => Kernel.BorderHalfEdgeCount(Ptr);
+
+        public bool IsClosed => Kernel.IsClosed(Ptr);
+
+        public bool IsPureBivalent => Kernel.IsPureBivalent(Ptr);
+
+        public bool IsPureTrivalent => Kernel.IsPureTrivalent(Ptr);
+
+        public bool IsPureTriangle => Kernel.IsPureTriangle(Ptr);
+
+        public bool IsPureQuad => Kernel.IsPureQuad(Ptr);
+
+        public bool IsValid(int level = 0)
+        {
+            return Kernel.IsValid(Ptr, level);
+        }
+
         /// <summary>
-        /// Clear the polygon of all points.
+        /// Clear the polhedron of all points.
         /// </summary>
         public void Clear()
         {
@@ -128,7 +178,7 @@ namespace CGALDotNet.PolyHedra
         /*
 
         /// <summary>
-        /// Translate the polygon.
+        /// Translate the polhedron.
         /// </summary>
         /// <param name="translation">The amount to translate.</param>
         public void Translate(Point2d translation)
@@ -137,7 +187,7 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Rotate the polygon.
+        /// Rotate the polhedron.
         /// </summary>
         /// <param name="rotation">The amount to rotate in radians.</param>
         public void Rotate(Radian rotation)
@@ -146,7 +196,7 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Scale the polygon.
+        /// Scale the polhedron.
         /// </summary>
         /// <param name="scale">The amount to scale.</param>
         public void Scale(double scale)
@@ -156,7 +206,7 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Transform the polygon with a TRS matrix.
+        /// Transform the polhedron with a TRS matrix.
         /// </summary>
         /// <param name="translation">The amount to translate.</param>
         /// <param name="rotation">The amount to rotate.</param>
@@ -168,9 +218,9 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Enumerate all points in the polygon.
+        /// Enumerate all points in the polhedron.
         /// </summary>
-        /// <returns>Each point in polygon.</returns>
+        /// <returns>Each point in polhedron.</returns>
         public IEnumerator<Point2d> GetEnumerator()
         {
             for (int i = 0; i < Count; i++)
@@ -178,16 +228,16 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Enumerate all points in the polygon.
+        /// Enumerate all points in the polhedron.
         /// </summary>
-        /// <returns>Each point in polygon.</returns>
+        /// <returns>Each point in polhedron.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
         /// <summary>
-        /// Return all the points in the polygon in a array.
+        /// Return all the points in the polhedron in a array.
         /// </summary>
         /// <returns>The array.</returns>
         public Point2d[] ToArray()
@@ -198,7 +248,7 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Return all the points in the polygon in a list.
+        /// Return all the points in the polhedron in a list.
         /// </summary>
         /// <returns>The list.</returns>
         public List<Point2d> ToList()
@@ -212,13 +262,31 @@ namespace CGALDotNet.PolyHedra
         */
 
         /// <summary>
-        /// Print the polygon.
+        /// Print the polyhedron.
         /// </summary>
         public void Print()
         {
             var builder = new StringBuilder();
-            //Print(builder);
+            Print(builder);
             Console.WriteLine(builder.ToString());
+        }
+
+        /// <summary>
+        /// Print the polyhedron into a styring builder.
+        /// </summary>
+        /// <param name="builder"></param>
+        public void Print(StringBuilder builder)
+        {
+            builder.AppendLine(ToString());
+            builder.AppendLine("HalfEdgeCount = " + HalfEdgeCount);
+            builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
+            builder.AppendLine("BorderHalfEdgeCount = " + BorderHalfEdgeCount);
+            builder.AppendLine("IsValid = " + IsValid());
+            builder.AppendLine("IsClosed = " + IsClosed);
+            builder.AppendLine("IsPureBivalent = " + IsPureBivalent);
+            builder.AppendLine("IsPureTrivalent= " + IsPureTrivalent);
+            builder.AppendLine("IsPureTriangle = " + IsPureTriangle);
+            builder.AppendLine("IsPureQuad = " + IsPureQuad);
         }
 
         /// <summary>

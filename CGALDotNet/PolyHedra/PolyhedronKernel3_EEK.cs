@@ -17,6 +17,11 @@ namespace CGALDotNet.PolyHedra
 			return Polyhedron3_EEK_Create();
 		}
 
+		internal override IntPtr CreateFromSize(int vertices, int halfedges, int faces)
+        {
+			return Polyhedron3_EEK_CreateFromSize(vertices, halfedges, faces);
+		}
+
 		internal override void Release(IntPtr ptr)
         {
 			Polyhedron3_EEK_Release(ptr);
@@ -52,6 +57,11 @@ namespace CGALDotNet.PolyHedra
 			return Polyhedron3_EEK_BorderHalfEdgeCount(ptr);
 		}
 
+		internal override bool IsValid(IntPtr ptr, int level)
+        {
+			return Polyhedron3_EEK_IsValid(ptr, level);
+		}
+
 		internal override bool IsClosed(IntPtr ptr)
 		{
 			return Polyhedron3_EEK_IsClosed(ptr);
@@ -78,7 +88,10 @@ namespace CGALDotNet.PolyHedra
 		}
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern  IntPtr Polyhedron3_EEK_Create();
+		private static extern IntPtr Polyhedron3_EEK_Create();
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr Polyhedron3_EEK_CreateFromSize(int vertices, int halfedges, int faces);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern  void Polyhedron3_EEK_Release(IntPtr ptr);
@@ -100,6 +113,9 @@ namespace CGALDotNet.PolyHedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern int Polyhedron3_EEK_BorderHalfEdgeCount(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_IsValid(IntPtr ptr, int level);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EEK_IsClosed(IntPtr ptr);

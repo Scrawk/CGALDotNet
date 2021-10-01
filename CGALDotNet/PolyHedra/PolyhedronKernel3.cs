@@ -15,7 +15,9 @@ namespace CGALDotNet.PolyHedra
 
         internal abstract IntPtr Create();
 
-        internal abstract void Release(IntPtr ptr);
+		internal abstract IntPtr CreateFromSize(int vertices, int halfedges, int faces);
+
+		internal abstract void Release(IntPtr ptr);
 
 		internal abstract void Clear(IntPtr ptr);
 
@@ -28,6 +30,8 @@ namespace CGALDotNet.PolyHedra
 		internal abstract int BorderEdgeCount(IntPtr ptr);
 
 		internal abstract int BorderHalfEdgeCount(IntPtr ptr);
+
+		internal abstract bool IsValid(IntPtr ptr, int level);
 
 		internal abstract bool IsClosed(IntPtr ptr);
 

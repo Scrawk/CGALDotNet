@@ -23,6 +23,11 @@ public:
 		return new Polyhedron();
 	}
 
+	inline static Polyhedron* NewPolyhedron(int vertices, int halfedges, int faces)
+	{
+		return new Polyhedron((size_t)vertices, (size_t)halfedges, (size_t)faces);
+	}
+
 	inline static void DeletePolyhedron(void* ptr)
 	{
 		auto obj = static_cast<Polyhedron*>(ptr);
@@ -75,6 +80,12 @@ public:
 		return (int)poly->size_of_border_halfedges();
 	}
 
+	static BOOL IsValid(void* ptr, int level)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return (int)poly->is_valid(level);
+	}
+
 	static BOOL IsClosed(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -104,5 +115,6 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		return (int)poly->is_pure_quad();
 	}
+
 
 };

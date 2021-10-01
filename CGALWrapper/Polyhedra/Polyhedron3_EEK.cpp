@@ -7,6 +7,11 @@ void* Polyhedron3_EEK_Create()
 	return Polyhedron3<EEK>::NewPolyhedron();
 }
 
+void* Polyhedron3_EEK_CreateFromSize(int vertices, int halfedges, int faces)
+{
+	return Polyhedron3<EEK>::NewPolyhedron(vertices, halfedges, faces);
+}
+
 void Polyhedron3_EEK_Release(void* ptr)
 {
 	Polyhedron3<EEK>::DeletePolyhedron(ptr);
@@ -40,6 +45,11 @@ int Polyhedron3_EEK_BorderEdgeCount(void* ptr)
 int Polyhedron3_EEK_BorderHalfEdgeCount(void* ptr)
 {
 	return Polyhedron3<EEK>::BorderHalfEdgeCount(ptr);
+}
+
+BOOL Polyhedron3_EEK_IsValid(void* ptr, int level)
+{
+	return Polyhedron3<EEK>::IsValid(ptr, level);
 }
 
 BOOL Polyhedron3_EEK_IsClosed(void* ptr)

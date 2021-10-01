@@ -4,6 +4,22 @@
 #include "CGAL/Point_3.h"
 #include "CGAL/Vector_3.h"
 
+/*
+* Structs to pass data from C# and c++.
+* Must be c style layout.
+*
+* A standard-layout class is a class that:
+*
+* Has no non-static data members of type non-standard-layout class (or array of such types) or reference,
+* Has no virtual functions and no virtual base classes,
+* Has the same access control for all non-static data members,
+* Has no non-standard-layout base classes,
+* Either has no non-static data members in the most derived class and at most one base class with non-static data members,
+* or has no base classes with non-static data members, and
+* Has no base classes of the same type as the first non-static data member.
+*
+*/
+
 struct Point3d
 {
     double x;

@@ -9,6 +9,7 @@ using CGALDotNet.Polygons;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Arrangements;
 using CGALDotNet.DCEL;
+using CGALDotNet.PolyHedra;
 
 namespace CGALDotNetConsole
 {
@@ -17,6 +18,16 @@ namespace CGALDotNetConsole
 
 
         public static void Main(string[] args)
+        {
+
+            var polyhedra = new Polyhedra3<EEK>();
+
+            polyhedra.Print();
+
+
+        }
+
+        private static void KernelSpeedTest()
         {
             var offsetEEK = PolygonOffset2<EEK>.Instance;
             var polyEEK = PolygonFactory<EEK>.KochStar(10, 3);
@@ -38,7 +49,6 @@ namespace CGALDotNetConsole
             timer.Start();
             offsetEIK.CreateInteriorOffset(polyEIK, 1, resultsEIK);
             timer.StopAndPrintInMilliSeconds();
-
         }
 
         public class BenckMark
