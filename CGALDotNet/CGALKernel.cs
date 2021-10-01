@@ -12,6 +12,7 @@ namespace CGALDotNet
 {
     public abstract class CGALKernel
     {
+
         internal abstract GeometryKernel2 GeometryKernel2 { get; }
 
         internal abstract PolygonKernel2 PolygonKernel2 { get; }
@@ -41,6 +42,41 @@ namespace CGALDotNet
         internal abstract ConformingTriangulationKernel2 ConformingTriangulationKernel2 { get; }
 
         internal abstract ConvexHullKernel2 ConvexHullKernel2 { get; }
+    }
+
+    public class EIK : CGALKernel
+    {
+        public static readonly EIK Instance = new EIK();
+
+        internal override GeometryKernel2 GeometryKernel2 => throw new NotImplementedException();
+
+        internal override PolygonKernel2 PolygonKernel2 => PolygonKernel2_EIK.Instance;
+
+        internal override PolygonWithHolesKernel2 PolygonWithHolesKernel2 => throw new NotImplementedException();
+
+        internal override PolygonBooleanKernel2 PolygonBooleanKernel2 => throw new NotImplementedException();
+
+        internal override PolygonPartitionKernel2 PolygonPartitionKernel2 => throw new NotImplementedException();
+
+        internal override PolygonSimplificationKernel2 PolygonSimplificationKernel2 => throw new NotImplementedException();
+
+        internal override PolygonOffsetKernel2 PolygonOffsetKernel2 => PolygonOffsetKernel2_EIK.Instance;
+
+        internal override PolygonMinkowskiKernel PolygonMinkowskiKernel => throw new NotImplementedException();
+
+        internal override ArrangementKernel2 ArrangementKernel2 => throw new NotImplementedException();
+
+        internal override SweepLineKernel SweepLineKernel => throw new NotImplementedException();
+
+        internal override TriangulationKernel2 TriangulationKernel2 => throw new NotImplementedException();
+
+        internal override DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 => throw new NotImplementedException();
+
+        internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => throw new NotImplementedException();
+
+        internal override ConformingTriangulationKernel2 ConformingTriangulationKernel2 => throw new NotImplementedException();
+
+        internal override ConvexHullKernel2 ConvexHullKernel2 => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -77,4 +113,5 @@ namespace CGALDotNet
 
         internal override ConvexHullKernel2 ConvexHullKernel2 => ConvexHullKernel2_EEK.Instance;
     }
+
 }

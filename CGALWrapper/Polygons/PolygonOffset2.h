@@ -5,6 +5,10 @@
 #include "Polygon2.h"
 #include "PolygonWithHoles2.h"
 
+#include "../DCEL/DCELVertex.h"
+#include "../DCEL/DCELHalfEdge.h"
+#include "../DCEL/DCELFace.h"
+
 #include <vector>
 #include <CGAL/Polygon_2.h>
 #include <CGAL/Polygon_with_holes_2.h>
@@ -25,6 +29,13 @@ private:
 	typedef boost::shared_ptr<Ss>			      SsPtr;
 	typedef boost::shared_ptr<Polygon_2>          PolygonPtr;
 	typedef std::vector<PolygonPtr>               PolygonPtrVector;
+
+	typedef CGAL::Straight_skeleton_2<K> Ss;
+	typedef typename Ss::Vertex_handle Vertex;
+	typedef typename Ss::Halfedge_handle HalfEdge;
+
+	std::vector<DCELVertex> vertices;
+	std::vector<DCELHalfEdge> edges;
 
 	std::vector<Polygon_2*>  buffer;
 
@@ -69,6 +80,43 @@ public:
 		return offset->buffer[index];
 	}
 
+	inline static int VertexBufferSize(void* ptr)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		return (int)offset->vertices.size();
+	}
+
+	inline static int EdgeBufferSize(void* ptr)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		return (int)offset->edges.size();
+	}
+
+	inline static void ClearEdgeAndVertexBuffers(void* ptr)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		offset->vertices.clear();
+		offset->edges.clear();
+	}
+
+	inline static void GetVertices(void* ptr, DCELVertex* _vertices, int start, int count)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		
+		int index = start;
+		for (int i = 0; i < count; i++)
+			_vertices[index++] = offset->vertices[i];
+	}
+
+	inline static void GetEdges(void* ptr, DCELHalfEdge* _edges, int start, int count)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+
+		int index = start;
+		for (int i = 0; i < count; i++)
+			_edges[index++] = offset->edges[i];
+	}
+
 	static void CreateInteriorOffset(void* ptr, void* polyPtr, double amount)
 	{
 		auto offset = CastToPolygonOffset2(ptr);
@@ -90,12 +138,12 @@ public:
 		}
 	}
 
-	static void CreateExteriorOffset(void* ptr, void* polyPtr, double amount)
+	static void CreateExteriorOffset(void* ptr, void* polyPtr, double maxOffset)
 	{
 		auto offset = CastToPolygonOffset2(ptr);
-
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
-		auto polygons = CGAL::create_exterior_skeleton_and_offset_polygons_2(amount, *poly);
+
+		auto polygons = CGAL::create_exterior_skeleton_and_offset_polygons_2(maxOffset, *poly);
 
 		for (auto iter = polygons.begin(); iter != polygons.end(); ++iter)
 		{
@@ -111,57 +159,73 @@ public:
 		}
 	}
 
-};
-
-/*
-namespace PolygonOffset
-{
-
-	#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-	#include <CGAL/Exact_predicates_exact_constructions_kernel.h>
-	#include <CGAL/Polygon_2.h>
-	#include <CGAL/create_offset_polygons_2.h>
-	#include <boost/shared_ptr.hpp>
-	#include <vector>
-
-	typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-	typedef K::Point_2                   Point;
-	typedef CGAL::Polygon_2<K>           Polygon_2;
-	typedef CGAL::Straight_skeleton_2<K> Ss;
-	typedef boost::shared_ptr<Polygon_2> PolygonPtr;
-	typedef boost::shared_ptr<Ss> SsPtr;
-	typedef std::vector<PolygonPtr> PolygonPtrVector;
-
-	std::vector<Point> points;
-	std::vector<PolygonPtr> polygons;
-
-	void CreateOffsetPolygons(std::vector<Point2d> points)
+	void ConvertFromHalfEdge(SsPtr iss, BOOL includeBorder)
 	{
-		std::vector<Point> points_IEK;
-		for (int i = 0; i < points.size(); i++)
+		/*
+		vertices.clear();
+		edges.clear();
+
+		int index = 0;
+		for (Vertex vert = iss->vertices_begin(); vert != iss->vertices_end(); ++vert)
 		{
-			auto p = points[i].ToCGAL<K>();
-			points_IEK.push_back(p);
+			vert->id() = index;
+		
+			auto v = DCELVertex::NullVertex();
+			v.Point = Point2d::FromCGAL<K>(vert->point());
+			vertices.push_back(v);
 		}
 
-		SsPtr ss = CGAL::create_interior_straight_skeleton_2(points_IEK.begin(), points_IEK.end());
+		index = 0;
+		for (HalfEdge edge = iss->halfedges_begin(); edge != iss->halfedges_end(); ++edge)
+		{
+			if ((includeBorder && edge->is_border()) || !edge->is_border())
+			{
+				edge.id() = index++;
 
-		double lOffset = 1;
-		PolygonPtrVector offset_polygons = CGAL::create_offset_polygons_2<Polygon_2>(lOffset, *ss);
+				auto e = DCELHalfEdge::NullEdge();
+				edges.push_back(e);
+			}
+			else
+				edge.id() = NULL_INDEX;
+			
+		}
+
+		for (HalfEdge edge = iss->halfedges_begin(); edge != iss->halfedges_end(); ++edge)
+		{
+			if (edge->info() == NULL_INDEX) continue;
+		
+			HalfEdge opp = edge->opposite();
+			Vertex v0 = edge->vertex();
+			Vertex v1 = opp->vertex();
+
+			auto e = edges[edge.info()];
+			e.TwinIndex = opp->info();
+			e.SourceIndex = v0.info();
+			e.TargetIndex = v1.info();
+			e.FaceIndex = edge->face()->id();
+			e.NextIndex = edge->next()->id();
+			e.PreviousIndex = edge->previous()->id();
+		}
+		*/
 	}
 
-	void CreateStraightSkeleton()
+	static void CreateInteriorSkeleton(void* ptr, void* polyPtr, BOOL includeBorder)
 	{
-		Polygon_2 poly;
+		auto offset = CastToPolygonOffset2(ptr);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
 
-		// You can pass the polygon via an iterator pair
-		SsPtr iss = CGAL::create_interior_straight_skeleton_2(poly.vertices_begin(), poly.vertices_end());
-
-		// Or you can pass the polygon directly, as below.
-		// To create an exterior straight skeleton you need to specify a maximum offset.
-		double lMaxOffset = 5;
-		SsPtr oss = CGAL::create_exterior_straight_skeleton_2(lMaxOffset, poly);
+		//SsPtr iss = CGAL::create_interior_straight_skeleton_2(*poly);
+		//offset->ConvertFromHalfEdge(iss, includeBorder);
 	}
 
-}
-*/
+	static void CreateExteriorSkeleton(void* ptr, void* polyPtr, double maxOffset, BOOL includeBorder)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+		
+		//SsPtr iss = CGAL::create_exterior_straight_skeleton_2(maxOffset, *poly);
+		//offset->ConvertFromHalfEdge(iss, includeBorder);
+	}
+
+};
+

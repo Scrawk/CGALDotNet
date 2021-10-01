@@ -18,34 +18,26 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var tri = new ConformingTriangulation2<EEK>();
+            var offsetEEK = PolygonOffset2<EEK>.Instance;
+            var polyEEK = PolygonFactory<EEK>.KochStar(10, 3);
+            var resultsEEK = new List<Polygon2<EEK>>();
 
-            var va = new Point2d(-2, 0);
-            var vb = new Point2d(0, -2);
-            var vc = new Point2d(2, 0);
-            var vd = new Point2d(0, 1);
-            var ve = new Point2d(2, 0.6);
+            var offsetEIK = PolygonOffset2<EIK>.Instance;
+            var polyEIK = PolygonFactory<EIK>.KochStar(10, 3);
+            var resultsEIK = new List<Polygon2<EIK>>();
 
-            tri.Insert(ve);
-            tri.InsertConstraint(va, vb);
-            tri.InsertConstraint(vb, vc);
-            tri.InsertConstraint(vc, vd);
-            tri.InsertConstraint(vd, va);
+            var boxEEK = PolygonFactory<EEK>.FromBox(0, 10);
+            var boxEIK = PolygonFactory<EIK>.FromBox(0, 10);
 
-            Console.WriteLine("Before");
-            tri.Print();
+            var timer = new Timer();
+            timer.Start();
+            offsetEEK.CreateInteriorOffset(polyEEK, 1, resultsEEK);
+            timer.StopAndPrintInMilliSeconds();
 
-            Console.WriteLine("Make Delaunay");
-            tri.MakeDelaunay();
-            tri.Print();
-
-            Console.WriteLine("Make Gabriel");
-            tri.MakeGabriel();
-            tri.Print();
-
-            tri.Refine(0.125, 0.5);
-
-            tri.Print();
+            timer = new Timer();
+            timer.Start();
+            offsetEIK.CreateInteriorOffset(polyEIK, 1, resultsEIK);
+            timer.StopAndPrintInMilliSeconds();
 
         }
 
