@@ -60,6 +60,10 @@ namespace CGALDotNet.Polygons
             int count = BufferSize();
             for (int i = 0; i < count; i++)
             {
+                //First polygon seems to be the bounding box
+                //for some reason. Dont want this so remove.
+                if (i == 0) continue;
+
                 var ptr = GetBufferedPolygon(i);
                 results.Add(new Polygon2<K>(ptr));
             }
