@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using CGALDotNet.Geometry;
@@ -8,6 +9,10 @@ namespace CGALDotNet.Polygons
 {
     internal abstract class PolygonKernel2
     {
+
+        protected const string DLL_NAME = "CGALWrapper.dll";
+
+        protected const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal abstract string Name { get; }
 

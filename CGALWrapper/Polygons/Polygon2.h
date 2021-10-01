@@ -13,11 +13,9 @@ template<class K>
 class Polygon2
 {
 
-private:
+public:
 
 	Polygon2() {}
-
-public:
 
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Aff_transformation_2<K> Transformation_2;

@@ -177,6 +177,8 @@
     <ClInclude Include="Polygons\Polygon2_EIK.h" />
     <ClInclude Include="Polygons\PolygonMinkowski_EEK.h" />
     <ClInclude Include="Polygons\PolygonMinkowski.h" />
+    <ClInclude Include="Polyhedra\Polyhedron3.h" />
+    <ClInclude Include="Polyhedra\Polyhedron3_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2.h" />
     <ClInclude Include="Triangulations\MakeDelaunay2.h" />
@@ -227,6 +229,7 @@
     <ClCompile Include="Polygons\PolygonOffset2_EIK.cpp" />
     <ClCompile Include="Polygons\Polygon2_EIK.cpp" />
     <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp" />
+    <ClCompile Include="Polyhedra\Polyhedron3_EEK.cpp" />
     <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
     <ClCompile Include="Utility\CGALGlobal_EEK.cpp" />

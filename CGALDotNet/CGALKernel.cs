@@ -7,6 +7,7 @@ using CGALDotNet.Polygons;
 using CGALDotNet.Arrangements;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Hulls;
+using CGALDotNet.PolyHedra;
 
 namespace CGALDotNet
 {
@@ -42,6 +43,8 @@ namespace CGALDotNet
         internal abstract ConformingTriangulationKernel2 ConformingTriangulationKernel2 { get; }
 
         internal abstract ConvexHullKernel2 ConvexHullKernel2 { get; }
+
+        internal abstract PolyhedronKernel3 PolyhedronKernel3 { get; }
     }
 
     public class EIK : CGALKernel
@@ -77,6 +80,8 @@ namespace CGALDotNet
         internal override ConformingTriangulationKernel2 ConformingTriangulationKernel2 => throw new NotImplementedException();
 
         internal override ConvexHullKernel2 ConvexHullKernel2 => throw new NotImplementedException();
+
+        internal override PolyhedronKernel3 PolyhedronKernel3 => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -112,6 +117,8 @@ namespace CGALDotNet
         internal override ConformingTriangulationKernel2 ConformingTriangulationKernel2 => ConformingTriangulationKernel2_EEK.Instance;
 
         internal override ConvexHullKernel2 ConvexHullKernel2 => ConvexHullKernel2_EEK.Instance;
+
+        internal override PolyhedronKernel3 PolyhedronKernel3 => PolyhedronKernel3_EEK.Instance;
     }
 
 }
