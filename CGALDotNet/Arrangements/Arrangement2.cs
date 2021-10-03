@@ -225,7 +225,6 @@ namespace CGALDotNet.Arrangements
         /// the arrangement. Namely, it checks that all arrangement vertices are associated 
         /// with distinct points, and that the halfedges around every vertex are ordered clockwise.
         /// </summary>
-        /// 
         /// <returns></returns>
         public bool IsValid()
         {
@@ -281,21 +280,13 @@ namespace CGALDotNet.Arrangements
         /// Get the DCEL vertices that can be use to reconstruct 
         /// the model as a DCEL data sturcture.
         /// </summary>
-        /// <param name="vertices">The array vertices</param>
-        public void GetDCELVertices(DCELVertex[] vertices)
+        public void GetDCELVertices(DCELMesh mesh)
         {
-            if (vertices == null || vertices.Length == 0)
-                return;
-
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(vertices, 0, VertexCount);
-
-            var arrVerts = new ArrVertex2[vertices.Length];
+            var arrVerts = new ArrVertex2[VertexCount];
             Kernel.GetVertices(Ptr, arrVerts, 0, arrVerts.Length);
 
             for (int i = 0; i < arrVerts.Length; i++)
-                vertices[i] = new DCELVertex(null, arrVerts[i]);
-                
+                mesh.AddVertex( new DCELVertex(mesh, arrVerts[i]));
         }
 
         /// <summary>
@@ -328,20 +319,13 @@ namespace CGALDotNet.Arrangements
         /// Get the DCEL edhe that can be use to reconstruct 
         /// the model as a DCEL data sturcture.
         /// </summary>
-        /// <param name="halfEdges">The array edges</param>
-        public void GetDCELHalfEdges(DCELHalfEdge[] edges)
+        public void GetDCELHalfEdges(DCELMesh mesh)
         {
-            if (edges == null || edges.Length == 0)
-                return;
-
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(edges, 0, HalfEdgeCount);
-
-            var arrEdges = new ArrHalfEdge2[edges.Length];
+            var arrEdges = new ArrHalfEdge2[HalfEdgeCount];
             Kernel.GetHalfEdges(Ptr, arrEdges, 0, arrEdges.Length);
 
             for (int i = 0; i < arrEdges.Length; i++)
-                edges[i] = new DCELHalfEdge(null, arrEdges[i]);
+                mesh.AddHalfEdge(new DCELHalfEdge(mesh, arrEdges[i]));
         }
 
         /// <summary>
@@ -374,20 +358,13 @@ namespace CGALDotNet.Arrangements
         /// Get the DCEL faces that can be use to reconstruct 
         /// the model as a DCEL data sturcture.
         /// </summary>
-        /// <param name="faces">The array faces</param>
-        public void GetDCELFaces(DCELFace[] faces)
+        public void GetDCELFaces(DCELMesh mesh)
         {
-            if (faces == null || faces.Length == 0)
-                return;
-
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(faces, 0, FaceCount);
-
-            var arrFaces = new ArrFace2[faces.Length];
+            var arrFaces = new ArrFace2[FaceCount];
             Kernel.GetFaces(Ptr, arrFaces, 0, arrFaces.Length);
 
             for (int i = 0; i < arrFaces.Length; i++)
-                faces[i] = new DCELFace(null, arrFaces[i]);
+                mesh.AddFace(new DCELFace(mesh, arrFaces[i]));
         }
 
         /// <summary>
@@ -471,6 +448,100 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
+        /// Locate the vertex at this point.
+        /// </summary>
+        /// <param name="point">The point to locate vertex at.</param>
+        /// <param name="vert">The vertex.</param>
+        /// <returns>True if a vertex was located.</returns>
+        public bool LocateVertex(Point2d point, out ArrVertex2 vert)
+        {
+            vert = new ArrVertex2();
+            if (Kernel.PointQuery(Ptr, point, out ArrQuery result))
+            {
+                if (result.Element == ARR_ELEMENT_HIT.VERTEX)
+                {
+                    Kernel.GetVertex(Ptr, result.Index, out vert);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Locate the vert the point hits.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="vert">The vert the point has hit.</param>
+        /// <returns>True if the point hit a vert.</returns>
+        public bool LocateVertex(Point2d point, DCELMesh mesh, out DCELVertex vert)
+        {
+            vert = new DCELVertex(null);
+            if (LocateVertex(point, out ArrVertex2 v))
+            {
+                vert = new DCELVertex(mesh,  v);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Locate the edge at this point.
+        /// </summary>
+        /// <param name="point">The point to locate edge at.</param>
+        /// <param name="edge">The edge.</param>
+        /// <returns>True if a edge was located.</returns>
+        public bool LocateHalfEdge(Point2d point, out ArrHalfEdge2 edge)
+        {
+            edge = new ArrHalfEdge2();
+            if (Kernel.PointQuery(Ptr, point, out ArrQuery result))
+            {
+                if (result.Element == ARR_ELEMENT_HIT.HALF_EDGE)
+                {
+                    Kernel.GetHalfEdge(Ptr, result.Index, out edge);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Locate the edge the point hits.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="vert">The vert the point has hit.</param>
+        /// <returns>True if the point hit a vert.</returns>
+        public bool LocateHalfEdge(Point2d point, DCELMesh mesh, out DCELHalfEdge edge)
+        {
+            edge = new DCELHalfEdge(null);
+            if (LocateHalfEdge(point, out ArrHalfEdge2 e))
+            {
+                edge = new DCELHalfEdge(mesh, e);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Locate the faces at this point.
         /// </summary>
         /// <param name="point">The point to locate face at.</param>
@@ -503,13 +574,12 @@ namespace CGALDotNet.Arrangements
         /// <param name="point">The point.</param>
         /// <param name="face">The face the point has hit.</param>
         /// <returns>True if the point hit a face.</returns>
-        public bool LocateFace(Point2d point, out DCELFace face)
+        public bool LocateFace(Point2d point, DCELMesh mesh, out DCELFace face)
         {
             face = new DCELFace(null);
             if (LocateFace(point, out ArrFace2 f))
             {
-                face.Index = f.Index;
-                face.HalfEdgeIndex = f.HalfEdgeIndex;
+                face = new DCELFace(mesh, f);
                 return true;
             }
             else

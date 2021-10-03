@@ -39,30 +39,46 @@ namespace CGALDotNet.DCEL
         /// Get the DCEL vertices that can be use to reconstruct 
         /// the model as a DCEL data sturcture.
         /// </summary>
-        /// <param name="vertices">The array vertices</param>
-        void GetDCELVertices(DCELVertex[] vertices);
+        void GetDCELVertices(DCELMesh mesh);
 
         /// <summary>
         /// Get the DCEL edhe that can be use to reconstruct 
         /// the model as a DCEL data sturcture.
         /// </summary>
-        /// <param name="halfEdges">The array edges</param>
-        void GetDCELHalfEdges(DCELHalfEdge[] halfEdges);
+        void GetDCELHalfEdges(DCELMesh mesh);
 
         /// <summary>
         /// Get the DCEL faces that can be use to reconstruct 
         /// the model as a DCEL data sturcture.
         /// </summary>
-        /// <param name="faces">The array faces</param>
-        void GetDCELFaces(DCELFace[] faces);
+        void GetDCELFaces(DCELMesh mesh);
+
+        /// <summary>
+        /// Locate the vert the point hits.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="vert">The vert the point has hit.</param>
+        /// <returns>True if the point hit a vert.</returns>
+        bool LocateVertex(Point2d point, DCELMesh mesh, out DCELVertex vert);
+
+        /// <summary>
+        /// Locate the edge the point hits.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="vert">The vert the point has hit.</param>
+        /// <returns>True if the point hit a vert.</returns>
+        bool LocateHalfEdge(Point2d point, DCELMesh mesh, out DCELHalfEdge edge);
 
         /// <summary>
         /// Locate the face the point hits.
         /// </summary>
         /// <param name="point">The point.</param>
+        /// <param name="mesh">The decel mesh.</param>
         /// <param name="face">The face the point has hit.</param>
         /// <returns>True if the point hit a face.</returns>
-        public bool LocateFace(Point2d point, out DCELFace face);
+        bool LocateFace(Point2d point, DCELMesh mesh, out DCELFace face);
+
+
 
     }
 }

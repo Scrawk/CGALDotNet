@@ -61,14 +61,32 @@ namespace CGALDotNet.DCEL
             return Vertices[index];
         }
 
+        public void AddVertex(DCELVertex vertex)
+        {
+            vertex.Mesh = this;
+            Vertices.Add(vertex);
+        }
+
         public DCELHalfEdge GetHalfEdge(int index)
         {
             return HalfEdges[index];
         }
 
+        public void AddHalfEdge(DCELHalfEdge edge)
+        {
+            edge.Mesh = this;
+            HalfEdges.Add(edge);
+        }
+
         public DCELFace GetFace(int index)
         {
             return Faces[index];
+        }
+
+        public void AddFace(DCELFace face)
+        {
+            face.Mesh = this;
+            Faces.Add(face);
         }
 
         public bool InVerticesBounds(int i)
@@ -111,16 +129,7 @@ namespace CGALDotNet.DCEL
             int count = Model.VertexCount;
             if (count <= 0) return;
 
-            var vertices = new DCELVertex[count];
-            Model.GetDCELVertices(vertices);
-
-            for (int i = 0; i < count; i++)
-            {
-                var vert = vertices[i];
-                vert.Mesh = this;
-                Vertices.Add(vert);
-            }
-                
+            Model.GetDCELVertices(this);
         }
 
         private void CreateFaces()
@@ -130,15 +139,7 @@ namespace CGALDotNet.DCEL
             int count = Model.FaceCount;
             if (count <= 0) return;
 
-            var faces = new DCELFace[count];
-            Model.GetDCELFaces(faces);
-
-            for (int i = 0; i < count; i++)
-            {
-                var face = faces[i];
-                face.Mesh = this;
-                Faces.Add(face);
-            }
+            Model.GetDCELFaces(this);
         }
 
         private void CreateHalfEdges()
@@ -148,15 +149,7 @@ namespace CGALDotNet.DCEL
             int count = Model.HalfEdgeCount;
             if (count <= 0) return;
 
-            var edges = new DCELHalfEdge[count];
-            Model.GetDCELHalfEdges(edges);
-
-            for (int i = 0; i < count; i++)
-            {
-                var edge = edges[i];
-                edge.Mesh = this;
-                HalfEdges.Add(edge);
-            }
+            Model.GetDCELHalfEdges(this);
         }
 
         /// <summary>
@@ -167,7 +160,7 @@ namespace CGALDotNet.DCEL
         /// <returns>True if the point hit a face.</returns>
         public bool LocateFace(Point2d point, out DCELFace face)
         {
-            if( Model.LocateFace(point, out face))
+            if( Model.LocateFace(point, this, out face))
             {
                 face.Mesh = this;
                 return true;
@@ -186,6 +179,10 @@ namespace CGALDotNet.DCEL
         /// <returns>True if point hit a face and found a vertex.</returns>
         public bool LocateVertex(Point2d point, out DCELVertex vertex)
         {
+            //First check if point directly hits a vertex.
+            if(Model.LocateVertex(point, this, out vertex))
+                return true;
+
             //Locate the face the point hit.
             vertex = new DCELVertex();
             if (LocateFace(point, out DCELFace face))
@@ -230,9 +227,12 @@ namespace CGALDotNet.DCEL
         /// <returns>True if the point hit a face and found a edge.</returns>
         public bool LocateEdge(Point2d point, out DCELHalfEdge edge)
         {
+            //First check if point directly hits a edge.
+            if (Model.LocateHalfEdge(point, this, out edge))
+                return true;
+
             //Locate the face the point hit.
             edge = new DCELHalfEdge();
-
             if (LocateFace(point, out DCELFace face))
             {
                 //Find the closest edge to the point in the face.
