@@ -28,6 +28,10 @@ namespace CGALDotNet.DCEL
 
         public int Dimension => Model.Dimension;
 
+        public bool IsUpdated => BuildStamp == Model.BuildStamp;
+
+        private int BuildStamp { get; set; }
+
         private List<DCELVertex> Vertices;
 
         private List<DCELHalfEdge> HalfEdges;
@@ -48,6 +52,8 @@ namespace CGALDotNet.DCEL
             CreateVertices();
             CreateHalfEdges();
             CreateFaces();
+
+            BuildStamp = Model.BuildStamp;
         }
 
         public int VertexCount => Vertices.Count;
@@ -243,8 +249,8 @@ namespace CGALDotNet.DCEL
                 {
                     if (e.SourceIndex == -1 || e.TargetIndex == -1) continue;
 
-                    var p1 = e.SourcePoint.xy;
-                    var p2 = e.TargetPoint.xy;
+                    var p1 = e.SourcePoint2;
+                    var p2 = e.TargetPoint2;
 
                         var seg = new Segment2d(p1, p2);
                         var sqdist = seg.SqrDistance(point);

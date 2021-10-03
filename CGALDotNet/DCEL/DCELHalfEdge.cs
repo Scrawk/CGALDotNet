@@ -58,9 +58,11 @@ namespace CGALDotNet.DCEL
                 Index, NextIndex, SourceIndex, TargetIndex, FaceIndex, PreviousIndex, TwinIndex);
         }
 
-        public Point3d SourcePoint => Mesh.GetVertex(SourceIndex).Point;
+        public Point2d SourcePoint2 => Mesh.GetVertex(SourceIndex).Point.xy;
 
-        public Point3d TargetPoint => Mesh.GetVertex(TargetIndex).Point;
+        public Point2d TargetPoint2 => Mesh.GetVertex(TargetIndex).Point.xy;
+
+        public Segment2d Segment2 => new Segment2d(SourcePoint2, TargetPoint2);
 
         public IEnumerable<DCELHalfEdge> EnumerateEdges()
         {
