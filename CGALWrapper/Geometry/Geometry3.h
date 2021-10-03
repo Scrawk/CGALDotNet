@@ -42,6 +42,15 @@ struct Point3d
     }
 
     template<class K>
+    static Point3d FromCGAL(CGAL::Point_2<K> p)
+    {
+        double x = CGAL::to_double(p.x());
+        double y = CGAL::to_double(p.y());
+        double z = 0;
+        return { x, y, z };
+    }
+
+    template<class K>
     static Point3d FromCGAL(CGAL::Vector_3<K> v)
     {
         double x = CGAL::to_double(v.x());

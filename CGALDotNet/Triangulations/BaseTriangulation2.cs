@@ -186,7 +186,7 @@ namespace CGALDotNet.Triangulations
             TriVertex2 vertex;
             if(Kernel.GetVertex(Ptr, index, out vertex))
             {
-                point = vertex.Point;
+                point = vertex.Point.xy;
                 return true;
             }
             else
@@ -379,7 +379,7 @@ namespace CGALDotNet.Triangulations
                     //If vertex found find its distance to point.
                     if(GetVertex(v, out vertex))
                     {
-                        var sqdist = Point2d.SqrDistance(vertex.Point, point);
+                        var sqdist = Point2d.SqrDistance(vertex.Point.xy, point);
                         if(sqdist < min)
                         {
                             min = sqdist;
@@ -407,14 +407,12 @@ namespace CGALDotNet.Triangulations
         /// </summary>
         /// <param name="point">The point</param>
         /// <param name="edge">The closest edge.</param>
-        /// <param name="segment">The edges segment.</param>
         /// <returns>True if the point hit a face and found a edge.</returns>
-        public bool LocateEdge(Point2d point, out TriEdge2 edge, out Segment2d segment)
+        public bool LocateEdge(Point2d point, out TriEdge2 edge)
         {
             //Locate the face the point hit.
             edge = new TriEdge2();
-            segment = new Segment2d();
-
+ 
             if (Kernel.LocateFace(Ptr, point, out TriFace2 face))
             {
                 //Find the closest edge to the point in the face.
@@ -430,8 +428,8 @@ namespace CGALDotNet.Triangulations
                     if (GetVertex(v1, out TriVertex2 vertex1) &&
                         GetVertex(v2, out TriVertex2 vertex2))
                     {
-                        var p1 = vertex1.Point;
-                        var p2 = vertex2.Point;
+                        var p1 = vertex1.Point.xy;
+                        var p2 = vertex2.Point.xy;
 
                         var seg = new Segment2d(p1, p2);
                         var sqdist = seg.SqrDistance(point);
@@ -442,7 +440,7 @@ namespace CGALDotNet.Triangulations
 
                             int neighboutIndex = CGALGlobal.Wrap(i - 1, 3);
                             closest = new TriEdge2(face.Index, neighboutIndex);
-                            segment = new Segment2d(p1, p2);
+                            edge.Segment = new Segment2d(p1, p2);
                         }
                     }
                 }

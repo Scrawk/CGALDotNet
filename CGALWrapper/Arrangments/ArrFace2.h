@@ -40,7 +40,6 @@ struct ArrFace2
 			f.HalfEdgeIndex = -1;
 		}
 
-		return f;
-			
+		return f;	
 	}
 };

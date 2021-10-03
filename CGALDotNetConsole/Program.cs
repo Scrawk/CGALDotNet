@@ -20,10 +20,14 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var polyhedra = new Polyhedra3<EEK>();
+            var arr = new Arrangement2<EEK>();
+            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            arr.InsertPolygon(poly, true);
+            arr.Print();
 
-            polyhedra.Print();
+            var mesh = new DCELMesh(arr);
 
+            mesh.Print();
 
         }
 

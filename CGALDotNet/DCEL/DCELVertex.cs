@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Arrangements;
 
 namespace CGALDotNet.DCEL
 {
     public struct DCELVertex
     {
-        public Point2d Point;
+        public Point3d Point;
 
         public int Index;
 
@@ -16,15 +17,24 @@ namespace CGALDotNet.DCEL
 
         public int HalfEdgeIndex;
 
-        private DCELMesh Mesh;
+        internal DCELMesh Mesh;
 
         internal DCELVertex(DCELMesh mesh)
         {
             Mesh = mesh;
-            Point = new Point2d();
+            Point = new Point3d();
             Index = -1;
             FaceIndex = -1;
             HalfEdgeIndex = -1;
+        }
+
+        internal DCELVertex(DCELMesh mesh, ArrVertex2 verts)
+        {
+            Mesh = mesh;
+            Point = verts.Point;
+            Index = verts.Index;
+            FaceIndex = verts.FaceIndex;
+            HalfEdgeIndex = verts.HalfEdgeIndex;
         }
 
         public override string ToString()

@@ -216,15 +216,6 @@
     <ClInclude Include="Polygons\PolygonMinkowski_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DCEL\DCELVertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DCEL\DCELFace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DCEL\DCELHalfEdge.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Polygons\Polygon2_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -4,6 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.DCEL;
 
 namespace CGALDotNet.Arrangements
 {

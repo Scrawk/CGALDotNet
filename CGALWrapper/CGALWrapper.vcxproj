@@ -170,9 +170,6 @@
     <ClInclude Include="Circlar\Circle.h" />
     <ClInclude Include="Circlar\Circle_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine.h" />
-    <ClInclude Include="DCEL\DCELFace.h" />
-    <ClInclude Include="DCEL\DCELHalfEdge.h" />
-    <ClInclude Include="DCEL\DCELVertex.h" />
     <ClInclude Include="Polygons\PolygonOffset2_EIK.h" />
     <ClInclude Include="Polygons\Polygon2_EIK.h" />
     <ClInclude Include="Polygons\PolygonMinkowski_EEK.h" />

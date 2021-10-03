@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 using CGALDotNet.Geometry;
@@ -7,15 +8,16 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Triangulations
 {
     /// <summary>
-    /// Struct for a triangles vertex.
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in TriVertex2.h file.
+    /// From Point to HalfEdgeIndex must match layout
+    /// of the unmanaged TriVertex2 in the TriVertex2 header file.
     /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
     public struct TriVertex2
     {
         /// <summary>
         /// The vertices point.
         /// </summary>
-        public Point2d Point;
+        public Point3d Point;
 
         /// <summary>
         /// Is this a infinite vertex.

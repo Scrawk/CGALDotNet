@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace CGALDotNet.Triangulations
 {
     /// <summary>
-    /// Struct for a triangles face.
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in TriFace2.h file.
+    /// From Index to HalfEdgeIndex must match layout
+    /// of the unmanaged TriFace2 in the TriFace2 header file.
     /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
     public unsafe struct TriFace2
     {
         /// <summary>

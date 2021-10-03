@@ -5,10 +5,6 @@
 #include "Polygon2.h"
 #include "PolygonWithHoles2.h"
 
-#include "../DCEL/DCELVertex.h"
-#include "../DCEL/DCELHalfEdge.h"
-#include "../DCEL/DCELFace.h"
-
 #include <vector>
 #include <CGAL/Polygon_2.h>
 #include <CGAL/Polygon_with_holes_2.h>
@@ -33,9 +29,6 @@ private:
 	typedef CGAL::Straight_skeleton_2<K> Ss;
 	typedef typename Ss::Vertex_handle Vertex;
 	typedef typename Ss::Halfedge_handle HalfEdge;
-
-	std::vector<DCELVertex> vertices;
-	std::vector<DCELHalfEdge> edges;
 
 	std::vector<Polygon_2*>  buffer;
 
@@ -80,6 +73,7 @@ public:
 		return offset->buffer[index];
 	}
 
+	/*
 	inline static int VertexBufferSize(void* ptr)
 	{
 		auto offset = CastToPolygonOffset2(ptr);
@@ -92,6 +86,7 @@ public:
 		return (int)offset->edges.size();
 	}
 
+	
 	inline static void ClearEdgeAndVertexBuffers(void* ptr)
 	{
 		auto offset = CastToPolygonOffset2(ptr);
@@ -99,6 +94,7 @@ public:
 		offset->edges.clear();
 	}
 
+	
 	inline static void GetVertices(void* ptr, DCELVertex* _vertices, int start, int count)
 	{
 		auto offset = CastToPolygonOffset2(ptr);
@@ -116,6 +112,7 @@ public:
 		for (int i = 0; i < count; i++)
 			_edges[index++] = offset->edges[i];
 	}
+	*/
 
 	static void CreateInteriorOffset(void* ptr, void* polyPtr, double amount)
 	{

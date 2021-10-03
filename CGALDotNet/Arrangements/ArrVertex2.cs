@@ -6,9 +6,13 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Arrangements
 {
+    /// <summary>
+    /// From Point to HalfEdgeIndex must match layout
+    /// of the unmanaged ArrVertex2 in the ArrVertex2 header file.
+    /// </summary>
     public struct ArrVertex2
     {
-        public Point2d Point;
+        public Point3d Point;
 
         public int Degree;
 

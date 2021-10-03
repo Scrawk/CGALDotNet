@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Triangulations
 {
     /// <summary>
-    /// Struct for the triangle edge.
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in TriEdge2.h file.
+    /// From Index to TwinIndex must match layout
+    /// of the unmanaged TriEdge2 in the TriEdge2 header file.
     /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
     public struct TriEdge2
     {
         /// <summary>
@@ -23,6 +24,11 @@ namespace CGALDotNet.Triangulations
         public int NeighbourIndex;
 
         /// <summary>
+        /// The edges segment.
+        /// </summary>
+        public Segment2d Segment;
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="faceIndex">The face index in the triangulation</param>
@@ -31,6 +37,7 @@ namespace CGALDotNet.Triangulations
         {
             FaceIndex = faceIndex;
             NeighbourIndex = neighbourIndex;
+            Segment = new Segment2d();
         }
 
         public override string ToString()

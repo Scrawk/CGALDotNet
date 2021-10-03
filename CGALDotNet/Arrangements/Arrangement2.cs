@@ -4,6 +4,7 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
+using CGALDotNet.DCEL;
 
 namespace CGALDotNet.Arrangements
 {
@@ -103,7 +104,7 @@ namespace CGALDotNet.Arrangements
     /// <summary>
     /// The abstract base class.
     /// </summary>
-    public abstract class Arrangement2 : CGALObject
+    public abstract class Arrangement2 : CGALObject, IDCELModel
     {
         /// <summary>
         /// The default constructor.
@@ -157,6 +158,11 @@ namespace CGALDotNet.Arrangements
         /// vertices and VertexCount does not count them.
         /// </summary>
         public int VerticesAtInfinityCount => Kernel.VerticesAtInfinityCount(Ptr);
+
+        /// <summary>
+        /// The dimension of the point struct in the DCEL vertex
+        /// </summary>
+        public int Dimension => 2;
 
         /// <summary>
         /// The number of half edges.
@@ -272,6 +278,27 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
+        /// Get the DCEL vertices that can be use to reconstruct 
+        /// the model as a DCEL data sturcture.
+        /// </summary>
+        /// <param name="vertices">The array vertices</param>
+        public void GetDCELVertices(DCELVertex[] vertices)
+        {
+            if (vertices == null || vertices.Length == 0)
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(vertices, 0, VertexCount);
+
+            var arrVerts = new ArrVertex2[vertices.Length];
+            Kernel.GetVertices(Ptr, arrVerts, 0, arrVerts.Length);
+
+            for (int i = 0; i < arrVerts.Length; i++)
+                vertices[i] = new DCELVertex(null, arrVerts[i]);
+                
+        }
+
+        /// <summary>
         /// Get the vertex from the arrangement.
         /// </summary>
         /// <param name="index">The index of the vertex.</param>
@@ -298,6 +325,26 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
+        /// Get the DCEL edhe that can be use to reconstruct 
+        /// the model as a DCEL data sturcture.
+        /// </summary>
+        /// <param name="halfEdges">The array edges</param>
+        public void GetDCELHalfEdges(DCELHalfEdge[] edges)
+        {
+            if (edges == null || edges.Length == 0)
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(edges, 0, HalfEdgeCount);
+
+            var arrEdges = new ArrHalfEdge2[edges.Length];
+            Kernel.GetHalfEdges(Ptr, arrEdges, 0, arrEdges.Length);
+
+            for (int i = 0; i < arrEdges.Length; i++)
+                edges[i] = new DCELHalfEdge(null, arrEdges[i]);
+        }
+
+        /// <summary>
         /// Get the half edge from the arrangement.
         /// </summary>
         /// <param name="index">The index of the half edge.</param>
@@ -321,6 +368,26 @@ namespace CGALDotNet.Arrangements
                 ErrorUtil.CheckBounds(faces, 0, FaceCount);
 
             Kernel.GetFaces(Ptr, faces, 0, faces.Length);
+        }
+
+        /// <summary>
+        /// Get the DCEL faces that can be use to reconstruct 
+        /// the model as a DCEL data sturcture.
+        /// </summary>
+        /// <param name="faces">The array faces</param>
+        public void GetDCELFaces(DCELFace[] faces)
+        {
+            if (faces == null || faces.Length == 0)
+                return;
+
+            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
+                ErrorUtil.CheckBounds(faces, 0, FaceCount);
+
+            var arrFaces = new ArrFace2[faces.Length];
+            Kernel.GetFaces(Ptr, arrFaces, 0, arrFaces.Length);
+
+            for (int i = 0; i < arrFaces.Length; i++)
+                faces[i] = new DCELFace(null, arrFaces[i]);
         }
 
         /// <summary>
@@ -430,62 +497,26 @@ namespace CGALDotNet.Arrangements
             }
         }
 
-        /*
-
         /// <summary>
-        /// 
+        /// Locate the face the point hits.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="vertex"></param>
-        /// <returns></returns>
-        public bool LocateVertex(Point2d point, out ArrVertex2 vertex)
+        /// <param name="point">The point.</param>
+        /// <param name="face">The face the point has hit.</param>
+        /// <returns>True if the point hit a face.</returns>
+        public bool LocateFace(Point2d point, out DCELFace face)
         {
-            vertex = new ArrVertex2();
-            if (Kernel.PointQuery(Ptr, point, out ArrQuery result))
+            face = new DCELFace(null);
+            if (LocateFace(point, out ArrFace2 f))
             {
-                if (result.Element == ARR_ELEMENT_HIT.VERTEX)
-                {
-                    Kernel.GetVertex(Ptr, result.Index, out vertex);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                face.Index = f.Index;
+                face.HalfEdgeIndex = f.HalfEdgeIndex;
+                return true;
             }
             else
             {
                 return false;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="edge"></param>
-        /// <returns></returns>
-        public bool LocateHalfEdge(Point2d point, out ArrHalfEdge2 edge)
-        {
-            edge = new ArrHalfEdge2();
-            if (Kernel.PointQuery(Ptr, point, out ArrQuery result))
-            {
-                if (result.Element == ARR_ELEMENT_HIT.HALF_EDGE)
-                {
-                    Kernel.GetHalfEdge(Ptr, result.Index, out edge);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
 
         /// <summary>
         /// Find if the arrangement has a element that intersects the segment.
