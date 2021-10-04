@@ -222,7 +222,7 @@ namespace CGALDotNet.Nurbs
 		internal static Vector3d SurfaceNormal(BaseNurbsSurface3d srf, double u, double v)
 		{
 			var ptder = SurfaceDerivatives(srf, 1, u, v);
-			var n = Vector3d.Cross(ptder[0, 1], ptder[1, 0]);
+			var n = Vector3d.Cross(ptder[1, 0], ptder[0, 1]);
 			return n.Normalized;
 		}
 
