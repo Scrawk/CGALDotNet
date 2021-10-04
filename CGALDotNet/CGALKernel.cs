@@ -30,6 +30,8 @@ namespace CGALDotNet
 
         internal abstract PolygonMinkowskiKernel PolygonMinkowskiKernel { get; }
 
+        internal abstract PolygonVisibilityKernel PolygonVisibilityKernel { get; }
+
         internal abstract ArrangementKernel2 ArrangementKernel2 { get; }
 
         internal abstract SweepLineKernel SweepLineKernel { get; }
@@ -67,6 +69,8 @@ namespace CGALDotNet
 
         internal override PolygonMinkowskiKernel PolygonMinkowskiKernel => throw new NotImplementedException();
 
+        internal override PolygonVisibilityKernel PolygonVisibilityKernel => throw new NotImplementedException();
+
         internal override ArrangementKernel2 ArrangementKernel2 => throw new NotImplementedException();
 
         internal override SweepLineKernel SweepLineKernel => throw new NotImplementedException();
@@ -103,6 +107,8 @@ namespace CGALDotNet
         internal override PolygonOffsetKernel2 PolygonOffsetKernel2 => PolygonOffsetKernel2_EEK.Instance;
 
         internal override PolygonMinkowskiKernel PolygonMinkowskiKernel => PolygonMinkowskiKernel_EEK.Instance;
+
+        internal override PolygonVisibilityKernel PolygonVisibilityKernel => PolygonVisibilityKernel_EEK.Instance;
 
         internal override ArrangementKernel2 ArrangementKernel2 => ArrangementKernel2_EEK.Instance;
 

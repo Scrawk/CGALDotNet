@@ -287,10 +287,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4d operator /(Vector4d v, double s)
         {
-            if (s != 0)
-                return new Vector4d(v.x / s, v.y / s, v.z / s, v.w / s);
-            else
-                return Zero;
+            return new Vector4d(v.x / s, v.y / s, v.z / s, v.w / s);
         }
 
         /// <summary>

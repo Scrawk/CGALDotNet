@@ -287,10 +287,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2d operator /(Vector2d v, double s)
         {
-            if (s == 0)
-                return Vector2d.Zero;
-            else
-                return new Vector2d(v.x / s, v.y / s);
+            return new Vector2d(v.x / s, v.y / s);
         }
 
         /// <summary>

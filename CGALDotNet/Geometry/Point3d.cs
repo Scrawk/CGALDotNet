@@ -124,7 +124,7 @@ namespace CGALDotNet.Geometry
         {
             get
             {
-                return new HPoint3d(x, y, 1);
+                return new HPoint3d(x, y, z, 1);
             }
         }
 
@@ -144,7 +144,7 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public HPoint3d ToHomogenous(double w)
         {
-            return new HPoint3d(x * w, y * w, w);
+            return new HPoint3d(x * w, y * w, z * w, w);
         }
 
         /// <summary>

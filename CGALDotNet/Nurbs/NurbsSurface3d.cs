@@ -171,6 +171,58 @@ namespace CGALDotNet.Nurbs
 		/// <param name="scale">The amount to scale.</param>
 		public abstract void Transform(Point3d translation, Quaternion3d rotation, Point3d scale);
 
+		/// <summary>
+		/// Normlize the surfaces u knots so the first knot starts at 0
+		/// and the last knot ends at 1.
+		/// </summary>
+		public void NormalizeKnotsU()
+		{
+			double fisrt = KnotsU[0];
+			double last = KnotsU.Last();
+
+			for (int i = 0; i < KnotsU.Length; i++)
+				KnotsU[i] = CGALGlobal.Normalize(KnotsU[i], fisrt, last);
+		}
+
+		/// <summary>
+		/// Normlize the surfaces v knots so the first knot starts at 0
+		/// and the last knot ends at 1.
+		/// </summary>
+		public void NormalizeKnotsV()
+		{
+			double fisrt = KnotsV[0];
+			double last = KnotsV.Last();
+
+			for (int i = 0; i < KnotsV.Length; i++)
+				KnotsV[i] = CGALGlobal.Normalize(KnotsV[i], fisrt, last);
+		}
+
+		/// <summary>
+		/// Insert a new knot into the surface and return as a new surface.
+		/// </summary>
+		/// <param name="srf">The surface to insert the knot into.</param>
+		/// <param name="u">The parameter to insert the knot at.</param>
+		/// <param name="repeat">The number of times to repeat the knot.</param>
+		/// <returns>A new surface with the inserted knots.</returns>
+		public static NurbsSurface3d InsertKnotU(NurbsSurface3d srf, double u, int repeat = 1)
+		{
+			var param = NurbsModify.SurfaceKnotInsertU(srf, u, repeat);
+			return new NurbsSurface3d(param.degreeU, param.degreeV, param.knotsU, param.knotsV, param.controlPoints);
+		}
+
+		/// <summary>
+		/// Insert a new knot into the surface and return as a new surface.
+		/// </summary>
+		/// <param name="srf">The surface to insert the knot into.</param>
+		/// <param name="v">The parameter to insert the knot at.</param>
+		/// <param name="repeat">The number of times to repeat the knot.</param>
+		/// <returns>A new surface with the inserted knots.</returns>
+		public static NurbsSurface3d InsertKnotV(NurbsSurface3d srf, double v, int repeat = 1)
+		{
+			var param = NurbsModify.SurfaceKnotInsertV(srf, v, repeat);
+			return new NurbsSurface3d(param.degreeU, param.degreeV, param.knotsU, param.knotsV, param.controlPoints);
+		}
+
 	}
 
 	/// <summary>
@@ -320,6 +372,40 @@ namespace CGALDotNet.Nurbs
 			for (int i = 0; i < Width; i++)
 				for (int j = 0; j < Height; j++)
 					CartesianControlPoints[i,j] = M * CartesianControlPoints[i,j];
+		}
+
+		/// <summary>
+		/// Split the surface a the parameter and return the two new surfaces.
+		/// </summary>
+		/// <param name="srf">The surface to split.</param>
+		/// <param name="u">The parameter to split the surface at</param>
+		public static void SplitU(NurbsSurface3d srf, double u, out NurbsSurface3d left, out NurbsSurface3d right)
+		{
+			NurbsSurfaceParams3d leftParam, rightParam;
+			NurbsModify.SurfaceSplitU(srf, u, out leftParam, out rightParam);
+
+			left = new NurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
+			right = new NurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+
+			left.NormalizeKnotsU();
+			right.NormalizeKnotsU();
+		}
+
+		/// <summary>
+		/// Split the surface a the parameter and return the two new surfaces.
+		/// </summary>
+		/// <param name="srf">The surface to split.</param>
+		/// <param name="v">The parameter to split the surface at</param>
+		public static void SplitV(NurbsSurface3d srf, double v, out NurbsSurface3d left, out NurbsSurface3d right)
+		{
+			NurbsSurfaceParams3d leftParam, rightParam;
+			NurbsModify.SurfaceSplitV(srf, v, out leftParam, out rightParam);
+
+			left = new NurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
+			right = new NurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+
+			left.NormalizeKnotsV();
+			right.NormalizeKnotsV();
 		}
 
 	}
@@ -502,6 +588,40 @@ namespace CGALDotNet.Nurbs
 					HomogeneousControlPoints[i, j] = p.ToHomogenous(pw.w);
 				}
 					
+		}
+
+		/// <summary>
+		/// Split the surface a the parameter and return the two new surfaces.
+		/// </summary>
+		/// <param name="srf">The surface to split.</param>
+		/// <param name="u">The parameter to split the surface at</param>
+		public static void SplitU(RationalNurbsSurface3d srf, double u, out RationalNurbsSurface3d left, out RationalNurbsSurface3d right)
+		{
+			NurbsSurfaceParams3d leftParam, rightParam;
+			NurbsModify.SurfaceSplitU(srf, u, out leftParam, out rightParam);
+
+			left = new RationalNurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
+			right = new RationalNurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+
+			left.NormalizeKnotsU();
+			right.NormalizeKnotsU();
+		}
+
+		/// <summary>
+		/// Split the surface a the parameter and return the two new surfaces.
+		/// </summary>
+		/// <param name="srf">The surface to split.</param>
+		/// <param name="v">The parameter to split the surface at</param>
+		public static void SplitV(RationalNurbsSurface3d srf, double v, out RationalNurbsSurface3d left, out RationalNurbsSurface3d right)
+		{
+			NurbsSurfaceParams3d leftParam, rightParam;
+			NurbsModify.SurfaceSplitV(srf, v, out leftParam, out rightParam);
+
+			left = new RationalNurbsSurface3d(leftParam.degreeU, leftParam.degreeV, leftParam.knotsU, leftParam.knotsV, leftParam.controlPoints);
+			right = new RationalNurbsSurface3d(rightParam.degreeU, rightParam.degreeV, rightParam.knotsU, rightParam.knotsV, rightParam.controlPoints);
+
+			left.NormalizeKnotsV();
+			right.NormalizeKnotsV();
 		}
 
 	}

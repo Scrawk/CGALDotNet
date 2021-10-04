@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Circlar">
       <UniqueIdentifier>{0b18a7ac-011a-4aaa-9829-a5d3ee47825c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Polyhedra">
+      <UniqueIdentifier>{7da444bc-d4ef-4f6c-ad36-9108f57a099e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Polyhedra">
+      <UniqueIdentifier>{b95b8396-79b1-4ba4-9def-493e1efeefb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -204,29 +210,35 @@
     <ClInclude Include="Triangulations\MakeDelaunay2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\ConformingTriangulation2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Polygons\Polygon2_EIK.h">
+      <Filter>Header Files\Polygons</Filter>
     </ClInclude>
     <ClInclude Include="Polygons\PolygonMinkowski.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Polygons</Filter>
     </ClInclude>
     <ClInclude Include="Polygons\PolygonMinkowski_EEK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Polygons\Polygon2_EIK.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Polygons</Filter>
     </ClInclude>
     <ClInclude Include="Polygons\PolygonOffset2_EIK.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Polyhedra\Polyhedron3.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Polygons\PolygonVisibility_EEK.h">
+      <Filter>Header Files\Polygons</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygons\PolygonVisiblity.h">
+      <Filter>Header Files\Polygons</Filter>
     </ClInclude>
     <ClInclude Include="Polyhedra\Polyhedron3_EEK.h">
-      <Filter>Header Files</Filter>
+      <Filter>Polyhedra</Filter>
+    </ClInclude>
+    <ClInclude Include="Polyhedra\Polyhedron3.h">
+      <Filter>Polyhedra</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h">
+      <Filter>Header Files\Triangulations</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\ConformingTriangulation2.h">
+      <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,20 +293,23 @@
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Polygons\Polygon2_EIK.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Polygons</Filter>
     </ClCompile>
     <ClCompile Include="Polygons\PolygonOffset2_EIK.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygons\PolygonVisibility_EEK.cpp">
+      <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygons\Polygon2_EIK.cpp">
+      <Filter>Source Files\Polygons</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp">
+      <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
     <ClCompile Include="Polyhedra\Polyhedron3_EEK.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Polyhedra</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

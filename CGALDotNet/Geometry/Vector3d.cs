@@ -277,10 +277,7 @@ namespace CGALDotNet.Geometry
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3d operator /(Vector3d v, double s)
         {
-            if (s == 0)
-                return Vector3d.Zero;
-            else
-                return new Vector3d(v.x / s, v.y / s, v.z * s);
+            return new Vector3d(v.x / s, v.y / s, v.z / s);
         }
 
         /// <summary>

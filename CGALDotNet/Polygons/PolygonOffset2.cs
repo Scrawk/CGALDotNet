@@ -28,21 +28,27 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="polygon">The polygon to offset.</param>
         /// <param name="offset">The offset amount</param>
-        /// <param name="results">The offset results</param>
-        public void CreateInteriorOffset(Polygon2<K> polygon, double offset, List<Polygon2<K>> results)
+        /// <param name="result">The offset polygon</param>
+        public bool CreateInteriorOffset(Polygon2<K> polygon, double offset, out Polygon2<K> result)
         {
+            result = null;
             CheckPolygon(polygon);
 
             Kernel.CreateInteriorOffset(Ptr, polygon.Ptr, offset);
 
             int count = BufferSize();
-            for (int i = 0; i < count; i++)
+            if (count > 0)
             {
-                var ptr = GetBufferedPolygon(i);
-                results.Add(new Polygon2<K>(ptr));
+                var ptr = GetBufferedPolygon(0);
+                result = new Polygon2<K>(ptr);
+                ClearBuffer();
+                return true;
             }
-
-            ClearBuffer();
+            else
+            {
+                ClearBuffer();
+                return false;
+            }
         }
 
         /// <summary>
@@ -50,25 +56,30 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="polygon">The polygon to offset.</param>
         /// <param name="offset">The offset amount</param>
-        /// <param name="results">The offset results</param>
-        public void CreateExteriorOffset(Polygon2<K> polygon, double offset, List<Polygon2<K>> results)
+        /// <param name="result">The offset polygon</param>
+        public bool CreateExteriorOffset(Polygon2<K> polygon, double offset, out Polygon2<K> result)
         {
+            result = null;
             CheckPolygon(polygon);
 
             Kernel.CreateExteriorOffset(Ptr, polygon.Ptr, offset);
 
             int count = BufferSize();
-            for (int i = 0; i < count; i++)
+
+            //First polygon seems to be the bounding box
+            //for some reason. Dont want this so remove.
+            if (count >= 2)
             {
-                //First polygon seems to be the bounding box
-                //for some reason. Dont want this so remove.
-                if (i == 0) continue;
-
-                var ptr = GetBufferedPolygon(i);
-                results.Add(new Polygon2<K>(ptr));
+                var ptr = GetBufferedPolygon(1);
+                result = new Polygon2<K>(ptr);
+                ClearBuffer();
+                return true;
             }
-
-            ClearBuffer();
+            else
+            {
+                ClearBuffer();
+                return false;
+            }
         }
 
     }
