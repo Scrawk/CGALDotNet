@@ -11,7 +11,17 @@ void PolygonVisibility_EEK_Release(void* ptr)
 	PolygonVisibility<EEK>::DeletePolygonVisibility(ptr);
 }
 
-void PolygonVisibility_EEK_Test()
+void* PolygonVisibility_EEK_ComputeVisibilitySimple(Point2d point, void* polyPtr)
 {
-	PolygonVisibility<EEK>::Test();
+	return PolygonVisibility<EEK>::ComputeVisibilitySimple(point, polyPtr);
+}
+
+void* PolygonVisibility_EEK_ComputeVisibilityTEV(Point2d point, void* pwhPtr)
+{
+	return PolygonVisibility<EEK>::ComputeVisibilityTEV(point, pwhPtr);
+}
+
+void* PolygonVisibility_EEK_ComputeVisibilityRSV(Point2d point, void* pwhPtr)
+{
+	return PolygonVisibility<EEK>::ComputeVisibilityRSV(point, pwhPtr);
 }

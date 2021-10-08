@@ -595,6 +595,7 @@ namespace CGALDotNet.Polygons
             builder.AppendLine("Is convex = " + FindIfConvex());
             builder.AppendLine("Signed Area = " + FindSignedArea());
             builder.AppendLine("Area = " + FindArea());
+            builder.AppendLine("CCW = " + IsCounterClockWise);
         }
 
         /// <summary>

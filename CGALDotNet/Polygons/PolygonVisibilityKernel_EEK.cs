@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
+using CGALDotNet.Geometry;
+
 namespace CGALDotNet.Polygons
 {
     internal sealed class PolygonVisibilityKernel_EEK : PolygonVisibilityKernel
@@ -21,9 +23,19 @@ namespace CGALDotNet.Polygons
             PolygonVisibility_EEK_Release(ptr);
         }
 
-        internal override void Test()
+        internal override IntPtr ComputeVisibilitySimple(Point2d point, IntPtr polyPtr)
         {
-            PolygonVisibility_EEK_Test();
+            return PolygonVisibility_EEK_ComputeVisibilitySimple(point, polyPtr);
+        }
+
+        internal override IntPtr ComputeVisibilityTEV(Point2d point, IntPtr pwhPtr)
+        {
+            return PolygonVisibility_EEK_ComputeVisibilityTEV(point, pwhPtr);
+        }
+
+        internal override IntPtr ComputeVisibilityRSV(Point2d point, IntPtr pwhPtr)
+        {
+            return PolygonVisibility_EEK_ComputeVisibilityRSV(point, pwhPtr);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -33,6 +45,12 @@ namespace CGALDotNet.Polygons
         private static extern void PolygonVisibility_EEK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void PolygonVisibility_EEK_Test();
+        private static extern IntPtr PolygonVisibility_EEK_ComputeVisibilitySimple(Point2d point, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr PolygonVisibility_EEK_ComputeVisibilityTEV(Point2d point, IntPtr pwhPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr PolygonVisibility_EEK_ComputeVisibilityRSV(Point2d point, IntPtr pwhPtr);
     }
 }

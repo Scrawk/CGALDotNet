@@ -7,6 +7,8 @@
 
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Simple_polygon_visibility_2.h>
+#include <CGAL/Triangular_expansion_visibility_2.h>
+#include <CGAL/Rotational_sweep_visibility_2.h>
 #include <CGAL/Arrangement_2.h>
 #include <CGAL/Arr_segment_traits_2.h>
 #include <CGAL/Arr_naive_point_location.h>
@@ -18,14 +20,22 @@ class PolygonVisibility
 {
 public:
 
-	typedef CGAL::Exact_predicates_exact_constructions_kernel               Kernel;
-	typedef Kernel::Point_2                                                 Point_2;
-	typedef Kernel::Segment_2                                               Segment_2;
-	typedef CGAL::Arr_segment_traits_2<Kernel>                              Traits_2;
-	typedef CGAL::Arrangement_2<Traits_2>                                   Arrangement_2;
-	typedef Arrangement_2::Face_handle                                      Face_handle;
-	typedef Arrangement_2::Edge_const_iterator                              Edge_const_iterator;
-	typedef Arrangement_2::Ccb_halfedge_circulator                          Ccb_halfedge_circulator;
+	typedef CGAL::Exact_predicates_exact_constructions_kernel       Kernel;
+	typedef Kernel::Point_2                                         Point_2;
+	typedef Kernel::Segment_2                                       Segment_2;
+	typedef CGAL::Arr_segment_traits_2<Kernel>                      Traits_2;
+	typedef CGAL::Arrangement_2<Traits_2>                           Arrangement_2;
+	typedef Arrangement_2::Face_handle                              Face_handle;
+	typedef Arrangement_2::Edge_const_iterator                      Edge_const_iterator;
+	typedef Arrangement_2::Ccb_halfedge_circulator                  Ccb_halfedge_circulator;
+
+	typedef CGAL::Triangular_expansion_visibility_2<Arrangement_2>  TEV;
+	typedef CGAL::Rotational_sweep_visibility_2<Arrangement_2> RSV;
+
+	typedef CGAL::Arr_walk_along_line_point_location<Arrangement_2> Locator;
+
+	typedef typename Polygon2<K>::Polygon_2 Polygon;
+	typedef typename PolygonWithHoles2<K>::Pwh_2 Pwh;
 
 	inline static PolygonVisibility* NewPolygonVisibility()
 	{
@@ -48,58 +58,173 @@ public:
 		return static_cast<PolygonVisibility>(ptr);
 	}
 
-	static void Test()
+	static void GetSegments(std::vector<Segment_2>& segments, const Polygon& poly)
 	{
-		//create environment
-		Point_2 p1(0, 4), p2(0, 0), p3(3, 2), p4(4, 0), p5(4, 4), p6(1, 2);
+		int count = (int)poly.size();
+		for (int i = 0; i < count; i++)
+		{
+			if (i != count - 1)
+			{
+				auto p1 = poly.vertex(i);
+				auto p2 = poly.vertex(i + 1);
+				segments.push_back(Segment_2(p1, p2));
+			}
+			else
+			{
+				auto p1 = poly.vertex(i);
+				auto p2 = poly.vertex(0);
+				segments.push_back(Segment_2(p1, p2));
+			}
+		}
+	}
+
+	static void GetSegments(std::vector<Segment_2>& segments, const Pwh& pwh)
+	{
+		int count = (int)pwh.outer_boundary().size();
+		for (int i = 0; i < count; i++)
+		{
+			if (i != count - 1)
+			{
+				auto p1 = pwh.outer_boundary().vertex(i);
+				auto p2 = pwh.outer_boundary().vertex(i + 1);
+				segments.push_back(Segment_2(p1, p2));
+			}
+			else
+			{
+				auto p1 = pwh.outer_boundary().vertex(i);
+				auto p2 = pwh.outer_boundary().vertex(0);
+				segments.push_back(Segment_2(p1, p2));
+			}
+		}
+
+		int holes = (int)pwh.number_of_holes();
+		for (int j = 0; j < holes; j++)
+		{
+			auto& hole = pwh.holes().at(j);
+			count = (int)hole.size();
+			for (int i = 0; i < count; i++)
+			{
+				if (i != count - 1)
+				{
+					auto p1 = hole.vertex(i);
+					auto p2 = hole.vertex(i + 1);
+					segments.push_back(Segment_2(p1, p2));
+				}
+				else
+				{
+					auto p1 = hole.vertex(i);
+					auto p2 = hole.vertex(0);
+					segments.push_back(Segment_2(p1, p2));
+				}
+			}
+		}
+	}
+
+	static void* ComputeVisibilitySimple(Point2d point, void* polyPtr)
+	{
+
+		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
+
 		std::vector<Segment_2> segments;
-		segments.push_back(Segment_2(p1, p2));
-		segments.push_back(Segment_2(p2, p3));
-		segments.push_back(Segment_2(p3, p4));
-		segments.push_back(Segment_2(p4, p5));
-		segments.push_back(Segment_2(p5, p6));
-		segments.push_back(Segment_2(p6, p1));
+		GetSegments(segments, *poly);
 
 		Arrangement_2 env;
 		CGAL::insert_non_intersecting_curves(env, segments.begin(), segments.end());
 
-		// find the face of the query point
-		// (usually you may know that by other means)
-		Point_2 q(0.5, 2);
 		Arrangement_2::Face_const_handle* face;
-		CGAL::Arr_naive_point_location<Arrangement_2> pl(env);
-		CGAL::Arr_point_location_result<Arrangement_2>::Type obj = pl.locate(q);
+		Locator pl(env);
 
-		// The query point locates in the interior of a face
+		auto q = point.ToCGAL<Kernel>();
+		auto obj = pl.locate(q);
 		face = boost::get<Arrangement_2::Face_const_handle>(&obj);
 
-		// compute non regularized visibility area
-		// Define visibiliy object type that computes non-regularized visibility area
-		typedef CGAL::Simple_polygon_visibility_2<Arrangement_2, CGAL::Tag_false> NSPV;
-		Arrangement_2 non_regular_output;
-		NSPV non_regular_visibility(env);
-		non_regular_visibility.compute_visibility(q, *face, non_regular_output);
-
-		std::cout << "Non-regularized visibility region of q has "
-			<< non_regular_output.number_of_edges()
-			<< " edges:" << std::endl;
-
-		for (Edge_const_iterator eit = non_regular_output.edges_begin(); eit != non_regular_output.edges_end(); ++eit)
-			std::cout << "[" << eit->source()->point() << " -> " << eit->target()->point() << "]" << std::endl;
-
-		// compute non regularized visibility area
-		// Define visibiliy object type that computes regularized visibility area
 		typedef CGAL::Simple_polygon_visibility_2<Arrangement_2, CGAL::Tag_true> RSPV;
 
 		Arrangement_2 regular_output;
 		RSPV regular_visibility(env);
 		regular_visibility.compute_visibility(q, *face, regular_output);
 
-		std::cout << "Regularized visibility region of q has "
-			<< regular_output.number_of_edges()
-			<< " edges:" << std::endl;
+		auto result = Polygon2<K>::NewPolygon2();
+		auto start = regular_output.edges_begin()->next();
+		auto eit = start;
 
-		for (Edge_const_iterator eit = regular_output.edges_begin(); eit != regular_output.edges_end(); ++eit)
-			std::cout << "[" << eit->source()->point() << " -> " << eit->target()->point() << "]" << std::endl;
+		do
+		{
+			auto p = eit->source()->point();
+			result->push_back(p);
+			eit = eit->next();
+
+		} while (eit != start);
+
+		return result;
 	}
+
+	static void* ComputeVisibilityTEV(Point2d point, void* pwhPtr)
+	{
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		std::vector<Segment_2> segments;
+		GetSegments(segments, *pwh);
+
+		Arrangement_2 env;
+		CGAL::insert_non_intersecting_curves(env, segments.begin(), segments.end());
+
+		Arrangement_2::Face_const_handle* face;
+		Locator pl(env);
+
+		auto q = point.ToCGAL<Kernel>();
+		auto obj = pl.locate(q);
+		face = boost::get<Arrangement_2::Face_const_handle>(&obj);
+
+		Arrangement_2 output_arr;
+		TEV tev(env);
+		Face_handle fh = tev.compute_visibility(q, *face, output_arr);
+
+		auto result = PolygonWithHoles2<K>::NewPolygonWithHoles2();
+		auto curr = fh->outer_ccb();
+
+		result->outer_boundary().push_back(curr->source()->point());
+
+		while (++curr != fh->outer_ccb())
+		{
+			result->outer_boundary().push_back(curr->source()->point());
+		}
+			
+		return result;
+	}
+
+	static void* ComputeVisibilityRSV(Point2d point, void* pwhPtr)
+	{
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		std::vector<Segment_2> segments;
+		GetSegments(segments, *pwh);
+
+		Arrangement_2 env;
+		CGAL::insert_non_intersecting_curves(env, segments.begin(), segments.end());
+
+		Arrangement_2::Face_const_handle* face;
+		Locator pl(env);
+
+		auto q = point.ToCGAL<Kernel>();
+		auto obj = pl.locate(q);
+		face = boost::get<Arrangement_2::Face_const_handle>(&obj);
+
+		Arrangement_2 output_arr;
+		RSV rsv(env);
+		Face_handle fh = rsv.compute_visibility(q, *face, output_arr);
+
+		auto result = PolygonWithHoles2<K>::NewPolygonWithHoles2();
+		auto curr = fh->outer_ccb();
+
+		result->outer_boundary().push_back(curr->source()->point());
+
+		while (++curr != fh->outer_ccb())
+		{
+			result->outer_boundary().push_back(curr->source()->point());
+		}
+
+		return result;
+	}
+
 };

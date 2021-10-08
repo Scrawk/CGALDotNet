@@ -20,7 +20,14 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            PolygonVisibility<EEK>.Instance.Test();
+            var pwh = PolygonFactory<EEK>.FromDounut(10, 5, 16);
+
+            PolygonWithHoles2<EEK> poly;
+            if( PolygonVisibility<EEK>.Instance.ComputeVisibilityRSV(new Point2d(6, 0), pwh, out poly))
+            {
+                poly.Print();
+            }
+
 
         }
 

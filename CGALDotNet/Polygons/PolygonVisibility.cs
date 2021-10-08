@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNet.Geometry;
+
 namespace CGALDotNet.Polygons
 {
+    public enum POLYGON_VISIBILITY
+    {
+        ROTATION_SWEEP,
+        TRIANGULAR_EXPANSION
+    }
+
     /// <summary>
     /// The generic polgon visibility class
     /// </summary>
@@ -23,9 +31,104 @@ namespace CGALDotNet.Polygons
 
         }
 
-        public void Test()
+        /// <summary>
+        /// Compute the visibility from a simple polygon.
+        /// </summary>
+        /// <param name="point">The visibility point.</param>
+        /// <param name="polygon">A simple polygon that contains the point.</param>
+        /// <param name="result">The visibility result.</param>
+        /// <returns>True if result was computed</returns>
+        public bool ComputeVisibility(Point2d point, Polygon2<K> polygon,  out Polygon2<K> result)
         {
-            Kernel.Test();
+            if(polygon.ContainsPoint(point))
+            {
+                CheckPolygon(polygon);
+                var ptr = Kernel.ComputeVisibilitySimple(point, polygon.Ptr);
+                result = new Polygon2<K>(ptr);
+
+                if (result.IsClockWise)
+                    polygon.Reverse();
+
+                return true;
+            }
+            else
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Compute the visibility from a polygon with holes.
+        /// </summary>
+        /// <param name="method">What method to use.</param>
+        /// <param name="point">The visibility point.</param>
+        /// <param name="polygon">A polygon with holes that contains the point.</param>
+        /// <param name="result">The visibility result.</param>
+        /// <returns>True if result was computed</returns>
+        public bool ComputeVisibility(POLYGON_VISIBILITY method, Point2d point, PolygonWithHoles2<K> polygon, out PolygonWithHoles2<K> result)
+        {
+            switch (method)
+            {
+                case POLYGON_VISIBILITY.ROTATION_SWEEP:
+                    return ComputeVisibilityRSV(point, polygon, out result);
+
+                case POLYGON_VISIBILITY.TRIANGULAR_EXPANSION:
+                    return ComputeVisibilityTEV(point, polygon, out result);
+
+                default:
+                    return ComputeVisibilityTEV(point, polygon, out result);
+            }
+        }
+
+        /// <summary>
+        /// Compute the visibility from a polygon with holes 
+        /// using the triangular expansion method.
+        /// </summary>
+        /// <param name="point">The visibility point.</param>
+        /// <param name="polygon">A polygon with holes that contains the point.</param>
+        /// <param name="result">The visibility result.</param>
+        /// <returns>True if result was computed</returns>
+        public bool ComputeVisibilityTEV(Point2d point, PolygonWithHoles2<K> polygon, out PolygonWithHoles2<K> result)
+        {
+            if (polygon.ContainsPoint(point))
+            {
+                //CheckPolygon(polygon);
+                var ptr = Kernel.ComputeVisibilityTEV(point, polygon.Ptr);
+                result = new PolygonWithHoles2<K>(ptr);
+
+                return true;
+            }
+            else
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Compute the visibility from a polygon with holes 
+        /// using the rotational sweep method.
+        /// </summary>
+        /// <param name="point">The visibility point.</param>
+        /// <param name="polygon">A polygon with holes that contains the point.</param>
+        /// <param name="result">The visibility result.</param>
+        /// <returns>True if result was computed</returns>
+        public bool ComputeVisibilityRSV(Point2d point, PolygonWithHoles2<K> polygon, out PolygonWithHoles2<K> result)
+        {
+            if (polygon.ContainsPoint(point))
+            {
+                //CheckPolygon(polygon);
+                var ptr = Kernel.ComputeVisibilityRSV(point, polygon.Ptr);
+                result = new PolygonWithHoles2<K>(ptr);
+
+                return true;
+            }
+            else
+            {
+                result = null;
+                return false;
+            }
         }
 
     }
@@ -89,7 +192,7 @@ namespace CGALDotNet.Polygons
             if (!CheckInput) return;
 
             if (!IsValid(polygon))
-                throw new Exception("Poylgon must be simple and ccw to offset.");
+                throw new Exception("Poylgon must be simple and ccw.");
         }
 
         /// <summary>
