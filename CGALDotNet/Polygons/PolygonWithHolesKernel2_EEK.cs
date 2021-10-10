@@ -196,7 +196,7 @@ namespace CGALDotNet.Polygons
         private static extern Point2d PolygonWithHoles2_EEK_GetPoint(IntPtr ptr, int polyIndex, int pointIndex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void PolygonWithHoles2_EEK_GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+        private static extern void PolygonWithHoles2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int polyIndex, int startIndex, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point);

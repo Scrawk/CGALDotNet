@@ -20,14 +20,18 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var pwh = PolygonFactory<EEK>.FromDounut(10, 5, 16);
 
-            PolygonWithHoles2<EEK> poly;
-            if( PolygonVisibility<EEK>.Instance.ComputeVisibilityRSV(new Point2d(6, 0), pwh, out poly))
-            {
-                poly.Print();
-            }
+            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
+            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
+            inner.Reverse();
 
+            var poly = new PolygonWithHoles2<EEK>(outer);
+            poly.AddHole(inner);
+
+            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 0, 0));
+            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 1, 0));
+            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 2, 0));
+            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 3, 0));
 
         }
 

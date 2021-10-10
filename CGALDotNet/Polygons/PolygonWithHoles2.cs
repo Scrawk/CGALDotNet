@@ -377,23 +377,23 @@ namespace CGALDotNet.Polygons
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
             {
-                int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
-
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                {
+                    int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                     ErrorUtil.CheckBounds(pointIndex, count);
-
+                }
+                    
                 return Kernel.GetPoint(Ptr, BOUNDARY_INDEX, pointIndex);
             }
             else
             {
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                {
                     ErrorUtil.CheckBounds(holeIndex, HoleCount);
-
-                int count = Kernel.PointCount(Ptr, holeIndex);
-
-                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    int count = Kernel.PointCount(Ptr, holeIndex);
                     ErrorUtil.CheckBounds(pointIndex, count);
-
+                }
+   
                 return Kernel.GetPoint(Ptr, holeIndex, pointIndex);
             }
         }
@@ -460,22 +460,22 @@ namespace CGALDotNet.Polygons
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
             {
-                int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
-
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                {
+                    int count = Kernel.PointCount(Ptr, BOUNDARY_INDEX);
                     ErrorUtil.CheckBounds(pointIndex, count);
-
+                }
+                    
                 Kernel.SetPoint(Ptr, BOUNDARY_INDEX, pointIndex, point);
             }
             else
             {
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                {
                     ErrorUtil.CheckBounds(holeIndex, HoleCount);
-
-                int count = Kernel.PointCount(Ptr, holeIndex);
-
-                if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
+                    int count = Kernel.PointCount(Ptr, holeIndex);
                     ErrorUtil.CheckBounds(pointIndex, count);
+                }
 
                 Kernel.SetPoint(Ptr, holeIndex, pointIndex, point);
             }

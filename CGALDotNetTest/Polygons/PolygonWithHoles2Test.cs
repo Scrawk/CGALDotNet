@@ -121,5 +121,56 @@ namespace CGALDotNetTest.Polygons
             Assert.AreEqual(4, poly.PointCount(POLYGON_ELEMENT.BOUNDARY));
             Assert.AreEqual(4, poly.PointCount(POLYGON_ELEMENT.HOLE, 0));
         }
+
+        [TestMethod]
+        public void Remove()
+        {
+            var poly = PolygonFactory<EEK>.FromDounut(2, 1, 4);
+
+            Assert.IsTrue(!poly.IsUnbounded);
+            Assert.AreEqual(1, poly.HoleCount);
+
+            poly.Remove(POLYGON_ELEMENT.BOUNDARY);
+            poly.Remove(POLYGON_ELEMENT.HOLE, 0);
+
+            Assert.IsTrue(poly.IsUnbounded);
+            Assert.AreEqual(0, poly.HoleCount);
+        }
+
+        [TestMethod]
+        public void Reverse()
+        {
+            var poly = PolygonFactory<EEK>.FromDounut(2, 1, 4);
+
+            Assert.AreEqual(ORIENTATION.POSITIVE, poly.FindOrientation(POLYGON_ELEMENT.BOUNDARY));
+            Assert.AreEqual(ORIENTATION.NEGATIVE, poly.FindOrientation(POLYGON_ELEMENT.HOLE, 0));
+
+            poly.Reverse(POLYGON_ELEMENT.BOUNDARY);
+            poly.Reverse(POLYGON_ELEMENT.HOLE, 0);
+
+            Assert.AreEqual(ORIENTATION.NEGATIVE, poly.FindOrientation(POLYGON_ELEMENT.BOUNDARY));
+            Assert.AreEqual(ORIENTATION.POSITIVE, poly.FindOrientation(POLYGON_ELEMENT.HOLE, 0));
+        }
+
+        [TestMethod]
+        public void GetPoint()
+        {
+            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
+            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
+            inner.Reverse();
+
+            var poly = new PolygonWithHoles2<EEK>(outer);
+            poly.AddHole(inner);
+
+            Assert.AreEqual(new Point2d(-2, -2), poly.GetPoint(POLYGON_ELEMENT.BOUNDARY, 0));
+            Assert.AreEqual(new Point2d(2, -2), poly.GetPoint(POLYGON_ELEMENT.BOUNDARY, 1));
+            Assert.AreEqual(new Point2d(2, 2), poly.GetPoint(POLYGON_ELEMENT.BOUNDARY, 2));
+            Assert.AreEqual(new Point2d(-2, 2), poly.GetPoint(POLYGON_ELEMENT.BOUNDARY, 3));
+
+            Assert.AreEqual(new Point2d(-1, -1), poly.GetPoint(POLYGON_ELEMENT.HOLE, 0, 0));
+            Assert.AreEqual(new Point2d(-1, 1), poly.GetPoint(POLYGON_ELEMENT.HOLE, 1, 0));
+            Assert.AreEqual(new Point2d(1, 1), poly.GetPoint(POLYGON_ELEMENT.HOLE, 2, 0));
+            Assert.AreEqual(new Point2d(1, -1), poly.GetPoint(POLYGON_ELEMENT.HOLE, 3, 0));
+        }
     }
 }

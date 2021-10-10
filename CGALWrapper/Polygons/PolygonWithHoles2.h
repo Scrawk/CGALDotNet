@@ -205,9 +205,7 @@ public:
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
 		{
-			auto polygon = CastToPolygon2(ptr);
 			auto point = polygon->vertex(pointIndex);
-
 			return Point2d::FromCGAL<K>(point);
 		}
 		else
@@ -251,7 +249,6 @@ public:
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
 		{
-			auto polygon = CastToPolygon2(ptr);
 			(*polygon)[pointIndex] = Point_2(point.x, point.y);
 		}
 	}
