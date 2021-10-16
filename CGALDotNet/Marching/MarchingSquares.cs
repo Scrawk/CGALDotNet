@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using CGALDotNet.Geometry;
 
-namespace CGeom2D.Marching
+namespace CGALDotNet.Marching
 {
     public class MarchingSquares
     {
