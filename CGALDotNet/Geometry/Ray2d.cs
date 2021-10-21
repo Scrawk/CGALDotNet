@@ -130,36 +130,6 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Transform the ray by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix2x2d m)
-        {
-            Position = m * Position;
-            Direction = m * Direction;
-        }
-
-        /// <summary>
-        /// Transform the ray by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix3x3d m)
-        {
-            Position = m * Position;
-            Direction = m * Direction;
-        }
-
-        /// <summary>
-        /// Transform the ray by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix4x4d m)
-        {
-            Position = m * Position;
-            Direction = m * Direction;
-        }
-
-        /// <summary>
         /// Normalize the lines direction.
         /// </summary>
         /// <param name="digits">number of digits to round to.</param>

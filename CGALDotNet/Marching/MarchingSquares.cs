@@ -96,13 +96,21 @@ namespace CGALDotNet.Marching
                 if (EdgeConnectionTable[flagIndex, 2 * i] < 0) break;
 
                 int idx = verts.Count;
+                int i0 = EdgeConnectionTable[flagIndex, 2 * i + 0];
+                int i1 = EdgeConnectionTable[flagIndex, 2 * i + 1];
 
-                for (int j = 0; j < 2; j++)
+                var v0 = EdgeVertex[i0];
+                var v1 = EdgeVertex[i1];
+
+                if (v0 != v1)
                 {
-                    int vert = EdgeConnectionTable[flagIndex, 2 * i + j];
-                    indices.Add(idx + j);
-                    verts.Add(EdgeVertex[vert]);
+                    indices.Add(idx + 0);
+                    indices.Add(idx + 1);
+
+                    verts.Add(v0);
+                    verts.Add(v1);
                 }
+
             }
         }
 
@@ -116,7 +124,7 @@ namespace CGALDotNet.Marching
             if (v1 == double.PositiveInfinity) return 1;
 
             double delta = v2 - v1;
-            return (delta == 0.0f) ? Surface : (Surface - v1) / delta;
+            return (delta == 0.0) ? Surface : (Surface - v1) / delta;
         }
 
         /// <summary>

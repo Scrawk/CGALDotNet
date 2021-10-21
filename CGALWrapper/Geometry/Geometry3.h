@@ -65,6 +65,16 @@ struct Point3d
         return CGAL::Vector_3<K>(x, y, z);
     }
 
+    bool operator==(const Point3d& rhs) const
+    {
+        return x == rhs.x && y == rhs.y && z == rhs.z;
+    }
+
+    bool operator!=(const Point3d& rhs) const
+    {
+        return !operator==(rhs);
+    }
+
 };
 
 struct Vector3d
@@ -92,6 +102,16 @@ struct Vector3d
     CGAL::Point_3<K> ToPoint()
     {
         return CGAL::Point_3<K>(x, y, z);
+    }
+
+    bool operator==(const Vector3d& rhs) const
+    {
+        return x == rhs.x && y == rhs.y && z == rhs.z;
+    }
+
+    bool operator!=(const Vector3d& rhs) const
+    {
+        return !operator==(rhs);
     }
 
 };

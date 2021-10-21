@@ -14,14 +14,16 @@ namespace CGALDotNet.Arrangements
 
         public bool HasOuterEdges;
 
+        public int HoleCount;
+
         public int Index;
 
         public int HalfEdgeIndex;
 
         public override string ToString()
         {
-            return string.Format("[ArrFace2: Index={0}, HalfEdgeIndex={1}, IsFictitious={2}, IsUnbounded={3}, HasOuterEdges={4}]",
-                Index, HalfEdgeIndex, IsFictitious, IsUnbounded, HasOuterEdges);
+            return string.Format("[ArrFace2: Index={0}, HalfEdgeIndex={1}, IsFictitious={2}, IsUnbounded={3}, HasOuterEdges={4}, HoleCount={5}]",
+                Index, HalfEdgeIndex, IsFictitious, IsUnbounded, HasOuterEdges, HoleCount);
         }
     }
 }

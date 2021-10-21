@@ -55,6 +55,16 @@ struct Point2d
         return CGAL::Vector_2<K>(x, y);
     }
 
+    bool operator==(const Point2d& rhs) const
+    {
+        return x == rhs.x && y == rhs.y;
+    }
+
+    bool operator!=(const Point2d& rhs) const
+    {
+        return !operator==(rhs);
+    }
+
 };
 
 struct Vector2d
@@ -80,6 +90,16 @@ struct Vector2d
     CGAL::Point_2<K> ToPoint()
     {
         return CGAL::Point_2<K>(x, y);
+    }
+
+    bool operator==(const Vector2d& rhs) const
+    {
+        return x == rhs.x && y == rhs.y;
+    }
+
+    bool operator!=(const Vector2d& rhs) const
+    {
+        return !operator==(rhs);
     }
 
 };

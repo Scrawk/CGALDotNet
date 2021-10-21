@@ -95,7 +95,7 @@ void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int startInde
 	Arrangement2<EEK>::GetVertices(ptr, vertices, startIndex, count);
 }
 
-CGALWRAPPER_API BOOL Arrangement2_EEK_GetVertex(void* ptr, int index, ArrVertex2& arrVertex)
+BOOL Arrangement2_EEK_GetVertex(void* ptr, int index, ArrVertex2& arrVertex)
 {
 	return Arrangement2<EEK>::GetVertex(ptr, index, arrVertex);
 }
@@ -105,7 +105,7 @@ void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startInde
 	Arrangement2<EEK>::GetHalfEdges(ptr, edges, startIndex, count);
 }
 
-CGALWRAPPER_API BOOL Arrangement2_EEK_GetHalfEdge(void* ptr, int index, ArrHalfEdge2& arrEdge)
+BOOL Arrangement2_EEK_GetHalfEdge(void* ptr, int index, ArrHalfEdge2& arrEdge)
 {
 	return Arrangement2<EEK>::GetHalfEdge(ptr, index, arrEdge);
 }
@@ -115,9 +115,14 @@ void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int startIndex, int c
 	Arrangement2<EEK>::GetFaces(ptr, faces, startIndex, count);
 }
 
-CGALWRAPPER_API BOOL Arrangement2_EEK_GetFace(void* ptr, int index, ArrFace2& arrFace)
+BOOL Arrangement2_EEK_GetFace(void* ptr, int index, ArrFace2& arrFace)
 {
 	return Arrangement2<EEK>::GetFace(ptr, index, arrFace);
+}
+
+int Arrangement2_EEK_GetFaceHoleCount(void* ptr, int index)
+{
+	return Arrangement2<EEK>::GetFaceHoleCount(ptr, index);
 }
 
 void Arrangement2_EEK_CreateLocator(void* ptr, ARR_LOCATOR type)
@@ -195,6 +200,28 @@ BOOL Arrangement2_EEK_RemoveEdgeBySegment(void* ptr, Segment2d segment)
 	return Arrangement2<EEK>::RemoveEdge(ptr, segment);
 }
 
+/*
+void Test()
+{
+	auto arr = Arrangement2<EEK>::Arrangement_2();
+
+	for (auto face = arr.faces_begin(); face != arr.faces_end(); ++face)
+	{
+		for (auto hole = face->holes_begin(); hole != face->holes_end(); ++hole)
+		{
+			auto curr = (*hole)->next();
+			auto first = curr;
+
+			do 
+			{
+				auto p = curr->source()->point();
+				curr = curr->next();
+			} 
+			while (curr != first);
+		}
+	}
+}
+*/
 
 
 

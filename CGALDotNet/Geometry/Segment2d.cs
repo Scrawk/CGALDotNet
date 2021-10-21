@@ -184,36 +184,6 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Transform the segment by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix2x2d m)
-        {
-            A = m * A;
-            B = m * B;
-        }
-
-        /// <summary>
-        /// Transform the segment by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix3x3d m)
-        {
-            A = m * A;
-            B = m * B;
-        }
-
-        /// <summary>
-        /// Transform the segment by the matrix.
-        /// </summary>
-        /// <param name="m">The transform.</param>
-        public void Transform(Matrix4x4d m)
-        {
-            A = m * A;
-            B = m * B;
-        }
-
-        /// <summary>
         /// Round the segments points.
         /// </summary>
         /// <param name="digits">number of digits to round to.</param>

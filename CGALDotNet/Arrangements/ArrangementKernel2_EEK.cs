@@ -138,6 +138,11 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_GetFace(ptr, index, out arrFace);
         }
 
+        internal override int GetFaceHoleCount(IntPtr ptr, int index)
+        {
+            return Arrangement2_EEK_GetFaceHoleCount(ptr, index);
+        }
+
         internal override void CreateLocator(IntPtr ptr, ARR_LOCATOR type)
         {
             Arrangement2_EEK_CreateLocator(ptr, type);
@@ -281,6 +286,9 @@ namespace CGALDotNet.Arrangements
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_GetFace(IntPtr ptr, int index, [Out] out ArrFace2 arrFace);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int Arrangement2_EEK_GetFaceHoleCount(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_CreateLocator(IntPtr ptr, ARR_LOCATOR type);

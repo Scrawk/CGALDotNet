@@ -2,10 +2,10 @@
 
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
-#include "ArrMultiLocator.h"
-#include "ArrangementMap.h"
 #include "../Polygons/Polygon2.h"
 #include "../Polygons/PolygonWithHoles2.h"
+#include "ArrMultiLocator.h"
+#include "ArrangementMap.h"
 
 #include "ArrVertex2.h"
 #include "ArrHalfEdge2.h"
@@ -313,6 +313,22 @@ public:
 		}
 	}
 
+	static int GetFaceHoleCount(void* ptr, int index)
+	{
+		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
+
+		auto face = arr->map.FindFace(arr->model, index);
+		if (face != nullptr)
+		{
+			return CountHoles(*face);
+		}
+		else
+		{
+			return NULL_INDEX;
+		}
+	}
+
 	static void CreateLocator(void* ptr, ARR_LOCATOR type)
 	{
 		auto arr = CastToArrangement(ptr);
@@ -405,6 +421,8 @@ public:
 
 			auto segment = Segment2d::FromCGAL(a, b);
 
+			if (segment.a == segment.b) continue;
+
 			if (nonItersecting)
 				arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
 			else
@@ -429,6 +447,8 @@ public:
 			auto b = polygon->vertex(i1);
 
 			auto segment = Segment2d::FromCGAL(a, b);
+
+			if (segment.a == segment.b) continue;
 
 			if (nonItersecting)
 				arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segment);
@@ -455,6 +475,8 @@ public:
 
 	static void InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting)
 	{
+		if (segment.a == segment.b) return;
+
 		auto arr = CastToArrangement(ptr);
 
 		if(nonItersecting)
@@ -471,6 +493,8 @@ public:
 
 		for (auto i = startIndex; i < count; i++)
 		{
+			if (segments[i].a == segments[i].b) continue;
+
 			if (nonItersecting)
 				arr->locator.InsertNonIntersectingSegment<Segment_2>(arr->model, segments[i]);
 			else
@@ -623,6 +647,24 @@ private:
 			list.push_back(points[i].ToCGAL<K>());
 
 		return list;
+	}
+
+	static int CountHoles(Face face)
+	{
+		int count = 0;
+		for (auto hole = face->holes_begin(); hole != face->holes_end(); ++hole)
+		{
+			auto curr = (*hole)->next();
+			auto first = curr;
+
+			do
+			{
+				count++;
+				curr = curr->next();
+			} while (curr != first);
+		}
+
+		return count;
 	}
 
 };

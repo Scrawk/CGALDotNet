@@ -8,6 +8,7 @@ struct ArrFace2
 	BOOL IsFictitious;
 	BOOL IsUnbounded;
 	BOOL HasOuterEdges;
+	int HoleCount;
 	int Index;
 	int HalfEdgeIndex;
 
@@ -16,6 +17,7 @@ struct ArrFace2
 		ArrFace2 f;
 		f.IsFictitious = false;
 		f.IsUnbounded = false;
+		f.HoleCount = NULL_INDEX;
 		f.Index = NULL_INDEX;
 		f.HalfEdgeIndex = NULL_INDEX;
 		return f;
@@ -28,6 +30,7 @@ struct ArrFace2
 		f.IsFictitious = face->is_fictitious();
 		f.IsUnbounded = face->is_unbounded();
 		f.HasOuterEdges = face->has_outer_ccb();
+		f.HoleCount = (int)face->number_of_holes();
 		f.Index = face->data();
 
 		if (face->has_outer_ccb())

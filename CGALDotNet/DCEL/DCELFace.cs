@@ -76,7 +76,7 @@ namespace CGALDotNet.DCEL
             }
         }
 
-        public void GetPoints( List<Point2d> points)
+        public void GetPoints(List<Point2d> points)
         {
             foreach(var v in EnumerateVertices())
                 points.Add(v.Point.xy);
