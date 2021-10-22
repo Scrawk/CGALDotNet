@@ -29,21 +29,21 @@ namespace CGALDotNet.Triangulations
 
 		internal abstract void InsertPoint(IntPtr ptr, Point2d point);
 
-		internal abstract void InsertPoints(IntPtr ptr, Point2d[] points, int start, int count);
+		internal abstract void InsertPoints(IntPtr ptr, Point2d[] points, int count);
 
 		internal abstract void InsertPolygon(IntPtr triPtr, IntPtr polyPtr);
 
 		internal abstract void InsertPolygonWithHoles(IntPtr triPtr, IntPtr pwhPtr);
 
-		internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int start, int count);
+		internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int count);
 
-		internal abstract void GetIndices(IntPtr ptr, int[] indices, int start, int count);
+		internal abstract void GetIndices(IntPtr ptr, int[] indices, int count);
 
 		internal abstract void Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
 		internal abstract void InsertSegmentConstraint(IntPtr ptr, Point2d a, Point2d b);
 
-		internal abstract void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int start, int count);
+		internal abstract void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int count);
 
 		internal abstract void InsertPolygonConstraint(IntPtr triPtr, IntPtr polyPtr);
 
@@ -55,7 +55,7 @@ namespace CGALDotNet.Triangulations
 
 		internal abstract void RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds);
 
-		internal abstract void RefineAndOptimizeWithSeeds(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int start, int count);
+		internal abstract void RefineAndOptimizeWithSeeds(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int count);
 	}
 }
 

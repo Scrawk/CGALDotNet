@@ -201,15 +201,6 @@
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\MakeGabriel2.h">
-      <Filter>Header Files\Triangulations</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangulations\OptimizeMesh2.h">
-      <Filter>Header Files\Triangulations</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangulations\MakeDelaunay2.h">
-      <Filter>Header Files\Triangulations</Filter>
-    </ClInclude>
     <ClInclude Include="Polygons\Polygon2_EIK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>

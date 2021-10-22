@@ -329,6 +329,22 @@ public:
 		}
 	}
 
+	static int GetHoleVertexCount(void* ptr, int faceIndex, int holeIndex)
+	{
+		auto arr = CastToArrangement(ptr);
+		arr->map.SetIndices(arr->model);
+
+		auto face = arr->map.FindFace(arr->model, faceIndex);
+		if (face != nullptr)
+		{
+			return CountHoleVertices(*face, holeIndex);
+		}
+		else
+		{
+			return NULL_INDEX;
+		}
+	}
+
 	static void CreateLocator(void* ptr, ARR_LOCATOR type)
 	{
 		auto arr = CastToArrangement(ptr);
@@ -654,18 +670,38 @@ private:
 		int count = 0;
 		for (auto hole = face->holes_begin(); hole != face->holes_end(); ++hole)
 		{
-			auto curr = (*hole)->next();
-			auto first = curr;
-
-			do
-			{
-				count++;
-				curr = curr->next();
-			} while (curr != first);
+			count++;
 		}
 
 		return count;
 	}
 
+	static int CountHoleVertices(Face face, int index)
+	{
+		int holeCount = 0;
+		for (auto hole = face->holes_begin(); hole != face->holes_end(); ++hole)
+		{
+			if (holeCount == index)
+			{
+				auto curr = (*hole)->next();
+				auto first = curr;
+
+				int vertCount = 0;
+
+				do
+				{
+					vertCount++;
+					curr = curr->next();
+				} while (curr != first);
+
+				return vertCount;
+			}
+
+			holeCount++;
+		}
+
+		return NULL_INDEX;
+	}
+	
 };
 

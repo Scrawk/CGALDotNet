@@ -4,10 +4,6 @@
 #include "ConstrainedTriangulation2.h"
 #include <CGAL/Aff_transformation_2.h>
 
-#include "MakeGabriel2.h"
-#include "MakeDelaunay2.h"
-#include "OptimizeMesh2.h"
-
 void* ConstrainedTriangulation2_EEK_Create()
 {
 	return ConstrainedTriangulation2<EEK>::NewTriangulation2();
@@ -58,9 +54,9 @@ void ConstrainedTriangulation2_EEK_InsertPoint(void* ptr, Point2d point)
 	ConstrainedTriangulation2<EEK>::InsertPoint(ptr, point);
 }
 
-void ConstrainedTriangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int count)
 {
-	ConstrainedTriangulation2<EEK>::InsertPoints(ptr, points, startIndex, count);
+	ConstrainedTriangulation2<EEK>::InsertPoints(ptr, points, count);
 }
 
 void ConstrainedTriangulation2_EEK_InsertPolygon(void* triPtr, void* polyPtr)
@@ -73,14 +69,14 @@ void ConstrainedTriangulation2_EEK_InsertPolygonWithHoles(void* triPtr, void* pw
 	ConstrainedTriangulation2<EEK>::InsertPolygonWithHoles(triPtr, pwhPtr);
 }
 
-void ConstrainedTriangulation2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetPoints(ptr, points, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetPoints(ptr, points, count);
 }
 
-void ConstrainedTriangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetIndices(void* ptr, int* indices, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetIndices(ptr, indices, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetIndices(ptr, indices, count);
 }
 
 BOOL ConstrainedTriangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vertex)
@@ -88,9 +84,9 @@ BOOL ConstrainedTriangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& v
 	return ConstrainedTriangulation2<EEK>::GetVertex(ptr, index, vertex);
 }
 
-void ConstrainedTriangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetVertices(ptr, vertices, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetVertices(ptr, vertices, count);
 }
 
 bool ConstrainedTriangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
@@ -98,9 +94,9 @@ bool ConstrainedTriangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
 	return ConstrainedTriangulation2<EEK>::GetFace(ptr, index, face);
 }
 
-void ConstrainedTriangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetFaces(ptr, faces, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetFaces(ptr, faces, count);
 }
 
 BOOL ConstrainedTriangulation2_EEK_GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment)
@@ -113,9 +109,9 @@ BOOL ConstrainedTriangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangl
 	return ConstrainedTriangulation2<EEK>::GetTriangle(ptr, faceIndex, triangle);
 }
 
-void ConstrainedTriangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetTriangles(ptr, triangles, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetTriangles(ptr, triangles, count);
 }
 
 BOOL ConstrainedTriangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
@@ -123,9 +119,9 @@ BOOL ConstrainedTriangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Poi
 	return ConstrainedTriangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);
 }
 
-void ConstrainedTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetCircumcenters(ptr, circumcenters, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetCircumcenters(ptr, circumcenters, count);
 }
 
 int ConstrainedTriangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index)
@@ -185,9 +181,9 @@ void ConstrainedTriangulation2_EEK_InsertSegmentConstraintFromVertices(void* ptr
 	ConstrainedTriangulation2<EEK>::InsertSegmentConstraint(ptr, vertIndex1, vertIndex2);
 }
 
-void ConstrainedTriangulation2_EEK_InsertSegmentConstraints(void* ptr, Segment2d* segments, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_InsertSegmentConstraints(void* ptr, Segment2d* segments, int count)
 {
-	ConstrainedTriangulation2<EEK>::InsertSegmentConstraints(ptr, segments, startIndex, count);
+	ConstrainedTriangulation2<EEK>::InsertSegmentConstraints(ptr, segments, count);
 }
 
 void ConstrainedTriangulation2_EEK_InsertPolygonConstraint(void* triPtr, void* polyPtr)
@@ -200,19 +196,19 @@ void ConstrainedTriangulation2_EEK_InsertPolygonWithHolesConstraint(void* triPtr
 	ConstrainedTriangulation2<EEK>::InsertPolygonWithHolesConstraint(triPtr, pwhPtr);
 }
 
-void ConstrainedTriangulation2_EEK_GetEdgeConstraints(void* ptr, TriEdge2* constraints, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetEdgeConstraints(void* ptr, TriEdge2* constraints, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetConstraints(ptr, constraints, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetConstraints(ptr, constraints, count);
 }
 
-void ConstrainedTriangulation2_EEK_GetSegmentConstraints(void* ptr, Segment2d* constraints, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetSegmentConstraints(void* ptr, Segment2d* constraints, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetConstraints(ptr, constraints, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetConstraints(ptr, constraints, count);
 }
 
-void ConstrainedTriangulation2_EEK_GetIncidentConstraints(void* ptr, int vertexIndex, TriEdge2* constraints, int startIndex, int count)
+void ConstrainedTriangulation2_EEK_GetIncidentConstraints(void* ptr, int vertexIndex, TriEdge2* constraints, int count)
 {
-	ConstrainedTriangulation2<EEK>::GetIncidentConstraints(ptr, vertexIndex, constraints, startIndex, count);
+	ConstrainedTriangulation2<EEK>::GetIncidentConstraints(ptr, vertexIndex, constraints, count);
 }
 
 void ConstrainedTriangulation2_EEK_RemoveConstraint(void* ptr, int faceIndex, int neighbourIndex)
@@ -225,123 +221,9 @@ void ConstrainedTriangulation2_EEK_RemoveIncidentConstraints(void* ptr, int vert
 	ConstrainedTriangulation2<EEK>::RemoveIncidentConstraints(ptr, vertexIndex);
 }
 
-int ConstrainedTriangulation2_EEK_MarkDomains(void* ptr, int* indices, int startIndex, int count)
+int ConstrainedTriangulation2_EEK_MarkDomains(void* ptr, int* indices, int count)
 {
-	return ConstrainedTriangulation2<EEK>::MarkDomains(ptr, indices, startIndex, count);
+	return ConstrainedTriangulation2<EEK>::MarkDomains(ptr, indices, count);
 }
 
-void ConstrainedTriangulation2_EEK_MakeDelaunay(void* ptr)
-{
-	/*
-	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
-
-	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
-
-	std::vector<Point> points;
-	tri->GetPoints(points);
-
-	std::vector<std::pair<Point, Point>> constraints;
-	tri->GetConstraints(constraints);
-
-	MakeDelaunay2::Clear();
-	MakeDelaunay2::Insert(points);
-	MakeDelaunay2::Insert(constraints);
-
-	MakeDelaunay2::MakeConformingDelaunay();
-
-	points.clear();
-	MakeDelaunay2::GetPoints(points);
-
-	tri->Clear();
-	tri->InsertPoints(points);
-	tri->InsertConstraints(constraints);
-	*/
-	
-}
-
-void ConstrainedTriangulation2_EEK_MakeGabriel(void* ptr)
-{
-	/*
-	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
-
-	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
-
-	std::vector<Point> points;
-	tri->GetPoints(points);
-
-	std::vector<std::pair<Point, Point>> constraints;
-	tri->GetConstraints(constraints);
-
-	MakeGaberiel2::Clear();
-	MakeGaberiel2::Insert(points);
-	MakeGaberiel2::Insert(constraints);
-
-	MakeGaberiel2::MakeConformingGabriel();
-
-	points.clear();
-	MakeGaberiel2::GetPoints(points);
-
-	tri->Clear();
-	tri->InsertPoints(points);
-	tri->InsertConstraints(constraints);
-	*/
-}
-
-
-void ConstrainedTriangulation2_EEK_RefineAndOptimize(void* ptr, int iterations, double angleBounds, double lengthBounds)
-{
-	/*
-	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
-
-	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
-
-	std::vector<Point> points;
-	tri->GetPoints(points);
-
-	std::vector<std::pair<Point, Point>> constraints;
-	tri->GetConstraints(constraints);
-
-	OptimizedMesh2::Clear();
-	OptimizedMesh2::Insert(points);
-	OptimizedMesh2::Insert(constraints);
-
-	OptimizedMesh2::RefineAndOptimizeNoSeeds(iterations, angleBounds, lengthBounds);
-
-	points.clear();
-	OptimizedMesh2::GetPoints(points);
-
-	tri->Clear();
-	tri->InsertPoints(points);
-	tri->InsertConstraints(constraints);
-	*/
-
-}
-
-void ConstrainedTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* seeds, int start, int count)
-{
-	/*
-	typedef ConstrainedTriangulation2<EEK>::Point_2 Point;
-
-	auto tri = ConstrainedTriangulation2<EEK>::CastToTriangulation2(ptr);
-
-	std::vector<Point> points;
-	tri->GetPoints(points);
-
-	std::vector<std::pair<Point, Point>> constraints;
-	tri->GetConstraints(constraints);
-
-	OptimizedMesh2::Clear();
-	OptimizedMesh2::Insert(points);
-	OptimizedMesh2::Insert(constraints);
-
-	OptimizedMesh2::RefineAndOptimizeWithSeeds(iterations, angleBounds, lengthBounds, seeds, start, count);
-
-	points.clear();
-	OptimizedMesh2::GetPoints(points);
-
-	tri->Clear();
-	tri->InsertPoints(points);
-	tri->InsertConstraints(constraints);
-	*/
-}
 

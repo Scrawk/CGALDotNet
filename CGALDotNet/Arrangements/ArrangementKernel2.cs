@@ -59,6 +59,8 @@ namespace CGALDotNet.Arrangements
 
         internal abstract int GetFaceHoleCount(IntPtr ptr, int index);
 
+        internal abstract int GetHoleVertexCount(IntPtr ptr, int faceIndex, int holeIndex);
+
         internal abstract void CreateLocator(IntPtr ptr, ARR_LOCATOR type);
 
         internal abstract void ReleaseLocator(IntPtr ptr);

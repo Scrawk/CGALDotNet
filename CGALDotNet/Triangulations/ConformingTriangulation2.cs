@@ -128,7 +128,7 @@ namespace CGALDotNet.Triangulations
 
         public void Insert(Point2d[] points)
         {
-            Kernel.InsertPoints(Ptr, points, 0, points.Length);
+            Kernel.InsertPoints(Ptr, points, points.Length);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(points, 0, count);
             }
 
-            Kernel.GetPoints(Ptr, points, 0, points.Length);
+            Kernel.GetPoints(Ptr, points, points.Length);
         }
 
         public void GetIndices(int[] indices)
@@ -178,7 +178,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(indices, 0, count);
             }
 
-            Kernel.GetIndices(Ptr, indices, 0, indices.Length);
+            Kernel.GetIndices(Ptr, indices, indices.Length);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace CGALDotNet.Triangulations
             if (segments == null || segments.Length == 0)
                 return;
 
-            Kernel.InsertSegmentConstraints(Ptr, segments, 0, segments.Length);
+            Kernel.InsertSegmentConstraints(Ptr, segments, segments.Length);
         }
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace CGALDotNet.Triangulations
             if (angleBounds > 0.125)
                 angleBounds = 0.125;
 
-            Kernel.RefineAndOptimizeWithSeeds(Ptr, 0, angleBounds, lengthBounds, seeds, 0, seeds.Length);
+            Kernel.RefineAndOptimizeWithSeeds(Ptr, 0, angleBounds, lengthBounds, seeds, seeds.Length);
         }
 
         public void Print()

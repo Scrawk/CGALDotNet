@@ -13,9 +13,9 @@ namespace CGALDotNet.Triangulations
 
         internal abstract int VoronoiRayCount(IntPtr ptr);
 
-        internal abstract void GetVoronoiSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+        internal abstract void GetVoronoiSegments(IntPtr ptr, Segment2d[] segments, int count);
 
-        internal abstract void GetVoronoiRays(IntPtr ptr, Ray2d[] rays, int startIndex, int count);
+        internal abstract void GetVoronoiRays(IntPtr ptr, Ray2d[] rays, int count);
 
         internal abstract void VoronoiCount(IntPtr ptr, out int numSegments, out int numRays);
 

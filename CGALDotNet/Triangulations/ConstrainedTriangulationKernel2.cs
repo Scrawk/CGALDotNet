@@ -18,31 +18,24 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void InsertSegmentConstraintFromVertices(IntPtr ptr, int vertIndex1, int vertIndex2);
 
-        internal abstract void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+        internal abstract void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int count);
 
         internal abstract void InsertPolygonConstraint(IntPtr triPtr, IntPtr polyPtr);
 
         internal abstract void InsertPolygonWithHolesConstraint(IntPtr triPtr, IntPtr pwhPtr);
 
-        internal abstract void GetConstraints(IntPtr ptr, TriEdge2[] constraints, int startIndex, int count);
+        internal abstract void GetConstraints(IntPtr ptr, TriEdge2[] constraints, int count);
 
-        internal abstract void GetConstraints(IntPtr ptr, Segment2d[] constraints, int startIndex, int count);
+        internal abstract void GetConstraints(IntPtr ptr, Segment2d[] constraints, int count);
 
-        internal abstract void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdge2[] constraints, int startIndex, int count);
+        internal abstract void GetIncidentConstraints(IntPtr ptr, int vertexIndex, TriEdge2[] constraints, int count);
 
         internal abstract void RemoveConstraint(IntPtr ptr, int faceIndex, int neighbourIndex);
 
         internal abstract void RemoveIncidentConstraints(IntPtr ptr, int vertexIndex);
 
-        internal abstract int MarkDomains(IntPtr ptr, int[] indices, int startIndex, int count);
+        internal abstract int MarkDomains(IntPtr ptr, int[] indices, int count);
 
-        internal abstract void MakeDelaunay(IntPtr ptr);
-
-        internal abstract void MakeGabriel(IntPtr ptr);
-
-        internal abstract void RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds);
-
-        internal abstract void RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int start, int count);
 
     }
 }

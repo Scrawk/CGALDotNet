@@ -53,9 +53,9 @@ void DelaunayTriangulation2_EEK_InsertPoint(void* ptr, Point2d point)
 	DelaunayTriangulation2<EEK>::InsertPoint(ptr, point);
 }
 
-void DelaunayTriangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int startIndex, int count)
+void DelaunayTriangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int count)
 {
-	DelaunayTriangulation2<EEK>::InsertPoints(ptr, points, startIndex, count);
+	DelaunayTriangulation2<EEK>::InsertPoints(ptr, points, count);
 }
 
 void DelaunayTriangulation2_EEK_InsertPolygon(void* triPtr, void* polyPtr)
@@ -68,14 +68,14 @@ void DelaunayTriangulation2_EEK_InsertPolygonWithHoles(void* triPtr, void* pwhPt
 	DelaunayTriangulation2<EEK>::InsertPolygonWithHoles(triPtr, pwhPtr);
 }
 
-void DelaunayTriangulation2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	DelaunayTriangulation2<EEK>::GetPoints(ptr, points, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetPoints(ptr, points, count);
 }
 
-void DelaunayTriangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetIndices(void* ptr, int* indices, int count)
 {
-	DelaunayTriangulation2<EEK>::GetIndices(ptr, indices, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetIndices(ptr, indices, count);
 }
 
 BOOL DelaunayTriangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vertex)
@@ -83,9 +83,9 @@ BOOL DelaunayTriangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vert
 	return DelaunayTriangulation2<EEK>::GetVertex(ptr, index, vertex);
 }
 
-void DelaunayTriangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int count)
 {
-	DelaunayTriangulation2<EEK>::GetVertices(ptr, vertices, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetVertices(ptr, vertices, count);
 }
 
 bool DelaunayTriangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
@@ -93,9 +93,9 @@ bool DelaunayTriangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
 	return DelaunayTriangulation2<EEK>::GetFace(ptr, index, face);
 }
 
-void DelaunayTriangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int count)
 {
-	DelaunayTriangulation2<EEK>::GetFaces(ptr, faces, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetFaces(ptr, faces, count);
 }
 
 BOOL DelaunayTriangulation2_EEK_GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment)
@@ -108,9 +108,9 @@ BOOL DelaunayTriangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d
 	return DelaunayTriangulation2<EEK>::GetTriangle(ptr, faceIndex, triangle);
 }
 
-void DelaunayTriangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int count)
 {
-	DelaunayTriangulation2<EEK>::GetTriangles(ptr, triangles, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetTriangles(ptr, triangles, count);
 }
 
 BOOL DelaunayTriangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
@@ -118,9 +118,9 @@ BOOL DelaunayTriangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2
 	return DelaunayTriangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);
 }
 
-void DelaunayTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int count)
 {
-	DelaunayTriangulation2<EEK>::GetCircumcenters(ptr, circumcenters, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetCircumcenters(ptr, circumcenters, count);
 }
 
 int DelaunayTriangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index)
@@ -170,12 +170,12 @@ void DelaunayTriangulation2_EEK_VoronoiCount(void* ptr, int& numSegments, int& n
 	DelaunayTriangulation2<EEK>::VoronoiCount(ptr, numSegments, numRays);
 }
 
-void DelaunayTriangulation2_EEK_GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetVoronoiSegments(void* ptr, Segment2d* segments, int count)
 {
-	DelaunayTriangulation2<EEK>::GetVoronoiSegments(ptr, segments, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetVoronoiSegments(ptr, segments, count);
 }
 
-void DelaunayTriangulation2_EEK_GetVoronoiRays(void* ptr, Ray2d* rays, int startIndex, int count)
+void DelaunayTriangulation2_EEK_GetVoronoiRays(void* ptr, Ray2d* rays, int count)
 {
-	DelaunayTriangulation2<EEK>::GetVoronoiRays(ptr, rays, startIndex, count);
+	DelaunayTriangulation2<EEK>::GetVoronoiRays(ptr, rays, count);
 }

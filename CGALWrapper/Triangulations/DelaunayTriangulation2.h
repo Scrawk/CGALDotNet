@@ -132,13 +132,13 @@ public:
 		tri->map.OnModelChanged();
 	}
 
-	static void InsertPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void InsertPoints(void* ptr, Point2d* points, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
 
 		std::vector<Point_2> list(count);
 		for (int i = 0; i < count; i++)
-			list[i] = points[startIndex + i].ToCGAL<K>();
+			list[i] = points[i].ToCGAL<K>();
 
 		tri->model.insert(list.begin(), list.end());
 		tri->map.OnModelChanged();
@@ -168,19 +168,19 @@ public:
 		tri->map.OnModelChanged();
 	}
 
-	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void GetPoints(void* ptr, Point2d* points, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (const auto& vert : tri->model.finite_vertex_handles())
 			points[i++] = Point2d::FromCGAL<K>(vert->point());
 	}
 
-	static void GetIndices(void* ptr, int* indices, int startIndex, int count)
+	static void GetIndices(void* ptr, int* indices, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int index = startIndex;
+		int index = 0;
 
 		tri->map.SetVertexIndices(tri->model);
 
@@ -213,10 +213,10 @@ public:
 		}
 	}
 
-	static void GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
+	static void GetVertices(void* ptr, TriVertex2* vertices, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		tri->map.SetIndices(tri->model);
 
@@ -246,10 +246,10 @@ public:
 		}
 	}
 
-	static void GetFaces(void* ptr, TriFace2* faces, int startIndex, int count)
+	static void GetFaces(void* ptr, TriFace2* faces,int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		tri->map.SetIndices(tri->model);
 
@@ -305,10 +305,10 @@ public:
 		}
 	}
 
-	static void GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+	static void GetTriangles(void* ptr, Triangle2d* triangles, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (const auto& face : tri->model.finite_face_handles())
 		{
@@ -340,10 +340,10 @@ public:
 		}
 	}
 
-	static void GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count)
+	static void GetCircumcenters(void* ptr, Point2d* circumcenters, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (const auto& face : tri->model.finite_face_handles())
 		{
@@ -522,10 +522,10 @@ public:
 		return count;
 	}
 
-	static void GetVoronoiSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	static void GetVoronoiSegments(void* ptr, Segment2d* segments, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
 		{
@@ -537,10 +537,10 @@ public:
 		}
 	}
 
-	static void GetVoronoiRays(void* ptr, Ray2d* rays, int startIndex, int count)
+	static void GetVoronoiRays(void* ptr, Ray2d* rays, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (auto eit = tri->model.edges_begin(); eit != tri->model.edges_end(); ++eit)
 		{

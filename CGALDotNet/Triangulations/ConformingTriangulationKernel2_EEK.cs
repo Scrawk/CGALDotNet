@@ -52,9 +52,9 @@ namespace CGALDotNet.Triangulations
 			ConformingTriangulation2_EEK_InsertPoint(ptr, point);
 		}
 
-		internal override void InsertPoints(IntPtr ptr, Point2d[] points, int start, int count)
+		internal override void InsertPoints(IntPtr ptr, Point2d[] points, int count)
 		{
-			ConformingTriangulation2_EEK_InsertPoints(ptr, points, start, count);
+			ConformingTriangulation2_EEK_InsertPoints(ptr, points, count);
 		}
 
 		internal override void InsertPolygon(IntPtr triPtr, IntPtr polyPtr)
@@ -67,14 +67,14 @@ namespace CGALDotNet.Triangulations
 			ConformingTriangulation2_EEK_InsertPolygonWithHoles(triPtr, pwhPtr);
 		}
 
-		internal override void GetPoints(IntPtr ptr, Point2d[] points, int start, int count)
+		internal override void GetPoints(IntPtr ptr, Point2d[] points, int count)
 		{
-			ConformingTriangulation2_EEK_GetPoints(ptr, points, start, count);
+			ConformingTriangulation2_EEK_GetPoints(ptr, points, count);
 		}
 
-		internal override void GetIndices(IntPtr ptr, int[] indices, int start, int count)
+		internal override void GetIndices(IntPtr ptr, int[] indices, int count)
 		{
-			ConformingTriangulation2_EEK_GetIndices(ptr, indices, start, count);
+			ConformingTriangulation2_EEK_GetIndices(ptr, indices, count);
 		}
 
 		internal override void Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
@@ -87,9 +87,9 @@ namespace CGALDotNet.Triangulations
 			ConformingTriangulation2_EEK_InsertSegmentConstraint(ptr, a, b);
 		}
 
-		internal override void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int start, int count)
+		internal override void InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int count)
 		{
-			ConformingTriangulation2_EEK_InsertSegmentConstraints(ptr, segments, start, count);
+			ConformingTriangulation2_EEK_InsertSegmentConstraints(ptr, segments, count);
 		}
 
 		internal override void InsertPolygonConstraint(IntPtr triPtr, IntPtr polyPtr)
@@ -117,9 +117,9 @@ namespace CGALDotNet.Triangulations
 			Conformingriangulation2_EEK_RefineAndOptimize(ptr, iterations, angleBounds, lengthBounds);
 		}
 
-		internal override void RefineAndOptimizeWithSeeds(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int start, int count)
+		internal override void RefineAndOptimizeWithSeeds(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int count)
 		{
-			ConformingTriangulation2_EEK_RefineAndOptimizeWithSeeds(ptr, iterations, angleBounds, lengthBounds, points, start, count);
+			ConformingTriangulation2_EEK_RefineAndOptimizeWithSeeds(ptr, iterations, angleBounds, lengthBounds, points, count);
 		}
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -144,7 +144,7 @@ namespace CGALDotNet.Triangulations
 		private static extern void ConformingTriangulation2_EEK_InsertPoint(IntPtr ptr, Point2d point);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void ConformingTriangulation2_EEK_InsertPoints(IntPtr ptr, Point2d[] points, int start, int count);
+		private static extern void ConformingTriangulation2_EEK_InsertPoints(IntPtr ptr, Point2d[] points, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void ConformingTriangulation2_EEK_InsertPolygon(IntPtr triPtr, IntPtr polyPtr);
@@ -153,10 +153,10 @@ namespace CGALDotNet.Triangulations
 		private static extern void ConformingTriangulation2_EEK_InsertPolygonWithHoles(IntPtr triPtr, IntPtr pwhPtr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void ConformingTriangulation2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int start, int count);
+		private static extern void ConformingTriangulation2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void ConformingTriangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int start, int count);
+		private static extern void ConformingTriangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void ConformingTriangulation2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
@@ -165,7 +165,7 @@ namespace CGALDotNet.Triangulations
 		private static extern void ConformingTriangulation2_EEK_InsertSegmentConstraint(IntPtr ptr, Point2d a, Point2d b);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void ConformingTriangulation2_EEK_InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int start, int count);
+		private static extern void ConformingTriangulation2_EEK_InsertSegmentConstraints(IntPtr ptr, Segment2d[] segments, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void ConformingTriangulation2_EEK_InsertPolygonConstraint(IntPtr triPtr, IntPtr polyPtr);
@@ -183,7 +183,7 @@ namespace CGALDotNet.Triangulations
 		private static extern void Conformingriangulation2_EEK_RefineAndOptimize(IntPtr ptr, int iterations, double angleBounds, double lengthBounds);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void ConformingTriangulation2_EEK_RefineAndOptimizeWithSeeds(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int start, int count);
+		private static extern void ConformingTriangulation2_EEK_RefineAndOptimizeWithSeeds(IntPtr ptr, int iterations, double angleBounds, double lengthBounds, Point2d[] points, int count);
 
 	}
 }

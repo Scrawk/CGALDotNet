@@ -55,9 +55,9 @@ void Triangulation2_EEK_InsertPoint(void* ptr, Point2d point)
 	Triangulation2<EEK>::InsertPoint(ptr, point);
 }
 
-void Triangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int startIndex, int count)
+void Triangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int count)
 {
-	Triangulation2<EEK>::InsertPoints(ptr, points, startIndex, count);
+	Triangulation2<EEK>::InsertPoints(ptr, points, count);
 }
 
 void Triangulation2_EEK_InsertPolygon(void* triPtr, void* polyPtr)
@@ -70,14 +70,14 @@ void Triangulation2_EEK_InsertPolygonWithHoles(void* triPtr, void* pwhPtr)
 	Triangulation2<EEK>::InsertPolygonWithHoles(triPtr, pwhPtr);
 }
 
-void Triangulation2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+void Triangulation2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	Triangulation2<EEK>::GetPoints(ptr, points, startIndex, count);
+	Triangulation2<EEK>::GetPoints(ptr, points, count);
 }
 
-void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int startIndex, int count)
+void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int count)
 {
-	Triangulation2<EEK>::GetIndices(ptr, indices, startIndex, count);
+	Triangulation2<EEK>::GetIndices(ptr, indices, count);
 }
 
 BOOL Triangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vertex)
@@ -85,9 +85,9 @@ BOOL Triangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vertex)
 	return Triangulation2<EEK>::GetVertex(ptr, index, vertex);
 }
 
-void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int startIndex, int count)
+void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int count)
 {
-	Triangulation2<EEK>::GetVertices(ptr, vertices, startIndex, count);
+	Triangulation2<EEK>::GetVertices(ptr, vertices, count);
 }
 
 bool Triangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
@@ -95,9 +95,9 @@ bool Triangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
 	return Triangulation2<EEK>::GetFace(ptr, index, face);
 }
 
-void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int startIndex, int count)
+void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int count)
 {
-	Triangulation2<EEK>::GetFaces(ptr, faces, startIndex, count);
+	Triangulation2<EEK>::GetFaces(ptr, faces, count);
 }
 
 BOOL Triangulation2_EEK_GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment)
@@ -110,9 +110,9 @@ BOOL Triangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triang
 	return Triangulation2<EEK>::GetTriangle(ptr, faceIndex, triangle);
 }
 
-void Triangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int startIndex, int count)
+void Triangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int count)
 {
-	Triangulation2<EEK>::GetTriangles(ptr, triangles, startIndex, count);
+	Triangulation2<EEK>::GetTriangles(ptr, triangles, count);
 }
 
 BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
@@ -120,9 +120,9 @@ BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circu
 	return Triangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);
 }
 
-void Triangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int startIndex, int count)
+void Triangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int count)
 {
-	Triangulation2<EEK>::GetCircumcenters(ptr, circumcenters, startIndex, count);
+	Triangulation2<EEK>::GetCircumcenters(ptr, circumcenters, count);
 }
 
 int Triangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index)

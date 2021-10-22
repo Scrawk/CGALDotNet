@@ -134,7 +134,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="point">The point to insert.</param>
         public void Insert(Point2d[] points)
         {
-            Kernel.InsertPoints(Ptr, points, 0, points.Length);
+            Kernel.InsertPoints(Ptr, points, points.Length);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(points, 0, count);
             }
                 
-            Kernel.GetPoints(Ptr, points, 0, points.Length);
+            Kernel.GetPoints(Ptr, points, points.Length);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(indices, 0, count);
             }
 
-            Kernel.GetIndices(Ptr, indices, 0, indices.Length);
+            Kernel.GetIndices(Ptr, indices, indices.Length);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(vertices, 0, count);
             }
 
-            Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
+            Kernel.GetVertices(Ptr, vertices, vertices.Length);
         }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(faces, 0, count);
             }
 
-            Kernel.GetFaces(Ptr, faces, 0, faces.Length);
+            Kernel.GetFaces(Ptr, faces, faces.Length);
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(triangles, 0, count);
             }
 
-            Kernel.GetTriangles(Ptr, triangles, 0, triangles.Length);
+            Kernel.GetTriangles(Ptr, triangles, triangles.Length);
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace CGALDotNet.Triangulations
                 ErrorUtil.CheckBounds(circumcenters, 0, count);
             }
 
-            Kernel.GetCircumcenters(Ptr, circumcenters, 0, circumcenters.Length);
+            Kernel.GetCircumcenters(Ptr, circumcenters, circumcenters.Length);
         }
 
         /// <summary>

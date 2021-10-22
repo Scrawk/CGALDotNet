@@ -54,6 +54,8 @@ extern "C"
 
 	CGALWRAPPER_API int Arrangement2_EEK_GetFaceHoleCount(void* ptr, int index);
 
+	CGALWRAPPER_API int Arrangement2_EEK_GetHoleVertexCount(void* ptr, int faceIndex, int holeIndex);
+
 	CGALWRAPPER_API void Arrangement2_EEK_CreateLocator(void* ptr, ARR_LOCATOR type);
 
 	CGALWRAPPER_API void Arrangement2_EEK_ReleaseLocator(void* ptr);

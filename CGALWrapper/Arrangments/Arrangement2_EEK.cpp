@@ -125,6 +125,11 @@ int Arrangement2_EEK_GetFaceHoleCount(void* ptr, int index)
 	return Arrangement2<EEK>::GetFaceHoleCount(ptr, index);
 }
 
+int Arrangement2_EEK_GetHoleVertexCount(void* ptr, int faceIndex, int holeIndex)
+{
+	return Arrangement2<EEK>::GetHoleVertexCount(ptr, faceIndex, holeIndex);
+}
+
 void Arrangement2_EEK_CreateLocator(void* ptr, ARR_LOCATOR type)
 {
 	Arrangement2<EEK>::CreateLocator(ptr, type);

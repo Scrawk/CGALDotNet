@@ -197,7 +197,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="segments">The segment array.</param>
         public void InsertConstraints(Segment2d[] segments)
         {
-            TriangulationKernel.InsertSegmentConstraints(Ptr, segments, 0, segments.Length);
+            TriangulationKernel.InsertSegmentConstraints(Ptr, segments, segments.Length);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="constraints">The edge array.</param>
         public void GetConstraints(TriEdge2[] constraints)
         {
-            TriangulationKernel.GetConstraints(Ptr, constraints, 0, constraints.Length);
+            TriangulationKernel.GetConstraints(Ptr, constraints, constraints.Length);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="constraints">The segment array.</param>
         public void GetConstraints(Segment2d[] constraints)
         {
-            TriangulationKernel.GetConstraints(Ptr, constraints, 0, constraints.Length);
+            TriangulationKernel.GetConstraints(Ptr, constraints, constraints.Length);
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="constraints">The array of edges.</param>
         public void GetIncidentConstraints(int vertexIndex, TriEdge2[] constraints)
         {
-            TriangulationKernel.GetIncidentConstraints(Ptr, vertexIndex, constraints, 0, constraints.Length);
+            TriangulationKernel.GetIncidentConstraints(Ptr, vertexIndex, constraints, constraints.Length);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace CGALDotNet.Triangulations
             if (count == 0) return;
 
             int[] tmp = new int[count];
-            count = TriangulationKernel.MarkDomains(Ptr, tmp, 0, tmp.Length);
+            count = TriangulationKernel.MarkDomains(Ptr, tmp, tmp.Length);
 
             for (int i = 0; i < count; i++)
                 indices.Add(tmp[i]);;

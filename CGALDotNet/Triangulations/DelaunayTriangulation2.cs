@@ -152,7 +152,7 @@ namespace CGALDotNet.Triangulations
         {
             TriangulationKernel.VoronoiCount(Ptr, out int numSegments, out int numRays);
             var segments = new Segment2d[numSegments];
-            TriangulationKernel.GetVoronoiSegments(Ptr, segments, 0, segments.Length);
+            TriangulationKernel.GetVoronoiSegments(Ptr, segments, segments.Length);
             return segments;
         }
 
@@ -166,7 +166,7 @@ namespace CGALDotNet.Triangulations
         {
             TriangulationKernel.VoronoiCount(Ptr, out int numSegments, out int numRays);
             var rays = new Ray2d[numRays];
-            TriangulationKernel.GetVoronoiRays(Ptr, rays, 0, rays.Length);
+            TriangulationKernel.GetVoronoiRays(Ptr, rays, rays.Length);
             return rays;
         }
 

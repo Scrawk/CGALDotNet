@@ -180,11 +180,8 @@
     <ClInclude Include="Polyhedra\Polyhedron3_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2.h" />
-    <ClInclude Include="Triangulations\MakeDelaunay2.h" />
-    <ClInclude Include="Triangulations\OptimizeMesh2.h" />
     <ClInclude Include="Polygons\PolygonOffset2.h" />
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h" />
-    <ClInclude Include="Triangulations\MakeGabriel2.h" />
     <ClInclude Include="Triangulations\TriEdge2.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />

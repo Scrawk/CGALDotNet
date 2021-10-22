@@ -36,9 +36,9 @@ void ConformingTriangulation2_EEK_InsertPoint(void* ptr, Point2d point)
 	ConformingTriangulation2<EEK>::InsertPoint(ptr, point);
 }
 
-void ConformingTriangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int start, int count)
+void ConformingTriangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int count)
 {
-	ConformingTriangulation2<EEK>::InsertPoints(ptr, points, start, count);
+	ConformingTriangulation2<EEK>::InsertPoints(ptr, points, count);
 }
 
 void ConformingTriangulation2_EEK_InsertPolygon(void* triPtr, void* polyPtr)
@@ -51,14 +51,14 @@ void ConformingTriangulation2_EEK_InsertPolygonWithHoles(void* triPtr, void* pwh
 	ConformingTriangulation2<EEK>::InsertPolygonWithHoles(triPtr, pwhPtr);
 }
 
-void ConformingTriangulation2_EEK_GetPoints(void* ptr, Point2d* points, int start, int count)
+void ConformingTriangulation2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	ConformingTriangulation2<EEK>::GetPoints(ptr, points, start, count);
+	ConformingTriangulation2<EEK>::GetPoints(ptr, points, count);
 }
 
-void ConformingTriangulation2_EEK_GetIndices(void* ptr, int* indices, int start, int count)
+void ConformingTriangulation2_EEK_GetIndices(void* ptr, int* indices, int count)
 {
-	ConformingTriangulation2<EEK>::GetIndices(ptr, indices, start, count);
+	ConformingTriangulation2<EEK>::GetIndices(ptr, indices, count);
 }
 
 void ConformingTriangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
@@ -71,9 +71,9 @@ void ConformingTriangulation2_EEK_InsertSegmentConstraint(void* ptr, Point2d a, 
 	ConformingTriangulation2<EEK>::InsertSegmentConstraint(ptr, a, b);
 }
 
-void ConformingTriangulation2_EEK_InsertSegmentConstraints(void* ptr, Segment2d* segments, int start, int count)
+void ConformingTriangulation2_EEK_InsertSegmentConstraints(void* ptr, Segment2d* segments, int count)
 {
-	ConformingTriangulation2<EEK>::InsertSegmentConstraints(ptr, segments, start, count);
+	ConformingTriangulation2<EEK>::InsertSegmentConstraints(ptr, segments, count);
 }
 
 void ConformingTriangulation2_EEK_InsertPolygonConstraint(void* triPtr, void* polyPtr)
@@ -101,9 +101,9 @@ void Conformingriangulation2_EEK_RefineAndOptimize(void* ptr, int iterations, do
 	ConformingTriangulation2<EEK>::RefineAndOptimize(ptr, iterations, angleBounds, lengthBounds);
 }
 
-void ConformingTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* points, int start, int count)
+void ConformingTriangulation2_EEK_RefineAndOptimizeWithSeeds(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* points, int count)
 {
-	ConformingTriangulation2<EEK>::RefineAndOptimize(ptr, iterations, angleBounds, lengthBounds, points, start, count);
+	ConformingTriangulation2<EEK>::RefineAndOptimize(ptr, iterations, angleBounds, lengthBounds, points, count);
 }
 
 

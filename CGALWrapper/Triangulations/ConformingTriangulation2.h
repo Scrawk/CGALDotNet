@@ -100,13 +100,13 @@ public:
 		tri->model.insert(point.ToCGAL<K>());
 	}
 
-	static void InsertPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void InsertPoints(void* ptr, Point2d* points, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
 
 		std::vector<Point> list(count);
 		for (int i = 0; i < count; i++)
-			list[i] = points[startIndex + i].ToCGAL<K>();
+			list[i] = points[i].ToCGAL<K>();
 
 		tri->model.insert(list.begin(), list.end());
 	}
@@ -132,16 +132,16 @@ public:
 			tri->model.insert(hole.vertices_begin(), hole.vertices_end());
 	}
 
-	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void GetPoints(void* ptr, Point2d* points, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (auto vert = tri->model.finite_vertices_begin(); vert != tri->model.finite_vertices_end(); ++vert)
 			points[i++] = Point2d::FromCGAL<K>(vert->point());
 	}
 
-	static void GetIndices(void* ptr, int* indices, int startIndex, int count)
+	static void GetIndices(void* ptr, int* indices, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
 		int index = 0;
@@ -153,7 +153,7 @@ public:
 			map.insert(std::pair<Vertex, int>(vert, index++));
 		}
 
-		index = startIndex;
+		index = 0;
 		for (auto face = tri->model.finite_faces_begin(); face != tri->model.finite_faces_end(); ++face)
 		{
 			auto i0 = map.find(face->vertex(0));
@@ -192,18 +192,23 @@ public:
 
 	static void InsertSegmentConstraint(void* ptr, Point2d a, Point2d b)
 	{
+		if (a == b) return;
+
 		auto tri = CastToTriangulation2(ptr);
 		tri->model.insert_constraint(a.ToCGAL<K>(), b.ToCGAL<K>());
 	}
 
-	static void InsertSegmentConstraints(void* ptr, Segment2d* segments, int startIndex, int count)
+	static void InsertSegmentConstraints(void* ptr, Segment2d* segments, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
 
 		for (int i = 0; i < count; i++)
 		{
-			auto a = segments[startIndex + i].a.ToCGAL<K>();
-			auto b = segments[startIndex + i].b.ToCGAL<K>();
+			if (segments[i].a == segments[i].b)
+				continue;
+
+			auto a = segments[i].a.ToCGAL<K>();
+			auto b = segments[i].b.ToCGAL<K>();
 
 			tri->model.insert_constraint(a, b);
 		}
@@ -268,12 +273,12 @@ public:
 		tri->RefineAndOptimize(iterations, angleBounds, lengthBounds, points);
 	}
 
-	static void RefineAndOptimize(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* seeds, int start, int count)
+	static void RefineAndOptimize(void* ptr, int iterations, double angleBounds, double lengthBounds, Point2d* seeds, int count)
 	{
 		auto tri = CastToTriangulation2(ptr);
 
 		std::vector<Point> points;
-		for (int i = start; i < count; i++)
+		for (int i = 0; i < count; i++)
 			points.push_back(seeds[i].ToCGAL<K>());
 
 		tri->RefineAndOptimize(iterations, angleBounds, lengthBounds, points);

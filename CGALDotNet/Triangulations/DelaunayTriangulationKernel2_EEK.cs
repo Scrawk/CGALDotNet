@@ -69,9 +69,9 @@ namespace CGALDotNet.Triangulations
             DelaunayTriangulation2_EEK_InsertPoint(ptr, point);
         }
 
-        internal override void InsertPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
+        internal override void InsertPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            DelaunayTriangulation2_EEK_InsertPoints(ptr, points, startIndex, count);
+            DelaunayTriangulation2_EEK_InsertPoints(ptr, points, count);
         }
 
         internal override void InsertPolygon(IntPtr triPtr, IntPtr polyPtr)
@@ -84,14 +84,14 @@ namespace CGALDotNet.Triangulations
             DelaunayTriangulation2_EEK_InsertPolygonWithHoles(triPtr, pwhPtr);
         }
 
-        internal override void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
+        internal override void GetPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            DelaunayTriangulation2_EEK_GetPoints(ptr, points, startIndex, count);
+            DelaunayTriangulation2_EEK_GetPoints(ptr, points, count);
         }
 
-        internal override void GetIndices(IntPtr ptr, int[] indices, int startIndex, int count)
+        internal override void GetIndices(IntPtr ptr, int[] indices, int count)
         {
-            DelaunayTriangulation2_EEK_GetIndices(ptr, indices, startIndex, count);
+            DelaunayTriangulation2_EEK_GetIndices(ptr, indices, count);
         }
 
         internal override bool GetVertex(IntPtr ptr, int index, out TriVertex2 vertex)
@@ -99,9 +99,9 @@ namespace CGALDotNet.Triangulations
             return DelaunayTriangulation2_EEK_GetVertex(ptr, index, out vertex);
         }
 
-        internal override void GetVertices(IntPtr ptr, TriVertex2[] vertices, int startIndex, int count)
+        internal override void GetVertices(IntPtr ptr, TriVertex2[] vertices, int count)
         {
-            DelaunayTriangulation2_EEK_GetVertices(ptr, vertices, startIndex, count);
+            DelaunayTriangulation2_EEK_GetVertices(ptr, vertices, count);
         }
 
         internal override bool GetFace(IntPtr ptr, int index, out TriFace2 face)
@@ -120,9 +120,9 @@ namespace CGALDotNet.Triangulations
         }
 
 
-        internal override void GetTriangles(IntPtr ptr, Triangle2d[] triangles, int startIndex, int count)
+        internal override void GetTriangles(IntPtr ptr, Triangle2d[] triangles, int count)
         {
-            DelaunayTriangulation2_EEK_GetTriangles(ptr, triangles, startIndex, count);
+            DelaunayTriangulation2_EEK_GetTriangles(ptr, triangles, count);
         }
 
         internal override bool GetCircumcenter(IntPtr ptr, int faceIndex, out Point2d circumcenter)
@@ -130,14 +130,14 @@ namespace CGALDotNet.Triangulations
             return DelaunayTriangulation2_EEK_GetCircumcenter(ptr, faceIndex, out circumcenter);
         }
 
-        internal override void GetCircumcenters(IntPtr ptr, [Out] Point2d[] circumcenters, int startIndex, int count)
+        internal override void GetCircumcenters(IntPtr ptr, [Out] Point2d[] circumcenters,int count)
         {
-            DelaunayTriangulation2_EEK_GetCircumcenters(ptr, circumcenters, startIndex, count);
+            DelaunayTriangulation2_EEK_GetCircumcenters(ptr, circumcenters, count);
         }
 
-        internal override void GetFaces(IntPtr ptr, TriFace2[] faces, int startIndex, int count)
+        internal override void GetFaces(IntPtr ptr, TriFace2[] faces, int count)
         {
-            DelaunayTriangulation2_EEK_GetFaces(ptr, faces, startIndex, count);
+            DelaunayTriangulation2_EEK_GetFaces(ptr, faces, count);
         }
 
         internal override int NeighbourIndex(IntPtr ptr, int faceIndex, int index)
@@ -177,14 +177,14 @@ namespace CGALDotNet.Triangulations
             return DelaunayTriangulation2_EEK_VoronoiRayCount(ptr);
         }
 
-        internal override void GetVoronoiSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override void GetVoronoiSegments(IntPtr ptr, Segment2d[] segments, int count)
         {
-            DelaunayTriangulation2_EEK_GetVoronoiSegments(ptr, segments, startIndex, count);
+            DelaunayTriangulation2_EEK_GetVoronoiSegments(ptr, segments, count);
         }
 
-        internal override void GetVoronoiRays(IntPtr ptr, Ray2d[] rays, int startIndex, int count)
+        internal override void GetVoronoiRays(IntPtr ptr, Ray2d[] rays, int count)
         {
-            DelaunayTriangulation2_EEK_GetVoronoiRays(ptr, rays, startIndex, count);
+            DelaunayTriangulation2_EEK_GetVoronoiRays(ptr, rays, count);
         }
 
         internal override void VoronoiCount(IntPtr ptr, out int numSegments, out int numRays)
@@ -228,7 +228,7 @@ namespace CGALDotNet.Triangulations
         private static extern void DelaunayTriangulation2_EEK_InsertPoint(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_InsertPoints(IntPtr ptr, [In] Point2d[] points, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_InsertPoints(IntPtr ptr, [In] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation2_EEK_InsertPolygon(IntPtr triPtr, IntPtr polyPtr);
@@ -237,22 +237,22 @@ namespace CGALDotNet.Triangulations
         private static extern void DelaunayTriangulation2_EEK_InsertPolygonWithHoles(IntPtr triPtr, IntPtr pwhPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetIndices(IntPtr ptr, [Out] int[] indices, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool DelaunayTriangulation2_EEK_GetVertex(IntPtr ptr, int index, [Out] out TriVertex2 vertex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetVertices(IntPtr ptr, [Out] TriVertex2[] vertices, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetVertices(IntPtr ptr, [Out] TriVertex2[] vertices, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool DelaunayTriangulation2_EEK_GetFace(IntPtr ptr, int index, [Out] out TriFace2 triFace);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetFaces(IntPtr ptr, [Out] TriFace2[] faces, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetFaces(IntPtr ptr, [Out] TriFace2[] faces, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool DelaunayTriangulation2_EEK_GetSegment(IntPtr ptr, int faceIndex, int neighbourIndex, [Out] out Segment2d segment);
@@ -261,13 +261,13 @@ namespace CGALDotNet.Triangulations
         private static extern bool DelaunayTriangulation2_EEK_GetTriangle(IntPtr ptr, int faceIndex, [Out] out Triangle2d triangle);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetTriangles(IntPtr ptr, [Out] Triangle2d[] triangles, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetTriangles(IntPtr ptr, [Out] Triangle2d[] triangles, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool DelaunayTriangulation2_EEK_GetCircumcenter(IntPtr ptr, int faceIndex, [Out] out Point2d circumcenter);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetCircumcenters(IntPtr ptr, [Out] Point2d[] circumcenters, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetCircumcenters(IntPtr ptr, [Out] Point2d[] circumcenters, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int DelaunayTriangulation2_EEK_NeighbourIndex(IntPtr ptr, int faceIndex, int index);
@@ -293,10 +293,10 @@ namespace CGALDotNet.Triangulations
         private static extern int DelaunayTriangulation2_EEK_VoronoiRayCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetVoronoiSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetVoronoiSegments(IntPtr ptr, [Out] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void DelaunayTriangulation2_EEK_GetVoronoiRays(IntPtr ptr, [Out] Ray2d[] rays, int startIndex, int count);
+        private static extern void DelaunayTriangulation2_EEK_GetVoronoiRays(IntPtr ptr, [Out] Ray2d[] rays, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation2_EEK_VoronoiCount(IntPtr ptr, [Out] out int numSegments, [Out] out int numRays);
