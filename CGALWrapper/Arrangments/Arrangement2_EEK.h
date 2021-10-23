@@ -36,19 +36,19 @@ extern "C"
 
 	CGALWRAPPER_API int Arrangement2_EEK_UnboundedFaceCount(void* ptr);
 
-	CGALWRAPPER_API void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count);
+	CGALWRAPPER_API void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int count);
 
-	CGALWRAPPER_API void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count);
+	CGALWRAPPER_API void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int count);
 
-	CGALWRAPPER_API void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int startIndex, int count);
+	CGALWRAPPER_API void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int count);
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_GetVertex(void* ptr, int index, ArrVertex2& arrVertex);
 
-	CGALWRAPPER_API void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count);
+	CGALWRAPPER_API void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int count);
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_GetHalfEdge(void* ptr, int index, ArrHalfEdge2& arrEdge);
 
-	CGALWRAPPER_API void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count);
+	CGALWRAPPER_API void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int count);
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_GetFace(void* ptr, int index, ArrFace2& arrFace);
 
@@ -62,7 +62,7 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_PointQuery(void* ptr, Point2d point, ArrQuery& result);
 
-	CGALWRAPPER_API BOOL Arrangement2_EEK_BatchedPointQuery(void* ptr, Point2d* points, ArrQuery* results, int startIndex, int count);
+	CGALWRAPPER_API BOOL Arrangement2_EEK_BatchedPointQuery(void* ptr, Point2d* points, ArrQuery* results, int count);
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& result);
 
@@ -76,7 +76,7 @@ extern "C"
 
 	CGALWRAPPER_API void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonItersecting);
 
-	CGALWRAPPER_API void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count, BOOL nonItersecting);
+	CGALWRAPPER_API void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int count, BOOL nonItersecting);
 
 	CGALWRAPPER_API BOOL Arrangement2_EEK_RemoveVertexByIndex(void* ptr, int index);
 

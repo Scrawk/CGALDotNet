@@ -80,19 +80,19 @@ int Arrangement2_EEK_UnboundedFaceCount(void* ptr)
 	return Arrangement2<EEK>::UnboundedFaceCount(ptr);
 }
 
-void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+void Arrangement2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	Arrangement2<EEK>::GetPoints(ptr, points, startIndex, count);
+	Arrangement2<EEK>::GetPoints(ptr, points, count);
 }
 
-void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+void Arrangement2_EEK_GetSegments(void* ptr, Segment2d* segments, int count)
 {
-	Arrangement2<EEK>::GetSegments(ptr, segments, startIndex, count);
+	Arrangement2<EEK>::GetSegments(ptr, segments, count);
 }
 
-void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int startIndex, int count)
+void Arrangement2_EEK_GetVertices(void* ptr, ArrVertex2* vertices, int count)
 {
-	Arrangement2<EEK>::GetVertices(ptr, vertices, startIndex, count);
+	Arrangement2<EEK>::GetVertices(ptr, vertices, count);
 }
 
 BOOL Arrangement2_EEK_GetVertex(void* ptr, int index, ArrVertex2& arrVertex)
@@ -100,9 +100,9 @@ BOOL Arrangement2_EEK_GetVertex(void* ptr, int index, ArrVertex2& arrVertex)
 	return Arrangement2<EEK>::GetVertex(ptr, index, arrVertex);
 }
 
-void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count)
+void Arrangement2_EEK_GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int count)
 {
-	Arrangement2<EEK>::GetHalfEdges(ptr, edges, startIndex, count);
+	Arrangement2<EEK>::GetHalfEdges(ptr, edges, count);
 }
 
 BOOL Arrangement2_EEK_GetHalfEdge(void* ptr, int index, ArrHalfEdge2& arrEdge)
@@ -110,9 +110,9 @@ BOOL Arrangement2_EEK_GetHalfEdge(void* ptr, int index, ArrHalfEdge2& arrEdge)
 	return Arrangement2<EEK>::GetHalfEdge(ptr, index, arrEdge);
 }
 
-void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count)
+void Arrangement2_EEK_GetFaces(void* ptr, ArrFace2* faces, int count)
 {
-	Arrangement2<EEK>::GetFaces(ptr, faces, startIndex, count);
+	Arrangement2<EEK>::GetFaces(ptr, faces, count);
 }
 
 BOOL Arrangement2_EEK_GetFace(void* ptr, int index, ArrFace2& arrFace)
@@ -145,9 +145,9 @@ BOOL Arrangement2_EEK_PointQuery(void* ptr, Point2d point, ArrQuery& result)
 	return Arrangement2<EEK>::PointQuery(ptr, point, result);
 }
 
-BOOL Arrangement2_EEK_BatchedPointQuery(void* ptr, Point2d* points, ArrQuery* results, int startIndex, int count)
+BOOL Arrangement2_EEK_BatchedPointQuery(void* ptr, Point2d* points, ArrQuery* results, int count)
 {
-	return Arrangement2<EEK>::BatchedPointQuery(ptr, points, results, startIndex, count);
+	return Arrangement2<EEK>::BatchedPointQuery(ptr, points, results, count);
 }
 
 BOOL Arrangement2_EEK_RayQuery(void* ptr, Point2d point, BOOL up, ArrQuery& result)
@@ -180,9 +180,9 @@ void Arrangement2_EEK_InsertSegment(void* ptr, Segment2d segment, BOOL nonIterse
 	Arrangement2<EEK>::InsertSegment(ptr, segment, nonItersecting);
 }
 
-void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count, BOOL nonItersecting)
+void Arrangement2_EEK_InsertSegments(void* ptr, Segment2d* segments, int count, BOOL nonItersecting)
 {
-	Arrangement2<EEK>::InsertSegments(ptr, segments, startIndex, count, nonItersecting);
+	Arrangement2<EEK>::InsertSegments(ptr, segments, count, nonItersecting);
 }
 
 BOOL Arrangement2_EEK_RemoveVertexByIndex(void* ptr, int index)

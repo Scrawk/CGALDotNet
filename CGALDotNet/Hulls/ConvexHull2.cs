@@ -47,7 +47,7 @@ namespace CGALDotNet.Hulls
         /// <returns>A polygon that represents the convex hull.</returns>
         public  Polygon2<K> CreateHull(Point2d[] points, HULL_METHOD method = HULL_METHOD.DEFAULT)
         {
-            var ptr = Kernel.CreateHull(points, 0, points.Length, method);
+            var ptr = Kernel.CreateHull(points, points.Length, method);
             return new Polygon2<K>(ptr);
         }
 
@@ -58,7 +58,7 @@ namespace CGALDotNet.Hulls
         /// <returns>A polygon that represents the upper hull.</returns>
         public Polygon2<K> UpperHull(Point2d[] points)
         {
-            var ptr = Kernel.UpperHull(points, 0, points.Length);
+            var ptr = Kernel.UpperHull(points, points.Length);
             return new Polygon2<K>(ptr);
         }
 
@@ -69,7 +69,7 @@ namespace CGALDotNet.Hulls
         /// <returns>A polygon that represents the lower hull.</returns>
         public Polygon2<K> LowerHull(Point2d[] points)
         {
-            var ptr = Kernel.LowerHull(points, 0, points.Length);
+            var ptr = Kernel.LowerHull(points, points.Length);
             return new Polygon2<K>(ptr);
         }
     }
@@ -109,7 +109,7 @@ namespace CGALDotNet.Hulls
         /// <returns>Is this set of points ccw orderer.</returns>
         public bool IsStronglyConvexCCW(Point2d[] points)
         {
-            return Kernel.IsStronglyConvexCCW(points, 0, points.Length);
+            return Kernel.IsStronglyConvexCCW(points, points.Length);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace CGALDotNet.Hulls
         /// <returns>Is this set of points cw orderer.</returns>
         public bool IsStronglyConvexCW(Point2d[] points)
         {
-            return Kernel.IsStronglyConvexCW(points, 0, points.Length);
+            return Kernel.IsStronglyConvexCW(points, points.Length);
         }
 
         /// <summary>

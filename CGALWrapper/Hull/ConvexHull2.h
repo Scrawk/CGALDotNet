@@ -52,19 +52,19 @@ public:
 		return static_cast<ConvexHull2*>(ptr);
 	}
 
-	static PointList ConvertPoints(Point2d* points, int startIndex, int count)
+	static PointList ConvertPoints(Point2d* points, int count)
 	{
 		PointList list(count);
 
 		for (auto i = 0; i < count; i++)
-			list[i] = points[startIndex + i].ToCGAL<K>();
+			list[i] = points[i].ToCGAL<K>();
 		
 		return list;
 	}
 
-	static void* CreateHull(Point2d* points, int startIndex, int count, HULL_METHOD method)
+	static void* CreateHull(Point2d* points, int count, HULL_METHOD method)
 	{
-		PointList list = ConvertPoints(points, startIndex, count);
+		PointList list = ConvertPoints(points, count);
 		PointList out;
 
 		switch(method)
@@ -100,9 +100,9 @@ public:
 		return new Polygon_2(out.begin(), out.end());
 	}
 
-	static void* LowerHull(Point2d* points, int startIndex, int count)
+	static void* LowerHull(Point2d* points, int count)
 	{
-		PointList list = ConvertPoints(points, startIndex, count);
+		PointList list = ConvertPoints(points, count);
 		PointList out;
 
 		CGAL::lower_hull_points_2(list.begin(), list.end(), std::back_inserter(out));
@@ -110,9 +110,9 @@ public:
 		return new Polygon_2(out.begin(), out.end());
 	}
 
-	static void* UpperHull(Point2d* points, int startIndex, int count)
+	static void* UpperHull(Point2d* points, int count)
 	{
-		PointList list = ConvertPoints(points, startIndex, count);
+		PointList list = ConvertPoints(points, count);
 		PointList out;
 
 		CGAL::upper_hull_points_2(list.begin(), list.end(), std::back_inserter(out));
@@ -120,15 +120,15 @@ public:
 		return new Polygon_2(out.begin(), out.end());
 	}
 
-	static BOOL IsStronglyConvexCCW(Point2d* points, int startIndex, int count)
+	static BOOL IsStronglyConvexCCW(Point2d* points, int count)
 	{
-		PointList list = ConvertPoints(points, startIndex, count);
+		PointList list = ConvertPoints(points, count);
 		return CGAL::is_ccw_strongly_convex_2(list.begin(), list.end());
 	}
 
-	static BOOL IsStronglyConvexCW(Point2d* points, int startIndex, int count)
+	static BOOL IsStronglyConvexCW(Point2d* points, int count)
 	{
-		PointList list = ConvertPoints(points, startIndex, count);
+		PointList list = ConvertPoints(points, count);
 		return CGAL::is_cw_strongly_convex_2(list.begin(), list.end());
 	}
 

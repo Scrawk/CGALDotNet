@@ -98,19 +98,19 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_UnboundedFaceCount(ptr);
         }
 
-        internal override void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
+        internal override void GetPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            Arrangement2_EEK_GetPoints(ptr, points, startIndex, count);
+            Arrangement2_EEK_GetPoints(ptr, points, count);
         }
 
-        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int count)
         {
-            Arrangement2_EEK_GetSegments(ptr, segments, startIndex, count);
+            Arrangement2_EEK_GetSegments(ptr, segments, count);
         }
 
-        internal override void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int startIndex, int count)
+        internal override void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int count)
         {
-            Arrangement2_EEK_GetVertices(ptr, vertices, startIndex, count);
+            Arrangement2_EEK_GetVertices(ptr, vertices, count);
         }
 
         internal override bool GetVertex(IntPtr ptr, int index, out ArrVertex2 arrVertex)
@@ -118,9 +118,9 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_GetVertex(ptr, index, out arrVertex);
         }
 
-        internal override void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int startIndex, int count)
+        internal override void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int count)
         {
-            Arrangement2_EEK_GetHalfEdges(ptr, edges, startIndex, count);
+            Arrangement2_EEK_GetHalfEdges(ptr, edges, count);
         }
 
         internal override bool GetHalfEdge(IntPtr ptr, int index, out ArrHalfEdge2 arrEdge)
@@ -128,9 +128,9 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_GetHalfEdge(ptr, index, out arrEdge);
         }
 
-        internal override void GetFaces(IntPtr ptr, ArrFace2[] faces, int startIndex, int count)
+        internal override void GetFaces(IntPtr ptr, ArrFace2[] faces, int count)
         {
-            Arrangement2_EEK_GetFaces(ptr, faces, startIndex, count);
+            Arrangement2_EEK_GetFaces(ptr, faces, count);
         }
 
         internal override bool GetFace(IntPtr ptr, int index, out ArrFace2 arrFace)
@@ -163,9 +163,9 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_PointQuery(ptr, point, out result);
         }
 
-        internal override bool BatchedPointQuery(IntPtr ptr, Point2d[] points, ArrQuery[] results, int startIndex, int count)
+        internal override bool BatchedPointQuery(IntPtr ptr, Point2d[] points, ArrQuery[] results, int count)
         {
-            return Arrangement2_EEK_BatchedPointQuery(ptr, points, results, startIndex, count);
+            return Arrangement2_EEK_BatchedPointQuery(ptr, points, results, count);
         }
 
         internal override bool RayQuery(IntPtr ptr, Point2d point, bool up, out ArrQuery result)
@@ -198,9 +198,9 @@ namespace CGALDotNet.Arrangements
             Arrangement2_EEK_InsertSegment(ptr, segment, nonItersecting);
         }
 
-        internal override void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count, bool nonItersecting)
+        internal override void InsertSegments(IntPtr ptr, Segment2d[] segments, int count, bool nonItersecting)
         {
-            Arrangement2_EEK_InsertSegments(ptr, segments, startIndex, count, nonItersecting);
+            Arrangement2_EEK_InsertSegments(ptr, segments, count, nonItersecting);
         }
 
         internal override bool RemoveVertexByIndex(IntPtr ptr, int index)
@@ -269,25 +269,25 @@ namespace CGALDotNet.Arrangements
         private static extern int Arrangement2_EEK_UnboundedFaceCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Arrangement2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
+        private static extern void Arrangement2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Arrangement2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
+        private static extern void Arrangement2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Arrangement2_EEK_GetVertices(IntPtr ptr, [Out] ArrVertex2[] vertices, int startIndex, int count);
+        private static extern void Arrangement2_EEK_GetVertices(IntPtr ptr, [Out] ArrVertex2[] vertices, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_GetVertex(IntPtr ptr, int index, [Out] out ArrVertex2 arrVertex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Arrangement2_EEK_GetHalfEdges(IntPtr ptr, [Out] ArrHalfEdge2[] edges, int startIndex, int count);
+        private static extern void Arrangement2_EEK_GetHalfEdges(IntPtr ptr, [Out] ArrHalfEdge2[] edges, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_GetHalfEdge(IntPtr ptr, int index, [Out] out ArrHalfEdge2 arrEdge);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Arrangement2_EEK_GetFaces(IntPtr ptr, [Out] ArrFace2[] faces, int startIndex, int count);
+        private static extern void Arrangement2_EEK_GetFaces(IntPtr ptr, [Out] ArrFace2[] faces, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_GetFace(IntPtr ptr, int index, [Out] out ArrFace2 arrFace);
@@ -308,7 +308,7 @@ namespace CGALDotNet.Arrangements
         private static extern bool Arrangement2_EEK_PointQuery(IntPtr ptr, Point2d point, [Out] out ArrQuery result);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool Arrangement2_EEK_BatchedPointQuery(IntPtr ptr, [Out] Point2d[] points, [Out] ArrQuery[] results, int startIndex, int count);
+        private static extern bool Arrangement2_EEK_BatchedPointQuery(IntPtr ptr, [Out] Point2d[] points, [Out] ArrQuery[] results, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_RayQuery(IntPtr ptr, Point2d point, bool up, [Out] out ArrQuery result);
@@ -329,7 +329,7 @@ namespace CGALDotNet.Arrangements
         private static extern void Arrangement2_EEK_InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Arrangement2_EEK_InsertSegments(IntPtr ptr, [In] Segment2d[] points, int startIndex, int count, bool nonItersecting);
+        private static extern void Arrangement2_EEK_InsertSegments(IntPtr ptr, [In] Segment2d[] points, int count, bool nonItersecting);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Arrangement2_EEK_RemoveVertexByIndex(IntPtr ptr, int index);

@@ -31,15 +31,15 @@ namespace CGALDotNet.Polygons
 
         internal abstract IntPtr CreateFromPolygon(IntPtr ptr);
 
-        internal abstract IntPtr CreateFromPoints(Point2d[] points, int startIndex, int count);
+        internal abstract IntPtr CreateFromPoints(Point2d[] points, int count);
 
         internal abstract Point2d GetPoint(IntPtr ptr, int polyIndex, int pointIndex);
 
-        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int count);
 
         internal abstract void SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point);
 
-        internal abstract void SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+        internal abstract void SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int count);
 
         internal abstract void AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
 

@@ -41,19 +41,19 @@ namespace CGALDotNet.Arrangements
 
         internal abstract int UnboundedFaceCount(IntPtr ptr);
 
-        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
+        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int count);
         
-        internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+        internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int count);
 
-        internal abstract void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int startIndex, int count);
+        internal abstract void GetVertices(IntPtr ptr, ArrVertex2[] vertices, int count);
 
         internal abstract bool GetVertex(IntPtr ptr, int index, out ArrVertex2 arrVertex);
 
-        internal abstract void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int startIndex, int count);
+        internal abstract void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int count);
 
         internal abstract bool GetHalfEdge(IntPtr ptr, int index, out ArrHalfEdge2 arrEdge);
 
-        internal abstract void GetFaces(IntPtr ptr, ArrFace2[] faces, int startIndex, int count);
+        internal abstract void GetFaces(IntPtr ptr, ArrFace2[] faces, int count);
 
         internal abstract bool GetFace(IntPtr ptr, int index, out ArrFace2 arrFace);
 
@@ -67,7 +67,7 @@ namespace CGALDotNet.Arrangements
 
         internal abstract bool PointQuery(IntPtr ptr, Point2d point, out ArrQuery result);
 
-        internal abstract bool BatchedPointQuery(IntPtr ptr, Point2d[] points, ArrQuery[] results, int startIndex, int count);
+        internal abstract bool BatchedPointQuery(IntPtr ptr, Point2d[] points, ArrQuery[] results, int count);
 
         internal abstract bool RayQuery(IntPtr ptr, Point2d point, bool up, out ArrQuery result);
 
@@ -81,7 +81,7 @@ namespace CGALDotNet.Arrangements
 
         internal abstract void InsertSegment(IntPtr ptr, Segment2d segment, bool nonItersecting);
 
-        internal abstract void InsertSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count, bool nonItersecting);
+        internal abstract void InsertSegments(IntPtr ptr, Segment2d[] segments, int count, bool nonItersecting);
 
         internal abstract bool RemoveVertexByIndex(IntPtr ptr, int index);
 

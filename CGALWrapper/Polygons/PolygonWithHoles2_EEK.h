@@ -25,15 +25,15 @@ extern "C"
 
 	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CreateFromPolygon(void* ptr);
 
-	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d * points, int startIndex, int count);
+	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d * points, int count);
 
 	CGALWRAPPER_API Point2d PolygonWithHoles2_EEK_GetPoint(void* ptr, int polyIndex, int pointIndex);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count);
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, int count);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count);
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, int count);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr);
 

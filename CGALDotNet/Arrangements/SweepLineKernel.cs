@@ -22,14 +22,14 @@ namespace CGALDotNet.Arrangements
 
 		internal abstract int SegmentBufferSize(IntPtr ptr);
 
-		internal abstract bool DoIntersect(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+		internal abstract bool DoIntersect(IntPtr ptr, Segment2d[] segments, int count);
 
-		internal abstract int ComputeSubcurves(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+		internal abstract int ComputeSubcurves(IntPtr ptr, Segment2d[] segments, int count);
 
-		internal abstract int ComputeIntersectionPoints(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+		internal abstract int ComputeIntersectionPoints(IntPtr ptr, Segment2d[] segments, int count);
 
-		internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
+		internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int count);
 
-		internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+		internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int count);
 	}
 }

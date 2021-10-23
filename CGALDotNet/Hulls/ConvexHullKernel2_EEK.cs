@@ -28,29 +28,29 @@ namespace CGALDotNet.Hulls
             ConvexHull2_EEK_Release(ptr);
         }
 
-        internal override IntPtr CreateHull(Point2d[] points, int startIndex, int count, HULL_METHOD method)
+        internal override IntPtr CreateHull(Point2d[] points, int count, HULL_METHOD method)
         {
-            return ConvexHull2_EEK_CreateHull(points, startIndex, count, method);
+            return ConvexHull2_EEK_CreateHull(points, count, method);
         }
 
-        internal override IntPtr UpperHull(Point2d[] points, int startIndex, int count)
+        internal override IntPtr UpperHull(Point2d[] points, int count)
         {
-            return ConvexHull2_EEK_UpperHull(points, startIndex, count);
+            return ConvexHull2_EEK_UpperHull(points, count);
         }
 
-        internal override IntPtr LowerHull(Point2d[] points, int startIndex, int count)
+        internal override IntPtr LowerHull(Point2d[] points, int count)
         {
-            return ConvexHull2_EEK_LowerHull(points, startIndex, count);
+            return ConvexHull2_EEK_LowerHull(points, count);
         }
 
-        internal override bool IsStronglyConvexCCW(Point2d[] points, int startIndex, int count)
+        internal override bool IsStronglyConvexCCW(Point2d[] points, int count)
         {
-            return ConvexHull2_EEK_IsStronglyConvexCCW(points, startIndex, count);
+            return ConvexHull2_EEK_IsStronglyConvexCCW(points, count);
         }
 
-        internal override bool IsStronglyConvexCW(Point2d[] points, int startIndex, int count)
+        internal override bool IsStronglyConvexCW(Point2d[] points, int count)
         {
-            return IsStronglyConvexCW(points, startIndex, count);
+            return IsStronglyConvexCW(points, count);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -60,18 +60,18 @@ namespace CGALDotNet.Hulls
         private static extern void ConvexHull2_EEK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr ConvexHull2_EEK_CreateHull([In] Point2d[] points, int startIndex, int count, HULL_METHOD method);
+        private static extern IntPtr ConvexHull2_EEK_CreateHull([In] Point2d[] points, int count, HULL_METHOD method);
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr ConvexHull2_EEK_UpperHull([In] Point2d[] points, int startIndex, int count);
+        private static extern IntPtr ConvexHull2_EEK_UpperHull([In] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr ConvexHull2_EEK_LowerHull([In] Point2d[] points, int startIndex, int count);
+        private static extern IntPtr ConvexHull2_EEK_LowerHull([In] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool ConvexHull2_EEK_IsStronglyConvexCCW([In] Point2d[] points, int startIndex, int count);
+        private static extern bool ConvexHull2_EEK_IsStronglyConvexCCW([In] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern bool ConvexHull2_EEK_IsStronglyConvexCW([In] Point2d[] points, int startIndex, int count);
+        private static extern bool ConvexHull2_EEK_IsStronglyConvexCW([In] Point2d[] points, int count);
     }
 }

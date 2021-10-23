@@ -186,10 +186,10 @@ public:
 		return (int)arr->model.number_of_unbounded_faces();
 	}
 
-	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void GetPoints(void* ptr, Point2d* points, int count)
 	{
 		auto arr = CastToArrangement(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (auto iter = arr->model.vertices_begin(); iter != arr->model.vertices_end(); ++iter, ++i)
 		{
@@ -197,10 +197,10 @@ public:
 		}
 	}
 
-	static void GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	static void GetSegments(void* ptr, Segment2d* segments, int count)
 	{
 		auto arr = CastToArrangement(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (auto iter = arr->model.edges_begin(); iter != arr->model.edges_end(); ++iter, ++i)
 		{
@@ -211,10 +211,10 @@ public:
 		}
 	}
 
-	static void GetVertices(void* ptr, ArrVertex2* vertices, int startIndex, int count)
+	static void GetVertices(void* ptr, ArrVertex2* vertices, int count)
 	{
 		auto arr = CastToArrangement(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		arr->map.SetIndices(arr->model);
 
@@ -242,10 +242,10 @@ public:
 		}
 	}
 
-	static void GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int startIndex, int count)
+	static void GetHalfEdges(void* ptr, ArrHalfEdge2* edges, int count)
 	{
 		auto arr = CastToArrangement(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		arr->map.SetIndices(arr->model);
 
@@ -273,10 +273,10 @@ public:
 		}
 	}
 
-	static void GetFaces(void* ptr, ArrFace2* faces, int startIndex, int count)
+	static void GetFaces(void* ptr, ArrFace2* faces, int count)
 	{
 		auto arr = CastToArrangement(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		arr->map.SetIndices(arr->model);
 
@@ -366,12 +366,12 @@ public:
 		return HandleQuery(arr, q, result);
 	}
 
-	static BOOL BatchedPointQuery(void* ptr, Point2d* p, ArrQuery* r, int startIndex, int count)
+	static BOOL BatchedPointQuery(void* ptr, Point2d* p, ArrQuery* r, int count)
 	{
 		auto arr = CastToArrangement(ptr);
 		arr->map.SetIndices(arr->model);
 
-		auto list = ToList(p, startIndex, count);
+		auto list = ToList(p, count);
 		std::vector<Batch_Query_Result> results;
 
 		locate(arr->model, list.begin(), list.end(), std::back_inserter(results));
@@ -503,11 +503,11 @@ public:
 		arr->map.OnModelChanged();
 	}
 
-	static void InsertSegments(void* ptr, Segment2d* segments, int startIndex, int count, BOOL nonItersecting)
+	static void InsertSegments(void* ptr, Segment2d* segments, int count, BOOL nonItersecting)
 	{
 		auto arr = CastToArrangement(ptr);
 
-		for (auto i = startIndex; i < count; i++)
+		for (auto i = 0; i < count; i++)
 		{
 			if (segments[i].a == segments[i].b) continue;
 
@@ -655,11 +655,11 @@ private:
 		}
 	}
 
-	static std::vector<Point_2> ToList(Point2d* points, int startIndex, int count)
+	static std::vector<Point_2> ToList(Point2d* points, int count)
 	{
 		auto list = std::vector<Point_2>(count);
 
-		for (int i = startIndex; i < count; i++)
+		for (int i = 0; i < count; i++)
 			list.push_back(points[i].ToCGAL<K>());
 
 		return list;

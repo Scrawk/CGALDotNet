@@ -129,16 +129,15 @@ public:
 	/// </summary>
 	/// <param name="ptr">The polygon pointer.</param>
 	/// <param name="points">The points array pointer.</param>
-	/// <param name="startIndex">The index in the array to start at.</param>
 	/// <param name="count">The number of points to copy.</param>
-	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void GetPoints(void* ptr, Point2d* points, int count)
 	{
 		auto polygon = CastToPolygon2(ptr);
 
 		for (auto i = 0; i < count; i++)
 		{
 			auto point = polygon->vertex(i);
-			points[startIndex + i] = Point2d::FromCGAL<K>(point);
+			points[i] = Point2d::FromCGAL<K>(point);
 		}
 	}
 
@@ -163,9 +162,8 @@ public:
 	/// </summary>
 	/// <param name="ptr">The polygon pointer.</param>
 	/// <param name="segments">The segment array.</param>
-	/// <param name="startIndex">The index in the array to start at.</param>
 	/// <param name="count">The number of points to copy.</param>
-	static void GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	static void GetSegments(void* ptr, Segment2d* segments, int count)
 	{
 		auto polygon = CastToPolygon2(ptr);
 
@@ -177,8 +175,8 @@ public:
 			auto v0 = polygon->vertex(i0);
 			auto v1 = polygon->vertex(i1);
 
-			segments[startIndex + i].a = Point2d::FromCGAL<K>(v0);
-			segments[startIndex + i].b = Point2d::FromCGAL<K>(v1);
+			segments[i].a = Point2d::FromCGAL<K>(v0);
+			segments[i].b = Point2d::FromCGAL<K>(v1);
 		}
 	}
 
@@ -199,24 +197,21 @@ public:
 	/// </summary>
 	/// <param name="ptr">The polygon pointer.</param>
 	/// <param name="points">The point array.</param>
-	/// <param name="startIndex">The index in the array to start at.</param>
 	/// <param name="count">The number of points to copy.</param>
-	static void SetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void SetPoints(void* ptr, Point2d* points, int count)
 	{
 		auto polygon = CastToPolygon2(ptr);
 		auto size = polygon->size();
 
 		for (auto i = 0; i < count; i++)
 		{
-			int index = startIndex + i;
-
-			if (index < size)
-				(*polygon)[i] = points[index].ToCGAL<K>();
+			if (i < size)
+				(*polygon)[i] = points[i].ToCGAL<K>();
 			else
 			{
 				//Adding more points than polygon currently contains
 				//so push back instead.
-				polygon->push_back(points[index].ToCGAL<K>());
+				polygon->push_back(points[i].ToCGAL<K>());
 			}
 		}
 	}

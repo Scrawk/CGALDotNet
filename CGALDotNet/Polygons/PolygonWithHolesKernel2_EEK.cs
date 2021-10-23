@@ -55,9 +55,9 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_CreateFromPolygon(ptr);
         }
 
-        internal override IntPtr CreateFromPoints(Point2d[] points, int startIndex, int count)
+        internal override IntPtr CreateFromPoints(Point2d[] points, int count)
         {
-            return PolygonWithHoles2_EEK_CreateFromPoints(points, startIndex, count);
+            return PolygonWithHoles2_EEK_CreateFromPoints(points, count);
         }
 
         internal override Point2d GetPoint(IntPtr ptr, int polyIndex, int pointIndex)
@@ -65,9 +65,9 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_GetPoint(ptr, polyIndex, pointIndex);
         }
 
-        internal override void GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count)
+        internal override void GetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int count)
         {
-            PolygonWithHoles2_EEK_GetPoints(ptr, points, polyIndex, startIndex, count);
+            PolygonWithHoles2_EEK_GetPoints(ptr, points, polyIndex, count);
         }
 
         internal override void SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point)
@@ -75,9 +75,9 @@ namespace CGALDotNet.Polygons
             PolygonWithHoles2_EEK_SetPoint(ptr, polyIndex, pointIndex, point);
         }
 
-        internal override void SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count)
+        internal override void SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int count)
         {
-            PolygonWithHoles2_EEK_SetPoints(ptr, points, polyIndex, startIndex, count);
+            PolygonWithHoles2_EEK_SetPoints(ptr, points, polyIndex, count);
         }
 
         internal override void AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr)
@@ -190,19 +190,19 @@ namespace CGALDotNet.Polygons
         private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPolygon(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPoints(Point2d[] points, int startIndex, int count);
+        private static extern IntPtr PolygonWithHoles2_EEK_CreateFromPoints(Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d PolygonWithHoles2_EEK_GetPoint(IntPtr ptr, int polyIndex, int pointIndex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void PolygonWithHoles2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int polyIndex, int startIndex, int count);
+        private static extern void PolygonWithHoles2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int polyIndex, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_SetPoint(IntPtr ptr, int polyIndex, int pointIndex, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void PolygonWithHoles2_EEK_SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int startIndex, int count);
+        private static extern void PolygonWithHoles2_EEK_SetPoints(IntPtr ptr, Point2d[] points, int polyIndex, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);

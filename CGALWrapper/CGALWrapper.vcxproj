@@ -244,7 +244,7 @@
     <ClCompile Include="Polygons\Polygon2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonBoolean2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonPartition2_EEK.cpp" />
-    <ClCompile Include="Polygons\PolygonSimplification2.cpp" />
+    <ClCompile Include="Polygons\PolygonSimplification2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonWithHoles2_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation2_EEK.cpp" />
   </ItemGroup>

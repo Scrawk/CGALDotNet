@@ -30,13 +30,13 @@ namespace CGALDotNet.Polygons
 
         internal abstract Point2d GetPoint(IntPtr ptr, int index);
 
-        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
+        internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int count);
 
-        internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count);
+        internal abstract void GetSegments(IntPtr ptr, Segment2d[] segments, int count);
 
         internal abstract void SetPoint(IntPtr ptr, int index, Point2d point);
 
-        internal abstract void SetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count);
+        internal abstract void SetPoints(IntPtr ptr, Point2d[] points, int count);
 
         internal abstract void Reverse(IntPtr ptr);
 

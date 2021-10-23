@@ -93,7 +93,7 @@ namespace CGALDotNet.Arrangements
             if (segments == null || segments.Length == 0)
                 return false;
 
-            return Kernel.DoIntersect(Ptr, segments, 0, segments.Length);
+            return Kernel.DoIntersect(Ptr, segments, segments.Length);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace CGALDotNet.Arrangements
             if (segments == null || segments.Length == 0)
                 return new Segment2d[0];
 
-            int count = Kernel.ComputeSubcurves(Ptr, segments, 0, segments.Length);
+            int count = Kernel.ComputeSubcurves(Ptr, segments, segments.Length);
 
             var subSegments = new Segment2d[count];
 
@@ -131,7 +131,7 @@ namespace CGALDotNet.Arrangements
             if (segments == null || segments.Length == 0)
                 return new Point2d[0];
 
-            int count = Kernel.ComputeIntersectionPoints(Ptr, segments, 0, segments.Length);
+            int count = Kernel.ComputeIntersectionPoints(Ptr, segments, segments.Length);
 
             var points = new Point2d[count];
 
@@ -153,7 +153,7 @@ namespace CGALDotNet.Arrangements
             if (points == null || points.Length == 0)
                 return;
 
-            Kernel.GetPoints(Ptr, points, 0, points.Length);
+            Kernel.GetPoints(Ptr, points, points.Length);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace CGALDotNet.Arrangements
             if (segments == null || segments.Length == 0)
                 return;
 
-            Kernel.GetSegments(Ptr, segments, 0, segments.Length);
+            Kernel.GetSegments(Ptr, segments, segments.Length);
         }
 
         /// <summary>

@@ -46,9 +46,9 @@ void* PolygonWithHoles2_EEK_CreateFromPolygon(void* ptr)
 	return PolygonWithHoles2<EEK>::CreateFromPolygon(ptr);
 }
 
-void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d* points, int startIndex, int count)
+void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d* points, int count)
 {
-	return PolygonWithHoles2<EEK>::CreateFromPoints(points, startIndex, count);
+	return PolygonWithHoles2<EEK>::CreateFromPoints(points, count);
 }
 
 Point2d PolygonWithHoles2_EEK_GetPoint(void* ptr, int polyIndex, int pointIndex)
@@ -56,9 +56,9 @@ Point2d PolygonWithHoles2_EEK_GetPoint(void* ptr, int polyIndex, int pointIndex)
 	return PolygonWithHoles2<EEK>::GetPoint(ptr, polyIndex, pointIndex);
 }
 
-void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, int count)
 {
-	PolygonWithHoles2<EEK>::GetPoints(ptr, points, polyIndex, startIndex, count);
+	PolygonWithHoles2<EEK>::GetPoints(ptr, points, polyIndex, count);
 }
 
 void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point)
@@ -66,9 +66,9 @@ void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, Po
 	PolygonWithHoles2<EEK>::SetPoint(ptr, polyIndex, pointIndex, point);
 }
 
-void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, int count)
 {
-	PolygonWithHoles2<EEK>::SetPoints(ptr, points, polyIndex, startIndex, count);
+	PolygonWithHoles2<EEK>::SetPoints(ptr, points, polyIndex, count);
 }
 
 void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr)

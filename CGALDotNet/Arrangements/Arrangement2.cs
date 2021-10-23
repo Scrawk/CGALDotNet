@@ -243,7 +243,7 @@ namespace CGALDotNet.Arrangements
             if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(points, 0, VertexCount);
 
-            Kernel.GetPoints(Ptr, points, 0, points.Length);
+            Kernel.GetPoints(Ptr, points, points.Length);
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace CGALDotNet.Arrangements
             if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(segments, 0, EdgeCount);
 
-            Kernel.GetSegments(Ptr, segments, 0, segments.Length);
+            Kernel.GetSegments(Ptr, segments, segments.Length);
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace CGALDotNet.Arrangements
             if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(vertices, 0, VertexCount);
 
-            Kernel.GetVertices(Ptr, vertices, 0, vertices.Length);
+            Kernel.GetVertices(Ptr, vertices, vertices.Length);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace CGALDotNet.Arrangements
         public void GetDCELVertices(DCELMesh mesh)
         {
             var arrVerts = new ArrVertex2[VertexCount];
-            Kernel.GetVertices(Ptr, arrVerts, 0, arrVerts.Length);
+            Kernel.GetVertices(Ptr, arrVerts, arrVerts.Length);
 
             for (int i = 0; i < arrVerts.Length; i++)
                 mesh.AddVertex( new DCELVertex(mesh, arrVerts[i]));
@@ -312,7 +312,7 @@ namespace CGALDotNet.Arrangements
             if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(edges, 0, HalfEdgeCount);
 
-            Kernel.GetHalfEdges(Ptr, edges, 0, edges.Length);
+            Kernel.GetHalfEdges(Ptr, edges, edges.Length);
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace CGALDotNet.Arrangements
         public void GetDCELHalfEdges(DCELMesh mesh)
         {
             var arrEdges = new ArrHalfEdge2[HalfEdgeCount];
-            Kernel.GetHalfEdges(Ptr, arrEdges, 0, arrEdges.Length);
+            Kernel.GetHalfEdges(Ptr, arrEdges, arrEdges.Length);
 
             for (int i = 0; i < arrEdges.Length; i++)
                 mesh.AddHalfEdge(new DCELHalfEdge(mesh, arrEdges[i]));
@@ -351,7 +351,7 @@ namespace CGALDotNet.Arrangements
             if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(faces, 0, FaceCount);
 
-            Kernel.GetFaces(Ptr, faces, 0, faces.Length);
+            Kernel.GetFaces(Ptr, faces, faces.Length);
         }
 
         /// <summary>
@@ -361,7 +361,7 @@ namespace CGALDotNet.Arrangements
         public void GetDCELFaces(DCELMesh mesh)
         {
             var arrFaces = new ArrFace2[FaceCount];
-            Kernel.GetFaces(Ptr, arrFaces, 0, arrFaces.Length);
+            Kernel.GetFaces(Ptr, arrFaces, arrFaces.Length);
 
             for (int i = 0; i < arrFaces.Length; i++)
                 mesh.AddFace(new DCELFace(mesh, arrFaces[i]));
@@ -432,7 +432,7 @@ namespace CGALDotNet.Arrangements
             if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(results, 0, points.Length);
 
-            return Kernel.BatchedPointQuery(Ptr, points, results, 0, points.Length);
+            return Kernel.BatchedPointQuery(Ptr, points, results, points.Length);
         }
 
         /// <summary>
@@ -647,7 +647,7 @@ namespace CGALDotNet.Arrangements
             if (segments == null || segments.Length == 0)
                 return;
 
-            Kernel.InsertSegments(Ptr, segments, 0, segments.Length, nonItersecting);
+            Kernel.InsertSegments(Ptr, segments, segments.Length, nonItersecting);
         }
 
         /// <summary>

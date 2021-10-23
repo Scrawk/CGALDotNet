@@ -21,13 +21,13 @@ extern "C"
 
 	CGALWRAPPER_API Point2d Polygon2_EIK_GetPoint(void* ptr, int index);
 
-	CGALWRAPPER_API void Polygon2_EIK_GetPoints(void* ptr, Point2d* points, int startIndex, int count);
+	CGALWRAPPER_API void Polygon2_EIK_GetPoints(void* ptr, Point2d* points, int count);
 
-	CGALWRAPPER_API void Polygon2_EIK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count);
+	CGALWRAPPER_API void Polygon2_EIK_GetSegments(void* ptr, Segment2d* segments, int count);
 
 	CGALWRAPPER_API void Polygon2_EIK_SetPoint(void* ptr, int index, Point2d point);
 
-	CGALWRAPPER_API void Polygon2_EIK_SetPoints(void* ptr, Point2d* points, int startIndex, int count);
+	CGALWRAPPER_API void Polygon2_EIK_SetPoints(void* ptr, Point2d* points, int count);
 
 	CGALWRAPPER_API void Polygon2_EIK_Reverse(void* ptr);
 

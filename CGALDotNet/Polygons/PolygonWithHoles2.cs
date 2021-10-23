@@ -221,7 +221,7 @@ namespace CGALDotNet.Polygons
         internal PolygonWithHoles2(CGALKernel kernel, Point2d[] boundary)
         {
             Kernel = kernel.PolygonWithHolesKernel2;
-            Ptr = Kernel.CreateFromPoints(boundary, 0, boundary.Length);
+            Ptr = Kernel.CreateFromPoints(boundary, boundary.Length);
             IsUnbounded = false;
         }
 
@@ -413,7 +413,7 @@ namespace CGALDotNet.Polygons
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
                     ErrorUtil.CheckBounds(points, 0, count);
 
-                Kernel.GetPoints(Ptr, points, BOUNDARY_INDEX, 0, count);
+                Kernel.GetPoints(Ptr, points, BOUNDARY_INDEX, count);
             }
             else
             {
@@ -425,7 +425,7 @@ namespace CGALDotNet.Polygons
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
                     ErrorUtil.CheckBounds(points, 0, count);
 
-                Kernel.GetPoints(Ptr, points, holeIndex, 0, count);
+                Kernel.GetPoints(Ptr, points, holeIndex, count);
             }
         }
 
@@ -498,7 +498,7 @@ namespace CGALDotNet.Polygons
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
                     ErrorUtil.CheckBounds(points, 0, count);
 
-                Kernel.SetPoints(Ptr, points, BOUNDARY_INDEX, 0, count);
+                Kernel.SetPoints(Ptr, points, BOUNDARY_INDEX, count);
                 IsUnbounded = count > 0;
             }
             else
@@ -512,7 +512,7 @@ namespace CGALDotNet.Polygons
                 if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
                     ErrorUtil.CheckBounds(points, 0, count);
 
-                Kernel.SetPoints(Ptr, points, holeIndex, 0, count);
+                Kernel.SetPoints(Ptr, points, holeIndex, count);
             }
         }
 

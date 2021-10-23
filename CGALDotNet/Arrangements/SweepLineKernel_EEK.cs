@@ -52,29 +52,29 @@ namespace CGALDotNet.Arrangements
             return SweepLine2_EEK_SegmentBufferSize(ptr);
         }
 
-        internal override bool DoIntersect(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override bool DoIntersect(IntPtr ptr, Segment2d[] segments, int count)
         {
-            return SweepLine2_EEK_DoIntersect(ptr, segments, startIndex, count);
+            return SweepLine2_EEK_DoIntersect(ptr, segments, count);
         }
 
-        internal override int ComputeSubcurves(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override int ComputeSubcurves(IntPtr ptr, Segment2d[] segments, int count)
         {
-            return SweepLine2_EEK_ComputeSubcurves(ptr, segments, startIndex, count);
+            return SweepLine2_EEK_ComputeSubcurves(ptr, segments, count);
         }
 
-        internal override int ComputeIntersectionPoints(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override int ComputeIntersectionPoints(IntPtr ptr, Segment2d[] segments, int count)
         {
-            return SweepLine2_EEK_ComputeIntersectionPoints(ptr, segments, startIndex, count);
+            return SweepLine2_EEK_ComputeIntersectionPoints(ptr, segments, count);
         }
 
-        internal override void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
+        internal override void GetPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            SweepLine2_EEK_GetPoints(ptr, points, startIndex, count);
+            SweepLine2_EEK_GetPoints(ptr, points, count);
         }
 
-        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int count)
         {
-            SweepLine2_EEK_GetSegments(ptr, segments, startIndex, count);
+            SweepLine2_EEK_GetSegments(ptr, segments, count);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -96,18 +96,18 @@ namespace CGALDotNet.Arrangements
         private static extern int SweepLine2_EEK_SegmentBufferSize(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool SweepLine2_EEK_DoIntersect(IntPtr ptr, [In] Segment2d[] segments, int startIndex, int count);
+        private static extern bool SweepLine2_EEK_DoIntersect(IntPtr ptr, [In] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int SweepLine2_EEK_ComputeSubcurves(IntPtr ptr, [In] Segment2d[] segments, int startIndex, int count);
+        private static extern int SweepLine2_EEK_ComputeSubcurves(IntPtr ptr, [In] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int SweepLine2_EEK_ComputeIntersectionPoints(IntPtr ptr, [In] Segment2d[] segments, int startIndex, int count);
+        private static extern int SweepLine2_EEK_ComputeIntersectionPoints(IntPtr ptr, [In] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SweepLine2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
+        private static extern void SweepLine2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SweepLine2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
+        private static extern void SweepLine2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int count);
     }
 }

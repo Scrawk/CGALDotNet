@@ -39,14 +39,14 @@ Point2d Polygon2_EEK_GetPoint(void* ptr, int index)
 	return Polygon2<EEK>::GetPoint(ptr, index);
 }
 
-void Polygon2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+void Polygon2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	Polygon2<EEK>::GetPoints(ptr, points, startIndex, count);
+	Polygon2<EEK>::GetPoints(ptr, points, count);
 }
 
-void Polygon2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+void Polygon2_EEK_GetSegments(void* ptr, Segment2d* segments, int count)
 {
-	Polygon2<EEK>::GetSegments(ptr, segments, startIndex, count);
+	Polygon2<EEK>::GetSegments(ptr, segments, count);
 }
 
 void Polygon2_EEK_SetPoint(void* ptr, int index, Point2d point)
@@ -54,9 +54,9 @@ void Polygon2_EEK_SetPoint(void* ptr, int index, Point2d point)
 	Polygon2<EEK>::SetPoint(ptr, index, point);
 }
 
-void Polygon2_EEK_SetPoints(void* ptr, Point2d* points, int startIndex, int count)
+void Polygon2_EEK_SetPoints(void* ptr, Point2d* points, int count)
 {
-	Polygon2<EEK>::SetPoints(ptr, points, startIndex, count);
+	Polygon2<EEK>::SetPoints(ptr, points, count);
 }
 
 void Polygon2_EEK_Reverse(void* ptr)

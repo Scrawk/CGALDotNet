@@ -269,7 +269,7 @@
     <ClCompile Include="Utility\CGALGlobal_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Polygons\PolygonSimplification2.cpp">
+    <ClCompile Include="Polygons\PolygonSimplification2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
     <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp">

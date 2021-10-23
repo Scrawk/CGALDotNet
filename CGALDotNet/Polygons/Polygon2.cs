@@ -310,7 +310,7 @@ namespace CGALDotNet.Polygons
             if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(points, 0, Count);
 
-            Kernel.GetPoints(Ptr, points, 0, Count);
+            Kernel.GetPoints(Ptr, points, Count);
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace CGALDotNet.Polygons
             if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(segments, 0, Count);
 
-            Kernel.GetSegments(Ptr, segments, 0, Count);
+            Kernel.GetSegments(Ptr, segments, Count);
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace CGALDotNet.Polygons
             if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
                 ErrorUtil.CheckBounds(points, 0, count);
 
-            Kernel.SetPoints(Ptr, points, 0, count);
+            Kernel.SetPoints(Ptr, points, count);
             Count = count;
             IsUpdated = false;
         }

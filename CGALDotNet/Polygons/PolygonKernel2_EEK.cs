@@ -50,14 +50,14 @@ namespace CGALDotNet.Polygons
             return Polygon2_EEK_GetPoint(ptr, index);
         }
 
-        internal override void GetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
+        internal override void GetPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            Polygon2_EEK_GetPoints(ptr, points, startIndex, count);
+            Polygon2_EEK_GetPoints(ptr, points, count);
         }
 
-        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int startIndex, int count)
+        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int count)
         {
-            Polygon2_EEK_GetSegments(ptr, segments, startIndex, count);
+            Polygon2_EEK_GetSegments(ptr, segments, count);
         }
 
         internal override void SetPoint(IntPtr ptr, int index, Point2d point)
@@ -65,9 +65,9 @@ namespace CGALDotNet.Polygons
             Polygon2_EEK_SetPoint(ptr, index, point);
         }
 
-        internal override void SetPoints(IntPtr ptr, Point2d[] points, int startIndex, int count)
+        internal override void SetPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            Polygon2_EEK_SetPoints(ptr, points, startIndex, count);
+            Polygon2_EEK_SetPoints(ptr, points, count);
         }
 
         internal override void Reverse(IntPtr ptr)
@@ -152,16 +152,16 @@ namespace CGALDotNet.Polygons
         private static extern Point2d Polygon2_EEK_GetPoint(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int startIndex, int count);
+        private static extern void Polygon2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int startIndex, int count);
+        private static extern void Polygon2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_SetPoint(IntPtr ptr, int index, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_SetPoints(IntPtr ptr, [In] Point2d[] points, int startIndex, int count);
+        private static extern void Polygon2_EEK_SetPoints(IntPtr ptr, [In] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Reverse(IntPtr ptr);

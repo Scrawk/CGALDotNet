@@ -69,18 +69,18 @@ public:
 		return (int)sweep->segmentBuffer.size();
 	}
 
-	static BOOL DoIntersect(void* ptr, Segment2d* segments, int startIndex, int count)
+	static BOOL DoIntersect(void* ptr, Segment2d* segments, int count)
 	{
 		auto sweep = CastToSweepLine(ptr);
-		auto list = ToList(segments, startIndex, count);
+		auto list = ToList(segments, count);
 
 		return CGAL::do_curves_intersect(list.begin(), list.end());
 	}
 
-	static int ComputeSubcurves(void* ptr, Segment2d* segments, int startIndex, int count)
+	static int ComputeSubcurves(void* ptr, Segment2d* segments, int count)
 	{
 		auto sweep = CastToSweepLine(ptr);
-		auto list = ToList(segments, startIndex, count);
+		auto list = ToList(segments, count);
 
 		sweep->segmentBuffer.clear();
 		CGAL::compute_subcurves(list.begin(), list.end(), std::back_inserter(sweep->segmentBuffer));
@@ -88,10 +88,10 @@ public:
 		return (int)sweep->segmentBuffer.size();
 	}
 
-	static int ComputeIntersectionPoints(void* ptr, Segment2d* segments, int startIndex, int count)
+	static int ComputeIntersectionPoints(void* ptr, Segment2d* segments, int count)
 	{
 		auto sweep = CastToSweepLine(ptr);
-		auto list = ToList(segments, startIndex, count);
+		auto list = ToList(segments, count);
 
 		sweep->pointBuffer.clear();
 		CGAL::compute_intersection_points(list.begin(), list.end(), std::back_inserter(sweep->pointBuffer));
@@ -99,20 +99,20 @@ public:
 		return (int)sweep->pointBuffer.size();
 	}
 
-	static void GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+	static void GetPoints(void* ptr, Point2d* points, int count)
 	{
 		auto sweep = CastToSweepLine(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (auto point = sweep->pointBuffer.begin(); point != sweep->pointBuffer.end(); ++point, ++i)
 			points[i] = Point2d::FromCGAL<K>(*point);
 			
 	}
 
-	static void GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+	static void GetSegments(void* ptr, Segment2d* segments, int count)
 	{
 		auto sweep = CastToSweepLine(ptr);
-		int i = startIndex;
+		int i = 0;
 
 		for (auto seg = sweep->segmentBuffer.begin(); seg != sweep->segmentBuffer.end(); ++seg, ++i)
 		{
@@ -122,22 +122,22 @@ public:
 		}
 	}
 
-	static std::vector<Segment_2> ToList(Segment2d* segments, int startIndex, int count)
+	static std::vector<Segment_2> ToList(Segment2d* segments, int count)
 	{
 		auto list = std::vector<Segment_2>();
 
-		for (int i = startIndex; i < count; i++)
+		for (int i = 0; i < count; i++)
 			list.push_back(segments[i].ToCGAL<K, Segment_2>());
 
 		return list;
 	}
 
-	static Segment_2* ToArray(Segment2d* segments, int startIndex, int count)
+	static Segment_2* ToArray(Segment2d* segments, int count)
 	{
 		auto arr = new Segment_2[count];
 
-		for (int i = startIndex, j = 0; i < count; i++, j++)
-			arr[j] = segments[i].ToCGAL<K, Segment_2>();
+		for (int i = 0; i < count; i++)
+			arr[i] = segments[i].ToCGAL<K, Segment_2>();
 
 		return arr;
 	}

@@ -32,27 +32,27 @@ int SweepLine2_EEK_SegmentBufferSize(void* ptr)
 	return SweepLine<EEK>::SegmentBufferSize(ptr);
 }
 
-BOOL SweepLine2_EEK_DoIntersect(void* ptr, Segment2d* segments, int startIndex, int count)
+BOOL SweepLine2_EEK_DoIntersect(void* ptr, Segment2d* segments, int count)
 {
-	return SweepLine<EEK>::DoIntersect(ptr, segments, startIndex, count);
+	return SweepLine<EEK>::DoIntersect(ptr, segments, count);
 }
 
-int SweepLine2_EEK_ComputeSubcurves(void* ptr, Segment2d* segments, int startIndex, int count)
+int SweepLine2_EEK_ComputeSubcurves(void* ptr, Segment2d* segments, int count)
 {
-	return SweepLine<EEK>::ComputeSubcurves(ptr, segments, startIndex, count);
+	return SweepLine<EEK>::ComputeSubcurves(ptr, segments, count);
 }
 
-int SweepLine2_EEK_ComputeIntersectionPoints(void* ptr, Segment2d* segments, int startIndex, int count)
+int SweepLine2_EEK_ComputeIntersectionPoints(void* ptr, Segment2d* segments, int count)
 {
-	return SweepLine<EEK>::ComputeIntersectionPoints(ptr, segments, startIndex, count);
+	return SweepLine<EEK>::ComputeIntersectionPoints(ptr, segments, count);
 }
 
-void SweepLine2_EEK_GetPoints(void* ptr, Point2d* points, int startIndex, int count)
+void SweepLine2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	SweepLine<EEK>::GetPoints(ptr, points, startIndex, count);
+	SweepLine<EEK>::GetPoints(ptr, points, count);
 }
 
-void SweepLine2_EEK_GetSegments(void* ptr, Segment2d* segments, int startIndex, int count)
+void SweepLine2_EEK_GetSegments(void* ptr, Segment2d* segments, int count)
 {
-	SweepLine<EEK>::GetSegments(ptr, segments, startIndex, count);
+	SweepLine<EEK>::GetSegments(ptr, segments, count);
 }

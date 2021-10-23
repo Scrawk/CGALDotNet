@@ -179,15 +179,14 @@ public:
 	/// Create a new polygonWithHoles from points.
 	/// </summary>
 	/// <param name="points">The points</param>
-	/// <param name="startIndex">The index to start at in array.</param>
 	/// <param name="count">The number of points in array.</param>
 	/// <returns>The new polygon.</returns>
-	static void* CreateFromPoints(Point2d* points, int startIndex, int count)
+	static void* CreateFromPoints(Point2d* points, int count)
 	{
 		auto polygon = Polygon_2();
 
 		for (auto i = 0; i < count; i++)
-			polygon.push_back(points[startIndex + i].ToCGAL<K>());
+			polygon.push_back(points[i].ToCGAL<K>());
 
 		return new Pwh_2(polygon);
 	}
@@ -221,9 +220,8 @@ public:
 	/// <param name="points">The point array to copy into.</param>
 	/// <param name="polyIndex">The poylgon index. -1 for the boundary 
 	/// and a positive index for a hole polygon.</param>
-	/// <param name="startIndex">The index to start at in array.</param>
 	/// <param name="count">The number of points to copy.</param>
-	static void GetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+	static void GetPoints(void* ptr, Point2d* points, int polyIndex, int count)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
@@ -231,7 +229,7 @@ public:
 			for (auto i = 0; i < count; i++)
 			{
 				auto point = polygon->vertex(i);
-				points[startIndex + i] = Point2d::FromCGAL<K>(point);
+				points[i] = Point2d::FromCGAL<K>(point);
 			}
 		}
 	}
@@ -260,9 +258,8 @@ public:
 	/// <param name="points">The points array.</param>
 	/// <param name="polyIndex">The poylgon index. -1 for the boundary 
 	/// and a positive index for a hole polygon. </param>
-	/// <param name="startIndex">The index in array to start at.</param>
 	/// <param name="count">The number of points to add.</param>
-	static void SetPoints(void* ptr, Point2d* points, int polyIndex, int startIndex, int count)
+	static void SetPoints(void* ptr, Point2d* points, int polyIndex, int count)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
@@ -271,15 +268,13 @@ public:
 
 			for (auto i = 0; i < count; i++)
 			{
-				int index = startIndex + i;
-
-				if (index < size)
-					(*polygon)[i] = points[index].ToCGAL<K>();
+				if (i < size)
+					(*polygon)[i] = points[i].ToCGAL<K>();
 				else
 				{
 					//Adding more points than poygon currently contains
 					//so push back instead.
-					polygon->push_back(points[index].ToCGAL<K>());
+					polygon->push_back(points[i].ToCGAL<K>());
 				}
 					
 			}
