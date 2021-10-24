@@ -63,11 +63,11 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// The polyhdron as a string.
         /// </summary>
-        /// <returns>The polhedron as a string.</returns>
+        /// <returns>The polyhedron as a string.</returns>
         public override string ToString()
         {
-            return string.Format("[Polyhedra3<{0}>: VertexCount={1}, FaceCount={2}]",
-                Kernel.Name, VertexCount, FaceCount);
+            return string.Format("[Polyhedra3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
+                Kernel.Name, VertexCount, HalfEdgeCount, FaceCount);
         }
 
     }

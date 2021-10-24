@@ -2,10 +2,8 @@
 
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
-
-#include <CGAL/enum.h> 
+ 
 #include <CGAL/Polyhedron_3.h>
-#include <CGAL/Aff_transformation_2.h>
 
 template<class K>
 class Polyhedron3

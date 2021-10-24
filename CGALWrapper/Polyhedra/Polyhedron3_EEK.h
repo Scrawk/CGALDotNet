@@ -3,8 +3,6 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
-#include <CGAL/enum.h>
-
 
 extern "C"
 {

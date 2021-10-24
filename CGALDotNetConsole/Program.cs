@@ -10,6 +10,7 @@ using CGALDotNet.Triangulations;
 using CGALDotNet.Arrangements;
 using CGALDotNet.DCEL;
 using CGALDotNet.PolyHedra;
+using CGALDotNet.Meshing;
 
 namespace CGALDotNetConsole
 {
@@ -20,18 +21,20 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
+            var mesh = new SurfaceMesh3<EEK>();
 
-            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
-            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
-            inner.Reverse();
+            int u = mesh.AddVertex(new Point3d(0, 1, 0));
+            int v = mesh.AddVertex(new Point3d(0, 0, 0));
+            int w = mesh.AddVertex(new Point3d(1, 1, 0));
+            int x = mesh.AddVertex(new Point3d(1, 0, 0));
 
-            var poly = new PolygonWithHoles2<EEK>(outer);
-            poly.AddHole(inner);
+            int f0 = mesh.AddFace(u, v, w);
+            //int f1 = mesh.AddFace(u, v, x);
 
-            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 0, 0));
-            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 1, 0));
-            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 2, 0));
-            Console.WriteLine(poly.GetPoint(POLYGON_ELEMENT.HOLE, 3, 0));
+            int f2 = mesh.AddFace(u, x, v);
+
+            Console.WriteLine(mesh);
+            Console.WriteLine(mesh.IsValid()); 
 
         }
 

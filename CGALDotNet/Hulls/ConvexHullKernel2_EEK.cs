@@ -10,9 +10,6 @@ namespace CGALDotNet.Hulls
 {
     internal sealed class ConvexHullKernel2_EEK : ConvexHullKernel2
     {
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal static readonly ConvexHullKernel2 Instance = new ConvexHullKernel2_EEK();
 
