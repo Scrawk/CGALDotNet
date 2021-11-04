@@ -440,7 +440,7 @@ namespace CGALDotNet.Triangulations
 
                             int neighboutIndex = CGALGlobal.Wrap(i - 1, 3);
                             closest = new TriEdge2(face.Index, neighboutIndex);
-                            edge.Segment = new Segment2d(p1, p2);
+                            closest.Segment = new Segment2d(p1, p2);
                         }
                     }
                 }

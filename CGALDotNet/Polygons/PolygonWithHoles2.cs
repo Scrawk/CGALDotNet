@@ -8,7 +8,7 @@ using CGALDotNet.Triangulations;
 namespace CGALDotNet.Polygons
 {
     /// <summary>
-    /// Poylgon with holes consists of a boundary and holes.
+    /// Polygon with holes consists of a boundary and holes.
     /// </summary>
     public enum POLYGON_ELEMENT 
     { 
