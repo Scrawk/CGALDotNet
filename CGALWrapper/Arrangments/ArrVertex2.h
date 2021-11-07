@@ -7,7 +7,7 @@
 
 struct ArrVertex2
 {
-	Point3d Point;
+	Point2d Point;
 	int Degree;
 	BOOL IsIsolated;
 	int Index;
@@ -17,7 +17,7 @@ struct ArrVertex2
 	static ArrVertex2 NullVertex()
 	{
 		ArrVertex2 v;
-		v.Point = { 0, 0, 0 };
+		v.Point = { 0, 0 };
 		v.Degree = 0;
 		v.IsIsolated = false;
 		v.Index = NULL_INDEX;
@@ -32,7 +32,7 @@ struct ArrVertex2
 		ArrVertex2 v;
 		
 		v.Index = vert->data();
-		v.Point = Point3d::FromCGAL<K>(vert->point());
+		v.Point = Point2d::FromCGAL<K>(vert->point());
 		v.Degree = (int)vert->degree();
 		v.IsIsolated = vert->is_isolated();
 

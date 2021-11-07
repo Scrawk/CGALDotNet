@@ -361,7 +361,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="point">The point</param>
         /// <param name="vertex">The closest vertex.</param>
         /// <returns>True if point hit a face and found a vertex.</returns>
-        public bool LocateVertex(Point2d point, out TriVertex2 vertex)
+        public bool LocateVertex(Point2d point, double radius, out TriVertex2 vertex)
         {
             //Locate the face the point hit.
             vertex = new TriVertex2();
@@ -390,7 +390,7 @@ namespace CGALDotNet.Triangulations
 
                 //Face had no valid vertices.
                 //Should not happen but check anyway.
-                if (min == double.PositiveInfinity)
+                if (min == double.PositiveInfinity || min > radius * radius)
                     return false;
                 else
                 {
@@ -408,7 +408,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="point">The point</param>
         /// <param name="edge">The closest edge.</param>
         /// <returns>True if the point hit a face and found a edge.</returns>
-        public bool LocateEdge(Point2d point, out TriEdge2 edge)
+        public bool LocateEdge(Point2d point, double radius, out TriEdge2 edge)
         {
             //Locate the face the point hit.
             edge = new TriEdge2();
@@ -447,7 +447,7 @@ namespace CGALDotNet.Triangulations
 
                 //Face had no valid vertices.
                 //Should not happen but check anyway.
-                if (min == double.PositiveInfinity)
+                if (min == double.PositiveInfinity || min > radius * radius)
                     return false;
                 else
                 {

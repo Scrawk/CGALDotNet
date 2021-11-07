@@ -4,7 +4,6 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
-using CGALDotNet.DCEL;
 
 namespace CGALDotNet.Arrangements
 {
@@ -104,7 +103,7 @@ namespace CGALDotNet.Arrangements
     /// <summary>
     /// The abstract base class.
     /// </summary>
-    public abstract class Arrangement2 : CGALObject, IDCELModel
+    public abstract class Arrangement2 : CGALObject
     {
         /// <summary>
         /// The default constructor.
@@ -158,11 +157,6 @@ namespace CGALDotNet.Arrangements
         /// vertices and VertexCount does not count them.
         /// </summary>
         public int VerticesAtInfinityCount => Kernel.VerticesAtInfinityCount(Ptr);
-
-        /// <summary>
-        /// The dimension of the point struct in the DCEL vertex
-        /// </summary>
-        public int Dimension => 2;
 
         /// <summary>
         /// The number of half edges.
@@ -277,19 +271,6 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// Get the DCEL vertices that can be use to reconstruct 
-        /// the model as a DCEL data sturcture.
-        /// </summary>
-        public void GetDCELVertices(DCELMesh mesh)
-        {
-            var arrVerts = new ArrVertex2[VertexCount];
-            Kernel.GetVertices(Ptr, arrVerts, arrVerts.Length);
-
-            for (int i = 0; i < arrVerts.Length; i++)
-                mesh.AddVertex( new DCELVertex(mesh, arrVerts[i]));
-        }
-
-        /// <summary>
         /// Get the vertex from the arrangement.
         /// </summary>
         /// <param name="index">The index of the vertex.</param>
@@ -316,19 +297,6 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// Get the DCEL edhe that can be use to reconstruct 
-        /// the model as a DCEL data sturcture.
-        /// </summary>
-        public void GetDCELHalfEdges(DCELMesh mesh)
-        {
-            var arrEdges = new ArrHalfEdge2[HalfEdgeCount];
-            Kernel.GetHalfEdges(Ptr, arrEdges, arrEdges.Length);
-
-            for (int i = 0; i < arrEdges.Length; i++)
-                mesh.AddHalfEdge(new DCELHalfEdge(mesh, arrEdges[i]));
-        }
-
-        /// <summary>
         /// Get the half edge from the arrangement.
         /// </summary>
         /// <param name="index">The index of the half edge.</param>
@@ -352,19 +320,6 @@ namespace CGALDotNet.Arrangements
                 ErrorUtil.CheckBounds(faces, 0, FaceCount);
 
             Kernel.GetFaces(Ptr, faces, faces.Length);
-        }
-
-        /// <summary>
-        /// Get the DCEL faces that can be use to reconstruct 
-        /// the model as a DCEL data sturcture.
-        /// </summary>
-        public void GetDCELFaces(DCELMesh mesh)
-        {
-            var arrFaces = new ArrFace2[FaceCount];
-            Kernel.GetFaces(Ptr, arrFaces, arrFaces.Length);
-
-            for (int i = 0; i < arrFaces.Length; i++)
-                mesh.AddFace(new DCELFace(mesh, arrFaces[i]));
         }
 
         /// <summary>
@@ -475,23 +430,44 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// Locate the vert the point hits.
+        /// Locate the closest vertex in the hit face
         /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="vert">The vert the point has hit.</param>
-        /// <returns>True if the point hit a vert.</returns>
-        public bool LocateVertex(Point2d point, DCELMesh mesh, out DCELVertex vert)
+        /// <param name="point">The point</param>
+        /// <param name="vertex">The closest vertex.</param>
+        /// <returns>True if point hit a face and found a vertex.</returns>
+        public bool LocateVertex(Point2d point, double radius, out ArrVertex2 vertex)
         {
-            vert = new DCELVertex(null);
-            if (LocateVertex(point, out ArrVertex2 v))
+            //Locate the face the point hit.
+            vertex = new ArrVertex2();
+            if (LocateFace(point, out ArrFace2 face))
             {
-                vert = new DCELVertex(mesh,  v);
-                return true;
+                //Find the closest vertex in the face to the point.
+                double min = double.PositiveInfinity;
+                var closest = new ArrVertex2();
+
+                foreach (var vert in face.EnumerateVertices(this))
+                {
+                    if (vert.Index == -1) continue;
+
+                    var sqdist = Point2d.SqrDistance(vert.Point, point);
+                    if (sqdist < min)
+                    {
+                        min = sqdist;
+                        closest = vert;
+                    }
+
+                }
+
+                if (min == double.PositiveInfinity || min > radius * radius)
+                    return false;
+                else
+                {
+                    vertex = closest;
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
@@ -500,7 +476,7 @@ namespace CGALDotNet.Arrangements
         /// <param name="point">The point to locate edge at.</param>
         /// <param name="edge">The edge.</param>
         /// <returns>True if a edge was located.</returns>
-        public bool LocateHalfEdge(Point2d point, out ArrHalfEdge2 edge)
+        public bool LocateEdge(Point2d point, out ArrHalfEdge2 edge)
         {
             edge = new ArrHalfEdge2();
             if (Kernel.PointQuery(Ptr, point, out ArrQuery result))
@@ -522,23 +498,48 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// Locate the edge the point hits.
+        /// Locate the closest edge in the hit face.
         /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="vert">The vert the point has hit.</param>
-        /// <returns>True if the point hit a vert.</returns>
-        public bool LocateHalfEdge(Point2d point, DCELMesh mesh, out DCELHalfEdge edge)
+        /// <param name="point">The point</param>
+        /// <param name="edge">The closest edge.</param>
+        /// <returns>True if the point hit a face and found a edge.</returns>
+        public bool LocateEdge(Point2d point, double radius, out ArrHalfEdge2 edge)
         {
-            edge = new DCELHalfEdge(null);
-            if (LocateHalfEdge(point, out ArrHalfEdge2 e))
+            //Locate the face the point hit.
+            edge = new ArrHalfEdge2();
+            if (LocateFace(point, out ArrFace2 face))
             {
-                edge = new DCELHalfEdge(mesh, e);
-                return true;
+                //Find the closest edge to the point in the face.
+                double min = double.PositiveInfinity;
+                var closest = new ArrHalfEdge2();
+
+                foreach (var e in face.EnumerateEdges(this))
+                {
+                    ArrVertex2 v1, v2;
+                    if (!GetVertex(e.SourceIndex, out v1)) continue;
+                    if (!GetVertex(e.TargetIndex, out v2)) continue;
+
+                    var seg = new Segment2d(v1.Point, v2.Point);
+                    var sqdist = seg.SqrDistance(point);
+
+                    if (sqdist < min)
+                    {
+                        min = sqdist;
+                        closest = e;
+                    }
+
+                }
+
+                if (min == double.PositiveInfinity || min > radius * radius)
+                    return false;
+                else
+                {
+                    edge = closest;
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>
@@ -561,26 +562,6 @@ namespace CGALDotNet.Arrangements
                 {
                     return false;
                 }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Locate the face the point hits.
-        /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="face">The face the point has hit.</param>
-        /// <returns>True if the point hit a face.</returns>
-        public bool LocateFace(Point2d point, DCELMesh mesh, out DCELFace face)
-        {
-            face = new DCELFace(null);
-            if (LocateFace(point, out ArrFace2 f))
-            {
-                face = new DCELFace(mesh, f);
-                return true;
             }
             else
             {

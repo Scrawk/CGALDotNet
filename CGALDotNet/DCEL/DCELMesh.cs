@@ -17,20 +17,14 @@ namespace CGALDotNet.DCEL
             Faces = new List<DCELFace>();
         }
 
-        public DCELMesh(IDCELModel model)
+        public DCELMesh(Arrangement2 arr)
         {
-            Vertices = new List<DCELVertex>(model.VertexCount);
-            HalfEdges = new List<DCELHalfEdge>(model.HalfEdgeCount);
-            Faces = new List<DCELFace>(model.FaceCount);
+            Vertices = new List<DCELVertex>(arr.VertexCount);
+            HalfEdges = new List<DCELHalfEdge>(arr.HalfEdgeCount);
+            Faces = new List<DCELFace>(arr.FaceCount);
 
-            BuildFromModel(model);
+            BuildFromArrangement(arr);
         }
-
-        public int Dimension => Model.Dimension;
-
-        public bool IsUpdated => BuildStamp == Model.BuildStamp;
-
-        private int BuildStamp { get; set; }
 
         private List<DCELVertex> Vertices;
 
@@ -38,22 +32,17 @@ namespace CGALDotNet.DCEL
 
         private List<DCELFace> Faces;
 
-        private IDCELModel Model;
-
         public override string ToString()
         {
             return string.Format("[DCELMesh: Vertices={0}, HalfEdges={1}, Faces={2}]",
                 Vertices.Count, HalfEdges.Count, Faces.Count);
         }
 
-        public void BuildFromModel(IDCELModel model)
+        public void BuildFromArrangement(Arrangement2 arr)
         {
-            Model = model;
-            CreateVertices();
-            CreateHalfEdges();
-            CreateFaces();
-
-            BuildStamp = Model.BuildStamp;
+            CreateVertices(arr);
+            CreateHalfEdges(arr);
+            CreateFaces(arr);
         }
 
         public int VertexCount => Vertices.Count;
@@ -128,153 +117,46 @@ namespace CGALDotNet.DCEL
                 yield return face;
         }
 
-        private void CreateVertices()
+        private void CreateVertices(Arrangement2 arr)
         {
             Vertices.Clear();
 
-            int count = Model.VertexCount;
+            int count = arr.VertexCount;
             if (count <= 0) return;
 
-            Model.GetDCELVertices(this);
+            var arrVerts = new ArrVertex2[count];
+            arr.GetVertices(arrVerts);
+
+            for (int i = 0; i < count; i++)
+                AddVertex(new DCELVertex(this, arrVerts[i]));
         }
 
-        private void CreateFaces()
+        private void CreateFaces(Arrangement2 arr)
         {
             Faces.Clear();
 
-            int count = Model.FaceCount;
+            int count = arr.FaceCount;
             if (count <= 0) return;
 
-            Model.GetDCELFaces(this);
+            var arrFaces = new ArrFace2[count];
+            arr.GetFaces(arrFaces);
+
+            for (int i = 0; i < count; i++)
+                AddFace(new DCELFace(this, arrFaces[i]));
         }
 
-        private void CreateHalfEdges()
+        private void CreateHalfEdges(Arrangement2 arr)
         {
             HalfEdges.Clear();
 
-            int count = Model.HalfEdgeCount;
+            int count = arr.HalfEdgeCount;
             if (count <= 0) return;
 
-            Model.GetDCELHalfEdges(this);
-        }
+            var arrEdges = new ArrHalfEdge2[count];
+            arr.GetHalfEdges(arrEdges);
 
-        /// <summary>
-        /// Locate the face the point hits.
-        /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="face">The face the point has hit.</param>
-        /// <returns>True if the point hit a face.</returns>
-        public bool LocateFace(Point2d point, out DCELFace face)
-        {
-            if( Model.LocateFace(point, this, out face))
-            {
-                face.Mesh = this;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Locate the closest vertex in the hit face
-        /// </summary>
-        /// <param name="point">The point</param>
-        /// <param name="vertex">The closest vertex.</param>
-        /// <returns>True if point hit a face and found a vertex.</returns>
-        public bool LocateVertex(Point2d point, out DCELVertex vertex)
-        {
-            //First check if point directly hits a vertex.
-            if(Model.LocateVertex(point, this, out vertex))
-                return true;
-
-            //Locate the face the point hit.
-            vertex = new DCELVertex();
-            if (LocateFace(point, out DCELFace face))
-            {
-                //Find the closest vertex in the face to the point.
-                double min = double.PositiveInfinity;
-                DCELVertex closest = new DCELVertex();
-               
-                foreach(var vert in face.EnumerateVertices())
-                {
-                    int v = vert.Index;
-                    if (v == -1) continue;
-
-                    var sqdist = Point2d.SqrDistance(vertex.Point.xy, point);
-                    if (sqdist < min)
-                    {
-                        min = sqdist;
-                        closest = vertex;
-                    }
-
-                }
-
-                //Face had no valid vertices.
-                //Should not happen but check anyway.
-                if (min == double.PositiveInfinity)
-                    return false;
-                else
-                {
-                    vertex = closest;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Locate the closest edge in the hit face.
-        /// </summary>
-        /// <param name="point">The point</param>
-        /// <param name="edge">The closest edge.</param>
-        /// <returns>True if the point hit a face and found a edge.</returns>
-        public bool LocateEdge(Point2d point, out DCELHalfEdge edge)
-        {
-            //First check if point directly hits a edge.
-            if (Model.LocateHalfEdge(point, this, out edge))
-                return true;
-
-            //Locate the face the point hit.
-            edge = new DCELHalfEdge();
-            if (LocateFace(point, out DCELFace face))
-            {
-                //Find the closest edge to the point in the face.
-                double min = double.PositiveInfinity;
-                DCELHalfEdge closest = new DCELHalfEdge();
-
-                foreach (var e in face.EnumerateEdges())
-                {
-                    if (e.SourceIndex == -1 || e.TargetIndex == -1) continue;
-
-                    var p1 = e.SourcePoint2;
-                    var p2 = e.TargetPoint2;
-
-                        var seg = new Segment2d(p1, p2);
-                        var sqdist = seg.SqrDistance(point);
-
-                        if (sqdist < min)
-                        {
-                            min = sqdist;
-                            closest =e;
-                        }
-                    
-                }
-
-                //Face had no valid vertices.
-                //Should not happen but check anyway.
-                if (min == double.PositiveInfinity)
-                    return false;
-                else
-                {
-                    edge = closest;
-                    return true;
-                }
-            }
-
-            return false;
+            for (int i = 0; i < count; i++)
+                AddHalfEdge(new DCELHalfEdge(this, arrEdges[i]));
         }
 
         public void Print()

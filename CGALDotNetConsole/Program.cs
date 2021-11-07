@@ -20,21 +20,15 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
+            var arr = new Arrangement2<EEK>();
+            var box = PolygonFactory<EEK>.FromBox(-5, 5);
 
-            var mesh = new SurfaceMesh3<EEK>();
+            arr.InsertPolygon(box, true);
 
-            int u = mesh.AddVertex(new Point3d(0, 1, 0));
-            int v = mesh.AddVertex(new Point3d(0, 0, 0));
-            int w = mesh.AddVertex(new Point3d(1, 1, 0));
-            int x = mesh.AddVertex(new Point3d(1, 0, 0));
-
-            int f0 = mesh.AddFace(u, v, w);
-            //int f1 = mesh.AddFace(u, v, x);
-
-            int f2 = mesh.AddFace(u, x, v);
-
-            Console.WriteLine(mesh);
-            Console.WriteLine(mesh.IsValid()); 
+            if(arr.LocateEdge(new Point2d(0, 4.9), 0.2, out ArrHalfEdge2 edge))
+            {
+                Console.WriteLine(edge);
+            }
 
         }
 

@@ -25,5 +25,42 @@ namespace CGALDotNet.Arrangements
             return string.Format("[ArrFace2: Index={0}, HalfEdgeIndex={1}, IsFictitious={2}, IsUnbounded={3}, HasOuterEdges={4}, HoleCount={5}]",
                 Index, HalfEdgeIndex, IsFictitious, IsUnbounded, HasOuterEdges, HoleCount);
         }
+
+        public IEnumerable<ArrHalfEdge2> EnumerateEdges(Arrangement2 arr)
+        {
+            int count = arr.HalfEdgeCount;
+
+            if (HalfEdgeIndex >= 0 && HalfEdgeIndex < count)
+            {
+                ArrHalfEdge2 edge;
+                arr.GetHalfEdge(HalfEdgeIndex, out edge);
+
+                foreach (var e in edge.EnumerateEdges(arr))
+                    yield return e;
+            }
+            else
+            {
+                yield break;
+            }
+        }
+
+        public IEnumerable<ArrVertex2> EnumerateVertices(Arrangement2 arr)
+        {
+            int count = arr.HalfEdgeCount;
+
+            if (HalfEdgeIndex >= 0 && HalfEdgeIndex < count)
+            {
+                ArrHalfEdge2 edge;
+                arr.GetHalfEdge(HalfEdgeIndex, out edge);
+
+                foreach (var e in edge.EnumerateVertices(arr))
+                    yield return e;
+            }
+            else
+            {
+                yield break;
+            }
+        }
+    
     }
 }

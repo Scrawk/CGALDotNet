@@ -9,9 +9,6 @@ namespace CGALDotNet.Polygons
 {
     internal sealed class PolygonOffsetKernel2_EIK : PolygonOffsetKernel2
     {
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal static readonly PolygonOffsetKernel2 Instance = new PolygonOffsetKernel2_EIK();
 

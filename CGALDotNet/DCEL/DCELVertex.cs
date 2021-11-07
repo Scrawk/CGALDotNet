@@ -31,7 +31,7 @@ namespace CGALDotNet.DCEL
         internal DCELVertex(DCELMesh mesh, ArrVertex2 verts)
         {
             Mesh = mesh;
-            Point = verts.Point;
+            Point = verts.Point.xy0;
             Index = verts.Index;
             FaceIndex = verts.FaceIndex;
             HalfEdgeIndex = verts.HalfEdgeIndex;
