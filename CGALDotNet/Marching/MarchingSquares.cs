@@ -36,7 +36,6 @@ namespace CGALDotNet.Marching
             {
                 for (int y = 0; y < height - 1; y++)
                 {
-
                     for (int i = 0; i < 4; i++)
                     {
                         int ix = x + VertexOffset[i, 0];
