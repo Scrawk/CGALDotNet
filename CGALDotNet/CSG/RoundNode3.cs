@@ -8,7 +8,7 @@ namespace CGALDotNet.CSG
 {
     public class RoundNode3 : Node3
     {
-        public RoundNode3(Node<Point3d, double> node, double radius)
+        public RoundNode3(Node3 node, double radius)
         {
             AddChild(node);
             Radius = radius;

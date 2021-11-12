@@ -9,7 +9,7 @@ namespace CGALDotNet.CSG
     public class UnionNode3 : Node3
     {
 
-        public UnionNode3(Node<Point3d, double> node0, Node<Point3d, double> node1)
+        public UnionNode3(Node3 node0, Node3 node1)
         {
             AddChild(node0);
             AddChild(node1);
@@ -27,7 +27,7 @@ namespace CGALDotNet.CSG
     public class SubtractionNode3 : Node3
     {
 
-        public SubtractionNode3(Node<Point3d, double> node0, Node<Point3d, double> node1)
+        public SubtractionNode3(Node3 node0, Node3 node1)
         {
             AddChild(node0);
             AddChild(node1);
@@ -45,7 +45,7 @@ namespace CGALDotNet.CSG
     public class IntersectionNode3 : Node3
     {
 
-        public IntersectionNode3(Node<Point3d, double> node0, Node<Point3d, double> node1)
+        public IntersectionNode3(Node3 node0, Node3 node1)
         {
             AddChild(node0);
             AddChild(node1);
