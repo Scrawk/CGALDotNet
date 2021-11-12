@@ -20,15 +20,23 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var arr = new Arrangement2<EEK>();
-            var box = PolygonFactory<EEK>.FromBox(-5, 5);
 
-            arr.InsertPolygon(box, true);
+            var poly = PolygonFactory<EEK>.KochStar(10, 2);
 
-            if(arr.LocateEdge(new Point2d(0, 4.9), 0.2, out ArrHalfEdge2 edge))
+            Console.WriteLine(poly);
+
+            int count = poly.Count;
+
+            var timer = new Timer();
+            timer.Start();
+
+            for(int i = 0; i < count; i++)
             {
-                Console.WriteLine(edge);
+                poly.GetPoint(i);
             }
+
+
+            timer.StopAndPrintInMilliSeconds();
 
         }
 

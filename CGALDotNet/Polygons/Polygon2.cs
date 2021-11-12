@@ -8,15 +8,6 @@ using CGALDotNet.Triangulations;
 
 namespace CGALDotNet.Polygons
 {
-    [Flags]
-    public enum POLYGON_CHECK
-    {
-        NONE = 0,
-        ARRAY_BOUNDS = 1,
-        IS_VALID_HOLE = 2,
-        IS_VALID_BOUNDARY = 4,
-        ALL = ~0
-    }
 
     /// <summary>
     /// Generic polygon definition.
@@ -238,11 +229,6 @@ namespace CGALDotNet.Polygons
         protected private PolygonKernel2 Kernel { get; private set; }
 
         /// <summary>
-        /// What checks should the polygon do.
-        /// </summary>
-        public POLYGON_CHECK CheckFlag = POLYGON_CHECK.ALL;
-
-        /// <summary>
         /// Array accessor for the polygon.
         /// Getting a point wraps around the polygon.
         /// </summary>
@@ -271,9 +257,6 @@ namespace CGALDotNet.Polygons
         /// <returns>The point at index.</returns>
         public Point2d GetPoint(int index)
         {
-            if(CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(index, Count);
-                
             return Kernel.GetPoint(Ptr, index);
         }
 
@@ -307,22 +290,7 @@ namespace CGALDotNet.Polygons
         /// <param name="points">The point array to copy the data into.</param>
         public void GetPoints(Point2d[] points)
         {
-            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(points, 0, Count);
-
-            Kernel.GetPoints(Ptr, points, Count);
-        }
-
-        /// <summary>
-        /// Get all the polygon segments.
-        /// </summary>
-        /// <param name="segments">The segment array to copy the data into.</param>
-        public void GetSegments(Segment2d[] segments)
-        {
-            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(segments, 0, Count);
-
-            Kernel.GetSegments(Ptr, segments, Count);
+            Kernel.GetPoints(Ptr, points, points.Length);
         }
 
         /// <summary>
@@ -336,15 +304,21 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Get all the polygon segments.
+        /// </summary>
+        /// <param name="segments">The segment array to copy the data into.</param>
+        public void GetSegments(Segment2d[] segments)
+        {
+            Kernel.GetSegments(Ptr, segments, segments.Length);
+        }
+
+        /// <summary>
         /// Set the points at the index.
         /// </summary>
         /// <param name="index">The points index.</param>
         /// <param name="point">The points value.</param>
         public void SetPoint(int index, Point2d point)
         {
-            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(index, Count);
-
             Kernel.SetPoint(Ptr, index, point);
             IsUpdated = false;
         }
@@ -357,13 +331,8 @@ namespace CGALDotNet.Polygons
         /// <param name="points">The points array.</param>
         public void SetPoints(Point2d[] points)
         {
-            int count = Math.Max(Count, points.Length);
-
-            if (CheckFlag.HasFlag(POLYGON_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(points, 0, count);
-
-            Kernel.SetPoints(Ptr, points, count);
-            Count = count;
+            Kernel.SetPoints(Ptr, points, points.Length);
+            Count = points.Length;
             IsUpdated = false;
         }
 

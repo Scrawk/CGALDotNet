@@ -15,19 +15,12 @@ namespace CGALDotNet.Polygons
     {
 
         /// <summary>
-        /// Default check flag.
-        /// </summary>
-        public static POLYGON_CHECK CheckFlag = POLYGON_CHECK.ALL;
-
-        /// <summary>
         /// Create a empty polygon.
         /// </summary>
         /// <returns></returns>
         public static Polygon2<K> Create()
         {
             var poly = new Polygon2<K>();
-            poly.CheckFlag = CheckFlag;
-
             return poly;
         }
 
@@ -40,7 +33,6 @@ namespace CGALDotNet.Polygons
         {
             var points = new Point2d[] { a, b, c };
             var poly = new Polygon2<K>(points);
-            poly.CheckFlag = CheckFlag;
 
             return poly;
         }
@@ -54,7 +46,6 @@ namespace CGALDotNet.Polygons
         {
             var points = new Point2d[] { tri.A, tri.B, tri.C };
             var poly = new Polygon2<K>(points);
-            poly.CheckFlag = CheckFlag;
 
             return poly;
         }
@@ -92,7 +83,7 @@ namespace CGALDotNet.Polygons
         {
             var points = box.GetCorners();
             var poly = new Polygon2<K>(points);
-            poly.CheckFlag = CheckFlag;
+
             return poly;
         }
 
@@ -107,7 +98,7 @@ namespace CGALDotNet.Polygons
         public static PolygonWithHoles2<K> FromDounut(double outer, double inner, int segments)
         {
             var poly = FromDounut(Point2d.Zero, outer, inner, segments);
-            poly.CheckFlag = CheckFlag;
+
             return poly;
         }
 
@@ -125,7 +116,6 @@ namespace CGALDotNet.Polygons
         {
             var boundary = FromCircle(new Circle2d(center, outer), segments);
             var pwh = new PolygonWithHoles2<K>(boundary);
-            pwh.CheckFlag = CheckFlag;
 
             if (inner < outer)
             {
@@ -187,7 +177,6 @@ namespace CGALDotNet.Polygons
             }
 
             var poly = new Polygon2<K>(points);
-            poly.CheckFlag = CheckFlag;
 
             return poly;
         }
@@ -206,7 +195,7 @@ namespace CGALDotNet.Polygons
         public static Polygon2<K> KochStar(double size, int iterations)
         {
             var poly = KochStar(Point2d.Zero, size, iterations);
-            poly.CheckFlag = CheckFlag;
+
             return poly;
         }
 

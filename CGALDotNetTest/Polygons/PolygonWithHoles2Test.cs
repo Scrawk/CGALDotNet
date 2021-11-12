@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Diagnostics;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CGALDotNet;
@@ -171,6 +172,77 @@ namespace CGALDotNetTest.Polygons
             Assert.AreEqual(new Point2d(-1, 1), poly.GetPoint(POLYGON_ELEMENT.HOLE, 1, 0));
             Assert.AreEqual(new Point2d(1, 1), poly.GetPoint(POLYGON_ELEMENT.HOLE, 2, 0));
             Assert.AreEqual(new Point2d(1, -1), poly.GetPoint(POLYGON_ELEMENT.HOLE, 3, 0));
+        }
+
+        [TestMethod]
+        public void GetPoints()
+        {
+            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
+            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
+            inner.Reverse();
+
+            var poly = new PolygonWithHoles2<EEK>(outer);
+            poly.AddHole(inner);
+
+            var boundary = new Point2d[]
+            {
+                new Point2d(-2, -2),
+                new Point2d(2, -2),
+                new Point2d(2, 2),
+                new Point2d(-2, 2)
+            };
+
+            var hole = new Point2d[]
+            {
+                new Point2d(-1, -1),
+                new Point2d(-1, 1),
+                new Point2d(1, 1),
+                new Point2d(1, -1)
+            };
+
+            int count = poly.PointCount(POLYGON_ELEMENT.BOUNDARY);
+            var tmp = new Point2d[count];
+
+            poly.GetPoints(POLYGON_ELEMENT.BOUNDARY, tmp);
+
+            CollectionAssert.AreEqual(boundary, tmp);
+
+            count = poly.PointCount(POLYGON_ELEMENT.HOLE, 0);
+            tmp = new Point2d[count];
+
+            poly.GetPoints(POLYGON_ELEMENT.HOLE, tmp, 0);
+
+            CollectionAssert.AreEqual(hole, tmp);
+        }
+
+        [TestMethod]
+        public void GetAllPoints()
+        {
+            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
+            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
+            inner.Reverse();
+
+            var poly = new PolygonWithHoles2<EEK>(outer);
+            poly.AddHole(inner);
+
+            var points = new Point2d[]
+            {
+                new Point2d(-2, -2),
+                new Point2d(2, -2),
+                new Point2d(2, 2),
+                new Point2d(-2, 2),
+ 
+                new Point2d(-1, -1),
+                new Point2d(-1, 1),
+                new Point2d(1, 1),
+                new Point2d(1, -1)
+            };
+
+            var tmp = new List<Point2d>();
+            poly.GetAllPoints(tmp);
+
+            CollectionAssert.AreEqual(points, tmp);
+
         }
     }
 }
