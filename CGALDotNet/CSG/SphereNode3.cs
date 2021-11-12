@@ -6,20 +6,20 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.CSG
 {
-    public class CircleNode2 : Node2
+    public class SphereNode3 : Node3
     {
 
-        public CircleNode2(Point2d center, double radius)
+        public SphereNode3(Point3d center, double radius)
         {
             Center = center;
             Radius = radius;
         }
 
-        public Point2d Center;
+        public Point3d Center;
 
         public double Radius;
 
-        public override double Func(Point2d point)
+        public override double Func(Point3d point)
         {
             point = point - Center;
             return point.Magnitude - Radius;

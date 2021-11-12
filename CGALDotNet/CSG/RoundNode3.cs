@@ -6,9 +6,9 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.CSG
 {
-    public class RoundNode2 : Node2
+    public class RoundNode3 : Node3
     {
-        public RoundNode2(Node<Point2d, double> node, double radius)
+        public RoundNode3(Node<Point3d, double> node, double radius)
         {
             AddChild(node);
             Radius = radius;
@@ -16,7 +16,7 @@ namespace CGALDotNet.CSG
 
         public double Radius;
 
-        public override double Func(Point2d point)
+        public override double Func(Point3d point)
         {
             var sdf = GetChildOrDefault(0).Func(point);
 

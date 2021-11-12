@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.CSG
 {
-    public class BoxNode2 : Node<Point2d, double>
+    public class BoxNode2 : Node2
     {
 
         public BoxNode2(Point2d min, Point2d max)

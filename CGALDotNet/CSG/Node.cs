@@ -2,8 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using CGALDotNet.Geometry;
+
 namespace CGALDotNet.CSG
 {
+
+
+    public abstract class Node2 : Node<Point2d, double>
+    {
+
+    }
+
+    public abstract class Node3 : Node<Point3d, double>
+    {
+
+    }
+
+
     /// <summary>
     /// A node that take a input and returns a output.
     /// </summary>
