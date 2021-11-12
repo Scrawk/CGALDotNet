@@ -42,7 +42,7 @@ namespace CGALDotNet.Marching
                         int iy = y + VertexOffset[i, 1];
                         var point = new Point2d(ix, iy);
 
-                        Square[i] = -(float)sdf.Func(point);
+                        Square[i] = (float)sdf.Func(point);
                     }
 
                     March(x, y, Square, verts, indices);
@@ -71,7 +71,7 @@ namespace CGALDotNet.Marching
                         int ix = x + VertexOffset[i, 0];
                         int iy = y + VertexOffset[i, 1];
 
-                        Square[i] = -(float)sdf(ix, iy);
+                        Square[i] = (float)sdf(ix, iy);
                     }
 
                     March(x, y, Square, verts, indices);
@@ -100,7 +100,7 @@ namespace CGALDotNet.Marching
                         int ix = x + VertexOffset[i, 0];
                         int iy = y + VertexOffset[i, 1];
 
-                        Square[i] = -voxels[ix, iy];
+                        Square[i] = voxels[ix, iy];
                     }
 
                     March(x, y, Square, verts, indices);
