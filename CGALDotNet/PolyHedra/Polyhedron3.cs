@@ -8,16 +8,9 @@ using CGALDotNet.Triangulations;
 
 namespace CGALDotNet.PolyHedra
 {
-    [Flags]
-    public enum POLYHEDRON_CHECK
-    {
-        NONE = 0,
-        ARRAY_BOUNDS = 1,
-        ALL = ~0
-    }
 
     /// <summary>
-    /// Generic polhedron definition.
+    /// Generic polyhedron definition.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class Polyhedra3<K> : Polyhedra3 where K : CGALKernel, new()
@@ -136,11 +129,6 @@ namespace CGALDotNet.PolyHedra
         /// Contains the functions to the unmanaged CGAL polhedron.
         /// </summary>
         protected private PolyhedronKernel3 Kernel { get; private set; }
-
-        /// <summary>
-        /// What checks should the polhedron do.
-        /// </summary>
-        public POLYHEDRON_CHECK CheckFlag = POLYHEDRON_CHECK.ALL;
 
         public int VertexCount => Kernel.VertexCount(Ptr);
 

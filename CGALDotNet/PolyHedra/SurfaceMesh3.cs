@@ -13,10 +13,6 @@ namespace CGALDotNet.PolyHedra
     /// <typeparam name="K">The kernel type</typeparam>
     public sealed class SurfaceMesh3<K> : SurfaceMesh3 where K : CGALKernel, new()
     {
-        /// <summary>
-        /// The static instance.
-        /// </summary>
-        public static readonly SurfaceMesh3<K> Instance = new SurfaceMesh3<K>();
 
         /// <summary>
         /// Default constructor.
@@ -38,7 +34,7 @@ namespace CGALDotNet.PolyHedra
     }
 
     /// <summary>
-    /// The convex hull abstract base class.
+    /// The surface mesh abstract base class.
     /// </summary>
     public abstract class SurfaceMesh3 : CGALObject
     {

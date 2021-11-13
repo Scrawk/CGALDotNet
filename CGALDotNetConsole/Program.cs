@@ -21,22 +21,7 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var poly = PolygonFactory<EEK>.KochStar(10, 2);
-
-            Console.WriteLine(poly);
-
-            int count = poly.Count;
-
-            var timer = new Timer();
-            timer.Start();
-
-            for(int i = 0; i < count; i++)
-            {
-                poly.GetPoint(i);
-            }
-
-
-            timer.StopAndPrintInMilliSeconds();
+            SurfaceMesher3<EIK>.Instance.Generate();
 
         }
 

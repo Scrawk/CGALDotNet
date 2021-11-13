@@ -134,6 +134,11 @@ struct Line3d
     }
 };
 
+struct TriangleIndex
+{
+    int a, b, c;
+};
+
 
 
 

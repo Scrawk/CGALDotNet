@@ -8,6 +8,7 @@ using CGALDotNet.Arrangements;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Hulls;
 using CGALDotNet.PolyHedra;
+using CGALDotNet.Meshing;
 
 namespace CGALDotNet
 {
@@ -49,6 +50,8 @@ namespace CGALDotNet
         internal abstract PolyhedronKernel3 PolyhedronKernel3 { get; }
 
         internal abstract SurfaceMeshKernel3 SurfaceMeshKernel3 { get; }
+
+        internal abstract SurfaceMesherKernel3 SurfaceMesherKernel3 { get; }
     }
 
     public class EIK : CGALKernel
@@ -90,6 +93,8 @@ namespace CGALDotNet
         internal override PolyhedronKernel3 PolyhedronKernel3 => throw new NotImplementedException();
 
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => throw new NotImplementedException();
+
+        internal override SurfaceMesherKernel3 SurfaceMesherKernel3 => SurfaceMesherKernel3_EIK.Instance;
     }
 
     public class EEK : CGALKernel
@@ -131,6 +136,8 @@ namespace CGALDotNet
         internal override PolyhedronKernel3 PolyhedronKernel3 => PolyhedronKernel3_EEK.Instance;
 
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => SurfaceMeshKernel3_EEK.Instance;
+
+        internal override SurfaceMesherKernel3 SurfaceMesherKernel3 => throw new NotImplementedException();
     }
 
 }

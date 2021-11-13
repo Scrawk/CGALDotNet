@@ -170,7 +170,7 @@
     <ClInclude Include="Circlar\Circle.h" />
     <ClInclude Include="Circlar\Circle_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine.h" />
-    <ClInclude Include="Meshing\SurfaceMeshGeneration3.h" />
+    <ClInclude Include="Meshing\SurfaceMesher3.h" />
     <ClInclude Include="Polygons\PolygonOffset2_EIK.h" />
     <ClInclude Include="Polygons\Polygon2_EIK.h" />
     <ClInclude Include="Polygons\PolygonMinkowski_EEK.h" />
@@ -179,7 +179,7 @@
     <ClInclude Include="Polygons\PolygonVisibility_EEK.h" />
     <ClInclude Include="Polyhedra\Polyhedron3.h" />
     <ClInclude Include="Polyhedra\Polyhedron3_EEK.h" />
-    <ClInclude Include="Meshing\SurfaceMeshGeneration3_EEK.h" />
+    <ClInclude Include="Meshing\SurfaceMesher3_EIK.h" />
     <ClInclude Include="Polyhedra\SurfaceMesh3.h" />
     <ClInclude Include="Polyhedra\SurfaceMesh3_EEK.h" />
     <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h" />
@@ -231,7 +231,7 @@
     <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonVisibility_EEK.cpp" />
     <ClCompile Include="Polyhedra\Polyhedron3_EEK.cpp" />
-    <ClCompile Include="Meshing\SurfaceMeshGeneration3_EEK.cpp" />
+    <ClCompile Include="Meshing\SurfaceMesher3_EIK.cpp" />
     <ClCompile Include="Polyhedra\SurfaceMesh3_EEK.cpp" />
     <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
