@@ -5,12 +5,10 @@ using System.Text;
 
 namespace CGALDotNet.PolyHedra
 {
-	internal sealed class PolyhedronKernel3_EEK : PolyhedronKernel3
+	internal class PolyhedronKernel3_EEK : PolyhedronKernel3
 	{
 
 		internal static readonly PolyhedronKernel3 Instance = new PolyhedronKernel3_EEK();
-
-		internal override string Name => "EEK";
 
 		internal override IntPtr Create()
         {

@@ -64,7 +64,7 @@ namespace CGALDotNet.Polygons
         public override string ToString()
         {
             return string.Format("[PolygonWithHoles2<{0}>: IsUnbounded={1}, HoleCount={2}]", 
-                Kernel.Name, IsUnbounded, HoleCount);
+                Kernel.KernelName, IsUnbounded, HoleCount);
         }
 
         /// <summary>

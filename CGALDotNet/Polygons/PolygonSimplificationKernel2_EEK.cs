@@ -7,15 +7,10 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    internal sealed class PolygonSimplificationKernel2_EEK : PolygonSimplificationKernel2
+    internal class PolygonSimplificationKernel2_EEK : PolygonSimplificationKernel2
     {
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         internal static readonly PolygonSimplificationKernel2 Instance = new PolygonSimplificationKernel2_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {

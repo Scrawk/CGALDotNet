@@ -4,15 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Geometry
 {
-    internal sealed class GeometryKernel2_EEK : GeometryKernel2
+    internal class GeometryKernel2_EEK : GeometryKernel2
     {
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
-
         internal static readonly GeometryKernel2 Instance = new GeometryKernel2_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr IsoRectangle_Create(Point2d min, Point2d max)
         {

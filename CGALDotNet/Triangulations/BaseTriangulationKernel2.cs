@@ -8,13 +8,8 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Triangulations
 {
-    internal abstract class BaseTriangulationKernel2
+    internal abstract class BaseTriangulationKernel2 : FuncKernel
     {
-        protected const string DLL_NAME = "CGALWrapper.dll";
-
-        protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        internal abstract string Name { get; }
 
         internal abstract IntPtr Create();
 

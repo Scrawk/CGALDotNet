@@ -4,14 +4,8 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Polygons
 {
-    internal abstract class PolygonMinkowskiKernel
+    internal abstract class PolygonMinkowskiKernel : FuncKernel
     {
-        protected const string DLL_NAME = "CGALWrapper.dll";
-
-        protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        internal abstract string Name { get; }
-
         internal abstract IntPtr Create();
 
         internal abstract void Release(IntPtr ptr);

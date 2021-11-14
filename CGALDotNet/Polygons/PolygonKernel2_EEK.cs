@@ -8,12 +8,10 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Polygons
 {
 
-    internal sealed class PolygonKernel2_EEK : PolygonKernel2
+    internal class PolygonKernel2_EEK : PolygonKernel2
     {
 
         internal static readonly PolygonKernel2 Instance = new PolygonKernel2_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {

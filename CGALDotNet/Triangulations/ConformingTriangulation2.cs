@@ -47,7 +47,7 @@ namespace CGALDotNet.Triangulations
         public override string ToString()
         {
             return string.Format("[ConformingTriangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
-                Kernel.Name, VertexCount, TriangleCount);
+                Kernel.KernelName, VertexCount, TriangleCount);
         }
 
         /// <summary>
@@ -106,12 +106,7 @@ namespace CGALDotNet.Triangulations
         /// <summary>
         /// The conforming triangulation kernel.
         /// </summary>
-        protected ConformingTriangulationKernel2 Kernel { get; private set; }
-
-        /// <summary>
-        /// What checks should the triangulation do.
-        /// </summary>
-        public TRIANGULATION_CHECK CheckFlag = TRIANGULATION_CHECK.ALL;
+        internal ConformingTriangulationKernel2 Kernel { get; private set; }
 
         /// <summary>
         /// Clear the triangulation.
@@ -156,13 +151,6 @@ namespace CGALDotNet.Triangulations
             if (points == null || points.Length == 0)
                 return;
 
-            if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = VertexCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(points, 0, count);
-            }
-
             Kernel.GetPoints(Ptr, points, points.Length);
         }
 
@@ -170,13 +158,6 @@ namespace CGALDotNet.Triangulations
         {
             if (indices == null || indices.Length == 0)
                 return;
-
-            if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = IndiceCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(indices, 0, count);
-            }
 
             Kernel.GetIndices(Ptr, indices, indices.Length);
         }

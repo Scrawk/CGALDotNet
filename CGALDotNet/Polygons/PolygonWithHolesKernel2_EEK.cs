@@ -7,13 +7,7 @@ namespace CGALDotNet.Polygons
     internal sealed class PolygonWithHolesKernel2_EEK : PolygonWithHolesKernel2
     {
 
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
-
         internal static readonly PolygonWithHolesKernel2_EEK Instance = new PolygonWithHolesKernel2_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {

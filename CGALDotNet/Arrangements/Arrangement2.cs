@@ -7,13 +7,6 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Arrangements
 {
-    [Flags]
-    public enum ARRANGEMENT_CHECK
-    {
-        NONE = 0,
-        ARRAY_BOUNDS = 1,
-        ALL = ~0
-    };
 
     /// <summary>
     /// The generic arrangment class.
@@ -45,7 +38,7 @@ namespace CGALDotNet.Arrangements
         public override string ToString()
         {
             return string.Format("[Arrangement2<{0}>: Vertices={1}, HalfEdges={2}, Faces={3}, Locator={4}]",
-                Kernel.Name, VertexCount, HalfEdgeCount, FaceCount, Locator);
+                Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount, Locator);
         }
 
         /// <summary>
@@ -194,11 +187,6 @@ namespace CGALDotNet.Arrangements
         public bool IsEmpty => Kernel.IsEmpty(Ptr);
 
         /// <summary>
-        /// What checks should the arrangement.
-        /// </summary>
-        public ARRANGEMENT_CHECK CheckFlag = ARRANGEMENT_CHECK.ALL;
-
-        /// <summary>
         /// A number that will change if the unmanaged 
         /// arrangement model changes.
         /// </summary>
@@ -234,9 +222,6 @@ namespace CGALDotNet.Arrangements
             if (points == null || points.Length == 0)  
                 return;
 
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(points, 0, VertexCount);
-
             Kernel.GetPoints(Ptr, points, points.Length);
         }
 
@@ -249,9 +234,6 @@ namespace CGALDotNet.Arrangements
             if (segments == null || segments.Length == 0) 
                 return;
 
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(segments, 0, EdgeCount);
-
             Kernel.GetSegments(Ptr, segments, segments.Length);
         }
 
@@ -263,9 +245,6 @@ namespace CGALDotNet.Arrangements
         {
             if (vertices == null || vertices.Length == 0) 
                 return;
-
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(vertices, 0, VertexCount);
 
             Kernel.GetVertices(Ptr, vertices, vertices.Length);
         }
@@ -290,9 +269,6 @@ namespace CGALDotNet.Arrangements
             if (edges == null || edges.Length == 0)
                 return;
 
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(edges, 0, HalfEdgeCount);
-
             Kernel.GetHalfEdges(Ptr, edges, edges.Length);
         }
 
@@ -315,9 +291,6 @@ namespace CGALDotNet.Arrangements
         {
             if (faces == null || faces.Length == 0)
                 return;
-
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(faces, 0, FaceCount);
 
             Kernel.GetFaces(Ptr, faces, faces.Length);
         }
@@ -383,9 +356,6 @@ namespace CGALDotNet.Arrangements
 
             if (results == null || results.Length == 0)
                 return false;
-
-            if (CheckFlag.HasFlag(ARRANGEMENT_CHECK.ARRAY_BOUNDS))
-                ErrorUtil.CheckBounds(results, 0, points.Length);
 
             return Kernel.BatchedPointQuery(Ptr, points, results, points.Length);
         }

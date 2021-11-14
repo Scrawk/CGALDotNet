@@ -7,11 +7,9 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Meshing
 {
-    public class SurfaceMesherKernel3_EIK : SurfaceMesherKernel3
+    internal class SurfaceMesherKernel3_EIK : SurfaceMesherKernel3
     {
         internal static readonly SurfaceMesherKernel3_EIK Instance = new SurfaceMesherKernel3_EIK();
-
-        internal override string Name => "EIK";
 
         internal override int VertexCount()
         {

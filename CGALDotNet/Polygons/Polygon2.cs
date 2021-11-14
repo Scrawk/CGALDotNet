@@ -48,7 +48,7 @@ namespace CGALDotNet.Polygons
         public override string ToString()
         {
             return string.Format("[Polygon2<{0}>: Count={1}, IsSimple={2}, Orientation={3}]",
-                Kernel.Name, Count, IsSimple, Orientation);
+                Kernel.KernelName, Count, IsSimple, Orientation);
         }
 
         /// <summary>

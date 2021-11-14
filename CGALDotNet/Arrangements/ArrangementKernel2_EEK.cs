@@ -8,20 +8,9 @@ using CGALDotNet.DCEL;
 
 namespace CGALDotNet.Arrangements
 {
-    internal sealed class ArrangementKernel2_EEK : ArrangementKernel2
+    internal class ArrangementKernel2_EEK : ArrangementKernel2
     {
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
-
         internal static readonly ArrangementKernel2 Instance = new ArrangementKernel2_EEK();
-
-        public override string ToString()
-        {
-            return string.Format("[ArrangementKernel2<{0}>: ]", Name);
-        }
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {

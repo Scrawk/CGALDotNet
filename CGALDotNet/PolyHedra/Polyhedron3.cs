@@ -60,7 +60,7 @@ namespace CGALDotNet.PolyHedra
         public override string ToString()
         {
             return string.Format("[Polyhedra3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
-                Kernel.Name, VertexCount, HalfEdgeCount, FaceCount);
+                Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount);
         }
 
     }

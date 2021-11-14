@@ -34,7 +34,7 @@ namespace CGALDotNet.Geometry
         public override string ToString()
         {
             return string.Format("[IsoRectangle2<{0}>: Min={1}, Max={2}]", 
-                Kernel.Name, Min, Max);
+                Kernel.KernelName, Min, Max);
         }
     }
 

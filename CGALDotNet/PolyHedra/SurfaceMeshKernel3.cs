@@ -7,14 +7,8 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.PolyHedra
 {
-    internal abstract class SurfaceMeshKernel3
+    internal abstract class SurfaceMeshKernel3 : FuncKernel
     {
-        protected const string DLL_NAME = "CGALWrapper.dll";
-
-        protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        internal abstract string Name { get; }
-
         internal abstract IntPtr Create();
 
         internal abstract void Release(IntPtr ptr);

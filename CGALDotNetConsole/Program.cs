@@ -20,8 +20,15 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
+            var vertices = new List<Point3d>();
+            var indices = new List<int>();
+            SurfaceMesher3<EIK>.Instance.Generate(vertices, indices);
 
-            SurfaceMesher3<EIK>.Instance.Generate();
+            foreach (var v in vertices)
+                Console.WriteLine(v);
+
+            foreach (var i in indices)
+                Console.WriteLine(i);
 
         }
 

@@ -7,20 +7,9 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Arrangements
 {
-    internal sealed class SweepLineKernel_EEK : SweepLineKernel
+    internal class SweepLineKernel_EEK : SweepLineKernel
     {
-        private const string DLL_NAME = "CGALWrapper.dll";
-
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
-
         internal static readonly SweepLineKernel Instance = new SweepLineKernel_EEK();
-
-        public override string ToString()
-        {
-            return string.Format("[SweepLine<{0}>: ]", Name);
-        }
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {

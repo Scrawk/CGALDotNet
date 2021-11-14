@@ -55,9 +55,26 @@ namespace CGALDotNet.Meshing
         /// </summary>
         protected private SurfaceMesherKernel3 Kernel { get; private set; }
 
-        public void Generate()
+        public void Generate(List<Point3d> vertices, List<int> indices)
         {
-            
+            Kernel.Generate();
+
+            int count = VertexCount();
+            for (int i = 0; i < count; i++)
+            {
+                vertices.Add(GetPoint(i));
+            }
+
+            count = TriangleCount();
+            for (int i = 0; i < count; i++)
+            {
+                var tri = GetTriangle(i);
+                indices.Add(tri.A);
+                indices.Add(tri.B);
+                indices.Add(tri.C);
+            }
+
+            ClearMesh();
         }
 
         private int VertexCount()

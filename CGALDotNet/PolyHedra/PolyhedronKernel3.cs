@@ -5,14 +5,8 @@ using System.Text;
 
 namespace CGALDotNet.PolyHedra
 {
-    internal abstract class PolyhedronKernel3
-    {
-        protected const string DLL_NAME = "CGALWrapper.dll";
-
-        protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        internal abstract string Name { get; }
-
+    internal abstract class PolyhedronKernel3 : FuncKernel
+	{
         internal abstract IntPtr Create();
 
 		internal abstract IntPtr CreateFromSize(int vertices, int halfedges, int faces);

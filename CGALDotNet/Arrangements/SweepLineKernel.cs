@@ -6,10 +6,8 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Arrangements
 {
-    internal abstract class SweepLineKernel
+    internal abstract class SweepLineKernel : FuncKernel
     {
-        internal abstract string Name { get; }
-
         internal abstract IntPtr Create();
 
         internal abstract void Release(IntPtr ptr);

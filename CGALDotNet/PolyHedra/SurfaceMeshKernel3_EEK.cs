@@ -11,8 +11,6 @@ namespace CGALDotNet.PolyHedra
     {
         internal static readonly SurfaceMeshKernel3 Instance = new SurfaceMeshKernel3_EEK();
 
-        internal override string Name => "EEK";
-
         internal override IntPtr Create()
         {
             return SurfaceMesh3_EEK_Create();

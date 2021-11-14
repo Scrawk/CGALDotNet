@@ -7,16 +7,10 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Triangulations
 {
-	public class ConformingTriangulationKernel2_EEK : ConformingTriangulationKernel2
+	internal class ConformingTriangulationKernel2_EEK : ConformingTriangulationKernel2
 	{
 		internal static readonly ConformingTriangulationKernel2 Instance = new ConformingTriangulationKernel2_EEK();
 
-		internal override string Name => "EEK";
-
-		public override string ToString()
-		{
-			return string.Format("[ConformingTriangulationKernel2<{0}>: ]", Name);
-		}
 		internal override IntPtr Create()
 		{
 			return ConformingTriangulation2_EEK_Create();

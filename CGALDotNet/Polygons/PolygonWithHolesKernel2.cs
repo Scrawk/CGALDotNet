@@ -6,14 +6,8 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    internal abstract class PolygonWithHolesKernel2
+    internal abstract class PolygonWithHolesKernel2 : FuncKernel
     {
-        internal PolygonWithHolesKernel2()
-        {
-
-        }
-
-        internal abstract string Name { get; }
 
         internal abstract IntPtr Create();
 

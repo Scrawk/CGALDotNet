@@ -7,12 +7,10 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    internal sealed class PolygonOffsetKernel2_EIK : PolygonOffsetKernel2
+    internal class PolygonOffsetKernel2_EIK : PolygonOffsetKernel2
     {
 
         internal static readonly PolygonOffsetKernel2 Instance = new PolygonOffsetKernel2_EIK();
-
-        internal override string Name => "EIK";
 
         internal override IntPtr Create()
         {

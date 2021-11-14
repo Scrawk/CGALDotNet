@@ -4,11 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Polygons
 {
-    internal sealed class PolygonMinkowskiKernel_EEK : PolygonMinkowskiKernel
+    internal class PolygonMinkowskiKernel_EEK : PolygonMinkowskiKernel
     {
         internal static readonly PolygonMinkowskiKernel Instance = new PolygonMinkowskiKernel_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {

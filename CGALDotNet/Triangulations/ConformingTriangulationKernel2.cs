@@ -7,13 +7,8 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Triangulations
 {
-    public abstract class ConformingTriangulationKernel2
-    {
-		protected const string DLL_NAME = "CGALWrapper.dll";
-
-		protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-		internal abstract string Name { get; }
+    internal abstract class ConformingTriangulationKernel2 : FuncKernel
+	{
 
 		internal abstract IntPtr Create();
 

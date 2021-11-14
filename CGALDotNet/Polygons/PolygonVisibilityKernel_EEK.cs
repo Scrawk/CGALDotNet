@@ -7,11 +7,9 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    internal sealed class PolygonVisibilityKernel_EEK : PolygonVisibilityKernel
+    internal class PolygonVisibilityKernel_EEK : PolygonVisibilityKernel
     {
         internal static readonly PolygonVisibilityKernel Instance = new PolygonVisibilityKernel_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {

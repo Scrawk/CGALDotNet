@@ -7,13 +7,6 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Triangulations
 {
-    [Flags]
-    public enum TRIANGULATION_CHECK
-    { 
-        NONE = 0,
-        ARRAY_BOUNDS = 1,
-        ALL = ~0
-    }
 
     public enum TRIANGULATION_TYPE
     {
@@ -79,11 +72,6 @@ namespace CGALDotNet.Triangulations
         public int BuildStamp => Kernel.BuildStamp(Ptr);
 
         /// <summary>
-        /// What checks should the triangulation do.
-        /// </summary>
-        public TRIANGULATION_CHECK CheckFlag = TRIANGULATION_CHECK.ALL;
-
-        /// <summary>
         /// Clear the triangulation.
         /// </summary>
         public void Clear()
@@ -145,13 +133,6 @@ namespace CGALDotNet.Triangulations
         {
             if (points == null || points.Length == 0)
                 return;
-
-            if(CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = VertexCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(points, 0, count);
-            }
                 
             Kernel.GetPoints(Ptr, points, points.Length);
         }
@@ -165,12 +146,6 @@ namespace CGALDotNet.Triangulations
             if (indices == null || indices.Length == 0)
                 return;
 
-            if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = IndiceCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(indices, 0, count);
-            }
 
             Kernel.GetIndices(Ptr, indices, indices.Length);
         }
@@ -216,13 +191,6 @@ namespace CGALDotNet.Triangulations
             if (vertices == null || vertices.Length == 0)
                 return;
 
-            if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = VertexCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(vertices, 0, count);
-            }
-
             Kernel.GetVertices(Ptr, vertices, vertices.Length);
         }
 
@@ -245,13 +213,6 @@ namespace CGALDotNet.Triangulations
         {
             if (faces == null || faces.Length == 0)
                 return;
-
-            if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = TriangleCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(faces, 0, count);
-            }
 
             Kernel.GetFaces(Ptr, faces, faces.Length);
         }
@@ -288,13 +249,6 @@ namespace CGALDotNet.Triangulations
             if (triangles == null || triangles.Length == 0)
                 return;
 
-            if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = TriangleCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(triangles, 0, count);
-            }
-
             Kernel.GetTriangles(Ptr, triangles, triangles.Length);
         }
 
@@ -318,13 +272,6 @@ namespace CGALDotNet.Triangulations
         {
             if (circumcenters == null || circumcenters.Length == 0)
                 return;
-
-            if (CheckFlag.HasFlag(TRIANGULATION_CHECK.ARRAY_BOUNDS))
-            {
-                int count = TriangleCount;
-                if (count == 0) return;
-                ErrorUtil.CheckBounds(circumcenters, 0, count);
-            }
 
             Kernel.GetCircumcenters(Ptr, circumcenters, circumcenters.Length);
         }

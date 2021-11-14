@@ -8,14 +8,8 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Hulls
 {
-    internal abstract class ConvexHullKernel2
+    internal abstract class ConvexHullKernel2 : FuncKernel
     {
-        protected const string DLL_NAME = "CGALWrapper.dll";
-
-        protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        internal abstract string Name { get; }
-
         internal abstract IntPtr Create();
 
         internal abstract void Release(IntPtr ptr);

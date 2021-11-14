@@ -7,17 +7,10 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Triangulations
 {
-    internal sealed class DelaunayTriangulationKernel2_EEK : DelaunayTriangulationKernel2
+    internal class DelaunayTriangulationKernel2_EEK : DelaunayTriangulationKernel2
     {
 
         internal static readonly DelaunayTriangulationKernel2 Instance = new DelaunayTriangulationKernel2_EEK();
-
-        internal override string Name => "EEK";
-
-        public override string ToString()
-        {
-            return string.Format("[DelaunayTriangulationKernel2<{0}>: ]", Name);
-        }
 
         internal override IntPtr Create()
         {

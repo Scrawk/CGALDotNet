@@ -4,10 +4,8 @@ using System.Text;
 
 namespace CGALDotNet.Geometry
 {
-    internal abstract class GeometryKernel2
+    internal abstract class GeometryKernel2 : FuncKernel
     {
-        internal abstract string Name { get; }
-
         internal abstract IntPtr IsoRectangle_Create(Point2d min, Point2d max);
 
         internal abstract void IsoRectangle_Release(IntPtr ptr);

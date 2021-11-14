@@ -5,13 +5,8 @@ using System.Text;
 
 namespace CGALDotNet.Polygons
 {
-    internal abstract class PolygonOffsetKernel2
+    internal abstract class PolygonOffsetKernel2 : FuncKernel
     {
-        protected const string DLL_NAME = "CGALWrapper.dll";
-
-        protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        internal abstract string Name { get; }
 
         internal abstract IntPtr Create();
 

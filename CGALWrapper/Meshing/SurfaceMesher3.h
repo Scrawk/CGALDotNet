@@ -66,19 +66,19 @@ namespace SurfaceMesher3
 
         TriangleIndex tri;
 
-        int i = 0;
+        int j = 0;
         for (auto v : vertices_around_face(iter, mesh))
         {
-            if (i == 0)
+            if (j == 0)
                 tri.a = v;
-            else if (i == 1)
+            else if (j == 1)
                 tri.b = v;
-            else if (i == 2)
+            else if (j == 2)
                 tri.c = v;
             else
                 break;
 
-            i++;
+            j++;
         }
 
         return tri;

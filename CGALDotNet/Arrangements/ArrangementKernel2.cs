@@ -7,10 +7,8 @@ using CGALDotNet.DCEL;
 
 namespace CGALDotNet.Arrangements
 {
-    internal abstract class ArrangementKernel2
+    internal abstract class ArrangementKernel2 : FuncKernel
     {
-        internal abstract string Name { get; }
-
         internal abstract IntPtr Create();
 
         internal abstract void Release(IntPtr ptr);

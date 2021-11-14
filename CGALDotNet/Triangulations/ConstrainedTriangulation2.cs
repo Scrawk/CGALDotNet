@@ -51,7 +51,7 @@ namespace CGALDotNet.Triangulations
         public override string ToString()
         {
             return string.Format("[ConstrainedTriangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
-                Kernel.Name, VertexCount, TriangleCount);
+                Kernel.KernelName, VertexCount, TriangleCount);
         }
 
         /// <summary>

@@ -6,10 +6,8 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    internal abstract class PolygonSimplificationKernel2
+    internal abstract class PolygonSimplificationKernel2 : FuncKernel
     {
-
-        internal abstract string Name { get; }
 
         internal abstract IntPtr Create();
 

@@ -7,14 +7,8 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Meshing
 {
-    public abstract class SurfaceMesherKernel3
+    internal abstract class SurfaceMesherKernel3 : FuncKernel
     {
-        protected const string DLL_NAME = "CGALWrapper.dll";
-
-        protected const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        internal abstract string Name { get; }
-
         internal abstract int VertexCount();
 
         internal abstract int TriangleCount();

@@ -8,12 +8,10 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Hulls
 {
-    internal sealed class ConvexHullKernel2_EEK : ConvexHullKernel2
+    internal class ConvexHullKernel2_EEK : ConvexHullKernel2
     {
 
         internal static readonly ConvexHullKernel2 Instance = new ConvexHullKernel2_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {
@@ -53,22 +51,22 @@ namespace CGALDotNet.Hulls
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr ConvexHull2_EEK_Create();
 
-        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void ConvexHull2_EEK_Release(IntPtr ptr);
 
-        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr ConvexHull2_EEK_CreateHull([In] Point2d[] points, int count, HULL_METHOD method);
 
-        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr ConvexHull2_EEK_UpperHull([In] Point2d[] points, int count);
 
-        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr ConvexHull2_EEK_LowerHull([In] Point2d[] points, int count);
 
-        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConvexHull2_EEK_IsStronglyConvexCCW([In] Point2d[] points, int count);
 
-        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConvexHull2_EEK_IsStronglyConvexCW([In] Point2d[] points, int count);
     }
 }

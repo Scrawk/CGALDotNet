@@ -4,12 +4,10 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Polygons
 {
-    internal sealed class PolygonBooleanKernel2_EEK : PolygonBooleanKernel2
+    internal class PolygonBooleanKernel2_EEK : PolygonBooleanKernel2
     {
 
         internal static readonly PolygonBooleanKernel2 Instance = new PolygonBooleanKernel2_EEK();
-
-        internal override string Name => "EEK";
 
         internal override IntPtr Create()
         {
