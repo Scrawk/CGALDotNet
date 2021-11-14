@@ -9,7 +9,6 @@
 #include <CGAL/Implicit_surface_3.h>
 #include <CGAL/IO/facets_in_complex_2_to_triangle_mesh.h>
 #include <CGAL/Surface_mesh.h>
-#include <fstream>
 
 namespace SurfaceMesher3
 {
@@ -27,6 +26,7 @@ namespace SurfaceMesher3
     typedef FT(*Function)(Point_3);
     typedef CGAL::Implicit_surface_3<GT, Function> Surface_3;
     typedef CGAL::Surface_mesh<Point_3> Surface_mesh;
+    
     typedef Surface_mesh::Vertex_index vertex_index;
     typedef Surface_mesh::Face_index face_index;
     typedef Surface_mesh::Halfedge_index edge_index;
@@ -64,7 +64,7 @@ namespace SurfaceMesher3
     {
         auto iter = mesh.halfedge(face_index(i));
 
-        TriangleIndex tri;
+        TriangleIndex tri = { 0, 0, 0 };
 
         int j = 0;
         for (auto v : vertices_around_face(iter, mesh))
@@ -84,24 +84,20 @@ namespace SurfaceMesher3
         return tri;
     }
 
-    void Generate()
+    void Generate(double angularBound, double radiusBound, double distanceBound, double radius)
     {
         Tr tr;        
         C2t3 c2t3(tr);  
 
-        // Note that "2." above is the *squared* radius of the bounding sphere!
-        Surface_3 surface(sphere_function, Sphere_3(CGAL::ORIGIN, 2.0)); 
+        Surface_3 surface(sphere_function, Sphere_3(CGAL::ORIGIN, radius * radius)); 
 
-        CGAL::Surface_mesh_default_criteria_3<Tr> criteria(
-            30.0,  // angular bound
-            0.1,  // radius bound
-            0.1); // distance bound
+        CGAL::Surface_mesh_default_criteria_3<Tr> criteria(angularBound, radiusBound, distanceBound);
 
         CGAL::make_surface_mesh(c2t3, surface, criteria, CGAL::Non_manifold_tag());
 
         mesh.clear();
         CGAL::facets_in_complex_2_to_triangle_mesh(c2t3, mesh);
-        
+
     }
 
 }

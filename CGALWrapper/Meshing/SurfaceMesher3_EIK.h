@@ -15,5 +15,5 @@ extern "C"
 
     CGALWRAPPER_API TriangleIndex SurfaceMesher3_EIK_GetTriangle(int i);
 
-	CGALWRAPPER_API void SurfaceMesher3_EIK_Generate();
+	CGALWRAPPER_API void SurfaceMesher3_EIK_Generate(double angularBound, double radiusBound, double distanceBound, double radius);
 }

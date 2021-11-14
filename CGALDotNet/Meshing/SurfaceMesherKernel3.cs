@@ -19,6 +19,6 @@ namespace CGALDotNet.Meshing
 
         internal abstract TriangleIndex GetTriangle(int i);
 
-        internal abstract void Generate();
+        internal abstract void Generate(double angularBound, double radiusBound, double distanceBound, double radius);
     }
 }

@@ -26,7 +26,7 @@ TriangleIndex SurfaceMesher3_EIK_GetTriangle(int i)
 	return SurfaceMesher3::GetTriangle(i);
 }
 
-void SurfaceMesher3_EIK_Generate()
+void SurfaceMesher3_EIK_Generate(double angularBound, double radiusBound, double distanceBound, double radius)
 {
-	SurfaceMesher3::Generate();
+	SurfaceMesher3::Generate(angularBound, radiusBound, distanceBound, radius);
 }

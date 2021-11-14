@@ -36,9 +36,9 @@ namespace CGALDotNet.Meshing
             return SurfaceMesher3_EIK_GetTriangle(i);
         }
 
-        internal override void Generate()
+        internal override void Generate(double angularBound, double radiusBound, double distanceBound, double radius)
         {
-            SurfaceMesher3_EIK_Generate();
+            SurfaceMesher3_EIK_Generate(angularBound, radiusBound, distanceBound, radius);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -57,6 +57,6 @@ namespace CGALDotNet.Meshing
         private static extern TriangleIndex SurfaceMesher3_EIK_GetTriangle(int i);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesher3_EIK_Generate();
+        private static extern void SurfaceMesher3_EIK_Generate(double angularBound, double radiusBound, double distanceBound, double radius);
     }
 }
