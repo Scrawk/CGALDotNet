@@ -6,6 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Meshing
 {
+    /*
 
     public struct SurfaceMesherParams
     {
@@ -161,4 +162,5 @@ namespace CGALDotNet.Meshing
             //Kernel.Release(Ptr);
         }
     }
+    */
 }

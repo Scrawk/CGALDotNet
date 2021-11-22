@@ -89,6 +89,7 @@ namespace SurfaceMesher3
         Tr tr;        
         C2t3 c2t3(tr);  
 
+        //TODO - fix me
         Surface_3 surface(sphere_function, Sphere_3(CGAL::ORIGIN, radius * radius)); 
 
         CGAL::Surface_mesh_default_criteria_3<Tr> criteria(angularBound, radiusBound, distanceBound);
