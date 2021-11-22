@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
-using CGALDotNet.DCEL;
 
 namespace CGALDotNet.Arrangements
 {
