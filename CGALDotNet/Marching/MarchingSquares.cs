@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using CGALDotNet.Geometry;
-using CGALDotNet.CSG;
 
 namespace CGALDotNet.Marching
 {
@@ -29,36 +28,7 @@ namespace CGALDotNet.Marching
         /// <param name="height">The height of the sdf's bounds</param>
         /// <param name="verts">The list the vertices will be added to.</param>
         /// <param name="indices">The list the indices will be added to.</param>
-        public void Generate(Node2 sdf, int width, int height, List<Point2d> verts, List<int> indices)
-        {
-
-            for (int x = 0; x < width - 1; x++)
-            {
-                for (int y = 0; y < height - 1; y++)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        int ix = x + VertexOffset[i, 0];
-                        int iy = y + VertexOffset[i, 1];
-                        var point = new Point2d(ix, iy);
-
-                        Square[i] = (float)sdf.Func(point);
-                    }
-
-                    March(x, y, Square, verts, indices);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Generate the vertices and indices from the data returned from the function.
-        /// </summary>
-        /// <param name="sdf">The signed distance function</param>
-        /// <param name="width">The width of the sdf's bounds</param>
-        /// <param name="height">The height of the sdf's bounds</param>
-        /// <param name="verts">The list the vertices will be added to.</param>
-        /// <param name="indices">The list the indices will be added to.</param>
-        public void Generate(Func<double, double, double> sdf, int width, int height, List<Point2d> verts, List<int> indices)
+        public void Generate(Func<Point2d, double> sdf, int width, int height, List<Point2d> verts, List<int> indices)
         {
 
             for (int x = 0; x < width - 1; x++)
@@ -71,7 +41,7 @@ namespace CGALDotNet.Marching
                         int ix = x + VertexOffset[i, 0];
                         int iy = y + VertexOffset[i, 1];
 
-                        Square[i] = (float)sdf(ix, iy);
+                        Square[i] = (float)sdf(new Point2d(ix, iy));
                     }
 
                     March(x, y, Square, verts, indices);
