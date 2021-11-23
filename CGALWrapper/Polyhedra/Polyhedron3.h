@@ -2,6 +2,7 @@
 
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
+#include "../Geometry/Geometry3.h"
  
 #include <CGAL/Polyhedron_3.h>
 

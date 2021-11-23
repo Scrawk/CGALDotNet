@@ -8,7 +8,6 @@ using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Arrangements;
-using CGALDotNet.DCEL;
 using CGALDotNet.PolyHedra;
 using CGALDotNet.Meshing;
 
@@ -21,6 +20,8 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
+            var nef = new NefPolyhedra3<EEK>();
+            nef.Print();
 
         }
 

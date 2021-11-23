@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
-using CGALDotNet.Triangulations;
 
 namespace CGALDotNet.PolyHedra
 {
@@ -38,7 +37,7 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Create from a set of points.
         /// </summary>
-        /// <param name="points">The polhedrons points.</param>
+        /// <param name="points">The polyhedrons points.</param>
         public Polyhedra3(Point3d[] points) : base(new K(), points)
         {
 
@@ -47,7 +46,7 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Create from a pointer.
         /// </summary>
-        /// <param name="ptr">The polhedrons pointer.</param>
+        /// <param name="ptr">The polyhedrons pointer.</param>
         internal Polyhedra3(IntPtr ptr) : base(new K(), ptr)
         {
 
@@ -68,7 +67,7 @@ namespace CGALDotNet.PolyHedra
     /// <summary>
     /// The abstract polyhedra definition.
     /// </summary>
-    public abstract class Polyhedra3 : CGALObject //, IEnumerable<Point3d>
+    public abstract class Polyhedra3 : CGALObject
     {
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polhedron kernel.</param>
+        /// <param name="kernel">The polyhedron kernel.</param>
         internal Polyhedra3(CGALKernel kernel)
         {
             Kernel = kernel.PolyhedronKernel3;
@@ -105,7 +104,7 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polhedron kernel.</param>
+        /// <param name="kernel">The polyhedron kernel.</param>
         /// <param name="points">The points to construct from.</param>
         internal Polyhedra3(CGALKernel kernel, Point3d[] points)
         {
@@ -117,8 +116,8 @@ namespace CGALDotNet.PolyHedra
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polhedron kernel.</param>
-        /// <param name="ptr">The polhedrons pointer.</param>
+        /// <param name="kernel">The polyhedron kernel.</param>
+        /// <param name="ptr">The polyhedrons pointer.</param>
         internal Polyhedra3(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.PolyhedronKernel3;
@@ -163,92 +162,6 @@ namespace CGALDotNet.PolyHedra
             Kernel.Clear(Ptr);
         }
 
-        /*
-
-        /// <summary>
-        /// Translate the polhedron.
-        /// </summary>
-        /// <param name="translation">The amount to translate.</param>
-        public void Translate(Point2d translation)
-        {
-            Kernel.Translate(Ptr, translation);
-        }
-
-        /// <summary>
-        /// Rotate the polhedron.
-        /// </summary>
-        /// <param name="rotation">The amount to rotate in radians.</param>
-        public void Rotate(Radian rotation)
-        {
-            Kernel.Rotate(Ptr, rotation.angle);
-        }
-
-        /// <summary>
-        /// Scale the polhedron.
-        /// </summary>
-        /// <param name="scale">The amount to scale.</param>
-        public void Scale(double scale)
-        {
-            Kernel.Scale(Ptr, scale);
-            IsUpdated = false;
-        }
-
-        /// <summary>
-        /// Transform the polhedron with a TRS matrix.
-        /// </summary>
-        /// <param name="translation">The amount to translate.</param>
-        /// <param name="rotation">The amount to rotate.</param>
-        /// <param name="scale">The amount to scale.</param>
-        public void Transform(Point2d translation, Radian rotation, double scale)
-        {
-            Kernel.Transform(Ptr, translation, rotation.angle, scale);
-            IsUpdated = false;
-        }
-
-        /// <summary>
-        /// Enumerate all points in the polhedron.
-        /// </summary>
-        /// <returns>Each point in polhedron.</returns>
-        public IEnumerator<Point2d> GetEnumerator()
-        {
-            for (int i = 0; i < Count; i++)
-                yield return GetPoint(i);
-        }
-
-        /// <summary>
-        /// Enumerate all points in the polhedron.
-        /// </summary>
-        /// <returns>Each point in polhedron.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        /// <summary>
-        /// Return all the points in the polhedron in a array.
-        /// </summary>
-        /// <returns>The array.</returns>
-        public Point2d[] ToArray()
-        {
-            var points = new Point2d[Count];
-            GetPoints(points);
-            return points;
-        }
-
-        /// <summary>
-        /// Return all the points in the polhedron in a list.
-        /// </summary>
-        /// <returns>The list.</returns>
-        public List<Point2d> ToList()
-        {
-            var points = new List<Point2d>(Count);
-            for (int i = 0; i < Count; i++)
-                points.Add(GetPoint(i));
-
-            return points;
-        }
-        */
-
         /// <summary>
         /// Print the polyhedron.
         /// </summary>
@@ -260,7 +173,7 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Print the polyhedron into a styring builder.
+        /// Print the polyhedron into a string builder.
         /// </summary>
         /// <param name="builder"></param>
         public void Print(StringBuilder builder)

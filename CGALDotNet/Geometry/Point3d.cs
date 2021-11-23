@@ -312,6 +312,16 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Implict cast from vector.
+        /// </summary>
+        /// <param name="v">The vector to cast from</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Point3d(Vector3d v)
+        {
+            return new Point3d(v.x, v.y, v.z);
+        }
+
+        /// <summary>
         /// Are these points equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

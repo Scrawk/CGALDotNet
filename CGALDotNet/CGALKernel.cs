@@ -49,6 +49,8 @@ namespace CGALDotNet
 
         internal abstract PolyhedronKernel3 PolyhedronKernel3 { get; }
 
+        internal abstract NefPolyhedronKernel3 NefPolyhedronKernel3 { get; }
+
         internal abstract SurfaceMeshKernel3 SurfaceMeshKernel3 { get; }
 
         internal abstract SurfaceMesherKernel3 SurfaceMesherKernel3 { get; }
@@ -92,6 +94,8 @@ namespace CGALDotNet
 
         internal override PolyhedronKernel3 PolyhedronKernel3 => throw new NotImplementedException();
 
+        internal override NefPolyhedronKernel3 NefPolyhedronKernel3 => throw new NotImplementedException();
+
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => throw new NotImplementedException();
 
         internal override SurfaceMesherKernel3 SurfaceMesherKernel3 => SurfaceMesherKernel3_EIK.Instance;
@@ -134,6 +138,8 @@ namespace CGALDotNet
         internal override ConvexHullKernel2 ConvexHullKernel2 => ConvexHullKernel2_EEK.Instance;
 
         internal override PolyhedronKernel3 PolyhedronKernel3 => PolyhedronKernel3_EEK.Instance;
+
+        internal override NefPolyhedronKernel3 NefPolyhedronKernel3 => NefPolyhedronKernel3_EEK.Instance;
 
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => SurfaceMeshKernel3_EEK.Instance;
 

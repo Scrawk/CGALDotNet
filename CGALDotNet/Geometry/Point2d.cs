@@ -311,11 +311,11 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Explict cast from vector.
+        /// Implict cast from vector.
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="v">The vector to cast from</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Point2d(Vector2d v)
+        public static implicit operator Point2d(Vector2d v)
         {
             return new Point2d(v.x, v.y);
         }

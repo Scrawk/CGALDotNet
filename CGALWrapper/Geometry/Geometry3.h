@@ -3,6 +3,7 @@
 #include "../CGALWrapper.h"
 #include "CGAL/Point_3.h"
 #include "CGAL/Vector_3.h"
+#include <CGAL/Plane_3.h>
 
 /*
 * Structs to pass data from C# and c++.
@@ -124,7 +125,7 @@ struct Line3d
     template<class K, class LINE>
     LINE ToCGAL()
     {
-        return { position.ToCGAL(), direction.ToCGAL() };
+        return { position.ToCGAL<K>(), direction.ToCGAL<K>() };
     }
 
     template<class K>
@@ -137,6 +138,24 @@ struct Line3d
 struct TriangleIndex
 {
     int a, b, c;
+};
+
+struct  Plane3d
+{
+    Point3d position;
+    Vector3d direction;
+
+    template<class K, class PLANE>
+    PLANE ToCGAL()
+    {
+        return { position.ToCGAL<K>(), direction.ToCGAL<K>() };
+    }
+
+    template<class K>
+    static Plane3d FromCGAL(CGAL::Point_3<K> pos, CGAL::Vector_3<K> dir)
+    {
+        return { Point3d::FromCGAL(pos), Vector3d::FromCGAL(dir) };
+    }
 };
 
 
