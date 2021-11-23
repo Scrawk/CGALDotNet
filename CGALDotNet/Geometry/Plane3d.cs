@@ -12,9 +12,22 @@ namespace CGALDotNet.Geometry
     [StructLayout(LayoutKind.Sequential)]
     public struct Plane3d : IEquatable<Plane3d>
     {
+
+        public readonly static Plane3d UnitX = new Plane3d(Vector3d.UnitX);
+
+        public readonly static Plane3d UnitY = new Plane3d(Vector3d.UnitY);
+
+        public readonly static Plane3d UnitZ = new Plane3d(Vector3d.UnitZ);
+
         public Point3d Position;
 
         public Vector3d Normal;
+
+        public Plane3d(Vector3d normal)
+        {
+            Normal = normal;
+            Position = Point3d.Zero;
+        }
 
         public Plane3d(Point3d position, Vector3d normal)
         {

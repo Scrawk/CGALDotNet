@@ -83,6 +83,12 @@ namespace CGALDotNet.PolyHedra
             return string.Format("[NefPolyhedra3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FacetCount={3}]",
                 Kernel.KernelName, VertexCount, HalfEdgeCount, FacetCount);
         }
+
+        public NefPolyhedra3<K> Intersection(NefPolyhedra3<K> nef)
+        {
+            var ptr = Kernel.Intersection(Ptr, nef.Ptr);
+            return new NefPolyhedra3<K>(ptr);
+        }
     }
 
     /// <summary>

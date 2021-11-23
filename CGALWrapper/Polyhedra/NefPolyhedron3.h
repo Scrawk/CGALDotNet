@@ -17,6 +17,11 @@ public:
 	typedef typename K::Plane_3 Plane_3;
 	typedef CGAL::Nef_polyhedron_3<K> NefPolyhedron;
 
+	inline static NefPolyhedron* NewNefPolyhedron()
+	{
+		return new NefPolyhedron(NefPolyhedron::EMPTY);
+	}
+
 	inline static NefPolyhedron* CreateFromSpace(int space)
 	{
 		if(space == NefPolyhedron::EMPTY)
@@ -122,5 +127,24 @@ public:
 		auto nef = CastToNefPolyhedron(ptr);
 		return (int)nef->number_of_volumes();
 	}
+
+	static void* Intersection(void* ptr1, void* ptr2)
+	{
+		auto nef1 = CastToNefPolyhedron(ptr1);
+		auto nef2 = CastToNefPolyhedron(ptr2);
+		auto result = NewNefPolyhedron();
+
+		*result = nef1->intersection(*nef2);
+
+		 return result;
+	}
+
+		//Nef_polyhedron_3< Traits > 	join(const Nef_polyhedron_3< Traits > &N1) const
+
+		//Nef_polyhedron_3< Traits > 	difference(const Nef_polyhedron_3< Traits > &N1) const
+
+		//Nef_polyhedron_3< Traits > 	symmetric_difference(const Nef_polyhedron_3< Traits > &N1) const
+
+		//Nef_polyhedron_3< Traits > 	intersection(const Plane_3 & p, Intersection_mode im) const
 		
 };

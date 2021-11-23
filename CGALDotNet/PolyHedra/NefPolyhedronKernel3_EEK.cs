@@ -86,6 +86,11 @@ namespace CGALDotNet.PolyHedra
 			return NefPolyhedron3_EEK_VolumeCount(ptr);
         }
 
+		internal override IntPtr Intersection(IntPtr ptr1, IntPtr ptr2)
+        {
+			return NefPolyhedron3_EEK_Intersection(ptr1, ptr2);
+        }
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EEK_CreateFromSpace(NEF_CONTENT space);
 
@@ -130,5 +135,8 @@ namespace CGALDotNet.PolyHedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern int NefPolyhedron3_EEK_VolumeCount(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Intersection(IntPtr ptr1, IntPtr ptr2);
 	}
 }

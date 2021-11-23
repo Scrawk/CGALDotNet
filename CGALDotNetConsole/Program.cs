@@ -20,8 +20,11 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var nef = new NefPolyhedra3<EEK>();
-            nef.Print();
+            var nef1 = new NefPolyhedra3<EEK>(Plane3d.UnitX);
+            var nef2 = new NefPolyhedra3<EEK>(Plane3d.UnitY);
+
+            var nef3 = nef1.Intersection(nef2);
+            nef3.Print();
 
         }
 

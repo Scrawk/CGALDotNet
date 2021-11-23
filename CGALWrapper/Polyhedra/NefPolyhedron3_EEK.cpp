@@ -83,3 +83,8 @@ int NefPolyhedron3_EEK_VolumeCount(void* ptr)
 {
 	return NefPolyhedron3<EEK>::VolumeCount(ptr);
 }
+
+void* NefPolyhedron3_EEK_Intersection(void* ptr1, void* ptr2)
+{
+	return NefPolyhedron3<EEK>::Intersection(ptr1, ptr2);
+}

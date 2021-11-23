@@ -37,5 +37,7 @@ namespace CGALDotNet.PolyHedra
 		internal abstract int VertexCount(IntPtr ptr);
 
 		internal abstract int VolumeCount(IntPtr ptr);
+
+		internal abstract IntPtr Intersection(IntPtr ptr1, IntPtr ptr2);
 	}
 }

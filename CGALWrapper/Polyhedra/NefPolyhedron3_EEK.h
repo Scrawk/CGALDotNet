@@ -37,4 +37,6 @@ extern "C"
 
 	CGALWRAPPER_API int NefPolyhedron3_EEK_VolumeCount(void* ptr);
 
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Intersection(void* ptr1, void* ptr2);
+
 }
