@@ -98,7 +98,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void ArrayAcessor()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.AreEqual(new Point2d(-1, -1), poly[0]);
 
@@ -109,7 +109,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void Clear()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.AreEqual(4, poly.Count);
 
@@ -120,7 +120,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void Copy()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
             var copy = poly.Copy();
 
             Assert.AreEqual(4, poly.Count);
@@ -133,7 +133,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void GetPoint()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.AreEqual(new Point2d(-1, -1), poly.GetPoint(0));
             Assert.AreEqual(new Point2d(1, -1), poly.GetPoint(1));
@@ -166,7 +166,7 @@ namespace CGALDotNetTest.Polygons
                 new Point2d(-1, 1)
             };
 
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             var points = new Point2d[4];
             poly.GetPoints(points);
@@ -190,7 +190,7 @@ namespace CGALDotNetTest.Polygons
                 new Segment2d(p3, p0)
             };
 
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             var segments = new Segment2d[4];
             poly.GetSegments(segments);
@@ -201,7 +201,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void SetPoint()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             var p0 = new Point2d(2, 3);
             var p3 = new Point2d(4, 5);
@@ -216,7 +216,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void SetPoints()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             var expected = new Point2d[]
             {
@@ -239,7 +239,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void Reverse()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.AreEqual(ORIENTATION.POSITIVE, poly.Orientation);
             Assert.AreEqual(CLOCK_DIR.COUNTER_CLOCKWISE, poly.ClockDir);
@@ -255,7 +255,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void FindBoudingBox()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             var box = poly.FindBoundingBox();
 
@@ -271,7 +271,7 @@ namespace CGALDotNetTest.Polygons
         public void FindIfSimple()
         {
             var poly = new Polygon2<EEK>();
-            var box = PolygonFactory<EEK>.FromBox(-1, 1);
+            var box = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.IsFalse(poly.FindIfSimple());
             Assert.IsTrue(box.FindIfSimple());
@@ -281,7 +281,7 @@ namespace CGALDotNetTest.Polygons
         public void FindIfConvex()
         {
             var poly = new Polygon2<EEK>();
-            var box = PolygonFactory<EEK>.FromBox(-1, 1);
+            var box = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.IsFalse(poly.FindIfConvex());
             Assert.IsTrue(box.FindIfConvex());
@@ -291,7 +291,7 @@ namespace CGALDotNetTest.Polygons
         public void FindIfOrientation()
         {
             var poly = new Polygon2<EEK>();
-            var box = PolygonFactory<EEK>.FromBox(-1, 1);
+            var box = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.AreEqual(ORIENTATION.ZERO, poly.FindOrientation());
             Assert.AreEqual(ORIENTATION.POSITIVE, box.FindOrientation());
@@ -303,7 +303,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void OrientatedSide()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
             var p1 = new Point2d(0, 0);
             var p2 = new Point2d(2, 2);
             var p3 = new Point2d(1, 1);
@@ -316,7 +316,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void BoundedSide()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
             var p1 = new Point2d(0, 0);
             var p2 = new Point2d(2, 2);
             var p3 = new Point2d(1, 1);
@@ -329,7 +329,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void SignedArea()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             Assert.AreEqual(4.0, poly.FindSignedArea());
             Assert.AreEqual(4.0, poly.FindArea());
@@ -341,7 +341,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void ContainsPoint()
         {
-            var poly = PolygonFactory<EEK>.FromBox(-1, 1);
+            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
             var p1 = new Point2d(0, 0);
             var p2 = new Point2d(2, 2);
             var p3 = new Point2d(1, 1);

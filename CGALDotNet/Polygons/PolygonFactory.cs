@@ -29,7 +29,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="tri">The triangle.</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> FromTriangle(Point2d a, Point2d b, Point2d c)
+        public static Polygon2<K> CreateTriangle(Point2d a, Point2d b, Point2d c)
         {
             var points = new Point2d[] { a, b, c };
             var poly = new Polygon2<K>(points);
@@ -42,7 +42,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="tri">The triangle.</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> FromTriangle(Triangle2d tri)
+        public static Polygon2<K> CreateTriangle(Triangle2d tri)
         {
             var points = new Point2d[] { tri.A, tri.B, tri.C };
             var poly = new Polygon2<K>(points);
@@ -56,10 +56,10 @@ namespace CGALDotNet.Polygons
         /// <param name="min">The boxs min point.</param>
         /// <param name="max">The boxs max point.</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> FromBox(Point2d min, Point2d max)
+        public static Polygon2<K> CreateBox(Point2d min, Point2d max)
         {
             var box = new Box2d(min, max);
-            return FromBox(box);
+            return CreateBox(box);
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace CGALDotNet.Polygons
         /// <param name="min">The boxs min point.</param>
         /// <param name="max">The boxs max point.</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> FromBox(double min, double max)
+        public static Polygon2<K> CreateBox(double min, double max)
         {
             var box = new Box2d(min, max);
-            return FromBox(box);
+            return CreateBox(box);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="box">The box.</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> FromBox(Box2d box)
+        public static Polygon2<K> CreateBox(Box2d box)
         {
             var points = box.GetCorners();
             var poly = new Polygon2<K>(points);
@@ -95,9 +95,9 @@ namespace CGALDotNet.Polygons
         /// <param name="inner">The inner radius</param>
         /// <param name="segments">The number of segments.</param>
         /// <returns>The created polygon with holes</returns>
-        public static PolygonWithHoles2<K> FromDounut(double outer, double inner, int segments)
+        public static PolygonWithHoles2<K> CreateDounut(double outer, double inner, int segments)
         {
-            var poly = FromDounut(Point2d.Zero, outer, inner, segments);
+            var poly = CreateDounut(Point2d.Zero, outer, inner, segments);
 
             return poly;
         }
@@ -112,14 +112,14 @@ namespace CGALDotNet.Polygons
         /// <param name="inner">The inner radius</param>
         /// <param name="segments">The number of segments.</param>
         /// <returns>The created polygon with holes</returns>
-        public static PolygonWithHoles2<K> FromDounut(Point2d center, double outer, double inner, int segments)
+        public static PolygonWithHoles2<K> CreateDounut(Point2d center, double outer, double inner, int segments)
         {
-            var boundary = FromCircle(new Circle2d(center, outer), segments);
+            var boundary = CreateCircle(new Circle2d(center, outer), segments);
             var pwh = new PolygonWithHoles2<K>(boundary);
 
             if (inner < outer)
             {
-                var hole = FromCircle(new Circle2d(center, inner), segments);
+                var hole = CreateCircle(new Circle2d(center, inner), segments);
 
                 hole.Reverse();
                 pwh.AddHole(hole);
@@ -134,9 +134,9 @@ namespace CGALDotNet.Polygons
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="segments">The number of segments.</param>
         /// <returns>The polygon.</returns>
-        public static Polygon2<K> FromCircle(double radius, int segments)
+        public static Polygon2<K> CreateCircle(double radius, int segments)
         {
-            return FromCircle(new Circle2d(Point2d.Zero, radius), segments);
+            return CreateCircle(new Circle2d(Point2d.Zero, radius), segments);
         }
 
         /// <summary>
@@ -146,9 +146,9 @@ namespace CGALDotNet.Polygons
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="segments">The number of segments.</param>
         /// <returns></returns>
-        public static Polygon2<K> FromCircle(Point2d center, double radius, int segments)
+        public static Polygon2<K> CreateCircle(Point2d center, double radius, int segments)
         {
-            return FromCircle(new Circle2d(center, radius), segments);
+            return CreateCircle(new Circle2d(center, radius), segments);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace CGALDotNet.Polygons
         /// <param name="circle">The cirlce.</param>
         /// <param name="segments">The number of segments.</param>
         /// <returns></returns>
-        public static Polygon2<K> FromCircle(Circle2d circle, int segments)
+        public static Polygon2<K> CreateCircle(Circle2d circle, int segments)
         {
             segments = Math.Max(3, segments);
 

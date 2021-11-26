@@ -36,4 +36,10 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureQuad(void* ptr);
 
+	CGALWRAPPER_API void Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* vertices, int verticesCount, int* indices, int indicesCount);
+
 }

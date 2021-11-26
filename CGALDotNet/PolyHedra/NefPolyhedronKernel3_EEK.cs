@@ -138,5 +138,6 @@ namespace CGALDotNet.PolyHedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EEK_Intersection(IntPtr ptr1, IntPtr ptr2);
+
 	}
 }

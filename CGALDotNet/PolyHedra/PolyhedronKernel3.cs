@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
+using CGALDotNet.Geometry;
+
 namespace CGALDotNet.PolyHedra
 {
     internal abstract class PolyhedronKernel3 : FuncKernel
@@ -36,6 +38,12 @@ namespace CGALDotNet.PolyHedra
 		internal abstract bool IsPureTriangle(IntPtr ptr);
 
 		internal abstract bool IsPureQuad(IntPtr ptr);
+
+		internal abstract void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
+
+		internal abstract void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
+
+		internal abstract void CreateTriangleMesh(IntPtr ptr, Point3d[] vertices, int verticesCount, int[] indices, int indicesCount);
 
 
 	}

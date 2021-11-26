@@ -101,7 +101,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void Clear()
         {
-            var poly = PolygonFactory<EEK>.FromDounut(2, 1, 4);
+            var poly = PolygonFactory<EEK>.CreateDounut(2, 1, 4);
 
             Assert.IsFalse(poly.IsUnbounded);
             Assert.AreEqual(4, poly.Count);
@@ -117,7 +117,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void PointCount()
         {
-            var poly = PolygonFactory<EEK>.FromDounut(2, 1, 4);
+            var poly = PolygonFactory<EEK>.CreateDounut(2, 1, 4);
 
             Assert.AreEqual(4, poly.PointCount(POLYGON_ELEMENT.BOUNDARY));
             Assert.AreEqual(4, poly.PointCount(POLYGON_ELEMENT.HOLE, 0));
@@ -126,7 +126,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void Remove()
         {
-            var poly = PolygonFactory<EEK>.FromDounut(2, 1, 4);
+            var poly = PolygonFactory<EEK>.CreateDounut(2, 1, 4);
 
             Assert.IsTrue(!poly.IsUnbounded);
             Assert.AreEqual(1, poly.HoleCount);
@@ -141,7 +141,7 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void Reverse()
         {
-            var poly = PolygonFactory<EEK>.FromDounut(2, 1, 4);
+            var poly = PolygonFactory<EEK>.CreateDounut(2, 1, 4);
 
             Assert.AreEqual(ORIENTATION.POSITIVE, poly.FindOrientation(POLYGON_ELEMENT.BOUNDARY));
             Assert.AreEqual(ORIENTATION.NEGATIVE, poly.FindOrientation(POLYGON_ELEMENT.HOLE, 0));
@@ -156,8 +156,8 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void GetPoint()
         {
-            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
-            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
+            var outer = PolygonFactory<EEK>.CreateBox(-2, 2);
+            var inner = PolygonFactory<EEK>.CreateBox(-1, 1);
             inner.Reverse();
 
             var poly = new PolygonWithHoles2<EEK>(outer);
@@ -177,8 +177,8 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void GetPoints()
         {
-            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
-            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
+            var outer = PolygonFactory<EEK>.CreateBox(-2, 2);
+            var inner = PolygonFactory<EEK>.CreateBox(-1, 1);
             inner.Reverse();
 
             var poly = new PolygonWithHoles2<EEK>(outer);
@@ -218,8 +218,8 @@ namespace CGALDotNetTest.Polygons
         [TestMethod]
         public void GetAllPoints()
         {
-            var outer = PolygonFactory<EEK>.FromBox(-2, 2);
-            var inner = PolygonFactory<EEK>.FromBox(-1, 1);
+            var outer = PolygonFactory<EEK>.CreateBox(-2, 2);
+            var inner = PolygonFactory<EEK>.CreateBox(-1, 1);
             inner.Reverse();
 
             var poly = new PolygonWithHoles2<EEK>(outer);

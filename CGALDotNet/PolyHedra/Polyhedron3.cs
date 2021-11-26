@@ -35,15 +35,6 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Create from a set of points.
-        /// </summary>
-        /// <param name="points">The polyhedrons points.</param>
-        public Polyhedra3(Point3d[] points) : base(new K(), points)
-        {
-
-        }
-
-        /// <summary>
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The polyhedrons pointer.</param>
@@ -105,18 +96,6 @@ namespace CGALDotNet.PolyHedra
         /// Construct with a new kernel.
         /// </summary>
         /// <param name="kernel">The polyhedron kernel.</param>
-        /// <param name="points">The points to construct from.</param>
-        internal Polyhedra3(CGALKernel kernel, Point3d[] points)
-        {
-            Kernel = kernel.PolyhedronKernel3;
-            Ptr = Kernel.Create();
-            //SetPoints(points);
-        }
-
-        /// <summary>
-        /// Construct with a new kernel.
-        /// </summary>
-        /// <param name="kernel">The polyhedron kernel.</param>
         /// <param name="ptr">The polyhedrons pointer.</param>
         internal Polyhedra3(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
@@ -155,11 +134,26 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Clear the polhedron of all points.
+        /// Clear the polyhedron of all points.
         /// </summary>
         public void Clear()
         {
             Kernel.Clear(Ptr);
+        }
+
+        public void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+        {
+            Kernel.MakeTetrahedron(Ptr, p1, p2, p3, p4);
+        }
+
+        public void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
+        {
+            Kernel.MakeTriangle(Ptr, p1, p2, p3);
+        }
+
+        public void CreateTriangleMesh(Point3d[] points, int[] indices)
+        {
+            Kernel.CreateTriangleMesh(Ptr, points, points.Length, indices, indices.Length);
         }
 
         /// <summary>
@@ -186,7 +180,7 @@ namespace CGALDotNet.PolyHedra
             builder.AppendLine("IsClosed = " + IsClosed);
             builder.AppendLine("IsPureBivalent = " + IsPureBivalent);
             builder.AppendLine("IsPureTrivalent= " + IsPureTrivalent);
-            builder.AppendLine("IsPureTriangle = " + IsPureTriangle);
+            //builder.AppendLine("IsPureTriangle = " + IsPureTriangle);
             builder.AppendLine("IsPureQuad = " + IsPureQuad);
         }
 

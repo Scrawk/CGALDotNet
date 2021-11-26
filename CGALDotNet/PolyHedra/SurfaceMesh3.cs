@@ -69,14 +69,14 @@ namespace CGALDotNet.PolyHedra
 
         public int FaceCount => Kernel.FaceCount(Ptr);
 
-        public int AddVertex(Point3d point)
-        {
-            return Kernel.AddVertex(Ptr, point);
-        }
-
         public bool IsValid()
         {
             return Kernel.IsValid(Ptr);
+        }
+
+        public int AddVertex(Point3d point)
+        {
+            return Kernel.AddVertex(Ptr, point);
         }
 
         public int AddEdge(int v0, int v1)

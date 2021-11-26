@@ -76,3 +76,18 @@ BOOL Polyhedron3_EEK_IsPureQuad(void* ptr)
 {
 	return Polyhedron3<EEK>::IsPureQuad(ptr);
 }
+
+void Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+{
+	Polyhedron3<EEK>::MakeTetrahedron(ptr, p1, p2, p3, p4);
+}
+
+void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
+{
+	Polyhedron3<EEK>::MakeTriangle(ptr, p1, p2, p3);
+}
+
+void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* vertices, int verticesCount, int* indices, int indicesCount)
+{
+	Polyhedron3<EEK>::CreateTriangleMesh(ptr, vertices, verticesCount, indices, indicesCount);
+}

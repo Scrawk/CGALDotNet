@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
+using CGALDotNet.Geometry;
+
 namespace CGALDotNet.PolyHedra
 {
 	internal class PolyhedronKernel3_EEK : PolyhedronKernel3
@@ -85,6 +87,21 @@ namespace CGALDotNet.PolyHedra
 			return Polyhedron3_EEK_IsPureQuad(ptr);
 		}
 
+		internal override void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+		{
+			Polyhedron3_EEK_MakeTetrahedron(ptr, p1, p2, p3, p4);
+		}
+
+		internal override void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3)
+		{
+			Polyhedron3_EEK_MakeTriangle(ptr, p1, p2, p3);
+		}
+
+		internal override void CreateTriangleMesh(IntPtr ptr, Point3d[] vertices, int verticesCount, int[] indices, int indicesCount)
+        {
+			Polyhedron3_EEK_CreateTriangleMesh(ptr, vertices, verticesCount, indices, indicesCount);
+        }
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
@@ -129,5 +146,14 @@ namespace CGALDotNet.PolyHedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EEK_IsPureQuad(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_CreateTriangleMesh(IntPtr ptr, Point3d[] vertices, int verticesCount, int[] indices, int indicesCount);
 	}
 }

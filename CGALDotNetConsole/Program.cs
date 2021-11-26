@@ -20,11 +20,14 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var nef1 = new NefPolyhedra3<EEK>(Plane3d.UnitX);
-            var nef2 = new NefPolyhedra3<EEK>(Plane3d.UnitY);
+            List<Point3d> points = new List<Point3d>();
+            List<int> indices = new List<int>();
+            MeshFactory.CreateCone(points, indices, 6, 2, 8);
 
-            var nef3 = nef1.Intersection(nef2);
-            nef3.Print();
+            var poly = new Polyhedra3<EEK>();
+            poly.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+
+            poly.Print();
 
         }
 
