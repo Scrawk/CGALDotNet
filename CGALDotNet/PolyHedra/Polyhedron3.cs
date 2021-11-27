@@ -134,26 +134,44 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Clear the polyhedron of all points.
+        /// Clear the polyhedron.
         /// </summary>
         public void Clear()
         {
             Kernel.Clear(Ptr);
         }
 
-        public void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+        internal void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
         {
             Kernel.MakeTetrahedron(Ptr, p1, p2, p3, p4);
         }
 
-        public void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
+        internal void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
         {
             Kernel.MakeTriangle(Ptr, p1, p2, p3);
         }
 
         public void CreateTriangleMesh(Point3d[] points, int[] indices)
         {
+            if (points == null || points.Length == 0) return;
+            if (indices == null || indices.Length == 0) return;
+
+            Clear();
             Kernel.CreateTriangleMesh(Ptr, points, points.Length, indices, indices.Length);
+        }
+
+        public void GetPoints(Point3d[] points)
+        {
+            if (points == null || points.Length == 0) return;
+
+            Kernel.GetPoints(Ptr, points, points.Length);
+        }
+
+        public void GetTriangleIndices(int[] indices)
+        {
+            if (indices == null || indices.Length == 0) return;
+
+            Kernel.GetTriangleIndices(Ptr, indices, indices.Length);
         }
 
         /// <summary>
@@ -180,7 +198,7 @@ namespace CGALDotNet.PolyHedra
             builder.AppendLine("IsClosed = " + IsClosed);
             builder.AppendLine("IsPureBivalent = " + IsPureBivalent);
             builder.AppendLine("IsPureTrivalent= " + IsPureTrivalent);
-            //builder.AppendLine("IsPureTriangle = " + IsPureTriangle);
+            builder.AppendLine("IsPureTriangle = " + IsPureTriangle);
             builder.AppendLine("IsPureQuad = " + IsPureQuad);
         }
 

@@ -4,6 +4,7 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
  
+#include <map>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
 
@@ -57,9 +58,10 @@ class Polyhedron3
 
 public:
 
-	typedef typename K::Point_3 Point_3;
+	typedef typename K::Point_3 Point;
 	typedef CGAL::Polyhedron_3<K> Polyhedron;
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
+	typedef typename HalfedgeDS::Vertex Vertex;
 
 	Polyhedron3() {}
 
@@ -173,17 +175,69 @@ public:
 		poly->make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
 	}
 
-	static void CreateTriangleMesh(void* ptr, Point3d* vertices, int verticesCount, int* indices, int indicesCount)
+	static void CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount)
 	{
 		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
 
 		BuildPolyhedronMesh<HalfedgeDS, K> builder;
-		builder.vertices = vertices;
-		builder.verticesCount = verticesCount;
+		builder.vertices = points;
+		builder.verticesCount = pointsCount;
 		builder.indices = indices;
 		builder.indicesCount = indicesCount;
 
 		poly->delegate(builder);
+	}
+
+	static void GetPoints(void* ptr, Point3d* points, int count)
+	{
+		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		int i = 0;
+
+		for (auto point = poly->points_begin(); point != poly->points_end(); ++point)
+		{
+			points[i++] = Point3d::FromCGAL<K>(*point);
+
+			if (i >= count) return;
+		}
+	}
+
+	static void GetTriangleIndices(void* ptr, int* indices, int count)
+	{
+		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		int index = 0;
+
+		std::map<Point, int> map;
+
+		for (auto point = poly->points_begin(); point != poly->points_end(); ++point)
+		{
+			map.insert(std::pair<Point, int>(*point, index++));
+		}
+
+		index = 0;
+		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		{
+			
+			auto i0 = map.find(face->halfedge()->prev()->vertex()->point());
+			auto i1 = map.find(face->halfedge()->vertex()->point());
+			auto i2 = map.find(face->halfedge()->next()->vertex()->point());
+
+			if (i0 == map.end() || i1 == map.end() || i2 == map.end())
+			{
+				indices[index * 3 + 0] = NULL_INDEX;
+				indices[index * 3 + 1] = NULL_INDEX;
+				indices[index * 3 + 2] = NULL_INDEX;
+			}
+			else
+			{
+				indices[index * 3 + 0] = i0->second;
+				indices[index * 3 + 1] = i1->second;
+				indices[index * 3 + 2] = i2->second;
+			}
+
+			index++;
+
+			if (index * 3 >= count) return;
+		}
 	}
 
 

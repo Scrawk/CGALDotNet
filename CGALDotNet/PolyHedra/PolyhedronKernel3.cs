@@ -43,7 +43,11 @@ namespace CGALDotNet.PolyHedra
 
 		internal abstract void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
 
-		internal abstract void CreateTriangleMesh(IntPtr ptr, Point3d[] vertices, int verticesCount, int[] indices, int indicesCount);
+		internal abstract void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] indices, int indicesCount);
+
+		internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
+
+		internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
 
 
 	}

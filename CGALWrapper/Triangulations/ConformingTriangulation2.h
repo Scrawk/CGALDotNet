@@ -138,7 +138,12 @@ public:
 		int i = 0;
 
 		for (auto vert = tri->model.finite_vertices_begin(); vert != tri->model.finite_vertices_end(); ++vert)
+		{
 			points[i++] = Point2d::FromCGAL<K>(vert->point());
+
+			if (i >= count) return;
+		}
+			
 	}
 
 	static void GetIndices(void* ptr, int* indices, int count)
@@ -174,6 +179,8 @@ public:
 			}
 
 			index++;
+
+			if (index * 3 >= count) return;
 		}
 	}
 

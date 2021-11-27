@@ -87,7 +87,17 @@ void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 	Polyhedron3<EEK>::MakeTriangle(ptr, p1, p2, p3);
 }
 
-void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* vertices, int verticesCount, int* indices, int indicesCount)
+void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount)
 {
-	Polyhedron3<EEK>::CreateTriangleMesh(ptr, vertices, verticesCount, indices, indicesCount);
+	Polyhedron3<EEK>::CreateTriangleMesh(ptr, points, pointsCount, indices, indicesCount);
+}
+
+void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count)
+{
+	Polyhedron3<EEK>::GetPoints(ptr, points, count);
+}
+
+void Polyhedron3_EEK_GetTriangleIndices(void* ptr, int* indices, int count)
+{
+	Polyhedron3<EEK>::GetTriangleIndices(ptr, indices, count);
 }

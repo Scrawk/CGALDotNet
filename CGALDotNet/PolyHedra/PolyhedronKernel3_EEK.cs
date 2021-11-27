@@ -97,9 +97,19 @@ namespace CGALDotNet.PolyHedra
 			Polyhedron3_EEK_MakeTriangle(ptr, p1, p2, p3);
 		}
 
-		internal override void CreateTriangleMesh(IntPtr ptr, Point3d[] vertices, int verticesCount, int[] indices, int indicesCount)
+		internal override void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] indices, int indicesCount)
         {
-			Polyhedron3_EEK_CreateTriangleMesh(ptr, vertices, verticesCount, indices, indicesCount);
+			Polyhedron3_EEK_CreateTriangleMesh(ptr, points, pointsCount, indices, indicesCount);
+        }
+
+		internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
+        {
+			Polyhedron3_EEK_GetPoints(ptr, points, count);
+        }
+
+		internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
+        {
+			Polyhedron3_EEK_GetTriangleIndices(ptr, indices, count);
         }
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -154,6 +164,12 @@ namespace CGALDotNet.PolyHedra
 		private static extern void Polyhedron3_EEK_MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_CreateTriangleMesh(IntPtr ptr, Point3d[] vertices, int verticesCount, int[] indices, int indicesCount);
+		private static extern void Polyhedron3_EEK_CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] indices, int indicesCount);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetTriangleIndices(IntPtr ptr, [Out] int[] indices, int count);
 	}
 }
