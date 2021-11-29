@@ -88,3 +88,48 @@ void* NefPolyhedron3_EEK_Intersection(void* ptr1, void* ptr2)
 {
 	return NefPolyhedron3<EEK>::Intersection(ptr1, ptr2);
 }
+
+void* NefPolyhedron3_EEK_Join(void* ptr1, void* ptr2)
+{
+	return NefPolyhedron3<EEK>::Join(ptr1, ptr2);
+}
+
+void* NefPolyhedron3_EEK_Difference(void* ptr1, void* ptr2)
+{
+	return NefPolyhedron3<EEK>::Difference(ptr1, ptr2);
+}
+
+void* NefPolyhedron3_EEK_SymmetricDifference(void* ptr1, void* ptr2)
+{
+	return NefPolyhedron3<EEK>::SymmetricDifference(ptr1, ptr2);
+}
+
+void* NefPolyhedron3_EEK_Complement(void* ptr)
+{
+	return NefPolyhedron3<EEK>::Complement(ptr);
+}
+
+void* NefPolyhedron3_EEK_Interior(void* ptr)
+{
+	return NefPolyhedron3<EEK>::Interior(ptr);
+}
+
+void* NefPolyhedron3_EEK_Boundary(void* ptr)
+{
+	return NefPolyhedron3<EEK>::Boundary(ptr);
+}
+
+void* NefPolyhedron3_EEK_Closure(void* ptr)
+{
+	return NefPolyhedron3<EEK>::Closure(ptr);
+}
+
+void* NefPolyhedron3_EEK_Regularization(void* ptr)
+{
+	return NefPolyhedron3<EEK>::Regularization(ptr);
+}
+
+void* NefPolyhedron3_EEK_ConvertToPolyhedron(void* ptr)
+{
+	return NefPolyhedron3<EEK>::ConvertToPolyhedron(ptr);
+}

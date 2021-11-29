@@ -139,12 +139,98 @@ public:
 		 return result;
 	}
 
-		//Nef_polyhedron_3< Traits > 	join(const Nef_polyhedron_3< Traits > &N1) const
+	static void* Join(void* ptr1, void* ptr2)
+	{
+		auto nef1 = CastToNefPolyhedron(ptr1);
+		auto nef2 = CastToNefPolyhedron(ptr2);
+		auto result = NewNefPolyhedron();
 
-		//Nef_polyhedron_3< Traits > 	difference(const Nef_polyhedron_3< Traits > &N1) const
+		*result = nef1->join(*nef2);
 
-		//Nef_polyhedron_3< Traits > 	symmetric_difference(const Nef_polyhedron_3< Traits > &N1) const
+		return result;
+	}
 
-		//Nef_polyhedron_3< Traits > 	intersection(const Plane_3 & p, Intersection_mode im) const
+	static void* Difference(void* ptr1, void* ptr2)
+	{
+		auto nef1 = CastToNefPolyhedron(ptr1);
+		auto nef2 = CastToNefPolyhedron(ptr2);
+		auto result = NewNefPolyhedron();
+
+		*result = nef1->difference(*nef2);
+
+		return result;
+	}
+
+	static void* SymmetricDifference(void* ptr1, void* ptr2)
+	{
+		auto nef1 = CastToNefPolyhedron(ptr1);
+		auto nef2 = CastToNefPolyhedron(ptr2);
+		auto result = NewNefPolyhedron();
+
+		*result = nef1->symmetric_difference(*nef2);
+
+		return result;
+	}
+
+	static void* Complement(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		auto result = NewNefPolyhedron();
+
+		*result = nef->complement();
+
+		return result;
+	}
+
+	static void* Interior(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		auto result = NewNefPolyhedron();
+
+		*result = nef->interior();
+
+		return result;
+	}
+
+	static void* Boundary(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		auto result = NewNefPolyhedron();
+
+		*result = nef->boundary();
+
+		return result;
+	}
+
+	static void* Closure(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		auto result = NewNefPolyhedron();
+
+		*result = nef->closure();
+
+		return result;
+	}
+
+	static void* Regularization(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		auto result = NewNefPolyhedron();
+
+		*result = nef->regularization();
+
+		return result;
+	}
+
+	static void* ConvertToPolyhedron(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		auto poly = Polyhedron3<K>::NewPolyhedron();
+
+		nef->convert_to_polyhedron(*poly);
+
+		return poly;
+	}
+
 		
 };

@@ -39,4 +39,22 @@ extern "C"
 
 	CGALWRAPPER_API void* NefPolyhedron3_EEK_Intersection(void* ptr1, void* ptr2);
 
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Join(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Difference(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_SymmetricDifference(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Complement(void* ptr);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Interior(void* ptr);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Boundary(void* ptr);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Closure(void* ptr);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_Regularization(void* ptr);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_ConvertToPolyhedron(void* ptr);
+
 }

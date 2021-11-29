@@ -49,6 +49,8 @@ namespace CGALDotNet.PolyHedra
 
 		internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
 
+		internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
+
 
 	}
 }

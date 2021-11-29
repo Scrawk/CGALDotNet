@@ -112,6 +112,11 @@ namespace CGALDotNet.PolyHedra
 			Polyhedron3_EEK_GetTriangleIndices(ptr, indices, count);
         }
 
+		internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
+        {
+			Polyhedron3_EEK_Transform(ptr, matrix);
+        }
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
@@ -171,5 +176,8 @@ namespace CGALDotNet.PolyHedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetTriangleIndices(IntPtr ptr, [Out] int[] indices, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);
 	}
 }

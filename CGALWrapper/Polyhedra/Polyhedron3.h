@@ -3,10 +3,13 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
+#include "../Geometry/Matrices.h"
  
 #include <map>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
+#include <CGAL/Polygon_mesh_processing/transform.h>
+#include <CGAL/Aff_transformation_3.h>
 
 template <class HDS, class K>
 class BuildPolyhedronMesh : public CGAL::Modifier_base<HDS> 
@@ -62,6 +65,7 @@ public:
 	typedef CGAL::Polyhedron_3<K> Polyhedron;
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
 	typedef typename HalfedgeDS::Vertex Vertex;
+	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
 	Polyhedron3() {}
 
@@ -177,7 +181,7 @@ public:
 
 	static void CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount)
 	{
-		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		auto poly = CastToPolyhedron(ptr);
 
 		BuildPolyhedronMesh<HalfedgeDS, K> builder;
 		builder.vertices = points;
@@ -190,7 +194,7 @@ public:
 
 	static void GetPoints(void* ptr, Point3d* points, int count)
 	{
-		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		auto poly = CastToPolyhedron(ptr);
 		int i = 0;
 
 		for (auto point = poly->points_begin(); point != poly->points_end(); ++point)
@@ -203,7 +207,7 @@ public:
 
 	static void GetTriangleIndices(void* ptr, int* indices, int count)
 	{
-		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		auto poly = CastToPolyhedron(ptr);
 		int index = 0;
 
 		std::map<Point, int> map;
@@ -238,6 +242,14 @@ public:
 
 			if (index * 3 >= count) return;
 		}
+	}
+
+	static void Transform(void* ptr, Matrix4x4d& matrix)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		auto m = matrix.ToCGAL<K>();
+		
+		CGAL::Polygon_mesh_processing::transform(m, *poly);
 	}
 
 

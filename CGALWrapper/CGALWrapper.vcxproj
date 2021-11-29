@@ -167,6 +167,7 @@
     <ClInclude Include="Arrangments\ArrHalfEdge2.h" />
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
+    <ClInclude Include="Geometry\Matrices.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3_EEK.h" />
     <ClInclude Include="Circlar\Circle.h" />

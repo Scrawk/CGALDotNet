@@ -89,6 +89,69 @@ namespace CGALDotNet.PolyHedra
             var ptr = Kernel.Intersection(Ptr, nef.Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
+
+        public NefPolyhedron3<K> Join(NefPolyhedron3<K> nef)
+        {
+            var ptr = Kernel.Join(Ptr, nef.Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public NefPolyhedron3<K> Difference(NefPolyhedron3<K> nef)
+        {
+            var ptr = Kernel.Difference(Ptr, nef.Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public NefPolyhedron3<K> SymmetricDifference(NefPolyhedron3<K> nef)
+        {
+            var ptr = Kernel.SymmetricDifference(Ptr, nef.Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public NefPolyhedron3<K> Complement()
+        {
+            var ptr = Kernel.Complement(Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public NefPolyhedron3<K> Interior()
+        {
+            var ptr = Kernel.Interior(Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public NefPolyhedron3<K> Boundary()
+        {
+            var ptr = Kernel.Boundary(Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public NefPolyhedron3<K> Closure()
+        {
+            var ptr = Kernel.Closure(Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public NefPolyhedron3<K> Regularization()
+        {
+            var ptr = Kernel.Regularization(Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        public bool ConvertToPolyhedron(out Polyhedron3<K> poly)
+        {
+            if (IsSimple)
+            {
+                var ptr = Kernel.ConvertToPolyhedron(Ptr);
+                poly = new Polyhedron3<K>(ptr);
+                return true;
+            }
+            else
+            {
+                poly = null;
+                return false;
+            }
+        }
     }
 
     /// <summary>

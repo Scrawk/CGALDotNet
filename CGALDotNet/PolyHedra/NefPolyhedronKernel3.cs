@@ -40,5 +40,23 @@ namespace CGALDotNet.PolyHedra
 
 		internal abstract IntPtr Intersection(IntPtr ptr1, IntPtr ptr2);
 
+		internal abstract IntPtr Join(IntPtr ptr1, IntPtr ptr2);
+
+		internal abstract IntPtr Difference(IntPtr ptr1, IntPtr ptr2);
+
+		internal abstract IntPtr SymmetricDifference(IntPtr ptr1, IntPtr ptr2);
+
+		internal abstract IntPtr Complement(IntPtr ptr);
+
+		internal abstract IntPtr Interior(IntPtr ptr);
+
+		internal abstract IntPtr Boundary(IntPtr ptr);
+
+		internal abstract IntPtr Closure(IntPtr ptr);
+
+		internal abstract IntPtr Regularization(IntPtr ptr);
+
+		internal abstract IntPtr ConvertToPolyhedron(IntPtr ptr);
+
 	}
 }

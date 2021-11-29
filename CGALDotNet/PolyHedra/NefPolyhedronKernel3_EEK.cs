@@ -91,6 +91,51 @@ namespace CGALDotNet.PolyHedra
 			return NefPolyhedron3_EEK_Intersection(ptr1, ptr2);
         }
 
+		internal override IntPtr Join(IntPtr ptr1, IntPtr ptr2)
+        {
+			return NefPolyhedron3_EEK_Join(ptr1, ptr2);
+        }
+
+		internal override IntPtr Difference(IntPtr ptr1, IntPtr ptr2)
+        {
+			return NefPolyhedron3_EEK_Difference(ptr1, ptr2);
+        }
+
+		internal override IntPtr SymmetricDifference(IntPtr ptr1, IntPtr ptr2)
+        {
+			return NefPolyhedron3_EEK_SymmetricDifference(ptr1, ptr2);
+        }
+
+		internal override IntPtr Complement(IntPtr ptr)
+        {
+			return NefPolyhedron3_EEK_Complement(ptr);
+        }
+
+		internal override IntPtr Interior(IntPtr ptr)
+        {
+			return NefPolyhedron3_EEK_Interior(ptr);
+        }
+
+		internal override IntPtr Boundary(IntPtr ptr)
+        {
+			return NefPolyhedron3_EEK_Boundary(ptr);
+        }
+
+		internal override IntPtr Closure(IntPtr ptr)
+        {
+			return NefPolyhedron3_EEK_Closure(ptr);
+        }
+
+		internal override IntPtr Regularization(IntPtr ptr)
+        {
+			return NefPolyhedron3_EEK_Regularization(ptr);
+        }
+
+		internal override IntPtr ConvertToPolyhedron(IntPtr ptr)
+        {
+			return NefPolyhedron3_EEK_ConvertToPolyhedron(ptr);
+        }
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EEK_CreateFromSpace(NEF_CONTENT space);
 
@@ -138,6 +183,33 @@ namespace CGALDotNet.PolyHedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EEK_Intersection(IntPtr ptr1, IntPtr ptr2);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Join(IntPtr ptr1, IntPtr ptr2);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Difference(IntPtr ptr1, IntPtr ptr2);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_SymmetricDifference(IntPtr ptr1, IntPtr ptr2);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Complement(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Interior(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Boundary(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Closure(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_Regularization(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_ConvertToPolyhedron(IntPtr ptr);
 
 	}
 }

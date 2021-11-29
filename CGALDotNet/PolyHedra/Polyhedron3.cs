@@ -174,6 +174,30 @@ namespace CGALDotNet.PolyHedra
             Kernel.GetTriangleIndices(Ptr, indices, indices.Length);
         }
 
+        public void Translate(Point3d translation)
+        {
+            var m = Matrix4x4d.Translate(translation);
+            Kernel.Transform(Ptr, m);
+        }
+
+        public void Rotate(Quaternion3d rotation)
+        {
+            var m = rotation.ToMatrix4x4d();
+            Kernel.Transform(Ptr, m);
+        }
+
+        public void Scale(Point3d scale)
+        {
+            var m = Matrix4x4d.Scale(scale);
+            Kernel.Transform(Ptr, m);
+        }
+
+        public void Transform(Point3d translation, Quaternion3d rotation, Point3d scale)
+        {
+            var m = Matrix4x4d.TranslateRotateScale(translation, rotation, scale);
+            Kernel.Transform(Ptr, m);
+        }
+
         /// <summary>
         /// Print the polyhedron.
         /// </summary>

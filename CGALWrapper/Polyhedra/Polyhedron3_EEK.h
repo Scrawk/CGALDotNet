@@ -3,6 +3,7 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
+#include "../Geometry/Matrices.h"
 
 extern "C"
 {
@@ -45,5 +46,7 @@ extern "C"
 	CGALWRAPPER_API void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_GetTriangleIndices(void* ptr, int* indices, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix);
 
 }

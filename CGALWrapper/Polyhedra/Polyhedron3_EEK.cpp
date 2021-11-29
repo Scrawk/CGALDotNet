@@ -101,3 +101,8 @@ void Polyhedron3_EEK_GetTriangleIndices(void* ptr, int* indices, int count)
 {
 	Polyhedron3<EEK>::GetTriangleIndices(ptr, indices, count);
 }
+
+void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix)
+{
+	Polyhedron3<EEK>::Transform(ptr, matrix);
+}
