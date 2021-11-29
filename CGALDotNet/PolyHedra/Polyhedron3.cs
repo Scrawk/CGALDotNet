@@ -12,12 +12,12 @@ namespace CGALDotNet.PolyHedra
     /// Generic polyhedron definition.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
-    public sealed class Polyhedra3<K> : Polyhedra3 where K : CGALKernel, new()
+    public sealed class Polyhedron3<K> : Polyhedron3 where K : CGALKernel, new()
     {
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Polyhedra3() : base(new K())
+        public Polyhedron3() : base(new K())
         {
 
         }
@@ -28,7 +28,7 @@ namespace CGALDotNet.PolyHedra
         /// <param name="vertices">The number of vertices</param>
         /// <param name="halfEdges">The number of halfedges</param>
         /// <param name="faces">The number of faces</param>
-        public Polyhedra3(int vertices, int halfEdges, int faces) :
+        public Polyhedron3(int vertices, int halfEdges, int faces) :
             base(vertices, halfEdges, faces, new K())
         {
 
@@ -38,7 +38,7 @@ namespace CGALDotNet.PolyHedra
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The polyhedrons pointer.</param>
-        internal Polyhedra3(IntPtr ptr) : base(new K(), ptr)
+        internal Polyhedron3(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
@@ -49,7 +49,7 @@ namespace CGALDotNet.PolyHedra
         /// <returns>The polyhedron as a string.</returns>
         public override string ToString()
         {
-            return string.Format("[Polyhedra3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
+            return string.Format("[Polyhedron3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
                 Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount);
         }
 
@@ -58,13 +58,13 @@ namespace CGALDotNet.PolyHedra
     /// <summary>
     /// The abstract polyhedra definition.
     /// </summary>
-    public abstract class Polyhedra3 : CGALObject
+    public abstract class Polyhedron3 : CGALObject
     {
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        private Polyhedra3()
+        private Polyhedron3()
         {
 
         }
@@ -73,7 +73,7 @@ namespace CGALDotNet.PolyHedra
         /// Construct with a new kernel.
         /// </summary>
         /// <param name="kernel">The polyhedron kernel.</param>
-        internal Polyhedra3(CGALKernel kernel)
+        internal Polyhedron3(CGALKernel kernel)
         {
             Kernel = kernel.PolyhedronKernel3;
             Ptr = Kernel.Create();
@@ -86,7 +86,7 @@ namespace CGALDotNet.PolyHedra
         /// <param name="halfEdges">The number of halfedges.</param>
         /// <param name="faces">The number of faces.</param>
         /// <param name="kernel">The polyhedra kernel.</param>
-        internal Polyhedra3(int vertices, int halfEdges, int faces, CGALKernel kernel)
+        internal Polyhedron3(int vertices, int halfEdges, int faces, CGALKernel kernel)
         {
             Kernel = kernel.PolyhedronKernel3;
             Ptr = Kernel.CreateFromSize(vertices, halfEdges, faces);
@@ -97,7 +97,7 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         /// <param name="kernel">The polyhedron kernel.</param>
         /// <param name="ptr">The polyhedrons pointer.</param>
-        internal Polyhedra3(CGALKernel kernel, IntPtr ptr) : base(ptr)
+        internal Polyhedron3(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.PolyhedronKernel3;
         }

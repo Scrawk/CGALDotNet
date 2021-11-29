@@ -31,14 +31,14 @@ namespace CGALDotNet.PolyHedra
     /// Generic nef polyhedron definition.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
-    public sealed class NefPolyhedra3<K> : NefPolyhedra3 where K : CGALKernel, new()
+    public sealed class NefPolyhedron3<K> : NefPolyhedron3 where K : CGALKernel, new()
     {
         /// <summary>
         /// creates a Nef polyhedron and initializes it to the empty 
         /// set if plane == EMPTY and to the whole space if space == COMPLETE.
         /// </summary>
         /// <param name="space">The nef's space</param>
-        public NefPolyhedra3(NEF_CONTENT space = NEF_CONTENT.EMPTY) : base(new K(), space)
+        public NefPolyhedron3(NEF_CONTENT space = NEF_CONTENT.EMPTY) : base(new K(), space)
         {
 
         }
@@ -50,7 +50,7 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         /// <param name="plane">The plane.</param>
         /// <param name="boundary">The boundary.</param>
-        public NefPolyhedra3(Plane3d plane, NEF_BOUNDARY boundary = NEF_BOUNDARY.INCLUDED) : base(new K(), plane, boundary)
+        public NefPolyhedron3(Plane3d plane, NEF_BOUNDARY boundary = NEF_BOUNDARY.INCLUDED) : base(new K(), plane, boundary)
         {
 
         }
@@ -60,7 +60,7 @@ namespace CGALDotNet.PolyHedra
         /// set as the polyhedral surface.
         /// </summary>
         /// <param name="polyhedra">The polyhedron</param>
-        public NefPolyhedra3(Polyhedra3 polyhedra) : base(new K(), polyhedra)
+        public NefPolyhedron3(Polyhedron3 polyhedra) : base(new K(), polyhedra)
         {
 
         }
@@ -69,7 +69,7 @@ namespace CGALDotNet.PolyHedra
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The polyhedrons pointer.</param>
-        internal NefPolyhedra3(IntPtr ptr) : base(new K(), ptr)
+        internal NefPolyhedron3(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
@@ -84,23 +84,23 @@ namespace CGALDotNet.PolyHedra
                 Kernel.KernelName, VertexCount, HalfEdgeCount, FacetCount);
         }
 
-        public NefPolyhedra3<K> Intersection(NefPolyhedra3<K> nef)
+        public NefPolyhedron3<K> Intersection(NefPolyhedron3<K> nef)
         {
             var ptr = Kernel.Intersection(Ptr, nef.Ptr);
-            return new NefPolyhedra3<K>(ptr);
+            return new NefPolyhedron3<K>(ptr);
         }
     }
 
     /// <summary>
     /// The abstract nef polyhedra definition.
     /// </summary>
-    public abstract class NefPolyhedra3 : CGALObject
+    public abstract class NefPolyhedron3 : CGALObject
     {
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        private NefPolyhedra3()
+        private NefPolyhedron3()
         {
 
         }
@@ -111,7 +111,7 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         /// <param name="kernel">The polyhedron kernel.</param>
         /// <param name="space">The nef's space</param>
-        public NefPolyhedra3(CGALKernel kernel, NEF_CONTENT space)
+        public NefPolyhedron3(CGALKernel kernel, NEF_CONTENT space)
         {
             Kernel = kernel.NefPolyhedronKernel3;
             Ptr = Kernel.CreateFromSpace(space);
@@ -125,7 +125,7 @@ namespace CGALDotNet.PolyHedra
         /// <param name="kernel">The polyhedron kernel.</param>
         /// <param name="plane">The plane.</param>
         /// <param name="boundary">The boundary.</param>
-        public NefPolyhedra3(CGALKernel kernel, Plane3d plane, NEF_BOUNDARY boundary)
+        public NefPolyhedron3(CGALKernel kernel, Plane3d plane, NEF_BOUNDARY boundary)
         {
             Kernel = kernel.NefPolyhedronKernel3;
             Ptr = Kernel.CreateFromPlane(plane, boundary);
@@ -137,7 +137,7 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         /// <param name="kernel">The polyhedron kernel.</param>
         /// <param name="polyhedra">The polyhedron</param>
-        public NefPolyhedra3(CGALKernel kernel, Polyhedra3 polyhedra)
+        public NefPolyhedron3(CGALKernel kernel, Polyhedron3 polyhedra)
         {
             Kernel = kernel.NefPolyhedronKernel3;
             Ptr = Kernel.CreateFromPolyhedron(polyhedra.Ptr);
@@ -148,7 +148,7 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         /// <param name="kernel">The polyhedron kernel.</param>
         /// <param name="ptr">The polyhedrons pointer.</param>
-        internal NefPolyhedra3(CGALKernel kernel, IntPtr ptr) : base(ptr)
+        internal NefPolyhedron3(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.NefPolyhedronKernel3;
         }
