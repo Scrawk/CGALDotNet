@@ -50,7 +50,7 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         /// <param name="plane">The plane.</param>
         /// <param name="boundary">The boundary.</param>
-        public NefPolyhedron3(Plane3d plane, NEF_BOUNDARY boundary = NEF_BOUNDARY.INCLUDED) : base(new K(), plane, boundary)
+        internal NefPolyhedron3(Plane3d plane, NEF_BOUNDARY boundary = NEF_BOUNDARY.INCLUDED) : base(new K(), plane, boundary)
         {
 
         }

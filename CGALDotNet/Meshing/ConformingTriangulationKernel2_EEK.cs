@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
 
-namespace CGALDotNet.Triangulations
+namespace CGALDotNet.Meshing
 {
 	internal class ConformingTriangulationKernel2_EEK : ConformingTriangulationKernel2
 	{

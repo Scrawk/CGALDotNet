@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
 
-namespace CGALDotNet.Triangulations
+namespace CGALDotNet.Meshing
 {
     internal abstract class ConformingTriangulationKernel2 : FuncKernel
 	{

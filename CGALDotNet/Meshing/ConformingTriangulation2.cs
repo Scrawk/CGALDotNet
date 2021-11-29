@@ -5,7 +5,7 @@ using System.Text;
 using CGALDotNet.Polygons;
 using CGALDotNet.Geometry;
 
-namespace CGALDotNet.Triangulations
+namespace CGALDotNet.Meshing
 {
     public sealed class ConformingTriangulation2<K> : ConformingTriangulation2 where K : CGALKernel, new()
     {

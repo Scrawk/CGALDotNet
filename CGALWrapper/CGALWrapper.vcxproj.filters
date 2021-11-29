@@ -225,10 +225,10 @@
     <ClInclude Include="Polyhedra\Polyhedron3.h">
       <Filter>Polyhedra</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\ConformingTriangulation2_EEK.h">
+    <ClInclude Include="Meshing\ConformingTriangulation2_EEK.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\ConformingTriangulation2.h">
+    <ClInclude Include="Meshing\ConformingTriangulation2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
     <ClInclude Include="Meshing\SurfaceMesher3.h">
@@ -314,7 +314,7 @@
     <ClCompile Include="Polygons\Polygon2_EIK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="Triangulations\ConformingTriangulation2_EEK.cpp">
+    <ClCompile Include="Meshing\ConformingTriangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
     <ClCompile Include="Polyhedra\Polyhedron3_EEK.cpp">
