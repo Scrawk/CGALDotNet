@@ -106,3 +106,8 @@ void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix)
 {
 	Polyhedron3<EEK>::Transform(ptr, matrix);
 }
+
+void Polyhedron3_EEK_InsideOut(void* ptr)
+{
+	Polyhedron3<EEK>::InsideOut(ptr);
+}

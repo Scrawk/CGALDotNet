@@ -20,7 +20,23 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var poly = PolyhedronFactory<EEK>.CreateUVSphere(32, 32);
+            var poly = PolyhedronFactory<EEK>.CreateCube();
+
+            var points = new Point3d[poly.VertexCount];
+
+            poly.GetPoints(points);
+            Console.WriteLine("Before");
+
+            foreach (var p in points)
+                Console.WriteLine(p);
+
+            poly.Translate(new Point3d(1));
+
+            poly.GetPoints(points);
+            Console.WriteLine("After");
+
+            foreach (var p in points)
+                Console.WriteLine(p);
 
             poly.Print();
 

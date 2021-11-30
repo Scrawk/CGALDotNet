@@ -244,12 +244,18 @@ public:
 		}
 	}
 
-	static void Transform(void* ptr, Matrix4x4d& matrix)
+	static void Transform(void* ptr, const Matrix4x4d& matrix)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		auto m = matrix.ToCGAL<K>();
-		
-		CGAL::Polygon_mesh_processing::transform(m, *poly);
+
+		std::transform(poly->points_begin(), poly->points_end(), poly->points_begin(), m);
+	}
+
+	static void InsideOut(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->inside_out();
 	}
 
 

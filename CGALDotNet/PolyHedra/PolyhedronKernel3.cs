@@ -51,6 +51,8 @@ namespace CGALDotNet.PolyHedra
 
 		internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
 
+		internal abstract void InsideOut(IntPtr ptr);
+
 
 	}
 }

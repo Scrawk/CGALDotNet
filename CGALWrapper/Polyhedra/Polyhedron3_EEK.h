@@ -49,4 +49,6 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix);
 
+	CGALWRAPPER_API void Polyhedron3_EEK_InsideOut(void* ptr);
+
 }

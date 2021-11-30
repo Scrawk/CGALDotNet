@@ -28,7 +28,7 @@ struct Point3d
     double z;
 
     template<class K>
-    CGAL::Point_3<K> ToCGAL()
+    CGAL::Point_3<K> ToCGAL() const
     {
         return CGAL::Point_3<K>(x, y, z);
     }
@@ -61,7 +61,7 @@ struct Point3d
     }
 
     template<class K>
-    CGAL::Vector_3<K> ToVector()
+    CGAL::Vector_3<K> ToVector() const
     {
         return CGAL::Vector_3<K>(x, y, z);
     }
@@ -85,7 +85,7 @@ struct Vector3d
     double z;
 
     template<class K>
-    CGAL::Vector_3<K> ToCGAL()
+    CGAL::Vector_3<K> ToCGAL() const
     {
         return CGAL::Vector_3<K>(x, y, z);
     }
@@ -100,7 +100,7 @@ struct Vector3d
     }
 
     template<class K>
-    CGAL::Point_3<K> ToPoint()
+    CGAL::Point_3<K> ToPoint() const
     {
         return CGAL::Point_3<K>(x, y, z);
     }
@@ -123,7 +123,7 @@ struct Line3d
     Vector3d direction;
 
     template<class K, class LINE>
-    LINE ToCGAL()
+    LINE ToCGAL() const
     {
         return { position.ToCGAL<K>(), direction.ToCGAL<K>() };
     }
@@ -146,7 +146,7 @@ struct  Plane3d
     Vector3d direction;
 
     template<class K, class PLANE>
-    PLANE ToCGAL()
+    PLANE ToCGAL() const
     {
         return { position.ToCGAL<K>(), direction.ToCGAL<K>() };
     }

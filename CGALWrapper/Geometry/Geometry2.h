@@ -28,7 +28,7 @@ struct Point2d
     double y;
 
     template<class K>
-    CGAL::Point_2<K> ToCGAL()
+    CGAL::Point_2<K> ToCGAL() const
     {
         return CGAL::Point_2<K>(x, y);
     }
@@ -50,7 +50,7 @@ struct Point2d
     }
 
     template<class K>
-    CGAL::Vector_2<K> ToVector()
+    CGAL::Vector_2<K> ToVector() const
     {
         return CGAL::Vector_2<K>(x, y);
     }
@@ -73,7 +73,7 @@ struct Vector2d
     double y;
 
     template<class K>
-    CGAL::Vector_2<K> ToCGAL()
+    CGAL::Vector_2<K> ToCGAL() const
     {
         return CGAL::Vector_2<K>(x, y);
     }
@@ -87,7 +87,7 @@ struct Vector2d
     }
 
     template<class K>
-    CGAL::Point_2<K> ToPoint()
+    CGAL::Point_2<K> ToPoint() const
     {
         return CGAL::Point_2<K>(x, y);
     }
@@ -110,7 +110,7 @@ struct Segment2d
     Point2d b;
 
     template<class K, class SEG>
-    SEG ToCGAL()
+    SEG ToCGAL() const
     {
         return { a.ToCGAL<K>(), b.ToCGAL<K>() };
     }
@@ -138,7 +138,7 @@ struct Line2d
     double a, b, c;
 
     template<class K, class LINE>
-    LINE ToCGAL()
+    LINE ToCGAL() const
     {
         return { a, b, c };
     }
@@ -160,7 +160,7 @@ struct Triangle2d
     Point2d c;
 
     template<class K, class TRI>
-    TRI ToCGAL()
+    TRI ToCGAL() const
     {
         return { a.ToCGAL<K>(), b.ToCGAL<K>(), c.ToCGAL<K>() };
     }
@@ -181,7 +181,7 @@ struct Ray2d
     Vector2d dir;
 
     template<class K, class RAY>
-    RAY ToCGAL()
+    RAY ToCGAL() const
     {
         return { pos.ToCGAL<K>(), dir.ToCGAL<K>() };
     }
@@ -201,7 +201,7 @@ struct Box2d
     Point2d max;
 
     template<class K, class BOX>
-    BOX ToCGAL()
+    BOX ToCGAL() const
     {
         return { min.ToCGAL<K>(), max.ToCGAL<K>() };
     }

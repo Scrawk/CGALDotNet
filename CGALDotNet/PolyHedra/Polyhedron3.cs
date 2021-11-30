@@ -23,18 +23,6 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Create with a set size for each element.
-        /// </summary>
-        /// <param name="vertices">The number of vertices</param>
-        /// <param name="halfEdges">The number of halfedges</param>
-        /// <param name="faces">The number of faces</param>
-        public Polyhedron3(int vertices, int halfEdges, int faces) :
-            base(vertices, halfEdges, faces, new K())
-        {
-
-        }
-
-        /// <summary>
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The polyhedrons pointer.</param>
@@ -80,19 +68,6 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Create with a set size for each element.
-        /// </summary>
-        /// <param name="vertices">The number of vertices.</param>
-        /// <param name="halfEdges">The number of halfedges.</param>
-        /// <param name="faces">The number of faces.</param>
-        /// <param name="kernel">The polyhedra kernel.</param>
-        internal Polyhedron3(int vertices, int halfEdges, int faces, CGALKernel kernel)
-        {
-            Kernel = kernel.PolyhedronKernel3;
-            Ptr = Kernel.CreateFromSize(vertices, halfEdges, faces);
-        }
-
-        /// <summary>
         /// Construct with a new kernel.
         /// </summary>
         /// <param name="kernel">The polyhedron kernel.</param>
@@ -108,26 +83,63 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         protected private PolyhedronKernel3 Kernel { get; private set; }
 
+        /// <summary>
+        /// Number of vertices.
+        /// </summary>
         public int VertexCount => Kernel.VertexCount(Ptr);
 
+        /// <summary>
+        /// Number of faces.
+        /// </summary>
         public int FaceCount => Kernel.FaceCount(Ptr);
 
+        /// <summary>
+        /// Number of half edges.
+        /// </summary>
         public int HalfEdgeCount => Kernel.HalfEdgeCount(Ptr);
 
+        /// <summary>
+        /// Number of border edges.
+        /// Since each border edge of a polyhedral surface has exactly one 
+        /// border halfedge, this number is equal to size of border halfedges.
+        /// </summary>
         public int BorderEdgeCount => Kernel.BorderEdgeCount(Ptr);
 
+        /// <summary>
+        /// Number of border halfedges.
+        /// </summary>
         public int BorderHalfEdgeCount => Kernel.BorderHalfEdgeCount(Ptr);
 
+        /// <summary>
+        /// Returns true if there are no border edges.
+        /// </summary>
         public bool IsClosed => Kernel.IsClosed(Ptr);
 
+        /// <summary>
+        /// Returns true if all vertices have exactly two incident edges.
+        /// </summary>
         public bool IsPureBivalent => Kernel.IsPureBivalent(Ptr);
 
+        /// <summary>
+        /// Returns true if all vertices have exactly three incident edges.
+        /// </summary>
         public bool IsPureTrivalent => Kernel.IsPureTrivalent(Ptr);
 
+        /// <summary>
+        /// Returns true if all faces are triangles.
+        /// </summary>
         public bool IsPureTriangle => Kernel.IsPureTriangle(Ptr);
 
+        /// <summary>
+        /// Returns true if all faces are quads.
+        /// </summary>
         public bool IsPureQuad => Kernel.IsPureQuad(Ptr);
 
+        /// <summary>
+        /// Returns true if the polyhedral surface is combinatorially consistent.
+        /// </summary>
+        /// <param name="level">For level == 1 the normalization of the border edges is checked too.</param>
+        /// <returns></returns>
         public bool IsValid(int level = 0)
         {
             return Kernel.IsValid(Ptr, level);
@@ -141,16 +153,29 @@ namespace CGALDotNet.PolyHedra
             Kernel.Clear(Ptr);
         }
 
+        /// <summary>
+        /// A tetrahedron is added to the polyhedral surface
+        /// with its vertices initialized to p1, p2, p3, and p4.
+        /// </summary>
         internal void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
         {
             Kernel.MakeTetrahedron(Ptr, p1, p2, p3, p4);
         }
 
+        /// <summary>
+        /// A triangle with border edges is added to the 
+        /// polyhedral surface with its vertices initialized to p1, p2, and p3.
+        /// </summary>
         internal void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
         {
             Kernel.MakeTriangle(Ptr, p1, p2, p3);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="indices"></param>
         public void CreateTriangleMesh(Point3d[] points, int[] indices)
         {
             if (points == null || points.Length == 0) return;
@@ -160,6 +185,10 @@ namespace CGALDotNet.PolyHedra
             Kernel.CreateTriangleMesh(Ptr, points, points.Length, indices, indices.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
         public void GetPoints(Point3d[] points)
         {
             if (points == null || points.Length == 0) return;
@@ -167,6 +196,10 @@ namespace CGALDotNet.PolyHedra
             Kernel.GetPoints(Ptr, points, points.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indices"></param>
         public void GetTriangleIndices(int[] indices)
         {
             if (indices == null || indices.Length == 0) return;
@@ -174,28 +207,54 @@ namespace CGALDotNet.PolyHedra
             Kernel.GetTriangleIndices(Ptr, indices, indices.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translation"></param>
         public void Translate(Point3d translation)
         {
             var m = Matrix4x4d.Translate(translation);
             Kernel.Transform(Ptr, m);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rotation"></param>
         public void Rotate(Quaternion3d rotation)
         {
             var m = rotation.ToMatrix4x4d();
             Kernel.Transform(Ptr, m);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scale"></param>
         public void Scale(Point3d scale)
         {
             var m = Matrix4x4d.Scale(scale);
             Kernel.Transform(Ptr, m);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translation"></param>
+        /// <param name="rotation"></param>
+        /// <param name="scale"></param>
         public void Transform(Point3d translation, Quaternion3d rotation, Point3d scale)
         {
             var m = Matrix4x4d.TranslateRotateScale(translation, rotation, scale);
             Kernel.Transform(Ptr, m);
+        }
+
+        /// <summary>
+        /// Reverses face orientations.
+        /// </summary>
+        public void InsideOut()
+        {
+            Kernel.InsideOut(Ptr);
         }
 
         /// <summary>
