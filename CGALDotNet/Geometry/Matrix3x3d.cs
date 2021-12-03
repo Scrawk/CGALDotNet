@@ -197,30 +197,30 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Multiply a point by a matrix.
         /// </summary>
-        public static Point2d operator *(Matrix3x3d m, Point2d v)
+        public static Point2d operator *(Matrix3x3d m, Point2d p)
         {
-            Point3d v1 = v.xy1;
-            Point3d v2 = new Point3d();
+            Point3d p1 = p.xy1;
+            Point3d p2 = new Point3d();
 
-            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z;
-            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z;
-            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z;
+            p2.x = m.m00 * p1.x + m.m01 * p1.y + m.m02 * p1.z;
+            p2.y = m.m10 * p1.x + m.m11 * p1.y + m.m12 * p1.z;
+            p2.z = m.m20 * p1.x + m.m21 * p1.y + m.m22 * p1.z;
 
-            return v2.xy;
+            return p2.xy;
         }
 
         /// <summary>
         /// Multiply a point by a matrix.
         /// </summary>
-        public static Point3d operator *(Matrix3x3d m, Point3d v)
+        public static Point3d operator *(Matrix3x3d m, Point3d p)
         {
-            Point3d v2 = new Point3d();
+            Point3d p2 = new Point3d();
 
-            v2.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z;
-            v2.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z;
-            v2.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z;
+            p2.x = m.m00 * p.x + m.m01 * p.y + m.m02 * p.z;
+            p2.y = m.m10 * p.x + m.m11 * p.y + m.m12 * p.z;
+            p2.z = m.m20 * p.x + m.m21 * p.y + m.m22 * p.z;
 
-            return v2;
+            return p2;
         }
 
         /// <summary>
@@ -492,13 +492,13 @@ namespace CGALDotNet.Geometry
             return new Matrix4x4d(m00, m01, m02, 0.0,
                                   m10, m11, m12, 0.0,
                                   m20, m21, m22, 0.0,
-                                  0.0, 0.0, 0.0,1.0f);
+                                  0.0, 0.0, 0.0, 1.0);
         }
 
         /// <summary>
         /// Create a translation out of a vector.
         /// </summary>
-        static public Matrix3x3d Translate(Vector2d v)
+        static public Matrix3x3d Translate(Point2d v)
         {
             return new Matrix3x3d(1, 0, v.x,
                                   0, 1, v.y,
@@ -508,7 +508,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a scale out of a vector.
         /// </summary>
-        static public Matrix3x3d Scale(Vector2d v)
+        static public Matrix3x3d Scale(Point2d v)
         {
             return new Matrix3x3d(v.x, 0, 0,
                                   0, v.y, 0,
@@ -569,7 +569,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a rotation out of a vector.
         /// </summary>
-        static public Matrix3x3d Rotate(Vector3d euler)
+        static public Matrix3x3d Rotate(Point3d euler)
         {
             return Quaternion3d.FromEuler(euler).ToMatrix3x3d();
         }

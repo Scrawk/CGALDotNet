@@ -404,6 +404,15 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Direction between two points.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3d Direction(Point3d v0, Point3d v1)
+        {
+            return (v1 - v0).Vector3d.Normalized;
+        }
+
+        /// <summary>
         /// The minimum value between s and each component in point.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

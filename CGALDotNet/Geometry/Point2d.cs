@@ -125,6 +125,14 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Convert from cartesian to homogenous space.
+        /// </summary>
+        public HPoint2d ToHomogenous(double w)
+        {
+            return new HPoint2d(x * w, y * w, w);
+        }
+
+        /// <summary>
         /// Point as a vector.
         /// </summary>
         public Vector2d Vector2d
@@ -133,14 +141,6 @@ namespace CGALDotNet.Geometry
             {
                 return new Vector2d(x, y);
             }
-        }
-
-        /// <summary>
-        /// Convert from cartesian to homogenous space.
-        /// </summary>
-        public HPoint2d ToHomogenous(double w)
-        {
-            return new HPoint2d(x * w, y * w, w);
         }
 
         /// <summary>
@@ -398,6 +398,14 @@ namespace CGALDotNet.Geometry
             return x * x + y * y;
         }
 
+        /// <summary>
+        /// Direction between two points.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2d Direction(Point2d v0, Point2d v1)
+        {
+            return (v1 - v0).Vector2d.Normalized;
+        }
 
         /// <summary>
         /// The minimum value between s and each component in point.

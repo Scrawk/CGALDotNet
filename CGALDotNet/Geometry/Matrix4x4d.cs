@@ -272,25 +272,25 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Multiply a point by a matrix.
         /// </summary>
-        public static Point2d operator *(Matrix4x4d m, Point2d v)
+        public static Point2d operator *(Matrix4x4d m, Point2d p)
         {
-            Point4d v1 = v.xy01;
-            Point4d v2 = new Point4d();
+            Point4d p1 = p.xy01;
+            Point4d p2 = new Point4d();
 
-            v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z + m.m03 * v1.w;
-            v2.y = m.m10 * v1.x + m.m11 * v1.y + m.m12 * v1.z + m.m13 * v1.w;
-            v2.z = m.m20 * v1.x + m.m21 * v1.y + m.m22 * v1.z + m.m23 * v1.w;
-            v2.w = m.m30 * v1.x + m.m31 * v1.y + m.m32 * v1.z + m.m33 * v1.w;
+            p2.x = m.m00 * p1.x + m.m01 * p1.y + m.m02 * p1.z + m.m03 * p1.w;
+            p2.y = m.m10 * p1.x + m.m11 * p1.y + m.m12 * p1.z + m.m13 * p1.w;
+            p2.z = m.m20 * p1.x + m.m21 * p1.y + m.m22 * p1.z + m.m23 * p1.w;
+            p2.w = m.m30 * p1.x + m.m31 * p1.y + m.m32 * p1.z + m.m33 * p1.w;
 
-            return v2.xy;
+            return p2.xy;
         }
 
         /// <summary>
         /// Multiply a point by a matrix.
         /// </summary>
-        public static Point3d operator *(Matrix4x4d m, Point3d v)
+        public static Point3d operator *(Matrix4x4d m, Point3d p)
         {
-            Point4d v1 = v.xyz1;
+            Point4d v1 = p.xyz1;
             Point4d v2 = new Point4d();
 
             v2.x = m.m00 * v1.x + m.m01 * v1.y + m.m02 * v1.z + m.m03 * v1.w;
@@ -641,7 +641,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a translation, rotation and scale.
         /// </summary>
-        static public Matrix4x4d TranslateRotateScale(Vector3d t, Quaternion3d r, Vector3d s)
+        static public Matrix4x4d TranslateRotateScale(Point3d t, Quaternion3d r, Point3d s)
         {
             Matrix4x4d T = Translate(t);
             Matrix4x4d R = r.ToMatrix4x4d();
@@ -653,7 +653,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a translation and rotation.
         /// </summary>
-        static public Matrix4x4d TranslateRotate(Vector3d t, Quaternion3d r)
+        static public Matrix4x4d TranslateRotate(Point3d t, Quaternion3d r)
         {
             Matrix4x4d T = Translate(t);
             Matrix4x4d R = r.ToMatrix4x4d();
@@ -664,7 +664,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a translation and scale.
         /// </summary>
-        static public Matrix4x4d TranslateScale(Vector3d t, Vector3d s)
+        static public Matrix4x4d TranslateScale(Point3d t, Point3d s)
         {
             Matrix4x4d T = Translate(t);
             Matrix4x4d S = Scale(s);
@@ -675,7 +675,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a rotation and scale.
         /// </summary>
-        static public Matrix4x4d RotateScale(Quaternion3d r, Vector3d s)
+        static public Matrix4x4d RotateScale(Quaternion3d r, Point3d s)
         {
             Matrix4x4d R = r.ToMatrix4x4d();
             Matrix4x4d S = Scale(s);
@@ -686,7 +686,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a translation out of a vector.
         /// </summary>
-        static public Matrix4x4d Translate(Vector3d v)
+        static public Matrix4x4d Translate(Point3d v)
         {
             return new Matrix4x4d(	1, 0, 0, v.x,
                                     0, 1, 0, v.y,
@@ -697,7 +697,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a scale out of a vector.
         /// </summary>
-        static public Matrix4x4d Scale(Vector3d v)
+        static public Matrix4x4d Scale(Point3d v)
         {
             return new Matrix4x4d(	v.x, 0, 0, 0,
                                     0, v.y, 0, 0,
@@ -761,7 +761,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a rotation out of a vector.
         /// </summary>
-        static public Matrix4x4d Rotate(Vector3d euler)
+        static public Matrix4x4d Rotate(Point3d euler)
         {
             return Quaternion3d.FromEuler(euler).ToMatrix4x4d();
         }
@@ -769,10 +769,10 @@ namespace CGALDotNet.Geometry
 		/// <summary>
 		/// Creates the matrix need to look at target from position.
 		/// </summary>
-		static public Matrix4x4d LookAt(Vector3d position, Vector3d target, Vector3d Up)
+		static public Matrix4x4d LookAt(Point3d position, Point3d target, Vector3d Up)
 		{
 			
-			Vector3d zaxis = (position - target).Normalized;
+			Vector3d zaxis = Point3d.Direction(target, position);
 			Vector3d xaxis = Vector3d.Cross(Up, zaxis).Normalized;
 			Vector3d yaxis = Vector3d.Cross(zaxis, xaxis);
 			

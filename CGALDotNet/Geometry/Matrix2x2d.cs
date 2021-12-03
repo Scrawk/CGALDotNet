@@ -161,14 +161,14 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Multiply a point by a matrix.
         /// </summary>
-        public static Point2d operator *(Matrix2x2d m, Point2d v)
+        public static Point2d operator *(Matrix2x2d m, Point2d p)
         {
-            Point2d v2 = new Point2d();
+            Point2d p2 = new Point2d();
 
-            v2.x = m.m00 * v.x + m.m01 * v.y;
-            v2.y = m.m10 * v.x + m.m11 * v.y;
+            p2.x = m.m00 * p.x + m.m01 * p.y;
+            p2.y = m.m10 * p.x + m.m11 * p.y;
 
-            return v2;
+            return p2;
         }
 
         /// <summary>
@@ -379,7 +379,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Convert to a float precision 3 dimension matrix.
+        /// Convert to a 3 dimension matrix.
         /// </summary>
         public Matrix3x3d ToMatrix3x3d()
         {
