@@ -136,25 +136,12 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Trucate the homogeous coordinate.
-        /// </summary>
-        public Point2d TruncatedHomogenous
-        {
-            get
-            {
-                return new Point2d(x, y);
-            }
-        }
-
-        /// <summary>
         /// Convert from cartesian to homogenous space.
         /// </summary>
         public HPoint2d ToHomogenous(double w)
         {
             return new HPoint2d(x * w, y * w, w);
         }
-
-
 
         /// <summary>
         /// The length of the point from the origin.
