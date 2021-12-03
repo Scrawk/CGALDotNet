@@ -16,7 +16,7 @@ namespace CGALDotNet.PolyHedra
 
 		internal abstract void Release(IntPtr ptr);
 
-		internal abstract void Clear(IntPtr ptr);
+		internal abstract void Clear(IntPtr ptr, NEF_CONTENT space);
 
 		internal abstract bool IsEmpty(IntPtr ptr);
 

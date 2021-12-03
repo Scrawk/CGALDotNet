@@ -31,9 +31,9 @@ namespace CGALDotNet.PolyHedra
 			NefPolyhedron3_EEK_Release(ptr);
         }
 
-		internal override void Clear(IntPtr ptr)
+		internal override void Clear(IntPtr ptr, NEF_CONTENT space)
         {
-			NefPolyhedron3_EEK_Clear(ptr);
+			NefPolyhedron3_EEK_Clear(ptr, space);
         }
 
 		internal override bool IsEmpty(IntPtr ptr)
@@ -149,7 +149,7 @@ namespace CGALDotNet.PolyHedra
 		private static extern void NefPolyhedron3_EEK_Release(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void NefPolyhedron3_EEK_Clear(IntPtr ptr);
+		private static extern void NefPolyhedron3_EEK_Clear(IntPtr ptr, NEF_CONTENT space);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool NefPolyhedron3_EEK_IsEmpty(IntPtr ptr);

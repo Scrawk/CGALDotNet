@@ -20,25 +20,17 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var poly = PolyhedronFactory<EEK>.CreateCube();
+            var box1 = PolyhedronFactory<EEK>.CreateCube();
+            box1.Translate(new Point3d(0.5));
 
-            var points = new Point3d[poly.VertexCount];
+            var box2 = PolyhedronFactory<EEK>.CreateCube();
 
-            poly.GetPoints(points);
-            Console.WriteLine("Before");
+            var nef1 = new NefPolyhedron3<EEK>(box1);
+            var nef2 = new NefPolyhedron3<EEK>(box2);
 
-            foreach (var p in points)
-                Console.WriteLine(p);
+            var nef3 = nef1.Join(nef2);
 
-            poly.Translate(new Point3d(1));
-
-            poly.GetPoints(points);
-            Console.WriteLine("After");
-
-            foreach (var p in points)
-                Console.WriteLine(p);
-
-            poly.Print();
+            nef3.Print();
 
         }
 

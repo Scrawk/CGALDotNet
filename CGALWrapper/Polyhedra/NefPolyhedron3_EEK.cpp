@@ -29,9 +29,9 @@ void NefPolyhedron3_EEK_Release(void* ptr)
 	NefPolyhedron3<EEK>::DeleteNefPolyhedron(ptr);
 }
 
-void NefPolyhedron3_EEK_Clear(void* ptr)
+void NefPolyhedron3_EEK_Clear(void* ptr, int space)
 {
-	NefPolyhedron3<EEK>::Clear(ptr);
+	NefPolyhedron3<EEK>::Clear(ptr, space);
 }
 
 BOOL NefPolyhedron3_EEK_IsEmpty(void* ptr)

@@ -10,6 +10,9 @@ namespace CGALDotNet.PolyHedra
 
     /// <summary>
     /// Generic polyhedron definition.
+    /// A polyhedral surface Polyhedron_3 consists of vertices V, edges E, 
+    /// facets F and an incidence relation on them.
+    //  Each edge is represented by two halfedges with opposite orientations.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class Polyhedron3<K> : Polyhedron3 where K : CGALKernel, new()
@@ -172,10 +175,10 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// 
+        /// Create a triangle mesh from the points and indices.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="indices"></param>
+        /// <param name="points">The meshes points.</param>
+        /// <param name="indices">The meshes trinagles as a index array.</param>
         public void CreateTriangleMesh(Point3d[] points, int[] indices)
         {
             if (points == null || points.Length == 0) return;
@@ -186,9 +189,9 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// 
+        /// Get the meshes points.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The array to copy the points into.</param>
         public void GetPoints(Point3d[] points)
         {
             if (points == null || points.Length == 0) return;
@@ -197,9 +200,10 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// 
+        /// Get the meshes triangle indices.
+        /// Presumes all faces in mesh are triangles.
         /// </summary>
-        /// <param name="indices"></param>
+        /// <param name="indices">The array to copy the indices into.</param>
         public void GetTriangleIndices(int[] indices)
         {
             if (indices == null || indices.Length == 0) return;
@@ -208,9 +212,9 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// 
+        /// Translate each point in the mesh.
         /// </summary>
-        /// <param name="translation"></param>
+        /// <param name="translation">The amount to translate.</param>
         public void Translate(Point3d translation)
         {
             var m = Matrix4x4d.Translate(translation);
@@ -218,9 +222,9 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// 
+        /// Rotate each point in the mesh.
         /// </summary>
-        /// <param name="rotation"></param>
+        /// <param name="rotation">The amount to rotate.</param>
         public void Rotate(Quaternion3d rotation)
         {
             var m = rotation.ToMatrix4x4d();
@@ -228,9 +232,9 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// 
+        /// Scale each point in the mesh.
         /// </summary>
-        /// <param name="scale"></param>
+        /// <param name="scale">The amount to scale.</param>
         public void Scale(Point3d scale)
         {
             var m = Matrix4x4d.Scale(scale);
@@ -238,11 +242,11 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// 
+        /// Transform each point in the mesh.
         /// </summary>
-        /// <param name="translation"></param>
-        /// <param name="rotation"></param>
-        /// <param name="scale"></param>
+        /// <param name="translation">The amount to translate.</param>
+        /// <param name="rotation">The amount to rotate.</param>
+        /// <param name="scale">The amount to scale.</param>
         public void Transform(Point3d translation, Quaternion3d rotation, Point3d scale)
         {
             var m = Matrix4x4d.TranslateRotateScale(translation, rotation, scale);

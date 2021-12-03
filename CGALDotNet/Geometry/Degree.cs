@@ -74,9 +74,9 @@ namespace CGALDotNet.Geometry
         /// Negate the angle.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2d operator -(Degree v)
+        public static Degree operator -(Degree v)
         {
-            return new Point2d(-v.angle);
+            return new Degree(-v.angle);
         }
 
         /// <summary>

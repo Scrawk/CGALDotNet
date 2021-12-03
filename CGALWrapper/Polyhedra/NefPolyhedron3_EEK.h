@@ -15,7 +15,7 @@ extern "C"
 
 	CGALWRAPPER_API void NefPolyhedron3_EEK_Release(void* ptr);
 
-	CGALWRAPPER_API void NefPolyhedron3_EEK_Clear(void* ptr);
+	CGALWRAPPER_API void NefPolyhedron3_EEK_Clear(void* ptr, int space);
 
 	CGALWRAPPER_API BOOL NefPolyhedron3_EEK_IsEmpty(void* ptr);
 

@@ -62,10 +62,14 @@ public:
 		return static_cast<NefPolyhedron*>(ptr);
 	}
 
-	static void Clear(void* ptr)
+	static void Clear(void* ptr, int space)
 	{
 		auto nef = CastToNefPolyhedron(ptr);
-		nef->clear();
+
+		if(space == NefPolyhedron::EMPTY)
+			nef->clear(NefPolyhedron::EMPTY);
+		else
+			nef->clear(NefPolyhedron::COMPLETE);
 	}
 
 	static BOOL IsEmpty(void* ptr)

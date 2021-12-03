@@ -29,6 +29,10 @@ namespace CGALDotNet.PolyHedra
 
     /// <summary>
     /// Generic nef polyhedron definition.
+    /// A 3D Nef polyhedron is a subset of the 3-dimensional space that is the result of forming
+    /// complements and intersections starting from a finite set H of 3-dimensional halfspaces.
+    /// Nef polyhedra are closed under all binary set operations, i.e., intersection, union, 
+    /// difference, complement, and under the topological operations boundary, closure, and interior.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class NefPolyhedron3<K> : NefPolyhedron3 where K : CGALKernel, new()
@@ -80,64 +84,110 @@ namespace CGALDotNet.PolyHedra
         /// <returns>The nef polyhedron as a string.</returns>
         public override string ToString()
         {
-            return string.Format("[NefPolyhedra3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FacetCount={3}]",
-                Kernel.KernelName, VertexCount, HalfEdgeCount, FacetCount);
+            return string.Format("[NefPolyhedra3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
+                Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount);
         }
 
+        /// <summary>
+        /// Return the intersection of N and N1.
+        /// </summary>
+        /// <param name="nef"></param>
+        /// <returns></returns>
         public NefPolyhedron3<K> Intersection(NefPolyhedron3<K> nef)
         {
             var ptr = Kernel.Intersection(Ptr, nef.Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Return the union of N and N1.
+        /// </summary>
+        /// <param name="nef"></param>
+        /// <returns></returns>
         public NefPolyhedron3<K> Join(NefPolyhedron3<K> nef)
         {
             var ptr = Kernel.Join(Ptr, nef.Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Return the difference between N and N1.
+        /// </summary>
+        /// <param name="nef"></param>
+        /// <returns></returns>
         public NefPolyhedron3<K> Difference(NefPolyhedron3<K> nef)
         {
             var ptr = Kernel.Difference(Ptr, nef.Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Return the symmetric difference of N and N1.
+        /// </summary>
+        /// <param name="nef"></param>
+        /// <returns></returns>
         public NefPolyhedron3<K> SymmetricDifference(NefPolyhedron3<K> nef)
         {
             var ptr = Kernel.SymmetricDifference(Ptr, nef.Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Returns the complement of N 
+        /// </summary>
+        /// <returns></returns>
         public NefPolyhedron3<K> Complement()
         {
             var ptr = Kernel.Complement(Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Returns the interior of N 
+        /// </summary>
+        /// <returns></returns>
         public NefPolyhedron3<K> Interior()
         {
             var ptr = Kernel.Interior(Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Returns the boundary of N 
+        /// </summary>
+        /// <returns></returns>
         public NefPolyhedron3<K> Boundary()
         {
             var ptr = Kernel.Boundary(Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Returns the closure of N .
+        /// </summary>
+        /// <returns></returns>
         public NefPolyhedron3<K> Closure()
         {
             var ptr = Kernel.Closure(Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Returns the regularization, i.e. the closure of the interior, of N .
+        /// </summary>
+        /// <returns></returns>
         public NefPolyhedron3<K> Regularization()
         {
             var ptr = Kernel.Regularization(Ptr);
             return new NefPolyhedron3<K>(ptr);
         }
 
+        /// <summary>
+        /// Converts N into a triangulated Polyhedron.
+        /// N must be simple to convert.
+        /// </summary>
+        /// <param name="poly">The result of the conversion.</param>
+        /// <returns>True if N is simple and the conversion was successful.</returns>
         public bool ConvertToPolyhedron(out Polyhedron3<K> poly)
         {
             if (IsSimple)
@@ -222,29 +272,64 @@ namespace CGALDotNet.PolyHedra
         /// </summary>
         protected private NefPolyhedronKernel3 Kernel { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int EdgeCount => Kernel.EdgeCount(Ptr);
 
-        public int FacetCount => Kernel.FacetCount(Ptr);
+        /// <summary>
+        /// Return the number of halfedge pairs.
+        /// </summary>
+        public int FaceCount => Kernel.FacetCount(Ptr);
 
+        /// <summary>
+        /// Return the number of halfedges.
+        /// </summary>
         public int HalfEdgeCount => Kernel.HalfEdgeCount(Ptr);
 
-        public int HalfFacetCount => Kernel.HalfFacetCount(Ptr);
+        /// <summary>
+        /// Return the number of faces.
+        /// </summary>
+        public int HalfFaceCount => Kernel.HalfFacetCount(Ptr);
 
+        /// <summary>
+        /// Return the number of vertices.
+        /// </summary>
         public int VertexCount => Kernel.VertexCount(Ptr);
 
+        /// <summary>
+        /// Return the number of volumes.
+        /// </summary>
         public int VolumeCount => Kernel.VolumeCount(Ptr);
 
+        /// <summary>
+        /// Returns true, if N is the empty point set.
+        /// </summary>
         public bool IsEmpty => Kernel.IsEmpty(Ptr);
 
+        /// <summary>
+        /// Rreturns true, if N is a 2-manifold.
+        /// </summary>
         public bool IsSimple => Kernel.IsSimple(Ptr);
 
+        /// <summary>
+        /// Returns true, if N is the complete 3D space.
+        /// </summary>
         public bool IsSpace => Kernel.IsSpace(Ptr);
 
-        public void Clear()
+        /// <summary>
+        /// Make N the empty set if space == EMPTY and the complete 
+        /// 3D space if space == COMPLETE.
+        /// </summary>
+        public void Clear(NEF_CONTENT space = NEF_CONTENT.EMPTY)
         {
-            Kernel.Clear(Ptr);
+            Kernel.Clear(Ptr, space);
         }
 
+        /// <summary>
+        /// Checks the integrity of N.
+        /// </summary>
+        /// <returns></returns>
         public bool IsValid()
         {
             return Kernel.IsValid(Ptr);
@@ -268,7 +353,7 @@ namespace CGALDotNet.PolyHedra
         {
             builder.AppendLine(ToString());
             builder.AppendLine("EdgeCount = " + EdgeCount);
-            builder.AppendLine("HalfFacetCount = " + HalfFacetCount);
+            builder.AppendLine("HalfFaceCount = " + HalfFaceCount);
             builder.AppendLine("VolumeCount = " + VolumeCount);
             builder.AppendLine("IsEmpty = " + IsEmpty);
             builder.AppendLine("IsSimple = " + IsSimple);
