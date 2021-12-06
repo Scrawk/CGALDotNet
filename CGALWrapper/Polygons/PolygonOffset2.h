@@ -151,7 +151,9 @@ public:
 
 		for (HalfEdge edge = iss->halfedges_begin(); edge != iss->halfedges_end(); ++edge)
 		{
-			if ((includeBorder && edge->is_border()) || !edge->is_border())
+			bool isBorder = edge->is_border() || edge->opposite()->is_border();
+
+			if ((includeBorder && isBorder) || !isBorder)
 			{
 				
 				if (set.find(edge->id()) == set.end())

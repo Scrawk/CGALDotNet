@@ -24,7 +24,7 @@ namespace CGALDotNetConsole
 
             var segments = new List<Segment2d>();
 
-            PolygonOffset2<EEK>.Instance.CreateExteriorSkeleton(box, 1, true, segments);
+            PolygonOffset2<EEK>.Instance.CreateInteriorSkeleton(box, true, segments);
 
             foreach (var seg in segments)
                 Console.WriteLine(seg);
