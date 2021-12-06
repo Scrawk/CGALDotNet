@@ -92,6 +92,8 @@ namespace CGALDotNet.Polygons
         /// <param name="results">The skeletons segments.</param>
         public void CreateInteriorSkeleton(Polygon2<K> polygon, bool includeBorder, List<Segment2d> results)
         {
+            CheckPolygon(polygon);
+
             Kernel.CreateInteriorSkeleton(Ptr, polygon.Ptr, includeBorder);
 
             int count = SegmentBufferSize();
@@ -111,6 +113,8 @@ namespace CGALDotNet.Polygons
         /// <param name="results">The skeletons segments.</param>
         public void CreateExteriorSkeleton(Polygon2<K> polygon, double maxOffset, bool includeBorder, List<Segment2d> results)
         {
+            CheckPolygon(polygon);
+
             if (maxOffset <= 0) return;
 
             Kernel.CreateExteriorSkeleton(Ptr, polygon.Ptr, maxOffset, includeBorder);
