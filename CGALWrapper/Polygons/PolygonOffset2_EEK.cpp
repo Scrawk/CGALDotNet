@@ -24,14 +24,34 @@ int PolygonOffset2_EEK_PolygonBufferSize(void* ptr)
 	return PolygonOffset2<EEK>::PolygonBufferSize(ptr);
 }
 
+int PolygonOffset2_EEK_SegmentBufferSize(void* ptr)
+{
+	return PolygonOffset2<EEK>::SegmentBufferSize(ptr);
+}
+
 void PolygonOffset2_EEK_ClearPolygonBuffer(void* ptr)
 {
 	PolygonOffset2<EEK>::ClearPolygonBuffer(ptr);
 }
 
+void PolygonOffset2_EEK_ClearSegmentBuffer(void* ptr)
+{
+	PolygonOffset2<EEK>::ClearSegmentBuffer(ptr);
+}
+
 void* PolygonOffset2_EEK_GetBufferedPolygon(void* ptr, int index)
 {
 	return PolygonOffset2<EEK>::GetBufferedPolygon(ptr, index);
+}
+
+Segment2d PolygonOffset2_EEK_GetSegment(void* ptr, int index)
+{
+	return PolygonOffset2<EEK>::GetSegment(ptr, index);
+}
+
+void PolygonOffset2_EEK_GetSegments(void* ptr, Segment2d* segments, int count)
+{
+	PolygonOffset2<EEK>::GetSegments(ptr, segments, count);
 }
 
 void PolygonOffset2_EEK_CreateInteriorOffset(void* ptr, void* polyPtr, double offset)
@@ -42,6 +62,16 @@ void PolygonOffset2_EEK_CreateInteriorOffset(void* ptr, void* polyPtr, double of
 void PolygonOffset2_EEK_CreateExteriorOffset(void* ptr, void* polyPtr, double offset)
 {
 	PolygonOffset2<EEK>::CreateExteriorOffset(ptr, polyPtr, offset);
+}
+
+void PolygonOffset2_EEK_CreateInteriorSkeleton(void* ptr, void* polyPtr, BOOL includeBorder)
+{
+	PolygonOffset2<EEK>::CreateInteriorSkeleton(ptr, polyPtr, includeBorder);
+}
+
+void PolygonOffset2_EEK_CreateExteriorSkeleton(void* ptr, void* polyPtr, double maxOffset, BOOL includeBorder)
+{
+	PolygonOffset2<EEK>::CreateExteriorSkeleton(ptr, polyPtr, maxOffset, includeBorder);
 }
 
 

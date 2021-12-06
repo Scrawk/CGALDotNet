@@ -20,17 +20,14 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var box1 = PolyhedronFactory<EEK>.CreateCube();
-            box1.Translate(new Point3d(0.5));
+            var box = PolygonFactory<EEK>.CreateBox(-1, 1);
 
-            var box2 = PolyhedronFactory<EEK>.CreateCube();
+            var segments = new List<Segment2d>();
 
-            var nef1 = new NefPolyhedron3<EEK>(box1);
-            var nef2 = new NefPolyhedron3<EEK>(box2);
+            PolygonOffset2<EEK>.Instance.CreateExteriorSkeleton(box, 1, true, segments);
 
-            var nef3 = nef1.Join(nef2);
-
-            nef3.Print();
+            foreach (var seg in segments)
+                Console.WriteLine(seg);
 
         }
 

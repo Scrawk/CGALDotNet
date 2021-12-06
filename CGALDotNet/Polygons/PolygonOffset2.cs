@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNet.Geometry;
+
 namespace CGALDotNet.Polygons
 {
     /// <summary>
@@ -36,17 +38,17 @@ namespace CGALDotNet.Polygons
 
             Kernel.CreateInteriorOffset(Ptr, polygon.Ptr, offset);
 
-            int count = BufferSize();
+            int count = PolygonBufferSize();
             if (count > 0)
             {
                 var ptr = GetBufferedPolygon(0);
                 result = new Polygon2<K>(ptr);
-                ClearBuffer();
+                ClearPolygonBuffer();
                 return true;
             }
             else
             {
-                ClearBuffer();
+                ClearPolygonBuffer();
                 return false;
             }
         }
@@ -64,7 +66,7 @@ namespace CGALDotNet.Polygons
 
             Kernel.CreateExteriorOffset(Ptr, polygon.Ptr, offset);
 
-            int count = BufferSize();
+            int count = PolygonBufferSize();
 
             //First polygon seems to be the bounding box
             //for some reason. Dont want this so remove.
@@ -72,16 +74,54 @@ namespace CGALDotNet.Polygons
             {
                 var ptr = GetBufferedPolygon(1);
                 result = new Polygon2<K>(ptr);
-                ClearBuffer();
+                ClearPolygonBuffer();
                 return true;
             }
             else
             {
-                ClearBuffer();
+                ClearPolygonBuffer();
                 return false;
             }
         }
 
+        /// <summary>
+        /// Create the interior skeleton of the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="includeBorder">Should the polygon be included as the border.</param>
+        /// <param name="results">The skeletons segments.</param>
+        public void CreateInteriorSkeleton(Polygon2<K> polygon, bool includeBorder, List<Segment2d> results)
+        {
+            Kernel.CreateInteriorSkeleton(Ptr, polygon.Ptr, includeBorder);
+
+            int count = SegmentBufferSize();
+
+            for (int i = 0; i < count; i++)
+                results.Add(GetBufferedSegment(i));
+
+            ClearSegmentBuffer();
+        }
+
+        /// <summary>
+        /// Create the exterior skeleton of the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="maxOffset">The bounding boxes offset from the polygons edges. Must be > 0.</param>
+        /// <param name="includeBorder">Should the polygon be included as the border.</param>
+        /// <param name="results">The skeletons segments.</param>
+        public void CreateExteriorSkeleton(Polygon2<K> polygon, double maxOffset, bool includeBorder, List<Segment2d> results)
+        {
+            if (maxOffset <= 0) return;
+
+            Kernel.CreateExteriorSkeleton(Ptr, polygon.Ptr, maxOffset, includeBorder);
+
+            int count = SegmentBufferSize();
+
+            for (int i = 0; i < count; i++)
+                results.Add(GetBufferedSegment(i));
+
+            ClearSegmentBuffer();
+        }
     }
 
     /// <summary>
@@ -123,9 +163,18 @@ namespace CGALDotNet.Polygons
         /// Get the number off polygons in the buffer.
         /// </summary>
         /// <returns></returns>
-        protected int BufferSize()
+        protected int PolygonBufferSize()
         {
             return Kernel.PolygonBufferSize(Ptr);
+        }
+
+        /// <summary>
+        /// The size of the segment buffer.
+        /// </summary>
+        /// <returns>The number of segments in the buffer.</returns>
+        protected int SegmentBufferSize()
+        {
+            return Kernel.SegmentBufferSize(Ptr);
         }
 
         /// <summary>
@@ -139,11 +188,29 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Clear the buffer.
+        /// Get the segment from buffer.
         /// </summary>
-        protected void ClearBuffer()
+        /// <param name="index">The segments index.</param>
+        /// <returns>The segment.</returns>
+        protected Segment2d GetBufferedSegment(int index)
+        {
+            return Kernel.GetSegment(Ptr, index);
+        }
+
+        /// <summary>
+        /// Clear the polygon buffer.
+        /// </summary>
+        protected void ClearPolygonBuffer()
         {
             Kernel.ClearPolygonBuffer(Ptr);
+        }
+
+        /// <summary>
+        /// Clear the segment buffer.
+        /// </summary>
+        protected void ClearSegmentBuffer()
+        {
+            Kernel.ClearSegmentBuffer(Ptr);
         }
 
         /// <summary>

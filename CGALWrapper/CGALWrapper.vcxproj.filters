@@ -201,16 +201,10 @@
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Polygons\Polygon2_EIK.h">
-      <Filter>Header Files\Polygons</Filter>
-    </ClInclude>
     <ClInclude Include="Polygons\PolygonMinkowski.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
     <ClInclude Include="Polygons\PolygonMinkowski_EEK.h">
-      <Filter>Header Files\Polygons</Filter>
-    </ClInclude>
-    <ClInclude Include="Polygons\PolygonOffset2_EIK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
     <ClInclude Include="Polygons\PolygonVisibility_EEK.h">
@@ -308,13 +302,7 @@
     <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="Polygons\PolygonOffset2_EIK.cpp">
-      <Filter>Source Files\Polygons</Filter>
-    </ClCompile>
     <ClCompile Include="Polygons\PolygonVisibility_EEK.cpp">
-      <Filter>Source Files\Polygons</Filter>
-    </ClCompile>
-    <ClCompile Include="Polygons\Polygon2_EIK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
     <ClCompile Include="Meshing\ConformingTriangulation2_EEK.cpp">

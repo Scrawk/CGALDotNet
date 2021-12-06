@@ -26,14 +26,34 @@ namespace CGALDotNet.Polygons
             return PolygonOffset2_EEK_PolygonBufferSize(ptr);
         }
 
+        internal override int SegmentBufferSize(IntPtr ptr)
+        {
+            return PolygonOffset2_EEK_SegmentBufferSize(ptr);
+        }
+
         internal override void ClearPolygonBuffer(IntPtr ptr)
         {
             PolygonOffset2_EEK_ClearPolygonBuffer(ptr);
         }
 
+        internal override void ClearSegmentBuffer(IntPtr ptr)
+        {
+            PolygonOffset2_EEK_ClearSegmentBuffer(ptr);
+        }
+
         internal override IntPtr GetBufferedPolygon(IntPtr ptr, int index)
         {
             return PolygonOffset2_EEK_GetBufferedPolygon(ptr, index);
+        }
+
+        internal override Segment2d GetSegment(IntPtr ptr, int index)
+        {
+            return PolygonOffset2_EEK_GetSegment(ptr, index);
+        }
+
+        internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int count)
+        {
+            PolygonOffset2_EEK_GetSegments(ptr, segments, count);
         }
 
         internal override void CreateInteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset)
@@ -46,6 +66,16 @@ namespace CGALDotNet.Polygons
             PolygonOffset2_EEK_CreateExteriorOffset(ptr, polyPtr, offset);
         }
 
+        internal override void CreateInteriorSkeleton(IntPtr ptr, IntPtr polyPtr, bool includeBorder)
+        {
+            PolygonOffset2_EEK_CreateInteriorSkeleton(ptr, polyPtr, includeBorder);
+        }
+
+        internal override void CreateExteriorSkeleton(IntPtr ptr, IntPtr polyPtr, double maxOffset, bool includeBorder)
+        {
+            PolygonOffset2_EEK_CreateExteriorSkeleton(ptr, polyPtr, maxOffset, includeBorder);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonOffset2_EEK_Create();
 
@@ -56,16 +86,36 @@ namespace CGALDotNet.Polygons
         private static extern int PolygonOffset2_EEK_PolygonBufferSize(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonOffset2_EEK_SegmentBufferSize(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonOffset2_EEK_ClearPolygonBuffer(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_ClearSegmentBuffer(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonOffset2_EEK_GetBufferedPolygon(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern Segment2d PolygonOffset2_EEK_GetSegment(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonOffset2_EEK_CreateInteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonOffset2_EEK_CreateExteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_CreateInteriorSkeleton(IntPtr ptr, IntPtr polyPtr, bool includeBorder);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_CreateExteriorSkeleton(IntPtr ptr, IntPtr polyPtr, double maxOffset, bool includeBorder);
+
+
 
     }
 }
