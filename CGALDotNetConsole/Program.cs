@@ -20,15 +20,9 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var box = PolygonFactory<EEK>.CreateBox(-1, 1);
+            var box = PolygonFactory<EIK>.CreateBox(-1, 1);
 
-            var segments = new List<Segment2d>();
-
-            PolygonOffset2<EEK>.Instance.CreateInteriorSkeleton(box, true, segments);
-
-            foreach (var seg in segments)
-                Console.WriteLine(seg);
-
+            box.Print();
         }
 
         public class BenckMark

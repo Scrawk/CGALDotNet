@@ -95,7 +95,6 @@ namespace CGALDotNet.Polygons
             }
             else
             {
-                ErrorUtil.CheckBounds(index, HoleCount);
                 return new Polygon2<K>(Kernel.CopyPolygon(Ptr, index));
             }
         }
@@ -104,9 +103,12 @@ namespace CGALDotNet.Polygons
         /// Add a hole from a set of points.
         /// </summary>
         /// <param name="points">A CW set of points.</param>
-        public void AddHole(Point2d[] points)
+        /// <param name="count">The ararys length.</param>
+        public void AddHole(Point2d[] points, int count)
         {
-            AddHole(new Polygon2<K>(points));
+            var hole = new Polygon2<K>();
+            hole.SetPoints(points, count);
+            AddHole(hole);
         }
 
         /// <summary>

@@ -169,7 +169,7 @@ namespace CGALDotNetTest.Polygons
             var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             var points = new Point2d[4];
-            poly.GetPoints(points);
+            poly.GetPoints(points, points.Length);
 
             CollectionAssert.AreEqual(expected, points);
         }
@@ -193,7 +193,7 @@ namespace CGALDotNetTest.Polygons
             var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
 
             var segments = new Segment2d[4];
-            poly.GetSegments(segments);
+            poly.GetSegments(segments, segments.Length);
 
             CollectionAssert.AreEqual(expected, segments);
         }
@@ -228,10 +228,10 @@ namespace CGALDotNetTest.Polygons
                 new Point2d(-2, 2)
             };
 
-            poly.SetPoints(expected);
+            poly.SetPoints(expected, expected.Length);
 
             var points = new Point2d[6];
-            poly.GetPoints(points);
+            poly.GetPoints(points, points.Length);
 
             CollectionAssert.AreEqual(expected, points);
         }

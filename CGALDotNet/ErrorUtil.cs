@@ -6,20 +6,25 @@ namespace CGALDotNet
 {
     internal static class ErrorUtil
     {
-
-        internal static void CheckBounds(int index, int count)
+        /// <summary>
+        /// Check a array that is passed to the c++ dll.
+        /// If the array is invalid it will cause a hard crash.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="count"></param>
+        internal static void CheckArray(Array array, int count)
         {
-            if (index < 0 || index >= count)
-                throw new ArgumentOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.");
-        }
+            if(array == null)
+                throw new InvalidArrayExeception("Array is null.");
 
-        internal static void CheckBounds(Array array, int index, int count)
-        {
-            if (index < 0 || index >= count)
-                throw new ArgumentOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.");
+            if (array.Length == 0)
+                throw new InvalidArrayExeception("Array length can not be zero.");
 
-            if (index >= array.Length)
-                throw new ArgumentOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.");
+            if (count <= 0)
+                throw new InvalidArrayExeception("Count must be greater trhan zero.");
+
+            if (array.Length < count)
+                throw new InvalidArrayExeception("Array length is less than count.");
         }
     }
 
@@ -35,6 +40,23 @@ namespace CGALDotNet
         }
 
         public CGALUnmanagedResourcesReleasedExeception(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
+
+    public class InvalidArrayExeception : Exception
+    {
+        public InvalidArrayExeception()
+        {
+        }
+
+        public InvalidArrayExeception(string message)
+            : base(message)
+        {
+        }
+
+        public InvalidArrayExeception(string message, Exception inner)
             : base(message, inner)
         {
         }

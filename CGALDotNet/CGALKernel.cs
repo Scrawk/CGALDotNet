@@ -62,7 +62,7 @@ namespace CGALDotNet
 
         internal override GeometryKernel2 GeometryKernel2 => throw new NotImplementedException();
 
-        internal override PolygonKernel2 PolygonKernel2 => throw new NotImplementedException();
+        internal override PolygonKernel2 PolygonKernel2 => PolygonKernel2_EIK.Instance;
 
         internal override PolygonWithHolesKernel2 PolygonWithHolesKernel2 => throw new NotImplementedException();
 

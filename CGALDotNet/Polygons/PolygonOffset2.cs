@@ -114,7 +114,6 @@ namespace CGALDotNet.Polygons
         public void CreateExteriorSkeleton(Polygon2<K> polygon, double maxOffset, bool includeBorder, List<Segment2d> results)
         {
             CheckPolygon(polygon);
-
             if (maxOffset <= 0) return;
 
             Kernel.CreateExteriorSkeleton(Ptr, polygon.Ptr, maxOffset, includeBorder);

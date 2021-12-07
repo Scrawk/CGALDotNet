@@ -140,8 +140,7 @@ namespace CGALDotNet.Polygons
         {
             Kernel = kernel.PolygonKernel2;
             Ptr = Kernel.Create();
-            SetPoints(points);
-            Count = points.Length;
+            SetPoints(points, points.Length);
             Update();
         }
 
@@ -288,9 +287,11 @@ namespace CGALDotNet.Polygons
         /// Get all the points in the polygon.
         /// </summary>
         /// <param name="points">The point array to copy the data into.</param>
-        public void GetPoints(Point2d[] points)
+        /// <param name="count">The array length.</param>
+        public void GetPoints(Point2d[] points, int count)
         {
-            Kernel.GetPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetPoints(Ptr, points, count);
         }
 
         /// <summary>
@@ -307,9 +308,11 @@ namespace CGALDotNet.Polygons
         /// Get all the polygon segments.
         /// </summary>
         /// <param name="segments">The segment array to copy the data into.</param>
-        public void GetSegments(Segment2d[] segments)
+        /// <param name="count">The array length.</param>
+        public void GetSegments(Segment2d[] segments, int count)
         {
-            Kernel.GetSegments(Ptr, segments, segments.Length);
+            ErrorUtil.CheckArray(segments, count);
+            Kernel.GetSegments(Ptr, segments, count);
         }
 
         /// <summary>
@@ -329,10 +332,12 @@ namespace CGALDotNet.Polygons
         /// the new points will be appended to end of polygon.
         /// </summary>
         /// <param name="points">The points array.</param>
-        public void SetPoints(Point2d[] points)
+        /// <param name="count">The array length.</param>
+        public void SetPoints(Point2d[] points, int count)
         {
-            Kernel.SetPoints(Ptr, points, points.Length);
-            Count = points.Length;
+            ErrorUtil.CheckArray(points, count);
+            Kernel.SetPoints(Ptr, points, count);
+            Count = count;
             IsUpdated = false;
         }
 
@@ -526,7 +531,7 @@ namespace CGALDotNet.Polygons
         public Point2d[] ToArray()
         {
             var points = new Point2d[Count];
-            GetPoints(points);
+            GetPoints(points, points.Length);
             return points;
         }
 

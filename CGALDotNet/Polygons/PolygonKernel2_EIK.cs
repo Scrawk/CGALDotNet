@@ -8,206 +8,206 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Polygons
 {
 
-    internal class PolygonKernel2_EEK : PolygonKernel2
+    internal class PolygonKernel2_EIK : PolygonKernel2
     {
 
-        internal static readonly PolygonKernel2 Instance = new PolygonKernel2_EEK();
+        internal static readonly PolygonKernel2 Instance = new PolygonKernel2_EIK();
 
         internal override IntPtr Create()
         {
-            return Polygon2_EEK_Create();
+            return Polygon2_EIK_Create();
         }
 
         internal override void Release(IntPtr ptr)
         {
-            Polygon2_EEK_Release(ptr);
+            Polygon2_EIK_Release(ptr);
         }
 
         internal override int Count(IntPtr ptr)
         {
-            return Polygon2_EEK_Count(ptr);
+            return Polygon2_EIK_Count(ptr);
         }
 
         internal override IntPtr Copy(IntPtr ptr)
         {
-            return Polygon2_EEK_Copy(ptr);
+            return Polygon2_EIK_Copy(ptr);
         }
 
         internal override Box2d GetBoundingBox(IntPtr ptr)
         {
-            return Polygon2_EEK_GetBoundingBox(ptr);
+            return Polygon2_EIK_GetBoundingBox(ptr);
         }
 
         internal override void Clear(IntPtr ptr)
         {
-            Polygon2_EEK_Copy(ptr);
+            Polygon2_EIK_Copy(ptr);
         }
 
         internal override Point2d GetPoint(IntPtr ptr, int index)
         {
-            return Polygon2_EEK_GetPoint(ptr, index);
+            return Polygon2_EIK_GetPoint(ptr, index);
         }
 
         internal override void GetPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            Polygon2_EEK_GetPoints(ptr, points, count);
+            Polygon2_EIK_GetPoints(ptr, points, count);
         }
 
         internal override void GetSegments(IntPtr ptr, Segment2d[] segments, int count)
         {
-            Polygon2_EEK_GetSegments(ptr, segments, count);
+            Polygon2_EIK_GetSegments(ptr, segments, count);
         }
 
         internal override void SetPoint(IntPtr ptr, int index, Point2d point)
         {
-            Polygon2_EEK_SetPoint(ptr, index, point);
+            Polygon2_EIK_SetPoint(ptr, index, point);
         }
 
         internal override void SetPoints(IntPtr ptr, Point2d[] points, int count)
         {
-            Polygon2_EEK_SetPoints(ptr, points, count);
+            Polygon2_EIK_SetPoints(ptr, points, count);
         }
 
         internal override void Reverse(IntPtr ptr)
         {
-            Polygon2_EEK_Reverse(ptr);
+            Polygon2_EIK_Reverse(ptr);
         }
 
         internal override bool IsSimple(IntPtr ptr)
         {
-            return Polygon2_EEK_IsSimple(ptr);
+            return Polygon2_EIK_IsSimple(ptr);
         }
 
         internal override bool IsConvex(IntPtr ptr)
         {
-            return Polygon2_EEK_IsConvex(ptr);
+            return Polygon2_EIK_IsConvex(ptr);
         }
 
         internal override ORIENTATION Orientation(IntPtr ptr)
         {
-            return Polygon2_EEK_Orientation(ptr);
+            return Polygon2_EIK_Orientation(ptr);
         }
 
         internal override ORIENTED_SIDE OrientedSide(IntPtr ptr, Point2d point)
         {
-            return Polygon2_EEK_OrientedSide(ptr, point);
+            return Polygon2_EIK_OrientedSide(ptr, point);
         }
 
         internal override BOUNDED_SIDE BoundedSide(IntPtr ptr, Point2d point)
         {
-            return Polygon2_EEK_BoundedSide(ptr, point);
+            return Polygon2_EIK_BoundedSide(ptr, point);
         }
 
         internal override double SignedArea(IntPtr ptr)
         {
-            return Polygon2_EEK_SignedArea(ptr);
+            return Polygon2_EIK_SignedArea(ptr);
         }
 
         internal override void Translate(IntPtr ptr, Point2d translation)
         {
-            Polygon2_EEK_Translate(ptr, translation);
+            Polygon2_EIK_Translate(ptr, translation);
         }
 
         internal override void Rotate(IntPtr ptr, double rotation)
         {
-            Polygon2_EEK_Rotate(ptr, rotation);
+            Polygon2_EIK_Rotate(ptr, rotation);
         }
 
         internal override void Scale(IntPtr ptr, double scale)
         {
-            Polygon2_EEK_Scale(ptr, scale);
+            Polygon2_EIK_Scale(ptr, scale);
         }
 
         internal override void Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
         {
-            Polygon2_EEK_Transform(ptr,  translation, rotation, scale);
+            Polygon2_EIK_Transform(ptr, translation, rotation, scale);
         }
 
         internal override bool ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary)
         {
-            return Polygon2_EEK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
+            return Polygon2_EIK_ContainsPoint(ptr, point, orientation, inculdeBoundary);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Polygon2_EEK_Create();
+        private static extern IntPtr Polygon2_EIK_Create();
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_Release(IntPtr ptr);
+        private static extern void Polygon2_EIK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int Polygon2_EEK_Count(IntPtr ptr);
+        private static extern int Polygon2_EIK_Count(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Polygon2_EEK_Copy(IntPtr ptr);
+        private static extern IntPtr Polygon2_EIK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Box2d Polygon2_EEK_GetBoundingBox(IntPtr ptr);
+        private static extern Box2d Polygon2_EIK_GetBoundingBox(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_Clear(IntPtr ptr);
+        private static extern void Polygon2_EIK_Clear(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d Polygon2_EEK_GetPoint(IntPtr ptr, int index);
+        private static extern Point2d Polygon2_EIK_GetPoint(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int count);
+        private static extern void Polygon2_EIK_GetPoints(IntPtr ptr, [Out] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int count);
+        private static extern void Polygon2_EIK_GetSegments(IntPtr ptr, [Out] Segment2d[] segments, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_SetPoint(IntPtr ptr, int index, Point2d point);
+        private static extern void Polygon2_EIK_SetPoint(IntPtr ptr, int index, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_SetPoints(IntPtr ptr, [In] Point2d[] points, int count);
+        private static extern void Polygon2_EIK_SetPoints(IntPtr ptr, [In] Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d Polygon2_EEK_TopVertex(IntPtr ptr);
+        private static extern Point2d Polygon2_EIK_TopVertex(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d Polygon2_EEK_BottomVertex(IntPtr ptr);
+        private static extern Point2d Polygon2_EIK_BottomVertex(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d Polygon2_EEK_RightVertex(IntPtr ptr);
+        private static extern Point2d Polygon2_EIK_RightVertex(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d Polygon2_EEK_LeftVertex(IntPtr ptr);
+        private static extern Point2d Polygon2_EIK_LeftVertex(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_Reverse(IntPtr ptr);
+        private static extern void Polygon2_EIK_Reverse(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool Polygon2_EEK_IsSimple(IntPtr ptr);
+        private static extern bool Polygon2_EIK_IsSimple(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool Polygon2_EEK_IsConvex(IntPtr ptr);
+        private static extern bool Polygon2_EIK_IsConvex(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION Polygon2_EEK_Orientation(IntPtr ptr);
+        private static extern ORIENTATION Polygon2_EIK_Orientation(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTED_SIDE Polygon2_EEK_OrientedSide(IntPtr ptr, Point2d point);
+        private static extern ORIENTED_SIDE Polygon2_EIK_OrientedSide(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern BOUNDED_SIDE Polygon2_EEK_BoundedSide(IntPtr ptr, Point2d point);
+        private static extern BOUNDED_SIDE Polygon2_EIK_BoundedSide(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern double Polygon2_EEK_SignedArea(IntPtr ptr);
+        private static extern double Polygon2_EIK_SignedArea(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_Translate(IntPtr ptr, Point2d translation);
+        private static extern void Polygon2_EIK_Translate(IntPtr ptr, Point2d translation);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_Rotate(IntPtr ptr, double rotation);
+        private static extern void Polygon2_EIK_Rotate(IntPtr ptr, double rotation);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_Scale(IntPtr ptr, double scale);
+        private static extern void Polygon2_EIK_Scale(IntPtr ptr, double scale);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Polygon2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+        private static extern void Polygon2_EIK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool Polygon2_EEK_ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary);
+        private static extern bool Polygon2_EIK_ContainsPoint(IntPtr ptr, Point2d point, ORIENTATION orientation, bool inculdeBoundary);
 
     }
 }
