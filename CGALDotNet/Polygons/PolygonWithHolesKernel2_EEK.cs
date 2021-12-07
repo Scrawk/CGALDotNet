@@ -79,6 +79,11 @@ namespace CGALDotNet.Polygons
             PolygonWithHoles2_EEK_AddHoleFromPolygon(pwhPtr, polygonPtr);
         }
 
+        internal override void AddHoleFromPoints(IntPtr ptr, Point2d[] points, int count)
+        {
+            PolygonWithHoles2_EEK_AddHoleFromPoints(ptr, points, count);
+        }
+
         internal override void RemoveHole(IntPtr ptr, int index)
         {
             PolygonWithHoles2_EEK_RemoveHole(ptr, index);
@@ -200,6 +205,9 @@ namespace CGALDotNet.Polygons
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonWithHoles2_EEK_AddHoleFromPoints(IntPtr ptr, Point2d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_RemoveHole(IntPtr ptr, int index);

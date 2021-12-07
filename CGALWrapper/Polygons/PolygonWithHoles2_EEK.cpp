@@ -61,7 +61,7 @@ void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, 
 	PolygonWithHoles2<EEK>::GetPoints(ptr, points, polyIndex, count);
 }
 
-void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point)
+void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, const Point2d& point)
 {
 	PolygonWithHoles2<EEK>::SetPoint(ptr, polyIndex, pointIndex, point);
 }
@@ -74,6 +74,11 @@ void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, 
 void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr)
 {
 	PolygonWithHoles2<EEK>::AddHoleFromPolygon(pwhPtr, polygonPtr);
+}
+
+void PolygonWithHoles2_EEK_AddHoleFromPoints(void* ptr, Point2d* points, int count)
+{
+	PolygonWithHoles2<EEK>::AddHoleFromPoints(ptr, points, count);
 }
 
 void PolygonWithHoles2_EEK_RemoveHole(void* ptr, int index)
@@ -116,7 +121,7 @@ CGAL::Orientation PolygonWithHoles2_EEK_Orientation(void* ptr, int index)
 	return PolygonWithHoles2<EEK>::Orientation(ptr, index);
 }
 
-CGAL::Oriented_side PolygonWithHoles2_EEK_OrientedSide(void* ptr, int index, Point2d point)
+CGAL::Oriented_side PolygonWithHoles2_EEK_OrientedSide(void* ptr, int index, const Point2d& point)
 {
 	return PolygonWithHoles2<EEK>::OrientedSide(ptr, index, point);
 }
@@ -126,7 +131,7 @@ double PolygonWithHoles2_EEK_SignedArea(void* ptr, int index)
 	return PolygonWithHoles2<EEK>::SignedArea(ptr, index);
 }
 
-void PolygonWithHoles2_EEK_Translate(void* ptr, int index, Point2d translation)
+void PolygonWithHoles2_EEK_Translate(void* ptr, int index, const Point2d& translation)
 {
 	PolygonWithHoles2<EEK>::Translate(ptr, index, translation);
 }
@@ -141,12 +146,12 @@ void PolygonWithHoles2_EEK_Scale(void* ptr, int index, double scale)
 	PolygonWithHoles2<EEK>::Scale(ptr, index, scale);
 }
 
-void PolygonWithHoles2_EEK_Transform(void* ptr, int index, Point2d translation, double rotation, double scale)
+void PolygonWithHoles2_EEK_Transform(void* ptr, int index, const Point2d& translation, double rotation, double scale)
 {
 	PolygonWithHoles2<EEK>::Transform(ptr, index, translation, rotation, scale);
 }
 
-BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary)
 {
 	return PolygonWithHoles2<EEK>::ContainsPoint(ptr, point, orientation, inculdeBoundary);
 }

@@ -31,11 +31,13 @@ extern "C"
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_GetPoints(void* ptr, Point2d* points, int polyIndex, int count);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point);
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoint(void* ptr, int polyIndex, int pointIndex, const Point2d& point);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_SetPoints(void* ptr, Point2d* points, int polyIndex, int count);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_AddHoleFromPolygon(void* pwhPtr, void* polygonPtr);
+
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_AddHoleFromPoints(void* ptr, Point2d* points, int count);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_RemoveHole(void* ptr, int index);
 
@@ -53,19 +55,19 @@ extern "C"
 
 	CGALWRAPPER_API CGAL::Orientation PolygonWithHoles2_EEK_Orientation(void* ptr, int index);
 
-	CGALWRAPPER_API CGAL::Oriented_side PolygonWithHoles2_EEK_OrientedSide(void* ptr, int index, Point2d point);
+	CGALWRAPPER_API CGAL::Oriented_side PolygonWithHoles2_EEK_OrientedSide(void* ptr, int index, const Point2d& point);
 
 	CGALWRAPPER_API double PolygonWithHoles2_EEK_SignedArea(void* ptr, int index);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_Translate(void* ptr, int index, Point2d translation);
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_Translate(void* ptr, int index, const Point2d& translation);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_Rotate(void* ptr, int index, double rotation);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_Scale(void* ptr, int index, double scale);
 
-	CGALWRAPPER_API void PolygonWithHoles2_EEK_Transform(void* ptr, int index, Point2d translation, double rotation, double scale);
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_Transform(void* ptr, int index, const Point2d& translation, double rotation, double scale);
 
-	CGALWRAPPER_API BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary);
+	CGALWRAPPER_API BOOL PolygonWithHoles2_EEK_ContainsPoint(void* ptr, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary);
 
 	CGALWRAPPER_API void* PolygonWithHoles2_EEK_ConnectHoles(void* ptr);
 }

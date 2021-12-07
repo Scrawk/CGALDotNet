@@ -203,14 +203,14 @@ namespace CGALDotNetTest.Polygons
             int count = poly.PointCount(POLYGON_ELEMENT.BOUNDARY);
             var tmp = new Point2d[count];
 
-            poly.GetPoints(POLYGON_ELEMENT.BOUNDARY, tmp);
+            poly.GetPoints(POLYGON_ELEMENT.BOUNDARY, tmp, tmp.Length);
 
             CollectionAssert.AreEqual(boundary, tmp);
 
             count = poly.PointCount(POLYGON_ELEMENT.HOLE, 0);
             tmp = new Point2d[count];
 
-            poly.GetPoints(POLYGON_ELEMENT.HOLE, tmp, 0);
+            poly.GetPoints(POLYGON_ELEMENT.HOLE, tmp, tmp.Length, 0);
 
             CollectionAssert.AreEqual(hole, tmp);
         }

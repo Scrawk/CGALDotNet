@@ -152,7 +152,7 @@ public:
 		}
 	}
 
-	static void SetPoint(void* ptr, int polyIndex, int pointIndex, Point2d point)
+	static void SetPoint(void* ptr, int polyIndex, int pointIndex, const Point2d& point)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
@@ -188,6 +188,17 @@ public:
 		auto pwh = (Pwh_2*)pwhPtr;
 		auto polygon = (Polygon_2*)polygonPtr;
 		pwh->add_hole(*polygon);
+	}
+
+	static void AddHoleFromPoints(void* ptr, Point2d* points, int count)
+	{
+		auto pwh = (Pwh_2*)ptr;
+		auto polygon = Polygon_2();
+
+		for (int i = 0; i < count; i++)
+			polygon.push_back(points[i].ToCGAL<K>());
+
+		pwh->add_hole(polygon);
 	}
 
 	static void RemoveHole(void* ptr, int index)
@@ -257,11 +268,11 @@ public:
 			return CGAL::Orientation::DEGENERATE;
 	}
 
-	static CGAL::Oriented_side OrientedSide(void* ptr, int index, Point2d point)
+	static CGAL::Oriented_side OrientedSide(void* ptr, int index, const Point2d& point)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
 		if (polygon != nullptr && polygon->is_simple())
-			return polygon->oriented_side(point.ToCGAL<EEK>());
+			return polygon->oriented_side(point.ToCGAL<K>());
 		else
 			return CGAL::Oriented_side::DEGENERATE;
 	}
@@ -275,7 +286,7 @@ public:
 			return 0;
 	}
 
-	static void Translate(void* ptr, int index, Point2d translation)
+	static void Translate(void* ptr, int index, const Point2d& translation)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
 		if (polygon != nullptr)
@@ -305,7 +316,7 @@ public:
 		}
 	}
 
-	static void Transform(void* ptr, int index, Point2d translation, double rotation, double scale)
+	static void Transform(void* ptr, int index, const Point2d& translation, double rotation, double scale)
 	{
 		auto polygon = GetBoundaryOrHole(ptr, index);
 		if (polygon != nullptr)
@@ -318,7 +329,7 @@ public:
 		}
 	}
 
-	static BOOL ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	static BOOL ContainsPoint(void* ptr, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary)
 	{
 		auto pwh = CastToPolygonWithHoles2(ptr);
 		auto& boundary = pwh->outer_boundary();
@@ -339,7 +350,7 @@ public:
 		}
 	}
 
-	static BOOL ContainsPoint(Pwh_2& pwh, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	static BOOL ContainsPoint(Pwh_2& pwh, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary)
 	{
 		auto& boundary = pwh.outer_boundary();
 
@@ -371,7 +382,7 @@ public:
 
 private:
 
-	static BOOL ContainsPoint(Polygon_2& polygon, bool isBoundary, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	static BOOL ContainsPoint(Polygon_2& polygon, bool isBoundary, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary)
 	{
 		auto side = polygon.oriented_side(point.ToCGAL<K>());
 

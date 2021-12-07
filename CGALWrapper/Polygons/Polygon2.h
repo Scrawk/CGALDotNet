@@ -136,7 +136,7 @@ public:
 		auto polygon = CastToPolygon2(ptr);
 		auto size = polygon->size();
 
-		for (auto i = 0; i < count; i++)
+		for (int i = 0; i < count; i++)
 		{
 			if (i < size)
 				(*polygon)[i] = points[i].ToCGAL<K>();

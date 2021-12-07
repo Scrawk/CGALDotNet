@@ -100,18 +100,6 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Add a hole from a set of points.
-        /// </summary>
-        /// <param name="points">A CW set of points.</param>
-        /// <param name="count">The ararys length.</param>
-        public void AddHole(Point2d[] points, int count)
-        {
-            var hole = new Polygon2<K>();
-            hole.SetPoints(points, count);
-            AddHole(hole);
-        }
-
-        /// <summary>
         /// Create a copy of boundary and hole polygons.
         /// </summary>
         /// <returns>The list of polygons.</returns>
@@ -292,6 +280,34 @@ namespace CGALDotNet.Polygons
         protected private PolygonWithHolesKernel2 Kernel { get; private set; }
 
         /// <summary>
+        /// Valid polygon with holes must have a simple and ccw boundary
+        /// and all holes must be simple and cw.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsValid()
+        {
+            if(!IsUnbounded)
+            {
+                if (!FindIfSimple(POLYGON_ELEMENT.BOUNDARY))
+                    return false;
+
+                if (FindOrientation(POLYGON_ELEMENT.BOUNDARY) != ORIENTATION.POSITIVE)
+                    return false;
+            }
+
+            for(int i = 0; i < HoleCount; i++)
+            {
+                if (!FindIfSimple(POLYGON_ELEMENT.HOLE, i))
+                    return false;
+
+                if (FindOrientation(POLYGON_ELEMENT.HOLE, i) != ORIENTATION.NEGATIVE)
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Clear the polygon.
         /// </summary>
         public void Clear()
@@ -368,9 +384,12 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="element">The element type.</param>
         /// <param name="points">The point array to copy points into.</param>
+        /// <param name="count">The ararys length.</param>
         /// <param name="holeIndex">If element type is a hole this is the holes index.</param>
-        public void GetPoints(POLYGON_ELEMENT element, Point2d[] points, int holeIndex = 0)
+        public void GetPoints(POLYGON_ELEMENT element, Point2d[] points, int count, int holeIndex = 0)
         {
+            ErrorUtil.CheckArray(points, count);
+
             if (element == POLYGON_ELEMENT.BOUNDARY)
                 Kernel.GetPoints(Ptr, points, BOUNDARY_INDEX, points.Length);
             else
@@ -386,14 +405,14 @@ namespace CGALDotNet.Polygons
         {
             int count = PointCount(POLYGON_ELEMENT.BOUNDARY);
             var arr = new Point2d[count];
-            GetPoints(POLYGON_ELEMENT.BOUNDARY, arr);
+            GetPoints(POLYGON_ELEMENT.BOUNDARY, arr, arr.Length);
             points.AddRange(arr);
 
             for(int i = 0; i < HoleCount; i++)
             {
                 count = PointCount(POLYGON_ELEMENT.HOLE, i);
                 arr = new Point2d[count];
-                GetPoints(POLYGON_ELEMENT.HOLE, arr, i);
+                GetPoints(POLYGON_ELEMENT.HOLE, arr, arr.Length, i);
                 points.AddRange(arr);
             }
         }
@@ -419,9 +438,12 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="element">The element type.</param>
         /// <param name="points">The points to set.</param>
+        /// <param name="count">The ararys length.</param>
         /// <param name="holeIndex">If element type is a hole this is the holes index.</param>
-        public void SetPoints(POLYGON_ELEMENT element, Point2d[] points, int holeIndex = 0)
+        public void SetPoints(POLYGON_ELEMENT element, Point2d[] points, int count, int holeIndex = 0)
         {
+            ErrorUtil.CheckArray(points, count);
+
             if (element == POLYGON_ELEMENT.BOUNDARY)
                 Kernel.SetPoints(Ptr, points, BOUNDARY_INDEX, points.Length);
             else
@@ -436,6 +458,18 @@ namespace CGALDotNet.Polygons
         public void AddHole(Polygon2 polygon)
         {
             Kernel.AddHoleFromPolygon(Ptr, polygon.Ptr);
+            HoleCount++;
+        }
+
+        /// <summary>
+        /// Add a hole from a set of points.
+        /// </summary>
+        /// <param name="points">A CW set of points.</param>
+        /// <param name="count">The ararys length.</param>
+        public void AddHole(Point2d[] points, int count)
+        {
+            ErrorUtil.CheckArray(points, count);
+            Kernel.AddHoleFromPoints(Ptr, points, count);
             HoleCount++;
         }
 
@@ -736,29 +770,6 @@ namespace CGALDotNet.Polygons
                 builder.AppendLine("Hole " + i + " is signed area = " + FindSignedArea(element, i));
                 builder.AppendLine();
             }
-        }
-
-        /// <summary>
-        /// Is this polygon a valid boundary.
-        /// Must be simple and ccw.
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        public static bool IsValidBoundary(Polygon2 polygon)
-        {
-            return polygon.IsSimple && polygon.IsCounterClockWise;
-        }
-
-        /// <summary>
-        /// Is the polygon a valid hole for the polygon with holes.
-        /// Holes must be simple, cw and be fully contained in the polygon.
-        /// </summary>
-        /// <param name="pwh"></param>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        public static bool IsValidHole(PolygonWithHoles2 pwh, Polygon2 polygon)
-        {
-            return polygon.IsSimple && polygon.IsClockWise && pwh.ContainsPolygon(polygon);
         }
 
     }

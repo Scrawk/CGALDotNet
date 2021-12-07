@@ -37,6 +37,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract void AddHoleFromPolygon(IntPtr pwhPtr, IntPtr polygonPtr);
 
+        internal abstract void AddHoleFromPoints(IntPtr ptr, Point2d[] points, int count);
+
         internal abstract void RemoveHole(IntPtr ptr, int index);
 
         internal abstract IntPtr CopyPolygon(IntPtr ptr, int index);

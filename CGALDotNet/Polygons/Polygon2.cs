@@ -240,6 +240,24 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Valid polygons should be simple and ccw 
+        /// for most algorithms to work on them.
+        /// </summary>
+        public bool IsValid()
+        {
+            return IsSimple && IsCounterClockWise;
+        }
+
+        /// <summary>
+        /// Valid hole polygons should be simple
+        /// and cw to add to a polygon with holes.
+        /// </summary>
+        public bool IsValidHole()
+        {
+            return IsSimple && IsClockWise;
+        }
+
+        /// <summary>
         /// Clear the polygon of all points.
         /// </summary>
         public void Clear()
