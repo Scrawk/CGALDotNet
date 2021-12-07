@@ -124,7 +124,7 @@ public:
 		}
 	}
 
-	static void SetPoint(void* ptr, int index, Point2d point)
+	static void SetPoint(void* ptr, int index, const Point2d& point)
 	{
 		auto polygon = CastToPolygon2(ptr);
 
@@ -173,13 +173,13 @@ public:
 		return polygon->orientation();
 	}
 
-	static CGAL::Oriented_side OrientedSide(void* ptr, Point2d point)
+	static CGAL::Oriented_side OrientedSide(void* ptr, const Point2d& point)
 	{
 		auto polygon = CastToPolygon2(ptr);
 		return polygon->oriented_side(point.ToCGAL<K>());
 	}
 
-	static CGAL::Bounded_side BoundedSide(void* ptr, Point2d point)
+	static CGAL::Bounded_side BoundedSide(void* ptr, const Point2d& point)
 	{
 		auto polygon = CastToPolygon2(ptr);
 		return polygon->bounded_side(point.ToCGAL<K>());
@@ -191,7 +191,7 @@ public:
 		return CGAL::to_double(polygon->area());
 	}
 
-	static void Translate(void* ptr, Point2d translation)
+	static void Translate(void* ptr, const Point2d& translation)
 	{
 		auto polygon = CastToPolygon2(ptr);
 		Transformation_2 transformation(CGAL::TRANSLATION, translation.ToVector<K>());
@@ -212,7 +212,7 @@ public:
 		(*polygon) = CGAL::transform(transformation, *polygon);
 	}
 
-	static void Transform(void* ptr, Point2d translation, double rotation, double scale)
+	static void Transform(void* ptr, const Point2d& translation, double rotation, double scale)
 	{
 		auto polygon = CastToPolygon2(ptr);
 
@@ -223,7 +223,7 @@ public:
 		(*polygon) = CGAL::transform(T * R * S, *polygon);
 	}
 
-	static BOOL ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+	static BOOL ContainsPoint(void* ptr, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary)
 	{
 		auto polygon = CastToPolygon2(ptr);
 

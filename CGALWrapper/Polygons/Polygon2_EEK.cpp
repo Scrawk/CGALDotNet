@@ -49,7 +49,7 @@ void Polygon2_EEK_GetSegments(void* ptr, Segment2d* segments, int count)
 	Polygon2<EEK>::GetSegments(ptr, segments, count);
 }
 
-void Polygon2_EEK_SetPoint(void* ptr, int index, Point2d point)
+void Polygon2_EEK_SetPoint(void* ptr, int index, const Point2d& point)
 {
 	Polygon2<EEK>::SetPoint(ptr, index, point);
 }
@@ -82,12 +82,12 @@ CGAL::Orientation Polygon2_EEK_Orientation(void* ptr)
 	return Polygon2<EEK>::Orientation(ptr);
 }
 
-CGAL::Oriented_side Polygon2_EEK_OrientedSide(void* ptr, Point2d point)
+CGAL::Oriented_side Polygon2_EEK_OrientedSide(void* ptr, const Point2d& point)
 {
 	return Polygon2<EEK>::OrientedSide(ptr, point);
 }
 
-CGAL::Bounded_side Polygon2_EEK_BoundedSide(void* ptr, Point2d point)
+CGAL::Bounded_side Polygon2_EEK_BoundedSide(void* ptr, const Point2d& point)
 {
 	return Polygon2<EEK>::BoundedSide(ptr, point);
 }
@@ -97,7 +97,7 @@ double Polygon2_EEK_SignedArea(void* ptr)
 	return Polygon2<EEK>::SignedArea(ptr);
 }
 
-void Polygon2_EEK_Translate(void* ptr, Point2d translation)
+void Polygon2_EEK_Translate(void* ptr, const Point2d& translation)
 {
 	Polygon2<EEK>::Translate(ptr, translation);
 }
@@ -112,12 +112,12 @@ void Polygon2_EEK_Scale(void* ptr, double scale)
 	Polygon2<EEK>::Scale(ptr, scale);
 }
 
-void Polygon2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
+void Polygon2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
 {
 	Polygon2<EEK>::Transform(ptr, translation, rotation, scale);
 }
 
-BOOL Polygon2_EEK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary)
+BOOL Polygon2_EEK_ContainsPoint(void* ptr, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary)
 {
 	return Polygon2<EEK>::ContainsPoint(ptr, point, orientation, inculdeBoundary);
 }

@@ -25,7 +25,7 @@ extern "C"
 
 	CGALWRAPPER_API void Polygon2_EIK_GetSegments(void* ptr, Segment2d* segments, int count);
 
-	CGALWRAPPER_API void Polygon2_EIK_SetPoint(void* ptr, int index, Point2d point);
+	CGALWRAPPER_API void Polygon2_EIK_SetPoint(void* ptr, int index, const Point2d& point);
 
 	CGALWRAPPER_API void Polygon2_EIK_SetPoints(void* ptr, Point2d* points, int count);
 
@@ -37,21 +37,21 @@ extern "C"
 
 	CGALWRAPPER_API CGAL::Orientation Polygon2_EIK_Orientation(void* ptr);
 
-	CGALWRAPPER_API CGAL::Oriented_side Polygon2_EIK_OrientedSide(void* ptr, Point2d point);
+	CGALWRAPPER_API CGAL::Oriented_side Polygon2_EIK_OrientedSide(void* ptr, const Point2d& point);
 
-	CGALWRAPPER_API CGAL::Bounded_side Polygon2_EIK_BoundedSide(void* ptr, Point2d point);
+	CGALWRAPPER_API CGAL::Bounded_side Polygon2_EIK_BoundedSide(void* ptr, const Point2d& point);
 
 	CGALWRAPPER_API double Polygon2_EIK_SignedArea(void* ptr);
 
-	CGALWRAPPER_API void Polygon2_EIK_Translate(void* ptr, Point2d translation);
+	CGALWRAPPER_API void Polygon2_EIK_Translate(void* ptr, const Point2d& translation);
 
 	CGALWRAPPER_API void Polygon2_EIK_Rotate(void* ptr, double rotation);
 
 	CGALWRAPPER_API void Polygon2_EIK_Scale(void* ptr, double scale);
 
-	CGALWRAPPER_API void Polygon2_EIK_Transform(void* ptr, Point2d translation, double rotation, double scale);
+	CGALWRAPPER_API void Polygon2_EIK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
 
-	CGALWRAPPER_API BOOL Polygon2_EIK_ContainsPoint(void* ptr, Point2d point, CGAL::Orientation orientation, BOOL inculdeBoundary);
+	CGALWRAPPER_API BOOL Polygon2_EIK_ContainsPoint(void* ptr, const Point2d& point, CGAL::Orientation orientation, BOOL inculdeBoundary);
 
 }
 
