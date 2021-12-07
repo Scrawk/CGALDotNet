@@ -308,6 +308,24 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Valid holes must be simple, cw and not intersect
+        /// the boundary polygon.
+        /// </summary>
+        /// <param name="pwh"></param>
+        /// <param name="hole"></param>
+        /// <returns>True if the polygon is a valid hole.</returns>
+        public static bool IsValidHole(PolygonWithHoles2 pwh, Polygon2 hole)
+        {
+            if (!hole.IsValidHole())
+                return false;
+
+            if (!pwh.ContainsPolygon(hole))
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
         /// Clear the polygon.
         /// </summary>
         public void Clear()
