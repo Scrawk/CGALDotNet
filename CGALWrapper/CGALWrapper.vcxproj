@@ -168,6 +168,7 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Geometry\Matrices.h" />
+    <ClInclude Include="Polygons\PolygonOffset2_EIK.h" />
     <ClInclude Include="Polygons\Polygon2_EIK.h" />
     <ClInclude Include="Polygons\PolygonWithHoles2_EIK.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3.h" />
@@ -228,6 +229,7 @@
   <ItemGroup>
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
+    <ClCompile Include="Polygons\PolygonOffset2_EIK.cpp" />
     <ClCompile Include="Polygons\Polygon2_EIK.cpp" />
     <ClCompile Include="Polygons\PolygonWithHoles2_EIK.cpp" />
     <ClCompile Include="Polyhedra\NefPolyhedron3_EEK.cpp" />

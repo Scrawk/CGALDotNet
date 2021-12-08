@@ -25,10 +25,6 @@ typedef CGAL::Exact_predicates_exact_constructions_kernel_with_sqrt EEK_SQRT2;
 typedef CGAL::Exact_predicates_exact_constructions_kernel_with_kth_root EEK_KTH_ROOT;
 typedef CGAL::Exact_predicates_exact_constructions_kernel_with_root_of EEK_ROOT_OF;
 
-//typedef EEK::Point_2                            Point_EEK;
-//typedef CGAL::Polygon_2<EEK>		            Polygon_EEK_2;
-//typedef CGAL::Polygon_with_holes_2<EEK>         Polygon_with_holes_EEK_2;
-
 enum class CGAL_KERNEL : int
 {
     EXACT_PREDICATES_INEXACT_CONSTRUCTION = 0,
@@ -40,8 +36,7 @@ enum class CGAL_KERNEL : int
 
 enum class POLYGON_ELEMENT : int
 {
-    BOUNDARY,
-    HOLE,
-    ALL
+    BOUNDARY = 0,
+    HOLE = 1
 };
 

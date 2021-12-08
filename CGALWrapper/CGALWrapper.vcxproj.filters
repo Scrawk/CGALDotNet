@@ -252,6 +252,9 @@
     <ClInclude Include="Polygons\PolygonWithHoles2_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polygons\PolygonOffset2_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -330,6 +333,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Polygons\PolygonWithHoles2_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygons\PolygonOffset2_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
