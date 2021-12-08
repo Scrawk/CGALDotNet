@@ -100,6 +100,16 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Get the hole as a copy.
+        /// </summary>
+        /// <param name="index">The holes index</param>
+        /// <returns>A copy of the hole polygon.</returns>
+        public Polygon2<K> GetHole(int index)
+        {
+            return new Polygon2<K>(Kernel.CopyPolygon(Ptr, index));
+        }
+
+        /// <summary>
         /// Create a copy of boundary and hole polygons.
         /// </summary>
         /// <returns>The list of polygons.</returns>
@@ -308,8 +318,8 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Valid holes must be simple, cw and not intersect
-        /// the boundary polygon.
+        /// Valid holes must be simple, cw and must be contained
+        /// within the boundary polygon.
         /// </summary>
         /// <param name="pwh"></param>
         /// <param name="hole"></param>
@@ -362,7 +372,20 @@ namespace CGALDotNet.Polygons
                 Kernel.ClearBoundary(Ptr);
                 IsUnbounded = true;
             }
-            else
+            else if(HoleCount > 0)
+            {
+                Kernel.RemoveHole(Ptr, index);
+                HoleCount--;
+            }
+        }
+
+        /// <summary>
+        /// Remove a hole from the polygon.
+        /// </summary>
+        /// <param name="index">The holes index.</param>
+        public void RemoveHole(int index)
+        {
+            if (HoleCount > 0)
             {
                 Kernel.RemoveHole(Ptr, index);
                 HoleCount--;
@@ -614,6 +637,8 @@ namespace CGALDotNet.Polygons
         /// <returns>True if the polygon is contained within this polygon.</returns>
         private bool ContainsPolygon(Polygon2 polygon, bool inculdeBoundary = true)
         {
+            if (IsUnbounded) return true;
+
             for (int i = 0; i < polygon.Count; i++)
             {
                 if (!ContainsPoint(polygon.GetPoint(i), inculdeBoundary))

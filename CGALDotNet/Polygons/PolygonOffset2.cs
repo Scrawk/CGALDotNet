@@ -31,26 +31,42 @@ namespace CGALDotNet.Polygons
         /// <param name="polygon">The polygon to offset.</param>
         /// <param name="offset">The offset amount</param>
         /// <param name="result">The offset polygon</param>
-        public bool CreateInteriorOffset(Polygon2<K> polygon, double offset, out Polygon2<K> result)
+        public void CreateInteriorOffset(Polygon2<K> polygon, double offset, List<Polygon2<K>> results)
         {
-            result = null;
             CheckPolygon(polygon);
-
             Kernel.CreateInteriorOffset(Ptr, polygon.Ptr, offset);
 
             int count = PolygonBufferSize();
-            if (count > 0)
+
+            for (int i = 0; i < count; i++)
             {
-                var ptr = GetBufferedPolygon(0);
-                result = new Polygon2<K>(ptr);
-                ClearPolygonBuffer();
-                return true;
+                var ptr = GetBufferedPolygon(i);
+                results.Add(new Polygon2<K>(ptr));
             }
-            else
+
+            ClearPolygonBuffer();
+        }
+
+        /// <summary>
+        /// Create a interior offset.
+        /// </summary>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="offset">The offset amount</param>
+        /// <param name="results">The offset polygon</param>
+        public void CreateInteriorOffset(PolygonWithHoles2<K> polygon, double offset, List<Polygon2<K>> results)
+        {
+            CheckPolygon(polygon);
+            Kernel.CreateInteriorOffsetPWH(Ptr, polygon.Ptr, offset, false);
+
+            int count = PolygonBufferSize();
+
+            for (int i = 0; i < count; i++)
             {
-                ClearPolygonBuffer();
-                return false;
+                var ptr = GetBufferedPolygon(i);
+                results.Add(new Polygon2<K>(ptr));
             }
+
+            ClearPolygonBuffer();
         }
 
         /// <summary>
@@ -59,29 +75,42 @@ namespace CGALDotNet.Polygons
         /// <param name="polygon">The polygon to offset.</param>
         /// <param name="offset">The offset amount</param>
         /// <param name="result">The offset polygon</param>
-        public bool CreateExteriorOffset(Polygon2<K> polygon, double offset, out Polygon2<K> result)
+        public void CreateExteriorOffset(Polygon2<K> polygon, double offset, List<Polygon2<K>> results)
         {
-            result = null;
             CheckPolygon(polygon);
-
             Kernel.CreateExteriorOffset(Ptr, polygon.Ptr, offset);
 
             int count = PolygonBufferSize();
 
-            //First polygon seems to be the bounding box
-            //for some reason. Dont want this so remove.
-            if (count >= 2)
+            for (int i = 0; i < count; i++)
             {
-                var ptr = GetBufferedPolygon(1);
-                result = new Polygon2<K>(ptr);
-                ClearPolygonBuffer();
-                return true;
+                var ptr = GetBufferedPolygon(i);
+                results.Add(new Polygon2<K>(ptr));
             }
-            else
+
+            ClearPolygonBuffer();
+        }
+
+        /// <summary>
+        /// Create a exterior offset.
+        /// </summary>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="offset">The offset amount</param>
+        /// <param name="results">The offset polygon</param>
+        public void CreateExteriorOffset(PolygonWithHoles2<K> polygon, double offset, List<Polygon2<K>> results)
+        {
+            CheckPolygon(polygon);
+            Kernel.CreateExteriorOffsetPWH(Ptr, polygon.Ptr, offset, false);
+
+            int count = PolygonBufferSize();
+
+            for (int i = 0; i < count; i++)
             {
-                ClearPolygonBuffer();
-                return false;
+                var ptr = GetBufferedPolygon(i);
+                results.Add(new Polygon2<K>(ptr));
             }
+
+            ClearPolygonBuffer();
         }
 
         /// <summary>
@@ -93,8 +122,26 @@ namespace CGALDotNet.Polygons
         public void CreateInteriorSkeleton(Polygon2<K> polygon, bool includeBorder, List<Segment2d> results)
         {
             CheckPolygon(polygon);
-
             Kernel.CreateInteriorSkeleton(Ptr, polygon.Ptr, includeBorder);
+
+            int count = SegmentBufferSize();
+
+            for (int i = 0; i < count; i++)
+                results.Add(GetBufferedSegment(i));
+
+            ClearSegmentBuffer();
+        }
+
+        /// <summary>
+        /// Create the interior skeleton of the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="includeBorder">Should the polygon be included as the border.</param>
+        /// <param name="results">The skeletons segments.</param>
+        public void CreateInteriorSkeleton(PolygonWithHoles2<K> polygon, bool includeBorder, List<Segment2d> results)
+        {
+            CheckPolygon(polygon);
+            Kernel.CreateInteriorSkeletonPWH(Ptr, polygon.Ptr, includeBorder);
 
             int count = SegmentBufferSize();
 
@@ -117,6 +164,29 @@ namespace CGALDotNet.Polygons
             if (maxOffset <= 0) return;
 
             Kernel.CreateExteriorSkeleton(Ptr, polygon.Ptr, maxOffset, includeBorder);
+
+            int count = SegmentBufferSize();
+
+            for (int i = 0; i < count; i++)
+                results.Add(GetBufferedSegment(i));
+
+            ClearSegmentBuffer();
+        }
+
+
+        /// <summary>
+        /// Create the exterior skeleton of the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="maxOffset">The bounding boxes offset from the polygons edges. Must be > 0.</param>
+        /// <param name="includeBorder">Should the polygon be included as the border.</param>
+        /// <param name="results">The skeletons segments.</param>
+        public void CreateExteriorSkeleton(PolygonWithHoles2<K> polygon, double maxOffset, bool includeBorder, List<Segment2d> results)
+        {
+            CheckPolygon(polygon);
+            if (maxOffset <= 0) return;
+
+            Kernel.CreateExteriorSkeletonPWH(Ptr, polygon.Ptr, maxOffset, includeBorder);
 
             int count = SegmentBufferSize();
 
@@ -221,13 +291,12 @@ namespace CGALDotNet.Polygons
         /// Should be simple and ccw.
         /// </summary>
         /// <param name="polygon">The polygon to check.</param>
-        /// <returns>True if valid</returns>
-        public bool IsValid(Polygon2 polygon)
+        protected void CheckPolygon(Polygon2 polygon)
         {
-            if (!CheckInput)
-                return true;
-            else
-                return polygon.IsSimple && polygon.IsCounterClockWise;
+            if (!CheckInput) return;
+
+            if (!polygon.IsValid())
+                throw new Exception("Poylgon must be simple and ccw to offset.");
         }
 
         /// <summary>
@@ -235,11 +304,11 @@ namespace CGALDotNet.Polygons
         /// Should be simple and ccw.
         /// </summary>
         /// <param name="polygon">The polygon to check.</param>
-        protected void CheckPolygon(Polygon2 polygon)
+        protected void CheckPolygon(PolygonWithHoles2 polygon)
         {
             if (!CheckInput) return;
 
-            if (!IsValid(polygon))
+            if (!polygon.IsValid())
                 throw new Exception("Poylgon must be simple and ccw to offset.");
         }
 

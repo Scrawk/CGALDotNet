@@ -30,10 +30,18 @@ namespace CGALDotNet.Polygons
 
         internal abstract void CreateInteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset);
 
+        internal abstract void CreateInteriorOffsetPWH(IntPtr ptr, IntPtr pwhPtr, double offset, bool boundaryOnly);
+
         internal abstract void CreateExteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset);
+
+        internal abstract void CreateExteriorOffsetPWH(IntPtr ptr, IntPtr pwhPtr, double offset, bool boundaryOnly);
 
         internal abstract void CreateInteriorSkeleton(IntPtr ptr, IntPtr polyPtr, bool includeBorder);
 
+        internal abstract void CreateInteriorSkeletonPWH(IntPtr ptr, IntPtr pwhPtr, bool includeBorder);
+
         internal abstract void CreateExteriorSkeleton(IntPtr ptr, IntPtr polyPtr, double maxOffset, bool includeBorder);
+
+        internal abstract void CreateExteriorSkeletonPWH(IntPtr ptr, IntPtr pwhPtr, double maxOffset, bool includeBorder);
     }
 }

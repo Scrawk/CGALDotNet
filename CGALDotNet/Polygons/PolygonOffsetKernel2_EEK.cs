@@ -61,9 +61,19 @@ namespace CGALDotNet.Polygons
             PolygonOffset2_EEK_CreateInteriorOffset(ptr, polyPtr, offset);
         }
 
+        internal override void CreateInteriorOffsetPWH(IntPtr ptr, IntPtr pwhPtr, double offset, bool boundaryOnly)
+        {
+            PolygonOffset2_EEK_CreateInteriorOffsetPWH(ptr, pwhPtr, offset, boundaryOnly);
+        }
+
         internal override void CreateExteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset)
         {
             PolygonOffset2_EEK_CreateExteriorOffset(ptr, polyPtr, offset);
+        }
+
+        internal override void CreateExteriorOffsetPWH(IntPtr ptr, IntPtr pwhPtr, double offset, bool boundaryOnly)
+        {
+            PolygonOffset2_EEK_CreateExteriorOffsetPWH(ptr, pwhPtr, offset, boundaryOnly);
         }
 
         internal override void CreateInteriorSkeleton(IntPtr ptr, IntPtr polyPtr, bool includeBorder)
@@ -71,9 +81,19 @@ namespace CGALDotNet.Polygons
             PolygonOffset2_EEK_CreateInteriorSkeleton(ptr, polyPtr, includeBorder);
         }
 
+        internal override void CreateInteriorSkeletonPWH(IntPtr ptr, IntPtr pwhPtr, bool includeBorder)
+        {
+            PolygonOffset2_EEK_CreateInteriorSkeletonPWH(ptr, pwhPtr, includeBorder);
+        }
+
         internal override void CreateExteriorSkeleton(IntPtr ptr, IntPtr polyPtr, double maxOffset, bool includeBorder)
         {
             PolygonOffset2_EEK_CreateExteriorSkeleton(ptr, polyPtr, maxOffset, includeBorder);
+        }
+
+        internal override void CreateExteriorSkeletonPWH(IntPtr ptr, IntPtr pwhPtr, double maxOffset, bool includeBorder)
+        {
+            PolygonOffset2_EEK_CreateExteriorSkeletonPWH(ptr, pwhPtr, maxOffset, includeBorder);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -107,15 +127,25 @@ namespace CGALDotNet.Polygons
         private static extern void PolygonOffset2_EEK_CreateInteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_CreateInteriorOffsetPWH(IntPtr ptr, IntPtr pwhPtr, double offset, bool boundaryOnly);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonOffset2_EEK_CreateExteriorOffset(IntPtr ptr, IntPtr polyPtr, double offset);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_CreateExteriorOffsetPWH(IntPtr ptr, IntPtr pwhPtr, double offset, bool boundaryOnly);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonOffset2_EEK_CreateInteriorSkeleton(IntPtr ptr, IntPtr polyPtr, bool includeBorder);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_CreateInteriorSkeletonPWH(IntPtr ptr, IntPtr pwhPtr, bool includeBorder);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonOffset2_EEK_CreateExteriorSkeleton(IntPtr ptr, IntPtr polyPtr, double maxOffset, bool includeBorder);
 
-
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonOffset2_EEK_CreateExteriorSkeletonPWH(IntPtr ptr, IntPtr pwhPtr, double maxOffset, bool includeBorder);
 
     }
 }

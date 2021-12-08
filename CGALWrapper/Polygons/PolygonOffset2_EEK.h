@@ -26,10 +26,18 @@ extern "C"
 
 	CGALWRAPPER_API void PolygonOffset2_EEK_CreateInteriorOffset(void* ptr, void* polyPtr, double offset);
 
+	CGALWRAPPER_API void PolygonOffset2_EEK_CreateInteriorOffsetPWH(void* ptr, void* pwhPtr, double offset, BOOL boundaryOnly);
+
 	CGALWRAPPER_API void PolygonOffset2_EEK_CreateExteriorOffset(void* ptr, void* polyPtr, double offset);
+
+	CGALWRAPPER_API void PolygonOffset2_EEK_CreateExteriorOffsetPWH(void* ptr, void* pwhPtr, double offset, BOOL boundaryOnly);
 
 	CGALWRAPPER_API void PolygonOffset2_EEK_CreateInteriorSkeleton(void* ptr, void* polyPtr, BOOL includeBorder);
 
+	CGALWRAPPER_API void PolygonOffset2_EEK_CreateInteriorSkeletonPWH(void* ptr, void* pwhPtr, BOOL includeBorder);
+
 	CGALWRAPPER_API void PolygonOffset2_EEK_CreateExteriorSkeleton(void* ptr, void* polyPtr, double maxOffset, BOOL includeBorder);
+
+	CGALWRAPPER_API void PolygonOffset2_EEK_CreateExteriorSkeletonPWH(void* ptr, void* pwhPtr, double maxOffset, BOOL includeBorder);
 
 }

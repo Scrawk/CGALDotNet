@@ -19,16 +19,18 @@ class PolygonOffset2
 
 private:
 
-	typedef typename K::Point_2                   Point;
-	typedef typename CGAL::Polygon_2<K>			  Polygon_2;
-	typedef CGAL::Polygon_with_holes_2<K>         Polygon_with_holes;
+	typedef typename K::Point_2						Point;
+	typedef typename CGAL::Polygon_2<K>				Polygon_2;
+	typedef typename CGAL::Polygon_2<EIK>		    Polygon_2_EIK;
+	typedef CGAL::Polygon_with_holes_2<K>			Polygon_with_holes;
 
-	typedef CGAL::Straight_skeleton_2<EIK>		  Ss;
-	typedef boost::shared_ptr<Ss>			      SsPtr;
-	typedef typename Ss::Vertex_handle Vertex;
-	typedef typename Ss::Halfedge_handle HalfEdge;
-	//typedef boost::shared_ptr<Polygon_2>          PolygonPtr;
-	//typedef std::vector<PolygonPtr>               PolygonPtrVector;
+	typedef CGAL::Straight_skeleton_2<EIK>			Ss;
+	typedef boost::shared_ptr<Ss>					SsPtr;
+	typedef typename Ss::Vertex_handle				Vertex;
+	typedef typename Ss::Halfedge_handle			HalfEdge;
+
+	typedef boost::shared_ptr<Polygon_2_EIK>		PolygonPtr;
+	typedef std::vector<PolygonPtr>					PolygonPtrVector;
 
 	std::vector<Polygon_2*>  polygonBuffer;
 
@@ -107,19 +109,30 @@ public:
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
 
 		auto polygons = CGAL::create_interior_skeleton_and_offset_polygons_2(amount, *poly);
+		offset->CopyToBuffer(polygons);
+	}
 
-		for (auto iter = polygons.begin(); iter != polygons.end(); ++iter)
+	static void CreateInteriorOffsetPWH(void* ptr, void* pwhPtr, double amount, BOOL boundaryOnly)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		if (!pwh->is_unbounded())
 		{
-			auto p = new Polygon_2();
-
-			for (auto v = (*iter)->vertices_begin(); v != (*iter)->vertices_end(); ++v)
-			{
-				Point point(v->x(), v->y());
-				p->push_back(point);
-			}
-
-			offset->polygonBuffer.push_back(p);
+			auto boundary = CGAL::create_interior_skeleton_and_offset_polygons_2(amount, pwh->outer_boundary());
+			offset->CopyToBuffer(boundary);
 		}
+
+		/*
+		if (!boundaryOnly)
+		{
+			for (auto& hole : pwh->holes())
+			{
+				auto polygons = CGAL::create_interior_skeleton_and_offset_polygons_2(amount, hole);
+				offset->CopyToBuffer(polygons);
+			}
+		}
+		*/
 	}
 
 	static void CreateExteriorOffset(void* ptr, void* polyPtr, double maxOffset)
@@ -128,7 +141,23 @@ public:
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
 
 		auto polygons = CGAL::create_exterior_skeleton_and_offset_polygons_2(maxOffset, *poly);
+		offset->CopyToBuffer(polygons);
+	}
 
+	static void CreateExteriorOffsetPWH(void* ptr, void* pwhPtr, double amount, BOOL boundaryOnly)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
+
+		if (!pwh->is_unbounded())
+		{
+			auto boundary = CGAL::create_exterior_skeleton_and_offset_polygons_2(amount, pwh->outer_boundary());
+			offset->CopyToBuffer(boundary);
+		}
+	}
+
+	void CopyToBuffer(const PolygonPtrVector& polygons)
+	{
 		for (auto iter = polygons.begin(); iter != polygons.end(); ++iter)
 		{
 			auto p = new Polygon_2();
@@ -139,7 +168,7 @@ public:
 				p->push_back(point);
 			}
 
-			offset->polygonBuffer.push_back(p);
+			polygonBuffer.push_back(p);
 		}
 	}
 
@@ -182,12 +211,30 @@ public:
 		offset->CreateSegments(iss, includeBorder);
 	}
 
+	static void CreateInteriorSkeletonPWH(void* ptr, void* pwhPtr, BOOL includeBorder)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		auto pwh = Polygon2<K>::CastToPolygon2(pwhPtr);
+
+		SsPtr iss = CGAL::create_interior_straight_skeleton_2(*pwh);
+		offset->CreateSegments(iss, includeBorder);
+	}
+
 	static void CreateExteriorSkeleton(void* ptr, void* polyPtr, double maxOffset, BOOL includeBorder)
 	{
 		auto offset = CastToPolygonOffset2(ptr);
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
 		
 		SsPtr iss = CGAL::create_exterior_straight_skeleton_2(maxOffset, *poly);
+		offset->CreateSegments(iss, includeBorder);
+	}
+
+	static void CreateExteriorSkeletonPWH(void* ptr, void* pwhPtr, double maxOffset, BOOL includeBorder)
+	{
+		auto offset = CastToPolygonOffset2(ptr);
+		auto pwh = Polygon2<K>::CastToPolygon2(pwhPtr);
+
+		SsPtr iss = CGAL::create_exterior_straight_skeleton_2(maxOffset, *pwh);
 		offset->CreateSegments(iss, includeBorder);
 	}
 
