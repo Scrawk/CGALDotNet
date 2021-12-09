@@ -20,14 +20,11 @@ class PolygonVisibility
 {
 public:
 
-	typedef CGAL::Exact_predicates_exact_constructions_kernel       Kernel;
-	typedef Kernel::Point_2                                         Point_2;
-	typedef Kernel::Segment_2                                       Segment_2;
-	typedef CGAL::Arr_segment_traits_2<Kernel>                      Traits_2;
+	//typedef CGAL::Exact_predicates_exact_constructions_kernel       Kernel;
+	typedef CGAL::Polygon_2<K>                                        Point_2;
+	typedef CGAL::Segment_2<K>                                      Segment_2;
+	typedef CGAL::Arr_segment_traits_2<K>                      Traits_2;
 	typedef CGAL::Arrangement_2<Traits_2>                           Arrangement_2;
-	typedef Arrangement_2::Face_handle                              Face_handle;
-	typedef Arrangement_2::Edge_const_iterator                      Edge_const_iterator;
-	typedef Arrangement_2::Ccb_halfedge_circulator                  Ccb_halfedge_circulator;
 
 	typedef CGAL::Triangular_expansion_visibility_2<Arrangement_2>  TEV;
 	typedef CGAL::Rotational_sweep_visibility_2<Arrangement_2> RSV;
@@ -120,7 +117,7 @@ public:
 		}
 	}
 
-	static void* ComputeVisibilitySimple(Point2d point, void* polyPtr)
+	static void* ComputeVisibilitySimple(const Point2d& point, void* polyPtr)
 	{
 
 		auto poly = Polygon2<K>::CastToPolygon2(polyPtr);
@@ -131,12 +128,11 @@ public:
 		Arrangement_2 env;
 		CGAL::insert_non_intersecting_curves(env, segments.begin(), segments.end());
 
-		Arrangement_2::Face_const_handle* face;
 		Locator pl(env);
 
-		auto q = point.ToCGAL<Kernel>();
+		auto q = point.ToCGAL<K>();
 		auto obj = pl.locate(q);
-		face = boost::get<Arrangement_2::Face_const_handle>(&obj);
+		auto face = boost::get<Arrangement_2::Face_const_handle>(&obj);
 
 		typedef CGAL::Simple_polygon_visibility_2<Arrangement_2, CGAL::Tag_true> RSPV;
 
@@ -159,7 +155,7 @@ public:
 		return result;
 	}
 
-	static void* ComputeVisibilityTEV(Point2d point, void* pwhPtr)
+	static void* ComputeVisibilityTEV(const Point2d& point, void* pwhPtr)
 	{
 		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
 
@@ -169,16 +165,15 @@ public:
 		Arrangement_2 env;
 		CGAL::insert_non_intersecting_curves(env, segments.begin(), segments.end());
 
-		Arrangement_2::Face_const_handle* face;
 		Locator pl(env);
 
-		auto q = point.ToCGAL<Kernel>();
+		auto q = point.ToCGAL<K>();
 		auto obj = pl.locate(q);
-		face = boost::get<Arrangement_2::Face_const_handle>(&obj);
+		auto face = boost::get<Arrangement_2::Face_const_handle>(&obj);
 
 		Arrangement_2 output_arr;
 		TEV tev(env);
-		Face_handle fh = tev.compute_visibility(q, *face, output_arr);
+		auto fh = tev.compute_visibility(q, *face, output_arr);
 
 		auto result = PolygonWithHoles2<K>::NewPolygonWithHoles2();
 		auto curr = fh->outer_ccb();
@@ -193,7 +188,7 @@ public:
 		return result;
 	}
 
-	static void* ComputeVisibilityRSV(Point2d point, void* pwhPtr)
+	static void* ComputeVisibilityRSV(const Point2d& point, void* pwhPtr)
 	{
 		auto pwh = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr);
 
@@ -203,16 +198,15 @@ public:
 		Arrangement_2 env;
 		CGAL::insert_non_intersecting_curves(env, segments.begin(), segments.end());
 
-		Arrangement_2::Face_const_handle* face;
 		Locator pl(env);
 
-		auto q = point.ToCGAL<Kernel>();
+		auto q = point.ToCGAL<K>();
 		auto obj = pl.locate(q);
-		face = boost::get<Arrangement_2::Face_const_handle>(&obj);
+		auto face = boost::get<Arrangement_2::Face_const_handle>(&obj);
 
 		Arrangement_2 output_arr;
 		RSV rsv(env);
-		Face_handle fh = rsv.compute_visibility(q, *face, output_arr);
+		auto fh = rsv.compute_visibility(q, *face, output_arr);
 
 		auto result = PolygonWithHoles2<K>::NewPolygonWithHoles2();
 		auto curr = fh->outer_ccb();

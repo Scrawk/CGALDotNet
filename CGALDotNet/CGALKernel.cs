@@ -76,7 +76,7 @@ namespace CGALDotNet
 
         internal override PolygonMinkowskiKernel PolygonMinkowskiKernel => throw new NotImplementedException();
 
-        internal override PolygonVisibilityKernel PolygonVisibilityKernel => throw new NotImplementedException();
+        internal override PolygonVisibilityKernel PolygonVisibilityKernel => PolygonVisibilityKernel_EIK.Instance;
 
         internal override ArrangementKernel2 ArrangementKernel2 => throw new NotImplementedException();
 

@@ -171,6 +171,7 @@
     <ClInclude Include="Polygons\PolygonOffset2_EIK.h" />
     <ClInclude Include="Polygons\Polygon2_EIK.h" />
     <ClInclude Include="Polygons\PolygonWithHoles2_EIK.h" />
+    <ClInclude Include="Polygons\PolygonVisibility_EIK.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3_EEK.h" />
     <ClInclude Include="Circlar\Circle.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="Polygons\PolygonOffset2_EIK.cpp" />
     <ClCompile Include="Polygons\Polygon2_EIK.cpp" />
     <ClCompile Include="Polygons\PolygonWithHoles2_EIK.cpp" />
+    <ClCompile Include="Polygons\PolygonVisibility_EIK.cpp" />
     <ClCompile Include="Polyhedra\NefPolyhedron3_EEK.cpp" />
     <ClCompile Include="Circlar\Circle_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp" />
