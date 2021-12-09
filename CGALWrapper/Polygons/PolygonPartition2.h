@@ -3,6 +3,7 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
 #include "Polygon2.h"
+#include "PolygonWithHoles2.h"
 
 #include <vector>
 #include <CGAL/Partition_traits_2.h>
@@ -88,6 +89,14 @@ public:
 		return CGAL::is_y_monotone_2(poly->vertices_begin(), poly->vertices_end());
 	}
 
+	static BOOL Is_Y_MonotonePWH(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = PolygonWithHoles2<K>::CastToPolygonWithHoles2(polyPtr);
+
+		return CGAL::is_y_monotone_2(poly->outer_boundary().vertices_begin(), poly->outer_boundary().vertices_end());
+	}
+
 	static BOOL PartionIsValid(void* ptr, void* polyPtr)
 	{
 		auto par = CastToPolygonPartition2(ptr);
@@ -123,6 +132,17 @@ public:
 		return (int)par->buffer.size();
 	}
 
+	static int Y_MonotonePartitionPWH(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = PolygonWithHoles2<K>::CastToPolygonWithHoles2(polyPtr);
+
+		par->buffer.clear();
+		CGAL::y_monotone_partition_2(poly->outer_boundary().vertices_begin(), poly->outer_boundary().vertices_end(), std::back_inserter(par->buffer));
+
+		return (int)par->buffer.size();
+	}
+
 	static int ApproxConvexPartition(void* ptr, void* polyPtr)
 	{
 		auto par = CastToPolygonPartition2(ptr);
@@ -130,6 +150,17 @@ public:
 
 		par->buffer.clear();
 		CGAL::approx_convex_partition_2(poly->vertices_begin(), poly->vertices_end(), std::back_inserter(par->buffer));
+
+		return (int)par->buffer.size();
+	}
+
+	static int ApproxConvexPartitionPWH(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = PolygonWithHoles2<K>::CastToPolygonWithHoles2(polyPtr);
+
+		par->buffer.clear();
+		CGAL::approx_convex_partition_2(poly->outer_boundary().vertices_begin(), poly->outer_boundary().vertices_end(), std::back_inserter(par->buffer));
 
 		return (int)par->buffer.size();
 	}
@@ -145,6 +176,17 @@ public:
 		return (int)par->buffer.size();
 	}
 
+	static int GreeneApproxConvexPartitionPWH(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = PolygonWithHoles2<K>::CastToPolygonWithHoles2(polyPtr);
+
+		par->buffer.clear();
+		CGAL::greene_approx_convex_partition_2(poly->outer_boundary().vertices_begin(), poly->outer_boundary().vertices_end(), std::back_inserter(par->buffer));
+
+		return (int)par->buffer.size();
+	}
+
 	static int OptimalConvexPartition(void* ptr, void* polyPtr)
 	{
 		auto par = CastToPolygonPartition2(ptr);
@@ -152,6 +194,17 @@ public:
 
 		par->buffer.clear();
 		CGAL::optimal_convex_partition_2(poly->vertices_begin(), poly->vertices_end(), std::back_inserter(par->buffer));
+
+		return (int)par->buffer.size();
+	}
+
+	static int OptimalConvexPartitionPWH(void* ptr, void* polyPtr)
+	{
+		auto par = CastToPolygonPartition2(ptr);
+		auto poly = PolygonWithHoles2<K>::CastToPolygonWithHoles2(polyPtr);
+
+		par->buffer.clear();
+		CGAL::optimal_convex_partition_2(poly->outer_boundary().vertices_begin(), poly->outer_boundary().vertices_end(), std::back_inserter(par->buffer));
 
 		return (int)par->buffer.size();
 	}

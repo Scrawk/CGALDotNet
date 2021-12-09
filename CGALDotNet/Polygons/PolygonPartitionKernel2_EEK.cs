@@ -42,6 +42,11 @@ namespace CGALDotNet.Polygons
             return PolygonPartition2_EEK_Is_Y_Monotone(ptr, polyPtr);
         }
 
+        internal override bool Is_Y_MonotonePWH(IntPtr ptr, IntPtr polyPtr)
+        {
+            return PolygonPartition2_EEK_Is_Y_MonotonePWH(ptr, polyPtr);
+        }
+
         internal override bool PartitionIsValid(IntPtr ptr, IntPtr polyPtr)
         {
             return PolygonPartition2_EEK_PartitionIsValid(ptr, polyPtr);
@@ -57,9 +62,19 @@ namespace CGALDotNet.Polygons
             return PolygonPartition2_EEK_Y_MonotonePartition(ptr, polyPtr);
         }
 
+        internal override int Y_MonotonePartitionPWH(IntPtr ptr, IntPtr polyPtr)
+        {
+            return PolygonPartition2_EEK_Y_MonotonePartitionPWH(ptr, polyPtr);
+        }
+
         internal override int ApproxConvexPartition(IntPtr ptr, IntPtr polyPtr)
         {
             return PolygonPartition2_EEK_ApproxConvexPartition(ptr, polyPtr);
+        }
+
+        internal override int ApproxConvexPartitionPWH(IntPtr ptr, IntPtr polyPtr)
+        {
+            return PolygonPartition2_EEK_ApproxConvexPartitionPWH(ptr, polyPtr);
         }
 
         internal override int GreeneApproxConvexPartition(IntPtr ptr, IntPtr polyPtr)
@@ -67,9 +82,19 @@ namespace CGALDotNet.Polygons
             return PolygonPartition2_EEK_GreeneApproxConvexPartition(ptr, polyPtr);
         }
 
+        internal override int GreeneApproxConvexPartitionPWH(IntPtr ptr, IntPtr polyPtr)
+        {
+            return PolygonPartition2_EEK_GreeneApproxConvexPartitionPWH(ptr, polyPtr);
+        }
+
         internal override int OptimalConvexPartition(IntPtr ptr, IntPtr polyPtr)
         {
             return PolygonPartition2_EEK_OptimalConvexPartition(ptr, polyPtr);
+        }
+
+        internal override int OptimalConvexPartitionPWH(IntPtr ptr, IntPtr polyPtr)
+        {
+            return PolygonPartition2_EEK_OptimalConvexPartitionPWH(ptr, polyPtr);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -91,6 +116,9 @@ namespace CGALDotNet.Polygons
         private static extern bool PolygonPartition2_EEK_Is_Y_Monotone(IntPtr ptr, IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonPartition2_EEK_Is_Y_MonotonePWH(IntPtr ptr, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool PolygonPartition2_EEK_PartitionIsValid(IntPtr ptr, IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -100,13 +128,25 @@ namespace CGALDotNet.Polygons
         private static extern int PolygonPartition2_EEK_Y_MonotonePartition(IntPtr ptr, IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonPartition2_EEK_Y_MonotonePartitionPWH(IntPtr ptr, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_ApproxConvexPartition(IntPtr ptr, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonPartition2_EEK_ApproxConvexPartitionPWH(IntPtr ptr, IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_GreeneApproxConvexPartition(IntPtr ptr, IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonPartition2_EEK_GreeneApproxConvexPartitionPWH(IntPtr ptr, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonPartition2_EEK_OptimalConvexPartition(IntPtr ptr, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonPartition2_EEK_OptimalConvexPartitionPWH(IntPtr ptr, IntPtr polyPtr);
 
     }
 }

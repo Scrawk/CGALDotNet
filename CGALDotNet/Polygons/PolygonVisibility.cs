@@ -160,7 +160,7 @@ namespace CGALDotNet.Polygons
     /// <summary>
     /// The abstract polygon visibility class.
     /// </summary>
-    public abstract class PolygonVisibility : CGALObject
+    public abstract class PolygonVisibility : PolygonAlgorithm
     {
         /// <summary>
         /// 
@@ -184,40 +184,6 @@ namespace CGALDotNet.Polygons
         /// The offset kernel.
         /// </summary>
         protected private PolygonVisibilityKernel Kernel { get; private set; }
-
-        /// <summary>
-        /// Should the input polygon be checked.
-        /// Can disable for better performance if 
-        /// it is know all input if valid.
-        /// </summary>
-        public bool CheckInput = true;
-
-        /// <summary>
-        /// Check if the polygon is valid.
-        /// Should be simple and ccw.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        /// <returns>True if valid</returns>
-        public bool IsValid(Polygon2 polygon)
-        {
-            if (!CheckInput)
-                return true;
-            else
-                return polygon.IsSimple && polygon.IsCounterClockWise;
-        }
-
-        /// <summary>
-        /// Check if the polygon is valid to offset.
-        /// Should be simple and ccw.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        protected void CheckPolygon(Polygon2 polygon)
-        {
-            if (!CheckInput) return;
-
-            if (!IsValid(polygon))
-                throw new Exception("Poylgon must be simple and ccw.");
-        }
 
         /// <summary>
         /// Release the unmanaged resources.

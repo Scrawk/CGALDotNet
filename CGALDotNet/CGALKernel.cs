@@ -66,9 +66,9 @@ namespace CGALDotNet
 
         internal override PolygonWithHolesKernel2 PolygonWithHolesKernel2 => PolygonWithHolesKernel2_EIK.Instance;
 
-        internal override PolygonBooleanKernel2 PolygonBooleanKernel2 => throw new NotImplementedException();
+        internal override PolygonBooleanKernel2 PolygonBooleanKernel2 => PolygonBooleanKernel2_EIK.Instance;
 
-        internal override PolygonPartitionKernel2 PolygonPartitionKernel2 => throw new NotImplementedException();
+        internal override PolygonPartitionKernel2 PolygonPartitionKernel2 => PolygonPartitionKernel2_EIK.Instance;
 
         internal override PolygonSimplificationKernel2 PolygonSimplificationKernel2 => throw new NotImplementedException();
 

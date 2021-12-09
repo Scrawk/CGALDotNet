@@ -40,7 +40,39 @@ namespace CGALDotNet.Polygons
         /// <returns>True if y monotonic.</returns>
         public bool Is_Y_Monotone(Polygon2<K> polygon)
         {
+            CheckPolygon(polygon);
             return Kernel.Is_Y_Monotone(Ptr, polygon.Ptr);
+        }
+
+        /// <summary>
+        /// Is this polygon Y monotonic.
+        /// </summary>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>True if y monotonic.</returns>
+        public bool Is_Y_Monotone(PolygonWithHoles2<K> polygon)
+        {
+            CheckPolygon(polygon);
+            return Kernel.Is_Y_MonotonePWH(Ptr, polygon.Ptr);
+        }
+
+        /// <summary>
+        /// Partition a polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to partition.</param>
+        /// <param name="results">The resulting polygons.</param>
+        public void Partition(Polygon2<K> polygon, List<Polygon2<K>> results)
+        {
+            ApproxConvex(polygon, results);
+        }
+
+        /// <summary>
+        /// Partition a polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to partition.</param>
+        /// <param name="results">The resulting polygons.</param>
+        public void Partition(PolygonWithHoles2<K> polygon, List<Polygon2<K>> results)
+        {
+            ApproxConvex(polygon, results);
         }
 
         /// <summary>
@@ -72,13 +104,54 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Partition a polygon.
+        /// </summary>
+        /// <param name="type">The type of partition to perfrom.</param>
+        /// <param name="polygon">The polygon to partition.</param>
+        /// <param name="results">The resulting polygons.</param>
+        public void Partition(POLYGON_PARTITION type, PolygonWithHoles2<K> polygon, List<Polygon2<K>> results)
+        {
+            switch (type)
+            {
+                case POLYGON_PARTITION.OPTIMAL_CONVEX:
+                    OptimalConvex(polygon, results);
+                    break;
+
+                case POLYGON_PARTITION.APPROX_CONVEX:
+                    ApproxConvex(polygon, results);
+                    break;
+
+                case POLYGON_PARTITION.GREENE_APROX_CONVEX:
+                    GreeneApproxConvex(polygon, results);
+                    break;
+
+                case POLYGON_PARTITION.Y_MONOTONE:
+                    Y_Monotone(polygon, results);
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Partition in to Y monotonic polygons.
         /// </summary>
         /// <param name="polygon">The polygon to partition.</param>
         /// <param name="results">The resulting polygons.</param>
         public void Y_Monotone(Polygon2<K> polygon, List<Polygon2<K>> results)
         {
+            CheckPolygon(polygon);
             int count = Kernel.Y_MonotonePartition(Ptr, polygon.Ptr);
+            CopyBufferAndClear(count, results);
+        }
+
+        /// <summary>
+        /// Partition in to Y monotonic polygons.
+        /// </summary>
+        /// <param name="polygon">The polygon to partition.</param>
+        /// <param name="results">The resulting polygons.</param>
+        public void Y_Monotone(PolygonWithHoles2<K> polygon, List<Polygon2<K>> results)
+        {
+            CheckPolygon(polygon);
+            int count = Kernel.Y_MonotonePartitionPWH(Ptr, polygon.Ptr);
             CopyBufferAndClear(count, results);
         }
 
@@ -90,7 +163,21 @@ namespace CGALDotNet.Polygons
         /// <param name="results">The resulting polygons.</param>
         public void ApproxConvex(Polygon2<K> polygon, List<Polygon2<K>> results)
         {
+            CheckPolygon(polygon);
             int count = Kernel.ApproxConvexPartition(Ptr, polygon.Ptr);
+            CopyBufferAndClear(count, results);
+        }
+
+        /// <summary>
+        /// Partition the polygon into convex polygons where the number of
+        /// convex polygons produced is no more than four times the minimal number.
+        /// </summary>
+        /// <param name="polygon">The polygon to partition.</param>
+        /// <param name="results">The resulting polygons.</param>
+        public void ApproxConvex(PolygonWithHoles2<K> polygon, List<Polygon2<K>> results)
+        {
+            CheckPolygon(polygon);
+            int count = Kernel.ApproxConvexPartitionPWH(Ptr, polygon.Ptr);
             CopyBufferAndClear(count, results);
         }
 
@@ -102,7 +189,21 @@ namespace CGALDotNet.Polygons
         /// <param name="results">The resulting polygons.</param>
         public void GreeneApproxConvex(Polygon2<K> polygon, List<Polygon2<K>> results)
         {
+            CheckPolygon(polygon);
             int count = Kernel.GreeneApproxConvexPartition(Ptr, polygon.Ptr);
+            CopyBufferAndClear(count, results);
+        }
+
+        /// <summary>
+        /// Partition the polygon into convex polygons where the number of
+        /// convex polygons produced is no more than four times the minimal number.
+        /// </summary>
+        /// <param name="polygon">The polygon to partition.</param>
+        /// <param name="results">The resulting polygons.</param>
+        public void GreeneApproxConvex(PolygonWithHoles2<K> polygon, List<Polygon2<K>> results)
+        {
+            CheckPolygon(polygon);
+            int count = Kernel.GreeneApproxConvexPartitionPWH(Ptr, polygon.Ptr);
             CopyBufferAndClear(count, results);
         }
 
@@ -114,7 +215,21 @@ namespace CGALDotNet.Polygons
         /// <param name="results">The resulting polygons.</param>
         public void OptimalConvex(Polygon2<K> polygon, List<Polygon2<K>> results)
         {
+            CheckPolygon(polygon);
             int count = Kernel.OptimalConvexPartition(Ptr, polygon.Ptr);
+            CopyBufferAndClear(count, results);
+        }
+
+        /// <summary>
+        /// Partition the polygon into convex polygons where the number of 
+        /// convex polygons produced is minimal.
+        /// </summary>
+        /// <param name="polygon">The polygon to partition.</param>
+        /// <param name="results">The resulting polygons.</param>
+        public void OptimalConvex(PolygonWithHoles2<K> polygon, List<Polygon2<K>> results)
+        {
+            CheckPolygon(polygon);
+            int count = Kernel.OptimalConvexPartitionPWH(Ptr, polygon.Ptr);
             CopyBufferAndClear(count, results);
         }
 
@@ -150,7 +265,7 @@ namespace CGALDotNet.Polygons
     /// <summary>
     /// The abstract base class.
     /// </summary>
-    public abstract class PolygonPartition2 : CGALObject
+    public abstract class PolygonPartition2 : PolygonAlgorithm
     {
         private PolygonPartition2()
         {
@@ -169,50 +284,11 @@ namespace CGALDotNet.Polygons
         protected private PolygonPartitionKernel2 Kernel { get; private set; }
 
         /// <summary>
-        /// Should the input polygon be checked.
-        /// Can disable for better performance if 
-        /// it is know all input if valid.
-        /// </summary>
-        public bool CheckInput = true;
-
-        /// <summary>
         /// Clear the unmanaged buffer.
         /// </summary>
         protected void ClearBuffer()
         {
             Kernel.ClearBuffer(Ptr);
-        }
-
-        /// <summary>
-        /// Is this a valid polygon.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        /// <returns>If the polygon is simple.</returns>
-        public bool IsValid(Polygon2 polygon)
-        {
-            if (!CheckInput)
-                return true;
-            else
-                return polygon.IsSimple;
-        }
-
-        protected void CheckPolygon(Polygon2 polygon)
-        {
-            if (!CheckInput) return;
-
-            if (!IsValid(polygon))
-                throw new Exception("Poylgon must be simple to partition.");
-        }
-
-        protected void CheckPolygons(Polygon2 polygon1, Polygon2 polygon2)
-        {
-            if (!CheckInput) return;
-
-            if (!IsValid(polygon1))
-                throw new Exception("Poylgon must be simple to partition.");
-
-            if (!IsValid(polygon2))
-                throw new Exception("Poylgon must be simple to partition.");
         }
 
         /// <summary>

@@ -1,0 +1,52 @@
+#pragma once
+
+#include "../CGALWrapper.h"
+#include "../Geometry/Geometry2.h"
+
+#include <CGAL/Polygon_2.h>
+#include <CGAL/enum.h>
+
+extern "C"
+{
+	CGALWRAPPER_API void* PolygonBoolean2_EIK_Create();
+
+	CGALWRAPPER_API void PolygonBoolean2_EIK_Release(void* ptr);
+
+	CGALWRAPPER_API void PolygonBoolean2_EIK_ClearBuffer(void* ptr);
+
+	CGALWRAPPER_API void* PolygonBoolean2_EIK_CopyBufferItem(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL PolygonBoolean2_EIK_DoIntersect_P_P(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API BOOL PolygonBoolean2_EIK_DoIntersect_P_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API BOOL PolygonBoolean2_EIK_DoIntersect_PWH_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API BOOL PolygonBoolean2_EIK_Join_P_P(void* ptr0, void* ptr1, void* ptr2, void** resultPtr);
+
+	CGALWRAPPER_API BOOL PolygonBoolean2_EIK_Join_P_PWH(void* ptr0, void* ptr1, void* ptr2, void** resultPtr);
+
+	CGALWRAPPER_API BOOL PolygonBoolean2_EIK_Join_PWH_PWH(void* ptr0, void* ptr1, void* ptr2, void** resultPtr);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_Intersect_P_P(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_Intersect_P_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_Intersect_PWH_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_Difference_P_P(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_Difference_P_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_Difference_PWH_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_SymmetricDifference_P_P(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_SymmetricDifference_P_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_SymmetricDifference_PWH_PWH(void* ptr0, void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API int PolygonBoolean2_EIK_Complement_PWH(void* ptr0, void* ptr1);
+}
+
+

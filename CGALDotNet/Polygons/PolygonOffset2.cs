@@ -200,7 +200,7 @@ namespace CGALDotNet.Polygons
     /// <summary>
     /// The abstract polygon offset class.
     /// </summary>
-    public abstract class PolygonOffset2 : CGALObject
+    public abstract class PolygonOffset2 : PolygonAlgorithm
     {
         /// <summary>
         /// 
@@ -224,13 +224,6 @@ namespace CGALDotNet.Polygons
         /// The offset kernel.
         /// </summary>
         protected private PolygonOffsetKernel2 Kernel { get; private set; }
-
-        /// <summary>
-        /// Should the input polygon be checked.
-        /// Can disable for better performance if 
-        /// it is know all input if valid.
-        /// </summary>
-        public bool CheckInput = true;
 
         /// <summary>
         /// Get the number off polygons in the buffer.
@@ -284,32 +277,6 @@ namespace CGALDotNet.Polygons
         protected void ClearSegmentBuffer()
         {
             Kernel.ClearSegmentBuffer(Ptr);
-        }
-
-        /// <summary>
-        /// Check if the polygon is valid to offset.
-        /// Should be simple and ccw.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        protected void CheckPolygon(Polygon2 polygon)
-        {
-            if (!CheckInput) return;
-
-            if (!polygon.IsValid())
-                throw new Exception("Poylgon must be simple and ccw to offset.");
-        }
-
-        /// <summary>
-        /// Check if the polygon is valid to offset.
-        /// Should be simple and ccw.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        protected void CheckPolygon(PolygonWithHoles2 polygon)
-        {
-            if (!CheckInput) return;
-
-            if (!polygon.IsValid())
-                throw new Exception("Poylgon must be simple and ccw to offset.");
         }
 
         /// <summary>
