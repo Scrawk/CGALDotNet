@@ -149,8 +149,8 @@ public:
 
 	static void* SimplifyPolygonWithHoles_All(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold)
 	{
-		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
-		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
+		typedef CGAL::Polygon_with_holes_2<K> Pwh_2;
+		auto pwh = PolygonSimplification2<K>::CastToPolygonWithHoles2(pwhPtr);
 
 		Pwh_2* p = nullptr;
 
@@ -173,8 +173,8 @@ public:
 
 	static void* SimplifyPolygonWithHoles_Boundary(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold)
 	{
-		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
-		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
+		typedef CGAL::Polygon_with_holes_2<K> Pwh_2;
+		auto pwh = PolygonSimplification2<K>::CastToPolygonWithHoles2(pwhPtr);
 
 		Pwh_2* p = nullptr;
 
@@ -194,8 +194,8 @@ public:
 
 	static void* SimplifyPolygonWithHoles_Holes(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold)
 	{
-		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
-		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
+		typedef CGAL::Polygon_with_holes_2<K> Pwh_2;
+		auto pwh = PolygonSimplification2<K>::CastToPolygonWithHoles2(pwhPtr);
 
 		Pwh_2* p = nullptr;
 
@@ -212,8 +212,8 @@ public:
 
 	static void* SimplifyPolygonWithHoles_Hole(void* pwhPtr, COST_FUNC costFunc, STOP_FUNC stopFunc, double threshold, int index)
 	{
-		typedef CGAL::Polygon_with_holes_2<EEK> Pwh_2;
-		auto pwh = PolygonSimplification2<EEK>::CastToPolygonWithHoles2(pwhPtr);
+		typedef CGAL::Polygon_with_holes_2<K> Pwh_2;
+		auto pwh = PolygonSimplification2<K>::CastToPolygonWithHoles2(pwhPtr);
 
 		Pwh_2* p = nullptr;
 

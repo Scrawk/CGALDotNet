@@ -91,43 +91,46 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Simplify the polygon.
+        /// Simplify the polygons boundary and all the holes.
         /// </summary>
         /// <param name="polygon">The polygon to simplify. Must be simple.</param>
         /// <param name="param">The simplification parameters.</param>
         /// <returns>The simplified polygon.</returns>
         public PolygonWithHoles2<K> Simplify(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param)
         {
+            CheckPolygon(polygon);
             var ptr = Kernel.SimplifyPolygonWithHoles_All(polygon.Ptr, param);
             return new PolygonWithHoles2<K>(ptr);
         }
 
         /// <summary>
-        /// Simplify the polygon.
+        /// Simplify the polygons boundary.
         /// </summary>
         /// <param name="polygon">The polygon to simplify. Must be simple.</param>
         /// <param name="param">The simplification parameters.</param>
         /// <returns>The simplified polygon.</returns>
         public PolygonWithHoles2<K> SimplifyBoundary(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param)
         {
+            CheckPolygon(polygon);
             var ptr = Kernel.SimplifyPolygonWithHoles_Boundary(polygon.Ptr, param);
             return new PolygonWithHoles2<K>(ptr);
         }
 
         /// <summary>
-        /// Simplify the polygon.
+        /// Simplify the polygons holes.
         /// </summary>
         /// <param name="polygon">The polygon to simplify. Must be simple.</param>
         /// <param name="param">The simplification parameters.</param>
         /// <returns>The simplified polygon.</returns>
         public PolygonWithHoles2<K> SimplifyHoles(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param)
         {
+            CheckPolygon(polygon);
             var ptr = Kernel.SimplifyPolygonWithHoles_Holes(polygon.Ptr, param);
             return new PolygonWithHoles2<K>(ptr);
         }
 
         /// <summary>
-        /// Simplify the polygon.
+        /// Simplify one of the polygons holes.
         /// </summary>
         /// <param name="polygon">The polygon to simplify. Must be simple.</param>
         /// <param name="param">The simplification parameters.</param>
@@ -135,36 +138,17 @@ namespace CGALDotNet.Polygons
         /// <returns>The simplified polygon.</returns>
         public PolygonWithHoles2<K> SimplifyHole(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param, int index)
         {
+            CheckPolygon(polygon);
             var ptr = Kernel.SimplifyPolygonWithHoles_Hole(polygon.Ptr, param, index);
             return new PolygonWithHoles2<K>(ptr);
         }
 
-        /// <summary>
-        /// Is this a valid polygon.
-        /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
-        /// <returns>If the polygon is simple.</returns>
-        public bool IsValid(Polygon2<K> polygon)
-        {
-            if (!CheckInput)
-                return true;
-            else
-                return polygon.IsSimple;
-        }
-
-        private void CheckPolygon(Polygon2<K> polygon)
-        {
-            if (!CheckInput) return;
-
-            if (!IsValid(polygon))
-                throw new Exception("Poylgon must be simple simplification.");
-        }
     }
 
     /// <summary>
     /// Abstract polygon simplification class.
     /// </summary>
-    public abstract class PolygonSimplification2 : CGALObject
+    public abstract class PolygonSimplification2 : PolygonAlgorithm
     {
         private PolygonSimplification2()
         {
@@ -181,13 +165,6 @@ namespace CGALDotNet.Polygons
         /// The simplification kernel.
         /// </summary>
         protected private PolygonSimplificationKernel2 Kernel { get; private set; }
-
-        /// <summary>
-        /// Should the input polygon be checked.
-        /// Can disable for better performance if 
-        /// it is know all input if valid.
-        /// </summary>
-        public bool CheckInput = true;
 
         /// <summary>
         /// Release unmanaged resources.

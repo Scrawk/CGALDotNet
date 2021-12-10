@@ -70,7 +70,7 @@ namespace CGALDotNet
 
         internal override PolygonPartitionKernel2 PolygonPartitionKernel2 => PolygonPartitionKernel2_EIK.Instance;
 
-        internal override PolygonSimplificationKernel2 PolygonSimplificationKernel2 => throw new NotImplementedException();
+        internal override PolygonSimplificationKernel2 PolygonSimplificationKernel2 => PolygonSimplificationKernel2_EIK.Instance;
 
         internal override PolygonOffsetKernel2 PolygonOffsetKernel2 => PolygonOffsetKernel2_EIK.Instance;
 
