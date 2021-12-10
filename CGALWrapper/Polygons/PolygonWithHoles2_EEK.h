@@ -23,6 +23,8 @@ extern "C"
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_ClearBoundary(void* ptr);
 
+	CGALWRAPPER_API void PolygonWithHoles2_EEK_ClearHoles(void* ptr);
+
 	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CreateFromPolygon(void* ptr);
 
 	CGALWRAPPER_API void* PolygonWithHoles2_EEK_CreateFromPoints(Point2d * points, int count);

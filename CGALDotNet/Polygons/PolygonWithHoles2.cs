@@ -346,6 +346,24 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Clear the polygons boundary.
+        /// </summary>
+        public void ClearBoundary()
+        {
+            Kernel.ClearBoundary(Ptr);
+            IsUnbounded = true;
+        }
+
+        /// <summary>
+        /// Clear the polygons holes.
+        /// </summary>
+        public void ClearHoles()
+        {
+            Kernel.ClearHoles(Ptr);
+            HoleCount = 0;
+        }
+
+        /// <summary>
         /// Get the number of points of a polygon element.
         /// </summary>
         /// <param name="element">The element type.</param>

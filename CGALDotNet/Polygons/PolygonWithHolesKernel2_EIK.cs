@@ -44,6 +44,11 @@ namespace CGALDotNet.Polygons
             PolygonWithHoles2_EIK_ClearBoundary(ptr);
         }
 
+        internal override void ClearHoles(IntPtr ptr)
+        {
+            PolygonWithHoles2_EIK_ClearHoles(ptr);
+        }
+
         internal override IntPtr CreateFromPolygon(IntPtr ptr)
         {
             return PolygonWithHoles2_EIK_CreateFromPolygon(ptr);
@@ -184,6 +189,9 @@ namespace CGALDotNet.Polygons
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EIK_ClearBoundary(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonWithHoles2_EIK_ClearHoles(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EIK_CreateFromPolygon(IntPtr ptr);

@@ -109,6 +109,12 @@ public:
 		pwh->outer_boundary().clear();
 	}
 
+	static void ClearHoles(void* ptr)
+	{
+		auto pwh = CastToPolygonWithHoles2(ptr);
+		pwh->holes().clear();
+	}
+
 	static void* CreateFromPolygon(void* ptr)
 	{
 		auto polygon = CastToPolygon2(ptr);

@@ -23,6 +23,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract void ClearBoundary(IntPtr ptr);
 
+        internal abstract void ClearHoles(IntPtr ptr);
+
         internal abstract IntPtr CreateFromPolygon(IntPtr ptr);
 
         internal abstract IntPtr CreateFromPoints(Point2d[] points, int count);

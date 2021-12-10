@@ -41,6 +41,11 @@ void PolygonWithHoles2_EIK_ClearBoundary(void* ptr)
 	PolygonWithHoles2<EIK>::ClearBoundary(ptr);
 }
 
+void PolygonWithHoles2_EIK_ClearHoles(void* ptr)
+{
+	PolygonWithHoles2<EIK>::ClearHoles(ptr);
+}
+
 void* PolygonWithHoles2_EIK_CreateFromPolygon(void* ptr)
 {
 	return PolygonWithHoles2<EIK>::CreateFromPolygon(ptr);
