@@ -62,7 +62,7 @@ namespace CGALDotNet.Polygons
         /// <param name="results">The resulting polygons.</param>
         public void Partition(Polygon2<K> polygon, List<Polygon2<K>> results)
         {
-            ApproxConvex(polygon, results);
+            GreeneApproxConvex(polygon, results);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace CGALDotNet.Polygons
         /// <param name="results">The resulting polygons.</param>
         public void Partition(PolygonWithHoles2<K> polygon, List<Polygon2<K>> results)
         {
-            ApproxConvex(polygon, results);
+            GreeneApproxConvex(polygon, results);
         }
 
         /// <summary>

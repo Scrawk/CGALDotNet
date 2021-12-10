@@ -15,28 +15,6 @@
 #include <CGAL/Polygon_triangulation_decomposition_2.h>
 #include <CGAL/approximated_offset_2.h>
 
-enum MINKOWSKI_DECOMPOSITION : int
-{
-	SMALL_SIDE_ANGLE_BISECTOR,
-	OPTIMAL_CONVEX,
-	HERTEL_MEHLHORN_CONVEX,
-	GREENE_CONVEX,
-	POLYGONAL_VERTICAL,
-	POLYGONAL_TRIANGULATION
-};
-
-enum MINKOWSKI_OFFSET : int
-{
-	OFFSET,
-	INSET
-};
-
-enum MINKOWSKI_APPROX : int
-{
-	APPROX,
-	EXACT
-};
-
 template<class K>
 class PolygonMinkowski
 {
@@ -71,6 +49,16 @@ public:
 	static void* MinkowskiSum(void* polyPtr1, void* polyPtr2)
 	{
 		auto poly1 = Polygon2<K>::CastToPolygon2(polyPtr1);
+		auto poly2 = Polygon2<K>::CastToPolygon2(polyPtr2);
+
+		auto sum = CGAL::minkowski_sum_2(*poly1, *poly2);
+
+		return PolygonWithHoles2<K>::NewPolygonWithHoles2(&sum);
+	}
+
+	static void* MinkowskiSumPWH(void* pwhPtr1, void* polyPtr2)
+	{
+		auto poly1 = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr1);
 		auto poly2 = Polygon2<K>::CastToPolygon2(polyPtr2);
 
 		auto sum = CGAL::minkowski_sum_2(*poly1, *poly2);
@@ -133,6 +121,17 @@ public:
 		return PolygonWithHoles2<K>::NewPolygonWithHoles2(&sum);
 	}
 
+	static void* MinkowskiSumPWH_Vertical(void* pwhPtr1, void* polyPtr2)
+	{
+		auto poly1 = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr1);
+		auto poly2 = Polygon2<K>::CastToPolygon2(polyPtr2);
+
+		CGAL::Polygon_vertical_decomposition_2<K> decomp;
+		auto sum = CGAL::minkowski_sum_2(*poly1, *poly2, decomp);
+
+		return PolygonWithHoles2<K>::NewPolygonWithHoles2(&sum);
+	}
+
 	static void* MinkowskiSum_Triangle(void* polyPtr1, void* polyPtr2)
 	{
 		auto poly1 = Polygon2<K>::CastToPolygon2(polyPtr1);
@@ -144,34 +143,15 @@ public:
 		return PolygonWithHoles2<K>::NewPolygonWithHoles2(&sum);
 	}
 
-	static void* MinkowskiSum(void* polyPtr1, void* polyPtr2, int decomp)
+	static void* MinkowskiSumPWH_Triangle(void* pwhPtr1, void* polyPtr2)
 	{
-		auto d = (MINKOWSKI_DECOMPOSITION)decomp;
+		auto poly1 = PolygonWithHoles2<K>::CastToPolygonWithHoles2(pwhPtr1);
+		auto poly2 = Polygon2<K>::CastToPolygon2(polyPtr2);
 
-		switch (d)
-		{
-		case MINKOWSKI_DECOMPOSITION::SMALL_SIDE_ANGLE_BISECTOR:
-			return MinkowskiSum_SSAB(polyPtr1, polyPtr2);
+		CGAL::Polygon_triangulation_decomposition_2<K> decomp;
+		auto sum = CGAL::minkowski_sum_2(*poly1, *poly2, decomp);
 
-		case MINKOWSKI_DECOMPOSITION::OPTIMAL_CONVEX:
-			return MinkowskiSum_OptimalConvex(polyPtr1, polyPtr2);
-
-		case MINKOWSKI_DECOMPOSITION::HERTEL_MEHLHORN_CONVEX:
-			return MinkowskiSum_HertelMehlhorn(polyPtr1, polyPtr2);
-
-		case MINKOWSKI_DECOMPOSITION::GREENE_CONVEX:
-			return MinkowskiSum_GreeneConvex(polyPtr1, polyPtr2);
-
-		case MINKOWSKI_DECOMPOSITION::POLYGONAL_VERTICAL:
-			return MinkowskiSum_Vertical(polyPtr1, polyPtr2);
-
-		case MINKOWSKI_DECOMPOSITION::POLYGONAL_TRIANGULATION:
-			return MinkowskiSum_Triangle(polyPtr1, polyPtr2);
-
-		default:
-			return MinkowskiSum(polyPtr1, polyPtr2);
-		}
-
+		return PolygonWithHoles2<K>::NewPolygonWithHoles2(&sum);
 	}
 
 };

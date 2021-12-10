@@ -74,7 +74,7 @@ namespace CGALDotNet
 
         internal override PolygonOffsetKernel2 PolygonOffsetKernel2 => PolygonOffsetKernel2_EIK.Instance;
 
-        internal override PolygonMinkowskiKernel PolygonMinkowskiKernel => throw new NotImplementedException();
+        internal override PolygonMinkowskiKernel PolygonMinkowskiKernel => PolygonMinkowskiKernel_EIK.Instance;
 
         internal override PolygonVisibilityKernel PolygonVisibilityKernel => PolygonVisibilityKernel_EIK.Instance;
 
