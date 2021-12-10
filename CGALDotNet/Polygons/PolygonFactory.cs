@@ -27,25 +27,29 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// Create a polygon from a triangle.
         /// </summary>
-        /// <param name="tri">The triangle.</param>
+        /// <param name="a">The triangle first point.</param>
+        /// <param name="b">The triangle second point.</param>
+        /// <param name="c">The triangle third point.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> CreateTriangle(Point2d a, Point2d b, Point2d c)
+        public static Polygon2<K> CreateTriangle(Point2d a, Point2d b, Point2d c, bool ccw = true)
         {
-            var points = new Point2d[] { a, b, c };
-            var poly = new Polygon2<K>(points);
-
-            return poly;
+            var tri = new Triangle2d(a, b, c);
+            return CreateTriangle(tri, ccw);
         }
 
         /// <summary>
         /// Create a polygon from a triangle.
         /// </summary>
         /// <param name="tri">The triangle.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> CreateTriangle(Triangle2d tri)
+        public static Polygon2<K> CreateTriangle(Triangle2d tri, bool ccw = true)
         {
             var points = new Point2d[] { tri.A, tri.B, tri.C };
             var poly = new Polygon2<K>(points);
+
+            if (!ccw) poly.Reverse();
 
             return poly;
         }
@@ -55,11 +59,12 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="min">The boxs min point.</param>
         /// <param name="max">The boxs max point.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> CreateBox(Point2d min, Point2d max)
+        public static Polygon2<K> CreateBox(Point2d min, Point2d max, bool ccw = true)
         {
             var box = new Box2d(min, max);
-            return CreateBox(box);
+            return CreateBox(box, ccw);
         }
 
         /// <summary>
@@ -67,22 +72,26 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="min">The boxs min point.</param>
         /// <param name="max">The boxs max point.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> CreateBox(double min, double max)
+        public static Polygon2<K> CreateBox(double min, double max, bool ccw = true)
         {
             var box = new Box2d(min, max);
-            return CreateBox(box);
+            return CreateBox(box, ccw);
         }
 
         /// <summary>
         /// Create a polygon from a box.
         /// </summary>
         /// <param name="box">The box.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns>The created polygon.</returns>
-        public static Polygon2<K> CreateBox(Box2d box)
+        public static Polygon2<K> CreateBox(Box2d box, bool ccw = true)
         {
             var points = box.GetCorners();
             var poly = new Polygon2<K>(points);
+
+            if (!ccw) poly.Reverse();
 
             return poly;
         }
@@ -97,9 +106,7 @@ namespace CGALDotNet.Polygons
         /// <returns>The created polygon with holes</returns>
         public static PolygonWithHoles2<K> CreateDounut(double outer, double inner, int segments)
         {
-            var poly = CreateDounut(Point2d.Zero, outer, inner, segments);
-
-            return poly;
+            return CreateDounut(Point2d.Zero, outer, inner, segments);
         }
 
 
@@ -133,10 +140,11 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="segments">The number of segments.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns>The polygon.</returns>
-        public static Polygon2<K> CreateCircle(double radius, int segments)
+        public static Polygon2<K> CreateCircle(double radius, int segments, bool ccw = true)
         {
-            return CreateCircle(new Circle2d(Point2d.Zero, radius), segments);
+            return CreateCircle(new Circle2d(Point2d.Zero, radius), segments, ccw);
         }
 
         /// <summary>
@@ -145,10 +153,11 @@ namespace CGALDotNet.Polygons
         /// <param name="center">The center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="segments">The number of segments.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns></returns>
-        public static Polygon2<K> CreateCircle(Point2d center, double radius, int segments)
+        public static Polygon2<K> CreateCircle(Point2d center, double radius, int segments, bool ccw = true)
         {
-            return CreateCircle(new Circle2d(center, radius), segments);
+            return CreateCircle(new Circle2d(center, radius), segments, ccw);
         }
 
         /// <summary>
@@ -156,8 +165,9 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="circle">The cirlce.</param>
         /// <param name="segments">The number of segments.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns></returns>
-        public static Polygon2<K> CreateCircle(Circle2d circle, int segments)
+        public static Polygon2<K> CreateCircle(Circle2d circle, int segments, bool ccw = true)
         {
             segments = Math.Max(3, segments);
 
@@ -178,6 +188,8 @@ namespace CGALDotNet.Polygons
 
             var poly = new Polygon2<K>(points);
 
+            if (!ccw) poly.Reverse();
+
             return poly;
         }
 
@@ -189,23 +201,23 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// https://rosettacode.org/wiki/Koch_curve#C.2B.2B
         /// </summary>
-        /// <param name="size"></param>
-        /// <param name="iterations"></param>
+        /// <param name="size">The size of the polygon.</param>
+        /// <param name="iterations">The number of times to sub divide.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns></returns>
-        public static Polygon2<K> KochStar(double size, int iterations)
+        public static Polygon2<K> KochStar(double size, int iterations, bool ccw = true)
         {
-            var poly = KochStar(Point2d.Zero, size, iterations);
-
-            return poly;
+            return KochStar(Point2d.Zero, size, iterations, ccw);
         }
 
         /// <summary>
         /// https://rosettacode.org/wiki/Koch_curve#C.2B.2B
         /// </summary>
-        /// <param name="size"></param>
-        /// <param name="iterations"></param>
+        /// <param name="size">The size of the polygon.</param>
+        /// <param name="iterations">The number of times to sub divide.</param>
+        /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
         /// <returns></returns>
-        public static Polygon2<K> KochStar(Point2d center, double size, int iterations)
+        public static Polygon2<K> KochStar(Point2d center, double size, int iterations, bool ccw = true)
         {
             double sqrt3_2 = Math.Sqrt(3) / 2.0;
             double length = size * sqrt3_2 * 0.95;
@@ -231,7 +243,11 @@ namespace CGALDotNet.Polygons
             for (int i = 0; i < points.Count; ++i)
                 points[i] -= offset;
             
-            return new Polygon2<K>(points.ToArray());
+            var poly = new Polygon2<K>(points.ToArray());
+
+            if (!ccw) poly.Reverse();
+
+            return poly;
         }
 
         /// <summary>
