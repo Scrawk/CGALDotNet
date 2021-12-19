@@ -115,6 +115,18 @@ namespace CGALDotNetTest.Polygons
         }
 
         [TestMethod]
+        public void ClearHoles()
+        {
+            var poly = PolygonFactory<EEK>.CreateDounut(2, 1, 4);
+
+            Assert.AreEqual(1, poly.HoleCount);
+
+            poly.ClearHoles();
+
+            Assert.AreEqual(0, poly.HoleCount);
+        }
+
+        [TestMethod]
         public void PointCount()
         {
             var poly = PolygonFactory<EEK>.CreateDounut(2, 1, 4);

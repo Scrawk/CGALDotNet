@@ -20,31 +20,6 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var box = PolygonFactory<EIK>.CreateBox(-1, 1);
-
-            box.Print();
-        }
-
-        public class BenckMark
-        {
-
-            [GlobalSetup]
-            public void GlobalSetup()
-            {
-               
-            }
-
-            [Benchmark]
-            public void Func()
-            {
-                
-            }
-
-            [GlobalCleanup]
-            public void GlobalCleanup()
-            {
-              
-            }
         }
 
 
