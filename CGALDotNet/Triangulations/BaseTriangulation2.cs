@@ -10,7 +10,7 @@ namespace CGALDotNet.Triangulations
 
     public enum TRIANGULATION_TYPE
     {
-        REGULAR,
+        TRIANGULATION,
         DELAUNAY,
         CONSTRAINED
     }
@@ -36,7 +36,7 @@ namespace CGALDotNet.Triangulations
         {
             Kernel = kernel;
             Ptr = Kernel.Create();
-            Insert(points);
+            Insert(points, points.Length);
         }
 
         internal BaseTriangulation2(BaseTriangulationKernel2 kernel, IntPtr ptr) : base(ptr)
@@ -120,34 +120,33 @@ namespace CGALDotNet.Triangulations
         ///convex hull to form the new triangulation.
         /// </summary>
         /// <param name="point">The point to insert.</param>
-        public void Insert(Point2d[] points)
+        /// <param name="count">The ararys length.</param>
+        public void Insert(Point2d[] points, int count)
         {
-            Kernel.InsertPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.InsertPoints(Ptr, points, count);
         }
 
         /// <summary>
         /// Get a array of all the points in the triangulation.
         /// </summary>
         /// <param name="points">The point array.</param>
-        public void GetPoints(Point2d[] points)
+        /// <param name="count">The ararys length.</param>
+        public void GetPoints(Point2d[] points, int count)
         {
-            if (points == null || points.Length == 0)
-                return;
-                
-            Kernel.GetPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetPoints(Ptr, points, count);
         }
 
         /// <summary>
         /// Get a array of the triangle indices.
         /// </summary>
         /// <param name="indices"></param>
-        public void GetIndices(int[] indices)
+        /// <param name="count">The ararys length.</param>
+        public void GetIndices(int[] indices, int count)
         {
-            if (indices == null || indices.Length == 0)
-                return;
-
-
-            Kernel.GetIndices(Ptr, indices, indices.Length);
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetIndices(Ptr, indices, count);
         }
 
         /// <summary>
@@ -161,7 +160,7 @@ namespace CGALDotNet.Triangulations
             TriVertex2 vertex;
             if(Kernel.GetVertex(Ptr, index, out vertex))
             {
-                point = vertex.Point.xy;
+                point = vertex.Point;
                 return true;
             }
             else
@@ -186,12 +185,11 @@ namespace CGALDotNet.Triangulations
         /// Get a array of all the vertices.
         /// </summary>
         /// <param name="vertices">The vertex array.</param>
-        public void GetVertices(TriVertex2[] vertices)
+        /// <param name="count">The ararys length.</param>
+        public void GetVertices(TriVertex2[] vertices, int count)
         {
-            if (vertices == null || vertices.Length == 0)
-                return;
-
-            Kernel.GetVertices(Ptr, vertices, vertices.Length);
+            ErrorUtil.CheckArray(vertices, count);
+            Kernel.GetVertices(Ptr, vertices, count);
         }
 
         /// <summary>
@@ -209,12 +207,11 @@ namespace CGALDotNet.Triangulations
         /// Get a array of all the triangle faces.
         /// </summary>
         /// <param name="faces">A array of faces.</param>
-        public void GetFaces(TriFace2[] faces)
+        /// <param name="count">The ararys length.</param>
+        public void GetFaces(TriFace2[] faces, int count)
         {
-            if (faces == null || faces.Length == 0)
-                return;
-
-            Kernel.GetFaces(Ptr, faces, faces.Length);
+            ErrorUtil.CheckArray(faces, count);
+            Kernel.GetFaces(Ptr, faces, count);
         }
 
         /// <summary>
@@ -244,12 +241,11 @@ namespace CGALDotNet.Triangulations
         /// Get a array of all the triangles.
         /// </summary>
         /// <param name="triangules">A array of triangules.</param>
-        public void GetTriangles(Triangle2d[] triangles)
+        /// <param name="count">The ararys length.</param>
+        public void GetTriangles(Triangle2d[] triangles, int count)
         {
-            if (triangles == null || triangles.Length == 0)
-                return;
-
-            Kernel.GetTriangles(Ptr, triangles, triangles.Length);
+            ErrorUtil.CheckArray(triangles, count);
+            Kernel.GetTriangles(Ptr, triangles, count);
         }
 
         /// <summary>
@@ -268,12 +264,11 @@ namespace CGALDotNet.Triangulations
         /// Get a array of all the circumcenters.
         /// </summary>
         /// <param name="circumcenters">A array of circumcenters.</param>
-        public void GetCircumcenters(Point2d[] circumcenters)
+        /// <param name="count">The ararys length.</param>
+        public void GetCircumcenters(Point2d[] circumcenters, int count)
         {
-            if (circumcenters == null || circumcenters.Length == 0)
-                return;
-
-            Kernel.GetCircumcenters(Ptr, circumcenters, circumcenters.Length);
+            ErrorUtil.CheckArray(circumcenters, count);
+            Kernel.GetCircumcenters(Ptr, circumcenters, count);
         }
 
         /// <summary>
@@ -326,7 +321,7 @@ namespace CGALDotNet.Triangulations
                     //If vertex found find its distance to point.
                     if(GetVertex(v, out vertex))
                     {
-                        var sqdist = Point2d.SqrDistance(vertex.Point.xy, point);
+                        var sqdist = Point2d.SqrDistance(vertex.Point, point);
                         if(sqdist < min)
                         {
                             min = sqdist;
@@ -375,8 +370,8 @@ namespace CGALDotNet.Triangulations
                     if (GetVertex(v1, out TriVertex2 vertex1) &&
                         GetVertex(v2, out TriVertex2 vertex2))
                     {
-                        var p1 = vertex1.Point.xy;
-                        var p2 = vertex2.Point.xy;
+                        var p1 = vertex1.Point;
+                        var p2 = vertex2.Point;
 
                         var seg = new Segment2d(p1, p2);
                         var sqdist = seg.SqrDistance(point);

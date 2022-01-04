@@ -181,8 +181,8 @@ namespace CGALDotNet.PolyHedra
         /// <param name="indices">The meshes trinagles as a index array.</param>
         public void CreateTriangleMesh(Point3d[] points, int[] indices)
         {
-            if (points == null || points.Length == 0) return;
-            if (indices == null || indices.Length == 0) return;
+            ErrorUtil.CheckArray(points, points.Length);
+            ErrorUtil.CheckArray(indices, indices.Length);
 
             Clear();
             Kernel.CreateTriangleMesh(Ptr, points, points.Length, indices, indices.Length);
@@ -192,11 +192,11 @@ namespace CGALDotNet.PolyHedra
         /// Get the meshes points.
         /// </summary>
         /// <param name="points">The array to copy the points into.</param>
-        public void GetPoints(Point3d[] points)
+        /// <param name="count">The ararys length.</param>
+        public void GetPoints(Point3d[] points, int count)
         {
-            if (points == null || points.Length == 0) return;
-
-            Kernel.GetPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetPoints(Ptr, points, count);
         }
 
         /// <summary>
@@ -204,11 +204,11 @@ namespace CGALDotNet.PolyHedra
         /// Presumes all faces in mesh are triangles.
         /// </summary>
         /// <param name="indices">The array to copy the indices into.</param>
-        public void GetTriangleIndices(int[] indices)
+        /// <param name="count">The ararys length.</param>
+        public void GetTriangleIndices(int[] indices, int count)
         {
-            if (indices == null || indices.Length == 0) return;
-
-            Kernel.GetTriangleIndices(Ptr, indices, indices.Length);
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetTriangleIndices(Ptr, indices, count);
         }
 
         /// <summary>

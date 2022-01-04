@@ -217,36 +217,33 @@ namespace CGALDotNet.Arrangements
         /// Get a copy of all the points in the arrangement.
         /// </summary>
         /// <param name="points">A point array that is the length of the vertex count.</param>
-        public void GetPoints(Point2d[] points)
+        /// <param name="count">The ararys length.</param>
+        public void GetPoints(Point2d[] points, int count)
         {
-            if (points == null || points.Length == 0)  
-                return;
-
-            Kernel.GetPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetPoints(Ptr, points, count);
         }
 
         /// <summary>
         /// Get a copy of all the segments in the arrangment.
         /// </summary>
         /// <param name="segments">A segment array that is the length of the edge count.</param>
-        public void GetSegments(Segment2d[] segments)
+        /// <param name="count">The ararys length.</param>
+        public void GetSegments(Segment2d[] segments, int count)
         {
-            if (segments == null || segments.Length == 0) 
-                return;
-
-            Kernel.GetSegments(Ptr, segments, segments.Length);
+            ErrorUtil.CheckArray(segments, count);
+            Kernel.GetSegments(Ptr, segments, count);
         }
 
         /// <summary>
         /// Get a copy of all the vertices in the arrangement.
         /// </summary>
         /// <param name="vertices">A vertices array that is the length of the vertex count.</param>
-        public void GetVertices(ArrVertex2[] vertices)
+        /// <param name="count">The ararys length.</param>
+        public void GetVertices(ArrVertex2[] vertices, int count)
         {
-            if (vertices == null || vertices.Length == 0) 
-                return;
-
-            Kernel.GetVertices(Ptr, vertices, vertices.Length);
+            ErrorUtil.CheckArray(vertices, count);
+            Kernel.GetVertices(Ptr, vertices, count);
         }
 
         /// <summary>
@@ -264,12 +261,11 @@ namespace CGALDotNet.Arrangements
         /// Get a copy of all the half edges in the arrangement.
         /// </summary>
         /// <param name="edges">A half edge array that is the length of the half edge count.</param>
-        public void GetHalfEdges(ArrHalfEdge2[] edges)
+        /// <param name="count">The ararys length.</param>
+        public void GetHalfEdges(ArrHalfEdge2[] edges, int count)
         {
-            if (edges == null || edges.Length == 0)
-                return;
-
-            Kernel.GetHalfEdges(Ptr, edges, edges.Length);
+            ErrorUtil.CheckArray(edges, count);
+            Kernel.GetHalfEdges(Ptr, edges, count);
         }
 
         /// <summary>
@@ -287,12 +283,11 @@ namespace CGALDotNet.Arrangements
         /// Get a copy of all the faces in the arrangement.
         /// </summary>
         /// <param name="faces">A face array that is the length of the facee count.</param>
-        public void GetFaces(ArrFace2[] faces)
+        /// <param name="count">The ararys length.</param>
+        public void GetFaces(ArrFace2[] faces, int count)
         {
-            if (faces == null || faces.Length == 0)
-                return;
-
-            Kernel.GetFaces(Ptr, faces, faces.Length);
+            ErrorUtil.CheckArray(faces, count);
+            Kernel.GetFaces(Ptr, faces, count);
         }
 
         /// <summary>
@@ -351,11 +346,8 @@ namespace CGALDotNet.Arrangements
         /// <returns>True if any point hit something.</returns>
         public bool BatchedPointQuery(Point2d[] points, ArrQuery[] results)
         {
-            if (points == null || points.Length == 0)
-                return false;
-
-            if (results == null || results.Length == 0)
-                return false;
+            ErrorUtil.CheckArray(points, points.Length);
+            ErrorUtil.CheckArray(results, results.Length);
 
             return Kernel.BatchedPointQuery(Ptr, points, results, points.Length);
         }
@@ -593,12 +585,10 @@ namespace CGALDotNet.Arrangements
         /// <param name="b">The segments end point.</param>
         /// <param name="nonIntersecting">True if the segments are known not to 
         /// hit anything currently in the arrangement.</param>
-        public void InsertSegments(Segment2d[] segments, bool nonItersecting)
+        public void InsertSegments(Segment2d[] segments, int count, bool nonItersecting)
         {
-            if (segments == null || segments.Length == 0)
-                return;
-
-            Kernel.InsertSegments(Ptr, segments, segments.Length, nonItersecting);
+            ErrorUtil.CheckArray(segments, count);
+            Kernel.InsertSegments(Ptr, segments, count, nonItersecting);
         }
 
         /// <summary>
@@ -700,7 +690,7 @@ namespace CGALDotNet.Arrangements
             builder.AppendLine("Arrangement Vertices.\n");
 
             var vertices = new ArrVertex2[VertexCount];
-            GetVertices(vertices);
+            GetVertices(vertices, vertices.Length);
 
             foreach (var v in vertices)
             {
@@ -721,7 +711,7 @@ namespace CGALDotNet.Arrangements
             builder.AppendLine("Arrangement Half Edges.\n");
 
             var edges = new ArrHalfEdge2[HalfEdgeCount];
-            GetHalfEdges(edges);
+            GetHalfEdges(edges, edges.Length);
 
             foreach (var e in edges)
             {
@@ -746,7 +736,7 @@ namespace CGALDotNet.Arrangements
             builder.AppendLine("Arrangement Faces.\n");
 
             var faces = new ArrFace2[FaceCount];
-            GetFaces(faces);
+            GetFaces(faces, faces.Length);
 
             foreach (var e in faces)
             {

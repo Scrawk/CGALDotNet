@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CGALDotNet.Triangulations
+namespace CGALDotNet.Meshing
 {
     public struct  MeshOptimizeParams
     {

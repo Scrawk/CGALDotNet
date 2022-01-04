@@ -95,6 +95,9 @@ namespace CGALDotNet.Polygons
             }
             else
             {
+                if(index < 0 || index >= HoleCount)
+                    throw new ArgumentOutOfRangeException("Hole index must be > 0 and < HoleCount.");
+
                 return new Polygon2<K>(Kernel.CopyPolygon(Ptr, index));
             }
         }
@@ -106,6 +109,9 @@ namespace CGALDotNet.Polygons
         /// <returns>A copy of the hole polygon.</returns>
         public Polygon2<K> GetHole(int index)
         {
+            if (index < 0 || index >= HoleCount)
+                throw new ArgumentOutOfRangeException("Hole index must be > 0 and < HoleCount.");
+
             return new Polygon2<K>(Kernel.CopyPolygon(Ptr, index));
         }
 

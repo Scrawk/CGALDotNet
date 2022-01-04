@@ -17,7 +17,7 @@ namespace CGALDotNet.Triangulations
         /// <summary>
         /// The vertices point.
         /// </summary>
-        public Point3d Point;
+        public Point2d Point;
 
         /// <summary>
         /// Is this a infinite vertex.

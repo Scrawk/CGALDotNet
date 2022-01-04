@@ -195,27 +195,32 @@ namespace CGALDotNet.Triangulations
         /// Add a list of segments as constraint to the triangulation.
         /// </summary>
         /// <param name="segments">The segment array.</param>
-        public void InsertConstraints(Segment2d[] segments)
+        public void InsertConstraints(Segment2d[] segments, int count)
         {
-            TriangulationKernel.InsertSegmentConstraints(Ptr, segments, segments.Length);
+            ErrorUtil.CheckArray(segments, count);
+            TriangulationKernel.InsertSegmentConstraints(Ptr, segments, count);
         }
 
         /// <summary>
         /// Get a array of all the constraint edges in the triangulation.
         /// </summary>
         /// <param name="constraints">The edge array.</param>
-        public void GetConstraints(TriEdge2[] constraints)
+        /// <param name="count">The ararys length.</param>
+        public void GetConstraints(TriEdge2[] constraints, int count)
         {
-            TriangulationKernel.GetConstraints(Ptr, constraints, constraints.Length);
+            ErrorUtil.CheckArray(constraints, count);
+            TriangulationKernel.GetConstraints(Ptr, constraints, count);
         }
 
         /// <summary>
         /// Get a array of all the constraint segments in the triangulation.
         /// </summary>
         /// <param name="constraints">The segment array.</param>
-        public void GetConstraints(Segment2d[] constraints)
+        /// <param name="count">The ararys length.</param>
+        public void GetConstraints(Segment2d[] constraints, int count)
         {
-            TriangulationKernel.GetConstraints(Ptr, constraints, constraints.Length);
+            ErrorUtil.CheckArray(constraints, count);
+            TriangulationKernel.GetConstraints(Ptr, constraints, count);
         }
 
         /// <summary>
@@ -223,9 +228,11 @@ namespace CGALDotNet.Triangulations
         /// </summary>
         /// <param name="vertexIndex">The vertex index in the triangulation.</param>
         /// <param name="constraints">The array of edges.</param>
-        public void GetIncidentConstraints(int vertexIndex, TriEdge2[] constraints)
+        /// <param name="count">The ararys length.</param>
+        public void GetIncidentConstraints(int vertexIndex, TriEdge2[] constraints, int count)
         {
-            TriangulationKernel.GetIncidentConstraints(Ptr, vertexIndex, constraints, constraints.Length);
+            ErrorUtil.CheckArray(constraints, count);
+            TriangulationKernel.GetIncidentConstraints(Ptr, vertexIndex, constraints, count);
         }
 
         /// <summary>

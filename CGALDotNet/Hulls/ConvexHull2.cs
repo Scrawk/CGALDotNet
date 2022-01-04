@@ -106,20 +106,24 @@ namespace CGALDotNet.Hulls
         /// Is this set of points ccw orderer.
         /// </summary>
         /// <param name="points">The point array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <returns>Is this set of points ccw orderer.</returns>
-        public bool IsStronglyConvexCCW(Point2d[] points)
+        public bool IsStronglyConvexCCW(Point2d[] points, int count)
         {
-            return Kernel.IsStronglyConvexCCW(points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            return Kernel.IsStronglyConvexCCW(points, count);
         }
 
         /// <summary>
         /// Is this set of points cw orderer.
         /// </summary>
         /// <param name="points">The point array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <returns>Is this set of points cw orderer.</returns>
-        public bool IsStronglyConvexCW(Point2d[] points)
+        public bool IsStronglyConvexCW(Point2d[] points, int count)
         {
-            return Kernel.IsStronglyConvexCW(points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            return Kernel.IsStronglyConvexCW(points, count);
         }
 
         /// <summary>

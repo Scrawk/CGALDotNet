@@ -8,7 +8,7 @@
 
 struct TriVertex2
 {
-	Point3d Point;
+	Point2d Point;
 	BOOL IsInfinite;
 	int Degree;
 	int Index;
@@ -17,7 +17,7 @@ struct TriVertex2
 	static TriVertex2 NullVertex()
 	{
 		TriVertex2 v;
-		v.Point = { 0, 0, 0 };
+		v.Point = { 0, 0};
 		v.IsInfinite = false;
 		v.Degree = 0;
 		v.Index = NULL_INDEX;
@@ -29,7 +29,7 @@ struct TriVertex2
 	static TriVertex2 FromVertex(const TRI& tri, VERT vert, int degree)
 	{
 		TriVertex2 triVertex;
-		triVertex.Point = Point3d::FromCGAL<K>(vert->point());
+		triVertex.Point = Point2d::FromCGAL<K>(vert->point());
 		triVertex.IsInfinite = tri.is_infinite(vert);
 		triVertex.Degree = degree;
 		triVertex.Index = vert->info();

@@ -21,7 +21,7 @@ namespace CGALDotNet
                 throw new InvalidArrayExeception("Array length can not be zero.");
 
             if (count <= 0)
-                throw new InvalidArrayExeception("Count must be greater trhan zero.");
+                throw new InvalidArrayExeception("Count must be greater than zero.");
 
             if (array.Length < count)
                 throw new InvalidArrayExeception("Array length is less than count.");
