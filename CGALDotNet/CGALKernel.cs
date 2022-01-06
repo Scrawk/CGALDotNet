@@ -80,17 +80,17 @@ namespace CGALDotNet
 
         internal override ArrangementKernel2 ArrangementKernel2 => throw new NotImplementedException();
 
-        internal override SweepLineKernel SweepLineKernel => throw new NotImplementedException();
+        internal override SweepLineKernel SweepLineKernel => SweepLineKernel_EIK.Instance;
 
-        internal override TriangulationKernel2 TriangulationKernel2 => throw new NotImplementedException();
+        internal override TriangulationKernel2 TriangulationKernel2 => TriangulationKernel2_EIK.Instance;
 
-        internal override DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 => throw new NotImplementedException();
+        internal override DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 => DelaunayTriangulationKernel2_EIK.Instance;
 
-        internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => throw new NotImplementedException();
+        internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => ConstrainedTriangulationKernel2_EIK.Instance;
 
-        internal override ConformingTriangulationKernel2 ConformingTriangulationKernel2 => throw new NotImplementedException();
+        internal override ConformingTriangulationKernel2 ConformingTriangulationKernel2 => ConformingTriangulationKernel2_EIK.Instance;
 
-        internal override ConvexHullKernel2 ConvexHullKernel2 => throw new NotImplementedException();
+        internal override ConvexHullKernel2 ConvexHullKernel2 => ConvexHullKernel2_EIK.Instance;
 
         internal override PolyhedronKernel3 PolyhedronKernel3 => throw new NotImplementedException();
 

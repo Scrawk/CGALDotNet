@@ -43,11 +43,13 @@ namespace CGALDotNet.Hulls
         /// Find the convex of the points.
         /// </summary>
         /// <param name="points">The point array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <param name="method">The hull ethod to use.</param>
         /// <returns>A polygon that represents the convex hull.</returns>
-        public  Polygon2<K> CreateHull(Point2d[] points, HULL_METHOD method = HULL_METHOD.DEFAULT)
+        public Polygon2<K> CreateHull(Point2d[] points, int count, HULL_METHOD method = HULL_METHOD.DEFAULT)
         {
-            var ptr = Kernel.CreateHull(points, points.Length, method);
+            ErrorUtil.CheckArray(points, count);
+            var ptr = Kernel.CreateHull(points, count, method);
             return new Polygon2<K>(ptr);
         }
 
@@ -55,10 +57,12 @@ namespace CGALDotNet.Hulls
         /// Find the upper hull of points.
         /// </summary>
         /// <param name="points">The point array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <returns>A polygon that represents the upper hull.</returns>
-        public Polygon2<K> UpperHull(Point2d[] points)
+        public Polygon2<K> UpperHull(Point2d[] points, int count)
         {
-            var ptr = Kernel.UpperHull(points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            var ptr = Kernel.UpperHull(points, count);
             return new Polygon2<K>(ptr);
         }
 
@@ -66,10 +70,12 @@ namespace CGALDotNet.Hulls
         /// Find the lower hull of points.
         /// </summary>
         /// <param name="points">The point array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <returns>A polygon that represents the lower hull.</returns>
-        public Polygon2<K> LowerHull(Point2d[] points)
+        public Polygon2<K> LowerHull(Point2d[] points, int count)
         {
-            var ptr = Kernel.LowerHull(points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            var ptr = Kernel.LowerHull(points, count);
             return new Polygon2<K>(ptr);
         }
     }

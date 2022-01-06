@@ -7,6 +7,10 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Meshing
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="K"></typeparam>
     public sealed class ConformingTriangulation2<K> : ConformingTriangulation2 where K : CGALKernel, new()
     {
         /// <summary>
@@ -60,27 +64,46 @@ namespace CGALDotNet.Meshing
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class ConformingTriangulation2 : CGALObject
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         private ConformingTriangulation2()
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
         internal ConformingTriangulation2(CGALKernel kernel)
         {
             Kernel = kernel.ConformingTriangulationKernel2;
             Ptr = Kernel.Create();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <param name="points"></param>
         internal ConformingTriangulation2(CGALKernel kernel, Point2d[] points)
         {
             Kernel = kernel.ConformingTriangulationKernel2;
             Ptr = Kernel.Create();
-            Insert(points);
+            Insert(points, points.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <param name="ptr"></param>
         internal ConformingTriangulation2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.ConformingTriangulationKernel2;
@@ -116,14 +139,24 @@ namespace CGALDotNet.Meshing
             Kernel.Clear(Ptr);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
         public void Insert(Point2d point)
         {
             Kernel.InsertPoint(Ptr, point);
         }
 
-        public void Insert(Point2d[] points)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="count"></param>
+        public void Insert(Point2d[] points, int count)
         {
-            Kernel.InsertPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.InsertPoints(Ptr, points, count);
         }
 
         /// <summary>
@@ -146,20 +179,26 @@ namespace CGALDotNet.Meshing
             Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
         }
 
-        public void GetPoints( Point2d[] points)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="count"></param>
+        public void GetPoints( Point2d[] points, int count)
         {
-            if (points == null || points.Length == 0)
-                return;
-
-            Kernel.GetPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetPoints(Ptr, points, count);
         }
 
-        public void GetIndices(int[] indices)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indices"></param>
+        /// <param name="count"></param>
+        public void GetIndices(int[] indices, int count)
         {
-            if (indices == null || indices.Length == 0)
-                return;
-
-            Kernel.GetIndices(Ptr, indices, indices.Length);
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetIndices(Ptr, indices, count);
         }
 
         /// <summary>
@@ -200,22 +239,34 @@ namespace CGALDotNet.Meshing
             Kernel.Transform(Ptr, translation, rotation.angle, scale);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         public void InsertConstraint(Point2d a, Point2d b)
         {
             Kernel.InsertSegmentConstraint(Ptr, a, b);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segment"></param>
         public void InsertConstraint(Segment2d segment)
         {
             Kernel.InsertSegmentConstraint(Ptr, segment.A, segment.B);
         }
 
-        public void InsertConstraints(Segment2d[] segments)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segments"></param>
+        /// <param name="count"></param>
+        public void InsertConstraints(Segment2d[] segments, int count)
         {
-            if (segments == null || segments.Length == 0)
-                return;
-
-            Kernel.InsertSegmentConstraints(Ptr, segments, segments.Length);
+            ErrorUtil.CheckArray(segments, count);
+            Kernel.InsertSegmentConstraints(Ptr, segments, count);
         }
 
         /// <summary>
@@ -281,6 +332,9 @@ namespace CGALDotNet.Meshing
             Kernel.RefineAndOptimizeWithSeeds(Ptr, 0, angleBounds, lengthBounds, seeds, seeds.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Print()
         {
             var builder = new StringBuilder();
@@ -288,6 +342,10 @@ namespace CGALDotNet.Meshing
             Console.WriteLine(builder.ToString());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
         public void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());

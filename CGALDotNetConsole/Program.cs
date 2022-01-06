@@ -20,16 +20,15 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var mesh = SurfaceMeshFactory<EEK>.CreateIcosahedron();
+            var tri = new Triangulation2<EEK>();
 
-            mesh.Print();
+            var del = new DelaunayTriangulation2<EEK>();
 
-            var count = mesh.VertexCount;
-            var points = new Point3d[count];
-            mesh.GetPoints(points, count);
+            var con = new ConstrainedTriangulation2<EEK>();
 
-            foreach(var p in points)
-                Console.WriteLine(p);
+            tri.Print();
+            del.Print();
+            con.Print();
 
         }
 

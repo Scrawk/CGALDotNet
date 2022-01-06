@@ -188,7 +188,7 @@ public:
 	{
 		auto tri = CastToTriangulation2(ptr);
 
-		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+		Transformation_2 T(CGAL::TRANSLATION, translation.ToVector<K>());
 		Transformation_2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
 		Transformation_2 S(CGAL::SCALING, scale);
 

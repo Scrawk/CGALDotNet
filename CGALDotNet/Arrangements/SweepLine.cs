@@ -87,13 +87,12 @@ namespace CGALDotNet.Arrangements
         /// Do any of the segments in the array intersect.
         /// </summary>
         /// <param name="segments">The segment array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <returns>Do any of the segments in the array intersect.</returns>
-        public bool DoIntersect(Segment2d[] segments)
+        public bool DoIntersect(Segment2d[] segments, int count)
         {
-            if (segments == null || segments.Length == 0)
-                return false;
-
-            return Kernel.DoIntersect(Ptr, segments, segments.Length);
+            ErrorUtil.CheckArray(segments, count);
+            return Kernel.DoIntersect(Ptr, segments, count);
         }
 
         /// <summary>
@@ -101,19 +100,18 @@ namespace CGALDotNet.Arrangements
         /// of the segments in the array.
         /// </summary>
         /// <param name="segments">The segment array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <returns>The sub segments.</returns>
-        public Segment2d[] ComputeSubcurves(Segment2d[] segments)
+        public Segment2d[] ComputeSubcurves(Segment2d[] segments, int count)
         {
-            if (segments == null || segments.Length == 0)
-                return new Segment2d[0];
+            ErrorUtil.CheckArray(segments, count);
 
-            int count = Kernel.ComputeSubcurves(Ptr, segments, segments.Length);
+            int len = Kernel.ComputeSubcurves(Ptr, segments, count);
+            var subSegments = new Segment2d[len];
 
-            var subSegments = new Segment2d[count];
-
-            if (count > 0)
+            if (len > 0)
             {
-                GetSegments(subSegments);
+                GetSegments(subSegments, len);
                 ClearSegmentBuffer();
             }
 
@@ -125,47 +123,44 @@ namespace CGALDotNet.Arrangements
         /// segments in the array.
         /// </summary>
         /// <param name="segments">The segment array.</param>
+        /// <param name="count">The ararys length.</param>
         /// <returns>The intersection points.</returns>
-        public Point2d[] ComputeIntersectionPoints(Segment2d[] segments)
+        public Point2d[] ComputeIntersectionPoints(Segment2d[] segments, int count)
         {
-            if (segments == null || segments.Length == 0)
-                return new Point2d[0];
+            ErrorUtil.CheckArray(segments, count);
 
-            int count = Kernel.ComputeIntersectionPoints(Ptr, segments, segments.Length);
+            int len = Kernel.ComputeIntersectionPoints(Ptr, segments, count);
+            var points = new Point2d[len];
 
-            var points = new Point2d[count];
-
-            if (count > 0)
+            if (len > 0)
             {
-                GetPoints(points);
+                GetPoints(points, len);
                 ClearPointBuffer();
             }
 
             return points;
         }
-       
+
         /// <summary>
         /// Get all the points in the point buffer.
         /// </summary>
         /// <param name="points">A point array the size of the point buffer.</param>
-        private void GetPoints(Point2d[] points)
+        /// <param name="count">The ararys length.</param>
+        private void GetPoints(Point2d[] points, int count)
         {
-            if (points == null || points.Length == 0)
-                return;
-
-            Kernel.GetPoints(Ptr, points, points.Length);
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetPoints(Ptr, points, count);
         }
 
         /// <summary>
         /// Get all the segments in the point buffer.
         /// </summary>
         /// <param name="segments">A segment array the size of the segment buffer.</param>
-        private void GetSegments(Segment2d[] segments)
+        /// <param name="count">The ararys length.</param>
+        private void GetSegments(Segment2d[] segments, int count)
         {
-            if (segments == null || segments.Length == 0)
-                return;
-
-            Kernel.GetSegments(Ptr, segments, segments.Length);
+            ErrorUtil.CheckArray(segments, count);
+            Kernel.GetSegments(Ptr, segments, count);
         }
 
         /// <summary>

@@ -205,28 +205,6 @@ BOOL Arrangement2_EEK_RemoveEdgeBySegment(void* ptr, Segment2d segment)
 	return Arrangement2<EEK>::RemoveEdge(ptr, segment);
 }
 
-/*
-void Test()
-{
-	auto arr = Arrangement2<EEK>::Arrangement_2();
-
-	for (auto face = arr.faces_begin(); face != arr.faces_end(); ++face)
-	{
-		for (auto hole = face->holes_begin(); hole != face->holes_end(); ++hole)
-		{
-			auto curr = (*hole)->next();
-			auto first = curr;
-
-			do 
-			{
-				auto p = curr->source()->point();
-				curr = curr->next();
-			} 
-			while (curr != first);
-		}
-	}
-}
-*/
 
 
 
