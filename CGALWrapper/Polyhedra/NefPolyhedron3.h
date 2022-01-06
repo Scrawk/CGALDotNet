@@ -4,8 +4,12 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "Polyhedron3.h"
+#include "SurfaceMesh3.h"
 
 #include <CGAL/Nef_polyhedron_3.h>
+#include <CGAL/Surface_mesh.h>
+#include <CGAL/minkowski_sum_3.h>
+#include <CGAL/boost/graph/convert_nef_polyhedron_to_polygon_mesh.h>
 
 template<class K>
 class NefPolyhedron3
@@ -226,6 +230,17 @@ public:
 		return result;
 	}
 
+	static void* MinkowskiSum(void* ptr1, void* ptr2)
+	{
+		auto nef1 = CastToNefPolyhedron(ptr1);
+		auto nef2 = CastToNefPolyhedron(ptr2);
+		auto result = NewNefPolyhedron();
+
+		*result = CGAL::minkowski_sum_3(*nef1, *nef2);
+
+		return result;
+	}
+
 	static void* ConvertToPolyhedron(void* ptr)
 	{
 		auto nef = CastToNefPolyhedron(ptr);
@@ -234,6 +249,16 @@ public:
 		nef->convert_to_polyhedron(*poly);
 
 		return poly;
+	}
+
+	static void* ConvertToSurfaceMesh(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		auto mesh = SurfaceMesh3<K>::NewSurfaceMesh();
+
+		CGAL::convert_nef_polyhedron_to_polygon_mesh(*nef, *mesh);
+
+		return mesh;
 	}
 
 		

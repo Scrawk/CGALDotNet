@@ -183,7 +183,17 @@ namespace CGALDotNet.PolyHedra
         }
 
         /// <summary>
-        /// Converts N into a triangulated Polyhedron.
+        /// Returns the MinkowskiSum.
+        /// </summary>
+        /// <returns></returns>
+        public NefPolyhedron3<K> MinkowskiSum(NefPolyhedron3<K> nef)
+        {
+            var ptr = Kernel.MinkowskiSum(Ptr, nef.Ptr);
+            return new NefPolyhedron3<K>(ptr);
+        }
+
+        /// <summary>
+        /// Converts N into a Polyhedron.
         /// N must be simple to convert.
         /// </summary>
         /// <param name="poly">The result of the conversion.</param>
@@ -199,6 +209,27 @@ namespace CGALDotNet.PolyHedra
             else
             {
                 poly = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Converts N into a surface mesh.
+        /// N must be simple to convert.
+        /// </summary>
+        /// <param name="mesh">The result of the conversion.</param>
+        /// <returns>True if N is simple and the conversion was successful.</returns>
+        public bool ConvertToSurfaceMesh(out SurfaceMesh3<K> mesh)
+        {
+            if (IsSimple)
+            {
+                var ptr = Kernel.ConvertToSurfaceMesh(Ptr);
+                mesh = new SurfaceMesh3<K>(ptr);
+                return true;
+            }
+            else
+            {
+                mesh = null;
                 return false;
             }
         }

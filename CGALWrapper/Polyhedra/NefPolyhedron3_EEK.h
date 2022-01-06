@@ -55,6 +55,10 @@ extern "C"
 
 	CGALWRAPPER_API void* NefPolyhedron3_EEK_Regularization(void* ptr);
 
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_MinkowskiSum(void* ptr1, void* ptr2);
+
 	CGALWRAPPER_API void* NefPolyhedron3_EEK_ConvertToPolyhedron(void* ptr);
+
+	CGALWRAPPER_API void* NefPolyhedron3_EEK_ConvertToSurfaceMesh(void* ptr);
 
 }

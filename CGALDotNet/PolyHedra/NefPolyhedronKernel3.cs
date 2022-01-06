@@ -56,7 +56,11 @@ namespace CGALDotNet.PolyHedra
 
 		internal abstract IntPtr Regularization(IntPtr ptr);
 
+		internal abstract IntPtr MinkowskiSum(IntPtr ptr1, IntPtr ptr2);
+
 		internal abstract IntPtr ConvertToPolyhedron(IntPtr ptr);
+
+		internal abstract IntPtr ConvertToSurfaceMesh(IntPtr ptr);
 
 	}
 }

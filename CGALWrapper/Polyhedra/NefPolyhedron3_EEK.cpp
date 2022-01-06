@@ -129,7 +129,17 @@ void* NefPolyhedron3_EEK_Regularization(void* ptr)
 	return NefPolyhedron3<EEK>::Regularization(ptr);
 }
 
+void* NefPolyhedron3_EEK_MinkowskiSum(void* ptr1, void* ptr2)
+{
+	return NefPolyhedron3<EEK>::MinkowskiSum(ptr1, ptr2);
+}
+
 void* NefPolyhedron3_EEK_ConvertToPolyhedron(void* ptr)
 {
 	return NefPolyhedron3<EEK>::ConvertToPolyhedron(ptr);
+}
+
+void* NefPolyhedron3_EEK_ConvertToSurfaceMesh(void* ptr)
+{
+	return NefPolyhedron3<EEK>::ConvertToSurfaceMesh(ptr);
 }

@@ -131,10 +131,20 @@ namespace CGALDotNet.PolyHedra
 			return NefPolyhedron3_EEK_Regularization(ptr);
         }
 
+		internal override IntPtr MinkowskiSum(IntPtr ptr1, IntPtr ptr2)
+        {
+			return NefPolyhedron3_EEK_MinkowskiSum(ptr1, ptr2);
+        }
+
 		internal override IntPtr ConvertToPolyhedron(IntPtr ptr)
         {
 			return NefPolyhedron3_EEK_ConvertToPolyhedron(ptr);
         }
+
+		internal override IntPtr ConvertToSurfaceMesh(IntPtr ptr)
+		{
+			return NefPolyhedron3_EEK_ConvertToSurfaceMesh(ptr);
+		}
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EEK_CreateFromSpace(NEF_CONTENT space);
@@ -209,7 +219,13 @@ namespace CGALDotNet.PolyHedra
 		private static extern IntPtr NefPolyhedron3_EEK_Regularization(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_MinkowskiSum(IntPtr ptr1, IntPtr ptr2);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EEK_ConvertToPolyhedron(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr NefPolyhedron3_EEK_ConvertToSurfaceMesh(IntPtr ptr);
 
 	}
 }
