@@ -12,13 +12,27 @@ namespace CGALDotNet.Geometry
     [StructLayout(LayoutKind.Sequential)]
     public struct Triangle2d : IEquatable<Triangle2d>, IGeometry2d
     {
-
+        /// <summary>
+        /// The triangles first point.
+        /// </summary>
         public Point2d A;
 
+        /// <summary>
+        /// The triangles second point.
+        /// </summary>
         public Point2d B;
 
+        /// <summary>
+        /// The triangles third point.
+        /// </summary>
         public Point2d C;
 
+        /// <summary>
+        /// Create a new triangle.
+        /// </summary>
+        /// <param name="a">The first point.</param>
+        /// <param name="b">The second point.</param>
+        /// <param name="c">The third point.</param>
         public Triangle2d(Point2d a, Point2d b, Point2d c)
         {
             A = a;
@@ -26,6 +40,15 @@ namespace CGALDotNet.Geometry
             C = c;
         }
 
+        /// <summary>
+        /// Create a new triangle.
+        /// </summary>
+        /// <param name="ax">The first points x value.</param>
+        /// <param name="ay">The first points y value.</param>
+        /// <param name="bx">The second points x value.</param>
+        /// <param name="by">The second points y value.</param>
+        /// <param name="cx">The third points x value.</param>
+        /// <param name="cy">The third points y value.</param>
         public Triangle2d(double ax, double ay, double bx, double by, double cx, double cy)
         {
             A = new Point2d(ax, ay);
@@ -43,6 +66,12 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public double SignedArea => ((A.x - C.x) * (B.y - C.y) - (A.y - C.y) * (B.x - C.x)) * 0.5;
 
+        /// <summary>
+        /// Array acess to the triangles points.
+        /// </summary>
+        /// <param name="i">The index of the point to access (0-2)</param>
+        /// <returns>The point at index i.</returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         unsafe public Point2d this[int i]
         {
             get
@@ -101,6 +130,11 @@ namespace CGALDotNet.Geometry
             return t1.A != t2.A || t1.B != t2.B || t1.C != t2.C;
         }
 
+        /// <summary>
+        /// Is the triangle equal to this object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>Is the triangle equal to this object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Triangle2d)) return false;
@@ -108,11 +142,20 @@ namespace CGALDotNet.Geometry
             return this == tri;
         }
 
+        /// <summary>
+        /// Is the triangle equal to the other triangle.
+        /// </summary>
+        /// <param name="tri">The other triangle.</param>
+        /// <returns>Is the triangle equal to the other triangle.</returns>
         public bool Equals(Triangle2d tri)
         {
             return this == tri;
         }
 
+        /// <summary>
+        /// The triangles hash code.
+        /// </summary>
+        /// <returns>The triangles hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -125,6 +168,10 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// The triangle as a string.
+        /// </summary>
+        /// <returns>The triangle as a string.</returns>
         public override string ToString()
         {
             return string.Format("[Triangle2d: A={0}, B={1}, C={2}]", A, B, C);

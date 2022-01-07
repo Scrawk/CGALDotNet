@@ -10,27 +10,58 @@ namespace CGALDotNet.Geometry
     [StructLayout(LayoutKind.Sequential)]
     public struct Segment3d : IEquatable<Segment3d>
     {
-
+        /// <summary>
+        /// The segments first (aka source) point.
+        /// </summary>
         public Point3d A;
 
+        /// <summary>
+        /// The segments second (aka target) point.
+        /// </summary>
         public Point3d B;
 
+        /// <summary>
+        /// Create a new segment.
+        /// </summary>
+        /// <param name="a">The first point.</param>
+        /// <param name="b">The second point.</param>
         public Segment3d(Point3d a, Point3d b)
         {
             A = a;
             B = b;
         }
 
+        /// <summary>
+        /// Create a new segment.
+        /// </summary>
+        /// <param name="ax">The first points x value.</param>
+        /// <param name="ay">The first points y value.</param>
+        /// <param name="az">The first points z value.</param>
+        /// <param name="bx">The second points x value.</param>
+        /// <param name="by">The second points y value.</param>
+        /// <param name="bz">The second points z value.</param>
         public Segment3d(double ax, double ay, double az, double bx, double by, double bz)
         {
             A = new Point3d(ax, ay, az);
             B = new Point3d(bx, by, bz);
         }
 
+        /// <summary>
+        /// The length of the segment.
+        /// </summary>
         public double Length => Point3d.Distance(A, B);
 
+        /// <summary>
+        /// The square length of the segment.
+        /// </summary>
         public double SqrLength => Point3d.SqrDistance(A, B);
 
+        /// <summary>
+        /// Array acess to the segments points.
+        /// </summary>
+        /// <param name="i">The index of the point to access (0-2)</param>
+        /// <returns>The point at index i.</returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         unsafe public Point3d this[int i]
         {
             get
@@ -90,6 +121,11 @@ namespace CGALDotNet.Geometry
             return s1.A != s2.A || s1.B != s2.B;
         }
 
+        /// <summary>
+        /// Is the segment equal to this object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>Is the segment equal to this object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Segment3d)) return false;
@@ -97,11 +133,20 @@ namespace CGALDotNet.Geometry
             return this == seg;
         }
 
+        /// <summary>
+        /// Is the segment equal to the other segment.
+        /// </summary>
+        /// <param name="seg">The other segment.</param>
+        /// <returns>Is the segment equal to the other segment.</returns>
         public bool Equals(Segment3d seg)
         {
             return this == seg;
         }
 
+        /// <summary>
+        /// The segments hash code.
+        /// </summary>
+        /// <returns>The segments hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -113,6 +158,10 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// The segment as a string.
+        /// </summary>
+        /// <returns>The segment as a string.</returns>
         public override string ToString()
         {
             return string.Format("[Segment3d: A={0}, B={1}]", A, B);

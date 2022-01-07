@@ -33,11 +33,23 @@ namespace CGALDotNet.Geometry
             Direction = direction.Normalized;
         }
 
+        /// <summary>
+        /// Check if the two rays are equal.
+        /// </summary>
+        /// <param name="r1">The first ray.</param>
+        /// <param name="r2">The second ray.</param>
+        /// <returns>True if the two rays are equal.</returns>
         public static bool operator ==(Ray2d r1, Ray2d r2)
         {
             return r1.Position == r2.Position && r1.Direction == r2.Direction;
         }
 
+        /// <summary>
+        /// Check if the two rays are not equal.
+        /// </summary>
+        /// <param name="r1">The first ray.</param>
+        /// <param name="r2">The second ray.</param>
+        /// <returns>True if the two rays are not equal.</returns>
         public static bool operator !=(Ray2d r1, Ray2d r2)
         {
             return r1.Position != r2.Position || r1.Direction != r2.Direction;
