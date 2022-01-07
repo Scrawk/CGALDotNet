@@ -10,6 +10,7 @@ using CGALDotNet.Triangulations;
 using CGALDotNet.Arrangements;
 using CGALDotNet.PolyHedra;
 using CGALDotNet.Meshing;
+using CGALDotNet.Hulls;
 
 namespace CGALDotNetConsole
 {
@@ -20,15 +21,19 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var tri = new Triangulation2<EEK>();
+            var box = new Box3d(-5, 5);
+            var hull = ConvexHull3<EEK>.Instance;
 
-            var del = new DelaunayTriangulation2<EEK>();
+            var points = Point3d.RandomPoints(0, 10, box);
 
-            var con = new ConstrainedTriangulation2<EEK>();
+            var poly = hull.CreateHullAsPolyhedron(points, points.Length);
+            poly.Print();
 
-            tri.Print();
-            del.Print();
-            con.Print();
+            var mesh = hull.CreateHullAsSurfaceMesh(points, points.Length);
+            mesh.Print();
+
+            Console.WriteLine("Is poly stronghly convex " + hull.IsStronglyConvex(poly));
+            Console.WriteLine("Is mesh stronghly convex " + hull.IsStronglyConvex(mesh));
 
         }
 

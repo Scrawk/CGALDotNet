@@ -36,7 +36,7 @@ public:
 
 	inline static NefPolyhedron* CreateFromPlane(Plane3d plane, int boundary)
 	{
-		auto p = plane.ToCGAL<EEK, Plane_3>();
+		auto p = plane.ToCGAL<K, Plane_3>();
 
 		if (boundary == NefPolyhedron::EXCLUDED)
 			return new NefPolyhedron(p, NefPolyhedron::EXCLUDED);

@@ -160,7 +160,7 @@ namespace CGALDotNet.PolyHedra
         /// A tetrahedron is added to the polyhedral surface
         /// with its vertices initialized to p1, p2, p3, and p4.
         /// </summary>
-        internal void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+        public void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
         {
             Kernel.MakeTetrahedron(Ptr, p1, p2, p3, p4);
         }
@@ -169,7 +169,7 @@ namespace CGALDotNet.PolyHedra
         /// A triangle with border edges is added to the 
         /// polyhedral surface with its vertices initialized to p1, p2, and p3.
         /// </summary>
-        internal void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
+        public void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
         {
             Kernel.MakeTriangle(Ptr, p1, p2, p3);
         }

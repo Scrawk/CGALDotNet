@@ -48,6 +48,7 @@ namespace CGALDotNet.Hulls
         /// <returns>A polygon that represents the convex hull.</returns>
         public Polygon2<K> CreateHull(Point2d[] points, int count, HULL_METHOD method = HULL_METHOD.DEFAULT)
         {
+            CheckCount(count);
             ErrorUtil.CheckArray(points, count);
             var ptr = Kernel.CreateHull(points, count, method);
             return new Polygon2<K>(ptr);
@@ -61,6 +62,7 @@ namespace CGALDotNet.Hulls
         /// <returns>A polygon that represents the upper hull.</returns>
         public Polygon2<K> UpperHull(Point2d[] points, int count)
         {
+            CheckCount(count);
             ErrorUtil.CheckArray(points, count);
             var ptr = Kernel.UpperHull(points, count);
             return new Polygon2<K>(ptr);
@@ -74,6 +76,7 @@ namespace CGALDotNet.Hulls
         /// <returns>A polygon that represents the lower hull.</returns>
         public Polygon2<K> LowerHull(Point2d[] points, int count)
         {
+            CheckCount(count);
             ErrorUtil.CheckArray(points, count);
             var ptr = Kernel.LowerHull(points, count);
             return new Polygon2<K>(ptr);
@@ -116,6 +119,7 @@ namespace CGALDotNet.Hulls
         /// <returns>Is this set of points ccw orderer.</returns>
         public bool IsStronglyConvexCCW(Point2d[] points, int count)
         {
+            CheckCount(count);
             ErrorUtil.CheckArray(points, count);
             return Kernel.IsStronglyConvexCCW(points, count);
         }
@@ -128,8 +132,20 @@ namespace CGALDotNet.Hulls
         /// <returns>Is this set of points cw orderer.</returns>
         public bool IsStronglyConvexCW(Point2d[] points, int count)
         {
+            CheckCount(count);
             ErrorUtil.CheckArray(points, count);
             return Kernel.IsStronglyConvexCW(points, count);
+        }
+
+        /// <summary>
+        /// Checks if the minimum number of points have been provided.
+        /// </summary>
+        /// <param name="count">The point array length.</param>
+        /// <exception cref="ArgumentException"></exception>
+        protected void CheckCount(int count)
+        {
+            if (count < 3)
+                throw new ArgumentException("3 or more points must be provided to find the convex hull.");
         }
 
         /// <summary>
