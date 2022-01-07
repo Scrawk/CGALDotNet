@@ -140,7 +140,7 @@ namespace CGALDotNet.Polygons
         /// Triangulate the polygon.
         /// </summary>
         /// <param name="indices">The triangle indices.</param>
-        public void Triangulate(List<int> indices)
+        public override void Triangulate(List<int> indices)
         {
             var ct = new ConstrainedTriangulation2<K>();
             ct.InsertConstraint(this);
@@ -514,6 +514,12 @@ namespace CGALDotNet.Polygons
             else
                 Kernel.SetPoints(Ptr, points, holeIndex, points.Length);
         }
+
+        /// <summary>
+        /// Triangulate the polygon.
+        /// </summary>
+        /// <param name="indices">The triangle indices.</param>
+        public abstract void Triangulate(List<int> indices);
 
         /// <summary>
         /// Add a polygon as a holes.
