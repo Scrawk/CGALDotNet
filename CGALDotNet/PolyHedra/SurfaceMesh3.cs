@@ -177,6 +177,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="v0">The index of the vertex in the mesh.</param>
         /// <param name="v1">The index of the vertex in the mesh.</param>
         /// <param name="v2">The index of the vertex in the mesh.</param>
+        /// <param name="v3">The index of the vertex in the mesh.</param>
         /// <returns>The index of the face in the mesh.</returns>
         public SurfaceMeshFace AddQuad(SurfaceMeshVertex v0, SurfaceMeshVertex v1, SurfaceMeshVertex v2, SurfaceMeshVertex v3)
         {

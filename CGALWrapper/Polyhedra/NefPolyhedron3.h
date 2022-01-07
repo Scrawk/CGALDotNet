@@ -9,6 +9,7 @@
 #include <CGAL/Nef_polyhedron_3.h>
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/minkowski_sum_3.h>
+#include <CGAL/convex_decomposition_3.h>
 #include <CGAL/boost/graph/convert_nef_polyhedron_to_polygon_mesh.h>
 
 template<class K>
@@ -261,5 +262,27 @@ public:
 		return mesh;
 	}
 
+	static void ConvexDecomposition(void* ptr)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		CGAL::convex_decomposition_3(*nef);
+	}
+
+	static void GetVolumes(void* ptr, void** volumes, int count)
+	{
+		auto nef = CastToNefPolyhedron(ptr);
+		
+		int index = 0;
+		for (auto ci = nef->volumes_begin(); ci != nef->volumes_end(); ++ci)
+		{
+			auto poly = Polyhedron3<K>::NewPolyhedron();
+			nef->convert_inner_shell_to_polyhedron(ci->shells_begin(), *poly);
+
+			volumes[index++] = poly;
+
+			if (index >= count)
+				return;
+		}
+	}
 		
 };

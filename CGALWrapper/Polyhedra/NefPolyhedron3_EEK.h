@@ -61,4 +61,8 @@ extern "C"
 
 	CGALWRAPPER_API void* NefPolyhedron3_EEK_ConvertToSurfaceMesh(void* ptr);
 
+	CGALWRAPPER_API void NefPolyhedron3_EEK_ConvexDecomposition(void* ptr);
+
+	CGALWRAPPER_API void NefPolyhedron3_EEK_GetVolumes(void* ptr, void** volumes, int count);
+
 }

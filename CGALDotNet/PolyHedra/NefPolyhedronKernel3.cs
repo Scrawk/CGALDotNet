@@ -62,5 +62,9 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract IntPtr ConvertToSurfaceMesh(IntPtr ptr);
 
+		internal abstract void ConvexDecomposition(IntPtr ptr);
+
+		internal abstract void GetVolumes(IntPtr ptr, IntPtr[] volumes, int count);
+
 	}
 }

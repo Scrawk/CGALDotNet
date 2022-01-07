@@ -146,6 +146,16 @@ namespace CGALDotNet.Polyhedra
 			return NefPolyhedron3_EIK_ConvertToSurfaceMesh(ptr);
 		}
 
+		internal override void ConvexDecomposition(IntPtr ptr)
+		{
+			NefPolyhedron3_EIK_ConvexDecomposition(ptr);
+		}
+
+		internal override void GetVolumes(IntPtr ptr, IntPtr[] volumes, int count)
+		{
+			NefPolyhedron3_EIK_GetVolumes(ptr, volumes, count);
+		}
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EIK_CreateFromSpace(NEF_CONTENT space);
 
@@ -226,6 +236,12 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr NefPolyhedron3_EIK_ConvertToSurfaceMesh(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void NefPolyhedron3_EIK_ConvexDecomposition(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void NefPolyhedron3_EIK_GetVolumes(IntPtr ptr, [Out] IntPtr[] volumes, int count);
 
 	}
 }

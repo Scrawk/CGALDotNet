@@ -21,19 +21,23 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var box = new Box3d(-5, 5);
-            var hull = ConvexHull3<EEK>.Instance;
+            var box1 = PolyhedronFactory<EEK>.CreateCube();
+            box1.Translate(new Point3d(0.5));
 
-            var points = Point3d.RandomPoints(0, 10, box);
+            var box2 = PolyhedronFactory<EEK>.CreateCube();
 
-            var poly = hull.CreateHullAsPolyhedron(points, points.Length);
-            poly.Print();
+            var nef1 = new NefPolyhedron3<EEK>(box1);
+            var nef2 = new NefPolyhedron3<EEK>(box2);
 
-            var mesh = hull.CreateHullAsSurfaceMesh(points, points.Length);
-            mesh.Print();
+            var nef3 = nef1.Join(nef2);
 
-            Console.WriteLine("Is poly stronghly convex " + hull.IsStronglyConvex(poly));
-            Console.WriteLine("Is mesh stronghly convex " + hull.IsStronglyConvex(mesh));
+            nef3.ConvexDecomposition();
+
+            var volumes = new List<Polyhedron3<EEK>>();
+            nef3.GetVolumes(volumes);
+
+            foreach(var vol in volumes)
+                vol.Print();
 
         }
 

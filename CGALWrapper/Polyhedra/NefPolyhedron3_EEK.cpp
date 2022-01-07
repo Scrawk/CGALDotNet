@@ -143,3 +143,13 @@ void* NefPolyhedron3_EEK_ConvertToSurfaceMesh(void* ptr)
 {
 	return NefPolyhedron3<EEK>::ConvertToSurfaceMesh(ptr);
 }
+
+void NefPolyhedron3_EEK_ConvexDecomposition(void* ptr)
+{
+	NefPolyhedron3<EEK>::ConvexDecomposition(ptr);
+}
+
+void NefPolyhedron3_EEK_GetVolumes(void* ptr, void** volumes, int count)
+{
+	NefPolyhedron3<EEK>::GetVolumes(ptr, volumes, count);
+}

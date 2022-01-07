@@ -89,7 +89,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Return the intersection of N and N1.
+        /// Return the intersection of nef and nef1.
         /// </summary>
         /// <param name="nef"></param>
         /// <returns></returns>
@@ -100,7 +100,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Return the union of N and N1.
+        /// Return the union of nef and nef1.
         /// </summary>
         /// <param name="nef"></param>
         /// <returns></returns>
@@ -111,7 +111,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Return the difference between N and N1.
+        /// Return the difference between nef and nef1.
         /// </summary>
         /// <param name="nef"></param>
         /// <returns></returns>
@@ -122,7 +122,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Return the symmetric difference of N and N1.
+        /// Return the symmetric difference of nef and nef1.
         /// </summary>
         /// <param name="nef"></param>
         /// <returns></returns>
@@ -133,7 +133,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Returns the complement of N 
+        /// Returns the complement of nef. 
         /// </summary>
         /// <returns></returns>
         public NefPolyhedron3<K> Complement()
@@ -143,7 +143,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Returns the interior of N 
+        /// Returns the interior of nef. 
         /// </summary>
         /// <returns></returns>
         public NefPolyhedron3<K> Interior()
@@ -153,7 +153,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Returns the boundary of N 
+        /// Returns the boundary of nef. 
         /// </summary>
         /// <returns></returns>
         public NefPolyhedron3<K> Boundary()
@@ -163,7 +163,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Returns the closure of N .
+        /// Returns the closure of nef.
         /// </summary>
         /// <returns></returns>
         public NefPolyhedron3<K> Closure()
@@ -173,7 +173,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Returns the regularization, i.e. the closure of the interior, of N .
+        /// Returns the regularization, i.e. the closure of the interior, of nef.
         /// </summary>
         /// <returns></returns>
         public NefPolyhedron3<K> Regularization()
@@ -193,11 +193,11 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Converts N into a Polyhedron.
-        /// N must be simple to convert.
+        /// Converts nef into a Polyhedron.
+        /// nef must be simple to convert.
         /// </summary>
         /// <param name="poly">The result of the conversion.</param>
-        /// <returns>True if N is simple and the conversion was successful.</returns>
+        /// <returns>True if nef is simple and the conversion was successful.</returns>
         public bool ConvertToPolyhedron(out Polyhedron3<K> poly)
         {
             if (IsSimple)
@@ -214,11 +214,11 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Converts N into a surface mesh.
-        /// N must be simple to convert.
+        /// Converts nef into a surface mesh.
+        /// nef must be simple to convert.
         /// </summary>
         /// <param name="mesh">The result of the conversion.</param>
-        /// <returns>True if N is simple and the conversion was successful.</returns>
+        /// <returns>True if nef is simple and the conversion was successful.</returns>
         public bool ConvertToSurfaceMesh(out SurfaceMesh3<K> mesh)
         {
             if (IsSimple)
@@ -232,6 +232,22 @@ namespace CGALDotNet.Polyhedra
                 mesh = null;
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Get a list of the nef volumes.
+        /// </summary>
+        /// <param name="volumes">Get a list of the nef volumes.</param>
+        public void GetVolumes(List<Polyhedron3<K>> volumes)
+        {
+            int count = VolumeCount;
+            if (count == 0) return;
+
+            var array = new IntPtr[count];
+            Kernel.GetVolumes(Ptr, array, count);
+
+            for(int i = 0; i < array.Length; i++)
+                volumes.Add(new Polyhedron3<K>(array[i]));
         }
     }
 
@@ -334,22 +350,22 @@ namespace CGALDotNet.Polyhedra
         public int VolumeCount => Kernel.VolumeCount(Ptr);
 
         /// <summary>
-        /// Returns true, if N is the empty point set.
+        /// Returns true, if nef is the empty point set.
         /// </summary>
         public bool IsEmpty => Kernel.IsEmpty(Ptr);
 
         /// <summary>
-        /// Rreturns true, if N is a 2-manifold.
+        /// Rreturns true, if nef is a 2-manifold.
         /// </summary>
         public bool IsSimple => Kernel.IsSimple(Ptr);
 
         /// <summary>
-        /// Returns true, if N is the complete 3D space.
+        /// Returns true, if nef is the complete 3D space.
         /// </summary>
         public bool IsSpace => Kernel.IsSpace(Ptr);
 
         /// <summary>
-        /// Make N the empty set if space == EMPTY and the complete 
+        /// Make nef the empty set if space == EMPTY and the complete 
         /// 3D space if space == COMPLETE.
         /// </summary>
         public void Clear(NEF_CONTENT space = NEF_CONTENT.EMPTY)
@@ -358,12 +374,20 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Checks the integrity of N.
+        /// Checks the integrity of nef.
         /// </summary>
         /// <returns></returns>
         public bool IsValid()
         {
             return Kernel.IsValid(Ptr);
+        }
+
+        /// <summary>
+        /// Decompose the nef into convex volumes.
+        /// </summary>
+        public void ConvexDecomposition()
+        {
+            Kernel.ConvexDecomposition(Ptr);
         }
 
         /// <summary>
