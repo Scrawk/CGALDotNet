@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CGALDotNet.PolyHedra
+namespace CGALDotNet.Polyhedra
 {
     public struct SurfaceMeshEdge : IEquatable<SurfaceMeshEdge>
     {

@@ -4,7 +4,7 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 
-namespace CGALDotNet.PolyHedra
+namespace CGALDotNet.Polyhedra
 {
 
 

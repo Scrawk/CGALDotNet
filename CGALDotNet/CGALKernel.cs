@@ -7,7 +7,7 @@ using CGALDotNet.Polygons;
 using CGALDotNet.Arrangements;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Hulls;
-using CGALDotNet.PolyHedra;
+using CGALDotNet.Polyhedra;
 using CGALDotNet.Meshing;
 
 namespace CGALDotNet

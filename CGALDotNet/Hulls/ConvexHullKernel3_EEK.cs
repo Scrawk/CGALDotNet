@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
-using CGALDotNet.PolyHedra;
+using CGALDotNet.Polyhedra;
 
 namespace CGALDotNet.Hulls
 {

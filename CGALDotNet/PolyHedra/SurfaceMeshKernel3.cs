@@ -5,7 +5,7 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 
-namespace CGALDotNet.PolyHedra
+namespace CGALDotNet.Polyhedra
 {
     internal abstract class SurfaceMeshKernel3 : FuncKernel
     {

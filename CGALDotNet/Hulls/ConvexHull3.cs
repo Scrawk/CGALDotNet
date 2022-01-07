@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
-using CGALDotNet.PolyHedra;
+using CGALDotNet.Polyhedra;
 
 namespace CGALDotNet.Hulls
 {

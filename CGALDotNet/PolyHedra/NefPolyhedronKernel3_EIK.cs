@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
 
-namespace CGALDotNet.PolyHedra
+namespace CGALDotNet.Polyhedra
 {
 	internal class NefPolyhedronKernel3_EIK : NefPolyhedronKernel3
 	{
