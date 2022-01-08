@@ -22,14 +22,9 @@ void* Triangulation3_EEK_Copy(void* ptr)
 	return Triangulation3<EEK>::Copy(ptr);
 }
 
-void Triangulation3_EEK_SetIndices(void* ptr)
+int Triangulation3_EEK_Dimension(void* ptr)
 {
-	Triangulation3<EEK>::SetIndices(ptr);
-}
-
-int Triangulation3_EEK_BuildStamp(void* ptr)
-{
-	return Triangulation3<EEK>::BuildStamp(ptr);
+	return Triangulation3<EEK>::Dimension(ptr);
 }
 
 BOOL Triangulation3_EEK_IsValid(void* ptr)
@@ -80,4 +75,24 @@ void Triangulation3_EEK_InsertPoint(void* ptr, const Point3d& point)
 void Triangulation3_EEK_InsertPoints(void* ptr, Point3d* points, int count)
 {
 	Triangulation3<EEK>::InsertPoints(ptr, points, count);
+}
+
+void Triangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count)
+{
+	Triangulation3<EEK>::GetPoints(ptr, points, count);
+}
+
+void Triangulation3_EEK_GetSegmentIndices(void* ptr, int* indices, int count)
+{
+	Triangulation3<EEK>::GetSegmentIndices(ptr, indices, count);
+}
+
+void Triangulation3_EEK_GetTriangleIndices(void* ptr, int* indices, int count)
+{
+	Triangulation3<EEK>::GetTriangleIndices(ptr, indices, count);
+}
+
+void Triangulation3_EEK_GetTetrahedraIndices(void* ptr, int* indices, int count)
+{
+	Triangulation3<EEK>::GetTetrahedraIndices(ptr, indices, count);
 }

@@ -28,6 +28,67 @@ namespace CGALDotNetConsole
 
             tri.Print();
 
+            PrintSegments(tri);
+            PrintTriangles(tri);
+            PrintTetrahedron(tri);
+         
+        }
+
+        private static void PrintSegments(Triangulation3<EEK> tri)
+        {
+            Console.WriteLine("Segments");
+
+            int count = tri.SegmentIndiceCount;
+            var indices = new int[count];
+
+            tri.GetSegmentIndices(indices, count);
+
+            for (int i = 0; i < indices.Length / 2; i++)
+            {
+                int i0 = indices[i * 2 + 0];
+                int i1 = indices[i * 2 + 1];
+
+                Console.WriteLine(i0 + " " + i1);
+            }
+        }
+
+        private static void PrintTriangles(Triangulation3<EEK> tri)
+        {
+            Console.WriteLine("Triangles");
+
+            int count = tri.TriangleIndiceCount;
+            var indices = new int[count];
+
+            tri.GetTriangleIndices(indices, count);
+
+            for (int i = 0; i < indices.Length / 3; i++)
+            {
+                int i0 = indices[i * 3 + 0];
+                int i1 = indices[i * 3 + 1];
+                int i2 = indices[i * 3 + 2];
+
+                Console.WriteLine(i0 + " " + i1 + " " + i2);
+            }
+        }
+
+        private static void PrintTetrahedron(Triangulation3<EEK> tri)
+        {
+            Console.WriteLine("Tetrahedron");
+
+            int count = tri.TetrahdronIndiceCount;
+            var indices = new int[count];
+
+            tri.GetTetrahedronIndices(indices, count);
+
+            for (int i = 0; i < indices.Length / 4; i++)
+            {
+                int i0 = indices[i * 4 + 0];
+                int i1 = indices[i * 4 + 1];
+                int i2 = indices[i * 4 + 2];
+                int i3 = indices[i * 4 + 3];
+
+                Console.WriteLine(i0 + " " + i1 + " " + i2 + " " + i3);
+            }
         }
 
 

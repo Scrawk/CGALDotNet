@@ -8,7 +8,7 @@ using CGALDotNet.Polygons;
 namespace CGALDotNet.Triangulations
 {
 
-    public enum TRIANGULATION_TYPE
+    public enum TRIANGULATION2
     {
         TRIANGULATION,
         DELAUNAY,

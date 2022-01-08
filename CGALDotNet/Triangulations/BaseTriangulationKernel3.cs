@@ -18,9 +18,7 @@ namespace CGALDotNet.Triangulations
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
-        internal abstract void SetIndices(IntPtr ptr);
-
-        internal abstract int BuildStamp(IntPtr ptr);
+        internal abstract int Dimension(IntPtr ptr);
 
         internal abstract bool IsValid(IntPtr ptr);
 
@@ -41,5 +39,13 @@ namespace CGALDotNet.Triangulations
         internal abstract void InsertPoint(IntPtr ptr, Point3d point);
 
 	    internal abstract void InsertPoints(IntPtr ptr, Point3d[] points, int count);
+
+        internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
+
+        internal abstract void GetSegmentIndices(IntPtr ptr, int[] indices, int count);
+
+        internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
+
+        internal abstract void GetTetrahedraIndices(IntPtr ptr, int[] indices, int count);
     }
 }

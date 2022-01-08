@@ -50,8 +50,8 @@ namespace CGALDotNet.Triangulations
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[Triangulation3<{0}>: VertexCount={1}, CellCount={2}, FacetCount={3}]",
-                Kernel.KernelName, VertexCount, CellCount, FacetCount);
+            return string.Format("[Triangulation3<{0}>: VertexCount={1}, TetrahedronCount={2}, TriangleCount={3}]",
+                Kernel.KernelName, VertexCount, FiniteTetrahedronCount, FiniteTriangleCount);
         }
 
         /// <summary>
@@ -114,15 +114,15 @@ namespace CGALDotNet.Triangulations
         public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
-            builder.AppendLine("Is valid = " + IsValid());
-            builder.AppendLine("BuildStamp = " + BuildStamp);
+            builder.AppendLine("IsValid = " + IsValid());
+            builder.AppendLine("Dimension = " + Dimension);
             builder.AppendLine("VertexCount = " + VertexCount);
-            builder.AppendLine("CellCount = " + CellCount);
-            builder.AppendLine("FiniteCellCount = " + FiniteCellCount);
+            builder.AppendLine("TetrahedronCount = " + TetrahedronCount);
+            builder.AppendLine("FiniteTetrahedronCount = " + FiniteTetrahedronCount);
             builder.AppendLine("EdgeCount = " + EdgeCount);
             builder.AppendLine("FiniteEdgeCount = " + FiniteEdgeCount);
-            builder.AppendLine("FacetCount = " + FacetCount);
-            builder.AppendLine("FiniteFacetCount = " + FiniteFacetCount);
+            builder.AppendLine("TriangleCount = " + TriangleCount);
+            builder.AppendLine("FiniteTriangleCount = " + FiniteTriangleCount);
         }
 
     }

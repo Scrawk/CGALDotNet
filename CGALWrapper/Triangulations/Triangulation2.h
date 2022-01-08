@@ -179,6 +179,8 @@ public:
 	{
 		for (auto iter = points.begin(); iter != points.end(); ++iter)
 			model.insert(*iter);
+
+		map.OnModelChanged();
 	}
 
 	static void GetPoints(void* ptr, Point2d* points, int count)

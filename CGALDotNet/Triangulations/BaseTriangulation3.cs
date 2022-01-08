@@ -8,6 +8,12 @@ using CGALDotNet.Polygons;
 namespace CGALDotNet.Triangulations
 {
 
+    public enum TRIANGULATION3
+    {
+        TRIANGULATION,
+        DELAUNAY
+    }
+
     /// <summary>
     /// Base triangulation class for Triangulation, DelaunayTriangulation 
     /// and ConstrainedTriangulation.
@@ -60,45 +66,64 @@ namespace CGALDotNet.Triangulations
         protected private BaseTriangulationKernel3 Kernel { get; private set; }
 
         /// <summary>
-        /// A number that will change if the unmanaged 
-        /// triangulation model changes.
+        /// Returns the dimension of the affine hull.
         /// </summary>
-        public int BuildStamp => Kernel.BuildStamp(Ptr);
+        public int Dimension => Kernel.Dimension(Ptr);
 
         /// <summary>
-        /// 
+        /// Returns the number of finite vertices.
         /// </summary>
         public int VertexCount => Kernel.VertexCount(Ptr);
 
         /// <summary>
-        /// 
+        /// Returns the number of cells or 0 if Dimension < 3.
         /// </summary>
-        public int CellCount => Kernel.CellCount(Ptr);
+        public int TetrahedronCount => Kernel.CellCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of finite cells.
+        /// Returns 0 if Dimension < 3.
         /// </summary>
-        public int FiniteCellCount => Kernel.FiniteCellCount(Ptr);
+        public int FiniteTetrahedronCount => Kernel.FiniteCellCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of edges.
+        /// Returns 0 if Dimension < 1.
         /// </summary>
         public int EdgeCount => Kernel.EdgeCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of finite edges.
+        /// Returns 0 if Dimension < 1.
         /// </summary>
         public int FiniteEdgeCount => Kernel.FiniteEdgeCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of facets.
+        /// Returns 0 if Dimension < 2.
         /// </summary>
-        public int FacetCount => Kernel.FacetCount(Ptr);
+        public int TriangleCount => Kernel.FacetCount(Ptr);
+
+        /// <summary>
+        /// The number of facets.
+        /// Returns 0 if Dimension < 2.
+        /// </summary>
+        public int FiniteTriangleCount =>  Kernel.FiniteFacetCount(Ptr);
 
         /// <summary>
         /// 
         /// </summary>
-        public int FiniteFacetCount =>  Kernel.FiniteFacetCount(Ptr);
+        public int SegmentIndiceCount => FiniteEdgeCount * 2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int TriangleIndiceCount => FiniteTriangleCount * 3;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int TetrahdronIndiceCount => FiniteTetrahedronCount * 4;
 
         /// <summary>
         /// Clear the triangulation.
@@ -108,28 +133,88 @@ namespace CGALDotNet.Triangulations
             Kernel.Clear(Ptr);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool IsValid()
         {
             return Kernel.IsValid(Ptr);
         }
 
         /// <summary>
-        /// Force the face and vertex indices to be set.
+        /// Inserts the point p in the triangulation.
+        /// If point p coincides with an already existing vertex the triangulation remains unchanged.
+        /// If point p lies in the convex hull of the points, it is added naturally: 
+        /// if it lies inside a cell, the cell is split into four cells, if it lies 
+        /// on a facet, the two incident cells are split into three cells, if it lies
+        /// on an edge, all the cells incident to this edge are split into two cells.
+        /// If point p is strictly outside the convex hull but in the affine hull, p 
+        /// is linked to all visible points on the convex hull to form the new triangulation.
+        /// If point p is outside the affine hull of the points, p is linked to all the points,
+        /// and the dimension of the triangulation is incremented. All the points now belong to 
+        /// the boundary of the convex hull, so, the infinite vertex is linked to all the points 
+        /// to triangulate the new infinite face.
         /// </summary>
-        public void ForceSetIndices()
-        {
-            Kernel.SetIndices(Ptr);
-        }
-
+        /// <param name="point">The point to insert</param>
         public void Insert(Point3d point)
         {
             Kernel.InsertPoint(Ptr, point);
         }
 
+        /// <summary>
+        /// Insert all the points in the array.
+        /// </summary>
+        /// <param name="points">The points to insert.</param>
+        /// <param name="count">The arrays length</param>
         public void Insert(Point3d[] points, int count)
         {
             ErrorUtil.CheckArray(points, count);
             Kernel.InsertPoints(Ptr, points, count);
+        }
+
+        /// <summary>
+        /// Get all the points in the triangulation.
+        /// </summary>
+        /// <param name="points">The array to copy into.</param>
+        /// <param name="count">The arrays length.</param>
+        public void GetPoints(Point3d[] points, int count)
+        {
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetPoints(Ptr, points, count);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indices"></param>
+        /// <param name="count"></param>
+        public void GetSegmentIndices(int[] indices, int count)
+        {
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetSegmentIndices(Ptr, indices, count);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indices"></param>
+        /// <param name="count"></param>
+        public void GetTriangleIndices(int[] indices, int count)
+        {
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetTriangleIndices(Ptr, indices, count);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indices"></param>
+        /// <param name="count"></param>
+        public void GetTetrahedronIndices(int[] indices, int count)
+        {
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetTetrahedraIndices(Ptr, indices, count);
         }
 
         /// <summary>

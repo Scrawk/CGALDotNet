@@ -32,14 +32,9 @@ namespace CGALDotNet.Triangulations
             return Triangulation3_EEK_Copy(ptr);
         }
 
-        internal override void SetIndices(IntPtr ptr)
+        internal override int Dimension(IntPtr ptr)
         {
-            Triangulation3_EEK_SetIndices(ptr);
-        }
-
-        internal override int BuildStamp(IntPtr ptr)
-        {
-            return Triangulation3_EEK_BuildStamp(ptr);
+            return Triangulation3_EEK_Dimension(ptr);
         }
 
         internal override bool IsValid(IntPtr ptr)
@@ -92,6 +87,26 @@ namespace CGALDotNet.Triangulations
             Triangulation3_EEK_InsertPoints(ptr, points, count);
         }
 
+        internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
+        {
+            Triangulation3_EEK_GetPoints(ptr, points, count);
+        }
+
+        internal override void GetSegmentIndices(IntPtr ptr, int[] indices, int count)
+        {
+            Triangulation3_EEK_GetSegmentIndices(ptr, indices, count);
+        }
+
+        internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
+        {
+            Triangulation3_EEK_GetTriangleIndices(ptr, indices, count);
+        }
+
+        internal override void GetTetrahedraIndices(IntPtr ptr, int[] indices, int count)
+        {
+            Triangulation3_EEK_GetTetrahedraIndices(ptr, indices, count);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Triangulation3_EEK_Create();
 
@@ -105,10 +120,7 @@ namespace CGALDotNet.Triangulations
         private static extern IntPtr Triangulation3_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Triangulation3_EEK_SetIndices(IntPtr ptr);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int Triangulation3_EEK_BuildStamp(IntPtr ptr);
+        private static extern int Triangulation3_EEK_Dimension(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Triangulation3_EEK_IsValid(IntPtr ptr);
@@ -139,6 +151,18 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Triangulation3_EEK_InsertPoints(IntPtr ptr, Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation3_EEK_GetSegmentIndices(IntPtr ptr, [Out] int[] indices, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation3_EEK_GetTriangleIndices(IntPtr ptr, [Out] int[] indices, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation3_EEK_GetTetrahedraIndices(IntPtr ptr, [Out] int[] indices, int count);
 
     }
 }
