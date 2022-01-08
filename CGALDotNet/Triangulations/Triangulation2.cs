@@ -140,7 +140,11 @@ namespace CGALDotNet.Triangulations
         public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
-            builder.AppendLine("Is valid = " + IsValid()); ;
+            builder.AppendLine("IsValid = " + IsValid());
+            builder.AppendLine("BuildStamp = " + BuildStamp);
+            builder.AppendLine("VertexCount = " + VertexCount);
+            builder.AppendLine("TriangleCount = " + TriangleCount);
+            builder.AppendLine("IndiceCount = " + IndiceCount);
         }
 
     }

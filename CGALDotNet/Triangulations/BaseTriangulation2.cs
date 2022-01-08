@@ -21,17 +21,29 @@ namespace CGALDotNet.Triangulations
     /// </summary>
     public abstract class BaseTriangulation2 : CGALObject
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private BaseTriangulation2()
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
         internal BaseTriangulation2(BaseTriangulationKernel2 kernel)
         {
             Kernel = kernel;
             Ptr = Kernel.Create();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <param name="points"></param>
         internal BaseTriangulation2(BaseTriangulationKernel2 kernel, Point2d[] points)
         {
             Kernel = kernel;
@@ -39,6 +51,11 @@ namespace CGALDotNet.Triangulations
             Insert(points, points.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <param name="ptr"></param>
         internal BaseTriangulation2(BaseTriangulationKernel2 kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel;

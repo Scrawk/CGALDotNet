@@ -175,6 +175,7 @@
     <ClInclude Include="Polyhedra\NefPolyhedron3_EIK.h" />
     <ClInclude Include="Polyhedra\Polyhedron3_EIK.h" />
     <ClInclude Include="Polyhedra\SurfaceMesh3_EIK.h" />
+    <ClInclude Include="Triangulations\Triangulation3_EEK.h" />
     <ClInclude Include="Triangulations\Triangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
@@ -206,6 +207,8 @@
     <ClInclude Include="Meshing\ConformingTriangulation2.h" />
     <ClInclude Include="Polygons\PolygonOffset2.h" />
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h" />
+    <ClInclude Include="Triangulations\Triangulation3.h" />
+    <ClInclude Include="Triangulations\TriangulationMap3.h" />
     <ClInclude Include="Triangulations\TriEdge2.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />
@@ -237,7 +240,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Triangulations\Triangulation2.h" />
     <ClInclude Include="Triangulations\Triangulation2_EEK.h" />
-    <ClInclude Include="Triangulations\TriangulationMap.h" />
+    <ClInclude Include="Triangulations\TriangulationMap2.h" />
     <ClInclude Include="Triangulations\TriFace2.h" />
     <ClInclude Include="Triangulations\TriUtil.h" />
     <ClInclude Include="Triangulations\TriVertex2.h" />
@@ -252,6 +255,7 @@
     <ClCompile Include="Polyhedra\NefPolyhedron3_EIK.cpp" />
     <ClCompile Include="Polyhedra\Polyhedron3_EIK.cpp" />
     <ClCompile Include="Polyhedra\SurfaceMesh3_EIK.cpp" />
+    <ClCompile Include="Triangulations\Triangulation3_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />

@@ -120,7 +120,7 @@
     <ClInclude Include="Triangulations\TriFace2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\TriangulationMap.h">
+    <ClInclude Include="Triangulations\TriangulationMap2.h">
       <Filter>Header Files\Triangulations</Filter>
     </ClInclude>
     <ClInclude Include="Triangulations\DelaunayTriangulation2.h">
@@ -303,6 +303,15 @@
     <ClInclude Include="Hull\ConvexHull3_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulations\Triangulation3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\Triangulation3_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\TriangulationMap3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -429,6 +438,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Hull\ConvexHull3_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\Triangulation3_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

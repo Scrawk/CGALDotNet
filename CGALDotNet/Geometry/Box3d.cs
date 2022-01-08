@@ -323,6 +323,58 @@ namespace CGALDotNet.Geometry
             return new Box3d(xmin, ymin, zmin, xmax, ymax, zmax);
         }
 
+        /// <summary>
+        /// Get th 8 corner points of the box.
+        /// </summary>
+        /// <returns></returns>
+        public Point3d[] GetCorners()
+        {
+            var corners = new Point3d[8];
+            corners[0] = new Point3d(Min.x, Min.y, Min.z);
+            corners[1] = new Point3d(Max.x, Min.y, Min.z);
+            corners[2] = new Point3d(Max.x, Min.y, Max.z);
+            corners[3] = new Point3d(Min.x, Min.y, Max.z);
+
+            corners[4] = new Point3d(Min.x, Max.y, Min.z);
+            corners[5] = new Point3d(Max.x, Max.y, Min.z);
+            corners[6] = new Point3d(Max.x, Max.y, Max.z);
+            corners[7] = new Point3d(Min.x, Max.y, Max.z);
+
+            return corners;
+        }
+
+        /// <summary>
+        /// Get th 8 corner points of the box.
+        /// </summary>
+        public void GetCorners(IList<Point3d> corners)
+        {
+            corners[0] = new Point3d(Min.x, Min.y, Min.z);
+            corners[1] = new Point3d(Max.x, Min.y, Min.z);
+            corners[2] = new Point3d(Max.x, Min.y, Max.z);
+            corners[3] = new Point3d(Min.x, Min.y, Max.z);
+
+            corners[4] = new Point3d(Min.x, Max.y, Min.z);
+            corners[5] = new Point3d(Max.x, Max.y, Min.z);
+            corners[6] = new Point3d(Max.x, Max.y, Max.z);
+            corners[7] = new Point3d(Min.x, Max.y, Max.z);
+        }
+
+        /// <summary>
+        /// Get th 8 corner points of the box.
+        /// </summary>
+        public void GetCorners(IList<Point4d> corners)
+        {
+            corners[0] = new Point4d(Min.x, Min.y, Min.z, 1);
+            corners[1] = new Point4d(Max.x, Min.y, Min.z, 1);
+            corners[2] = new Point4d(Max.x, Min.y, Max.z, 1);
+            corners[3] = new Point4d(Min.x, Min.y, Max.z, 1);
+
+            corners[4] = new Point4d(Min.x, Max.y, Min.z, 1);
+            corners[5] = new Point4d(Max.x, Max.y, Min.z, 1);
+            corners[6] = new Point4d(Max.x, Max.y, Max.z, 1);
+            corners[7] = new Point4d(Min.x, Max.y, Max.z, 1);
+        }
+
         /*
         public Plane3d[] GetPlanes()
         {

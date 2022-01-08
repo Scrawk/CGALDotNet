@@ -1,16 +1,12 @@
 #pragma once
 
 #include "../CGALWrapper.h"
-#include "../Geometry/Geometry2.h"
+#include "../Geometry/Geometry3.h"
 #include "../Utility/IndexMap.h"
 
-#include "CGAL/Point_2.h"
-#include <CGAL/Constrained_triangulation_2.h>
-#include <CGAL/Triangulation_face_base_with_info_2.h>
-#include <CGAL/Triangulation_vertex_base_with_info_2.h>
-
-#include <CGAL/Constrained_triangulation_face_base_2.h>
-#include <CGAL/Constrained_triangulation_plus_2.h>
+#include "CGAL/Point_3.h"
+#include <CGAL/Triangulation_cell_base_with_info_3.h>
+#include <CGAL/Triangulation_vertex_base_with_info_3.h>
 
 /// <summary>
 /// A helper class to hold a triangulations faces and vertices
@@ -22,7 +18,7 @@
 /// <typeparam name="VERTEX">The vertex type</typeparam>
 /// <typeparam name="FACE">The face type.</typeparam>
 template<class K, class VERTEX, class FACE>
-class TriangulationMap
+class TriangulationMap3
 {
 
 private:
@@ -44,9 +40,9 @@ private:
 
 public:
 
-	TriangulationMap()
+	TriangulationMap3()
 	{
-		
+
 	}
 
 	/// <summary>
@@ -127,7 +123,7 @@ public:
 	template<class TRI>
 	VERTEX* FindVertex(TRI& model, int index)
 	{
-		if (index == NULL_INDEX) 
+		if (index == NULL_INDEX)
 			return nullptr;
 
 		SetVertexIndices(model);
@@ -188,7 +184,7 @@ public:
 			//If the vertices face is infinite then try and
 			//find one of its other surrounding faces that is 
 			//finite and set that as the face.
-			if (model.is_infinite(vert->face()))
+			if (model.is_infinite(vert->cell()))
 				ResetFace(model, vert);
 
 			vert->info() = vertexMap.NextIndex();
@@ -231,9 +227,9 @@ public:
 			return;
 
 		faceMap.Clear();
-		model.infinite_face()->info() = -1;
+		model.infinite_cell()->info() = -1;
 
-		for (auto& face : model.finite_face_handles())
+		for (auto& face : model.finite_cell_handles())
 			face->info() = faceMap.NextIndex();
 
 		faceMap.indicesSet = true;
@@ -274,33 +270,35 @@ public:
 		faceMap.mapBuilt = true;
 	}
 
-	private:
+private:
 
-		/// <summary>
-		/// If the vertices face is infinite then try and
-		/// find one of its other surrounding faces that is 
-		/// finite and set that as the face.
-		/// </summary>
-		/// <typeparam name="TRI">The triangulation type.</typeparam>
-		/// <param name="tri">The triangulation model.</param>
-		/// <param name="vert">The vertex to reset.</param>
-		template<class TRI>
-		void ResetFace(const TRI& tri, VERTEX vert)
+	/// <summary>
+	/// If the vertices face is infinite then try and
+	/// find one of its other surrounding faces that is 
+	/// finite and set that as the face.
+	/// </summary>
+	/// <typeparam name="TRI">The triangulation type.</typeparam>
+	/// <param name="tri">The triangulation model.</param>
+	/// <param name="vert">The vertex to reset.</param>
+	template<class TRI>
+	void ResetFace(const TRI& tri, VERTEX vert)
+	{
+		/*
+		auto face = vert->cell();
+		auto start = vert->incident_cells(face), end(start);
+
+		if (start != nullptr)
 		{
-			auto face = vert->face();
-			auto start = vert->incident_faces(face), end(start);
-
-			if (start != nullptr)
+			do
 			{
-				do
+				if (!tri.is_infinite(start))
 				{
-					if (!tri.is_infinite(start))
-					{
-						vert->set_face(start);
-						return;
-					}
-				} while (++start != end);
-			}
+					vert->set_face(start);
+					return;
+				}
+			} while (++start != end);
 		}
+		*/
+	}
 
 };

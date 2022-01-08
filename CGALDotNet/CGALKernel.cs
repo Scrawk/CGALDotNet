@@ -39,6 +39,8 @@ namespace CGALDotNet
 
         internal abstract TriangulationKernel2 TriangulationKernel2 { get; }
 
+        internal abstract TriangulationKernel3 TriangulationKernel3 { get; }
+
         internal abstract DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 { get; }
 
         internal abstract ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 { get; }
@@ -86,6 +88,8 @@ namespace CGALDotNet
 
         internal override TriangulationKernel2 TriangulationKernel2 => TriangulationKernel2_EIK.Instance;
 
+        internal override TriangulationKernel3 TriangulationKernel3 => throw new NotImplementedException();
+
         internal override DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 => DelaunayTriangulationKernel2_EIK.Instance;
 
         internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => ConstrainedTriangulationKernel2_EIK.Instance;
@@ -132,6 +136,8 @@ namespace CGALDotNet
         internal override SweepLineKernel SweepLineKernel => SweepLineKernel_EEK.Instance;
 
         internal override TriangulationKernel2 TriangulationKernel2 => TriangulationKernel2_EEK.Instance;
+
+        internal override TriangulationKernel3 TriangulationKernel3 => TriangulationKernel3_EEK.Instance;
 
         internal override DelaunayTriangulationKernel2 DelaunayTriangulationKernel2 => DelaunayTriangulationKernel2_EEK.Instance;
 

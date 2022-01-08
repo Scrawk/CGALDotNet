@@ -7,7 +7,7 @@
 #include "TriUtil.h"
 #include "TriVertex2.h"
 #include "TriFace2.h"
-#include "TriangulationMap.h"
+#include "TriangulationMap2.h"
 
 #include <vector>
 #include "CGAL/Point_2.h"
@@ -42,7 +42,7 @@ private:
 
 	Triangulation_2 model;
 
-	TriangulationMap<K, Vertex, Face> map;
+	TriangulationMap2<K, Vertex, Face> map;
 
 public:
 
@@ -80,8 +80,14 @@ public:
 	static void Clear(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		tri->model.clear();
-		tri->map.ClearMaps();
+		tri->Clear();
+	}
+
+	void Clear()
+	{
+		model.clear();
+		map.ClearMaps();
+		map.OnModelChanged();
 	}
 
 	static void* Copy(void* ptr)

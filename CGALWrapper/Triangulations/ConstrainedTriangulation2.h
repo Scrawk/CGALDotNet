@@ -8,7 +8,7 @@
 #include "TriVertex2.h"
 #include "TriFace2.h"
 #include "TriEdge2.h"
-#include "TriangulationMap.h"
+#include "TriangulationMap2.h"
 
 #include "CGAL/Segment_2.h"
 
@@ -57,9 +57,13 @@ public:
 
 	typedef CGAL::Aff_transformation_2<K> Transformation_2;
 
+private:
+
 	Triangulation_2 model;
 
-	TriangulationMap<K, Vertex, Face> map;
+	TriangulationMap2<K, Vertex, Face> map;
+
+public:
 
 	ConstrainedTriangulation2()
 	{
@@ -95,14 +99,14 @@ public:
 	static void Clear(void* ptr)
 	{
 		auto tri = CastToTriangulation2(ptr);
-		tri->model.clear();
-		tri->map.ClearMaps();
+		tri->Clear();
 	}
 
 	void Clear()
 	{
 		model.clear();
 		map.ClearMaps();
+		map.OnModelChanged();
 	}
 
 	static void* Copy(void* ptr)
