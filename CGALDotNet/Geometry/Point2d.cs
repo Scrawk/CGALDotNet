@@ -399,6 +399,15 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// The dot product of two points.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Dot(Point2d v0, Point2d v1)
+        {
+            return v0.x * v1.x + v0.y * v1.y;
+        }
+
+        /// <summary>
         /// Direction between two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

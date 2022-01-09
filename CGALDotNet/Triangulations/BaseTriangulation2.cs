@@ -494,6 +494,9 @@ namespace CGALDotNet.Triangulations
             Kernel.Transform(Ptr, translation, rotation.angle, scale);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Print()
         {
             var builder = new StringBuilder();
@@ -501,6 +504,10 @@ namespace CGALDotNet.Triangulations
             Console.WriteLine(builder.ToString());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
         public virtual void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());

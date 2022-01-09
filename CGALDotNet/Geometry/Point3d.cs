@@ -404,6 +404,24 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// The dot product of two points.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Dot(Point3d v0, Point3d v1)
+        {
+            return v0.x * v1.x + v0.y * v1.y + v0.z * v1.z;
+        }
+
+        /// <summary>
+        /// Cross two points.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3d Cross(Point3d v0, Point3d v1)
+        {
+            return new Point3d(v0.y * v1.z - v0.z * v1.y, v0.z * v1.x - v0.x * v1.z, v0.x * v1.y - v0.y * v1.x);
+        }
+
+        /// <summary>
         /// Direction between two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

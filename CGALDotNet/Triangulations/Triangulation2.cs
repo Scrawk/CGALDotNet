@@ -4,6 +4,7 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
+using CGALDotNet.Meshing;
 
 namespace CGALDotNet.Triangulations
 {

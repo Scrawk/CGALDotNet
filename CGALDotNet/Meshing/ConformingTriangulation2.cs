@@ -55,6 +55,46 @@ namespace CGALDotNet.Meshing
         }
 
         /// <summary>
+        /// Insert the polygons points into the triangulation.
+        /// May not retain the poylgons edges.
+        /// </summary>
+        /// <param name="polygon"></param>
+        public void Insert(Polygon2<K> polygon)
+        {
+            Kernel.InsertPolygon(Ptr, polygon.Ptr);
+        }
+
+        /// <summary>
+        /// Insert the polygons points into the triangulation.
+        /// May not retain the poylgons edges.
+        /// </summary>
+        /// <param name="pwh"></param>
+        public void Insert(PolygonWithHoles2<K> pwh)
+        {
+            Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
+        }
+
+        /// <summary>
+        /// Insert the polygons points and the edges as constraints into the triangulation.
+        /// Will retatin the poylgons edges.
+        /// </summary>
+        /// <param name="polygon">The polygon to insert.</param>
+        public void InsertConstraint(Polygon2<K> polygon)
+        {
+            Kernel.InsertPolygonConstraint(Ptr, polygon.Ptr);
+        }
+
+        /// <summary>
+        /// Insert the polygons points and the edges as constraints into the triangulation.
+        /// Will retatin the poylgons edges.
+        /// </summary>
+        /// <param name="pwh">The polygon to insert.</param>
+        public void InsertConstraint(PolygonWithHoles2<K> pwh)
+        {
+            Kernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
+        }
+
+        /// <summary>
         /// A deep copy of the triangulation.
         /// </summary>
         /// <returns>The deep copy.</returns>
@@ -160,26 +200,6 @@ namespace CGALDotNet.Meshing
         }
 
         /// <summary>
-        /// Insert the polygons points into the triangulation.
-        /// May not retain the poylgons edges.
-        /// </summary>
-        /// <param name="polygon"></param>
-        public void Insert(Polygon2 polygon)
-        {
-            Kernel.InsertPolygon(Ptr, polygon.Ptr);
-        }
-
-        /// <summary>
-        /// Insert the polygons points into the triangulation.
-        /// May not retain the poylgons edges.
-        /// </summary>
-        /// <param name="pwh"></param>
-        public void Insert(PolygonWithHoles2 pwh)
-        {
-            Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
@@ -267,26 +287,6 @@ namespace CGALDotNet.Meshing
         {
             ErrorUtil.CheckArray(segments, count);
             Kernel.InsertSegmentConstraints(Ptr, segments, count);
-        }
-
-        /// <summary>
-        /// Insert the polygons points and the edges as constraints into the triangulation.
-        /// Will retatin the poylgons edges.
-        /// </summary>
-        /// <param name="polygon">The polygon to insert.</param>
-        public void InsertConstraint(Polygon2 polygon)
-        {
-            Kernel.InsertPolygonConstraint(Ptr, polygon.Ptr);
-        }
-
-        /// <summary>
-        /// Insert the polygons points and the edges as constraints into the triangulation.
-        /// Will retatin the poylgons edges.
-        /// </summary>
-        /// <param name="pwh">The polygon to insert.</param>
-        public void InsertConstraint(PolygonWithHoles2 pwh)
-        {
-            Kernel.InsertPolygonWithHolesConstraint(Ptr, pwh.Ptr);
         }
 
         /// <summary>
