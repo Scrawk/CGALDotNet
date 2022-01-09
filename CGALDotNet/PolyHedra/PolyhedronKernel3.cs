@@ -53,6 +53,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void InsideOut(IntPtr ptr);
 
+		internal abstract void ConvertQuadsToTriangles(IntPtr ptr);
+
 
 	}
 }

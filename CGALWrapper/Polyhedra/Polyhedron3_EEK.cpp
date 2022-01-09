@@ -111,3 +111,8 @@ void Polyhedron3_EEK_InsideOut(void* ptr)
 {
 	Polyhedron3<EEK>::InsideOut(ptr);
 }
+
+void Polyhedron3_EEK_ConvertQuadsToTriangles(void* ptr)
+{
+	Polyhedron3<EEK>::ConvertQuadsToTriangles(ptr);
+}

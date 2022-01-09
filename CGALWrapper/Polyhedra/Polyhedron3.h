@@ -65,6 +65,7 @@ public:
 	typedef CGAL::Polyhedron_3<K> Polyhedron;
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
 	typedef typename HalfedgeDS::Vertex Vertex;
+	typedef typename HalfedgeDS::Face Face;
 	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
 	Polyhedron3() {}
@@ -256,6 +257,29 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 		poly->inside_out();
+	}
+
+	static void ConvertQuadsToTriangles(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		std::vector<Face> faces;
+
+		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		{
+			if (face->is_quad())
+			{
+				faces.push_back(*face);
+			}
+		}
+
+		for (auto face = faces.begin(); face != faces.end(); ++face)
+		{
+			auto e1 = face->halfedge()->next();
+			auto e2 = face->halfedge()->prev();
+
+			poly->split_facet(e1, e2);
+		}
 	}
 
 

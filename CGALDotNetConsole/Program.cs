@@ -21,93 +21,31 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var box = new Box3d(-1, 1);
-            var corners = box.GetCorners();
+            var box1 = PolyhedronFactory<EEK>.CreateCube();
+            box1.Translate(new Point3d(0.5));
 
-            var tri = new Triangulation3<EEK>(corners);
+            var box2 = PolyhedronFactory<EEK>.CreateCube();
 
-            tri.Print();
+            var nef1 = new NefPolyhedron3<EEK>(box1);
+            var nef2 = new NefPolyhedron3<EEK>(box2);
 
-            PrintPoints(tri);
-            //PrintSegments(tri);
-            //PrintTriangles(tri);
-            PrintTetrahedron(tri);
-         
-        }
+            var nef3 = nef1.Join(nef2);
 
-        private static void PrintPoints(Triangulation3<EEK> tri)
-        {
-            Console.WriteLine("Points");
+            nef3.ConvexDecomposition();
 
-            int count = tri.VertexCount;
-            var points = new Point3d[count];
+            int count = nef3.VolumeCount;
+            var volumes = new List<Polyhedron3<EEK>>();
+            nef3.GetVolumes(volumes);
 
-            tri.GetPoints(points, count);
-
-            for (int i = 0; i < points.Length; i++)
+            foreach(var poly in volumes)
             {
-                Console.WriteLine(points[i]);
+                poly.ConvertQuadsToTriangles();
+
+                poly.Print();
             }
+
         }
 
-        /*
-        private static void PrintSegments(Triangulation3<EEK> tri)
-        {
-            Console.WriteLine("Segments");
-
-            int count = tri.SegmentIndiceCount;
-            var indices = new int[count];
-
-            tri.GetSegmentIndices(indices, count);
-
-            for (int i = 0; i < indices.Length / 2; i++)
-            {
-                int i0 = indices[i * 2 + 0];
-                int i1 = indices[i * 2 + 1];
-
-                Console.WriteLine(i0 + " " + i1);
-            }
-        }
-
-        private static void PrintTriangles(Triangulation3<EEK> tri)
-        {
-            Console.WriteLine("Triangles");
-
-            int count = tri.TriangleIndiceCount;
-            var indices = new int[count];
-
-            tri.GetTriangleIndices(indices, count);
-
-            for (int i = 0; i < indices.Length / 3; i++)
-            {
-                int i0 = indices[i * 3 + 0];
-                int i1 = indices[i * 3 + 1];
-                int i2 = indices[i * 3 + 2];
-
-                Console.WriteLine(i0 + " " + i1 + " " + i2);
-            }
-        }
-        */
-
-        private static void PrintTetrahedron(Triangulation3<EEK> tri)
-        {
-            Console.WriteLine("Tetrahedron");
-
-            int count = tri.TetrahdronIndiceCount;
-            var indices = new int[count];
-
-            tri.GetTetrahedronIndices(indices, count);
-
-            for (int i = 0; i < indices.Length / 4; i++)
-            {
-                int i0 = indices[i * 4 + 0];
-                int i1 = indices[i * 4 + 1];
-                int i2 = indices[i * 4 + 2];
-                int i3 = indices[i * 4 + 3];
-
-                Console.WriteLine(i0 + " " + i1 + " " + i2 + " " + i3);
-            }
-        }
 
 
     }

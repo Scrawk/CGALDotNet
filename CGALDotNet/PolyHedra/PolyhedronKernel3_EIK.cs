@@ -122,6 +122,11 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EIK_InsideOut(ptr);
 		}
 
+		internal override void ConvertQuadsToTriangles(IntPtr ptr)
+		{
+			Polyhedron3_EIK_ConvertQuadsToTriangles(ptr); ;
+		}
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EIK_Create();
 
@@ -187,5 +192,8 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EIK_InsideOut(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EIK_ConvertQuadsToTriangles(IntPtr ptr);
 	}
 }

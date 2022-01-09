@@ -51,4 +51,6 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_InsideOut(void* ptr);
 
+	CGALWRAPPER_API void Polyhedron3_EEK_ConvertQuadsToTriangles(void* ptr);
+
 }

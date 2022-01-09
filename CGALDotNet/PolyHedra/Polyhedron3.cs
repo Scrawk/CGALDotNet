@@ -262,6 +262,14 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public void ConvertQuadsToTriangles()
+        {
+            Kernel.ConvertQuadsToTriangles(Ptr);
+        }
+
+        /// <summary>
         /// Print the polyhedron.
         /// </summary>
         public void Print()
