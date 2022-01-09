@@ -184,6 +184,8 @@ namespace CGALDotNet.Triangulations
             Kernel.GetPoints(Ptr, points, count);
         }
 
+        /*
+
         /// <summary>
         /// 
         /// </summary>
@@ -206,6 +208,8 @@ namespace CGALDotNet.Triangulations
             Kernel.GetTriangleIndices(Ptr, indices, count);
         }
 
+        */
+
         /// <summary>
         /// 
         /// </summary>
@@ -215,6 +219,48 @@ namespace CGALDotNet.Triangulations
         {
             ErrorUtil.CheckArray(indices, count);
             Kernel.GetTetrahedraIndices(Ptr, indices, count);
+        }
+
+        /// <summary>
+        /// Translate each point in the mesh.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        public void Translate(Point3d translation)
+        {
+            var m = Matrix4x4d.Translate(translation);
+            Kernel.Transform(Ptr, m);
+        }
+
+        /// <summary>
+        /// Rotate each point in the mesh.
+        /// </summary>
+        /// <param name="rotation">The amount to rotate.</param>
+        public void Rotate(Quaternion3d rotation)
+        {
+            var m = rotation.ToMatrix4x4d();
+            Kernel.Transform(Ptr, m);
+        }
+
+        /// <summary>
+        /// Scale each point in the mesh.
+        /// </summary>
+        /// <param name="scale">The amount to scale.</param>
+        public void Scale(Point3d scale)
+        {
+            var m = Matrix4x4d.Scale(scale);
+            Kernel.Transform(Ptr, m);
+        }
+
+        /// <summary>
+        /// Transform each point in the mesh.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        /// <param name="rotation">The amount to rotate.</param>
+        /// <param name="scale">The amount to scale.</param>
+        public void Transform(Point3d translation, Quaternion3d rotation, Point3d scale)
+        {
+            var m = Matrix4x4d.TranslateRotateScale(translation, rotation, scale);
+            Kernel.Transform(Ptr, m);
         }
 
         /// <summary>

@@ -107,6 +107,11 @@ namespace CGALDotNet.Triangulations
             Triangulation3_EEK_GetTetrahedraIndices(ptr, indices, count);
         }
 
+        internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
+        {
+            Triangulation3_EEK_Transform(ptr, matrix);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Triangulation3_EEK_Create();
 
@@ -163,6 +168,9 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Triangulation3_EEK_GetTetrahedraIndices(IntPtr ptr, [Out] int[] indices, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);
 
     }
 }

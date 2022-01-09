@@ -28,12 +28,29 @@ namespace CGALDotNetConsole
 
             tri.Print();
 
-            PrintSegments(tri);
-            PrintTriangles(tri);
+            PrintPoints(tri);
+            //PrintSegments(tri);
+            //PrintTriangles(tri);
             PrintTetrahedron(tri);
          
         }
 
+        private static void PrintPoints(Triangulation3<EEK> tri)
+        {
+            Console.WriteLine("Points");
+
+            int count = tri.VertexCount;
+            var points = new Point3d[count];
+
+            tri.GetPoints(points, count);
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                Console.WriteLine(points[i]);
+            }
+        }
+
+        /*
         private static void PrintSegments(Triangulation3<EEK> tri)
         {
             Console.WriteLine("Segments");
@@ -70,6 +87,7 @@ namespace CGALDotNetConsole
                 Console.WriteLine(i0 + " " + i1 + " " + i2);
             }
         }
+        */
 
         private static void PrintTetrahedron(Triangulation3<EEK> tri)
         {

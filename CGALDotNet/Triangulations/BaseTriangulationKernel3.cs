@@ -47,5 +47,7 @@ namespace CGALDotNet.Triangulations
         internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
 
         internal abstract void GetTetrahedraIndices(IntPtr ptr, int[] indices, int count);
+
+        internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
     }
 }

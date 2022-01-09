@@ -96,3 +96,8 @@ void Triangulation3_EEK_GetTetrahedraIndices(void* ptr, int* indices, int count)
 {
 	Triangulation3<EEK>::GetTetrahedraIndices(ptr, indices, count);
 }
+
+void Triangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix)
+{
+	Triangulation3<EEK>::Transform(ptr, matrix);
+}

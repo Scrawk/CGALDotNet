@@ -3,7 +3,7 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry3.h"
 #include "TriUtil.h"
-//#include "TriangulationMap3.h"
+#include "../Geometry/Matrices.h"
 
 #include <vector>
 #include "CGAL/Point_3.h"
@@ -34,11 +34,9 @@ public:
 
 	Triangulation_3 model;
 
-	//TriangulationMap3<K, Vertex, Cell> map;
-
 	Triangulation3()
 	{
-		//map.OnModelChanged();
+
 	}
 
 	~Triangulation3()
@@ -246,6 +244,18 @@ public:
 
 			if (index * 4 >= count) return;
 			if (index >= num) return;
+		}
+	}
+
+	static void Transform(void* ptr, const Matrix4x4d& matrix)
+	{
+		auto tri = Triangulation3<K>::CastToTriangulation3(ptr);
+		auto m = matrix.ToCGAL<K>();
+
+		for (auto vert = tri->model.finite_vertices_begin(); vert != tri->model.finite_vertices_end(); ++vert)
+		{
+			auto p = vert->point();
+			vert->set_point(m.transform(p));
 		}
 	}
 

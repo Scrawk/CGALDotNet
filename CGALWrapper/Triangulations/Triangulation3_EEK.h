@@ -2,6 +2,7 @@
 
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry3.h"
+#include "../Geometry/Matrices.h"
 
 extern "C"
 {
@@ -40,4 +41,6 @@ extern "C"
 	CGALWRAPPER_API void Triangulation3_EEK_GetTriangleIndices(void* ptr, int* indices, int count);
 
 	CGALWRAPPER_API void Triangulation3_EEK_GetTetrahedraIndices(void* ptr, int* indices, int count);
+
+	CGALWRAPPER_API void Triangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix);
 }
