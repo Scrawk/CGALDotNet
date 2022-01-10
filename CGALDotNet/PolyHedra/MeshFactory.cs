@@ -7,8 +7,89 @@ using CGALDotNet.Geometry;
 namespace CGALDotNet.Polyhedra
 {
 
+	public struct UVSphereParams
+    {
+		public int meridians;
+		public int parallels;
+		public double scale;
+
+		public static UVSphereParams Default
+        {
+			get
+            {
+				var param = new UVSphereParams();
+				param.parallels = 32;
+				param.meridians = 32;
+				param.scale = 1;
+				return param;
+            }
+        }
+	}
+
+	public struct NormalizedCubeParams
+	{
+		public int divisions;
+		public double scale;
+
+		public static NormalizedCubeParams Default
+		{
+			get
+			{
+				var param = new NormalizedCubeParams();
+				param.divisions = 32;
+				param.scale = 1;
+				return param;
+			}
+		}
+	}
+
+	public struct PlaneParams
+	{
+		public double width;
+		public double height;
+		public int divisionsX;
+		public int divisionsZ;
+
+		public static PlaneParams Default
+		{
+			get
+			{
+				var param = new PlaneParams();
+				param.width = 1;
+				param.height = 1;
+				param.divisionsX = 4;
+				param.divisionsZ = 4;
+				return param;
+			}
+		}
+	}
+
+	public struct TorusParams
+	{
+		public int radialDivisions;
+		public int tubularDivisions;
+		public double radius;
+		public double tube;
+		public double arc;
+
+		public static TorusParams Default
+		{
+			get
+			{
+				var param = new TorusParams();
+				param.radialDivisions = 16;
+				param.tubularDivisions = 16;
+				param.radius = 0.5;
+				param.tube = 0.2;
+				param.arc = Math.PI * 2;
+				return param;
+			}
+		}
+	}
+
 	/// <summary>
 	/// https://github.com/caosdoar/spheres/blob/master/src/spheres.cpp
+	/// https://github.com/mrdoob/three.js/tree/dev/src/geometries
 	/// </summary>
 	public static class MeshFactory
     {
@@ -95,21 +176,63 @@ namespace CGALDotNet.Polyhedra
             indices.AddTriangle(0, 1, 6);
         }
 
-		public static void CreateUVSphere(List<Point3d> points, List<int> indices, int meridians, int parallels, double scale = 1)
+		public static void CreatePlane(List<Point3d> points, List<int> indices, PlaneParams param)
 		{
-			scale *= 0.5;
+			double width_half = param.width / 2;
+			double height_half = param.height / 2;
+
+			int gridX = param.divisionsX;
+			int gridY = param.divisionsZ;
+
+			int gridX1 = gridX + 1;
+			int gridY1 = gridY + 1;
+
+			double segment_width = param.width / gridX;
+			double segment_height = param.height / gridY;
+
+			for (int iy = 0; iy < gridY1; iy++)
+			{
+				double y = iy * segment_height - height_half;
+
+				for (int ix = 0; ix < gridX1; ix++)
+				{
+					double x = ix * segment_width - width_half;
+					points.Add(new Point3d(x, 0, -y));
+				}
+			}
+
+			for (int iy = 0; iy < gridY; iy++)
+			{
+				for (int ix = 0; ix < gridX; ix++)
+				{
+
+					int a = ix + gridX1 * iy;
+					int b = ix + gridX1 * (iy + 1);
+					int c = (ix + 1) + gridX1 * (iy + 1);
+					int d = (ix + 1) + gridX1 * iy;
+
+					indices.AddTriangle(d, b, a);
+					indices.AddTriangle(d, c, b);
+
+				}
+			}
+		}
+
+		public static void CreateUVSphere(List<Point3d> points, List<int> indices, UVSphereParams param)
+		{
+			double scale = param.scale * 0.5;
 
 			points.Add(new Point3d(0.0, 1.0, 0.0) * scale);
 
-			for (int j = 0; j < parallels - 1; ++j)
+			for (int j = 0; j < param.parallels - 1; ++j)
 			{
-				double polar = Math.PI * (j + 1) / (double)parallels;
+				double polar = Math.PI * (j + 1) / (double)param.parallels;
 				double sp = Math.Sin(polar);
 				double cp = Math.Cos(polar);
 
-				for (int i = 0; i < meridians; ++i)
+				for (int i = 0; i < param.meridians; ++i)
 				{
-					double azimuth = 2.0 * Math.PI * i / (double)meridians;
+					double azimuth = 2.0 * Math.PI * i / (double)param.meridians;
 					double sa = Math.Sin(azimuth);
 					double ca = Math.Cos(azimuth);
 					double x = sp * ca;
@@ -122,44 +245,44 @@ namespace CGALDotNet.Polyhedra
 
 			points.Add(new Point3d(0.0, -1.0, 0.0) * scale);
 
-			for (int i = 0; i < meridians; ++i)
+			for (int i = 0; i < param.meridians; ++i)
 			{
 				int a = i + 1;
-				int b = (i + 1) % meridians + 1;
+				int b = (i + 1) % param.meridians + 1;
 
 				indices.AddTriangle(0, b, a);
 			}
 
-			for (int j = 0; j < parallels - 2; ++j)
+			for (int j = 0; j < param.parallels - 2; ++j)
 			{
-				int aStart = j * meridians + 1;
-				int bStart = (j + 1) * meridians + 1;
+				int aStart = j * param.meridians + 1;
+				int bStart = (j + 1) * param.meridians + 1;
 
-				for (int i = 0; i < meridians; ++i)
+				for (int i = 0; i < param.meridians; ++i)
 				{
 					int a = aStart + i;
-					int a1 = aStart + (i + 1) % meridians;
+					int a1 = aStart + (i + 1) % param.meridians;
 					int b = bStart + i;
-					int b1 = bStart + (i + 1) % meridians;
+					int b1 = bStart + (i + 1) % param.meridians;
 
 					indices.AddQuad(a, a1, b1, b);
 				}
 			}
 
-			for (int i = 0; i < meridians; ++i)
+			for (int i = 0; i < param.meridians; ++i)
 			{
-				int a = i + meridians * (parallels - 2) + 1;
-				int b = (i + 1) % meridians + meridians * (parallels - 2) + 1;
+				int a = i + param.meridians * (param.parallels - 2) + 1;
+				int b = (i + 1) % param.meridians + param.meridians * (param.parallels - 2) + 1;
 
 				indices.AddTriangle(points.Count - 1, a, b);
 			}
 		}
 
-		public static void CreateNormalizedCube(List<Point3d> points, List<int> indices, int divisions, double scale = 1)
+		public static void CreateNormalizedCube(List<Point3d> points, List<int> indices, NormalizedCubeParams param)
 		{
-			scale *= 0.5;
+			double scale = param.scale * 0.5;
 
-			double step = 1.0 / divisions;
+			double step = 1.0 / param.divisions;
 			Point3d step3 = new Point3d(step, step, step);
 
 			for (int face = 0; face < 6; ++face)
@@ -168,11 +291,11 @@ namespace CGALDotNet.Polyhedra
 				Point3d right = Rights[face];
 				Point3d up = Ups[face];
 
-				for (int j = 0; j < divisions + 1; ++j)
+				for (int j = 0; j < param.divisions + 1; ++j)
 				{
 					Point3d j3= new Point3d(j, j, j);
 
-					for (int i = 0; i < divisions + 1; ++i)
+					for (int i = 0; i < param.divisions + 1; ++i)
 					{
 						Point3d i3 = new Point3d(i, i, i);
 						Point3d p = origin + step3 * (i3 * right + j3 * up);
@@ -182,17 +305,17 @@ namespace CGALDotNet.Polyhedra
 				}
 			}
 
-			int k = divisions + 1;
+			int k = param.divisions + 1;
 
 			for (int face = 0; face < 6; ++face)
 			{
-				for (int j = 0; j < divisions; ++j)
+				for (int j = 0; j < param.divisions; ++j)
 				{
-					bool bottom = j < (divisions / 2);
+					bool bottom = j < (param.divisions / 2);
 
-					for (int i = 0; i < divisions; ++i)
+					for (int i = 0; i < param.divisions; ++i)
 					{
-						bool left = i < (divisions / 2);
+						bool left = i < (param.divisions / 2);
 
 						int a = (face * k + j) * k + i;
 						int b = (face * k + j) * k + i + 1;
@@ -248,6 +371,45 @@ namespace CGALDotNet.Polyhedra
 			indices.AddTriangle(6, 2, 10);
 			indices.AddTriangle(8, 6, 7);
 			indices.AddTriangle(9, 8, 1);
+		}
+
+		public static void CreateTorus(List<Point3d> points, List<int> indices, TorusParams param)
+        {
+
+			for (int j = 0; j <= param.radialDivisions; j++)
+			{
+				for (int i = 0; i <= param.tubularDivisions; i++)
+				{
+
+					double u = i / (double)param.tubularDivisions * param.arc;
+					double v = j / (double)param.radialDivisions * Math.PI * 2;
+
+					var vertex = new Point3d();
+					vertex.x = (param.radius + param.tube * Math.Cos(v)) * Math.Cos(u);
+					vertex.z = (param.radius + param.tube * Math.Cos(v)) * Math.Sin(u);
+					vertex.y = param.tube * Math.Sin(v);
+
+					points.Add(vertex);
+				}
+			}
+
+			for (int j = 1; j <= param.radialDivisions; j++)
+			{
+
+				for (int i = 1; i <= param.tubularDivisions; i++)
+				{
+					int a = (param.tubularDivisions + 1) * j + i - 1;
+					int b = (param.tubularDivisions + 1) * (j - 1) + i - 1;
+					int c = (param.tubularDivisions + 1) * (j - 1) + i;
+					int d = (param.tubularDivisions + 1) * j + i;
+
+					indices.AddTriangle(d, b, a);
+					indices.AddTriangle(d, c, b);
+
+				}
+
+			}
+
 		}
 
 	}

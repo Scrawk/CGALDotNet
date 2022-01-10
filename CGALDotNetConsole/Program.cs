@@ -21,28 +21,11 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var box1 = PolyhedronFactory<EEK>.CreateCube();
-            box1.Translate(new Point3d(0.5));
+            var param = TorusParams.Default;
 
-            var box2 = PolyhedronFactory<EEK>.CreateCube();
+            var poly = PolyhedronFactory<EEK>.CreateTorus(param);
 
-            var nef1 = new NefPolyhedron3<EEK>(box1);
-            var nef2 = new NefPolyhedron3<EEK>(box2);
-
-            var nef3 = nef1.Join(nef2);
-
-            nef3.ConvexDecomposition();
-
-            int count = nef3.VolumeCount;
-            var volumes = new List<Polyhedron3<EEK>>();
-            nef3.GetVolumes(volumes);
-
-            foreach(var poly in volumes)
-            {
-                poly.ConvertQuadsToTriangles();
-
-                poly.Print();
-            }
+            poly.Print();
 
         }
 

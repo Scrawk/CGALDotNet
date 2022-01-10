@@ -23,22 +23,46 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static SurfaceMesh3<K> CreateUVSphere(int meridians, int parallels, double scale = 1)
+		public static SurfaceMesh3<K> CreatePlane(PlaneParams param)
 		{
 			points.Clear();
 			indices.Clear();
-			MeshFactory.CreateUVSphere(points, indices, meridians, parallels, scale);
+			MeshFactory.CreatePlane(points, indices, param);
 
 			var mesh = new SurfaceMesh3<K>();
 			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
 
 			return mesh;
 		}
-		public static SurfaceMesh3<K> CreateNormalizedCube(int divisions, double scale = 1)
+
+		public static SurfaceMesh3<K> CreateTorus(TorusParams param)
 		{
 			points.Clear();
 			indices.Clear();
-			MeshFactory.CreateNormalizedCube(points, indices, divisions, scale);
+			MeshFactory.CreateTorus(points, indices, param);
+
+			var mesh = new SurfaceMesh3<K>();
+			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+
+			return mesh;
+		}
+
+		public static SurfaceMesh3<K> CreateUVSphere(UVSphereParams param)
+		{
+			points.Clear();
+			indices.Clear();
+			MeshFactory.CreateUVSphere(points, indices, param);
+
+			var mesh = new SurfaceMesh3<K>();
+			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+
+			return mesh;
+		}
+		public static SurfaceMesh3<K> CreateNormalizedCube(NormalizedCubeParams param)
+		{
+			points.Clear();
+			indices.Clear();
+			MeshFactory.CreateNormalizedCube(points, indices, param);
 
 			var mesh = new SurfaceMesh3<K>();
 			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
