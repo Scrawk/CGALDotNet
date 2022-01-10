@@ -174,7 +174,11 @@
     <ClInclude Include="Meshing\ConformingTriangulation2_EIK.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3_EIK.h" />
     <ClInclude Include="Polyhedra\Polyhedron3_EIK.h" />
+    <ClInclude Include="Meshing\SkinSurfaceMesing.h" />
     <ClInclude Include="Polyhedra\SurfaceMesh3_EIK.h" />
+    <ClInclude Include="Meshing\SkinSurfaceMeshing_EEK.h" />
+    <ClInclude Include="Meshing\TetrahedralRemeshing.h" />
+    <ClInclude Include="Meshing\TetrahedralRemeshing_EEK.h" />
     <ClInclude Include="Triangulations\Triangulation3_EEK.h" />
     <ClInclude Include="Triangulations\Triangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
@@ -255,6 +259,8 @@
     <ClCompile Include="Polyhedra\NefPolyhedron3_EIK.cpp" />
     <ClCompile Include="Polyhedra\Polyhedron3_EIK.cpp" />
     <ClCompile Include="Polyhedra\SurfaceMesh3_EIK.cpp" />
+    <ClCompile Include="Meshing\SkinSurfaceMeshing_EEK.cpp" />
+    <ClCompile Include="Meshing\TetrahedralRemeshing_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation3_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />

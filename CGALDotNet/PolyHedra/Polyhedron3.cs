@@ -270,6 +270,28 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// sorts halfedges such that the non-border edges precede the border edges.
+        /// For each border edge the halfedge iterator will reference the halfedge 
+        /// incident to the facet right before the halfedge incident to the hole.
+        /// </summary>
+        public void NormalizeBorder()
+        {
+            Kernel.NormalizeBorder(Ptr);
+        }
+
+        /// <summary>
+        /// returns true if the border halfedges are in normalized representation, 
+        /// which is when enumerating all halfedges with the iterator: 
+        /// The non-border edges precede the border edges and for border edges,
+        /// the second halfedge is the border halfedge.
+        /// </summary>
+        /// <returns></returns>
+        public bool NormalizedBorderIsValid()
+        {
+            return Kernel.NormalizedBorderIsValid(Ptr);
+        }
+
+        /// <summary>
         /// Print the polyhedron.
         /// </summary>
         public void Print()
@@ -290,6 +312,7 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
             builder.AppendLine("BorderHalfEdgeCount = " + BorderHalfEdgeCount);
             builder.AppendLine("IsValid = " + IsValid());
+            builder.AppendLine("NormalizedBorderIsValid = " + NormalizedBorderIsValid());
             builder.AppendLine("IsClosed = " + IsClosed);
             builder.AppendLine("IsPureBivalent = " + IsPureBivalent);
             builder.AppendLine("IsPureTrivalent= " + IsPureTrivalent);

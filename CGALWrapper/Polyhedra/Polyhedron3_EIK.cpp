@@ -116,3 +116,13 @@ void Polyhedron3_EIK_ConvertQuadsToTriangles(void* ptr)
 {
 	Polyhedron3<EIK>::ConvertQuadsToTriangles(ptr);
 }
+
+void Polyhedron3_EIK_NormalizeBorder(void* ptr)
+{
+	Polyhedron3<EIK>::NormalizeBorder(ptr);
+}
+
+BOOL Polyhedron3_EIK_NormalizedBorderIsValid(void* ptr)
+{
+	return Polyhedron3<EIK>::NormalizedBorderIsValid(ptr);
+}

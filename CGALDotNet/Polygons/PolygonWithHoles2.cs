@@ -103,6 +103,15 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Get the boundary as a copy.
+        /// </summary>
+        /// <returns>A copy of the hole polygon.</returns>
+        public Polygon2<K> GetBoundary()
+        {
+            return Copy(POLYGON_ELEMENT.BOUNDARY);
+        }
+
+        /// <summary>
         /// Get the hole as a copy.
         /// </summary>
         /// <param name="index">The holes index</param>
@@ -113,6 +122,17 @@ namespace CGALDotNet.Polygons
                 throw new ArgumentOutOfRangeException("Hole index must be > 0 and < HoleCount.");
 
             return new Polygon2<K>(Kernel.CopyPolygon(Ptr, index));
+        }
+
+        /// <summary>
+        /// Add a polygon as a holes.
+        /// Holes must simple and CW.
+        /// </summary>
+        /// <param name="polygon">The hole polygon.</param>
+        public void AddHole(Polygon2<K> polygon)
+        {
+            Kernel.AddHoleFromPolygon(Ptr, polygon.Ptr);
+            HoleCount++;
         }
 
         /// <summary>
@@ -396,7 +416,7 @@ namespace CGALDotNet.Polygons
                 Kernel.ClearBoundary(Ptr);
                 IsUnbounded = true;
             }
-            else if(HoleCount > 0)
+            else
             {
                 Kernel.RemoveHole(Ptr, index);
                 HoleCount--;
@@ -409,7 +429,7 @@ namespace CGALDotNet.Polygons
         /// <param name="index">The holes index.</param>
         public void RemoveHole(int index)
         {
-            if (HoleCount > 0)
+            if (index >= 0 && index <= HoleCount)
             {
                 Kernel.RemoveHole(Ptr, index);
                 HoleCount--;
@@ -520,17 +540,6 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="indices">The triangle indices.</param>
         public abstract void Triangulate(List<int> indices);
-
-        /// <summary>
-        /// Add a polygon as a holes.
-        /// Holes must simple and CW.
-        /// </summary>
-        /// <param name="polygon">The hole polygon.</param>
-        public void AddHole(Polygon2 polygon)
-        {
-            Kernel.AddHoleFromPolygon(Ptr, polygon.Ptr);
-            HoleCount++;
-        }
 
         /// <summary>
         /// Add a hole from a set of points.

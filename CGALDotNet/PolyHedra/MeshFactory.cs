@@ -331,6 +331,42 @@ namespace CGALDotNet.Polyhedra
 			}
 		}
 
+		public static void CreateTetrahedron(List<Point3d> points, List<int> indices, double scale = 1)
+        {
+			scale *= 0.5;
+
+			points.Add(new Point3d(1, 1, 1) * scale);
+			points.Add(new Point3d(-1, -1, 1) * scale);
+			points.Add(new Point3d(-1, 1, -1) * scale);
+			points.Add(new Point3d(1, -1, -1) * scale);
+
+			indices.AddTriangle(2, 1, 0);
+			indices.AddTriangle(0, 3, 2);
+			indices.AddTriangle(1, 3, 0);
+			indices.AddTriangle(2, 3, 1);
+		}
+
+		public static void CreateOctahedron(List<Point3d> points, List<int> indices, double scale = 1)
+        {
+			scale *= 0.5;
+
+			points.Add(new Point3d(1, 0, 0) * scale);
+			points.Add(new Point3d(-1, 0, 0) * scale);
+			points.Add(new Point3d(0, 1, 0) * scale);
+			points.Add(new Point3d(0, -1, 0) * scale);
+			points.Add(new Point3d(0, 0, 1) * scale);
+			points.Add(new Point3d(0, 0, -1) * scale);
+
+			indices.AddTriangle(0, 2, 4);
+			indices.AddTriangle(0, 4, 3);
+			indices.AddTriangle(0, 3, 5);
+			indices.AddTriangle(0, 5, 2);
+			indices.AddTriangle(1, 2, 5);
+			indices.AddTriangle(1, 5, 3);
+			indices.AddTriangle(1, 3, 4);
+			indices.AddTriangle(1, 4, 2);
+		}
+
 		public static void CreateIcosahedron(List<Point3d> points, List<int> indices, double scale = 1)
 		{
 			scale *= 0.5;
@@ -371,6 +407,72 @@ namespace CGALDotNet.Polyhedra
 			indices.AddTriangle(6, 2, 10);
 			indices.AddTriangle(8, 6, 7);
 			indices.AddTriangle(9, 8, 1);
+		}
+
+		public static void CreateDodecahedron(List<Point3d> points, List<int> indices, double scale = 1)
+        {
+			scale *= 0.5;
+			double t = (1 + Math.Sqrt(5)) / 2;
+			double r = 1 / t;
+
+			points.Add(new Vector3d(-1, -1, -1).Normalized * scale);
+			points.Add(new Vector3d(-1, -1, 1).Normalized * scale);
+			points.Add(new Vector3d(-1, 1, -1).Normalized * scale);
+			points.Add(new Vector3d(-1, 1, 1).Normalized * scale);
+			points.Add(new Vector3d(1, -1, -1).Normalized * scale);
+			points.Add(new Vector3d(1, -1, 1).Normalized * scale);
+			points.Add(new Vector3d(1, 1, -1).Normalized * scale);
+			points.Add(new Vector3d(1, 1, 1).Normalized * scale);
+			points.Add(new Vector3d(0, -r, -t).Normalized * scale);
+			points.Add(new Vector3d(0, -r, t).Normalized * scale);
+			points.Add(new Vector3d(0, r, -t).Normalized * scale);
+			points.Add(new Vector3d(0, r, t).Normalized * scale);
+			points.Add(new Vector3d(-r, -t, 0).Normalized * scale);
+			points.Add(new Vector3d(-r, t, 0).Normalized * scale);
+			points.Add(new Vector3d(r, -t, 0).Normalized * scale);
+			points.Add(new Vector3d(r, t, 0).Normalized * scale);
+			points.Add(new Vector3d(-t, 0, -r).Normalized * scale);
+			points.Add(new Vector3d(t, 0, -r).Normalized * scale);
+			points.Add(new Vector3d(-t, 0, r).Normalized * scale);
+			points.Add(new Vector3d(t, 0, r).Normalized * scale);
+
+			indices.AddTriangle(3, 11, 7);
+			indices.AddTriangle(3, 7, 15);
+			indices.AddTriangle(3, 15, 13);
+			indices.AddTriangle(7, 19, 17);
+			indices.AddTriangle(7, 17, 6);
+			indices.AddTriangle(7, 6, 15);
+			indices.AddTriangle(17, 4, 8);
+			indices.AddTriangle(17, 8, 10);
+			indices.AddTriangle(17, 10, 6);
+			indices.AddTriangle(8, 0, 16);
+			indices.AddTriangle(8, 16, 2);
+			indices.AddTriangle(8, 2, 10);
+			indices.AddTriangle(0, 12, 1);
+			indices.AddTriangle(0, 1, 18);
+			indices.AddTriangle(0, 18, 16);
+			indices.AddTriangle(6, 10, 2);
+			indices.AddTriangle(6, 2, 13);
+			indices.AddTriangle(6, 13, 15);
+			indices.AddTriangle(2, 16, 18);
+			indices.AddTriangle(2, 18, 3);
+			indices.AddTriangle(2, 3, 13);
+			indices.AddTriangle(18, 1, 9);
+			indices.AddTriangle(18, 9, 11);
+			indices.AddTriangle(18, 11, 3);
+			indices.AddTriangle(4, 14, 12);
+			indices.AddTriangle(4, 12, 0);
+			indices.AddTriangle(4, 0, 8);
+			indices.AddTriangle(11, 9, 5);
+			indices.AddTriangle(11, 5, 19);
+			indices.AddTriangle(11, 19, 7);
+			indices.AddTriangle(19, 5, 14);
+			indices.AddTriangle(19, 14, 4);
+			indices.AddTriangle(19, 4, 17);
+			indices.AddTriangle(1, 12, 14);
+			indices.AddTriangle(1, 14, 5);
+			indices.AddTriangle(1, 5, 9);
+
 		}
 
 		public static void CreateTorus(List<Point3d> points, List<int> indices, TorusParams param)

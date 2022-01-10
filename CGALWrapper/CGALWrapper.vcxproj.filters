@@ -312,6 +312,18 @@
     <ClInclude Include="Triangulations\TriangulationMap3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Meshing\SkinSurfaceMesing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshing\SkinSurfaceMeshing_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshing\TetrahedralRemeshing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshing\TetrahedralRemeshing_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -441,6 +453,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Triangulations\Triangulation3_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshing\SkinSurfaceMeshing_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshing\TetrahedralRemeshing_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

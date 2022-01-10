@@ -53,4 +53,8 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EIK_ConvertQuadsToTriangles(void* ptr);
 
+	CGALWRAPPER_API void Polyhedron3_EIK_NormalizeBorder(void* ptr);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EIK_NormalizedBorderIsValid(void* ptr);
+
 }

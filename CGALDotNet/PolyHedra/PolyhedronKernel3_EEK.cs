@@ -124,7 +124,17 @@ namespace CGALDotNet.Polyhedra
 
 		internal override void ConvertQuadsToTriangles(IntPtr ptr)
         {
-			Polyhedron3_EEK_ConvertQuadsToTriangles(ptr); ;
+			Polyhedron3_EEK_ConvertQuadsToTriangles(ptr);
+        }
+
+		internal override void NormalizeBorder(IntPtr ptr)
+        {
+			Polyhedron3_EEK_NormalizeBorder(ptr);
+        }
+
+		internal override bool NormalizedBorderIsValid(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_NormalizedBorderIsValid(ptr);
         }
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -195,5 +205,11 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_ConvertQuadsToTriangles(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_NormalizeBorder(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_NormalizedBorderIsValid(IntPtr ptr);
 	}
 }

@@ -282,5 +282,17 @@ public:
 		}
 	}
 
+	static void NormalizeBorder(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->normalize_border();
+	}
+
+	static BOOL NormalizedBorderIsValid(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return poly->normalized_border_is_valid();
+	}
+
 
 };

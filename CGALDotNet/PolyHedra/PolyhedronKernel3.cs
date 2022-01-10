@@ -55,6 +55,10 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void ConvertQuadsToTriangles(IntPtr ptr);
 
+		internal abstract void NormalizeBorder(IntPtr ptr);
+
+		internal abstract bool NormalizedBorderIsValid(IntPtr ptr);
+
 
 	}
 }

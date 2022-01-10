@@ -21,9 +21,7 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var param = TorusParams.Default;
-
-            var poly = PolyhedronFactory<EEK>.CreateTorus(param);
+            var poly = PolyhedronFactory<EEK>.CreateDodecahedron();
 
             poly.Print();
 

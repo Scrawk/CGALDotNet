@@ -81,5 +81,41 @@ namespace CGALDotNet.Polyhedra
 
 			return poly;
 		}
+
+		public static Polyhedron3<K> CreateTetrahedron(double scale = 1)
+		{
+			points.Clear();
+			indices.Clear();
+			MeshFactory.CreateTetrahedron(points, indices, scale);
+
+			var poly = new Polyhedron3<K>();
+			poly.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+
+			return poly;
+		}
+
+		public static Polyhedron3<K> CreateOctahedron(double scale = 1)
+		{
+			points.Clear();
+			indices.Clear();
+			MeshFactory.CreateOctahedron(points, indices, scale);
+
+			var poly = new Polyhedron3<K>();
+			poly.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+
+			return poly;
+		}
+
+		public static Polyhedron3<K> CreateDodecahedron(double scale = 1)
+		{
+			points.Clear();
+			indices.Clear();
+			MeshFactory.CreateDodecahedron(points, indices, scale);
+
+			var poly = new Polyhedron3<K>();
+			poly.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+
+			return poly;
+		}
 	}
 }
