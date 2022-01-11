@@ -47,6 +47,18 @@ namespace CGALDotNet.Polyhedra
 			return poly;
 		}
 
+		public static Polyhedron3<K> CreateCylinder(CylinderParams param)
+		{
+			points.Clear();
+			indices.Clear();
+			MeshFactory.CreateCylinder(points, indices, param);
+
+			var poly = new Polyhedron3<K>();
+			poly.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+
+			return poly;
+		}
+
 		public static Polyhedron3<K> CreateUVSphere(UVSphereParams param)
 		{
 			points.Clear();

@@ -11,6 +11,9 @@
 #include <CGAL/Polygon_mesh_processing/transform.h>
 #include <CGAL/Aff_transformation_3.h>
 
+#include <CGAL/Polygon_mesh_processing/triangulate_faces.h>
+
+
 template <class HDS, class K>
 class BuildPolyhedronMesh : public CGAL::Modifier_base<HDS> 
 {
@@ -259,27 +262,10 @@ public:
 		poly->inside_out();
 	}
 
-	static void ConvertQuadsToTriangles(void* ptr)
+	static void Triangulate(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-
-		std::vector<Face> faces;
-
-		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
-		{
-			if (face->is_quad())
-			{
-				faces.push_back(*face);
-			}
-		}
-
-		for (auto face = faces.begin(); face != faces.end(); ++face)
-		{
-			auto e1 = face->halfedge()->next();
-			auto e2 = face->halfedge()->prev();
-
-			poly->split_facet(e1, e2);
-		}
+		CGAL::Polygon_mesh_processing::triangulate_faces(*poly);
 	}
 
 	static void NormalizeBorder(void* ptr)

@@ -58,6 +58,8 @@ namespace CGALDotNet
         internal abstract SurfaceMeshKernel3 SurfaceMeshKernel3 { get; }
 
         internal abstract SurfaceMesherKernel3 SurfaceMesherKernel3 { get; }
+
+        internal abstract TetrahedralRemeshingKernel TetrahedralRemeshingKernel  { get; }
     }
 
     public class EIK : CGALKernel
@@ -107,6 +109,8 @@ namespace CGALDotNet
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => SurfaceMeshKernel3_EIK.Instance;
 
         internal override SurfaceMesherKernel3 SurfaceMesherKernel3 => SurfaceMesherKernel3_EIK.Instance;
+
+        internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -156,6 +160,8 @@ namespace CGALDotNet
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => SurfaceMeshKernel3_EEK.Instance;
 
         internal override SurfaceMesherKernel3 SurfaceMesherKernel3 => throw new NotImplementedException();
+
+        internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => TetrahedralRemeshingKernel_EEK.Instance;
     }
 
 }

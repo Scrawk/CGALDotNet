@@ -10,6 +10,8 @@ extern "C"
 
 	CGALWRAPPER_API void Triangulation3_EEK_Release(void* ptr);
 
+	CGALWRAPPER_API void Triangulation3_EEK_Clear(void* ptr);
+
 	CGALWRAPPER_API void* Triangulation3_EEK_Copy(void* ptr);
 
 	CGALWRAPPER_API int Triangulation3_EEK_Dimension(void* ptr);

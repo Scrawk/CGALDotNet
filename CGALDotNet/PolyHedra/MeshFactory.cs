@@ -87,6 +87,35 @@ namespace CGALDotNet.Polyhedra
 		}
 	}
 
+	public struct CylinderParams
+	{
+		public double radiusTop;
+		public double radiusBottom;
+		public double height;
+		public int radialDivisions;
+		public int heightDivisions;
+		public bool openEnded;
+		public double thetaStart;
+		public double thetaLength;
+
+		public static CylinderParams Default
+		{
+			get
+			{
+				var param = new CylinderParams();
+				param.radiusTop = 0.5;
+				param.radiusBottom = 0.5;
+				param.height = 1;
+				param.radialDivisions = 8;
+				param.heightDivisions = 1;
+				param.openEnded = false;
+				param.thetaStart = 0;
+				param.thetaLength = Math.PI * 2;
+				return param;
+			}
+		}
+	}
+
 	/// <summary>
 	/// https://github.com/caosdoar/spheres/blob/master/src/spheres.cpp
 	/// https://github.com/mrdoob/three.js/tree/dev/src/geometries
@@ -482,7 +511,6 @@ namespace CGALDotNet.Polyhedra
 			{
 				for (int i = 0; i <= param.tubularDivisions; i++)
 				{
-
 					double u = i / (double)param.tubularDivisions * param.arc;
 					double v = j / (double)param.radialDivisions * Math.PI * 2;
 
@@ -497,7 +525,6 @@ namespace CGALDotNet.Polyhedra
 
 			for (int j = 1; j <= param.radialDivisions; j++)
 			{
-
 				for (int i = 1; i <= param.tubularDivisions; i++)
 				{
 					int a = (param.tubularDivisions + 1) * j + i - 1;
@@ -509,6 +536,120 @@ namespace CGALDotNet.Polyhedra
 					indices.AddTriangle(d, c, b);
 
 				}
+			}
+
+		}
+
+		public static void CreateCylinder(List<Point3d> points, List<int> indices, CylinderParams param)
+        {
+
+			int index = 0;
+			var indexArray = new List<List<int>>();
+			double halfHeight = param.height / 2;
+
+			for (int y = 0; y <= param.heightDivisions; y++)
+			{
+				var indexRow = new List<int>();
+
+				double v = y / (double)param.heightDivisions;
+
+				double radius = v * (param.radiusBottom - param.radiusTop) + param.radiusTop;
+
+				for (int x = 0; x <= param.radialDivisions; x++)
+				{
+					double u = x / (double)param.radialDivisions;
+
+					double theta = u * param.thetaLength + param.thetaStart;
+
+					double sinTheta = Math.Sin(theta);
+					double cosTheta = Math.Cos(theta);
+
+					var vertex = new Point3d();
+					vertex.x = radius * sinTheta;
+					vertex.y = -v * param.height + halfHeight;
+					vertex.z = radius * cosTheta;
+					points.Add(vertex);
+
+					// save index of vertex in respective row
+					indexRow.Add(index++);
+				}
+
+				// now save vertices of the row in our index array
+				indexArray.Add(indexRow);
+			}
+
+			for (int x = 0; x < param.radialDivisions; x++)
+			{
+
+				for (int y = 0; y < param.heightDivisions; y++)
+				{
+					// we use the index array to access the correct indices
+					int a = indexArray[y][x];
+					int b = indexArray[y + 1][x];
+					int c = indexArray[y + 1][x + 1];
+					int d = indexArray[y][x + 1];
+
+					// faces
+					indices.AddTriangle(a, b, d);
+					indices.AddTriangle(b, c, d);
+				}
+			}
+
+			if (!param.openEnded)
+			{
+				if (param.radiusTop > 0) 
+					GenerateCap(points, indices, param, true, ref index);
+
+				if (param.radiusBottom > 0)
+					GenerateCap(points, indices, param, false, ref index);
+			}
+
+		}
+
+		private static void GenerateCap(List<Point3d> points, List<int> indices, CylinderParams param, bool top, ref int index )
+		{
+			// save the index of the first center vertex
+			int centerIndexStart = index;
+			double halfHeight = param.height / 2;
+			double radius = top ? param.radiusTop : param.radiusBottom;
+			int sign = top ? 1 : -1;
+
+			for (int x = 1; x <= param.radialDivisions; x++)
+			{
+				points.Add(new Point3d(0, halfHeight * sign, 0));
+				index++;
+			}
+
+			// save the index of the last center vertex
+			int centerIndexEnd = index;
+
+			for (int x = 0; x <= param.radialDivisions; x++)
+			{
+				double u = x / param.radialDivisions;
+				double theta = u * param.thetaLength + param.thetaStart;
+
+				double cosTheta = Math.Cos(theta);
+				double sinTheta = Math.Sin(theta);
+
+				var vertex = new Point3d();
+				vertex.x = radius * sinTheta;
+				vertex.y = halfHeight * sign;
+				vertex.z = radius * cosTheta;
+				points.Add(vertex);
+
+				index++;
+
+			}
+
+			for (int x = 0; x < param.radialDivisions; x++)
+			{
+				int c = centerIndexStart + x;
+				int i = centerIndexEnd + x;
+
+				if (top)
+					indices.AddTriangle(i, i + 1, c);
+				else
+					indices.AddTriangle(i + 1, i, c);
 
 			}
 

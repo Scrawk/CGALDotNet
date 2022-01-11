@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+using CGALDotNet.Geometry;
+
+namespace CGALDotNet.Meshing
+{
+    internal abstract class TetrahedralRemeshingKernel : FuncKernel
+    {
+		internal abstract IntPtr Create();
+
+		internal abstract void Release(IntPtr ptr);
+
+		internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
+
+		internal abstract int Remesh(IntPtr ptr, double targetLength, int iterations, Point3d[] points, int count);
+	}
+}

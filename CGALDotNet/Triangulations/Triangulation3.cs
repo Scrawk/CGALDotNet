@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
-using CGALDotNet.Polygons;
+using CGALDotNet.Meshing;
 
 namespace CGALDotNet.Triangulations
 {
@@ -61,6 +61,31 @@ namespace CGALDotNet.Triangulations
         public Triangulation3<K> Copy()
         {
             return new Triangulation3<K>(Kernel.Copy(Ptr));
+        }
+
+        /// <summary>
+        /// Refine the triangulation.
+        /// </summary>
+        /// <param name="targetEdgeLength">The target edge lengths.</param>
+        /// <param name="iterations">The number of iterations.</param>
+        public void Refine(double targetEdgeLength, int iterations = 1)
+        {
+            
+            int count = VertexCount;
+            var points = new Point3d[count];
+            GetPoints(points, count);
+
+            var tet = new TetrahedralRemeshing<K>();
+            count = tet.Remesh(targetEdgeLength, iterations, points, count);
+
+            if (count > 0)
+            {
+                points = new Point3d[count];
+                tet.GetPoints(points, count);
+
+                Clear();
+                Insert(points, points.Length);
+            }
         }
 
     }

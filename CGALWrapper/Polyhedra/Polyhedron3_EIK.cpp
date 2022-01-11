@@ -112,9 +112,9 @@ void Polyhedron3_EIK_InsideOut(void* ptr)
 	Polyhedron3<EIK>::InsideOut(ptr);
 }
 
-void Polyhedron3_EIK_ConvertQuadsToTriangles(void* ptr)
+void Polyhedron3_EIK_Triangulate(void* ptr)
 {
-	Polyhedron3<EIK>::ConvertQuadsToTriangles(ptr);
+	Polyhedron3<EIK>::Triangulate(ptr);
 }
 
 void Polyhedron3_EIK_NormalizeBorder(void* ptr)

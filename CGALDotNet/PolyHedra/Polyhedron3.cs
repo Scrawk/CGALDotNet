@@ -262,11 +262,11 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// 
+        /// Make all faces triangles.
         /// </summary>
-        public void ConvertQuadsToTriangles()
+        public void Triangulate()
         {
-            Kernel.ConvertQuadsToTriangles(Ptr);
+            Kernel.Triangulate(Ptr);
         }
 
         /// <summary>
