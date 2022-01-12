@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Processing;
 
 namespace CGALDotNet.Polyhedra
 {
@@ -42,6 +43,19 @@ namespace CGALDotNet.Polyhedra
         {
             return string.Format("[Polyhedron3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
                 Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount);
+        }
+
+        /// <summary>
+        /// Subdive the polyhedron.
+        /// </summary>
+        /// <param name="iterations">The number of iterations to perfrom.</param>
+        /// <param name="method">The subdivision method.</param>
+        public override void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.CATMULL_CLARK)
+        {
+            if (iterations < 0) return;
+
+            var sub = SubdivisionSurface<K>.Instance;
+            sub.Subdivide(this, iterations, method);
         }
 
     }
@@ -290,6 +304,13 @@ namespace CGALDotNet.Polyhedra
         {
             return Kernel.NormalizedBorderIsValid(Ptr);
         }
+
+        /// <summary>
+        /// Subdive the polyhedron.
+        /// </summary>
+        /// <param name="iterations">The number of iterations to perfrom.</param>
+        /// <param name="method">The subdivision method.</param>
+        public abstract void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.CATMULL_CLARK);
 
         /// <summary>
         /// Print the polyhedron.

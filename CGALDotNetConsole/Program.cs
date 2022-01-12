@@ -11,6 +11,7 @@ using CGALDotNet.Arrangements;
 using CGALDotNet.Polyhedra;
 using CGALDotNet.Meshing;
 using CGALDotNet.Hulls;
+using CGALDotNet.Processing;
 
 namespace CGALDotNetConsole
 {
@@ -21,15 +22,12 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var box = new Box3d(-5, 5);
-            var corners = box.GetCorners();
+            var poly = PolyhedronFactory<EEK>.CreateIcosahedron();
+            poly.Print();
 
-            var tri = new DelaunayTriangulation3<EEK>(corners);
-            tri.Refine(0.1);
-            tri.Print();
+            poly.Subdivide(1);
 
-            var hull = tri.ComputeHull();
-            hull.Print();
+            poly.Print();
 
         }
 

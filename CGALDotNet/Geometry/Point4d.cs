@@ -143,6 +143,37 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Are all the values of the point finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (double.IsInfinity(x) || double.IsNaN(x)) return false;
+                if (double.IsInfinity(y) || double.IsNaN(y)) return false;
+                if (double.IsInfinity(z) || double.IsNaN(z)) return false;
+                if (double.IsInfinity(w) || double.IsNaN(w)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// The point with any non finite vaules set to 0.
+        /// </summary>
+        public Point4d Finite
+        {
+            get
+            {
+                var p = new Point4d(x, y, z, w);
+                if (double.IsInfinity(x) || double.IsNaN(x)) p.x = 0;
+                if (double.IsInfinity(y) || double.IsNaN(y)) p.y = 0;
+                if (double.IsInfinity(z) || double.IsNaN(z)) p.z = 0;
+                if (double.IsInfinity(w) || double.IsNaN(w)) p.w = 0;
+                return p;
+            }
+        }
+
+        /// <summary>
         /// Add two points.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -18,7 +18,7 @@ namespace CGALDotNet.Polygons
     /// Generic polygon boolean class.
     /// </summary>
     /// <typeparam name="K">The type of kernel</typeparam>
-    public class PolygonBoolean2<K> : PolygonBoolean2 where K : CGALKernel, new()
+    public sealed class PolygonBoolean2<K> : PolygonBoolean2 where K : CGALKernel, new()
     {
         /// <summary>
         /// A static instance to the boolean class.

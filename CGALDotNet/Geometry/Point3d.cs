@@ -175,6 +175,35 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Are all the values of the point finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (double.IsInfinity(x) || double.IsNaN(x)) return false;
+                if (double.IsInfinity(y) || double.IsNaN(y)) return false;
+                if (double.IsInfinity(z) || double.IsNaN(z)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// The point with any non finite vaules set to 0.
+        /// </summary>
+        public Point3d Finite
+        {
+            get
+            {
+                var p = new Point3d(x, y, z);
+                if (double.IsInfinity(x) || double.IsNaN(x)) p.x = 0;
+                if (double.IsInfinity(y) || double.IsNaN(y)) p.y = 0;
+                if (double.IsInfinity(z) || double.IsNaN(z)) p.z = 0;
+                return p;
+            }
+        }
+
+        /// <summary>
         /// Add two point and vector.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
