@@ -13,6 +13,7 @@ namespace CGALDotNet.Meshing
     /// <typeparam name="K"></typeparam>
     public sealed class ConformingTriangulation2<K> : ConformingTriangulation2 where K : CGALKernel, new()
     {
+
         /// <summary>
         /// A static instance of the triangulation.
         /// </summary>
@@ -76,7 +77,7 @@ namespace CGALDotNet.Meshing
 
         /// <summary>
         /// Insert the polygons points and the edges as constraints into the triangulation.
-        /// Will retatin the poylgons edges.
+        /// Will retain the poylgons edges.
         /// </summary>
         /// <param name="polygon">The polygon to insert.</param>
         public void InsertConstraint(Polygon2<K> polygon)
@@ -86,7 +87,7 @@ namespace CGALDotNet.Meshing
 
         /// <summary>
         /// Insert the polygons points and the edges as constraints into the triangulation.
-        /// Will retatin the poylgons edges.
+        /// Will retain the poylgons edges.
         /// </summary>
         /// <param name="pwh">The polygon to insert.</param>
         public void InsertConstraint(PolygonWithHoles2<K> pwh)
@@ -109,6 +110,12 @@ namespace CGALDotNet.Meshing
     /// </summary>
     public abstract class ConformingTriangulation2 : CGALObject
     {
+
+        /// <summary>
+        /// The max value the angle bounds can be.
+        /// </summary>
+        public const double MAX_ANGLE_BOUNDS = 0.125;
+
         /// <summary>
         /// 
         /// </summary>
@@ -312,10 +319,13 @@ namespace CGALDotNet.Meshing
         /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
         public void Refine(double angleBounds, double lengthBounds)
         {
-            if (angleBounds > 0.125)
-                angleBounds = 0.125;
+            if (angleBounds > MAX_ANGLE_BOUNDS)
+                angleBounds = MAX_ANGLE_BOUNDS;
 
-            Kernel.RefineAndOptimize(Ptr, 0, angleBounds, lengthBounds);
+            if (lengthBounds <= 0)
+                return;
+
+            Kernel.RefineAndOptimize(Ptr, 1, angleBounds, lengthBounds);
         }
 
         /// <summary>
@@ -326,10 +336,13 @@ namespace CGALDotNet.Meshing
         /// <param name="seeds">Seeds point in polygons that are not to be refined.</param>
         public void Refine(double angleBounds, double lengthBounds, Point2d[] seeds)
         {
-            if (angleBounds > 0.125)
-                angleBounds = 0.125;
+            if (angleBounds > MAX_ANGLE_BOUNDS)
+                angleBounds = MAX_ANGLE_BOUNDS;
 
-            Kernel.RefineAndOptimizeWithSeeds(Ptr, 0, angleBounds, lengthBounds, seeds, seeds.Length);
+            if (lengthBounds <= 0)
+                return;
+
+            Kernel.RefineAndOptimizeWithSeeds(Ptr, 1, angleBounds, lengthBounds, seeds, seeds.Length);
         }
 
         /// <summary>

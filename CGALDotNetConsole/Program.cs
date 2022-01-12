@@ -21,41 +21,16 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            
-            var points = new Point3d[]
-            {
-                new Point3d(1, 0, 0),
-                new Point3d(0, 1, 0),
-                new Point3d(0, 0, 1),
-                new Point3d(0, 0, 0),
-            };
+            var box = new Box3d(-5, 5);
+            var corners = box.GetCorners();
 
-            var tri = new Triangulation3<EEK>(points);
+            var tri = new Triangulation3<EEK>(corners);
             tri.Refine(0.1, 1);
-           
 
-            /*
-            var box1 = PolyhedronFactory<EEK>.CreateCube();
-            box1.Translate(new Point3d(0.5));
+            var hull = tri.ComputeHull();
 
-            var box2 = PolyhedronFactory<EEK>.CreateCube();
+            hull.Print();
 
-            var nef1 = new NefPolyhedron3<EEK>(box1);
-            var nef2 = new NefPolyhedron3<EEK>(box2);
-
-            var nef3 = nef1.Join(nef2);
-
-            var volumes = new List<Polyhedron3<EEK>>();
-            nef3.GetVolumes(volumes);
-
-            foreach (var poly in volumes)
-            {
-                if (!poly.IsPureTriangle)
-                    poly.Triangulate();
-
-                poly.Print();
-            }
-            */
         }
 
 

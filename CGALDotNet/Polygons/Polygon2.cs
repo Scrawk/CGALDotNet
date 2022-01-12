@@ -5,6 +5,7 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 using CGALDotNet.Triangulations;
+using CGALDotNet.Meshing;
 
 namespace CGALDotNet.Polygons
 {
@@ -68,9 +69,10 @@ namespace CGALDotNet.Polygons
         /// <param name="indices">The triangle indices.</param>
         public override void Triangulate(List<int> indices)
         {
-            var ct = new ConstrainedTriangulation2<K>();
+            var ct = ConstrainedTriangulation2<K>.Instance;
             ct.InsertConstraint(this);
             ct.GetConstrainedDomainIndices(indices);
+            ct.Clear();
         }
 
         /// <summary>
@@ -91,6 +93,36 @@ namespace CGALDotNet.Polygons
         public bool Intersects(PolygonWithHoles2<K> polygon)
         {
             return PolygonBoolean2<K>.Instance.DoIntersect(this, polygon);
+        }
+
+        /// <summary>
+        /// Refine the polygon to a triangulation.
+        /// </summary>
+        /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
+        /// <returns>The base triangulation.</returns>
+        public DelaunayTriangulation2<K> Refine(double lengthBounds)
+        {
+            return Refine(ConformingTriangulation2.MAX_ANGLE_BOUNDS, lengthBounds);
+        }
+
+        /// <summary>
+        /// Refine the polygon to a triangulation.
+        /// </summary>
+        /// <param name="angleBounds">Default shape bound. 0.125 corresponds to abound 20.6 degree. Max 0.125 value.</param>
+        /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
+        /// <returns>The base triangulation.</returns>
+        public DelaunayTriangulation2<K> Refine(double angleBounds, double lengthBounds)
+        {
+            var ct = ConformingTriangulation2<K>.Instance;
+            ct.InsertConstraint(this);
+            ct.Refine(angleBounds, lengthBounds);
+
+            int count = ct.VertexCount;
+            var points = ArrayCache.Point2dArray(count);
+            ct.GetPoints(points, count);
+            ct.Clear();
+
+            return new DelaunayTriangulation2<K>(points);
         }
 
     }

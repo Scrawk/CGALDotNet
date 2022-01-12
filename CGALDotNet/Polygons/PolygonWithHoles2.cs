@@ -162,9 +162,10 @@ namespace CGALDotNet.Polygons
         /// <param name="indices">The triangle indices.</param>
         public override void Triangulate(List<int> indices)
         {
-            var ct = new ConstrainedTriangulation2<K>();
+            var ct = ConstrainedTriangulation2<K>.Instance;
             ct.InsertConstraint(this);
             ct.GetConstrainedDomainIndices(indices);
+            ct.Clear();
         }
 
         /// <summary>

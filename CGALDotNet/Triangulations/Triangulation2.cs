@@ -4,7 +4,7 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
-using CGALDotNet.Meshing;
+using CGALDotNet.Hulls;
 
 namespace CGALDotNet.Triangulations
 {
@@ -88,6 +88,24 @@ namespace CGALDotNet.Triangulations
                 return;
 
             Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
+        }
+
+        /// <summary>
+        /// Compute the convex of the triagulation.
+        /// </summary>
+        /// <returns>The convex hull polygon.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public Polygon2<K> ComputeHull()
+        {
+            int count = VertexCount;
+            if (count < 3)
+                throw new InvalidOperationException("Trianglution must have at least 3 points to compute the hull.");
+
+            var points = ArrayCache.Point2dArray(count);
+            GetPoints(points, count);
+
+            var hull = ConvexHull2<K>.Instance;
+            return hull.CreateHull(points, count);
         }
 
     }

@@ -4,6 +4,8 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 using CGALDotNet.Meshing;
+using CGALDotNet.Hulls;
+using CGALDotNet.Polyhedra;
 
 namespace CGALDotNet.Triangulations
 {
@@ -70,22 +72,39 @@ namespace CGALDotNet.Triangulations
         /// <param name="iterations">The number of iterations.</param>
         public void Refine(double targetEdgeLength, int iterations = 1)
         {
-            
             int count = VertexCount;
-            var points = new Point3d[count];
+            var points = ArrayCache.Point3dArray(count);
             GetPoints(points, count);
 
-            var tet = new TetrahedralRemeshing<K>();
+            var tet = TetrahedralRemeshing<K>.Instance;
             count = tet.Remesh(targetEdgeLength, iterations, points, count);
 
             if (count > 0)
             {
-                points = new Point3d[count];
+                points = ArrayCache.Point3dArray(count);
                 tet.GetPoints(points, count);
 
                 Clear();
                 Insert(points, points.Length);
             }
+        }
+
+        /// <summary>
+        /// Compute the convex of the triagulation.
+        /// </summary>
+        /// <returns>The convex hull polygon.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public Polyhedron3<K> ComputeHull()
+        {
+            int count = VertexCount;
+            if (count < 4)
+                throw new InvalidOperationException("Trianglution must have at least 4 points to compute the hull.");
+
+            var points = ArrayCache.Point3dArray(count);
+            GetPoints(points, count);
+
+            var hull = ConvexHull3<K>.Instance;
+            return hull.CreateHullAsPolyhedron(points, count);
         }
 
     }

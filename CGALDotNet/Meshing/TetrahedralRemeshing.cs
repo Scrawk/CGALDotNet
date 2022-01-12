@@ -75,11 +75,24 @@ namespace CGALDotNet.Meshing
         /// </summary>
         internal TetrahedralRemeshingKernel Kernel { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="targetLength"></param>
+        /// <param name="iterations"></param>
+        /// <param name="points"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public int Remesh(double targetLength, int iterations, Point3d[] points, int count)
         {
             return Kernel.Remesh(Ptr, targetLength, iterations, points, count);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="count"></param>
         public void GetPoints(Point3d[] points, int count)
         {
             Kernel.GetPoints(Ptr, points, count);
