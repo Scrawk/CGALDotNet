@@ -324,6 +324,12 @@
     <ClInclude Include="Meshing\TetrahedralRemeshing_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulations\DelaunayTriangulation3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\DelaunayTriangulation3_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -459,6 +465,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Meshing\TetrahedralRemeshing_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\DelaunayTriangulation3_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

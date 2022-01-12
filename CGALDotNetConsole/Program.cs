@@ -24,11 +24,11 @@ namespace CGALDotNetConsole
             var box = new Box3d(-5, 5);
             var corners = box.GetCorners();
 
-            var tri = new Triangulation3<EEK>(corners);
-            tri.Refine(0.1, 1);
+            var tri = new DelaunayTriangulation3<EEK>(corners);
+            tri.Refine(0.1);
+            tri.Print();
 
             var hull = tri.ComputeHull();
-
             hull.Print();
 
         }

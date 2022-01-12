@@ -12,46 +12,50 @@
 #include <CGAL/Triangulation_vertex_base_with_info_3.h>
 #include <CGAL/Aff_transformation_3.h>
 
+#include <CGAL/Delaunay_triangulation_3.h>
+#include <CGAL/Delaunay_triangulation_cell_base_3.h>
+#include <CGAL/Triangulation_vertex_base_with_info_3.h>
+
 template<class K>
-class Triangulation3
+class DelaunayTriangulation3
 {
 
 public:
 
-	typedef CGAL::Triangulation_vertex_base_with_info_3<int, K> Vb;
-	typedef CGAL::Triangulation_cell_base_with_info_3<int, K>	Cb;
-	typedef CGAL::Triangulation_data_structure_3<Vb, Cb>        Tds;
+	typedef typename CGAL::Triangulation_vertex_base_with_info_3<int, K>		Vb;
+	typedef typename CGAL::Delaunay_triangulation_cell_base_3<K>                Cb;
+	typedef typename CGAL::Triangulation_data_structure_3<Vb, Cb>               Tds;
 
-	typedef CGAL::Triangulation_3<K, Tds>						Triangulation_3;
+	typedef CGAL::Delaunay_triangulation_3<K, Tds> 						DelaunayTriangulation_3;
 
-	typedef typename Triangulation_3::Point						Point_3;
-	typedef typename Triangulation_3::Cell_handle				Cell;
-	typedef typename Triangulation_3::Vertex_handle				Vertex;
+	typedef typename DelaunayTriangulation_3::Point						Point_3;
+	typedef typename DelaunayTriangulation_3::Cell_handle				Cell;
+	typedef typename DelaunayTriangulation_3::Vertex_handle				Vertex;
 
-	typedef CGAL::Aff_transformation_3<K>						Transformation_3;
+	typedef CGAL::Aff_transformation_3<K>								Transformation_3;
 
 public:
 
-	Triangulation_3 model;
+	DelaunayTriangulation_3 model;
 
-	Triangulation3()
+	DelaunayTriangulation3()
 	{
 
 	}
 
-	~Triangulation3()
+	~DelaunayTriangulation3()
 	{
 
 	}
 
-	inline static Triangulation3* NewTriangulation3()
+	inline static DelaunayTriangulation3* NewTriangulation3()
 	{
-		return new Triangulation3();
+		return new DelaunayTriangulation3();
 	}
 
 	inline static void DeleteTriangulation3(void* ptr)
 	{
-		auto obj = static_cast<Triangulation3*>(ptr);
+		auto obj = static_cast<DelaunayTriangulation3*>(ptr);
 
 		if (obj != nullptr)
 		{
@@ -60,9 +64,9 @@ public:
 		}
 	}
 
-	inline static Triangulation3* CastToTriangulation3(void* ptr)
+	inline static DelaunayTriangulation3* CastToTriangulation3(void* ptr)
 	{
-		return static_cast<Triangulation3*>(ptr);
+		return static_cast<DelaunayTriangulation3*>(ptr);
 	}
 
 	static void Clear(void* ptr)
@@ -79,7 +83,7 @@ public:
 	static void* Copy(void* ptr)
 	{
 		auto tri = CastToTriangulation3(ptr);
-		auto copy = new Triangulation3<K>();
+		auto copy = new DelaunayTriangulation3<K>();
 		copy->model = tri->model;
 		return copy;
 	}
@@ -169,7 +173,7 @@ public:
 			if (i >= count) return;
 			if (i >= num) return;
 		}
-			
+
 	}
 
 	void MarkVertices()
@@ -188,7 +192,7 @@ public:
 	{
 		auto tri = CastToTriangulation3(ptr);
 		tri->MarkVertices();
-			
+
 		int num = (int)tri->model.number_of_finite_edges();
 
 		int index = 0;

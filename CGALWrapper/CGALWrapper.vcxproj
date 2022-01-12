@@ -168,6 +168,7 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Triangulations\DelaunayTriangulation3_EEK.h" />
     <ClInclude Include="Hull\ConvexHull3_EEK.h" />
     <ClInclude Include="Hull\ConvexHull2_EIK.h" />
     <ClInclude Include="Hull\ConvexHull3.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Meshing\SkinSurfaceMeshing_EEK.h" />
     <ClInclude Include="Meshing\TetrahedralRemeshing.h" />
     <ClInclude Include="Meshing\TetrahedralRemeshing_EEK.h" />
+    <ClInclude Include="Triangulations\DelaunayTriangulation3.h" />
     <ClInclude Include="Triangulations\Triangulation3_EEK.h" />
     <ClInclude Include="Triangulations\Triangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
@@ -253,6 +255,7 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Triangulations\DelaunayTriangulation3_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull3_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EIK.cpp" />
     <ClCompile Include="Meshing\ConformingTriangulation2_EIK.cpp" />
