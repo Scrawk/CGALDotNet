@@ -50,7 +50,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="iterations">The number of iterations to perfrom.</param>
         /// <param name="method">The subdivision method.</param>
-        public override void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.CATMULL_CLARK)
+        public override void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.SQRT3)
         {
             if (iterations < 0) return;
 
@@ -310,7 +310,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="iterations">The number of iterations to perfrom.</param>
         /// <param name="method">The subdivision method.</param>
-        public abstract void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.CATMULL_CLARK);
+        public abstract void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.SQRT3);
 
         /// <summary>
         /// Print the polyhedron.
