@@ -22,12 +22,6 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var poly = PolyhedronFactory<EEK>.CreateIcosahedron();
-            poly.Print();
-
-            poly.Subdivide(1);
-
-            poly.Print();
 
         }
 

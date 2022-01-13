@@ -65,6 +65,8 @@ namespace CGALDotNet
         internal abstract TetrahedralRemeshingKernel TetrahedralRemeshingKernel  { get; }
 
         internal abstract SurfaceSubdivisionKernel SurfaceSubdivisionKernel { get; }
+
+        internal abstract SurfaceSimplificationKernel SurfaceSimplificationKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -119,7 +121,9 @@ namespace CGALDotNet
 
         internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => throw new NotImplementedException();
 
-        internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => throw new NotImplementedException();
+        internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => SurfaceSubdivisionKernel_EIK.Instance;
+
+        internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => SurfaceSimplificationKernel_EIK.Instance;
     }
 
     public class EEK : CGALKernel
@@ -175,6 +179,8 @@ namespace CGALDotNet
         internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => TetrahedralRemeshingKernel_EEK.Instance;
 
         internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => SurfaceSubdivisionKernel_EEK.Instance;
+
+        internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => throw new NotImplementedException();
     }
 
 }

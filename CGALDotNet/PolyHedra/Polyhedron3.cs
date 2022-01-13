@@ -52,10 +52,28 @@ namespace CGALDotNet.Polyhedra
         /// <param name="method">The subdivision method.</param>
         public override void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.SQRT3)
         {
-            if (iterations < 0) return;
+            try
+            {
+                var sub = SubdivisionSurface<K>.Instance;
+                sub.Subdivide(this, iterations, method);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
 
-            var sub = SubdivisionSurface<K>.Instance;
-            sub.Subdivide(this, iterations, method);
+        /// <summary>
+        /// Simplify the polyhedra.
+        /// </summary>
+        /// <param name="stop_ratio">A number between 0-1 that represents the percentage of vertices to remove.</param>
+        public override void Simplify(double stop_ratio)
+        {
+            try
+            {
+                var sim = SurfaceSimplification<K>.Instance;
+                sim.Simplify(this, stop_ratio);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
         }
 
     }
@@ -311,6 +329,12 @@ namespace CGALDotNet.Polyhedra
         /// <param name="iterations">The number of iterations to perfrom.</param>
         /// <param name="method">The subdivision method.</param>
         public abstract void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.SQRT3);
+
+        /// <summary>
+        /// Simplify the polyhedra.
+        /// </summary>
+        /// <param name="stop_ratio">A number between 0-1 that represents the percentage of vertices to remove.</param>
+        public abstract void Simplify(double stop_ratio);
 
         /// <summary>
         /// Print the polyhedron.

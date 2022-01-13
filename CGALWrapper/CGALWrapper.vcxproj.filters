@@ -336,6 +336,15 @@
     <ClInclude Include="Processing\SurfaceSubdivision_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Processing\SurfaceSimplification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\SurfaceSimplification_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\SurfaceSubdivision_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -477,6 +486,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\SurfaceSubdivision_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\SurfaceSimplification_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\SurfaceSubdivision_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

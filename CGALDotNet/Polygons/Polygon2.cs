@@ -69,10 +69,15 @@ namespace CGALDotNet.Polygons
         /// <param name="indices">The triangle indices.</param>
         public override void Triangulate(List<int> indices)
         {
-            var ct = ConstrainedTriangulation2<K>.Instance;
-            ct.InsertConstraint(this);
-            ct.GetConstrainedDomainIndices(indices);
-            ct.Clear();
+            try
+            {
+                var ct = ConstrainedTriangulation2<K>.Instance;
+                ct.InsertConstraint(this);
+                ct.GetConstrainedDomainIndices(indices);
+                ct.Clear();
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
         }
 
         /// <summary>
@@ -82,7 +87,14 @@ namespace CGALDotNet.Polygons
         /// <returns>Do the polygons intersect.</returns>
         public bool Intersects(Polygon2<K> polygon)
         {
-            return PolygonBoolean2<K>.Instance.DoIntersect(this, polygon);
+            try
+            {
+                return PolygonBoolean2<K>.Instance.DoIntersect(this, polygon);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            return false;
         }
 
         /// <summary>
@@ -92,7 +104,14 @@ namespace CGALDotNet.Polygons
         /// <returns>Do the polygons intersect.</returns>
         public bool Intersects(PolygonWithHoles2<K> polygon)
         {
-            return PolygonBoolean2<K>.Instance.DoIntersect(this, polygon);
+            try
+            {
+                return PolygonBoolean2<K>.Instance.DoIntersect(this, polygon);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            return false;
         }
 
         /// <summary>
@@ -113,16 +132,23 @@ namespace CGALDotNet.Polygons
         /// <returns>The base triangulation.</returns>
         public DelaunayTriangulation2<K> Refine(double angleBounds, double lengthBounds)
         {
-            var ct = ConformingTriangulation2<K>.Instance;
-            ct.InsertConstraint(this);
-            ct.Refine(angleBounds, lengthBounds);
+            try
+            {
+                var ct = ConformingTriangulation2<K>.Instance;
+                ct.InsertConstraint(this);
+                ct.Refine(angleBounds, lengthBounds);
 
-            int count = ct.VertexCount;
-            var points = ArrayCache.Point2dArray(count);
-            ct.GetPoints(points, count);
-            ct.Clear();
+                int count = ct.VertexCount;
+                var points = ArrayCache.Point2dArray(count);
+                ct.GetPoints(points, count);
+                ct.Clear();
 
-            return new DelaunayTriangulation2<K>(points);
+                return new DelaunayTriangulation2<K>(points);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            return new DelaunayTriangulation2<K>();
         }
 
     }

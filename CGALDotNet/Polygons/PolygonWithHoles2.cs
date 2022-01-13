@@ -162,10 +162,15 @@ namespace CGALDotNet.Polygons
         /// <param name="indices">The triangle indices.</param>
         public override void Triangulate(List<int> indices)
         {
-            var ct = ConstrainedTriangulation2<K>.Instance;
-            ct.InsertConstraint(this);
-            ct.GetConstrainedDomainIndices(indices);
-            ct.Clear();
+            try
+            {
+                var ct = ConstrainedTriangulation2<K>.Instance;
+                ct.InsertConstraint(this);
+                ct.GetConstrainedDomainIndices(indices);
+                ct.Clear();
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
         }
 
         /// <summary>
@@ -175,7 +180,14 @@ namespace CGALDotNet.Polygons
         /// <returns>Do the polygons intersect.</returns>
         public bool Intersects(Polygon2<K> polygon)
         {
-            return PolygonBoolean2<K>.Instance.DoIntersect(polygon, this);
+            try
+            {
+                return PolygonBoolean2<K>.Instance.DoIntersect(polygon, this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            return false;
         }
 
         /// <summary>
@@ -185,14 +197,22 @@ namespace CGALDotNet.Polygons
         /// <returns>Do the polygons intersect.</returns>
         public bool Intersects(PolygonWithHoles2<K> polygon)
         {
-            return PolygonBoolean2<K>.Instance.DoIntersect(polygon, this);
+            try
+            {
+                return PolygonBoolean2<K>.Instance.DoIntersect(polygon, this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            return false;
         }
 
         /// <summary>
         /// Connect all the holes of the polygon 
-        /// and return as a polygon.
+        /// and return as a polygon. 
+        /// Will result in a non simple polygon.
         /// </summary>
-        /// <returns>The connected polygon.</returns>
+        /// <returns>The connected non-simple polygon.</returns>
         public Polygon2<K> ConnectHoles()
         {
             var ptr = Kernel.ConnectHoles(Ptr);
