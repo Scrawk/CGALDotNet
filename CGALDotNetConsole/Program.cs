@@ -23,6 +23,15 @@ namespace CGALDotNetConsole
         {
 
 
+            var poly = PolygonFactory<EEK>.CreateCircle(10, 64);
+            poly.Print();
+
+            var param = PolygonSimplificationParams.Default;
+            param.threshold = 0.1;
+
+            poly.Simplify(param);
+            poly.Print();
+
         }
 
 

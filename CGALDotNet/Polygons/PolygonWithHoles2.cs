@@ -77,6 +77,35 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Convert the polygon to a new polygon with a different kernel.
+        /// May result in different values due to precision issues.
+        /// </summary>
+        /// <typeparam name="T">The new kernel type.</typeparam>
+        /// <returns>The new polygon.</returns>
+        public PolygonWithHoles2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            PolygonWithHoles2<T> pwh;
+
+            if (IsBounded)
+            {
+                var boundary = GetBoundary();
+                pwh = new PolygonWithHoles2<T>(boundary.Convert<T>());
+            }
+            else
+            {
+                pwh = new PolygonWithHoles2<T>();
+            }
+
+            for(int i = 0; i < HoleCount; i++)
+            {
+                var hole = GetHole(i);
+                pwh.AddHole(hole.Convert<T>());
+            }
+
+            return pwh;
+        }
+
+        /// <summary>
         /// Create a deep copy of the polygon element.
         /// </summary>
         /// <param name="element">The element type to copy.</param>
@@ -86,8 +115,10 @@ namespace CGALDotNet.Polygons
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
             {
-                var ptr = Kernel.CopyPolygon(Ptr, BOUNDARY_INDEX);
+                if (IsUnbounded)
+                    return new Polygon2<K>();
 
+                var ptr = Kernel.CopyPolygon(Ptr, BOUNDARY_INDEX);
                 if (ptr != IntPtr.Zero)
                     return new Polygon2<K>(ptr);
                 else
@@ -104,6 +135,7 @@ namespace CGALDotNet.Polygons
 
         /// <summary>
         /// Get the boundary as a copy.
+        /// If unbounded will return a empty polygon.
         /// </summary>
         /// <returns>A copy of the hole polygon.</returns>
         public Polygon2<K> GetBoundary()
@@ -118,10 +150,7 @@ namespace CGALDotNet.Polygons
         /// <returns>A copy of the hole polygon.</returns>
         public Polygon2<K> GetHole(int index)
         {
-            if (index < 0 || index >= HoleCount)
-                throw new ArgumentOutOfRangeException("Hole index must be > 0 and < HoleCount.");
-
-            return new Polygon2<K>(Kernel.CopyPolygon(Ptr, index));
+            return Copy(POLYGON_ELEMENT.HOLE, index);
         }
 
         /// <summary>
@@ -142,16 +171,16 @@ namespace CGALDotNet.Polygons
         public List<Polygon2<K>> ToList()
         {
             int count = HoleCount;
-            if (!IsUnbounded)
+            if (IsBounded)
                 count++;
 
             var polygons = new List<Polygon2<K>>(count);
 
-            if (!IsUnbounded)
-                polygons.Add(Copy(POLYGON_ELEMENT.BOUNDARY));
+            if (IsBounded)
+                polygons.Add(GetBoundary());
 
             for (int i = 0; i < HoleCount; i++)
-                polygons.Add(Copy(POLYGON_ELEMENT.HOLE, i));
+                polygons.Add(GetHole(i));
 
             return polygons;
         }
@@ -218,6 +247,65 @@ namespace CGALDotNet.Polygons
             var ptr = Kernel.ConnectHoles(Ptr);
             return new Polygon2<K>(ptr);
         }
+
+        /// <summary>
+        /// Partition the polygon into convex pieces.
+        /// </summary>
+        /// <param name="results">The convex partition.</param>
+        /// <param name="type">The type of partition method.</param>
+        public void Partition(List<Polygon2<K>> results, POLYGON_PARTITION type = POLYGON_PARTITION.GREENE_APROX_CONVEX)
+        {
+            try
+            {
+                var part = PolygonPartition2<K>.Instance;
+                part.Partition(type, this, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+        }
+
+        /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        public void Simplify()
+        {
+            var param = PolygonSimplificationParams.Default;
+            Simplify(param);
+        }
+
+        /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        /// <param name="param">The simplification parameters.</param>
+        public void Simplify(PolygonSimplificationParams param)
+        {
+            try
+            {
+                var sim = PolygonSimplification2<K>.Instance;
+                var ptr = sim.SimplifyPtr(this, param);
+                Swap(ptr);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+        }
+
+        /// <summary>
+        /// offset the polygon. Does not modify this polygon.
+        /// </summary>
+        /// <param name="offset">The type of offset.</param>
+        /// <param name="amount">The amount to offset.</param>
+        /// <param name="results">The offset results.</param>
+        public void Offset(OFFSET offset, double amount, List<Polygon2<K>> results)
+        {
+            try
+            {
+                var off = PolygonOffset2<K>.Instance;
+                off.CreateOffset(offset, this, amount, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+        }
+
     }
 
     /// <summary>
@@ -289,6 +377,12 @@ namespace CGALDotNet.Polygons
         public bool IsUnbounded { get; protected set; }
 
         /// <summary>
+        /// Is the polygon bounded. 
+        /// ie a boundary polygon has been set.
+        /// </summary>
+        public bool IsBounded => !IsUnbounded;
+
+        /// <summary>
         /// Number of points in the boindary polygon.
         /// </summary>
         public int Count => PointCount(POLYGON_ELEMENT.BOUNDARY);
@@ -343,7 +437,7 @@ namespace CGALDotNet.Polygons
         /// <returns></returns>
         public bool IsValid()
         {
-            if(!IsUnbounded)
+            if(IsBounded)
             {
                 if (!FindIfSimple(POLYGON_ELEMENT.BOUNDARY))
                     return false;
@@ -690,6 +784,14 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Release the unmanaged pointer.
+        /// </summary>
+        protected override void ReleasePtr(IntPtr ptr)
+        {
+            Kernel.Release(ptr);
+        }
+
+        /// <summary>
         /// Does the polygon fully contain the other polygon.
         /// </summary>
         /// <param name="polygon">The other polygon.</param>
@@ -850,7 +952,7 @@ namespace CGALDotNet.Polygons
         public void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
-            builder.AppendLine("Is unbounded = " + IsUnbounded);
+            builder.AppendLine("Is Bounded = " + IsBounded);
 
             if (!IsUnbounded)
             {

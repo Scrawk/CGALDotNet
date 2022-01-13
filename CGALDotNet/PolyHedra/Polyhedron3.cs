@@ -55,7 +55,7 @@ namespace CGALDotNet.Polyhedra
             try
             {
                 var sub = SubdivisionSurface<K>.Instance;
-                sub.Subdivide(this, iterations, method);
+                sub.Subdivide(method, this, iterations);
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { };

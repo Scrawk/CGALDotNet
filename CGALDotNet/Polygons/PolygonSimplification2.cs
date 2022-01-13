@@ -91,6 +91,18 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        /// <param name="polygon">The polygon to simplify. Must be simple.</param>
+        /// <param name="param">The simplification parameters.</param>
+        /// <returns>The simplified polygon ptr.</returns>
+        internal IntPtr SimplifyPtr(Polygon2<K> polygon, PolygonSimplificationParams param)
+        {
+            CheckPolygon(polygon);
+            return Kernel.SimplifyPolygon(polygon.Ptr, param);
+        }
+
+        /// <summary>
         /// Simplify the polygons boundary and all the holes.
         /// </summary>
         /// <param name="polygon">The polygon to simplify. Must be simple.</param>
@@ -101,6 +113,18 @@ namespace CGALDotNet.Polygons
             CheckPolygon(polygon);
             var ptr = Kernel.SimplifyPolygonWithHoles_All(polygon.Ptr, param);
             return new PolygonWithHoles2<K>(ptr);
+        }
+
+        /// <summary>
+        /// Simplify the polygons boundary and all the holes.
+        /// </summary>
+        /// <param name="polygon">The polygon to simplify. Must be simple.</param>
+        /// <param name="param">The simplification parameters.</param>
+        /// <returns>The simplified polygons ptr.</returns>
+        internal IntPtr SimplifyPtr(PolygonWithHoles2<K> polygon, PolygonSimplificationParams param)
+        {
+            CheckPolygon(polygon);
+            return Kernel.SimplifyPolygonWithHoles_All(polygon.Ptr, param);
         }
 
         /// <summary>

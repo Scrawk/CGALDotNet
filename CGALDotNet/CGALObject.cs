@@ -84,9 +84,28 @@ namespace CGALDotNet
         }
 
         /// <summary>
+        /// Swap the unmanaged pointer with another.
+        /// The old ptr will be released first.
+        /// </summary>
+        /// <param name="ptr">The new ptr. The old ptr will be released first.</param>
+        protected void Swap(IntPtr ptr)
+        {
+            ReleasePtr(Ptr);
+            Ptr = ptr;
+        }
+
+        /// <summary>
         /// Allow derived class to release the unmanaged memory.
         /// </summary>
         protected abstract void ReleasePtr();
+
+        /// <summary>
+        /// Allow derived class to release the unmanaged memory.
+        /// </summary>
+        protected virtual void ReleasePtr(IntPtr ptr)
+        {
+            throw new CGALUnmanagedResourcesNotReleasedExeception("ReleasePtr not implemented.");
+        }
 
         /// <summary>
         /// Check if the object is still valid.

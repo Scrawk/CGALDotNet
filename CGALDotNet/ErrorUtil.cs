@@ -45,6 +45,23 @@ namespace CGALDotNet
         }
     }
 
+    public class CGALUnmanagedResourcesNotReleasedExeception : Exception
+    {
+        public CGALUnmanagedResourcesNotReleasedExeception()
+        {
+        }
+
+        public CGALUnmanagedResourcesNotReleasedExeception(string message)
+            : base(message)
+        {
+        }
+
+        public CGALUnmanagedResourcesNotReleasedExeception(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
+
     public class InvalidArrayExeception : Exception
     {
         public InvalidArrayExeception()

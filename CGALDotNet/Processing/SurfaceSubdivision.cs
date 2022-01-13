@@ -67,10 +67,10 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="method"></param>
         /// <param name="poly"></param>
         /// <param name="iterations"></param>
-        /// <param name="method"></param>
-        public void Subdivide(Polyhedron3 poly, int iterations, SUBDIVISION_METHOD method)
+        public void Subdivide(SUBDIVISION_METHOD method, Polyhedron3 poly, int iterations)
         {
             if (iterations < 0) return;
 

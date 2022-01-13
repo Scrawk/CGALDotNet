@@ -6,6 +6,13 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
+
+    public enum OFFSET
+    {
+        INTERIOR,
+        EXTERIOR
+    }
+
     /// <summary>
     /// The generic polgon offset class
     /// </summary>
@@ -23,6 +30,36 @@ namespace CGALDotNet.Polygons
         public PolygonOffset2() : base(new K())
         {
 
+        }
+
+        /// <summary>
+        /// Create a interior or exterior offset.
+        /// </summary>
+        /// <param name="offset">The offset type</param>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="amount">The offset amount</param>
+        /// <param name="result">The offset polygon</param>
+        public void CreateOffset(OFFSET offset, Polygon2<K> polygon, double amount, List<Polygon2<K>> results)
+        {
+            if (offset == OFFSET.INTERIOR)
+                CreateInteriorOffset(polygon, amount, results);
+            else
+                CreateExteriorOffset(polygon, amount, results);
+        }
+
+        /// <summary>
+        /// Create a interior or exterior offset.
+        /// </summary>
+        /// <param name="offset">The offset type</param>
+        /// <param name="polygon">The polygon to offset.</param>
+        /// <param name="amount">The offset amount</param>
+        /// <param name="result">The offset polygon</param>
+        public void CreateOffset(OFFSET offset, PolygonWithHoles2<K> polygon, double amount, List<Polygon2<K>> results)
+        {
+            if (offset == OFFSET.INTERIOR)
+                CreateInteriorOffset(polygon, amount, results);
+            else
+                CreateExteriorOffset(polygon, amount, results);
         }
 
         /// <summary>

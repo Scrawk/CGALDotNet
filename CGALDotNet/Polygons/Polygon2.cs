@@ -64,6 +64,19 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Convert the polygon to a new polygon with a different kernel.
+        /// May result in different values due to precision issues.
+        /// </summary>
+        /// <typeparam name="T">The new kernel type.</typeparam>
+        /// <returns>The new polygon.</returns>
+        public Polygon2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var points = ArrayCache.Point2dArray(Count);
+            GetPoints(points, Count);
+            return new Polygon2<T>(points);
+        }
+
+        /// <summary>
         /// Triangulate the polygon.
         /// </summary>
         /// <param name="indices">The triangle indices.</param>
@@ -116,6 +129,7 @@ namespace CGALDotNet.Polygons
 
         /// <summary>
         /// Refine the polygon to a triangulation.
+        /// Does not modify this polygon.
         /// </summary>
         /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
         /// <returns>The base triangulation.</returns>
@@ -126,6 +140,7 @@ namespace CGALDotNet.Polygons
 
         /// <summary>
         /// Refine the polygon to a triangulation.
+        /// Does not modify this polygon.
         /// </summary>
         /// <param name="angleBounds">Default shape bound. 0.125 corresponds to abound 20.6 degree. Max 0.125 value.</param>
         /// <param name="lengthBounds">Upper bound on the length of the longest edge.</param>
@@ -151,6 +166,65 @@ namespace CGALDotNet.Polygons
             return new DelaunayTriangulation2<K>();
         }
 
+        /// <summary>
+        /// Partition the polygon into convex pieces.
+        /// Does not modify this polygon.
+        /// </summary>
+        /// <param name="results">The convex partition.</param>
+        /// <param name="type">The type of partition method.</param>
+        public void Partition(List<Polygon2<K>> results, POLYGON_PARTITION type = POLYGON_PARTITION.GREENE_APROX_CONVEX)
+        {
+            try
+            {
+                var part = PolygonPartition2<K>.Instance;
+                part.Partition(type, this, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+        }
+
+        /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        public void Simplify()
+        {
+            var param = PolygonSimplificationParams.Default;
+            Simplify(param);
+        }
+
+        /// <summary>
+        /// Simplify the polygon.
+        /// </summary>
+        /// <param name="param">The simplification parameters.</param>
+        public void Simplify(PolygonSimplificationParams param)
+        {
+            try
+            {
+                var sim = PolygonSimplification2<K>.Instance;
+                var ptr = sim.SimplifyPtr(this, param);
+                Swap(ptr);
+                IsUpdated = false;
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+        }
+
+        /// <summary>
+        /// offset the polygon. Does not modify this polygon.
+        /// </summary>
+        /// <param name="offset">The type of offset.</param>
+        /// <param name="amount">The amount to offset.</param>
+        /// <param name="results">The offset results.</param>
+        public void Offset(OFFSET offset, double amount, List<Polygon2<K>> results)
+        {
+            try
+            {
+                var off = PolygonOffset2<K>.Instance;
+                off.CreateOffset(offset, this, amount, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+        }
     }
 
     /// <summary>
@@ -660,6 +734,14 @@ namespace CGALDotNet.Polygons
         protected override void ReleasePtr()
         {
             Kernel.Release(Ptr);
+        }
+
+        /// <summary>
+        /// Release the unmanaged pointer.
+        /// </summary>
+        protected override void ReleasePtr(IntPtr ptr)
+        {
+            Kernel.Release(ptr);
         }
 
         /// <summary>
