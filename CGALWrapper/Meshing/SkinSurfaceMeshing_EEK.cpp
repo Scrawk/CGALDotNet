@@ -11,3 +11,8 @@ void SkinSurfaceMeshing_EEK_Release(void* ptr)
 {
 	SkinSurfaceMeshing<EEK>::DeleteSkinSurfaceMeshing(ptr);
 }
+
+void* SkinSurfaceMeshing_EEK_MakeSkinSurface(double shrinkfactor, BOOL subdivide, HPoint3d* points, int count)
+{
+	return SkinSurfaceMeshing<EEK>::MakeSkinSurface(shrinkfactor, subdivide, points, count);
+}

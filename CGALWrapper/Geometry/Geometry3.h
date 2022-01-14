@@ -78,6 +78,42 @@ struct Point3d
 
 };
 
+//used to represent a weighted or homogenous point.
+struct HPoint3d
+{
+    double x;
+    double y;
+    double z;
+    double w;
+
+    template<class K>
+    CGAL::Weighted_point_3<K> ToCGALWeightedPoint() const
+    {
+        return CGAL::Weighted_point_3<K>(CGAL::Point_3<K>(x, y, z), w);
+    }
+
+    template<class K>
+    static HPoint3d FromCGAL(CGAL::Weighted_point_3<K> p)
+    {
+        double x = CGAL::to_double(p.x());
+        double y = CGAL::to_double(p.y());
+        double z = CGAL::to_double(p.z());
+        double w = CGAL::to_double(p.weight());
+        return { x, y, z, w };
+    }
+
+    bool operator==(const HPoint3d& rhs) const
+    {
+        return x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w;
+    }
+
+    bool operator!=(const HPoint3d& rhs) const
+    {
+        return !operator==(rhs);
+    }
+
+};
+
 struct Vector3d
 {
     double x;
