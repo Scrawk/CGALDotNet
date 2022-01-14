@@ -6,6 +6,8 @@
 #include "../Geometry/Matrices.h"
 #include "PrimativeCount.h"
 
+#include <CGAL/enum.h>
+
 extern "C"
 {
 	CGALWRAPPER_API void* Polyhedron3_EEK_Create();
@@ -65,5 +67,21 @@ extern "C"
 	CGALWRAPPER_API void Polyhedron3_EEK_NormalizeBorder(void* ptr);
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_NormalizedBorderIsValid(void* ptr);
+
+	CGALWRAPPER_API CGAL::Bounded_side Polyhedron3_EEK_SideOfTriangleMesh(void* ptr, const Point3d& point);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_Orient(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_OrientToBoundingVolume(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_ReverseFaceOrientations(void* ptr);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_DoesSelfIntersect(void* ptr);
+
+	CGALWRAPPER_API double Polyhedron3_EEK_Area(void* ptr);
+
+	CGALWRAPPER_API Point3d Polyhedron3_EEK_Centroid(void* ptr);
+
+	CGALWRAPPER_API double Polyhedron3_EEK_Volume(void* ptr);
 
 }

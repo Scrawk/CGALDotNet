@@ -157,6 +157,46 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EIK_NormalizedBorderIsValid(ptr);
 		}
 
+		internal override BOUNDED_SIDE SideOfTriangleMesh(IntPtr ptr, Point3d point)
+		{
+			return Polyhedron3_EIK_SideOfTriangleMesh(ptr, point);
+		}
+
+		internal override void Orient(IntPtr ptr)
+		{
+			Polyhedron3_EIK_Orient(ptr);
+		}
+
+		internal override void OrientToBoundingVolume(IntPtr ptr)
+		{
+			Polyhedron3_EIK_OrientToBoundingVolume(ptr);
+		}
+
+		internal override void ReverseFaceOrientations(IntPtr ptr)
+		{
+			Polyhedron3_EIK_ReverseFaceOrientations(ptr);
+		}
+
+		internal override bool DoesSelfIntersect(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_DoesSelfIntersect(ptr);
+		}
+
+		internal override double Area(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_Area(ptr);
+		}
+
+		internal override Point3d Centroid(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_Centroid(ptr);
+		}
+
+		internal override double Volume(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_Volume(ptr);
+		}
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EIK_Create();
 
@@ -243,5 +283,29 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EIK_NormalizedBorderIsValid(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern BOUNDED_SIDE Polyhedron3_EIK_SideOfTriangleMesh(IntPtr ptr, Point3d point);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EIK_Orient(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EIK_OrientToBoundingVolume(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EIK_ReverseFaceOrientations(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EIK_DoesSelfIntersect(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern double Polyhedron3_EIK_Area(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern Point3d Polyhedron3_EIK_Centroid(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern double Polyhedron3_EIK_Volume(IntPtr ptr);
 	}
 }

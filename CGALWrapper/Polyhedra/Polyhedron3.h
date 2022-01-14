@@ -7,13 +7,16 @@
 #include "PrimativeCount.h"
  
 #include <map>
+#include <CGAL/enum.h>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
 #include <CGAL/Polygon_mesh_processing/transform.h>
 #include <CGAL/Aff_transformation_3.h>
-
 #include <CGAL/Polygon_mesh_processing/triangulate_faces.h>
-
+#include <CGAL/Side_of_triangle_mesh.h>
+#include <CGAL/Polygon_mesh_processing/orientation.h>
+#include <CGAL/Polygon_mesh_processing/self_intersections.h>
+#include <CGAL/Polygon_mesh_processing/measure.h>
 
 template <class HDS, class K>
 class BuildTriangleMesh : public CGAL::Modifier_base<HDS> 
@@ -516,5 +519,54 @@ public:
 		return poly->normalized_border_is_valid();
 	}
 
+	static CGAL::Bounded_side SideOfTriangleMesh(void* ptr, const Point3d& point)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		CGAL::Side_of_triangle_mesh<Polyhedron, K> inside(*poly);
+		return inside(point.ToCGAL<K>());
+	}
+
+	static void Orient(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		CGAL::Polygon_mesh_processing::orient(*poly);
+	}
+
+	static void OrientToBoundingVolume(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(*poly);
+	}
+
+	static void ReverseFaceOrientations(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		CGAL::Polygon_mesh_processing::reverse_face_orientations(*poly);
+	}
+
+	static BOOL DoesSelfIntersect(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return CGAL::Polygon_mesh_processing::does_self_intersect(*poly);
+	}
+
+	static double Area(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return CGAL::to_double(CGAL::Polygon_mesh_processing::area(*poly));
+	}
+
+	static Point3d Centroid(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		auto p = CGAL::Polygon_mesh_processing::centroid(*poly);
+		return Point3d::FromCGAL<K>(p);
+	}
+
+	static double Volume(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return CGAL::to_double(CGAL::Polygon_mesh_processing::volume(*poly));
+	}
 
 };

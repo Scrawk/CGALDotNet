@@ -239,6 +239,54 @@ namespace CGALDotNet.Polyhedra
 			}
         }
 
+		public static void CreateCube(List<Point3d> points, List<int> triangles, List<int> quads, Box3d box)
+		{
+			var corners = box.GetCorners();
+
+			//corners[0] = new Point3d(Min.x, Min.y, Min.z);
+			//corners[1] = new Point3d(Max.x, Min.y, Min.z);
+			//corners[2] = new Point3d(Max.x, Min.y, Max.z);
+			//corners[3] = new Point3d(Min.x, Min.y, Max.z);
+			//corners[4] = new Point3d(Min.x, Max.y, Min.z);
+			//corners[5] = new Point3d(Max.x, Max.y, Min.z);
+			//corners[6] = new Point3d(Max.x, Max.y, Max.z);
+			//corners[7] = new Point3d(Min.x, Max.y, Max.z);
+
+			points.Add(corners[0]); //0
+			points.Add(corners[1]); //1
+			points.Add(corners[5]); //2
+			points.Add(corners[4]); //3
+			points.Add(corners[7]); //4
+			points.Add(corners[6]); //5
+			points.Add(corners[2]); //6
+			points.Add(corners[3]); //7
+
+			if (quads != null)
+			{
+				quads.AddQuad(3, 2, 1, 0);  //face front
+				quads.AddQuad(2, 3, 4, 5);  //face top
+				quads.AddQuad(1, 2, 5, 6);  //face right
+				quads.AddQuad(0, 7, 4, 3);  //face left
+				quads.AddQuad(5, 4, 7, 6);  //face back
+				quads.AddQuad(1, 6, 7, 0);  //face bottom
+			}
+			else
+			{
+				triangles.AddTriangle(0, 2, 1); //face front
+				triangles.AddTriangle(0, 3, 2);
+				triangles.AddTriangle(2, 3, 4); //face top
+				triangles.AddTriangle(2, 4, 5);
+				triangles.AddTriangle(1, 2, 5); //face right
+				triangles.AddTriangle(1, 5, 6);
+				triangles.AddTriangle(0, 7, 4); //face left
+				triangles.AddTriangle(0, 4, 3);
+				triangles.AddTriangle(5, 4, 7); //face back
+				triangles.AddTriangle(5, 7, 6);
+				triangles.AddTriangle(0, 6, 7); //face bottom
+				triangles.AddTriangle(0, 1, 6);
+			}
+		}
+
 		public static void CreatePlane(List<Point3d> points, List<int> triangles, List<int> quads, PlaneParams param)
 		{
 			double width_half = param.width / 2;

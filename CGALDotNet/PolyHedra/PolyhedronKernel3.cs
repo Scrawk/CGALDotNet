@@ -67,6 +67,22 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract bool NormalizedBorderIsValid(IntPtr ptr);
 
+		internal abstract BOUNDED_SIDE SideOfTriangleMesh(IntPtr ptr, Point3d point);
+
+		internal abstract  void Orient(IntPtr ptr);
+
+		internal abstract void OrientToBoundingVolume(IntPtr ptr);
+
+		internal abstract void ReverseFaceOrientations(IntPtr ptr);
+
+		internal abstract bool DoesSelfIntersect(IntPtr ptr);
+
+		internal abstract double Area(IntPtr ptr);
+
+		internal abstract Point3d Centroid(IntPtr ptr);
+
+		internal abstract double Volume(IntPtr ptr);
+
 
 	}
 }

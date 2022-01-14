@@ -630,6 +630,7 @@ namespace CGALDotNet.Polygons
         public void Translate(Point2d translation)
         {
             Kernel.Translate(Ptr, translation);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -639,6 +640,7 @@ namespace CGALDotNet.Polygons
         public void Rotate(Radian rotation)
         {
             Kernel.Rotate(Ptr, rotation.angle);
+            IsUpdated = false;
         }
 
         /// <summary>

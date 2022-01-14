@@ -146,3 +146,43 @@ BOOL Polyhedron3_EEK_NormalizedBorderIsValid(void* ptr)
 {
 	return Polyhedron3<EEK>::NormalizedBorderIsValid(ptr);
 }
+
+CGAL::Bounded_side Polyhedron3_EEK_SideOfTriangleMesh(void* ptr, const Point3d& point)
+{
+	return Polyhedron3<EEK>::SideOfTriangleMesh(ptr, point);
+}
+
+void Polyhedron3_EEK_Orient(void* ptr)
+{
+	Polyhedron3<EEK>::Orient(ptr);
+}
+
+void Polyhedron3_EEK_OrientToBoundingVolume(void* ptr)
+{
+	Polyhedron3<EEK>::OrientToBoundingVolume(ptr);
+}
+
+void Polyhedron3_EEK_ReverseFaceOrientations(void* ptr)
+{
+	Polyhedron3<EEK>::ReverseFaceOrientations(ptr);
+}
+
+BOOL Polyhedron3_EEK_DoesSelfIntersect(void* ptr)
+{
+	return Polyhedron3<EEK>::DoesSelfIntersect(ptr);
+}
+
+CGALWRAPPER_API double Polyhedron3_EEK_Area(void* ptr)
+{
+	return Polyhedron3<EEK>::Area(ptr);
+}
+
+CGALWRAPPER_API Point3d Polyhedron3_EEK_Centroid(void* ptr)
+{
+	return Polyhedron3<EEK>::Centroid(ptr);
+}
+
+CGALWRAPPER_API double Polyhedron3_EEK_Volume(void* ptr)
+{
+	return Polyhedron3<EEK>::Volume(ptr);
+}

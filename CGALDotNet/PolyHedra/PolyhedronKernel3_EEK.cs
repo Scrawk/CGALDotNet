@@ -157,6 +157,46 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_NormalizedBorderIsValid(ptr);
         }
 
+		internal override BOUNDED_SIDE SideOfTriangleMesh(IntPtr ptr, Point3d point)
+        {
+			return Polyhedron3_EEK_SideOfTriangleMesh(ptr, point);
+        }
+
+		internal override void Orient(IntPtr ptr)
+        {
+			Polyhedron3_EEK_Orient(ptr);
+        }
+
+		internal override void OrientToBoundingVolume(IntPtr ptr)
+        {
+			Polyhedron3_EEK_OrientToBoundingVolume(ptr);
+        }
+
+		internal override void ReverseFaceOrientations(IntPtr ptr)
+        {
+			Polyhedron3_EEK_ReverseFaceOrientations(ptr);
+        }
+
+		internal override bool DoesSelfIntersect(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_DoesSelfIntersect(ptr);
+        }
+
+		internal override double Area(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_Area(ptr);
+        }
+
+		internal override Point3d Centroid(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_Centroid(ptr);
+        }
+
+		internal override double Volume(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_Volume(ptr);
+        }
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
@@ -243,5 +283,29 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EEK_NormalizedBorderIsValid(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern BOUNDED_SIDE Polyhedron3_EEK_SideOfTriangleMesh(IntPtr ptr, Point3d point);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_Orient(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_OrientToBoundingVolume(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_ReverseFaceOrientations(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_DoesSelfIntersect(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern double Polyhedron3_EEK_Area(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern Point3d Polyhedron3_EEK_Centroid(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern double Polyhedron3_EEK_Volume(IntPtr ptr);
 	}
 }

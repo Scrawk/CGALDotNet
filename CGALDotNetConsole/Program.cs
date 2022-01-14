@@ -21,20 +21,7 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-   
-            var points = new HPoint3d[]
-            {
-                new HPoint3d(1, -1, -1, 1.25),
-                new HPoint3d(1, 1, 1, 1.25),
-                new HPoint3d(-1, 1, -1, 1.25),
-                new HPoint3d(-1, -1, 1, 1.25)
-            };
-
-            var skin = SkinSurfaceMeshing<EEK>.Instance;
-
-            var poly = skin.CreateSkinPolyhedra(0.5, true, points, points.Length);
-
-            poly.Print();
+            var box = PolyhedronFactory<EEK>.CreateCube(new Box3d(-1, 1));
         }
 
 

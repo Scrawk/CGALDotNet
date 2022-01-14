@@ -6,6 +6,8 @@
 #include "../Geometry/Matrices.h"
 #include "PrimativeCount.h"
 
+#include <CGAL/enum.h>
+
 extern "C"
 {
 	CGALWRAPPER_API void* Polyhedron3_EIK_Create();

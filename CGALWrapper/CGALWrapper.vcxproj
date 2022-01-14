@@ -168,6 +168,7 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Processing\PolygonMeshProcessing.h" />
     <ClInclude Include="Polyhedra\PrimativeCount.h" />
     <ClInclude Include="Processing\SurfaceSimplification.h" />
     <ClInclude Include="Processing\SurfaceSubdivision.h" />

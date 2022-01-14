@@ -356,9 +356,9 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Reverses face orientations.
+        /// Reverses facet orientations (incl. plane equations if supported).
         /// </summary>
-        public void InsideOut()
+        internal void InsideOut()
         {
             Kernel.InsideOut(Ptr);
         }
@@ -391,6 +391,107 @@ namespace CGALDotNet.Polyhedra
         public bool NormalizedBorderIsValid()
         {
             return Kernel.NormalizedBorderIsValid(Ptr);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public BOUNDED_SIDE BoundedSide(Point3d point)
+        {
+            return Kernel.SideOfTriangleMesh(Ptr, point);
+        }
+
+        /// <summary>
+        /// Does the mesh contain the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="includeBoundary">If point is on the boundary does it count a being contained.</param>
+        /// <returns>True if the poly contains the point</returns>
+        public bool ContainsPoint(Point3d point, bool includeBoundary = true)
+        {
+            var side = BoundedSide(point);
+
+            if (side == BOUNDED_SIDE.ON_BOUNDED_SIDE)
+                return true;
+
+            if (includeBoundary && side == BOUNDED_SIDE.ON_BOUNDARY)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// makes each connected component of a closed 
+        /// triangulated surface mesh inward or outward oriented.
+        /// Must be a closed triangle mesh.
+        /// </summary>
+        public void Orient()
+        {
+            Kernel.Orient(Ptr);
+        }
+
+        /// <summary>
+        /// Orients the connected components of poly to 
+        /// make it bound a volume.
+        /// Must be a closed triangle mesh.
+        /// </summary>
+        public void OrientToBoundingVolume()
+        {
+            Kernel.OrientToBoundingVolume(Ptr);
+        }
+
+        /// <summary>
+        /// Reverses for each face in face_range the order of 
+        /// the vertices along the face boundary.
+        /// The function does not perform any control
+        /// and if the orientation change of the faces
+        /// makes the polygon mesh invalid, the behavior is undefined.
+        /// </summary>
+        public void ReverseOreintation()
+        {
+            Kernel.ReverseFaceOrientations(Ptr);
+        }
+
+        /// <summary>
+        /// Tests if a set of faces of a triangulated surface mesh self-intersects.
+        /// Must be a triangle mesh.
+        /// </summary>
+        /// <returns>True if the mesh self intersects.</returns>
+        public bool DoesSelfIntersect()
+        {
+            return Kernel.DoesSelfIntersect(Ptr);
+        }
+
+        /// <summary>
+        /// Computes the area of a range of faces
+        /// of a given triangulated surface mesh.
+        /// </summary>
+        /// <returns></returns>
+        public double FindArea()
+        {
+            return Kernel.Area(Ptr);
+        }
+
+        /// <summary>
+        /// computes the centroid of a volume bounded 
+        /// by a closed triangulated surface mesh.
+        /// </summary>
+        /// <returns></returns>
+        public Point3d FindCentroid()
+        {
+            return Kernel.Centroid(Ptr);
+        }
+
+        /// <summary>
+        /// Computes the volume of the domain bounded by a 
+        /// closed triangulated surface mesh.
+        /// </summary>
+        /// <returns></returns>
+        public double FindVolume()
+        {
+            return Kernel.Volume(Ptr);
         }
 
         /// <summary>

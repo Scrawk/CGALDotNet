@@ -35,6 +35,29 @@ namespace CGALDotNet.Polyhedra
 			return poly;
 		}
 
+		public static Polyhedron3<K> CreateCube(Box3d box, bool allowQuads = false)
+		{
+			var poly = new Polyhedron3<K>();
+
+			if (allowQuads)
+			{
+				points.Clear();
+				triangles.Clear();
+				quads.Clear();
+				MeshFactory.CreateCube(points, triangles, quads, box);
+				poly.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+			}
+			else
+			{
+				points.Clear();
+				triangles.Clear();
+				MeshFactory.CreateCube(points, triangles, null, box);
+				poly.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
+			}
+
+			return poly;
+		}
+
 		public static Polyhedron3<K> CreatePlane(PlaneParams param, bool allowQuads = false)
 		{
 			var poly = new Polyhedron3<K>();
