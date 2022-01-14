@@ -6,13 +6,29 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polyhedra
 {
-
+	/// <summary>
+	/// 
+	/// </summary>
 	public struct UVSphereParams
     {
+		/// <summary>
+		/// 
+		/// </summary>
 		public int meridians;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public int parallels;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public double scale;
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public static UVSphereParams Default
         {
 			get
@@ -26,17 +42,30 @@ namespace CGALDotNet.Polyhedra
         }
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public struct NormalizedCubeParams
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		public int divisions;
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public double scale;
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public static NormalizedCubeParams Default
 		{
 			get
 			{
 				var param = new NormalizedCubeParams();
-				param.divisions = 32;
+				param.divisions = 16;
 				param.scale = 1;
 				return param;
 			}
@@ -94,7 +123,6 @@ namespace CGALDotNet.Polyhedra
 		public double height;
 		public int radialDivisions;
 		public int heightDivisions;
-		public bool openEnded;
 		public double thetaStart;
 		public double thetaLength;
 
@@ -107,8 +135,7 @@ namespace CGALDotNet.Polyhedra
 				param.radiusBottom = 0.5;
 				param.height = 1;
 				param.radialDivisions = 8;
-				param.heightDivisions = 1;
-				param.openEnded = false;
+				param.heightDivisions = 4;
 				param.thetaStart = 0;
 				param.thetaLength = Math.PI * 2;
 				return param;
@@ -160,24 +187,11 @@ namespace CGALDotNet.Polyhedra
             list.Add(item3);
         }
 
-		private static void AddQuadAs2Triangles(this List<int> list, int item1, int item2, int item3, int item4)
+		private static void AddTriangleAlt(this List<int> list, int item1, int item2, int item3)
 		{
-			list.Add(item1);
-			list.Add(item2);
 			list.Add(item3);
-			list.Add(item1);
-			list.Add(item3);
-			list.Add(item4);
-		}
-
-		private static void AddQuadAs2TrianglesAlt(this List<int> list, int item1, int item2, int item3, int item4)
-		{
-			list.Add(item1);
 			list.Add(item2);
-			list.Add(item4);
-			list.Add(item2);
-			list.Add(item3);
-			list.Add(item4);
+			list.Add(item1);
 		}
 
 		private static void AddQuad(this List<int> list, int item1, int item2, int item3, int item4)
@@ -186,14 +200,6 @@ namespace CGALDotNet.Polyhedra
 			list.Add(item2);
 			list.Add(item3);
 			list.Add(item4);
-		}
-
-		private static void AddQuadAlt(this List<int> list, int item1, int item2, int item3, int item4)
-		{
-			list.Add(item4);
-			list.Add(item3);
-			list.Add(item2);
-			list.Add(item1);
 		}
 
 		public static void CreateCube(List<Point3d> points, List<int> triangles, List<int> quads, double scale = 1)
@@ -330,8 +336,6 @@ namespace CGALDotNet.Polyhedra
 					int b = bStart + i;
 					int b1 = bStart + (i + 1) % param.meridians;
 
-					//indices.AddQuadAs2Triangles(a, a1, b1, b);
-
 					if(quads != null)
                     {
 						quads.AddQuad(a, a1, b1, b);
@@ -405,7 +409,6 @@ namespace CGALDotNet.Polyhedra
                         {
 							triangles.AddTriangle(a, c, d);
 							triangles.AddTriangle(a, d, b);
-							//indices.AddQuadAs2Triangles(a, c, d, b);
 						}
 
 					}
@@ -417,15 +420,18 @@ namespace CGALDotNet.Polyhedra
         {
 			scale *= 0.5;
 
-			points.Add(new Point3d(1, 1, 1) * scale);
-			points.Add(new Point3d(-1, -1, 1) * scale);
-			points.Add(new Point3d(-1, 1, -1) * scale);
-			points.Add(new Point3d(1, -1, -1) * scale);
+			points.Add(new Point3d(0, 0, 1) * scale);
+			points.Add(new Point3d(1, 0, -0.5) * scale);
+			points.Add(new Point3d(-1, 0, -0.5) * scale);
 
-			indices.AddTriangle(2, 1, 0);
-			indices.AddTriangle(0, 3, 2);
-			indices.AddTriangle(1, 3, 0);
+			var p = (points[0] + points[1] + points[2]) / 3.0;
+			p.y = 1 * scale;
+			points.Add(p);
+
+			indices.AddTriangle(0, 2, 1);
 			indices.AddTriangle(2, 3, 1);
+			indices.AddTriangle(1, 3, 0);
+			indices.AddTriangle(3, 2, 0);
 		}
 
 		public static void CreateOctahedron(List<Point3d> points, List<int> indices, double scale = 1)
@@ -599,7 +605,7 @@ namespace CGALDotNet.Polyhedra
 
 		}
 
-		public static void CreateCylinder(List<Point3d> points, List<int> indices, CylinderParams param)
+		public static void CreateCylinder(List<Point3d> points, List<int> triangles, List<int> quads, CylinderParams param)
         {
 
 			int index = 0;
@@ -648,30 +654,33 @@ namespace CGALDotNet.Polyhedra
 					int c = indexArray[y + 1][x + 1];
 					int d = indexArray[y][x + 1];
 
-					// faces
-					indices.AddTriangle(a, b, d);
-					indices.AddTriangle(b, c, d);
+					if(quads != null)
+                    {
+						quads.AddQuad(a, b, c, d);
+                    }
+					else
+                    {
+						triangles.AddTriangle(a, b, d);
+						triangles.AddTriangle(b, c, d);
+					}
+
 				}
 			}
 
-			if (!param.openEnded)
-			{
-				if (param.radiusTop > 0) 
-					GenerateCap(points, indices, param, true, ref index);
+			if (param.radiusTop > 0)
+				GenerateCap(points, triangles, param, true, ref index);
 
-				if (param.radiusBottom > 0)
-					GenerateCap(points, indices, param, false, ref index);
-			}
-
+			if (param.radiusBottom > 0)
+				GenerateCap(points, triangles, param, false, ref index);
 		}
 
 		private static void GenerateCap(List<Point3d> points, List<int> indices, CylinderParams param, bool top, ref int index )
 		{
 			// save the index of the first center vertex
 			int centerIndexStart = index;
-			double halfHeight = param.height / 2;
+			double halfHeight = param.height / 2.0;
 			double radius = top ? param.radiusTop : param.radiusBottom;
-			int sign = top ? 1 : -1;
+			double sign = top ? 1 : -1;
 
 			for (int x = 1; x <= param.radialDivisions; x++)
 			{
@@ -684,7 +693,7 @@ namespace CGALDotNet.Polyhedra
 
 			for (int x = 0; x <= param.radialDivisions; x++)
 			{
-				double u = x / param.radialDivisions;
+				double u = x / (double)param.radialDivisions;
 				double theta = u * param.thetaLength + param.thetaStart;
 
 				double cosTheta = Math.Cos(theta);
@@ -697,7 +706,6 @@ namespace CGALDotNet.Polyhedra
 				points.Add(vertex);
 
 				index++;
-
 			}
 
 			for (int x = 0; x < param.radialDivisions; x++)
@@ -709,7 +717,6 @@ namespace CGALDotNet.Polyhedra
 					indices.AddTriangle(i, i + 1, c);
 				else
 					indices.AddTriangle(i + 1, i, c);
-
 			}
 
 		}

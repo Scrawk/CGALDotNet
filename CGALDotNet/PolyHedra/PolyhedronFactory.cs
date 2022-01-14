@@ -81,14 +81,25 @@ namespace CGALDotNet.Polyhedra
 			return poly;
 		}
 
-		public static Polyhedron3<K> CreateCylinder(CylinderParams param)
+		public static Polyhedron3<K> CreateCylinder(CylinderParams param, bool allowQuads = false)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateCylinder(points, triangles, param);
-
 			var poly = new Polyhedron3<K>();
-			poly.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
+
+			if (allowQuads)
+			{
+				points.Clear();
+				triangles.Clear();
+				quads.Clear();
+				MeshFactory.CreateCylinder(points, triangles, quads, param);
+				poly.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+			}
+			else
+			{
+				points.Clear();
+				triangles.Clear();
+				MeshFactory.CreateCylinder(points, triangles, null, param);
+				poly.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
+			}
 
 			return poly;
 		}

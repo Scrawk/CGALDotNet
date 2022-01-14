@@ -22,16 +22,18 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var param = UVSphereParams.Default;
+            var param = CylinderParams.Default;
 
-            var poly = PolyhedronFactory<EEK>.CreateUVSphere(param, true);
-            poly.Triangulate();
+            var poly = PolyhedronFactory<EEK>.CreateTetrahedron();
+            //poly.Triangulate();
 
             poly.Print();
 
             var primatives = poly.GetPrimativeCount();
 
             Console.WriteLine(primatives);
+
+            return;
 
             if (primatives.triangleCount > 0)
             {
