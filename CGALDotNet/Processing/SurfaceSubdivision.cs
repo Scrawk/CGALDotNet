@@ -34,12 +34,21 @@ namespace CGALDotNet.Processing
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[SubdivisionSurface<{0}>: ]", Kernel.KernelName);
+        }
+
     }
 
     /// <summary>
     /// 
     /// </summary>
-    public abstract class SubdivisionSurface : CGALObject
+    public abstract class SubdivisionSurface : PolyhedraAlgorithm
     {
         /// <summary>
         /// 
@@ -100,6 +109,8 @@ namespace CGALDotNet.Processing
         public void Subdivide_CatmullClark(Polyhedron3 poly, int iterations)
         {
             if (iterations < 0) return;
+
+            CheckIsValid(poly);
             Kernel.SubdivePolyhedron_CatmullClark(poly.Ptr, iterations);
         }
 
@@ -111,6 +122,8 @@ namespace CGALDotNet.Processing
         public void Subdivide_Loop(Polyhedron3 poly, int iterations)
         {
             if (iterations < 0) return;
+
+            CheckIsValidAndTriangle(poly);
             Kernel.SubdivePolyhedron_Loop(poly.Ptr, iterations);
         }
 
@@ -122,6 +135,8 @@ namespace CGALDotNet.Processing
         public void Subdivide_Sqrt3(Polyhedron3 poly, int iterations)
         {
             if (iterations < 0) return;
+
+            CheckIsValidAndTriangle(poly);
             Kernel.SubdivePolyhedron_Sqrt3(poly.Ptr, iterations);
         }
 

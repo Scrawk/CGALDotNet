@@ -67,12 +67,12 @@ BOOL Polyhedron3_EEK_IsPureTrivalent(void* ptr)
 	return Polyhedron3<EEK>::IsPureTrivalent(ptr);
 }
 
-BOOL Polyhedron3_EEK_IsPureTriangle(void* ptr)
+int Polyhedron3_EEK_IsPureTriangle(void* ptr)
 {
 	return Polyhedron3<EEK>::IsPureTriangle(ptr);
 }
 
-BOOL Polyhedron3_EEK_IsPureQuad(void* ptr)
+int Polyhedron3_EEK_IsPureQuad(void* ptr)
 {
 	return Polyhedron3<EEK>::IsPureQuad(ptr);
 }
@@ -87,9 +87,19 @@ void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 	Polyhedron3<EEK>::MakeTriangle(ptr, p1, p2, p3);
 }
 
-void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount)
+void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount)
 {
-	Polyhedron3<EEK>::CreateTriangleMesh(ptr, points, pointsCount, indices, indicesCount);
+	Polyhedron3<EEK>::CreateTriangleMesh(ptr, points, pointsCount, triangles, triangleCount);
+}
+
+void Polyhedron3_EEK_CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount)
+{
+	Polyhedron3<EEK>::CreateQuadMesh(ptr, points, pointsCount, quads, quadCount);
+}
+
+void Polyhedron3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount)
+{
+	Polyhedron3<EEK>::CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, triangleCount, quads, quadCount);
 }
 
 void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count)

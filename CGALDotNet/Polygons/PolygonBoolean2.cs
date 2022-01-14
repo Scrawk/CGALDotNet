@@ -34,6 +34,15 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[PolygonBoolean2<{0}>: ]", Kernel.KernelName);
+        }
+
+        /// <summary>
         /// Perform the boolean op on the two polygons.
         /// </summary>
         /// <param name="op">The type of op.</param>

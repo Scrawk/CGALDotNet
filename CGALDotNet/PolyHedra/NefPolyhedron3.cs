@@ -391,29 +391,22 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Print the nef polyhedron.
-        /// </summary>
-        public void Print()
-        {
-            var builder = new StringBuilder();
-            Print(builder);
-            Console.WriteLine(builder.ToString());
-        }
-
-        /// <summary>
         /// Print the nef polyhedron into a string builder.
         /// </summary>
         /// <param name="builder"></param>
-        public void Print(StringBuilder builder)
+        public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
+            builder.AppendLine("VertexCount = " + VertexCount);
             builder.AppendLine("EdgeCount = " + EdgeCount);
+            builder.AppendLine("FaceCount = " + FaceCount);
             builder.AppendLine("HalfFaceCount = " + HalfFaceCount);
             builder.AppendLine("VolumeCount = " + VolumeCount);
+            builder.AppendLine("IsValid = " + IsValid());
             builder.AppendLine("IsEmpty = " + IsEmpty);
             builder.AppendLine("IsSimple = " + IsSimple);
             builder.AppendLine("IsSpace = " + IsSpace);
-            builder.AppendLine("IsValid = " + IsValid());
+            
         }
 
         /// <summary>

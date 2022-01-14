@@ -33,6 +33,16 @@ namespace CGALDotNet.Polygons
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[PolygonPartition2<{0}>: ]", Kernel.KernelName);
+        }
+
         /// <summary>
         /// Is this polygon Y monotonic.
         /// </summary>

@@ -40,7 +40,7 @@ namespace CGALDotNet.Arrangements
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[SweepLine<{0}>: ]");
+            return string.Format("[SweepLine<{0}>: ]", Kernel.KernelName);
         }
 
     }

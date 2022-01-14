@@ -15,7 +15,7 @@
 
 
 template <class HDS, class K>
-class BuildPolyhedronMesh : public CGAL::Modifier_base<HDS> 
+class BuildTriangleMesh : public CGAL::Modifier_base<HDS> 
 {
 public:
 
@@ -23,9 +23,9 @@ public:
 
 	int verticesCount;
 
-	int* indices;
+	int* triangles;
 
-	int indicesCount;
+	int triangleCount;
 
 	void operator()(HDS& hds)
 	{
@@ -34,10 +34,10 @@ public:
 
 		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds);
 
-		int triangles = indicesCount / 3;
-		int edges = triangles * 6;
+		int numTriangles = triangleCount / 3;
+		int edges = numTriangles * 6;
 
-		B.begin_surface(verticesCount, triangles, edges, B.ABSOLUTE_INDEXING);
+		B.begin_surface(verticesCount, numTriangles, edges, B.ABSOLUTE_INDEXING);
 
 		for (int i = 0; i < verticesCount; i++)
 		{
@@ -45,12 +45,116 @@ public:
 			B.add_vertex(p);
 		}
 
-		for (int i = 0; i < indicesCount/3; i++)
+		for (int i = 0; i < numTriangles; i++)
 		{
 			B.begin_facet();
-			B.add_vertex_to_facet(indices[i * 3 + 0]);
-			B.add_vertex_to_facet(indices[i * 3 + 1]);
-			B.add_vertex_to_facet(indices[i * 3 + 2]);
+			B.add_vertex_to_facet(triangles[i * 3 + 0]);
+			B.add_vertex_to_facet(triangles[i * 3 + 1]);
+			B.add_vertex_to_facet(triangles[i * 3 + 2]);
+			B.end_facet();
+		}
+
+		B.end_surface();
+	}
+};
+
+template <class HDS, class K>
+class BuildQuadMesh : public CGAL::Modifier_base<HDS>
+{
+public:
+
+	Point3d* vertices;
+
+	int verticesCount;
+
+	int* quads;
+
+	int quadCount;
+
+	void operator()(HDS& hds)
+	{
+		typedef typename HDS::Vertex   Vertex;
+		typedef typename Vertex::Point Point;
+
+		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds);
+
+		int numQuads = quadCount / 4;
+		int edges = numQuads * 8;
+
+		B.begin_surface(verticesCount, numQuads, edges, B.ABSOLUTE_INDEXING);
+
+		for (int i = 0; i < verticesCount; i++)
+		{
+			auto p = vertices[i].ToCGAL<K>();
+			B.add_vertex(p);
+		}
+
+		for (int i = 0; i < numQuads; i++)
+		{
+			B.begin_facet();
+			B.add_vertex_to_facet(quads[i * 4 + 0]);
+			B.add_vertex_to_facet(quads[i * 4 + 1]);
+			B.add_vertex_to_facet(quads[i * 4 + 2]);
+			B.add_vertex_to_facet(quads[i * 4 + 3]);
+			B.end_facet();
+		}
+
+		B.end_surface();
+	}
+};
+
+template <class HDS, class K>
+class BuildTriangleQuadMesh : public CGAL::Modifier_base<HDS>
+{
+public:
+
+	Point3d* vertices;
+
+	int verticesCount;
+
+	int* triangles;
+
+	int triangleCount;
+
+	int* quads;
+
+	int quadCount;
+
+	void operator()(HDS& hds)
+	{
+		typedef typename HDS::Vertex   Vertex;
+		typedef typename Vertex::Point Point;
+
+		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds);
+
+		int numTriangles = triangleCount / 3;
+		int numQuads = quadCount / 4;
+		int edges = numTriangles * 6 + numQuads * 8;
+
+		B.begin_surface(verticesCount, 0, 0, B.ABSOLUTE_INDEXING);
+
+		for (int i = 0; i < verticesCount; i++)
+		{
+			auto p = vertices[i].ToCGAL<K>();
+			B.add_vertex(p);
+		}
+
+		for (int i = 0; i < numTriangles; i++)
+		{
+			B.begin_facet();
+			B.add_vertex_to_facet(triangles[i * 3 + 0]);
+			B.add_vertex_to_facet(triangles[i * 3 + 1]);
+			B.add_vertex_to_facet(triangles[i * 3 + 2]);
+			B.end_facet();
+		}
+
+		for (int i = 0; i < numQuads; i++)
+		{
+			B.begin_facet();
+			B.add_vertex_to_facet(quads[i * 4 + 0]);
+			B.add_vertex_to_facet(quads[i * 4 + 1]);
+			B.add_vertex_to_facet(quads[i * 4 + 2]);
+			B.add_vertex_to_facet(quads[i * 4 + 3]);
 			B.end_facet();
 		}
 
@@ -159,16 +263,50 @@ public:
 		return (int)poly->is_pure_trivalent();
 	}
 
-	static BOOL IsPureTriangle(void* ptr)
+	static int IsPureTriangle(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->is_pure_triangle();
+		//return (int)poly->is_pure_triangle();
+
+		for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
+		{
+			if (vert->halfedge() == nullptr) return 1;
+			if (vert->halfedge()->face() == nullptr) return 2;
+		}
+
+		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		{
+			if (face->halfedge() == nullptr) return 3;
+			if (face->halfedge()->vertex() == nullptr) return 4;
+			if (face->halfedge()->next() == nullptr) return 5;
+			if (face->halfedge()->prev() == nullptr) return 6;
+			if (!face->is_triangle()) return 7;
+		}
+			
+		return 0;
 	}
 
-	static BOOL IsPureQuad(void* ptr)
+	static int IsPureQuad(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->is_pure_quad();
+		//return (int)poly->is_pure_quad();
+
+		for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
+		{
+			if (vert->halfedge() == nullptr) return 1;
+			if (vert->halfedge()->face() == nullptr) return 2;
+		}
+
+		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		{
+			if (face->halfedge() == nullptr) return 3;
+			if (face->halfedge()->vertex() == nullptr) return 4;
+			if (face->halfedge()->next() == nullptr) return 5;
+			if (face->halfedge()->prev() == nullptr) return 6;
+			if (!face->is_quad()) return 7;
+		}
+
+		return 0;
 	}
 
 	static void MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
@@ -183,15 +321,43 @@ public:
 		poly->make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
 	}
 
-	static void CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount)
+	static void CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount)
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		BuildPolyhedronMesh<HalfedgeDS, K> builder;
+		BuildTriangleMesh<HalfedgeDS, K> builder;
 		builder.vertices = points;
 		builder.verticesCount = pointsCount;
-		builder.indices = indices;
-		builder.indicesCount = indicesCount;
+		builder.triangles = triangles;
+		builder.triangleCount = triangleCount;
+
+		poly->delegate(builder);
+	}
+
+	static void CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		BuildQuadMesh<HalfedgeDS, K> builder;
+		builder.vertices = points;
+		builder.verticesCount = pointsCount;
+		builder.quads = quads;
+		builder.quadCount = quadCount;
+
+		poly->delegate(builder);
+	}
+
+	static void CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		BuildTriangleQuadMesh<HalfedgeDS, K> builder;
+		builder.vertices = points;
+		builder.verticesCount = pointsCount;
+		builder.triangles = triangles;
+		builder.triangleCount = triangleCount;
+		builder.quads = quads;
+		builder.quadCount = quadCount;
 
 		poly->delegate(builder);
 	}
@@ -224,6 +390,7 @@ public:
 		index = 0;
 		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
 		{
+			if (!face->is_triangle()) continue;
 			
 			auto i0 = map.find(face->halfedge()->prev()->vertex()->point());
 			auto i1 = map.find(face->halfedge()->vertex()->point());

@@ -46,6 +46,15 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[PolygonMinkowski<{0}>: ]", Kernel.KernelName);
+        }
+
+        /// <summary>
         /// Compute the Minkowski sum of two polygons.
         /// </summary>
         /// <param name="polygon"></param>

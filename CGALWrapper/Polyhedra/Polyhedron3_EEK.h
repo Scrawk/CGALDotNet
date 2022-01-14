@@ -33,15 +33,19 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureTrivalent(void* ptr);
 
-	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureTriangle(void* ptr);
+	CGALWRAPPER_API int Polyhedron3_EEK_IsPureTriangle(void* ptr);
 
-	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureQuad(void* ptr);
+	CGALWRAPPER_API int Polyhedron3_EEK_IsPureQuad(void* ptr);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3);
 
-	CGALWRAPPER_API void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount);
+	CGALWRAPPER_API void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count);
 

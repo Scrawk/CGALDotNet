@@ -498,27 +498,19 @@ namespace CGALDotNet.Polyhedra
         //}
 
         /// <summary>
-        /// Print the polyhedron.
-        /// </summary>
-        public void Print()
-        {
-            var builder = new StringBuilder();
-            Print(builder);
-            Console.WriteLine(builder.ToString());
-        }
-
-        /// <summary>
         /// Print the polyhedron into a string builder.
         /// </summary>
         /// <param name="builder"></param>
-        public void Print(StringBuilder builder)
+        public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
+            builder.AppendLine("VertexCount = " + VertexCount);
+            builder.AppendLine("FaceCount = " + FaceCount);
             builder.AppendLine("EdgeCount = " + EdgeCount);
             builder.AppendLine("HasGarbage = " + HasGarbage());
             builder.AppendLine("DoesRecycleGarbage = " + DoesRecycleGarbage());
-            //builder.AppendLine("IsPureTriangle = " + IsPureTriangle);
-            //builder.AppendLine("IsPureQuad = " + IsPureQuad);
+            //builder.AppendLine("IsTriangle = " + IsPureTriangle);
+            //builder.AppendLine("IsQuad = " + IsPureQuad);
             //builder.AppendLine("MaxFaceVertices = " + MaxFaceVertices);
         }
 

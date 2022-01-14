@@ -21,6 +21,9 @@ namespace CGALDotNet
         [ThreadStatic]
         private static Point3d[] m_points3d;
 
+        [ThreadStatic]
+        private static int[] m_int;
+
         /// <summary>
         /// Returns a array of Point2d objects that is at least the size of count.
         /// </summary>
@@ -58,6 +61,19 @@ namespace CGALDotNet
                 m_points3d = new Point3d[count];
 
             return m_points3d;
+        }
+
+        /// <summary>
+        /// Returns a array of ints that is at least the size of count.
+        /// </summary>
+        /// <param name="count">The minimum size of the array.</param>
+        /// <returns>Returns a array of ints that is at least the size of count.</returns>
+        public static int[] IntArray(int count)
+        {
+            if (m_int == null || m_int.Length < count)
+                m_int = new int[count];
+
+            return m_int;
         }
 
     }

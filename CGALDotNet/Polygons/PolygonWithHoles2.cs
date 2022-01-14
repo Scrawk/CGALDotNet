@@ -267,9 +267,11 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// Simplify the polygon.
         /// </summary>
-        public void Simplify()
+        /// <param name="threshold">The simplification threshold.</param>
+        public void Simplify(double threshold)
         {
             var param = PolygonSimplificationParams.Default;
+            param.threshold = threshold;
             Simplify(param);
         }
 
@@ -938,18 +940,8 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// Print debug infomation.
         /// </summary>
-        public void Print()
-        {
-            var builder = new StringBuilder();
-            Print(builder);
-            Console.WriteLine(builder.ToString());
-        }
-
-        /// <summary>
-        /// Print debug infomation.
-        /// </summary>
         /// <param name="builder"></param>
-        public void Print(StringBuilder builder)
+        public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
             builder.AppendLine("Is Bounded = " + IsBounded);

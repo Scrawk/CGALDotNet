@@ -153,27 +153,29 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Returns true if all vertices have exactly two incident edges.
         /// </summary>
-        public bool IsPureBivalent => Kernel.IsPureBivalent(Ptr);
+        public bool IsBivalent => Kernel.IsPureBivalent(Ptr);
 
         /// <summary>
         /// Returns true if all vertices have exactly three incident edges.
         /// </summary>
-        public bool IsPureTrivalent => Kernel.IsPureTrivalent(Ptr);
+        public bool IsTrivalent => Kernel.IsPureTrivalent(Ptr);
 
         /// <summary>
         /// Returns true if all faces are triangles.
         /// </summary>
-        public bool IsPureTriangle => Kernel.IsPureTriangle(Ptr);
+        public bool IsTriangle => Kernel.IsPureTriangle(Ptr) == 0;
 
         /// <summary>
         /// Returns true if all faces are quads.
         /// </summary>
-        public bool IsPureQuad => Kernel.IsPureQuad(Ptr);
+        public bool IsQuad => Kernel.IsPureQuad(Ptr) == 0;
 
         /// <summary>
-        /// Returns true if the polyhedral surface is combinatorially consistent.
+        /// returns true if the polyhedral surface is combinatorially consistent.
+        // For level == 1 the normalization of the border edges is checked too.
+        // This method checks that each face is at least a triangle and that the
+        // two incident facets of a non-border edge are distinct.
         /// </summary>
-        /// <param name="level">For level == 1 the normalization of the border edges is checked too.</param>
         /// <returns></returns>
         public bool IsValid(int level = 0)
         {
@@ -207,17 +209,66 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Create a mesh from the points and indices.
+        /// </summary>
+        /// <param name="points">The meshes points.</param>
+        /// <param name="triangles">The meshes triangles as a index array. Maybe null.</param>
+        /// <param name="quads">The meshes quads as a index array. Maybe null..</param>
+        public void CreateMesh(Point3d[] points, int[] triangles, int[] quads)
+        {
+            bool hasTriangles = triangles != null && triangles.Length > 0;
+            bool hasquads = quads != null && quads.Length > 0;
+
+            if (hasTriangles && hasquads)
+                CreateTriangleQuadMesh(points, triangles, quads);
+            else if (hasTriangles)
+                CreateTriangleMesh(points, triangles);
+            else if (hasquads)
+                CreateQuadMesh(points, quads);
+        }
+
+        /// <summary>
         /// Create a triangle mesh from the points and indices.
         /// </summary>
         /// <param name="points">The meshes points.</param>
-        /// <param name="indices">The meshes trinagles as a index array.</param>
-        public void CreateTriangleMesh(Point3d[] points, int[] indices)
+        /// <param name="indices">The meshes triangles as a index array.</param>
+        public void CreateTriangleMesh(Point3d[] points, int[] triangles)
         {
             ErrorUtil.CheckArray(points, points.Length);
-            ErrorUtil.CheckArray(indices, indices.Length);
+            ErrorUtil.CheckArray(triangles, triangles.Length);
 
             Clear();
-            Kernel.CreateTriangleMesh(Ptr, points, points.Length, indices, indices.Length);
+            Kernel.CreateTriangleMesh(Ptr, points, points.Length, triangles, triangles.Length);
+        }
+
+        /// <summary>
+        /// Create a quad mesh from the points and indices.
+        /// </summary>
+        /// <param name="points">The meshes points.</param>
+        /// <param name="quads">The meshes quads as a index array.</param>
+        public void CreateQuadMesh(Point3d[] points, int[] quads)
+        {
+            ErrorUtil.CheckArray(points, points.Length);
+            ErrorUtil.CheckArray(quads, quads.Length);
+
+            Clear();
+            Kernel.CreateQuadMesh(Ptr, points, points.Length, quads, quads.Length);
+        }
+
+        /// <summary>
+        /// Create a triangle mesh from the points and indices.
+        /// </summary>
+        /// <param name="points">The meshes points.</param>
+        /// <param name="triangles">The meshes triangles as a index array.</param>
+        /// <param name="quads">The meshes quads as a index array.</param>
+        public void CreateTriangleQuadMesh(Point3d[] points, int[] triangles, int[] quads)
+        {
+            ErrorUtil.CheckArray(points, points.Length);
+            ErrorUtil.CheckArray(triangles, triangles.Length);
+            ErrorUtil.CheckArray(quads, quads.Length);
+
+            Clear();
+            Kernel.CreateTriangleQuadMesh(Ptr, points, points.Length, triangles, triangles.Length, quads, quads.Length);
         }
 
         /// <summary>
@@ -337,32 +388,28 @@ namespace CGALDotNet.Polyhedra
         public abstract void Simplify(double stop_ratio);
 
         /// <summary>
-        /// Print the polyhedron.
-        /// </summary>
-        public void Print()
-        {
-            var builder = new StringBuilder();
-            Print(builder);
-            Console.WriteLine(builder.ToString());
-        }
-
-        /// <summary>
         /// Print the polyhedron into a string builder.
         /// </summary>
         /// <param name="builder"></param>
-        public void Print(StringBuilder builder)
+        public override void Print(StringBuilder builder)
         {
+            bool isValid = IsValid();
+
             builder.AppendLine(ToString());
             builder.AppendLine("HalfEdgeCount = " + HalfEdgeCount);
             builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
             builder.AppendLine("BorderHalfEdgeCount = " + BorderHalfEdgeCount);
-            builder.AppendLine("IsValid = " + IsValid());
+            builder.AppendLine("IsValid = " + isValid);
             builder.AppendLine("NormalizedBorderIsValid = " + NormalizedBorderIsValid());
             builder.AppendLine("IsClosed = " + IsClosed);
-            builder.AppendLine("IsPureBivalent = " + IsPureBivalent);
-            builder.AppendLine("IsPureTrivalent= " + IsPureTrivalent);
-            builder.AppendLine("IsPureTriangle = " + IsPureTriangle);
-            builder.AppendLine("IsPureQuad = " + IsPureQuad);
+
+            if (isValid)
+            {
+                builder.AppendLine("IsBivalent = " + IsBivalent);
+                builder.AppendLine("IsTrivalent= " + IsTrivalent);
+                builder.AppendLine("IsTriangle = " + IsTriangle);
+                builder.AppendLine("IsQuad = " + IsQuad);
+            }
         }
 
         /// <summary>

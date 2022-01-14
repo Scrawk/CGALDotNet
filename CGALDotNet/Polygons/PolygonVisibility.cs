@@ -32,6 +32,15 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[PolygonVisibility<{0}>: ]", Kernel.KernelName);
+        }
+
+        /// <summary>
         /// Compute the visibility from a simple polygon with no holes.
         /// This class implements the algorithm of B.Joe and R.B.Simpson [4]. The algorithm is a modification
         /// and extension of the linear time algorithm of Lee [5]. It computes the visibility region from a 

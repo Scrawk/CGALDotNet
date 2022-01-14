@@ -650,20 +650,9 @@ namespace CGALDotNet.Arrangements
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="printElements"></param>
-        public void Print(bool printElements = false)
-        {
-            var builder = new StringBuilder();
-            Print(builder, printElements);
-            Console.WriteLine(builder.ToString());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="builder"></param>
         /// <param name="printElements"></param>
-        public void Print(StringBuilder builder, bool printElements = false)
+        public void Print(StringBuilder builder, bool printElements)
         {
             builder.AppendLine(ToString());
             builder.AppendLine("Isolated Vertex Count = " + IsolatedVerticesCount);
@@ -671,7 +660,7 @@ namespace CGALDotNet.Arrangements
             builder.AppendLine("Edge Count = " + EdgeCount);
             builder.AppendLine("Unbounded Face Count = " + UnboundedFaceCount);
 
-            if(printElements)
+            if (printElements)
             {
                 builder.AppendLine();
 
@@ -679,6 +668,19 @@ namespace CGALDotNet.Arrangements
                 PrintHalfEdges(builder);
                 PrintFaces(builder);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public override void Print(StringBuilder builder)
+        {
+            builder.AppendLine(ToString());
+            builder.AppendLine("Isolated Vertex Count = " + IsolatedVerticesCount);
+            builder.AppendLine("Vertex at Infinity Count = " + VerticesAtInfinityCount);
+            builder.AppendLine("Edge Count = " + EdgeCount);
+            builder.AppendLine("Unbounded Face Count = " + UnboundedFaceCount);
         }
 
         /// <summary>

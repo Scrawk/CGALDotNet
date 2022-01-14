@@ -22,14 +22,11 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
+            var param = TorusParams.Default;
 
-            var poly = PolygonFactory<EEK>.CreateCircle(10, 64);
-            poly.Print();
+            var poly = PolyhedronFactory<EEK>.CreateTorus(param, true);
+            //poly.Triangulate();
 
-            var param = PolygonSimplificationParams.Default;
-            param.threshold = 0.1;
-
-            poly.Simplify(param);
             poly.Print();
 
         }

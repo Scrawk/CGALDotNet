@@ -28,6 +28,15 @@ namespace CGALDotNet.Hulls
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[ConvexHull3<{0}>: ]", Kernel.KernelName);
+        }
+
+        /// <summary>
         /// Create the convex hull from a set of points.
         /// </summary>
         /// <param name="points">The point array.</param>

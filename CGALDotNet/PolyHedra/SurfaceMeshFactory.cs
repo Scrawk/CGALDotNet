@@ -9,16 +9,16 @@ namespace CGALDotNet.Polyhedra
 	public static class SurfaceMeshFactory<K> where K : CGALKernel, new()
 	{
 		private static List<Point3d> points = new List<Point3d>();
-		private static List<int> indices = new List<int>();
+		private static List<int> triangles = new List<int>();
 
 		public static SurfaceMesh3<K> CreateCube(double scale = 1)
 		{
 			points.Clear();
-			indices.Clear();
-			MeshFactory.CreateCube(points, indices, scale);
+			triangles.Clear();
+			MeshFactory.CreateCube(points, triangles, null, scale);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+			mesh.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
 
 			return mesh;
 		}
@@ -26,11 +26,11 @@ namespace CGALDotNet.Polyhedra
 		public static SurfaceMesh3<K> CreatePlane(PlaneParams param)
 		{
 			points.Clear();
-			indices.Clear();
-			MeshFactory.CreatePlane(points, indices, param);
+			triangles.Clear();
+			MeshFactory.CreatePlane(points, triangles, null, param);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+			mesh.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
 
 			return mesh;
 		}
@@ -38,11 +38,11 @@ namespace CGALDotNet.Polyhedra
 		public static SurfaceMesh3<K> CreateTorus(TorusParams param)
 		{
 			points.Clear();
-			indices.Clear();
-			MeshFactory.CreateTorus(points, indices, param);
+			triangles.Clear();
+			MeshFactory.CreateTorus(points, triangles, null, param);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+			mesh.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
 
 			return mesh;
 		}
@@ -50,22 +50,22 @@ namespace CGALDotNet.Polyhedra
 		public static SurfaceMesh3<K> CreateUVSphere(UVSphereParams param)
 		{
 			points.Clear();
-			indices.Clear();
-			MeshFactory.CreateUVSphere(points, indices, param);
+			triangles.Clear();
+			MeshFactory.CreateUVSphere(points, triangles, null, param);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+			mesh.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
 
 			return mesh;
 		}
 		public static SurfaceMesh3<K> CreateNormalizedCube(NormalizedCubeParams param)
 		{
 			points.Clear();
-			indices.Clear();
-			MeshFactory.CreateNormalizedCube(points, indices, param);
+			triangles.Clear();
+			MeshFactory.CreateNormalizedCube(points, triangles, null, param);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+			mesh.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
 
 			return mesh;
 		}
@@ -73,11 +73,11 @@ namespace CGALDotNet.Polyhedra
 		public static SurfaceMesh3<K> CreateIcosahedron(double scale = 1)
 		{
 			points.Clear();
-			indices.Clear();
-			MeshFactory.CreateIcosahedron(points, indices, scale);
+			triangles.Clear();
+			MeshFactory.CreateIcosahedron(points, triangles, scale);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateTriangleMesh(points.ToArray(), indices.ToArray());
+			mesh.CreateTriangleMesh(points.ToArray(), triangles.ToArray());
 
 			return mesh;
 		}

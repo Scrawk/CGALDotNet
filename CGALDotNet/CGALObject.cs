@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CGALDotNet
 {
@@ -66,6 +67,34 @@ namespace CGALDotNet
         {
             Release();
             GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return String.Format("[CGALObject: Ptr={0}]", Ptr.ToInt64());
+        }
+
+        /// <summary>
+        /// Print the object into the console.
+        /// </summary>
+        public void Print()
+        {
+            var buider = new StringBuilder();
+            Print(buider);
+            Console.WriteLine(buider.ToString());
+        }
+
+        /// <summary>
+        /// Print the object into a string builder.
+        /// </summary>
+        /// <param name="builder">The builder to print into.</param>
+        public virtual void Print(StringBuilder builder)
+        {
+            builder.AppendLine(ToString());
         }
 
         /// <summary>

@@ -33,6 +33,15 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[PolygonOffset2<{0}>: ]", Kernel.KernelName);
+        }
+
+        /// <summary>
         /// Create a interior or exterior offset.
         /// </summary>
         /// <param name="offset">The offset type</param>

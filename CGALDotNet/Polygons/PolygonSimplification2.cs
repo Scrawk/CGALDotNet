@@ -78,6 +78,15 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[PolygonSimplification2<{0}>: ]", Kernel.KernelName);
+        }
+
+        /// <summary>
         /// Simplify the polygon.
         /// </summary>
         /// <param name="polygon">The polygon to simplify. Must be simple.</param>

@@ -51,7 +51,7 @@ namespace CGALDotNet.Meshing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[ConformingTriangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
+            return string.Format("[ConformingTriangulation2<{0}>: VertexCount={1}, TriangleCount={2}]",
                 Kernel.KernelName, VertexCount, TriangleCount);
         }
 
@@ -348,20 +348,13 @@ namespace CGALDotNet.Meshing
         /// <summary>
         /// 
         /// </summary>
-        public void Print()
-        {
-            var builder = new StringBuilder();
-            Print(builder);
-            Console.WriteLine(builder.ToString());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="builder"></param>
-        public void Print(StringBuilder builder)
+        public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
+            builder.AppendLine("VertexCount = " + VertexCount);
+            builder.AppendLine("TriangleCount = " + TriangleCount);
+            builder.AppendLine("IndiceCount = " + IndiceCount);
         }
 
         /// <summary>

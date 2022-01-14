@@ -35,15 +35,19 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract bool IsPureTrivalent(IntPtr ptr);
 
-		internal abstract bool IsPureTriangle(IntPtr ptr);
+		internal abstract int IsPureTriangle(IntPtr ptr);
 
-		internal abstract bool IsPureQuad(IntPtr ptr);
+		internal abstract int IsPureQuad(IntPtr ptr);
 
 		internal abstract void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 
 		internal abstract void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
 
-		internal abstract void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] indices, int indicesCount);
+		internal abstract void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount);
+
+		internal abstract void CreateQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] quads, int quadCount);
+
+		internal abstract void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadCount);
 
 		internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
 

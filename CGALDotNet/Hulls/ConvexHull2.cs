@@ -40,6 +40,15 @@ namespace CGALDotNet.Hulls
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("[ConvexHull2<{0}>: ]", Kernel.KernelName);
+        }
+
+        /// <summary>
         /// Find the convex of the points.
         /// </summary>
         /// <param name="points">The point array.</param>
