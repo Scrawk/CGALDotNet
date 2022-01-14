@@ -14,7 +14,7 @@ namespace CGALDotNet.Meshing
     public sealed class TetrahedralRemeshing<K> : TetrahedralRemeshing where K : CGALKernel, new()
     {
         /// <summary>
-        /// A static instance of the triangulation.
+        /// A static instance of the tetrahedral remeshing.
         /// </summary>
         public static readonly TetrahedralRemeshing<K> Instance = new TetrahedralRemeshing<K>();
 
@@ -80,7 +80,7 @@ namespace CGALDotNet.Meshing
         }
 
         /// <summary>
-        /// The conforming triangulation kernel.
+        /// The tetrahedral remeshing kernel.
         /// </summary>
         internal TetrahedralRemeshingKernel Kernel { get; private set; }
 

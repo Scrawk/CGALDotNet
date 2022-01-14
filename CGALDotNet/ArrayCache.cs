@@ -22,7 +22,19 @@ namespace CGALDotNet
         private static Point3d[] m_points3d;
 
         [ThreadStatic]
+        private static HPoint3d[] m_hpoints3d;
+
+        [ThreadStatic]
         private static int[] m_int;
+
+        public void Clear()
+        {
+            m_points2d = null;
+            m_segments2d = null;
+            m_points3d = null;
+            m_hpoints3d = null;
+            m_int = null;
+        }
 
         /// <summary>
         /// Returns a array of Point2d objects that is at least the size of count.
@@ -61,6 +73,19 @@ namespace CGALDotNet
                 m_points3d = new Point3d[count];
 
             return m_points3d;
+        }
+
+        /// <summary>
+        /// Returns a array of HPoint3d objects that is at least the size of count.
+        /// </summary>
+        /// <param name="count">The minimum size of the array.</param>
+        /// <returns>Returns a array of HPoint3d objects that is at least the size of count.</returns>
+        public static HPoint3d[] HPoint3dArray(int count)
+        {
+            if (m_hpoints3d == null || m_hpoints3d.Length < count)
+                m_hpoints3d = new HPoint3d[count];
+
+            return m_hpoints3d;
         }
 
         /// <summary>

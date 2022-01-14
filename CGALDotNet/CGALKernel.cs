@@ -60,13 +60,13 @@ namespace CGALDotNet
 
         internal abstract SurfaceMeshKernel3 SurfaceMeshKernel3 { get; }
 
-        internal abstract SurfaceMesherKernel3 SurfaceMesherKernel3 { get; }
-
         internal abstract TetrahedralRemeshingKernel TetrahedralRemeshingKernel  { get; }
 
         internal abstract SurfaceSubdivisionKernel SurfaceSubdivisionKernel { get; }
 
         internal abstract SurfaceSimplificationKernel SurfaceSimplificationKernel { get; }
+
+        internal abstract SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -117,13 +117,13 @@ namespace CGALDotNet
 
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => SurfaceMeshKernel3_EIK.Instance;
 
-        internal override SurfaceMesherKernel3 SurfaceMesherKernel3 => SurfaceMesherKernel3_EIK.Instance;
-
         internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => throw new NotImplementedException();
 
         internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => SurfaceSubdivisionKernel_EIK.Instance;
 
         internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => SurfaceSimplificationKernel_EIK.Instance;
+
+        internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -174,13 +174,13 @@ namespace CGALDotNet
 
         internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => SurfaceMeshKernel3_EEK.Instance;
 
-        internal override SurfaceMesherKernel3 SurfaceMesherKernel3 => throw new NotImplementedException();
-
         internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => TetrahedralRemeshingKernel_EEK.Instance;
 
         internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => SurfaceSubdivisionKernel_EEK.Instance;
 
         internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => throw new NotImplementedException();
+
+        internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => SkinSurfaceMeshingKernel_EEK.Instance;
     }
 
 }
