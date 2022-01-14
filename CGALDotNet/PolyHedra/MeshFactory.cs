@@ -270,8 +270,8 @@ namespace CGALDotNet.Polyhedra
 
 					if(quads != null)
                     {
-						quads.AddQuad(a, b, c, d);
-                    }
+						quads.AddQuad(d, c, b, a);
+					}
 					else
                     {
 						triangles.AddTriangle(d, b, a);
