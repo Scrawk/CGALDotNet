@@ -4,6 +4,7 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "PrimativeCount.h"
  
 #include <map>
 #include <CGAL/Polyhedron_3.h>
@@ -268,18 +269,18 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		//return (int)poly->is_pure_triangle();
 
-		for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
-		{
-			if (vert->halfedge() == nullptr) return 1;
-			if (vert->halfedge()->face() == nullptr) return 2;
-		}
+		//for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
+		//{
+		//	if (vert->halfedge() == nullptr) return 1;
+		//	if (vert->halfedge()->face() == nullptr) return 2;
+		//}
 
 		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) return 3;
-			if (face->halfedge()->vertex() == nullptr) return 4;
-			if (face->halfedge()->next() == nullptr) return 5;
-			if (face->halfedge()->prev() == nullptr) return 6;
+			//if (face->halfedge()->vertex() == nullptr) return 4;
+			//if (face->halfedge()->next() == nullptr) return 5;
+			//if (face->halfedge()->prev() == nullptr) return 6;
 			if (!face->is_triangle()) return 7;
 		}
 			
@@ -291,18 +292,18 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		//return (int)poly->is_pure_quad();
 
-		for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
-		{
-			if (vert->halfedge() == nullptr) return 1;
-			if (vert->halfedge()->face() == nullptr) return 2;
-		}
+		//for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
+		//{
+		//	if (vert->halfedge() == nullptr) return 1;
+		//	if (vert->halfedge()->face() == nullptr) return 2;
+		//}
 
 		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) return 3;
-			if (face->halfedge()->vertex() == nullptr) return 4;
-			if (face->halfedge()->next() == nullptr) return 5;
-			if (face->halfedge()->prev() == nullptr) return 6;
+			//if (face->halfedge()->vertex() == nullptr) return 4;
+			//if (face->halfedge()->next() == nullptr) return 5;
+			//if (face->halfedge()->prev() == nullptr) return 6;
 			if (!face->is_quad()) return 7;
 		}
 
@@ -375,6 +376,29 @@ public:
 		}
 	}
 
+	static PrimativeCount GetPrimativeCount(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int triangleCount = 0;
+		int quadCount = 0;
+		int polygonCount = 0;
+
+		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		{
+			if (face->halfedge() == nullptr) continue;
+
+			if (face->is_triangle())
+				triangleCount++;
+			else if (face->is_quad())
+				quadCount++;
+			else
+				polygonCount++;
+		}
+
+		return { triangleCount, quadCount, polygonCount };
+	}
+
 	static void GetTriangleIndices(void* ptr, int* indices, int count)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -390,6 +414,7 @@ public:
 		index = 0;
 		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
 		{
+			if (face->halfedge() == nullptr) continue;
 			if (!face->is_triangle()) continue;
 			
 			auto i0 = map.find(face->halfedge()->prev()->vertex()->point());
@@ -412,6 +437,50 @@ public:
 			index++;
 
 			if (index * 3 >= count) return;
+		}
+	}
+
+	static void GetQuadIndices(void* ptr, int* indices, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		int index = 0;
+
+		std::map<Point, int> map;
+
+		for (auto point = poly->points_begin(); point != poly->points_end(); ++point)
+		{
+			map.insert(std::pair<Point, int>(*point, index++));
+		}
+
+		index = 0;
+		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		{
+			if (face->halfedge() == nullptr) continue;
+			if (!face->is_quad()) continue;
+
+			auto i0 = map.find(face->halfedge()->prev()->vertex()->point());
+			auto i1 = map.find(face->halfedge()->vertex()->point());
+			auto i2 = map.find(face->halfedge()->next()->vertex()->point());
+			auto i3 = map.find(face->halfedge()->next()->next()->vertex()->point());
+
+			if (i0 == map.end() || i1 == map.end() || i2 == map.end() || i3 == map.end())
+			{
+				indices[index * 4 + 0] = NULL_INDEX;
+				indices[index * 4 + 1] = NULL_INDEX;
+				indices[index * 4 + 2] = NULL_INDEX;
+				indices[index * 4 + 3] = NULL_INDEX;
+			}
+			else
+			{
+				indices[index * 4 + 0] = i0->second;
+				indices[index * 4 + 1] = i1->second;
+				indices[index * 4 + 2] = i2->second;
+				indices[index * 4 + 3] = i3->second;
+			}
+
+			index++;
+
+			if (index * 4 >= count) return;
 		}
 	}
 

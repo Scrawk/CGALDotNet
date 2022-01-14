@@ -4,6 +4,7 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "PrimativeCount.h"
 
 extern "C"
 {
@@ -49,7 +50,11 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EIK_GetPoints(void* ptr, Point3d* points, int count);
 
+	CGALWRAPPER_API PrimativeCount Polyhedron3_EIK_GetPrimativeCount(void* ptr);
+
 	CGALWRAPPER_API void Polyhedron3_EIK_GetTriangleIndices(void* ptr, int* indices, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EIK_GetQuadIndices(void* ptr, int* indices, int count);
 
 	CGALWRAPPER_API void Polyhedron3_EIK_Transform(void* ptr, Matrix4x4d matrix);
 

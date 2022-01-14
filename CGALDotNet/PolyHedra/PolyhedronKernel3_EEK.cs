@@ -117,10 +117,20 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_GetPoints(ptr, points, count);
         }
 
+		internal override PrimativeCount GetPrimativeCount(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_GetPrimativeCount(ptr);
+        }
+
 		internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
         {
 			Polyhedron3_EEK_GetTriangleIndices(ptr, indices, count);
         }
+
+		internal override void GetQuadIndices(IntPtr ptr, int[] indices, int count)
+		{
+			Polyhedron3_EEK_GetQuadIndices(ptr, indices, count);
+		}
 
 		internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
         {
@@ -211,7 +221,13 @@ namespace CGALDotNet.Polyhedra
 		private static extern void Polyhedron3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern PrimativeCount Polyhedron3_EEK_GetPrimativeCount(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetTriangleIndices(IntPtr ptr, [Out] int[] indices, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetQuadIndices(IntPtr ptr, [Out] int[] indices, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);

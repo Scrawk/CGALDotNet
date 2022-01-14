@@ -213,7 +213,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="points">The meshes points.</param>
         /// <param name="triangles">The meshes triangles as a index array. Maybe null.</param>
-        /// <param name="quads">The meshes quads as a index array. Maybe null..</param>
+        /// <param name="quads">The meshes quads as a index array. Maybe null.</param>
         public void CreateMesh(Point3d[] points, int[] triangles, int[] quads)
         {
             bool hasTriangles = triangles != null && triangles.Length > 0;
@@ -283,8 +283,16 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Count the number of triangles, quads and polygons in the mesh.
+        /// </summary>
+        /// <returns>The number of triangles, quads and polygons in the mesh.</returns>
+        public PrimativeCount GetPrimativeCount()
+        {
+            return Kernel.GetPrimativeCount(Ptr);
+        }
+
+        /// <summary>
         /// Get the meshes triangle indices.
-        /// Presumes all faces in mesh are triangles.
         /// </summary>
         /// <param name="indices">The array to copy the indices into.</param>
         /// <param name="count">The ararys length.</param>
@@ -292,6 +300,17 @@ namespace CGALDotNet.Polyhedra
         {
             ErrorUtil.CheckArray(indices, count);
             Kernel.GetTriangleIndices(Ptr, indices, count);
+        }
+
+        /// <summary>
+        /// Get the meshes quad indices.
+        /// </summary>
+        /// <param name="indices">The array to copy the indices into.</param>
+        /// <param name="count">The ararys length.</param>
+        public void GetQuadIndices(int[] indices, int count)
+        {
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetQuadIndices(Ptr, indices, count);
         }
 
         /// <summary>

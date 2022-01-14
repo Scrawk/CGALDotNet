@@ -107,9 +107,19 @@ void Polyhedron3_EIK_GetPoints(void* ptr, Point3d* points, int count)
 	Polyhedron3<EIK>::GetPoints(ptr, points, count);
 }
 
+PrimativeCount Polyhedron3_EIK_GetPrimativeCount(void* ptr)
+{
+	return Polyhedron3<EIK>::GetPrimativeCount(ptr);
+}
+
 void Polyhedron3_EIK_GetTriangleIndices(void* ptr, int* indices, int count)
 {
 	Polyhedron3<EIK>::GetTriangleIndices(ptr, indices, count);
+}
+
+void Polyhedron3_EIK_GetQuadIndices(void* ptr, int* indices, int count)
+{
+	Polyhedron3<EIK>::GetQuadIndices(ptr, indices, count);
 }
 
 void Polyhedron3_EIK_Transform(void* ptr, Matrix4x4d matrix)

@@ -345,6 +345,9 @@
     <ClInclude Include="Processing\SurfaceSubdivision_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polyhedra\PrimativeCount.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
