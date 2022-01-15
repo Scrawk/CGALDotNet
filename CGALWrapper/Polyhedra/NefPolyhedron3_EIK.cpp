@@ -4,11 +4,6 @@
 
 #include <CGAL/Nef_polyhedron_3.h>
 
-typedef typename EIK::Point_3 Point_3;
-typedef typename EIK::Plane_3 Plane_3;
-typedef CGAL::Nef_polyhedron_3<EIK> NefPolyhedron;
-typedef Polyhedron3<EIK>::Polyhedron Polyhedron;
-
 void* NefPolyhedron3_EIK_CreateFromSpace(int space)
 {
 	return NefPolyhedron3<EIK>::CreateFromSpace(space);

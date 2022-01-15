@@ -48,7 +48,7 @@ public:
 	inline static NefPolyhedron* CreateFromPolyhedron(void* ptr)
 	{
 		auto p = Polyhedron3<K>::CastToPolyhedron(ptr);
-		return new NefPolyhedron(*p);
+		return new NefPolyhedron(p->model);
 	}
 
 	inline static void DeleteNefPolyhedron(void* ptr)
@@ -247,7 +247,7 @@ public:
 		auto nef = CastToNefPolyhedron(ptr);
 		auto poly = Polyhedron3<K>::NewPolyhedron();
 
-		nef->convert_to_polyhedron(*poly);
+		nef->convert_to_polyhedron(poly->model);
 
 		return poly;
 	}
@@ -276,7 +276,7 @@ public:
 		for (auto ci = nef->volumes_begin(); ci != nef->volumes_end(); ++ci)
 		{
 			auto poly = Polyhedron3<K>::NewPolyhedron();
-			nef->convert_inner_shell_to_polyhedron(ci->shells_begin(), *poly);
+			nef->convert_inner_shell_to_polyhedron(ci->shells_begin(), poly->model);
 
 			volumes[index++] = poly;
 

@@ -67,7 +67,7 @@ public:
 		auto list = ConvertPoints(points, count);
 		auto poly = Polyhedron3<K>::NewPolyhedron();
 
-		CGAL::convex_hull_3(list.begin(), list.end(), *poly);
+		CGAL::convex_hull_3(list.begin(), list.end(), poly->model);
 
 		return poly;
 	}
@@ -87,9 +87,9 @@ public:
 		auto list = ConvertPlanes(planes, count);
 		auto poly = Polyhedron3<K>::NewPolyhedron();
 
-		CGAL::halfspace_intersection_3(list.begin(), list.end(), *poly);
+		CGAL::halfspace_intersection_3(list.begin(), list.end(), poly->model);
 
-		return poly;
+		return nullptr;
 	}
 
 	static void* CreateHullAsSurfaceMeshFromPlanes(Plane3d* planes, int count)
@@ -105,7 +105,7 @@ public:
 	static BOOL IsPolyhedronStronglyConvex(void* ptr)
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-		return CGAL::is_strongly_convex_3(*poly);
+		return CGAL::is_strongly_convex_3(poly->model);
 	}
 
 	static BOOL IsSurfaceMeshStronglyConvex(void* ptr)

@@ -11,11 +11,11 @@ namespace CGALDotNet.Polyhedra
 	{
         internal abstract IntPtr Create();
 
-		internal abstract IntPtr CreateFromSize(int vertices, int halfedges, int faces);
-
 		internal abstract void Release(IntPtr ptr);
 
 		internal abstract void Clear(IntPtr ptr);
+
+		internal abstract IntPtr Copy(IntPtr ptr);
 
 		internal abstract int VertexCount(IntPtr ptr);
 
@@ -82,6 +82,10 @@ namespace CGALDotNet.Polyhedra
 		internal abstract Point3d Centroid(IntPtr ptr);
 
 		internal abstract double Volume(IntPtr ptr);
+
+		internal abstract bool DoesBoundAVolume(IntPtr ptr);
+
+		internal abstract bool IsOutwardOriented(IntPtr ptr);
 
 
 	}

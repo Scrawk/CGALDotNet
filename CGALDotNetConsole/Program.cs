@@ -22,6 +22,8 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
             var box = PolyhedronFactory<EEK>.CreateCube(new Box3d(-1, 1));
+
+            box.Print();
         }
 
 

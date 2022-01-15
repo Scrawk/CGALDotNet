@@ -2,14 +2,10 @@
 
 #include "Polyhedron3.h"
 
+
 void* Polyhedron3_EEK_Create()
 {
 	return Polyhedron3<EEK>::NewPolyhedron();
-}
-
-void* Polyhedron3_EEK_CreateFromSize(int vertices, int halfedges, int faces)
-{
-	return Polyhedron3<EEK>::NewPolyhedron(vertices, halfedges, faces);
 }
 
 void Polyhedron3_EEK_Release(void* ptr)
@@ -20,6 +16,11 @@ void Polyhedron3_EEK_Release(void* ptr)
 void Polyhedron3_EEK_Clear(void* ptr)
 {
 	Polyhedron3<EEK>::Clear(ptr);
+}
+
+void* Polyhedron3_EEK_Copy(void* ptr)
+{
+	return Polyhedron3<EEK>::Copy(ptr);
 }
 
 int Polyhedron3_EEK_VertexCount(void* ptr)
@@ -172,17 +173,27 @@ BOOL Polyhedron3_EEK_DoesSelfIntersect(void* ptr)
 	return Polyhedron3<EEK>::DoesSelfIntersect(ptr);
 }
 
-CGALWRAPPER_API double Polyhedron3_EEK_Area(void* ptr)
+double Polyhedron3_EEK_Area(void* ptr)
 {
 	return Polyhedron3<EEK>::Area(ptr);
 }
 
-CGALWRAPPER_API Point3d Polyhedron3_EEK_Centroid(void* ptr)
+Point3d Polyhedron3_EEK_Centroid(void* ptr)
 {
 	return Polyhedron3<EEK>::Centroid(ptr);
 }
 
-CGALWRAPPER_API double Polyhedron3_EEK_Volume(void* ptr)
+double Polyhedron3_EEK_Volume(void* ptr)
 {
 	return Polyhedron3<EEK>::Volume(ptr);
+}
+
+BOOL Polyhedron3_EEK_DoesBoundAVolume(void* ptr)
+{
+	return Polyhedron3<EEK>::DoesBoundAVolume(ptr);
+}
+
+BOOL Polyhedron3_EEK_IsOutwardOriented(void* ptr)
+{
+	return Polyhedron3<EEK>::IsOutwardOriented(ptr);
 }

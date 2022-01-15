@@ -103,4 +103,11 @@ namespace CGALDotNet
         UNDETERMINED = 2
     }
 
+    public enum BOOL_OR_UNDETERMINED
+    {
+        FALSE = 0,
+        TRUE = 1,
+        UNDETERMINED = 2
+    }
+
 }

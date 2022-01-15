@@ -17,11 +17,6 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EIK_Create();
 		}
 
-		internal override IntPtr CreateFromSize(int vertices, int halfedges, int faces)
-		{
-			return Polyhedron3_EIK_CreateFromSize(vertices, halfedges, faces);
-		}
-
 		internal override void Release(IntPtr ptr)
 		{
 			Polyhedron3_EIK_Release(ptr);
@@ -30,6 +25,11 @@ namespace CGALDotNet.Polyhedra
 		internal override void Clear(IntPtr ptr)
 		{
 			Polyhedron3_EIK_Clear(ptr);
+		}
+
+		internal override IntPtr Copy(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_Copy(ptr);
 		}
 
 		internal override int VertexCount(IntPtr ptr)
@@ -197,17 +197,27 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EIK_Volume(ptr);
 		}
 
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern IntPtr Polyhedron3_EIK_Create();
+		internal override bool DoesBoundAVolume(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_DoesBoundAVolume(ptr);
+		}
+
+		internal override bool IsOutwardOriented(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_IsOutwardOriented(ptr);
+		}
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern IntPtr Polyhedron3_EIK_CreateFromSize(int vertices, int halfedges, int faces);
+		private static extern IntPtr Polyhedron3_EIK_Create();
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EIK_Release(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EIK_Clear(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern IntPtr Polyhedron3_EIK_Copy(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern int Polyhedron3_EIK_VertexCount(IntPtr ptr);
@@ -307,5 +317,11 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern double Polyhedron3_EIK_Volume(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EIK_DoesBoundAVolume(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EIK_IsOutwardOriented(IntPtr ptr);
 	}
 }

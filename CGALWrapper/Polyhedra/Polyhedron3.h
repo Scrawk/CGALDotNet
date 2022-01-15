@@ -5,6 +5,7 @@
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
 #include "PrimativeCount.h"
+#include "MeshBuilders.h"
  
 #include <map>
 #include <CGAL/enum.h>
@@ -17,154 +18,7 @@
 #include <CGAL/Polygon_mesh_processing/orientation.h>
 #include <CGAL/Polygon_mesh_processing/self_intersections.h>
 #include <CGAL/Polygon_mesh_processing/measure.h>
-
-template <class HDS, class K>
-class BuildTriangleMesh : public CGAL::Modifier_base<HDS> 
-{
-public:
-
-	Point3d* vertices;
-
-	int verticesCount;
-
-	int* triangles;
-
-	int triangleCount;
-
-	void operator()(HDS& hds)
-	{
-		typedef typename HDS::Vertex   Vertex;
-		typedef typename Vertex::Point Point;
-
-		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds);
-
-		int numTriangles = triangleCount / 3;
-		int edges = numTriangles * 6;
-
-		B.begin_surface(verticesCount, numTriangles, edges, B.ABSOLUTE_INDEXING);
-
-		for (int i = 0; i < verticesCount; i++)
-		{
-			auto p = vertices[i].ToCGAL<K>();
-			B.add_vertex(p);
-		}
-
-		for (int i = 0; i < numTriangles; i++)
-		{
-			B.begin_facet();
-			B.add_vertex_to_facet(triangles[i * 3 + 0]);
-			B.add_vertex_to_facet(triangles[i * 3 + 1]);
-			B.add_vertex_to_facet(triangles[i * 3 + 2]);
-			B.end_facet();
-		}
-
-		B.end_surface();
-	}
-};
-
-template <class HDS, class K>
-class BuildQuadMesh : public CGAL::Modifier_base<HDS>
-{
-public:
-
-	Point3d* vertices;
-
-	int verticesCount;
-
-	int* quads;
-
-	int quadCount;
-
-	void operator()(HDS& hds)
-	{
-		typedef typename HDS::Vertex   Vertex;
-		typedef typename Vertex::Point Point;
-
-		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds);
-
-		int numQuads = quadCount / 4;
-		int edges = numQuads * 8;
-
-		B.begin_surface(verticesCount, numQuads, edges, B.ABSOLUTE_INDEXING);
-
-		for (int i = 0; i < verticesCount; i++)
-		{
-			auto p = vertices[i].ToCGAL<K>();
-			B.add_vertex(p);
-		}
-
-		for (int i = 0; i < numQuads; i++)
-		{
-			B.begin_facet();
-			B.add_vertex_to_facet(quads[i * 4 + 0]);
-			B.add_vertex_to_facet(quads[i * 4 + 1]);
-			B.add_vertex_to_facet(quads[i * 4 + 2]);
-			B.add_vertex_to_facet(quads[i * 4 + 3]);
-			B.end_facet();
-		}
-
-		B.end_surface();
-	}
-};
-
-template <class HDS, class K>
-class BuildTriangleQuadMesh : public CGAL::Modifier_base<HDS>
-{
-public:
-
-	Point3d* vertices;
-
-	int verticesCount;
-
-	int* triangles;
-
-	int triangleCount;
-
-	int* quads;
-
-	int quadCount;
-
-	void operator()(HDS& hds)
-	{
-		typedef typename HDS::Vertex   Vertex;
-		typedef typename Vertex::Point Point;
-
-		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds);
-
-		int numTriangles = triangleCount / 3;
-		int numQuads = quadCount / 4;
-		int edges = numTriangles * 6 + numQuads * 8;
-
-		B.begin_surface(verticesCount, 0, 0, B.ABSOLUTE_INDEXING);
-
-		for (int i = 0; i < verticesCount; i++)
-		{
-			auto p = vertices[i].ToCGAL<K>();
-			B.add_vertex(p);
-		}
-
-		for (int i = 0; i < numTriangles; i++)
-		{
-			B.begin_facet();
-			B.add_vertex_to_facet(triangles[i * 3 + 0]);
-			B.add_vertex_to_facet(triangles[i * 3 + 1]);
-			B.add_vertex_to_facet(triangles[i * 3 + 2]);
-			B.end_facet();
-		}
-
-		for (int i = 0; i < numQuads; i++)
-		{
-			B.begin_facet();
-			B.add_vertex_to_facet(quads[i * 4 + 0]);
-			B.add_vertex_to_facet(quads[i * 4 + 1]);
-			B.add_vertex_to_facet(quads[i * 4 + 2]);
-			B.add_vertex_to_facet(quads[i * 4 + 3]);
-			B.end_facet();
-		}
-
-		B.end_surface();
-	}
-};
+#include <CGAL/Polygon_mesh_processing/repair_polygon_soup.h>
 
 template<class K>
 class Polyhedron3
@@ -179,21 +33,26 @@ public:
 	typedef typename HalfedgeDS::Face Face;
 	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
-	Polyhedron3() {}
-
-	inline static Polyhedron* NewPolyhedron()
+	Polyhedron3() 
 	{
-		return new Polyhedron();
+
 	}
 
-	inline static Polyhedron* NewPolyhedron(int vertices, int halfedges, int faces)
+	~Polyhedron3()
 	{
-		return new Polyhedron((size_t)vertices, (size_t)halfedges, (size_t)faces);
+
+	}
+
+	Polyhedron model;
+
+	inline static Polyhedron3* NewPolyhedron()
+	{
+		return new Polyhedron3();
 	}
 
 	inline static void DeletePolyhedron(void* ptr)
 	{
-		auto obj = static_cast<Polyhedron*>(ptr);
+		auto obj = static_cast<Polyhedron3*>(ptr);
 
 		if (obj != nullptr)
 		{
@@ -202,75 +61,83 @@ public:
 		}
 	}
 
-	inline static Polyhedron* CastToPolyhedron(void* ptr)
+	inline static Polyhedron3* CastToPolyhedron(void* ptr)
 	{
-		return static_cast<Polyhedron*>(ptr);
+		return static_cast<Polyhedron3*>(ptr);
 	}
-
+	
 	static void Clear(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->clear();
+		poly->model.clear();
+	}
+
+	static void* Copy(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		auto copy = NewPolyhedron();
+		copy->model = poly->model;
+		return copy;
 	}
 
 	static int VertexCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->size_of_vertices();
+		return (int)poly->model.size_of_vertices();
 	}
 
 	static int FaceCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->size_of_facets();
+		return (int)poly->model.size_of_facets();
 	}
 
 	static int HalfEdgeCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->size_of_halfedges();
+		return (int)poly->model.size_of_halfedges();
 	}
 
 	static int BorderEdgeCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->size_of_border_edges();
+		return (int)poly->model.size_of_border_edges();
 	}
 
 	static int BorderHalfEdgeCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->size_of_border_halfedges();
+		return (int)poly->model.size_of_border_halfedges();
 	}
 
 	static BOOL IsValid(void* ptr, int level)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->is_valid(level);
+		return (int)poly->model.is_valid(level);
 	}
 
 	static BOOL IsClosed(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->is_closed();
+		return (int)poly->model.is_closed();
 	}
 
 	static BOOL IsPureBivalent(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->is_pure_bivalent();
+		return (int)poly->model.is_pure_bivalent();
 	}
 
 	static BOOL IsPureTrivalent(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return (int)poly->is_pure_trivalent();
+		return (int)poly->model.is_pure_trivalent();
 	}
 
 	static int IsPureTriangle(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		//return (int)poly->is_pure_triangle();
+		//return (int)poly->model.is_pure_triangle();
 
 		//for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
 		//{
@@ -278,7 +145,7 @@ public:
 		//	if (vert->halfedge()->face() == nullptr) return 2;
 		//}
 
-		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) return 3;
 			//if (face->halfedge()->vertex() == nullptr) return 4;
@@ -293,7 +160,7 @@ public:
 	static int IsPureQuad(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		//return (int)poly->is_pure_quad();
+		//return (int)poly->model.is_pure_quad();
 
 		//for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
 		//{
@@ -301,7 +168,7 @@ public:
 		//	if (vert->halfedge()->face() == nullptr) return 2;
 		//}
 
-		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) return 3;
 			//if (face->halfedge()->vertex() == nullptr) return 4;
@@ -316,13 +183,13 @@ public:
 	static void MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->make_tetrahedron(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>(), p4.ToCGAL<K>());
+		poly->model.make_tetrahedron(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>(), p4.ToCGAL<K>());
 	}
 
 	static void MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
+		poly->model.make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
 	}
 
 	static void CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount)
@@ -335,7 +202,7 @@ public:
 		builder.triangles = triangles;
 		builder.triangleCount = triangleCount;
 
-		poly->delegate(builder);
+		poly->model.delegate(builder);
 	}
 
 	static void CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount)
@@ -348,7 +215,7 @@ public:
 		builder.quads = quads;
 		builder.quadCount = quadCount;
 
-		poly->delegate(builder);
+		poly->model.delegate(builder);
 	}
 
 	static void CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount)
@@ -363,7 +230,7 @@ public:
 		builder.quads = quads;
 		builder.quadCount = quadCount;
 
-		poly->delegate(builder);
+		poly->model.delegate(builder);
 	}
 
 	static void GetPoints(void* ptr, Point3d* points, int count)
@@ -371,7 +238,7 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		int i = 0;
 
-		for (auto point = poly->points_begin(); point != poly->points_end(); ++point)
+		for (auto point = poly->model.points_begin(); point != poly->model.points_end(); ++point)
 		{
 			points[i++] = Point3d::FromCGAL<K>(*point);
 
@@ -387,7 +254,7 @@ public:
 		int quadCount = 0;
 		int polygonCount = 0;
 
-		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) continue;
 
@@ -409,13 +276,13 @@ public:
 
 		std::map<Point, int> map;
 
-		for (auto point = poly->points_begin(); point != poly->points_end(); ++point)
+		for (auto point = poly->model.points_begin(); point != poly->model.points_end(); ++point)
 		{
 			map.insert(std::pair<Point, int>(*point, index++));
 		}
 
 		index = 0;
-		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) continue;
 			if (!face->is_triangle()) continue;
@@ -450,13 +317,13 @@ public:
 
 		std::map<Point, int> map;
 
-		for (auto point = poly->points_begin(); point != poly->points_end(); ++point)
+		for (auto point = poly->model.points_begin(); point != poly->model.points_end(); ++point)
 		{
 			map.insert(std::pair<Point, int>(*point, index++));
 		}
 
 		index = 0;
-		for (auto face = poly->facets_begin(); face != poly->facets_end(); ++face)
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) continue;
 			if (!face->is_quad()) continue;
@@ -492,81 +359,93 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		auto m = matrix.ToCGAL<K>();
 
-		std::transform(poly->points_begin(), poly->points_end(), poly->points_begin(), m);
+		std::transform(poly->model.points_begin(), poly->model.points_end(), poly->model.points_begin(), m);
 	}
 
 	static void InsideOut(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->inside_out();
+		poly->model.inside_out();
 	}
 
 	static void Triangulate(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		CGAL::Polygon_mesh_processing::triangulate_faces(*poly);
+		CGAL::Polygon_mesh_processing::triangulate_faces(poly->model);
 	}
 
 	static void NormalizeBorder(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->normalize_border();
+		poly->model.normalize_border();
 	}
 
 	static BOOL NormalizedBorderIsValid(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return poly->normalized_border_is_valid();
+		return poly->model.normalized_border_is_valid();
 	}
 
 	static CGAL::Bounded_side SideOfTriangleMesh(void* ptr, const Point3d& point)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		CGAL::Side_of_triangle_mesh<Polyhedron, K> inside(*poly);
+		CGAL::Side_of_triangle_mesh<Polyhedron, K> inside(poly->model);
 		return inside(point.ToCGAL<K>());
 	}
 
 	static void Orient(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		CGAL::Polygon_mesh_processing::orient(*poly);
+		CGAL::Polygon_mesh_processing::orient(poly->model);
 	}
 
 	static void OrientToBoundingVolume(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(*poly);
+		CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(poly->model);
 	}
 
 	static void ReverseFaceOrientations(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		CGAL::Polygon_mesh_processing::reverse_face_orientations(*poly);
+		CGAL::Polygon_mesh_processing::reverse_face_orientations(poly->model);
 	}
 
 	static BOOL DoesSelfIntersect(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return CGAL::Polygon_mesh_processing::does_self_intersect(*poly);
+		return CGAL::Polygon_mesh_processing::does_self_intersect(poly->model);
 	}
 
 	static double Area(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return CGAL::to_double(CGAL::Polygon_mesh_processing::area(*poly));
+		return CGAL::to_double(CGAL::Polygon_mesh_processing::area(poly->model));
 	}
 
 	static Point3d Centroid(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		auto p = CGAL::Polygon_mesh_processing::centroid(*poly);
+		auto p = CGAL::Polygon_mesh_processing::centroid(poly->model);
 		return Point3d::FromCGAL<K>(p);
 	}
 
 	static double Volume(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		return CGAL::to_double(CGAL::Polygon_mesh_processing::volume(*poly));
+		return CGAL::to_double(CGAL::Polygon_mesh_processing::volume(poly->model));
+	}
+
+	static BOOL DoesBoundAVolume(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return CGAL::Polygon_mesh_processing::does_bound_a_volume(poly->model);
+	}
+
+	static BOOL IsOutwardOriented(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return CGAL::Polygon_mesh_processing::is_outward_oriented(poly->model);
 	}
 
 };

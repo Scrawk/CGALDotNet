@@ -37,30 +37,29 @@ public:
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
-		CGAL::Subdivision_method_3::CatmullClark_subdivision(*poly, param);
+		CGAL::Subdivision_method_3::CatmullClark_subdivision(poly->model, param);
 	}
 
-	/*
 	static void SubdivePolyhedron_DooSabin(void* polyPtr, int iterations)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
-		auto param = CGAL::parameters::number_of_iterations(iterations);
-		CGAL::Subdivision_method_3::DooSabin_subdivision(*poly, param);
+		//auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
+		//auto param = CGAL::parameters::number_of_iterations(iterations);
+		//CGAL::Subdivision_method_3::DooSabin_subdivision(poly->model, param);
 	}
-	*/
+
 
 	static void SubdivePolyhedron_Loop(void* polyPtr, int iterations)
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
-		CGAL::Subdivision_method_3::Loop_subdivision(*poly, param);
+		CGAL::Subdivision_method_3::Loop_subdivision(poly->model, param);
 	}
 
 	static void SubdivePolyhedron_Sqrt3(void* polyPtr, int iterations)
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
-		CGAL::Subdivision_method_3::Sqrt3_subdivision(*poly, param);
+		CGAL::Subdivision_method_3::Sqrt3_subdivision(poly->model, param);
 	}
 
 };

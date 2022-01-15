@@ -11,8 +11,8 @@ namespace CGALDotNet.Polyhedra
 
     /// <summary>
     /// Generic polyhedron definition.
-    /// A polyhedral surface Polyhedron_3 consists of vertices V, edges E, 
-    /// facets F and an incidence relation on them.
+    /// A polyhedral surface Polyhedron_3 consists of vertices, edges, 
+    /// facets and an incidence relation on them.
     //  Each edge is represented by two halfedges with opposite orientations.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
@@ -46,6 +46,15 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Create a deep copy of the polyhedron.
+        /// </summary>
+        /// <returns>A deep copy of the polyhedron.</returns>
+        public Polyhedron3<K> Copy()
+        {
+            return new Polyhedron3<K>(Kernel.Copy(Ptr));
+        }
+
+        /// <summary>
         /// Subdive the polyhedron.
         /// </summary>
         /// <param name="iterations">The number of iterations to perfrom.</param>
@@ -56,6 +65,7 @@ namespace CGALDotNet.Polyhedra
             {
                 var sub = SubdivisionSurface<K>.Instance;
                 sub.Subdivide(method, this, iterations);
+                IsUpdated = false;
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { };
@@ -71,6 +81,7 @@ namespace CGALDotNet.Polyhedra
             {
                 var sim = SurfaceSimplification<K>.Instance;
                 sim.Simplify(this, stop_ratio);
+                IsUpdated = false;
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { };
@@ -83,6 +94,13 @@ namespace CGALDotNet.Polyhedra
     /// </summary>
     public abstract class Polyhedron3 : CGALObject
     {
+        /// <summary>
+        /// Cached values found by running Update.
+        /// </summary>
+        private bool m_isValid;
+        private bool m_isClosed;
+        private bool m_isTriangle;
+        private bool m_isQuad;
 
         /// <summary>
         /// Default constructor.
@@ -146,29 +164,74 @@ namespace CGALDotNet.Polyhedra
         public int BorderHalfEdgeCount => Kernel.BorderHalfEdgeCount(Ptr);
 
         /// <summary>
+        /// Returns true if the polyhedral surface is combinatorially consistent.
+        /// Must be a valid mesh to check many other properties.
+        /// </summary>
+        public bool IsValid
+        {
+            get
+            {
+                Update();
+                return m_isValid;
+            }
+            protected set
+            {
+                m_isValid = value;
+            }
+        }
+
+        /// <summary>
         /// Returns true if there are no border edges.
         /// </summary>
-        public bool IsClosed => Kernel.IsClosed(Ptr);
-
-        /// <summary>
-        /// Returns true if all vertices have exactly two incident edges.
-        /// </summary>
-        public bool IsBivalent => Kernel.IsPureBivalent(Ptr);
-
-        /// <summary>
-        /// Returns true if all vertices have exactly three incident edges.
-        /// </summary>
-        public bool IsTrivalent => Kernel.IsPureTrivalent(Ptr);
+        public bool IsClosed
+        {
+            get
+            {
+                Update();
+                return m_isClosed;
+            }
+            protected set
+            {
+                m_isClosed = value;
+            }
+        }
 
         /// <summary>
         /// Returns true if all faces are triangles.
         /// </summary>
-        public bool IsTriangle => Kernel.IsPureTriangle(Ptr) == 0;
+        public bool IsTriangle
+        {
+            get
+            {
+                Update();
+                return m_isTriangle;
+            }
+            protected set
+            {
+                m_isTriangle = value;
+            }
+        }
 
         /// <summary>
         /// Returns true if all faces are quads.
         /// </summary>
-        public bool IsQuad => Kernel.IsPureQuad(Ptr) == 0;
+        public bool IsQuad
+        {
+            get
+            {
+                Update();
+                return m_isQuad;
+            }
+            protected set
+            {
+                m_isQuad = value;
+            }
+        }
+
+        /// <summary>
+        /// Has the update function been called.
+        /// </summary>
+        protected bool IsUpdated { get; set; }
 
         /// <summary>
         /// returns true if the polyhedral surface is combinatorially consistent.
@@ -177,7 +240,7 @@ namespace CGALDotNet.Polyhedra
         // two incident facets of a non-border edge are distinct.
         /// </summary>
         /// <returns></returns>
-        public bool IsValid(int level = 0)
+        public bool FindIfValid(int level = 0)
         {
             return Kernel.IsValid(Ptr, level);
         }
@@ -188,6 +251,7 @@ namespace CGALDotNet.Polyhedra
         public void Clear()
         {
             Kernel.Clear(Ptr);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -197,6 +261,7 @@ namespace CGALDotNet.Polyhedra
         public void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
         {
             Kernel.MakeTetrahedron(Ptr, p1, p2, p3, p4);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -206,6 +271,7 @@ namespace CGALDotNet.Polyhedra
         public void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
         {
             Kernel.MakeTriangle(Ptr, p1, p2, p3);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -238,6 +304,7 @@ namespace CGALDotNet.Polyhedra
             ErrorUtil.CheckArray(triangles, triangles.Length);
 
             Clear();
+            IsUpdated = false;
             Kernel.CreateTriangleMesh(Ptr, points, points.Length, triangles, triangles.Length);
         }
 
@@ -252,6 +319,7 @@ namespace CGALDotNet.Polyhedra
             ErrorUtil.CheckArray(quads, quads.Length);
 
             Clear();
+            IsUpdated = false;
             Kernel.CreateQuadMesh(Ptr, points, points.Length, quads, quads.Length);
         }
 
@@ -268,6 +336,7 @@ namespace CGALDotNet.Polyhedra
             ErrorUtil.CheckArray(quads, quads.Length);
 
             Clear();
+            IsUpdated = false;
             Kernel.CreateTriangleQuadMesh(Ptr, points, points.Length, triangles, triangles.Length, quads, quads.Length);
         }
 
@@ -321,6 +390,7 @@ namespace CGALDotNet.Polyhedra
         {
             var m = Matrix4x4d.Translate(translation);
             Kernel.Transform(Ptr, m);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -331,6 +401,7 @@ namespace CGALDotNet.Polyhedra
         {
             var m = rotation.ToMatrix4x4d();
             Kernel.Transform(Ptr, m);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -341,6 +412,7 @@ namespace CGALDotNet.Polyhedra
         {
             var m = Matrix4x4d.Scale(scale);
             Kernel.Transform(Ptr, m);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -353,6 +425,7 @@ namespace CGALDotNet.Polyhedra
         {
             var m = Matrix4x4d.TranslateRotateScale(translation, rotation, scale);
             Kernel.Transform(Ptr, m);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -360,7 +433,10 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         internal void InsideOut()
         {
+            if (!IsValid) return;
+
             Kernel.InsideOut(Ptr);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -368,7 +444,10 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         public void Triangulate()
         {
+            if (!IsValid) return;
+
             Kernel.Triangulate(Ptr);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -378,7 +457,10 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         public void NormalizeBorder()
         {
+            if (!IsValid) return;
+
             Kernel.NormalizeBorder(Ptr);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -394,13 +476,19 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// 
+        /// Find what side of the polyhedron the lies in.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point to check.</param>
+        /// <returns>ON_BOUNDED_SIDE if point inside mesh, 
+        /// ON_UNBOUNDED_SIDE if point not inside, 
+        /// ON_BOUNDARY if point is on the surface.</returns>
         public BOUNDED_SIDE BoundedSide(Point3d point)
         {
-            return Kernel.SideOfTriangleMesh(Ptr, point);
+            if (IsValid) 
+                return Kernel.SideOfTriangleMesh(Ptr, point);
+            else
+                return BOUNDED_SIDE.UNDETERMINED;
+
         }
 
         /// <summary>
@@ -412,6 +500,9 @@ namespace CGALDotNet.Polyhedra
         public bool ContainsPoint(Point3d point, bool includeBoundary = true)
         {
             var side = BoundedSide(point);
+
+            if (side == BOUNDED_SIDE.UNDETERMINED)
+                return false;
 
             if (side == BOUNDED_SIDE.ON_BOUNDED_SIDE)
                 return true;
@@ -429,7 +520,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         public void Orient()
         {
+            if (!IsValid) return;
             Kernel.Orient(Ptr);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -439,7 +532,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         public void OrientToBoundingVolume()
         {
+            if (!IsValid) return;
             Kernel.OrientToBoundingVolume(Ptr);
+            IsUpdated = false;
         }
 
         /// <summary>
@@ -451,47 +546,153 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         public void ReverseOreintation()
         {
+            if (!IsValid) return;
             Kernel.ReverseFaceOrientations(Ptr);
+            IsUpdated = false;
         }
 
         /// <summary>
         /// Tests if a set of faces of a triangulated surface mesh self-intersects.
         /// Must be a triangle mesh.
         /// </summary>
-        /// <returns>True if the mesh self intersects.</returns>
-        public bool DoesSelfIntersect()
+        /// <returns>True/Fasle if a valid triangle polyhedra,or UNDETERMINED if not.</returns>
+        public BOOL_OR_UNDETERMINED DoesSelfIntersect()
         {
-            return Kernel.DoesSelfIntersect(Ptr);
+            if (IsValid && IsTriangle)
+                return Kernel.DoesSelfIntersect(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
 
         /// <summary>
         /// Computes the area of a range of faces
         /// of a given triangulated surface mesh.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The area or 0 if poyhedron is not valid triangle mesh.</returns>
         public double FindArea()
         {
-            return Kernel.Area(Ptr);
+            if (IsValid && IsTriangle)
+                return Kernel.Area(Ptr);
+            else
+                return 0;
+
         }
 
         /// <summary>
         /// computes the centroid of a volume bounded 
         /// by a closed triangulated surface mesh.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The centroid or 0 if poyhedron is not valid.</returns>
         public Point3d FindCentroid()
         {
-            return Kernel.Centroid(Ptr);
+            if (IsValid)
+                return Kernel.Centroid(Ptr);
+            else
+                return Point3d.Zero;
         }
 
         /// <summary>
         /// Computes the volume of the domain bounded by a 
         /// closed triangulated surface mesh.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The volume or 0 if poyhedron is not valid closed triangle mesh.</returns>
         public double FindVolume()
         {
-            return Kernel.Volume(Ptr);
+            if (IsValid && IsTriangle && IsClosed)
+                return Kernel.Volume(Ptr);
+            else
+                return 0;
+        }
+
+        /// <summary>
+        /// Returns true if there are no border edges.
+        /// </summary>
+        /// <returns>True/Fasle if valid, or UNDETERMINED if not a valid polyhedra.</returns>
+        public BOOL_OR_UNDETERMINED FindIfClosed()
+        {
+            if (IsValid)
+                return Kernel.IsClosed(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else 
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// Returns true if all vertices have exactly two incident edges.
+        /// </summary>
+        /// <returns>True/Fasle if valid, or UNDETERMINED if not a valid polyhedra.</returns>
+        public BOOL_OR_UNDETERMINED FindIfBivalent()
+        {
+            if (IsValid)
+                return Kernel.IsPureBivalent(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// Returns true if all vertices have exactly three incident edges.
+        /// </summary>
+        /// <returns>True/Fasle if valid, or UNDETERMINED if not a valid polyhedra.</returns>
+        public BOOL_OR_UNDETERMINED FindIfTrivalent()
+        {
+            if (IsValid)
+                return Kernel.IsPureTrivalent(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// Returns true if all faces are triangles.
+        /// </summary>
+        /// <returns>True/Fasle if valid, or UNDETERMINED if not a valid polyhedra.</returns>
+        public BOOL_OR_UNDETERMINED FindIfTriangleMesh()
+        {
+            if (IsValid)
+                return Kernel.IsPureTriangle(Ptr) == 0 ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// Returns true if all faces are quads.
+        /// </summary>
+        /// <returns>True/Fasle if valid, or UNDETERMINED if not a valid polyhedra.</returns>
+        public BOOL_OR_UNDETERMINED FindIfQuadMesh()
+        {
+            if (IsValid)
+                return Kernel.IsPureQuad(Ptr) == 0 ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// Indicates if the polyhedron bounds a volume.
+        /// Must be a closed and triangulated.
+        /// </summary>
+        /// <returns>True/Fasle if a valid triangle closed polyhedra,or UNDETERMINED if not.</returns>
+        public BOOL_OR_UNDETERMINED FindIfDoesBoundAVolume()
+        {
+            if (IsValid && IsTriangle && IsClosed)
+                return Kernel.DoesBoundAVolume(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// Tests whether a closed triangle mesh has a positive orientation.
+        /// A closed triangle mesh is considered to have a positive orientation 
+        /// if the normal vectors to all its faces point outside the domain 
+        /// bounded by the triangle mesh.The normal vector to each face is 
+        /// chosen pointing on the side of the face where its sequence of 
+        /// vertices is seen counterclockwise.
+        /// Must be a closed triangle mesh free from self-intersections to be tested.
+        /// </summary>
+        /// <returns>True/Fasle if a valid triangle closed polyhedra,or UNDETERMINED if not.</returns>
+        public BOOL_OR_UNDETERMINED FindIfIsOutwardOriented()
+        {
+            if (IsValid && IsTriangle && IsClosed)
+                return Kernel.IsOutwardOriented(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
 
         /// <summary>
@@ -508,28 +709,52 @@ namespace CGALDotNet.Polyhedra
         public abstract void Simplify(double stop_ratio);
 
         /// <summary>
+        /// Update the polyhedron if needed.
+        /// </summary>
+        protected void Update()
+        {
+            if (IsUpdated) return;
+            IsUpdated = true;
+
+            if (FindIfValid())
+            {
+                m_isValid = true;
+                m_isClosed = FindIfClosed() == BOOL_OR_UNDETERMINED.TRUE;
+                m_isTriangle = FindIfTriangleMesh() == BOOL_OR_UNDETERMINED.TRUE;
+                m_isQuad = FindIfQuadMesh() == BOOL_OR_UNDETERMINED.TRUE;
+            }
+            else
+            {
+                m_isValid = false;
+                m_isClosed = false;
+                m_isTriangle = false;
+                m_isQuad = false;   
+            }
+        }
+
+        /// <summary>
         /// Print the polyhedron into a string builder.
         /// </summary>
         /// <param name="builder"></param>
         public override void Print(StringBuilder builder)
         {
-            bool isValid = IsValid();
-
+            Update();
             builder.AppendLine(ToString());
             builder.AppendLine("HalfEdgeCount = " + HalfEdgeCount);
             builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
             builder.AppendLine("BorderHalfEdgeCount = " + BorderHalfEdgeCount);
-            builder.AppendLine("IsValid = " + isValid);
+            builder.AppendLine("IsValid = " + IsValid);
             builder.AppendLine("NormalizedBorderIsValid = " + NormalizedBorderIsValid());
             builder.AppendLine("IsClosed = " + IsClosed);
-
-            if (isValid)
-            {
-                builder.AppendLine("IsBivalent = " + IsBivalent);
-                builder.AppendLine("IsTrivalent= " + IsTrivalent);
-                builder.AppendLine("IsTriangle = " + IsTriangle);
-                builder.AppendLine("IsQuad = " + IsQuad);
-            }
+            builder.AppendLine("IsTriangle = " + IsTriangle);
+            builder.AppendLine("IsQuad = " + IsQuad);
+            builder.AppendLine("IsBivalent = " + FindIfBivalent());
+            builder.AppendLine("IsTrivalent = " + FindIfTrivalent());
+            builder.AppendLine("DoesSelfIntersect = " + DoesSelfIntersect());
+            builder.AppendLine("Area = " + FindArea());
+            builder.AppendLine("Volume = " + FindVolume());
+            builder.AppendLine("DoesBoundAVolume = " + FindIfDoesBoundAVolume());
+            builder.AppendLine("IsOutwardOriented = " + FindIfIsOutwardOriented());
         }
 
         /// <summary>

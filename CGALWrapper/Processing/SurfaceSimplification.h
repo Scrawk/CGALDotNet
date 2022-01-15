@@ -39,10 +39,10 @@ public:
 
 	static void SimplifyPolyhedron(void* polyPtr, double stop_ratio)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
+		//auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
 
-		CGAL::Surface_mesh_simplification::Count_ratio_stop_predicate<Polyhedron> stop(stop_ratio);
-		CGAL::Surface_mesh_simplification::edge_collapse(*poly, stop);
+		//CGAL::Surface_mesh_simplification::Count_ratio_stop_predicate<Polyhedron> stop(stop_ratio);
+		//CGAL::Surface_mesh_simplification::edge_collapse(*poly, stop);
 	}
 
 };

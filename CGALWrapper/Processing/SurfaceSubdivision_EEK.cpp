@@ -25,3 +25,8 @@ void SurfaceSubdivision_EEK_SubdivePolyhedron_Sqrt3(void* polyPtr, int iteration
 {
 	SurfaceSubdivision<EEK>::SubdivePolyhedron_Sqrt3(polyPtr, iterations);
 }
+
+void SurfaceSubdivision_EEK_SubdivePolyhedron_DooSabin(void* polyPtr, int iterations)
+{
+	SurfaceSubdivision<EEK>::SubdivePolyhedron_DooSabin(polyPtr, iterations);
+}

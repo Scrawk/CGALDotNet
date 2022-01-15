@@ -21,7 +21,7 @@ namespace CGALDotNet.Polyhedra
         {
             if (!CheckInput) return;
 
-            if (!polyhedron.IsValid())
+            if (!polyhedron.FindIfValid())
                 throw new Exception("polyhedron is not valid.");
         }
 
@@ -33,7 +33,7 @@ namespace CGALDotNet.Polyhedra
         {
             if (!CheckInput) return;
 
-            if (!polyhedron.IsValid())
+            if (!polyhedron.FindIfValid())
                 throw new Exception("polyhedron is not valid.");
 
            // if (!polyhedron.IsTriangle)
