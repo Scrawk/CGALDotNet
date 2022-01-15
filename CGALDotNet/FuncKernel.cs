@@ -12,18 +12,7 @@ namespace CGALDotNet
 
         protected const CallingConvention CDECL = CallingConvention.Cdecl;
 
-        internal string KernelName
-        {
-            get
-            {
-                var str = GetType().Name.Split("_");
-
-                if (str.Length == 2)
-                    return str[1];
-                else
-                    return "";
-            }
-        }
+        internal abstract string KernelName { get; }
 
     }
 }

@@ -6,6 +6,8 @@ namespace CGALDotNet.Geometry
 {
     internal class GeometryKernel2_EEK : GeometryKernel2
     {
+        internal override string KernelName => "EEK";
+
         internal static readonly GeometryKernel2 Instance = new GeometryKernel2_EEK();
 
         internal override IntPtr IsoRectangle_Create(Point2d min, Point2d max)

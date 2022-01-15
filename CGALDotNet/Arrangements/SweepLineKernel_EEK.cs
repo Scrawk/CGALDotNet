@@ -9,6 +9,8 @@ namespace CGALDotNet.Arrangements
 {
     internal class SweepLineKernel_EEK : SweepLineKernel
     {
+        internal override string KernelName => "EEK";
+
         internal static readonly SweepLineKernel Instance = new SweepLineKernel_EEK();
 
         internal override IntPtr Create()

@@ -9,6 +9,8 @@ namespace CGALDotNet.Arrangements
 {
     internal class ArrangementKernel2_EEK : ArrangementKernel2
     {
+        internal override string KernelName => "EEK";
+
         internal static readonly ArrangementKernel2 Instance = new ArrangementKernel2_EEK();
 
         internal override IntPtr Create()

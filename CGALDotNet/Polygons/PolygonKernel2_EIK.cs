@@ -11,6 +11,8 @@ namespace CGALDotNet.Polygons
     internal class PolygonKernel2_EIK : PolygonKernel2
     {
 
+        internal override string KernelName => "EIK";
+
         internal static readonly PolygonKernel2 Instance = new PolygonKernel2_EIK();
 
         internal override IntPtr Create()

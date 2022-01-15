@@ -8,6 +8,7 @@ namespace CGALDotNet.Meshing
 {
     internal class SkinSurfaceMeshingKernel_EEK : SkinSurfaceMeshingKernel
     {
+        internal override string KernelName => "EEK";
 
         internal static readonly SkinSurfaceMeshingKernel Instance = new SkinSurfaceMeshingKernel_EEK();
 

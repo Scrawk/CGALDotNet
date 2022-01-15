@@ -9,6 +9,7 @@ namespace CGALDotNet.Triangulations
 {
     internal class ConstrainedTriangulationKernel2_EEK : ConstrainedTriangulationKernel2
     {
+        internal override string KernelName => "EEK";
 
         internal static readonly ConstrainedTriangulationKernel2 Instance = new ConstrainedTriangulationKernel2_EEK();
 

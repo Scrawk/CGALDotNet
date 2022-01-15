@@ -9,6 +9,7 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonPartitionKernel2_EEK : PolygonPartitionKernel2
     {
+        internal override string KernelName => "EEK";
 
         internal static readonly PolygonPartitionKernel2 Instance = new PolygonPartitionKernel2_EEK();
 

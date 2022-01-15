@@ -6,6 +6,7 @@ namespace CGALDotNet.Processing
 {
     internal class SurfaceSimplificationKernel_EIK : SurfaceSimplificationKernel
     {
+        internal override string KernelName => "EIK";
 
         internal static readonly SurfaceSimplificationKernel Instance = new SurfaceSimplificationKernel_EIK();
 

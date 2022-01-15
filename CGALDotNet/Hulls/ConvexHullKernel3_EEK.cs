@@ -10,6 +10,8 @@ namespace CGALDotNet.Hulls
 {
     internal class ConvexHullKernel3_EEK : ConvexHullKernel3
     {
+        internal override string KernelName => "EEK";
+
         internal static readonly ConvexHullKernel3 Instance = new ConvexHullKernel3_EEK();
 
         internal override IntPtr Create()

@@ -9,6 +9,7 @@ namespace CGALDotNet.Triangulations
 {
     internal class DelaunayTriangulationKernel3_EEK : DelaunayTriangulationKernel3
     {
+        internal override string KernelName => "EEK";
 
         internal static readonly DelaunayTriangulationKernel3 Instance = new DelaunayTriangulationKernel3_EEK();
 

@@ -6,6 +6,8 @@ namespace CGALDotNet.Processing
 {
     internal class SurfaceSubdivisionKernel_EEK : SurfaceSubdivisionKernel
     {
+        internal override string KernelName => "EEK";
+
         internal static readonly SurfaceSubdivisionKernel Instance = new SurfaceSubdivisionKernel_EEK();
 
         internal override IntPtr Create()

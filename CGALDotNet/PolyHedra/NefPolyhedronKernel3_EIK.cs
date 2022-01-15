@@ -8,6 +8,7 @@ namespace CGALDotNet.Polyhedra
 {
 	internal class NefPolyhedronKernel3_EIK : NefPolyhedronKernel3
 	{
+		internal override string KernelName => "EIK";
 
 		internal static readonly NefPolyhedronKernel3 Instance = new NefPolyhedronKernel3_EIK();
 

@@ -6,6 +6,8 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonMinkowskiKernel_EEK : PolygonMinkowskiKernel
     {
+        internal override string KernelName => "EEK";
+
         internal static readonly PolygonMinkowskiKernel Instance = new PolygonMinkowskiKernel_EEK();
 
         internal override IntPtr Create()

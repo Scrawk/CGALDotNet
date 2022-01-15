@@ -9,6 +9,8 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonOffsetKernel2_EEK : PolygonOffsetKernel2
     {
+        internal override string KernelName => "EEK";
+
         internal static readonly PolygonOffsetKernel2 Instance = new PolygonOffsetKernel2_EEK();
 
         internal override IntPtr Create()

@@ -802,7 +802,10 @@ namespace CGALDotNet.Polyhedra
         public override void Print(StringBuilder builder)
         {
             Update();
+
             builder.AppendLine(ToString());
+            builder.AppendLine("VertexCount = " + VertexCount);
+            builder.AppendLine("FaceCount= " + FaceCount);
             builder.AppendLine("HalfEdgeCount = " + HalfEdgeCount);
             builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
             builder.AppendLine("BorderHalfEdgeCount = " + BorderHalfEdgeCount);

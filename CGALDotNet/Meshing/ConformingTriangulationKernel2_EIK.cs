@@ -9,6 +9,8 @@ namespace CGALDotNet.Meshing
 {
 	internal class ConformingTriangulationKernel2_EIK : ConformingTriangulationKernel2
 	{
+		internal override string KernelName => "EIK";
+
 		internal static readonly ConformingTriangulationKernel2 Instance = new ConformingTriangulationKernel2_EIK();
 
 		internal override IntPtr Create()

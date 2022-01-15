@@ -6,6 +6,7 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonBooleanKernel2_EIK : PolygonBooleanKernel2
     {
+        internal override string KernelName => "EIK";
 
         internal static readonly PolygonBooleanKernel2 Instance = new PolygonBooleanKernel2_EIK();
 

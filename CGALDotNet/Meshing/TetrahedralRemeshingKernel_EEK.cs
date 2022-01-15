@@ -8,6 +8,8 @@ namespace CGALDotNet.Meshing
 {
     internal class TetrahedralRemeshingKernel_EEK : TetrahedralRemeshingKernel
 	{
+		internal override string KernelName => "EEK";
+
 		internal static readonly TetrahedralRemeshingKernel Instance = new TetrahedralRemeshingKernel_EEK();
 
 		internal override IntPtr Create()
