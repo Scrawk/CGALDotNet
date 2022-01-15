@@ -197,3 +197,18 @@ BOOL Polyhedron3_EEK_IsOutwardOriented(void* ptr)
 {
 	return Polyhedron3<EEK>::IsOutwardOriented(ptr);
 }
+
+void Polyhedron3_EEK_BuildAABBTree(void* ptr)
+{
+	Polyhedron3<EEK>::BuildAABBTree(ptr);
+}
+
+void Polyhedron3_EEK_ReleaseAABBTree(void* ptr)
+{
+	Polyhedron3<EEK>::ReleaseAABBTree(ptr);
+}
+
+BOOL Polyhedron3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides)
+{
+	return Polyhedron3<EEK>::DoIntersects(ptr, otherPtr, test_bounded_sides);
+}

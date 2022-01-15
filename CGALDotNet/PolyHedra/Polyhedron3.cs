@@ -559,7 +559,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED DoesSelfIntersect()
         {
             if (IsValid && IsTriangle)
-                return Kernel.DoesSelfIntersect(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return Kernel.DoesSelfIntersect(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -611,7 +611,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfClosed()
         {
             if (IsValid)
-                return Kernel.IsClosed(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return Kernel.IsClosed(Ptr).ToBoolOrUndetermined();
             else 
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -623,7 +623,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfBivalent()
         {
             if (IsValid)
-                return Kernel.IsPureBivalent(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return Kernel.IsPureBivalent(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -635,7 +635,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfTrivalent()
         {
             if (IsValid)
-                return Kernel.IsPureTrivalent(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return Kernel.IsPureTrivalent(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -647,7 +647,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfTriangleMesh()
         {
             if (IsValid)
-                return Kernel.IsPureTriangle(Ptr) == 0 ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return (Kernel.IsPureTriangle(Ptr) == 0).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -659,7 +659,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfQuadMesh()
         {
             if (IsValid)
-                return Kernel.IsPureQuad(Ptr) == 0 ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return (Kernel.IsPureQuad(Ptr) == 0).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -672,7 +672,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfDoesBoundAVolume()
         {
             if (IsValid && IsTriangle && IsClosed)
-                return Kernel.DoesBoundAVolume(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return Kernel.DoesBoundAVolume(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -690,7 +690,51 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfIsOutwardOriented()
         {
             if (IsValid && IsTriangle && IsClosed)
-                return Kernel.IsOutwardOriented(Ptr) ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
+                return Kernel.IsOutwardOriented(Ptr).ToBoolOrUndetermined();
+            else
+                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// Builds the aabb tree used for location.
+        /// Tree will be automatically built if need so not 
+        /// actually necessary to call this function.
+        /// </summary>
+        public void BuildAABBTree()
+        {
+            Kernel.BuildAABBTree(Ptr);
+        }
+
+        /// <summary>
+        /// Will delete the aabb tree.
+        /// </summary>
+        public void ReleaseAABBTree()
+        {
+            Kernel.ReleaseAABBTree(Ptr);
+        }
+
+        /// <summary>
+        /// Returns true if there exists a face of this poly and 
+        /// a face of other poly which intersect, and false otherwise.
+        /// Must be a triangle mesh
+        /// </summary>
+        /// <param name="poly">The other triangle poly.</param>
+        /// <param name="test_bounded_sides">If test_bounded_sides is set to true, 
+        /// the overlap of bounded sides are tested as well. In that case, the meshes must be closed.</param>
+        /// <returns>True/Fasle if a valid triangle closed polyhedra,or UNDETERMINED if not.</returns>
+        public BOOL_OR_UNDETERMINED DoIntersect(Polyhedron3 poly, bool test_bounded_sides = true)
+        {
+            if (IsValid && IsTriangle && poly.IsValid && poly.IsTriangle)
+            {
+                //if test bounded side both must be closed meshes.
+                //If not test bounded side does not matter if not closed.
+                if ((test_bounded_sides && IsClosed && poly.IsClosed) || !test_bounded_sides)
+                {
+                    return Kernel.DoIntersects(Ptr, poly.Ptr, test_bounded_sides).ToBoolOrUndetermined();
+                }
+                else
+                    return BOOL_OR_UNDETERMINED.UNDETERMINED;
+            }
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }

@@ -88,5 +88,11 @@ extern "C"
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_DoesBoundAVolume(void* ptr);
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsOutwardOriented(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_BuildAABBTree(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_ReleaseAABBTree(void* ptr);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides);
 	
 }

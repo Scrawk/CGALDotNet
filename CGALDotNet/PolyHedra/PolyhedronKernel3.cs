@@ -87,6 +87,12 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract bool IsOutwardOriented(IntPtr ptr);
 
+		internal abstract void BuildAABBTree(IntPtr ptr);
+
+		internal abstract void ReleaseAABBTree(IntPtr ptr);
+
+		internal abstract bool DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
+
 
 	}
 }

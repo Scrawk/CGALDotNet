@@ -207,6 +207,21 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EIK_IsOutwardOriented(ptr);
 		}
 
+		internal override void BuildAABBTree(IntPtr ptr)
+		{
+			Polyhedron3_EIK_BuildAABBTree(ptr);
+		}
+
+		internal override void ReleaseAABBTree(IntPtr ptr)
+		{
+			Polyhedron3_EIK_ReleaseAABBTree(ptr);
+		}
+
+		internal override bool DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides)
+		{
+			return Polyhedron3_EIK_DoIntersects(ptr, otherPtr, test_bounded_sides);
+		}
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EIK_Create();
 
@@ -323,5 +338,14 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EIK_IsOutwardOriented(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EIK_BuildAABBTree(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EIK_ReleaseAABBTree(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EIK_DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
 	}
 }

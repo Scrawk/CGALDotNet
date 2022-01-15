@@ -19,6 +19,10 @@
 #include <CGAL/Polygon_mesh_processing/self_intersections.h>
 #include <CGAL/Polygon_mesh_processing/measure.h>
 #include <CGAL/Polygon_mesh_processing/repair_polygon_soup.h>
+#include <CGAL/AABB_tree.h>
+#include <CGAL/AABB_traits.h>
+#include <CGAL/Polygon_mesh_processing/locate.h>
+#include <CGAL/Polygon_mesh_processing/intersection.h>
 
 template<class K>
 class Polyhedron3
@@ -33,6 +37,18 @@ public:
 	typedef typename HalfedgeDS::Face Face;
 	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
+	typedef typename CGAL::AABB_face_graph_triangle_primitive<Polyhedron> AABB_face_graph_primitive;
+	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
+	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
+
+private:
+
+	AABBTree* tree = nullptr;
+
+	bool rebuildTree = true;
+
+public:
+
 	Polyhedron3() 
 	{
 
@@ -40,7 +56,7 @@ public:
 
 	~Polyhedron3()
 	{
-
+		DeleteTree();
 	}
 
 	Polyhedron model;
@@ -65,11 +81,38 @@ public:
 	{
 		return static_cast<Polyhedron3*>(ptr);
 	}
+
+	void OnModelChanged()
+	{
+		rebuildTree = true;
+	}
+
+	void DeleteTree()
+	{
+		if (tree != nullptr)
+		{
+			delete tree;
+			tree = nullptr;
+		}
+	}
+
+	void BuildTree()
+	{
+		if (rebuildTree || tree == nullptr)
+		{
+			DeleteTree();
+			rebuildTree = false;
+			tree = new AABBTree();
+			CGAL::Polygon_mesh_processing::build_AABB_tree(model, *tree);
+		}
+	}
 	
 	static void Clear(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		poly->model.clear();
+		poly->OnModelChanged();
+		
 	}
 
 	static void* Copy(void* ptr)
@@ -184,6 +227,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 		poly->model.make_tetrahedron(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>(), p4.ToCGAL<K>());
+		poly->OnModelChanged();
 	}
 
 	static void MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
@@ -203,6 +247,7 @@ public:
 		builder.triangleCount = triangleCount;
 
 		poly->model.delegate(builder);
+		poly->OnModelChanged();
 	}
 
 	static void CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount)
@@ -216,6 +261,7 @@ public:
 		builder.quadCount = quadCount;
 
 		poly->model.delegate(builder);
+		poly->OnModelChanged();
 	}
 
 	static void CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount)
@@ -231,6 +277,7 @@ public:
 		builder.quadCount = quadCount;
 
 		poly->model.delegate(builder);
+		poly->OnModelChanged();
 	}
 
 	static void GetPoints(void* ptr, Point3d* points, int count)
@@ -360,24 +407,28 @@ public:
 		auto m = matrix.ToCGAL<K>();
 
 		std::transform(poly->model.points_begin(), poly->model.points_end(), poly->model.points_begin(), m);
+		poly->OnModelChanged();
 	}
 
 	static void InsideOut(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		poly->model.inside_out();
+		poly->OnModelChanged();
 	}
 
 	static void Triangulate(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		CGAL::Polygon_mesh_processing::triangulate_faces(poly->model);
+		poly->OnModelChanged();
 	}
 
 	static void NormalizeBorder(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		poly->model.normalize_border();
+		poly->OnModelChanged();
 	}
 
 	static BOOL NormalizedBorderIsValid(void* ptr)
@@ -386,29 +437,25 @@ public:
 		return poly->model.normalized_border_is_valid();
 	}
 
-	static CGAL::Bounded_side SideOfTriangleMesh(void* ptr, const Point3d& point)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		CGAL::Side_of_triangle_mesh<Polyhedron, K> inside(poly->model);
-		return inside(point.ToCGAL<K>());
-	}
-
 	static void Orient(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		CGAL::Polygon_mesh_processing::orient(poly->model);
+		poly->OnModelChanged();
 	}
 
 	static void OrientToBoundingVolume(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(poly->model);
+		poly->OnModelChanged();
 	}
 
 	static void ReverseFaceOrientations(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		CGAL::Polygon_mesh_processing::reverse_face_orientations(poly->model);
+		poly->OnModelChanged();
 	}
 
 	static BOOL DoesSelfIntersect(void* ptr)
@@ -446,6 +493,36 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 		return CGAL::Polygon_mesh_processing::is_outward_oriented(poly->model);
+	}
+
+	static void BuildAABBTree(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->BuildTree();
+	}
+
+	static void ReleaseAABBTree(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->DeleteTree();
+	}
+
+	static CGAL::Bounded_side SideOfTriangleMesh(void* ptr, const Point3d& point)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->BuildTree();
+		CGAL::Side_of_triangle_mesh<Polyhedron, K> inside(*poly->tree);
+		return inside(point.ToCGAL<K>());
+	}
+
+	static BOOL DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		auto other = CastToPolyhedron(otherPtr);
+
+		auto param = CGAL::parameters::do_overlap_test_of_bounded_sides(test_bounded_sides);
+
+		return CGAL::Polygon_mesh_processing::do_intersect(poly->model, other->model, param, param);
 	}
 
 };
