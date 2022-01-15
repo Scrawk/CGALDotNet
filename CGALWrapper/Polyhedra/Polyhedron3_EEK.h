@@ -94,5 +94,9 @@ extern "C"
 	CGALWRAPPER_API void Polyhedron3_EEK_ReleaseAABBTree(void* ptr);
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_ReadOFF(void* ptr, const char* filename);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_WriteOFF(void* ptr, const char* filename);
 	
 }

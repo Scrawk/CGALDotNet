@@ -2,7 +2,6 @@
 
 #include "Polyhedron3.h"
 
-
 void* Polyhedron3_EEK_Create()
 {
 	return Polyhedron3<EEK>::NewPolyhedron();
@@ -211,4 +210,14 @@ void Polyhedron3_EEK_ReleaseAABBTree(void* ptr)
 BOOL Polyhedron3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides)
 {
 	return Polyhedron3<EEK>::DoIntersects(ptr, otherPtr, test_bounded_sides);
+}
+
+void Polyhedron3_EEK_ReadOFF(void* ptr, const char* filename)
+{
+	Polyhedron3<EEK>::ReadOFF(ptr, filename);
+}
+
+void Polyhedron3_EEK_WriteOFF(void* ptr, const char* filename)
+{
+	Polyhedron3<EEK>::WriteOFF(ptr, filename);
 }

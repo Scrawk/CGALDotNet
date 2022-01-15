@@ -222,6 +222,16 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_DoIntersects(ptr, otherPtr, test_bounded_sides);
         }
 
+		internal override void ReadOFF(IntPtr ptr, string filename)
+		{
+			Polyhedron3_EEK_ReadOFF(ptr, filename);
+		}
+
+		internal override void WriteOFF(IntPtr ptr, string filename)
+		{
+			Polyhedron3_EEK_WriteOFF(ptr, filename);
+		}
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
@@ -347,5 +357,11 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EEK_DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_ReadOFF(IntPtr ptr, string filename);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_WriteOFF(IntPtr ptr, string filename);
 	}
 }

@@ -444,7 +444,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         public void Triangulate()
         {
-            if (!IsValid) return;
+            if (!IsValid || IsTriangle) return;
 
             Kernel.Triangulate(Ptr);
             IsUpdated = false;
@@ -751,6 +751,25 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="stop_ratio">A number between 0-1 that represents the percentage of vertices to remove.</param>
         public abstract void Simplify(double stop_ratio);
+
+        /// <summary>
+        /// Read data from a off file into the pollyhedron.
+        /// </summary>
+        /// <param name="filename">The files name.</param>
+        public void ReadOFF(string filename)
+        {
+            Kernel.ReadOFF(Ptr, filename);
+            IsUpdated = false;
+        }
+
+        /// <summary>
+        /// Write data from a off file into the pollyhedron.
+        /// </summary>
+        /// <param name="filename">The files name.</param>
+        public void WriteOFF(string filename)
+        {
+            Kernel.WriteOFF(Ptr, filename);
+        }
 
         /// <summary>
         /// Update the polyhedron if needed.

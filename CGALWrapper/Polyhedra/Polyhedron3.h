@@ -8,6 +8,8 @@
 #include "MeshBuilders.h"
  
 #include <map>
+#include <fstream>
+#include <iostream>
 #include <CGAL/enum.h>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
@@ -523,6 +525,20 @@ public:
 		auto param = CGAL::parameters::do_overlap_test_of_bounded_sides(test_bounded_sides);
 
 		return CGAL::Polygon_mesh_processing::do_intersect(poly->model, other->model, param, param);
+	}
+
+	static void ReadOFF(void* ptr, const char* filename)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		std::ifstream i(filename);
+		i >> poly->model;
+	}
+
+	static void WriteOFF(void* ptr, const char* filename)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		std::ofstream o(filename);
+		o << poly->model;
 	}
 
 };

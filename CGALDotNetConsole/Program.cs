@@ -17,13 +17,26 @@ namespace CGALDotNetConsole
 {
     public class Program
     {
-
+        
 
         public static void Main(string[] args)
         {
-            var box = PolyhedronFactory<EEK>.CreateCube(new Box3d(-1, 1));
+            //ChineseDragon-10kv.off
+            //bunny00.off
+            //armadillo.off
+            //elephant.off
+            //elk.off
+            //diplodocus.off
+            //bunny00.off
+            //refined_elephant.off
 
-            box.Print();
+            string filename = "C:/Users/Justin/Desktop/CGALData/meshes/elk.off";
+
+            var poly = new Polyhedron3<EEK>();
+            poly.ReadOFF(filename);
+            poly.Triangulate();
+
+            poly.Print();
         }
 
 

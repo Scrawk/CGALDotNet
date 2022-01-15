@@ -93,6 +93,9 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract bool DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
 
+		internal abstract void ReadOFF(IntPtr ptr, string filename);
+
+		internal abstract void WriteOFF(IntPtr ptr, string filename);
 
 	}
 }
