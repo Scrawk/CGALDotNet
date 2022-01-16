@@ -19,7 +19,12 @@ namespace CGALDotNet
         /// <summary>
         /// Default eps value used.
         /// </summary>
-        public static double EPS = 1e-6;
+        public const double EPS = 1e-6;
+
+        /// <summary>
+        /// Default eps value used.
+        /// </summary>
+        public const double SQRT2 = 1.41421356237;
 
         /// <summary>
         /// Convert radians to degrees.

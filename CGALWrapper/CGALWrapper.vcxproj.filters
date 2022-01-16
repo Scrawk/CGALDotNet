@@ -339,10 +339,31 @@
     <ClInclude Include="Polyhedra\PrimativeCount.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessing.h">
+    <ClInclude Include="Processing\PolygonMeshProcessingMeshing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Polyhedra\MeshBuilders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingMeshing_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingOrientation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingOrientation_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingNormals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingNormals_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingRepair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingRepair_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -486,6 +507,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\SurfaceSubdivision_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\PolygonMeshProcessingMeshing_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\PolygonMeshProcessingOrientation_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\PolygonMeshProcessingNormals_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\PolygonMeshProcessingRepair_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

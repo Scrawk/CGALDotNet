@@ -71,12 +71,6 @@ extern "C"
 
 	CGALWRAPPER_API CGAL::Bounded_side Polyhedron3_EEK_SideOfTriangleMesh(void* ptr, const Point3d& point);
 
-	CGALWRAPPER_API void Polyhedron3_EEK_Orient(void* ptr);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_OrientToBoundingVolume(void* ptr);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_ReverseFaceOrientations(void* ptr);
-
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_DoesSelfIntersect(void* ptr);
 
 	CGALWRAPPER_API double Polyhedron3_EEK_Area(void* ptr);
@@ -86,8 +80,6 @@ extern "C"
 	CGALWRAPPER_API double Polyhedron3_EEK_Volume(void* ptr);
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_DoesBoundAVolume(void* ptr);
-
-	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsOutwardOriented(void* ptr);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_BuildAABBTree(void* ptr);
 

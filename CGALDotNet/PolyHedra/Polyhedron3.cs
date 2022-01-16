@@ -229,6 +229,16 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Is the mesh a valid triangle mesh.
+        /// </summary>
+        public bool IsValidTriangleMesh => IsValid && IsTriangle;
+
+        /// <summary>
+        /// Is the mesh a valid closed triangle mesh.
+        /// </summary>
+        public bool IsValidClosedTriangleMesh => IsValid && IsClosed && IsTriangle;
+
+        /// <summary>
         /// Has the update function been called.
         /// </summary>
         protected bool IsUpdated { get; set; }
@@ -514,51 +524,13 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// makes each connected component of a closed 
-        /// triangulated surface mesh inward or outward oriented.
-        /// Must be a closed triangle mesh.
-        /// </summary>
-        public void Orient()
-        {
-            if (!IsValid) return;
-            Kernel.Orient(Ptr);
-            IsUpdated = false;
-        }
-
-        /// <summary>
-        /// Orients the connected components of poly to 
-        /// make it bound a volume.
-        /// Must be a closed triangle mesh.
-        /// </summary>
-        public void OrientToBoundingVolume()
-        {
-            if (!IsValid) return;
-            Kernel.OrientToBoundingVolume(Ptr);
-            IsUpdated = false;
-        }
-
-        /// <summary>
-        /// Reverses for each face in face_range the order of 
-        /// the vertices along the face boundary.
-        /// The function does not perform any control
-        /// and if the orientation change of the faces
-        /// makes the polygon mesh invalid, the behavior is undefined.
-        /// </summary>
-        public void ReverseOreintation()
-        {
-            if (!IsValid) return;
-            Kernel.ReverseFaceOrientations(Ptr);
-            IsUpdated = false;
-        }
-
-        /// <summary>
         /// Tests if a set of faces of a triangulated surface mesh self-intersects.
         /// Must be a triangle mesh.
         /// </summary>
         /// <returns>True/Fasle if a valid triangle polyhedra,or UNDETERMINED if not.</returns>
         public BOOL_OR_UNDETERMINED DoesSelfIntersect()
         {
-            if (IsValid && IsTriangle)
+            if (IsValidTriangleMesh)
                 return Kernel.DoesSelfIntersect(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
@@ -571,7 +543,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>The area or 0 if poyhedron is not valid triangle mesh.</returns>
         public double FindArea()
         {
-            if (IsValid && IsTriangle)
+            if (IsValidTriangleMesh)
                 return Kernel.Area(Ptr);
             else
                 return 0;
@@ -598,7 +570,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>The volume or 0 if poyhedron is not valid closed triangle mesh.</returns>
         public double FindVolume()
         {
-            if (IsValid && IsTriangle && IsClosed)
+            if (IsValidClosedTriangleMesh)
                 return Kernel.Volume(Ptr);
             else
                 return 0;
@@ -671,26 +643,8 @@ namespace CGALDotNet.Polyhedra
         /// <returns>True/Fasle if a valid triangle closed polyhedra,or UNDETERMINED if not.</returns>
         public BOOL_OR_UNDETERMINED FindIfDoesBoundAVolume()
         {
-            if (IsValid && IsTriangle && IsClosed)
+            if (IsValidClosedTriangleMesh)
                 return Kernel.DoesBoundAVolume(Ptr).ToBoolOrUndetermined();
-            else
-                return BOOL_OR_UNDETERMINED.UNDETERMINED;
-        }
-
-        /// <summary>
-        /// Tests whether a closed triangle mesh has a positive orientation.
-        /// A closed triangle mesh is considered to have a positive orientation 
-        /// if the normal vectors to all its faces point outside the domain 
-        /// bounded by the triangle mesh.The normal vector to each face is 
-        /// chosen pointing on the side of the face where its sequence of 
-        /// vertices is seen counterclockwise.
-        /// Must be a closed triangle mesh free from self-intersections to be tested.
-        /// </summary>
-        /// <returns>True/Fasle if a valid triangle closed polyhedra,or UNDETERMINED if not.</returns>
-        public BOOL_OR_UNDETERMINED FindIfIsOutwardOriented()
-        {
-            if (IsValid && IsTriangle && IsClosed)
-                return Kernel.IsOutwardOriented(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -724,7 +678,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>True/Fasle if a valid triangle closed polyhedra,or UNDETERMINED if not.</returns>
         public BOOL_OR_UNDETERMINED DoIntersect(Polyhedron3 poly, bool test_bounded_sides = true)
         {
-            if (IsValid && IsTriangle && poly.IsValid && poly.IsTriangle)
+            if (IsValidTriangleMesh && poly.IsValidTriangleMesh)
             {
                 //if test bounded side both must be closed meshes.
                 //If not test bounded side does not matter if not closed.
@@ -820,7 +774,6 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("Area = " + FindArea());
             builder.AppendLine("Volume = " + FindVolume());
             builder.AppendLine("DoesBoundAVolume = " + FindIfDoesBoundAVolume());
-            builder.AppendLine("IsOutwardOriented = " + FindIfIsOutwardOriented());
         }
 
         /// <summary>

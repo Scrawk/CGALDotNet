@@ -8,6 +8,7 @@
 #include "MeshBuilders.h"
  
 #include <map>
+#include <set>
 #include <fstream>
 #include <iostream>
 #include <CGAL/enum.h>
@@ -20,7 +21,6 @@
 #include <CGAL/Polygon_mesh_processing/orientation.h>
 #include <CGAL/Polygon_mesh_processing/self_intersections.h>
 #include <CGAL/Polygon_mesh_processing/measure.h>
-#include <CGAL/Polygon_mesh_processing/repair_polygon_soup.h>
 #include <CGAL/AABB_tree.h>
 #include <CGAL/AABB_traits.h>
 #include <CGAL/Polygon_mesh_processing/locate.h>
@@ -42,6 +42,9 @@ public:
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<Polyhedron> AABB_face_graph_primitive;
 	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
 	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
+
+	typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor        halfedge_descriptor;
+	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor            edge_descriptor;
 
 private:
 
@@ -439,27 +442,6 @@ public:
 		return poly->model.normalized_border_is_valid();
 	}
 
-	static void Orient(void* ptr)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		CGAL::Polygon_mesh_processing::orient(poly->model);
-		poly->OnModelChanged();
-	}
-
-	static void OrientToBoundingVolume(void* ptr)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(poly->model);
-		poly->OnModelChanged();
-	}
-
-	static void ReverseFaceOrientations(void* ptr)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		CGAL::Polygon_mesh_processing::reverse_face_orientations(poly->model);
-		poly->OnModelChanged();
-	}
-
 	static BOOL DoesSelfIntersect(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -491,12 +473,6 @@ public:
 		return CGAL::Polygon_mesh_processing::does_bound_a_volume(poly->model);
 	}
 
-	static BOOL IsOutwardOriented(void* ptr)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		return CGAL::Polygon_mesh_processing::is_outward_oriented(poly->model);
-	}
-
 	static void BuildAABBTree(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -521,7 +497,6 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 		auto other = CastToPolyhedron(otherPtr);
-
 		auto param = CGAL::parameters::do_overlap_test_of_bounded_sides(test_bounded_sides);
 
 		return CGAL::Polygon_mesh_processing::do_intersect(poly->model, other->model, param, param);
@@ -532,6 +507,7 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		std::ifstream i(filename);
 		i >> poly->model;
+		poly->OnModelChanged();
 	}
 
 	static void WriteOFF(void* ptr, const char* filename)
@@ -540,5 +516,109 @@ public:
 		std::ofstream o(filename);
 		o << poly->model;
 	}
+
+	/*
+	static int Refine(void* ptr, double density_control_factor)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		std::vector<Polyhedron::Facet_handle>  new_facets;
+		std::vector<Polyhedron::Vertex_handle> new_vertices;
+
+		auto param = CGAL::parameters::density_control_factor(density_control_factor);
+
+		CGAL::Polygon_mesh_processing::refine(poly->model, faces(poly->model),
+			std::back_inserter(new_facets),
+			std::back_inserter(new_vertices),
+			param);
+
+		poly->OnModelChanged();
+
+		return (int)new_vertices.size();
+	}
+
+	static void Fair(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		//std::vector<Polyhedron::Vertex_handle> region;
+		//CGAL::Polygon_mesh_processing::fair(poly->model, region);
+		//poly->OnModelChanged();
+	}
+
+	static void SmoothMesh(void* ptr, int iterations, double featureAngle)
+	{
+		
+		auto poly = CastToPolyhedron(ptr);
+		
+		typedef boost::property_map<Polyhedron, CGAL::edge_is_feature_t>::type FeatureMap;
+		FeatureMap map;
+
+		CGAL::Polygon_mesh_processing::detect_sharp_edges(poly->model, featureAngle, map);
+
+		auto param = CGAL::Polygon_mesh_processing::parameters::number_of_iterations(iterations).
+			use_safety_constraints(false).
+			edge_is_constrained_map(map);
+
+		CGAL::Polygon_mesh_processing::smooth_mesh(faces(poly->model), poly->model, param);
+
+		poly->OnModelChanged();
+		
+	}
+
+	static void SmoothShape(void* ptr, int iterations, double timeStep)
+	{
+		
+		auto poly = CastToPolyhedron(ptr);
+		
+		std::set<Polyhedron::Vertex_handle> constrained_vertices;
+
+		for (auto v : vertices(poly->model))
+		{
+			if (is_border(v, poly->model))
+				constrained_vertices.insert(v);
+		}
+
+		CGAL::Boolean_property_map<std::set<Polyhedron::Vertex_handle> > map(constrained_vertices);
+
+		auto param = CGAL::Polygon_mesh_processing::parameters::number_of_iterations(iterations)
+			.vertex_is_constrained_map(map);
+
+		CGAL::Polygon_mesh_processing::smooth_shape(poly->model, timeStep, param);
+
+		poly->OnModelChanged();
+		
+	}
+
+	static void IsotropicRemeshing(void* ptr, int iterations, double target_edge_length)
+	{
+		struct halfedge2edge
+		{
+			halfedge2edge(const Polyhedron& m, std::vector<edge_descriptor>& edges)
+				: m_mesh(m), m_edges(edges)
+			{}
+			void operator()(const halfedge_descriptor& h) const
+			{
+				m_edges.push_back(edge(h, m_mesh));
+			}
+			const Polyhedron& m_mesh;
+			std::vector<edge_descriptor>& m_edges;
+		};
+
+		auto poly = CastToPolyhedron(ptr);
+
+		std::vector<edge_descriptor> border;
+		CGAL::Polygon_mesh_processing::border_halfedges(faces(poly->model), poly->model, 
+			boost::make_function_output_iterator(halfedge2edge(poly->model, border)));
+		
+		CGAL::Polygon_mesh_processing::split_long_edges(border, target_edge_length, poly->model);
+		 
+		auto param = CGAL::Polygon_mesh_processing::parameters::number_of_iterations(iterations)
+			.protect_constraints(true); //i.e. protect border, here
+
+		CGAL::Polygon_mesh_processing::isotropic_remeshing(faces(poly->model), target_edge_length, poly->model, param); 
+
+		poly->OnModelChanged();
+	}
+	*/
 
 };

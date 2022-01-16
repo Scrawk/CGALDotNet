@@ -163,21 +163,6 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EIK_SideOfTriangleMesh(ptr, point);
 		}
 
-		internal override void Orient(IntPtr ptr)
-		{
-			Polyhedron3_EIK_Orient(ptr);
-		}
-
-		internal override void OrientToBoundingVolume(IntPtr ptr)
-		{
-			Polyhedron3_EIK_OrientToBoundingVolume(ptr);
-		}
-
-		internal override void ReverseFaceOrientations(IntPtr ptr)
-		{
-			Polyhedron3_EIK_ReverseFaceOrientations(ptr);
-		}
-
 		internal override bool DoesSelfIntersect(IntPtr ptr)
 		{
 			return Polyhedron3_EIK_DoesSelfIntersect(ptr);
@@ -201,11 +186,6 @@ namespace CGALDotNet.Polyhedra
 		internal override bool DoesBoundAVolume(IntPtr ptr)
 		{
 			return Polyhedron3_EIK_DoesBoundAVolume(ptr);
-		}
-
-		internal override bool IsOutwardOriented(IntPtr ptr)
-		{
-			return Polyhedron3_EIK_IsOutwardOriented(ptr);
 		}
 
 		internal override void BuildAABBTree(IntPtr ptr)
@@ -324,15 +304,6 @@ namespace CGALDotNet.Polyhedra
 		private static extern BOUNDED_SIDE Polyhedron3_EIK_SideOfTriangleMesh(IntPtr ptr, Point3d point);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EIK_Orient(IntPtr ptr);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EIK_OrientToBoundingVolume(IntPtr ptr);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EIK_ReverseFaceOrientations(IntPtr ptr);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EIK_DoesSelfIntersect(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -346,9 +317,6 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EIK_DoesBoundAVolume(IntPtr ptr);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern bool Polyhedron3_EIK_IsOutwardOriented(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EIK_BuildAABBTree(IntPtr ptr);

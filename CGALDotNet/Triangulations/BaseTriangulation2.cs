@@ -497,18 +497,8 @@ namespace CGALDotNet.Triangulations
         /// <summary>
         /// 
         /// </summary>
-        public void Print()
-        {
-            var builder = new StringBuilder();
-            Print(builder);
-            Console.WriteLine(builder.ToString());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="builder"></param>
-        public virtual void Print(StringBuilder builder)
+        public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
         }

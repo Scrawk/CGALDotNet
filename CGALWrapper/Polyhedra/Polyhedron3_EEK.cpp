@@ -152,21 +152,6 @@ CGAL::Bounded_side Polyhedron3_EEK_SideOfTriangleMesh(void* ptr, const Point3d& 
 	return Polyhedron3<EEK>::SideOfTriangleMesh(ptr, point);
 }
 
-void Polyhedron3_EEK_Orient(void* ptr)
-{
-	Polyhedron3<EEK>::Orient(ptr);
-}
-
-void Polyhedron3_EEK_OrientToBoundingVolume(void* ptr)
-{
-	Polyhedron3<EEK>::OrientToBoundingVolume(ptr);
-}
-
-void Polyhedron3_EEK_ReverseFaceOrientations(void* ptr)
-{
-	Polyhedron3<EEK>::ReverseFaceOrientations(ptr);
-}
-
 BOOL Polyhedron3_EEK_DoesSelfIntersect(void* ptr)
 {
 	return Polyhedron3<EEK>::DoesSelfIntersect(ptr);
@@ -190,11 +175,6 @@ double Polyhedron3_EEK_Volume(void* ptr)
 BOOL Polyhedron3_EEK_DoesBoundAVolume(void* ptr)
 {
 	return Polyhedron3<EEK>::DoesBoundAVolume(ptr);
-}
-
-BOOL Polyhedron3_EEK_IsOutwardOriented(void* ptr)
-{
-	return Polyhedron3<EEK>::IsOutwardOriented(ptr);
 }
 
 void Polyhedron3_EEK_BuildAABBTree(void* ptr)
