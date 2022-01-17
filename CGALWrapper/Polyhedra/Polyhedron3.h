@@ -28,6 +28,12 @@
 #include <CGAL/Polygon_mesh_processing/locate.h>
 #include <CGAL/Polygon_mesh_processing/intersection.h>
 
+enum PROPERTY_MAP : int
+{
+	VERTEX_NORMALS,
+	FACE_NORMALS,
+};
+
 template<class K>
 class Polyhedron3
 {
@@ -35,10 +41,15 @@ class Polyhedron3
 public:
 
 	typedef typename K::Point_3 Point;
+	typedef typename K::Vector_3 Vector;
 	typedef CGAL::Polyhedron_3<K> Polyhedron;
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
 	typedef typename HalfedgeDS::Vertex Vertex;
 	typedef typename HalfedgeDS::Face Face;
+	typedef typename Polyhedron::Vertex_handle Vertex_Handle;
+	typedef typename Polyhedron::Face_handle Face_Handle;
+	typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
+	typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
 	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<Polyhedron> AABB_face_graph_primitive;
@@ -49,7 +60,17 @@ private:
 
 	AABBTree* tree = nullptr;
 
-	bool rebuildTree = true;
+	std::map<Vertex_Handle, int> vertexIndexMap;
+	bool rebuildVertexIndexMap = true;
+
+	std::map<Face_Handle, int> faceIndexMap;
+	bool rebuildFaceIndexMap = true;
+
+	std::map<Vertex_Des, Vector> vertexNormalMap;
+	bool rebuildVertexNormalMap = true;
+
+	std::map<Face_Des, Vector> faceNormalMap;
+	bool rebuildFaceNormalMap = true;
 
 public:
 
@@ -88,7 +109,26 @@ public:
 
 	void OnModelChanged()
 	{
-		rebuildTree = true;
+		OnVerticesChanged();
+		OnFacesChanged();
+	}
+
+	void OnVerticesChanged()
+	{
+		vertexIndexMap.clear();
+		vertexNormalMap.clear();
+		rebuildVertexIndexMap = true;
+		rebuildVertexNormalMap = true;
+		DeleteTree();
+	}
+
+	void OnFacesChanged()
+	{
+		faceIndexMap.clear();
+		faceNormalMap.clear();
+		rebuildFaceIndexMap = true;
+		rebuildFaceNormalMap = true;
+		DeleteTree();
 	}
 
 	void DeleteTree()
@@ -102,13 +142,66 @@ public:
 
 	void BuildTree()
 	{
-		if (rebuildTree || tree == nullptr)
+		if (tree == nullptr)
 		{
-			DeleteTree();
-			rebuildTree = false;
 			tree = new AABBTree();
 			CGAL::Polygon_mesh_processing::build_AABB_tree(model, *tree);
 		}
+	}
+
+	void BuildVertexIndexMap(bool force = false)
+	{
+		if (!force && !rebuildVertexIndexMap) return;
+		rebuildVertexIndexMap = false;
+
+		vertexIndexMap.clear();
+
+		int index = 0;
+		for (auto vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
+		{
+			vertexIndexMap.insert(std::pair<Vertex_Handle, int>(vert, index++));
+		}
+	}
+
+	void BuildFaceIndexMap(bool force = false)
+	{
+		if (!force && !rebuildFaceIndexMap) return;
+		rebuildFaceIndexMap = false;
+
+		faceIndexMap.clear();
+
+		int index = 0;
+		for (auto face = model.facets_begin(); face != model.facets_end(); ++face)
+		{
+			faceIndexMap.insert(std::pair<Face_Handle, int>(face, index++));
+		}
+	}
+
+	int FindVertexIndex(Vertex_Handle vert)
+	{
+		auto item = vertexIndexMap.find(vert);
+		if (item != vertexIndexMap.end())
+			return item->second;
+		else
+			return NULL_INDEX;
+	}
+
+	int FindFaceIndex(Face_Handle vert)
+	{
+		auto item = faceIndexMap.find(vert);
+		if (item != faceIndexMap.end())
+			return item->second;
+		else
+			return NULL_INDEX;
+	}
+
+	Vector FindVertexNormal(Vertex_Des vert)
+	{
+		auto item = vertexNormalMap.find(vert);
+		if (item != vertexNormalMap.end())
+			return item->second;
+		else
+			return {0,0,0 };
 	}
 	
 	static void Clear(void* ptr)
@@ -116,7 +209,6 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		poly->model.clear();
 		poly->OnModelChanged();
-		
 	}
 
 	static void* Copy(void* ptr)
@@ -125,6 +217,13 @@ public:
 		auto copy = NewPolyhedron();
 		copy->model = poly->model;
 		return copy;
+	}
+
+	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		if(vertices) poly->BuildVertexIndexMap(force);
+		if(faces) poly->BuildFaceIndexMap(force);
 	}
 
 	static int VertexCount(void* ptr)
@@ -181,50 +280,32 @@ public:
 		return (int)poly->model.is_pure_trivalent();
 	}
 
-	static int IsPureTriangle(void* ptr)
+	static BOOL IsPureTriangle(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		//return (int)poly->model.is_pure_triangle();
 
-		//for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
-		//{
-		//	if (vert->halfedge() == nullptr) return 1;
-		//	if (vert->halfedge()->face() == nullptr) return 2;
-		//}
-
 		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
-			if (face->halfedge() == nullptr) return 3;
-			//if (face->halfedge()->vertex() == nullptr) return 4;
-			//if (face->halfedge()->next() == nullptr) return 5;
-			//if (face->halfedge()->prev() == nullptr) return 6;
-			if (!face->is_triangle()) return 7;
+			if (face->halfedge() == nullptr) return FALSE;
+			if (!face->is_triangle()) return FALSE;
 		}
 			
-		return 0;
+		return TRUE;
 	}
 
-	static int IsPureQuad(void* ptr)
+	static BOOL IsPureQuad(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		//return (int)poly->model.is_pure_quad();
 
-		//for (auto vert = poly->vertices_begin(); vert != poly->vertices_end(); ++vert)
-		//{
-		//	if (vert->halfedge() == nullptr) return 1;
-		//	if (vert->halfedge()->face() == nullptr) return 2;
-		//}
-
 		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
-			if (face->halfedge() == nullptr) return 3;
-			//if (face->halfedge()->vertex() == nullptr) return 4;
-			//if (face->halfedge()->next() == nullptr) return 5;
-			//if (face->halfedge()->prev() == nullptr) return 6;
-			if (!face->is_quad()) return 7;
+			if (face->halfedge() == nullptr) return FALSE;
+			if (!face->is_quad()) return FALSE;
 		}
 
-		return 0;
+		return TRUE;
 	}
 
 	static void MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
@@ -323,40 +404,23 @@ public:
 	static void GetTriangleIndices(void* ptr, int* indices, int count)
 	{
 		auto poly = CastToPolyhedron(ptr);
+		poly->BuildVertexIndexMap();
+
 		int index = 0;
-
-		std::map<Point, int> map;
-
-		for (auto point = poly->model.points_begin(); point != poly->model.points_end(); ++point)
-		{
-			map.insert(std::pair<Point, int>(*point, index++));
-		}
-
-		index = 0;
 		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) continue;
 			if (!face->is_triangle()) continue;
 			
-			auto i0 = map.find(face->halfedge()->prev()->vertex()->point());
-			auto i1 = map.find(face->halfedge()->vertex()->point());
-			auto i2 = map.find(face->halfedge()->next()->vertex()->point());
+			int i0 = poly->FindVertexIndex(face->halfedge()->prev()->vertex());
+			int i1 = poly->FindVertexIndex(face->halfedge()->vertex());
+			int i2 = poly->FindVertexIndex(face->halfedge()->next()->vertex());
 
-			if (i0 == map.end() || i1 == map.end() || i2 == map.end())
-			{
-				indices[index * 3 + 0] = NULL_INDEX;
-				indices[index * 3 + 1] = NULL_INDEX;
-				indices[index * 3 + 2] = NULL_INDEX;
-			}
-			else
-			{
-				indices[index * 3 + 0] = i0->second;
-				indices[index * 3 + 1] = i1->second;
-				indices[index * 3 + 2] = i2->second;
-			}
-
+			indices[index * 3 + 0] = i0;
+			indices[index * 3 + 1] = i1;
+			indices[index * 3 + 2] = i2;
+			
 			index++;
-
 			if (index * 3 >= count) return;
 		}
 	}
@@ -364,41 +428,24 @@ public:
 	static void GetQuadIndices(void* ptr, int* indices, int count)
 	{
 		auto poly = CastToPolyhedron(ptr);
+		poly->BuildVertexIndexMap();
+
 		int index = 0;
-
-		std::map<Point, int> map;
-
-		for (auto point = poly->model.points_begin(); point != poly->model.points_end(); ++point)
-		{
-			map.insert(std::pair<Point, int>(*point, index++));
-		}
-
-		index = 0;
 		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) continue;
 			if (!face->is_quad()) continue;
 
-			auto i0 = map.find(face->halfedge()->prev()->vertex()->point());
-			auto i1 = map.find(face->halfedge()->vertex()->point());
-			auto i2 = map.find(face->halfedge()->next()->vertex()->point());
-			auto i3 = map.find(face->halfedge()->next()->next()->vertex()->point());
+			int i0 = poly->FindVertexIndex(face->halfedge()->prev()->vertex());
+			int i1 = poly->FindVertexIndex(face->halfedge()->vertex());
+			int i2 = poly->FindVertexIndex(face->halfedge()->next()->vertex());
+			int i3 = poly->FindVertexIndex(face->halfedge()->next()->next()->vertex());
 
-			if (i0 == map.end() || i1 == map.end() || i2 == map.end() || i3 == map.end())
-			{
-				indices[index * 4 + 0] = NULL_INDEX;
-				indices[index * 4 + 1] = NULL_INDEX;
-				indices[index * 4 + 2] = NULL_INDEX;
-				indices[index * 4 + 3] = NULL_INDEX;
-			}
-			else
-			{
-				indices[index * 4 + 0] = i0->second;
-				indices[index * 4 + 1] = i1->second;
-				indices[index * 4 + 2] = i2->second;
-				indices[index * 4 + 3] = i3->second;
-			}
-
+			indices[index * 4 + 0] = i0;
+			indices[index * 4 + 1] = i1;
+			indices[index * 4 + 2] = i2;
+			indices[index * 4 + 3] = i3;
+			
 			index++;
 
 			if (index * 4 >= count) return;
@@ -551,7 +598,6 @@ public:
 
 	static void GetCentroids(void* ptr, Point3d* points, int count)
 	{
-
 		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
 		int numFaces = (int)poly->model.size_of_facets();
 
@@ -563,16 +609,17 @@ public:
 			int num = 0;
 			Point3d centroid = { 0, 0, 0 };
 
-			auto hedge = face->halfedge();
+			auto hedge = face->facet_begin();
 			do
 			{
-				Point3d p = Point3d::FromCGAL<EEK>(hedge->vertex()->point());
-				centroid += p;
-
-			} while (++hedge != face->halfedge());
+				auto p = Point3d::FromCGAL<K>(hedge->vertex()->point());
+				centroid = centroid + p;
+				num++;
+			} 
+			while (++hedge != face->facet_begin());
 
 			if (num != 0)
-				centroid /= num;
+				centroid = centroid / num;
 
 			points[index] = centroid;
 
@@ -581,7 +628,62 @@ public:
 			if (index >= numFaces || index >= count)
 				return;
 		}
+	}
 
+	static void ComputeVertexNormals(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		if (!poly->rebuildVertexNormalMap) return;
+		poly->rebuildVertexNormalMap = false;
+;
+		CGAL::Polygon_mesh_processing::compute_vertex_normals(poly->model, boost::make_assoc_property_map(poly->vertexNormalMap));
+	}
+
+	static void ComputeFaceNormals(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		if (!poly->rebuildFaceNormalMap) return;
+		poly->rebuildFaceNormalMap = false;
+
+		CGAL::Polygon_mesh_processing::compute_face_normals(poly->model, boost::make_assoc_property_map(poly->faceNormalMap));
+	}
+
+	static void GetVertexNormals(void* ptr, Vector3d* normals, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		ComputeVertexNormals(ptr);
+		poly->BuildVertexIndexMap();
+
+		for (auto const& pair : poly->vertexNormalMap)
+		{
+			auto vert = pair.first;
+			auto vec = pair.second;
+
+			int i = poly->FindVertexIndex(vert);
+
+			if (i >= 0 && i < count)
+				normals[i] = Vector3d::FromCGAL<K>(vec);
+		}
+	}
+
+	static void GetFaceNormals(void* ptr, Vector3d* normals, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		ComputeFaceNormals(ptr);
+		poly->BuildFaceIndexMap();
+
+		for (auto const& pair : poly->faceNormalMap)
+		{
+			auto face = pair.first;
+			auto vec = pair.second;
+
+			int i = poly->FindFaceIndex(face);
+
+			if (i >= 0 && i < count)
+				normals[i] = Vector3d::FromCGAL<K>(vec);
+		}
 	}
 
 };

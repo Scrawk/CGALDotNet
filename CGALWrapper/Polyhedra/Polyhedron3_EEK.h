@@ -19,6 +19,8 @@ extern "C"
 	CGALWRAPPER_API void Polyhedron3_EEK_Clear(void* ptr);
 
 	CGALWRAPPER_API void* Polyhedron3_EEK_Copy(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force);
 	
 	CGALWRAPPER_API int Polyhedron3_EEK_VertexCount(void* ptr);
 
@@ -38,9 +40,9 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureTrivalent(void* ptr);
 	
-	CGALWRAPPER_API int Polyhedron3_EEK_IsPureTriangle(void* ptr);
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureTriangle(void* ptr);
 
-	CGALWRAPPER_API int Polyhedron3_EEK_IsPureQuad(void* ptr);
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureQuad(void* ptr);
 	
 	CGALWRAPPER_API void Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 
@@ -95,5 +97,13 @@ extern "C"
 	CGALWRAPPER_API MinMaxAvg Polyhedron3_EEK_MinMaxEdgeLength(void* ptr);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_GetCentroids(void* ptr, Point3d* points, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_ComputeVertexNormals(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_ComputeFaceNormals(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetVertexNormals(void* ptr, Vector3d* normals, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count);
 	
 }

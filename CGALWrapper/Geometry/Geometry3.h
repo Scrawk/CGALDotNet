@@ -81,17 +81,7 @@ struct Point3d
         return { x + rhs.x , y + rhs.y, z + rhs.z };
     }
 
-    Point3d operator+=(const Point3d& rhs) const
-    {
-        return { x + rhs.x , y + rhs.y, z + rhs.z };
-    }
-
     Point3d operator-(const Point3d& rhs) const
-    {
-        return { x - rhs.x , y - rhs.y, z - rhs.z };
-    }
-
-    Point3d operator-=(const Point3d& rhs) const
     {
         return { x - rhs.x , y - rhs.y, z - rhs.z };
     }
@@ -101,17 +91,7 @@ struct Point3d
         return { x / rhs , y / rhs, z / rhs };
     }
 
-    Point3d operator/=(double rhs) const
-    {
-        return { x / rhs , y / rhs, z / rhs };
-    }
-
     Point3d operator*(double rhs) const
-    {
-        return { x * rhs , y * rhs, z * rhs };
-    }
-
-    Point3d operator*=(double rhs) const
     {
         return { x * rhs , y * rhs, z * rhs };
     }
@@ -157,17 +137,7 @@ struct HPoint3d
         return { x + rhs.x , y + rhs.y, z + rhs.z, w + rhs.w };
     }
 
-    HPoint3d operator+=(const HPoint3d& rhs) const
-    {
-        return { x + rhs.x , y + rhs.y, z + rhs.z, w + rhs.w };
-    }
-
     HPoint3d operator-(const HPoint3d& rhs) const
-    {
-        return { x - rhs.x , y - rhs.y, z - rhs.z, w - rhs.w };
-    }
-
-    HPoint3d operator-=(const HPoint3d& rhs) const
     {
         return { x - rhs.x , y - rhs.y, z - rhs.z, w - rhs.w };
     }
@@ -177,17 +147,7 @@ struct HPoint3d
         return { x / rhs , y / rhs, z / rhs, w / rhs };
     }
 
-    HPoint3d operator/=(double rhs) const
-    {
-        return { x / rhs , y / rhs, z / rhs, w / rhs };
-    }
-
     HPoint3d operator*(double rhs) const
-    {
-        return { x * rhs , y * rhs, z * rhs, w * rhs };
-    }
-
-    HPoint3d operator*=(double rhs) const
     {
         return { x * rhs , y * rhs, z * rhs, w * rhs };
     }

@@ -33,6 +33,11 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_Copy(ptr);
 		}
 
+		internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool force)
+        {
+			Polyhedron3_EEK_BuildIndices(ptr, vertices, faces, force);
+        }
+
 		internal override int VertexCount(IntPtr ptr)
 		{
 			return Polyhedron3_EEK_VertexCount(ptr);
@@ -78,12 +83,12 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_IsPureTrivalent(ptr);
 		}
 
-		internal override int IsPureTriangle(IntPtr ptr)
+		internal override bool IsPureTriangle(IntPtr ptr)
 		{
 			return Polyhedron3_EEK_IsPureTriangle(ptr);
 		}
 
-		internal override int IsPureQuad(IntPtr ptr)
+		internal override bool IsPureQuad(IntPtr ptr)
 		{
 			return Polyhedron3_EEK_IsPureQuad(ptr);
 		}
@@ -223,6 +228,26 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_GetCentroids(ptr, points, count);
 		}
 
+		internal override void ComputeVertexNormals(IntPtr ptr)
+        {
+			Polyhedron3_EEK_ComputeVertexNormals(ptr);
+		}
+
+		internal override void ComputeFaceNormals(IntPtr ptr)
+        {
+			Polyhedron3_EEK_ComputeFaceNormals(ptr);
+		}
+
+		internal override void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count)
+        {
+			Polyhedron3_EEK_GetVertexNormals(ptr, normals, count);
+		}
+
+		internal override void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count)
+        {
+			Polyhedron3_EEK_GetFaceNormals(ptr, normals, count);
+		}
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
@@ -234,6 +259,9 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Copy(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_BuildIndices(IntPtr ptr, bool vertices, bool faces, bool force);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern int Polyhedron3_EEK_VertexCount(IntPtr ptr);
@@ -263,10 +291,10 @@ namespace CGALDotNet.Polyhedra
 		private static extern bool Polyhedron3_EEK_IsPureTrivalent(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern int Polyhedron3_EEK_IsPureTriangle(IntPtr ptr);
+		private static extern bool Polyhedron3_EEK_IsPureTriangle(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern int Polyhedron3_EEK_IsPureQuad(IntPtr ptr);
+		private static extern bool Polyhedron3_EEK_IsPureQuad(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
@@ -348,5 +376,17 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetCentroids(IntPtr ptr, [Out] Point3d[] points, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_ComputeVertexNormals(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_ComputeFaceNormals(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetVertexNormals(IntPtr ptr, [Out] Vector3d[] normals, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetFaceNormals(IntPtr ptr, [Out] Vector3d[] normals, int count);
 	}
 }

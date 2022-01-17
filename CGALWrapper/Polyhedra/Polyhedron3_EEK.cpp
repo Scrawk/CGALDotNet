@@ -22,6 +22,11 @@ void* Polyhedron3_EEK_Copy(void* ptr)
 	return Polyhedron3<EEK>::Copy(ptr);
 }
 
+void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force)
+{
+	Polyhedron3<EEK>::BuildIndices(ptr, vertices, faces, force);
+}
+
 int Polyhedron3_EEK_VertexCount(void* ptr)
 {
 	return Polyhedron3<EEK>::VertexCount(ptr);
@@ -67,12 +72,12 @@ BOOL Polyhedron3_EEK_IsPureTrivalent(void* ptr)
 	return Polyhedron3<EEK>::IsPureTrivalent(ptr);
 }
 
-int Polyhedron3_EEK_IsPureTriangle(void* ptr)
+BOOL Polyhedron3_EEK_IsPureTriangle(void* ptr)
 {
 	return Polyhedron3<EEK>::IsPureTriangle(ptr);
 }
 
-int Polyhedron3_EEK_IsPureQuad(void* ptr)
+BOOL Polyhedron3_EEK_IsPureQuad(void* ptr)
 {
 	return Polyhedron3<EEK>::IsPureQuad(ptr);
 }
@@ -210,4 +215,24 @@ MinMaxAvg Polyhedron3_EEK_MinMaxEdgeLength(void* ptr)
 void Polyhedron3_EEK_GetCentroids(void* ptr, Point3d* points, int count)
 {
 	Polyhedron3<EEK>::GetCentroids(ptr, points, count);
+}
+
+void Polyhedron3_EEK_ComputeVertexNormals(void* ptr)
+{
+	Polyhedron3<EEK>::ComputeVertexNormals(ptr);
+}
+
+void Polyhedron3_EEK_ComputeFaceNormals(void* ptr)
+{
+	Polyhedron3<EEK>::ComputeFaceNormals(ptr);
+}
+
+void Polyhedron3_EEK_GetVertexNormals(void* ptr, Vector3d* normals, int count)
+{
+	Polyhedron3<EEK>::GetVertexNormals(ptr, normals, count);
+}
+
+void Polyhedron3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count)
+{
+	Polyhedron3<EEK>::GetFaceNormals(ptr, normals, count);
 }

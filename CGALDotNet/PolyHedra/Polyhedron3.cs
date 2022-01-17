@@ -273,6 +273,17 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Builds the vertex and/or face index maps if needed.
+        /// </summary>
+        /// <param name="vertices">True to build the vertex index map.</param>
+        /// <param name="faces">True to build the face index map.</param>
+        /// <param name="force">True to force the build even if already built.</param>
+        public void BuildIndices(bool vertices, bool faces, bool force = false)
+        {
+            Kernel.BuildIndices(Ptr, vertices, faces, force);
+        }
+
+        /// <summary>
         /// A tetrahedron is added to the polyhedral surface
         /// with its vertices initialized to p1, p2, p3, and p4.
         /// </summary>
@@ -409,6 +420,44 @@ namespace CGALDotNet.Polyhedra
         {
             ErrorUtil.CheckArray(points, count);
             Kernel.GetCentroids(Ptr, points, count);
+        }
+
+        /// <summary>
+        /// Computes the vertex normals if needed.
+        /// </summary>
+        public void ComputeVertexNormals()
+        {
+            Kernel.ComputeVertexNormals(Ptr);
+        }
+
+        /// <summary>
+        /// Computes the face normals if needed.
+        /// </summary>
+        public void ComputeFaceNormals()
+        {
+            Kernel.ComputeFaceNormals(Ptr);
+        }
+
+        /// <summary>
+        /// Get the vertex normals.
+        /// </summary>
+        /// <param name="normals">The normals array.</param>
+        /// <param name="count">The normals array length.</param>
+        public void GetVertexNormals(Vector3d[] normals, int count)
+        {
+            ErrorUtil.CheckArray(normals, count);
+            Kernel.GetVertexNormals(Ptr, normals, count);
+        }
+
+        /// <summary>
+        /// Get the face normals.
+        /// </summary>
+        /// <param name="normals">The normals array.</param>
+        /// <param name="count">The normals array length.</param>
+        public void GetFaceNormals(Vector3d[] normals, int count)
+        {
+            ErrorUtil.CheckArray(normals, count);
+            Kernel.GetFaceNormals(Ptr, normals, count);
         }
 
         /// <summary>
@@ -638,7 +687,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfTriangleMesh()
         {
             if (IsValid)
-                return (Kernel.IsPureTriangle(Ptr) == 0).ToBoolOrUndetermined();
+                return Kernel.IsPureTriangle(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }
@@ -650,7 +699,7 @@ namespace CGALDotNet.Polyhedra
         public BOOL_OR_UNDETERMINED FindIfQuadMesh()
         {
             if (IsValid)
-                return (Kernel.IsPureQuad(Ptr) == 0).ToBoolOrUndetermined();
+                return Kernel.IsPureQuad(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
         }

@@ -17,6 +17,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract IntPtr Copy(IntPtr ptr);
 
+		internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool force);
+
 		internal abstract int VertexCount(IntPtr ptr);
 
 		internal abstract int FaceCount(IntPtr ptr);
@@ -35,9 +37,9 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract bool IsPureTrivalent(IntPtr ptr);
 
-		internal abstract int IsPureTriangle(IntPtr ptr);
+		internal abstract bool IsPureTriangle(IntPtr ptr);
 
-		internal abstract int IsPureQuad(IntPtr ptr);
+		internal abstract bool IsPureQuad(IntPtr ptr);
 
 		internal abstract void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 
@@ -92,6 +94,14 @@ namespace CGALDotNet.Polyhedra
 		internal abstract MinMaxAvg MinMaxEdgeLength(IntPtr ptr);
 
 		internal abstract void GetCentroids(IntPtr ptr, Point3d[] points, int count);
+
+		internal abstract void ComputeVertexNormals(IntPtr ptr);
+
+		internal abstract void ComputeFaceNormals(IntPtr ptr);
+
+		internal abstract void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count);
+
+		internal abstract void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count);
 
 	}
 }
