@@ -73,7 +73,7 @@ namespace CGALDotNet.Processing
             stop_ratio = CGALGlobal.Clamp01(stop_ratio);
             if (stop_ratio == 0) return;
             
-            CheckIsValidAndTriangle(poly);
+            CheckIsValidTriangleException(poly);
             Kernel.SimplifyPolyhedron(poly.Ptr, stop_ratio);
         }
 

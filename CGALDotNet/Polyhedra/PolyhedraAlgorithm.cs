@@ -17,27 +17,94 @@ namespace CGALDotNet.Polyhedra
         /// Check if the polyhedron is valid.
         /// </summary>
         /// <param name="polygon">The polygon to check.</param>
-        protected void CheckIsValid(Polyhedron3 polyhedron)
+        protected void CheckIsValidException(Polyhedron3 polyhedron)
         {
+            if (polyhedron == null)
+                throw new NullReferenceException("The polyhedron mesh is null.");
+
             if (!CheckInput) return;
 
             if (!polyhedron.FindIfValid())
-                throw new Exception("polyhedron is not valid.");
+                throw new InvalidOperationException("polyhedron is not valid.");
         }
 
         /// <summary>
         /// Check if the polyhedron is valid.
         /// </summary>
         /// <param name="polygon">The polygon to check.</param>
-        protected void CheckIsValidAndTriangle(Polyhedron3 polyhedron)
+        protected bool CheckIsValid(Polyhedron3 polyhedron)
         {
+            if (polyhedron == null)
+                throw new NullReferenceException("The polyhedron mesh is null.");
+
+            if (!CheckInput) return true;
+            return polyhedron.IsValid;
+        }
+
+        /// <summary>
+        /// Check if the polyhedron is a valid triangle mesh.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        protected void CheckIsValidTriangleException(Polyhedron3 polyhedron)
+        {
+            if (polyhedron == null)
+                throw new NullReferenceException("The polyhedron mesh is null.");
+
             if (!CheckInput) return;
 
-            if (!polyhedron.FindIfValid())
-                throw new Exception("polyhedron is not valid.");
+            if (!polyhedron.IsValid)
+                throw new InvalidOperationException("polyhedron is not valid.");
 
-           // if (!polyhedron.IsTriangle)
-            //    throw new Exception("polyhedron must be a pure triangle mesh.");
+           if (!polyhedron.IsTriangle)
+                throw new InvalidOperationException("polyhedron must be a pure triangle mesh.");
         }
+
+        /// <summary>
+        /// Check if the polyhedron is a valid triangle mesh.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        protected bool CheckIsValidTriangle(Polyhedron3 polyhedron)
+        {
+            if (polyhedron == null)
+                throw new NullReferenceException("The polyhedron mesh is null.");
+
+            if (!CheckInput) return true;
+            return polyhedron.IsValidTriangleMesh;
+        }
+
+        /// <summary>
+        /// Check if the polyhedron is a valid triangle mesh.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        protected void CheckIsValidClosedTriangleException(Polyhedron3 polyhedron)
+        {
+            if (polyhedron == null)
+                throw new NullReferenceException("The polyhedron mesh is null.");
+
+            if (!CheckInput) return;
+
+            if (!polyhedron.IsValid)
+                throw new InvalidOperationException("polyhedron is not valid.");
+
+            if (!polyhedron.IsTriangle)
+                throw new InvalidOperationException("polyhedron must be a pure triangle mesh.");
+
+            if (!polyhedron.IsClosed)
+                throw new InvalidOperationException("polyhedron must be a closed mesh.");
+        }
+
+        /// <summary>
+        /// Check if the polyhedron is a valid triangle mesh.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        protected bool CheckIsValidClosedTriangle(Polyhedron3 polyhedron)
+        {
+            if (polyhedron == null)
+                throw new NullReferenceException("The polyhedron mesh is null.");
+
+            if (!CheckInput) return true;
+            return polyhedron.IsValidClosedTriangleMesh;
+        }
+
     }
 }

@@ -204,13 +204,23 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		internal override void ReadOFF(IntPtr ptr, string filename)
-        {
+		{
 			Polyhedron3_EIK_ReadOFF(ptr, filename);
 		}
 
 		internal override void WriteOFF(IntPtr ptr, string filename)
-        {
+		{
 			Polyhedron3_EIK_WriteOFF(ptr, filename);
+		}
+
+		internal override MinMaxAvg MinMaxEdgeLength(IntPtr ptr)
+		{
+			return Polyhedron3_EIK_MinMaxEdgeLength(ptr);
+		}
+
+		internal override void GetCentroids(IntPtr ptr, Point3d[] points, int count)
+		{
+			Polyhedron3_EIK_GetCentroids(ptr, points, count);
 		}
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -332,5 +342,11 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EIK_WriteOFF(IntPtr ptr, string filename);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern MinMaxAvg Polyhedron3_EIK_MinMaxEdgeLength(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EIK_GetCentroids(IntPtr ptr, [Out] Point3d[] points, int count);
 	}
 }

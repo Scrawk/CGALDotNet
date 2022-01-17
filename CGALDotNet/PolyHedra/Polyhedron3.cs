@@ -244,6 +244,14 @@ namespace CGALDotNet.Polyhedra
         protected bool IsUpdated { get; set; }
 
         /// <summary>
+        /// Mark th mesh as needing to be updated.
+        /// </summary>
+        public void SetIsUpdatedToFalse()
+        {
+            IsUpdated = false;
+        }
+
+        /// <summary>
         /// returns true if the polyhedral surface is combinatorially consistent.
         // For level == 1 the normalization of the border edges is checked too.
         // This method checks that each face is at least a triangle and that the
@@ -390,6 +398,17 @@ namespace CGALDotNet.Polyhedra
         {
             ErrorUtil.CheckArray(indices, count);
             Kernel.GetQuadIndices(Ptr, indices, count);
+        }
+
+        /// <summary>
+        /// Get a centroid (the avergae face position) for each face in the mesh.
+        /// </summary>
+        /// <param name="points">The point array.</param>
+        /// <param name="count">The points arrays lemgth.</param>
+        public void GetCentroids(Point3d[] points, int count)
+        {
+            ErrorUtil.CheckArray(points, count);
+            Kernel.GetCentroids(Ptr, points, count);
         }
 
         /// <summary>
@@ -694,6 +713,15 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Find the min, max and average edge lengths in the polyhedron.
+        /// </summary>
+        /// <returns>The min, max and average edge lengths in the polyhedron.</returns>
+        public MinMaxAvg FindMinMaxEdgeLength()
+        {
+            return Kernel.MinMaxEdgeLength(Ptr);
+        }
+
+        /// <summary>
         /// Subdive the polyhedron.
         /// </summary>
         /// <param name="iterations">The number of iterations to perfrom.</param>
@@ -732,6 +760,8 @@ namespace CGALDotNet.Polyhedra
         {
             if (IsUpdated) return;
             IsUpdated = true;
+
+            Console.WriteLine("Updating........\n");
 
             if (FindIfValid())
             {
@@ -774,6 +804,11 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("Area = " + FindArea());
             builder.AppendLine("Volume = " + FindVolume());
             builder.AppendLine("DoesBoundAVolume = " + FindIfDoesBoundAVolume());
+
+            var minmax = FindMinMaxEdgeLength();
+            builder.AppendLine("MinEdgeLength = " + minmax.Min);
+            builder.AppendLine("MaxEdgeLength = " + minmax.Max);
+            builder.AppendLine("AverageEdgeLength = " + minmax.Average);
         }
 
         /// <summary>

@@ -30,13 +30,17 @@ namespace CGALDotNetConsole
             //bunny00.off
             //refined_elephant.off
 
-            string filename = "C:/Users/Justin/Desktop/CGALData/meshes/elephant.off";
+            string filename = "C:/Users/Justin/Desktop/CGALData/meshes/elk.off";
 
             var poly = new Polyhedron3<EEK>();
             poly.ReadOFF(filename);
             //poly.Triangulate();
-
             poly.Print();
+
+            Console.WriteLine("Processing..........\n");
+            poly.Print();
+
+
         }
 
 

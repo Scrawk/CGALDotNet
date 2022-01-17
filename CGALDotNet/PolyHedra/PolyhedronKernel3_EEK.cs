@@ -14,52 +14,52 @@ namespace CGALDotNet.Polyhedra
 		internal static readonly PolyhedronKernel3 Instance = new PolyhedronKernel3_EEK();
 
 		internal override IntPtr Create()
-        {
+		{
 			return Polyhedron3_EEK_Create();
 		}
 
 		internal override void Release(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_Release(ptr);
 		}
 
 		internal override void Clear(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_Clear(ptr);
 		}
 
 		internal override IntPtr Copy(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_Copy(ptr);
-        }
+		}
 
 		internal override int VertexCount(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_VertexCount(ptr);
 		}
 
 		internal override int FaceCount(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_FaceCount(ptr);
 		}
 
 		internal override int HalfEdgeCount(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_HalfEdgeCount(ptr);
 		}
 
 		internal override int BorderEdgeCount(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_BorderEdgeCount(ptr);
 		}
 
 		internal override int BorderHalfEdgeCount(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_BorderHalfEdgeCount(ptr);
 		}
 
 		internal override bool IsValid(IntPtr ptr, int level)
-        {
+		{
 			return Polyhedron3_EEK_IsValid(ptr, level);
 		}
 
@@ -69,22 +69,22 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		internal override bool IsPureBivalent(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_IsPureBivalent(ptr);
 		}
 
 		internal override bool IsPureTrivalent(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_IsPureTrivalent(ptr);
 		}
 
 		internal override int IsPureTriangle(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_IsPureTriangle(ptr);
 		}
 
 		internal override int IsPureQuad(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_IsPureQuad(ptr);
 		}
 
@@ -99,9 +99,9 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		internal override void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount)
-        {
+		{
 			Polyhedron3_EEK_CreateTriangleMesh(ptr, points, pointsCount, triangles, triangleCount);
-        }
+		}
 
 		internal override void CreateQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] quads, int quadCount)
 		{
@@ -109,24 +109,24 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		internal override void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadCount)
-        {
+		{
 			Polyhedron3_EEK_CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, triangleCount, quads, quadCount);
-        }
+		}
 
 		internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
-        {
+		{
 			Polyhedron3_EEK_GetPoints(ptr, points, count);
-        }
+		}
 
 		internal override PrimativeCount GetPrimativeCount(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_GetPrimativeCount(ptr);
-        }
+		}
 
 		internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
-        {
+		{
 			Polyhedron3_EEK_GetTriangleIndices(ptr, indices, count);
-        }
+		}
 
 		internal override void GetQuadIndices(IntPtr ptr, int[] indices, int count)
 		{
@@ -134,74 +134,74 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
-        {
+		{
 			Polyhedron3_EEK_Transform(ptr, matrix);
-        }
+		}
 
 		internal override void InsideOut(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_InsideOut(ptr);
-        }
+		}
 
 		internal override void Triangulate(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_Triangulate(ptr);
-        }
+		}
 
 		internal override void NormalizeBorder(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_NormalizeBorder(ptr);
-        }
+		}
 
 		internal override bool NormalizedBorderIsValid(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_NormalizedBorderIsValid(ptr);
-        }
+		}
 
 		internal override BOUNDED_SIDE SideOfTriangleMesh(IntPtr ptr, Point3d point)
-        {
+		{
 			return Polyhedron3_EEK_SideOfTriangleMesh(ptr, point);
-        }
+		}
 
 		internal override bool DoesSelfIntersect(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_DoesSelfIntersect(ptr);
-        }
+		}
 
 		internal override double Area(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_Area(ptr);
-        }
+		}
 
 		internal override Point3d Centroid(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_Centroid(ptr);
-        }
+		}
 
 		internal override double Volume(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_Volume(ptr);
-        }
+		}
 
 		internal override bool DoesBoundAVolume(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_DoesBoundAVolume(ptr);
-        }
+		}
 
 		internal override void BuildAABBTree(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_BuildAABBTree(ptr);
-        }
+		}
 
 		internal override void ReleaseAABBTree(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_ReleaseAABBTree(ptr);
-        }
+		}
 
 		internal override bool DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides)
-        {
+		{
 			return Polyhedron3_EEK_DoIntersects(ptr, otherPtr, test_bounded_sides);
-        }
+		}
 
 		internal override void ReadOFF(IntPtr ptr, string filename)
 		{
@@ -211,6 +211,16 @@ namespace CGALDotNet.Polyhedra
 		internal override void WriteOFF(IntPtr ptr, string filename)
 		{
 			Polyhedron3_EEK_WriteOFF(ptr, filename);
+		}
+
+		internal override MinMaxAvg MinMaxEdgeLength(IntPtr ptr)
+		{
+			return Polyhedron3_EEK_MinMaxEdgeLength(ptr);
+		}
+
+		internal override void GetCentroids(IntPtr ptr, Point3d[] points, int count)
+        {
+			Polyhedron3_EEK_GetCentroids(ptr, points, count);
 		}
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -332,5 +342,11 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_WriteOFF(IntPtr ptr, string filename);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern MinMaxAvg Polyhedron3_EEK_MinMaxEdgeLength(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetCentroids(IntPtr ptr, [Out] Point3d[] points, int count);
 	}
 }

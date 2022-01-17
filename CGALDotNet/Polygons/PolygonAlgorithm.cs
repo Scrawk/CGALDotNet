@@ -22,10 +22,13 @@ namespace CGALDotNet.Polygons
         /// <param name="polygon">The polygon to check.</param>
         protected void CheckPolygon(Polygon2 polygon)
         {
+            if (polygon == null)
+                throw new NullReferenceException("The polygon is null.");
+
             if (!CheckInput) return;
 
             if (!polygon.IsValid())
-                throw new Exception("Polygon2 must be simple and ccw.");
+                throw new InvalidOperationException("Polygon2 must be simple and ccw.");
         }
 
         /// <summary>
@@ -35,10 +38,13 @@ namespace CGALDotNet.Polygons
         /// <param name="polygon">The polygon to check.</param>
         protected void CheckPolygon(PolygonWithHoles2 polygon)
         {
+            if (polygon == null)
+                throw new NullReferenceException("The polygon is null.");
+
             if (!CheckInput) return;
 
             if (!polygon.IsValid())
-                throw new Exception("PolygonWithHoles2 must be simple and ccw and all holes must be simple and cw.");
+                throw new InvalidOperationException("PolygonWithHoles2 must be simple and ccw and all holes must be simple and cw.");
         }
     }
 }

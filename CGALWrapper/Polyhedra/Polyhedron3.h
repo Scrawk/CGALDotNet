@@ -4,9 +4,11 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "../Geometry/MinMax.h"
 #include "PrimativeCount.h"
 #include "MeshBuilders.h"
- 
+
+#include <limits>
 #include <map>
 #include <set>
 #include <fstream>
@@ -42,9 +44,6 @@ public:
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<Polyhedron> AABB_face_graph_primitive;
 	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
 	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
-
-	typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor        halfedge_descriptor;
-	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor            edge_descriptor;
 
 private:
 
@@ -517,108 +516,72 @@ public:
 		o << poly->model;
 	}
 
-	/*
-	static int Refine(void* ptr, double density_control_factor)
+	static MinMaxAvg MinMaxEdgeLength(void* ptr)
 	{
-		auto poly = CastToPolyhedron(ptr);
+		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
 
-		std::vector<Polyhedron::Facet_handle>  new_facets;
-		std::vector<Polyhedron::Vertex_handle> new_vertices;
+		constexpr double MAX = std::numeric_limits<double>::max();
 
-		auto param = CGAL::parameters::density_control_factor(density_control_factor);
+		MinMaxAvg m;
+		m.min = MAX;
+		m.max = 0;
+		m.avg = 0;
 
-		CGAL::Polygon_mesh_processing::refine(poly->model, faces(poly->model),
-			std::back_inserter(new_facets),
-			std::back_inserter(new_vertices),
-			param);
-
-		poly->OnModelChanged();
-
-		return (int)new_vertices.size();
-	}
-
-	static void Fair(void* ptr)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		//std::vector<Polyhedron::Vertex_handle> region;
-		//CGAL::Polygon_mesh_processing::fair(poly->model, region);
-		//poly->OnModelChanged();
-	}
-
-	static void SmoothMesh(void* ptr, int iterations, double featureAngle)
-	{
-		
-		auto poly = CastToPolyhedron(ptr);
-		
-		typedef boost::property_map<Polyhedron, CGAL::edge_is_feature_t>::type FeatureMap;
-		FeatureMap map;
-
-		CGAL::Polygon_mesh_processing::detect_sharp_edges(poly->model, featureAngle, map);
-
-		auto param = CGAL::Polygon_mesh_processing::parameters::number_of_iterations(iterations).
-			use_safety_constraints(false).
-			edge_is_constrained_map(map);
-
-		CGAL::Polygon_mesh_processing::smooth_mesh(faces(poly->model), poly->model, param);
-
-		poly->OnModelChanged();
-		
-	}
-
-	static void SmoothShape(void* ptr, int iterations, double timeStep)
-	{
-		
-		auto poly = CastToPolyhedron(ptr);
-		
-		std::set<Polyhedron::Vertex_handle> constrained_vertices;
-
-		for (auto v : vertices(poly->model))
+		int count = 0;
+		for (auto halfedge = poly->model.halfedges_begin(); halfedge != poly->model.halfedges_end(); ++halfedge)
 		{
-			if (is_border(v, poly->model))
-				constrained_vertices.insert(v);
+			auto ft = CGAL::Polygon_mesh_processing::edge_length(halfedge, poly->model);
+			double len = CGAL::to_double(ft);
+
+			count++;
+			m.avg += len;
+
+			if (len < m.min) m.min = len;
+			if (len > m.max) m.max = len;
 		}
 
-		CGAL::Boolean_property_map<std::set<Polyhedron::Vertex_handle> > map(constrained_vertices);
+		if (m.min == MAX)
+			m.min = 0;
 
-		auto param = CGAL::Polygon_mesh_processing::parameters::number_of_iterations(iterations)
-			.vertex_is_constrained_map(map);
+		if (count != 0)
+			m.avg /= count;
 
-		CGAL::Polygon_mesh_processing::smooth_shape(poly->model, timeStep, param);
-
-		poly->OnModelChanged();
-		
+		return m;
 	}
 
-	static void IsotropicRemeshing(void* ptr, int iterations, double target_edge_length)
+	static void GetCentroids(void* ptr, Point3d* points, int count)
 	{
-		struct halfedge2edge
+
+		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		int numFaces = (int)poly->model.size_of_facets();
+
+		int index = 0;
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
-			halfedge2edge(const Polyhedron& m, std::vector<edge_descriptor>& edges)
-				: m_mesh(m), m_edges(edges)
-			{}
-			void operator()(const halfedge_descriptor& h) const
+			if (face->halfedge() == nullptr) continue;
+
+			int num = 0;
+			Point3d centroid = { 0, 0, 0 };
+
+			auto hedge = face->halfedge();
+			do
 			{
-				m_edges.push_back(edge(h, m_mesh));
-			}
-			const Polyhedron& m_mesh;
-			std::vector<edge_descriptor>& m_edges;
-		};
+				Point3d p = Point3d::FromCGAL<EEK>(hedge->vertex()->point());
+				centroid += p;
 
-		auto poly = CastToPolyhedron(ptr);
+			} while (++hedge != face->halfedge());
 
-		std::vector<edge_descriptor> border;
-		CGAL::Polygon_mesh_processing::border_halfedges(faces(poly->model), poly->model, 
-			boost::make_function_output_iterator(halfedge2edge(poly->model, border)));
-		
-		CGAL::Polygon_mesh_processing::split_long_edges(border, target_edge_length, poly->model);
-		 
-		auto param = CGAL::Polygon_mesh_processing::parameters::number_of_iterations(iterations)
-			.protect_constraints(true); //i.e. protect border, here
+			if (num != 0)
+				centroid /= num;
 
-		CGAL::Polygon_mesh_processing::isotropic_remeshing(faces(poly->model), target_edge_length, poly->model, param); 
+			points[index] = centroid;
 
-		poly->OnModelChanged();
+			index++;
+
+			if (index >= numFaces || index >= count)
+				return;
+		}
+
 	}
-	*/
 
 };

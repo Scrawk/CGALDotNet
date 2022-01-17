@@ -76,6 +76,46 @@ struct Point3d
         return !operator==(rhs);
     }
 
+    Point3d operator+(const Point3d& rhs) const
+    {
+        return { x + rhs.x , y + rhs.y, z + rhs.z };
+    }
+
+    Point3d operator+=(const Point3d& rhs) const
+    {
+        return { x + rhs.x , y + rhs.y, z + rhs.z };
+    }
+
+    Point3d operator-(const Point3d& rhs) const
+    {
+        return { x - rhs.x , y - rhs.y, z - rhs.z };
+    }
+
+    Point3d operator-=(const Point3d& rhs) const
+    {
+        return { x - rhs.x , y - rhs.y, z - rhs.z };
+    }
+
+    Point3d operator/(double rhs) const
+    {
+        return { x / rhs , y / rhs, z / rhs };
+    }
+
+    Point3d operator/=(double rhs) const
+    {
+        return { x / rhs , y / rhs, z / rhs };
+    }
+
+    Point3d operator*(double rhs) const
+    {
+        return { x * rhs , y * rhs, z * rhs };
+    }
+
+    Point3d operator*=(double rhs) const
+    {
+        return { x * rhs , y * rhs, z * rhs };
+    }
+
 };
 
 //used to represent a weighted or homogenous point.
@@ -110,6 +150,46 @@ struct HPoint3d
     bool operator!=(const HPoint3d& rhs) const
     {
         return !operator==(rhs);
+    }
+
+    HPoint3d operator+(const HPoint3d& rhs) const
+    {
+        return { x + rhs.x , y + rhs.y, z + rhs.z, w + rhs.w };
+    }
+
+    HPoint3d operator+=(const HPoint3d& rhs) const
+    {
+        return { x + rhs.x , y + rhs.y, z + rhs.z, w + rhs.w };
+    }
+
+    HPoint3d operator-(const HPoint3d& rhs) const
+    {
+        return { x - rhs.x , y - rhs.y, z - rhs.z, w - rhs.w };
+    }
+
+    HPoint3d operator-=(const HPoint3d& rhs) const
+    {
+        return { x - rhs.x , y - rhs.y, z - rhs.z, w - rhs.w };
+    }
+
+    HPoint3d operator/(double rhs) const
+    {
+        return { x / rhs , y / rhs, z / rhs, w / rhs };
+    }
+
+    HPoint3d operator/=(double rhs) const
+    {
+        return { x / rhs , y / rhs, z / rhs, w / rhs };
+    }
+
+    HPoint3d operator*(double rhs) const
+    {
+        return { x * rhs , y * rhs, z * rhs, w * rhs };
+    }
+
+    HPoint3d operator*=(double rhs) const
+    {
+        return { x * rhs , y * rhs, z * rhs, w * rhs };
     }
 
 };

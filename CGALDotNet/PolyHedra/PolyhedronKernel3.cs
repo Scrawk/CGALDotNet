@@ -89,5 +89,9 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void WriteOFF(IntPtr ptr, string filename);
 
+		internal abstract MinMaxAvg MinMaxEdgeLength(IntPtr ptr);
+
+		internal abstract void GetCentroids(IntPtr ptr, Point3d[] points, int count);
+
 	}
 }

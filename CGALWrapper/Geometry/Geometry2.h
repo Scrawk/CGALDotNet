@@ -65,6 +65,46 @@ struct Point2d
         return !operator==(rhs);
     }
 
+    Point2d operator+(const Point2d& rhs) const
+    {
+        return { x + rhs.x , y + rhs.y};
+    }
+
+    Point2d operator+=(const Point2d& rhs) const
+    {
+        return { x + rhs.x , y + rhs.y };
+    }
+
+    Point2d operator-(const Point2d& rhs) const
+    {
+        return { x - rhs.x , y - rhs.y };
+    }
+
+    Point2d operator-=(const Point2d& rhs) const
+    {
+        return { x - rhs.x , y - rhs.y };
+    }
+
+    Point2d operator/(double rhs) const
+    {
+        return { x / rhs , y / rhs };
+    }
+
+    Point2d operator/=(double rhs) const
+    {
+        return { x / rhs , y / rhs };
+    }
+
+    Point2d operator*(double rhs) const
+    {
+        return { x * rhs , y * rhs };
+    }
+
+    Point2d operator*=(double rhs) const
+    {
+        return { x * rhs , y * rhs };
+    }
+
 };
 
 struct Vector2d

@@ -123,7 +123,7 @@ namespace CGALDotNet.Processing
         {
             if (iterations < 0) return;
 
-            CheckIsValidAndTriangle(poly);
+            CheckIsValidTriangleException(poly);
             Kernel.SubdivePolyhedron_Loop(poly.Ptr, iterations);
         }
 
@@ -136,7 +136,7 @@ namespace CGALDotNet.Processing
         {
             if (iterations < 0) return;
 
-            CheckIsValidAndTriangle(poly);
+            CheckIsValidTriangleException(poly);
             Kernel.SubdivePolyhedron_Sqrt3(poly.Ptr, iterations);
         }
 

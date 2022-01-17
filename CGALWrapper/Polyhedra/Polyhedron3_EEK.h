@@ -4,6 +4,7 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "../Geometry/MinMax.h"
 #include "PrimativeCount.h"
 
 #include <CGAL/enum.h>
@@ -90,5 +91,9 @@ extern "C"
 	CGALWRAPPER_API void Polyhedron3_EEK_ReadOFF(void* ptr, const char* filename);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_WriteOFF(void* ptr, const char* filename);
+
+	CGALWRAPPER_API MinMaxAvg Polyhedron3_EEK_MinMaxEdgeLength(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetCentroids(void* ptr, Point3d* points, int count);
 	
 }

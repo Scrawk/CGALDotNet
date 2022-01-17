@@ -67,6 +67,8 @@ namespace CGALDotNet
         internal abstract SurfaceSimplificationKernel SurfaceSimplificationKernel { get; }
 
         internal abstract SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel { get; }
+
+        internal abstract PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -124,6 +126,8 @@ namespace CGALDotNet
         internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => SurfaceSimplificationKernel_EIK.Instance;
 
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => throw new NotImplementedException();
+
+        internal override PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -181,6 +185,8 @@ namespace CGALDotNet
         internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => throw new NotImplementedException();
 
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => SkinSurfaceMeshingKernel_EEK.Instance;
+
+        internal override PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel => PolygonMeshProcessingMeshingKernel_EEK.Instance;
     }
 
 }

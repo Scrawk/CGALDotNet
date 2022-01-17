@@ -374,6 +374,14 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Mark th mesh as needing to be updated.
+        /// </summary>
+        public void SetIsUpdatedToFalse()
+        {
+            IsUpdated = false;
+        }
+
+        /// <summary>
         /// Valid polygons should be simple and ccw 
         /// for most algorithms to work on them.
         /// </summary>
