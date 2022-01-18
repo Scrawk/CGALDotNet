@@ -35,3 +35,28 @@ void PolygonMeshProcessingRepair_EEK_RepairPolygonSoup(void* ptr)
 {
 	PolygonMeshProcessingRepair<EEK>::RepairPolygonSoup(ptr);
 }
+
+int PolygonMeshProcessingRepair_EEK_StitchBoundaryCycles(void* ptr)
+{
+	return PolygonMeshProcessingRepair<EEK>::StitchBoundaryCycles(ptr);
+}
+
+int PolygonMeshProcessingRepair_EEK_StitchBorders(void* ptr)
+{
+	return PolygonMeshProcessingRepair<EEK>::StitchBorders(ptr);
+}
+
+int PolygonMeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle(void* ptr)
+{
+	return PolygonMeshProcessingRepair<EEK>::MergeDuplicatedVerticesInBoundaryCycle(ptr);
+}
+
+int PolygonMeshProcessingRepair_EEK_RemoveIsolatedVertices(void* ptr)
+{
+	return PolygonMeshProcessingRepair<EEK>::RemoveIsolatedVertices(ptr);
+}
+
+void PolygonMeshProcessingRepair_EEK_PolygonMeshToPolygonSoup(void* ptr, int* triangles, int triangleCount, int* quads, int quadCount)
+{
+	PolygonMeshProcessingRepair<EEK>::PolygonMeshToPolygonSoup(ptr, triangles, triangleCount, quads, quadCount);
+}

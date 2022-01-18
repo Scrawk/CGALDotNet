@@ -127,36 +127,72 @@ public:
 		CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh(points, polygons, poly->model);
 	}
 
-	static void StitchBoundaryCycles(void* ptr)
+	static int StitchBoundaryCycles(void* ptr)
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
 
 		poly->OnModelChanged();
-		CGAL::Polygon_mesh_processing::stitch_boundary_cycles(poly->model);
+		return (int)CGAL::Polygon_mesh_processing::stitch_boundary_cycles(poly->model);
 	}
 
-	static void StitchBorders(void* ptr)
+	static int StitchBorders(void* ptr)
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
 
 		poly->OnModelChanged();
-		CGAL::Polygon_mesh_processing::stitch_borders(poly->model);
+		return (int)CGAL::Polygon_mesh_processing::stitch_borders(poly->model);
 	}
 
-	static void MergeDuplicatedVerticesInBoundaryCycle(void* ptr)
+	static int MergeDuplicatedVerticesInBoundaryCycle(void* ptr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-
-		poly->OnModelChanged();
-		int count = CGAL::Polygon_mesh_processing::merge_duplicated_vertices_in_boundary_cycle(poly->model);
+		return 0;
+		//auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
+		//poly->OnModelChanged();
+		//return CGAL::Polygon_mesh_processing::merge_duplicated_vertices_in_boundary_cycle(poly->model);
 	}
 
-	static void RemoveIsolatedVertices(void* ptr)
+	static int RemoveIsolatedVertices(void* ptr)
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
 
 		poly->OnModelChanged();
-		int count = CGAL::Polygon_mesh_processing::remove_isolated_vertices(poly->model);
+		return (int)CGAL::Polygon_mesh_processing::remove_isolated_vertices(poly->model);
+	}
+
+	static void PolygonMeshToPolygonSoup(void* ptr, int* triangles, int triangleCount, int* quads, int quadCount)
+	{
+		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		std::vector<Point> points;
+		std::vector<PolygonIndex> polygons;
+		CGAL::Polygon_mesh_processing::polygon_mesh_to_polygon_soup(poly->model, points, polygons);
+
+		int numTri = 0;
+		int numQuad = 0;
+		for (auto i = 0; i < polygons.size(); i++)
+		{
+			auto polygonIndex = polygons[i];
+			int numVerts = (int)polygonIndex.size();
+
+			if (numVerts == 3)
+			{
+				triangles[numTri * 3 + 0] = (int)polygonIndex[0];
+				triangles[numTri * 3 + 1] = (int)polygonIndex[1];
+				triangles[numTri * 3 + 2] = (int)polygonIndex[2];
+				numTri++;
+			}
+			else if (numVerts == 4)
+			{
+				quads[numTri * 4 + 0] = (int)polygonIndex[0];
+				quads[numTri * 4 + 1] = (int)polygonIndex[1];
+				quads[numTri * 4 + 2] = (int)polygonIndex[2];
+				quads[numTri * 4 + 3] = (int)polygonIndex[3];
+				numQuad++;
+			}
+
+			if (numTri * 3 >= triangleCount) return;
+			if (numQuad * 4 >= quadCount) return;
+		}
 	}
 
 };

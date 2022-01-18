@@ -69,6 +69,10 @@ namespace CGALDotNet
         internal abstract SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel { get; }
 
         internal abstract PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel { get; }
+
+        internal abstract PolygonMeshProcessingRepairKernel PolygonMeshProcessingRepairKernel { get; }
+
+        internal abstract PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -128,6 +132,10 @@ namespace CGALDotNet
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => throw new NotImplementedException();
 
         internal override PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel => throw new NotImplementedException();
+
+        internal override PolygonMeshProcessingRepairKernel PolygonMeshProcessingRepairKernel => throw new NotImplementedException();
+
+        internal override PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -187,6 +195,10 @@ namespace CGALDotNet
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => SkinSurfaceMeshingKernel_EEK.Instance;
 
         internal override PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel => PolygonMeshProcessingMeshingKernel_EEK.Instance;
+
+        internal override PolygonMeshProcessingRepairKernel PolygonMeshProcessingRepairKernel => PolygonMeshProcessingRepairKernel_EEK.Instance;
+
+        internal override PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel => PolygonMeshProcessingOrientationKernel_EEK.Instance;
     }
 
 }

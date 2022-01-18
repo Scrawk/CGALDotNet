@@ -18,5 +18,15 @@ extern "C"
 
 	CGALWRAPPER_API void PolygonMeshProcessingRepair_EEK_RepairPolygonSoup(void* ptr);
 
+	CGALWRAPPER_API int PolygonMeshProcessingRepair_EEK_StitchBoundaryCycles(void* ptr);
+
+	CGALWRAPPER_API int PolygonMeshProcessingRepair_EEK_StitchBorders(void* ptr);
+
+	CGALWRAPPER_API int PolygonMeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle(void* ptr);
+
+	CGALWRAPPER_API int PolygonMeshProcessingRepair_EEK_RemoveIsolatedVertices(void* ptr);
+
+	CGALWRAPPER_API void PolygonMeshProcessingRepair_EEK_PolygonMeshToPolygonSoup(void* ptr, int* triangles, int triangleCount, int* quads, int quadCount);
+
 }
 

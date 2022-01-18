@@ -7,6 +7,23 @@ namespace CGALDotNet.Polyhedra
     public abstract class PolyhedraAlgorithm : CGALObject
     {
         /// <summary>
+        /// 
+        /// </summary>
+        internal PolyhedraAlgorithm()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ptr"></param>
+        internal PolyhedraAlgorithm(IntPtr ptr) : base(ptr)
+        {
+
+        }
+
+        /// <summary>
         /// Should the input polygon be checked.
         /// Can disable for better performance if 
         /// it is know all input if valid.

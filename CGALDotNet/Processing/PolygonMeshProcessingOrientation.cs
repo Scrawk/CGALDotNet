@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNet.Polyhedra;
+
 namespace CGALDotNet.Processing
 {
     /// <summary>
@@ -45,7 +47,7 @@ namespace CGALDotNet.Processing
     /// <summary>
     /// 
     /// </summary>
-    internal abstract class PolygonMeshProcessingOrientation : CGALObject
+    internal abstract class PolygonMeshProcessingOrientation : PolyhedraAlgorithm
     {
         /// <summary>
         /// 
@@ -61,7 +63,7 @@ namespace CGALDotNet.Processing
         /// <param name="kernel"></param>
         internal PolygonMeshProcessingOrientation(CGALKernel kernel)
         {
-            //Kernel = kernel.PolygonMeshProcessingOrientationKernel;
+            Kernel = kernel.PolygonMeshProcessingOrientationKernel;
             Ptr = Kernel.Create();
         }
 
@@ -72,7 +74,7 @@ namespace CGALDotNet.Processing
         /// <param name="ptr"></param>
         internal PolygonMeshProcessingOrientation(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
-            //Kernel = kernel.PolygonMeshProcessingOrientationKernel;
+            Kernel = kernel.PolygonMeshProcessingOrientationKernel;
             Ptr = ptr;
         }
 
