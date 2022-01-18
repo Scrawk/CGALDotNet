@@ -43,6 +43,8 @@ extern "C"
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureTriangle(void* ptr);
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_IsPureQuad(void* ptr);
+
+	CGALWRAPPER_API Box3d Polyhedron3_EEK_GetBoundingBox(void* ptr);
 	
 	CGALWRAPPER_API void Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 

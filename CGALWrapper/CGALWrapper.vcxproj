@@ -170,8 +170,8 @@
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
     <ClInclude Include="Geometry\MinMax.h" />
-    <ClInclude Include="Processing\PolygonMeshProcessingNormals.h" />
-    <ClInclude Include="Processing\PolygonMeshProcessingNormals_EEK.h" />
+    <ClInclude Include="Processing\PolygonMeshProcessingConnected.h" />
+    <ClInclude Include="Processing\PolygonMeshProcessingConnected_EEK.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingOrientation_EEK.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingMeshing_EEK.h" />
     <ClInclude Include="Polyhedra\MeshBuilders.h" />
@@ -269,7 +269,7 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
-    <ClCompile Include="Processing\PolygonMeshProcessingNormals_EEK.cpp" />
+    <ClCompile Include="Processing\PolygonMeshProcessingConnected_EEK.cpp" />
     <ClCompile Include="Processing\PolygonMeshProcessingOrientation_EEK.cpp" />
     <ClCompile Include="Processing\PolygonMeshProcessingMeshing_EEK.cpp" />
     <ClCompile Include="Processing\PolygonMeshProcessingRepair_EEK.cpp" />

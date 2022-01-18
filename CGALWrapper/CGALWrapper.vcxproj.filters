@@ -354,10 +354,10 @@
     <ClInclude Include="Processing\PolygonMeshProcessingOrientation_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingNormals.h">
+    <ClInclude Include="Processing\PolygonMeshProcessingConnected.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingNormals_EEK.h">
+    <ClInclude Include="Processing\PolygonMeshProcessingConnected_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Processing\PolygonMeshProcessingRepair.h">
@@ -518,7 +518,7 @@
     <ClCompile Include="Processing\PolygonMeshProcessingOrientation_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingNormals_EEK.cpp">
+    <ClCompile Include="Processing\PolygonMeshProcessingConnected_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\PolygonMeshProcessingRepair_EEK.cpp">

@@ -82,6 +82,11 @@ BOOL Polyhedron3_EEK_IsPureQuad(void* ptr)
 	return Polyhedron3<EEK>::IsPureQuad(ptr);
 }
 
+Box3d Polyhedron3_EEK_GetBoundingBox(void* ptr)
+{
+	return Polyhedron3<EEK>::GetBoundingBox(ptr);
+}
+
 void Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 {
 	Polyhedron3<EEK>::MakeTetrahedron(ptr, p1, p2, p3, p4);
@@ -236,3 +241,7 @@ void Polyhedron3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count)
 {
 	Polyhedron3<EEK>::GetFaceNormals(ptr, normals, count);
 }
+
+
+
+

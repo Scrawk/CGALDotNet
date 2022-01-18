@@ -8,17 +8,17 @@ namespace CGALDotNet.Processing
     /// 
     /// </summary>
     /// <typeparam name="K"></typeparam>
-    internal sealed class PolygonMeshProcessingNormals<K> : PolygonMeshProcessingNormals where K : CGALKernel, new()
+    internal sealed class PolygonMeshProcessingConnected<K> : PolygonMeshProcessingConnected where K : CGALKernel, new()
     {
         /// <summary>
         /// 
         /// </summary>
-        public static readonly PolygonMeshProcessingNormals<K> Instance = new PolygonMeshProcessingNormals<K>();
+        public static readonly PolygonMeshProcessingConnected<K> Instance = new PolygonMeshProcessingConnected<K>();
 
         /// <summary>
         /// 
         /// </summary>
-        public PolygonMeshProcessingNormals() : base(new K())
+        public PolygonMeshProcessingConnected() : base(new K())
         {
 
         }
@@ -27,7 +27,7 @@ namespace CGALDotNet.Processing
         /// 
         /// </summary>
         /// <param name="ptr"></param>
-        internal PolygonMeshProcessingNormals(IntPtr ptr) : base(new K(), ptr)
+        internal PolygonMeshProcessingConnected(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
@@ -38,19 +38,19 @@ namespace CGALDotNet.Processing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[PolygonMeshProcessingNormals<{0}>: ]", Kernel.KernelName);
+            return string.Format("[PolygonMeshProcessingConnected<{0}>: ]", Kernel.KernelName);
         }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    internal abstract class PolygonMeshProcessingNormals : CGALObject
+    internal abstract class PolygonMeshProcessingConnected : CGALObject
     {
         /// <summary>
         /// 
         /// </summary>
-        private PolygonMeshProcessingNormals()
+        private PolygonMeshProcessingConnected()
         {
 
         }
@@ -59,9 +59,9 @@ namespace CGALDotNet.Processing
         /// 
         /// </summary>
         /// <param name="kernel"></param>
-        internal PolygonMeshProcessingNormals(CGALKernel kernel)
+        internal PolygonMeshProcessingConnected(CGALKernel kernel)
         {
-            //Kernel = kernel.PolygonMeshProcessingNormalsKernel;
+            //Kernel = kernel.PolygonMeshProcessingConnectedKernel;
             Ptr = Kernel.Create();
         }
 
@@ -70,16 +70,16 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="kernel"></param>
         /// <param name="ptr"></param>
-        internal PolygonMeshProcessingNormals(CGALKernel kernel, IntPtr ptr) : base(ptr)
+        internal PolygonMeshProcessingConnected(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
-            //Kernel = kernel.PolygonMeshProcessingNormalsKernel;
+            //Kernel = kernel.PolygonMeshProcessingConnectedKernel;
             Ptr = ptr;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        internal PolygonMeshProcessingNormalsKernel Kernel { get; private set; }
+        internal PolygonMeshProcessingConnectedKernel Kernel { get; private set; }
 
         /// <summary>
         /// Release any unmanaged resources.

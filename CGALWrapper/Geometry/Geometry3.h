@@ -4,6 +4,7 @@
 #include "CGAL/Point_3.h"
 #include "CGAL/Vector_3.h"
 #include <CGAL/Plane_3.h>
+#include <CGAL/Bbox_3.h>
 
 /*
 * Structs to pass data from C# and c++.
@@ -231,6 +232,43 @@ struct  Plane3d
     static Plane3d FromCGAL(CGAL::Point_3<K> pos, CGAL::Vector_3<K> dir)
     {
         return { Point3d::FromCGAL(pos), Vector3d::FromCGAL(dir) };
+    }
+};
+
+struct Box3d
+{
+    Point3d min;
+    Point3d max;
+
+    template<class K, class BOX>
+    BOX ToCGAL() const
+    {
+        return { min.ToCGAL<K>(), max.ToCGAL<K>() };
+    }
+
+    template<class K>
+    static Box3d FromCGAL(CGAL::Point_3<K> min, CGAL::Point_3<K> max)
+    {
+        auto Min = Point3d::FromCGAL<K>(min);
+        auto Max = Point3d::FromCGAL<K>(max);
+        return { Min, Max };
+    }
+
+    template<class K>
+    static Box3d FromCGAL(CGAL::Bbox_3 box)
+    {
+        double xmin = CGAL::to_double(box.xmin());
+        double ymin = CGAL::to_double(box.ymin());
+        double zmin = CGAL::to_double(box.zmin());
+
+        double xmax = CGAL::to_double(box.xmax());
+        double ymax = CGAL::to_double(box.ymax());
+        double zmax = CGAL::to_double(box.zmax());
+
+        Point3d min = { xmin, ymin, zmin };
+        Point3d max = { xmax, ymax, zmax };
+
+        return { min, max };
     }
 };
 

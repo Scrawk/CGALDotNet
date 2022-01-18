@@ -27,6 +27,8 @@
 #include <CGAL/AABB_traits.h>
 #include <CGAL/Polygon_mesh_processing/locate.h>
 #include <CGAL/Polygon_mesh_processing/intersection.h>
+#include <CGAL/Polygon_mesh_processing/bbox.h>
+#include <CGAL/Bbox_3.h>
 
 enum PROPERTY_MAP : int
 {
@@ -58,8 +60,6 @@ public:
 
 private:
 
-	AABBTree* tree = nullptr;
-
 	std::map<Vertex_Handle, int> vertexIndexMap;
 	bool rebuildVertexIndexMap = true;
 
@@ -85,6 +85,8 @@ public:
 	}
 
 	Polyhedron model;
+
+	AABBTree* tree = nullptr;
 
 	inline static Polyhedron3* NewPolyhedron()
 	{
@@ -140,7 +142,7 @@ public:
 		}
 	}
 
-	void BuildTree()
+	void BuildAABBTree()
 	{
 		if (tree == nullptr)
 		{
@@ -306,6 +308,21 @@ public:
 		}
 
 		return TRUE;
+	}
+
+	static Box3d GetBoundingBox(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		if (poly->tree != nullptr)
+		{
+			auto box = poly->tree->root_node()->bbox();
+			return Box3d::FromCGAL<K>(box);
+		}
+		else
+		{
+			auto box = CGAL::Polygon_mesh_processing::bbox(poly->model);
+			return Box3d::FromCGAL<K>(box);
+		}
 	}
 
 	static void MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
@@ -522,7 +539,7 @@ public:
 	static void BuildAABBTree(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->BuildTree();
+		poly->BuildAABBTree();
 	}
 
 	static void ReleaseAABBTree(void* ptr)
@@ -534,7 +551,7 @@ public:
 	static CGAL::Bounded_side SideOfTriangleMesh(void* ptr, const Point3d& point)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->BuildTree();
+		poly->BuildAABBTree();
 		CGAL::Side_of_triangle_mesh<Polyhedron, K> inside(*poly->tree);
 		return inside(point.ToCGAL<K>());
 	}
@@ -637,7 +654,8 @@ public:
 		if (!poly->rebuildVertexNormalMap) return;
 		poly->rebuildVertexNormalMap = false;
 ;
-		CGAL::Polygon_mesh_processing::compute_vertex_normals(poly->model, boost::make_assoc_property_map(poly->vertexNormalMap));
+		CGAL::Polygon_mesh_processing::compute_vertex_normals(poly->model, 
+			boost::make_assoc_property_map(poly->vertexNormalMap));
 	}
 
 	static void ComputeFaceNormals(void* ptr)
@@ -647,7 +665,8 @@ public:
 		if (!poly->rebuildFaceNormalMap) return;
 		poly->rebuildFaceNormalMap = false;
 
-		CGAL::Polygon_mesh_processing::compute_face_normals(poly->model, boost::make_assoc_property_map(poly->faceNormalMap));
+		CGAL::Polygon_mesh_processing::compute_face_normals(poly->model, 
+			boost::make_assoc_property_map(poly->faceNormalMap));
 	}
 
 	static void GetVertexNormals(void* ptr, Vector3d* normals, int count)

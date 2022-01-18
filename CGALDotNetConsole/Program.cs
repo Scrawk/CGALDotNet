@@ -33,17 +33,10 @@ namespace CGALDotNetConsole
             string filename = "C:/Users/Justin/Desktop/CGALData/meshes/elk.off";
 
             var poly = PolyhedronFactory<EEK>.CreateCube();
-            //poly.ReadOFF(filename);
+            poly.ReadOFF(filename);
             poly.Triangulate();
             poly.Print();
 
-            var normals = new Vector3d[poly.FaceCount];
-            poly.GetFaceNormals(normals, normals.Length);
-
-            foreach (var n in normals)
-                Console.WriteLine(n);
-
-            Console.WriteLine("Done");
 
         }
 

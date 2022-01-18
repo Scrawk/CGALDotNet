@@ -284,6 +284,15 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Computes the bounding box.
+        /// </summary>
+        /// <returns>The bounding box.</returns>
+        public Box3d GetBoundingBox()
+        {
+            return Kernel.GetBoundingBox(Ptr);
+        }
+
+        /// <summary>
         /// A tetrahedron is added to the polyhedral surface
         /// with its vertices initialized to p1, p2, p3, and p4.
         /// </summary>

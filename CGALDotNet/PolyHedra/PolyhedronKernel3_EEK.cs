@@ -93,6 +93,11 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_IsPureQuad(ptr);
 		}
 
+		internal override Box3d GetBoundingBox(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_GetBoundingBox(ptr);
+        }
+
 		internal override void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 		{
 			Polyhedron3_EEK_MakeTetrahedron(ptr, p1, p2, p3, p4);
@@ -295,6 +300,9 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EEK_IsPureQuad(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern Box3d Polyhedron3_EEK_GetBoundingBox(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);

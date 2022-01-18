@@ -41,6 +41,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract bool IsPureQuad(IntPtr ptr);
 
+		internal abstract Box3d GetBoundingBox(IntPtr ptr);
+
 		internal abstract void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 
 		internal abstract void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
