@@ -30,12 +30,6 @@
 #include <CGAL/Polygon_mesh_processing/bbox.h>
 #include <CGAL/Bbox_3.h>
 
-enum PROPERTY_MAP : int
-{
-	VERTEX_NORMALS,
-	FACE_NORMALS,
-};
-
 template<class K>
 class Polyhedron3
 {
