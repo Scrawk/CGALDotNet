@@ -58,6 +58,11 @@ namespace CGALDotNet.Polyhedra
 			return poly;
 		}
 
+		public static Polyhedron3<K> CreatePlane(bool allowQuads = false)
+        {
+			return CreatePlane(PlaneParams.Default, allowQuads);
+        }
+
 		public static Polyhedron3<K> CreatePlane(PlaneParams param, bool allowQuads = false)
 		{
 			var poly = new Polyhedron3<K>();
@@ -80,6 +85,11 @@ namespace CGALDotNet.Polyhedra
 
 			return poly;
 		}
+
+		public static Polyhedron3<K> CreateTorus(bool allowQuads = false)
+        {
+			return CreateTorus(TorusParams.Default, allowQuads);
+        }
 
 		public static Polyhedron3<K> CreateTorus(TorusParams param, bool allowQuads = false)
 		{
@@ -104,6 +114,22 @@ namespace CGALDotNet.Polyhedra
 			return poly;
 		}
 
+		public static Polyhedron3<K> CreateCone(bool allowQuads = false)
+		{
+			return CreateCone(CylinderParams.Default, allowQuads);
+		}
+
+		public static Polyhedron3<K> CreateCone(CylinderParams param, bool allowQuads = false)
+        {
+			param.radiusTop = 0;
+			return CreateCylinder(param, allowQuads);
+		}
+
+		public static Polyhedron3<K> CreateCylinder(bool allowQuads = false)
+        {
+			return CreateCylinder(CylinderParams.Default, allowQuads);
+        }
+
 		public static Polyhedron3<K> CreateCylinder(CylinderParams param, bool allowQuads = false)
 		{
 			var poly = new Polyhedron3<K>();
@@ -127,6 +153,11 @@ namespace CGALDotNet.Polyhedra
 			return poly;
 		}
 
+		public static Polyhedron3<K> CreateUVSphere(bool allowQuads = false)
+        {
+			return CreateUVSphere(UVSphereParams.Default, allowQuads);
+        }
+
 		public static Polyhedron3<K> CreateUVSphere(UVSphereParams param, bool allowQuads = false)
 		{
 			var poly = new Polyhedron3<K>();
@@ -149,6 +180,11 @@ namespace CGALDotNet.Polyhedra
 
 			return poly;
 		}
+
+		public static Polyhedron3<K> CreateNormalizedCube(bool allowQuads = false)
+        {
+			return CreateNormalizedCube(NormalizedCubeParams.Default, allowQuads);
+        }
 
 		public static Polyhedron3<K> CreateNormalizedCube(NormalizedCubeParams param, bool allowQuads = false)
 		{

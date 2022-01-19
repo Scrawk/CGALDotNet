@@ -66,15 +66,20 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="poly"></param>
+        /// <param name="poly">A valid triangle mesh.</param>
         /// <param name="stop_ratio"></param>
-        public void Simplify(Polyhedron3 poly, double stop_ratio)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool Simplify(Polyhedron3 poly, double stop_ratio)
         {
+            if (!CheckIsValidTriangle(poly))
+                return false;
+
             stop_ratio = CGALGlobal.Clamp01(stop_ratio);
-            if (stop_ratio == 0) return;
+            if (stop_ratio == 0) 
+                return false;
             
-            CheckIsValidTriangleException(poly);
             Kernel.SimplifyPolyhedron(poly.Ptr, stop_ratio);
+            return true;
         }
 
         /// <summary>

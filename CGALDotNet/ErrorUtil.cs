@@ -17,11 +17,8 @@ namespace CGALDotNet
             if(array == null)
                 throw new InvalidArrayExeception("Array is null.");
 
-            if (array.Length == 0)
-                throw new InvalidArrayExeception("Array length can not be zero.");
-
-            if (count <= 0)
-                throw new InvalidArrayExeception("Count must be greater than zero.");
+            if (count < 0)
+                throw new InvalidArrayExeception("Count must be >= zero.");
 
             if (array.Length < count)
                 throw new InvalidArrayExeception("Array length is less than count.");

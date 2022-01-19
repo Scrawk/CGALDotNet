@@ -108,15 +108,18 @@ namespace CGALDotNet.Processing
         /// <param name="iterations"></param>
         /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
         /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-        public void IsotropicRemeshing(Polyhedron3<K> poly, int iterations, double target_edge_length)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool IsotropicRemeshing(Polyhedron3<K> poly, int iterations, double target_edge_length)
         {
-            if (!CheckIsValidTriangle(poly)) return;
+            if (!CheckIsValidTriangle(poly)) 
+                return false;
 
             if (target_edge_length < 0)
                 target_edge_length = 0;
 
             poly.SetIsUpdatedToFalse();
             Kernel.IsotropicRemeshing(poly.Ptr, iterations, target_edge_length);
+            return true;
         }
 
         /// <summary>
@@ -176,15 +179,15 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="poly">A polygon mesh.</param>
         /// <param name="target_edge_length">The edge length above which an edge from edges is split into to sub-edges</param>
-        public void SplitLongEdges(Polyhedron3<K> poly, double target_edge_length)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool SplitLongEdges(Polyhedron3<K> poly, double target_edge_length)
         {
-            if (!CheckIsValid(poly)) return;
-
-            if (target_edge_length <= 0)
-                return;
+            if (!CheckIsValid(poly) || target_edge_length <= 0) 
+                return false;
 
             poly.SetIsUpdatedToFalse();
             Kernel.SplitLongEdges(poly.Ptr, target_edge_length);
+            return true;
         }
     }
 

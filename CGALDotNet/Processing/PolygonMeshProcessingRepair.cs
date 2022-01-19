@@ -10,7 +10,7 @@ namespace CGALDotNet.Processing
     /// 
     /// </summary>
     /// <typeparam name="K"></typeparam>
-    internal sealed class PolygonMeshProcessingRepair<K> : PolygonMeshProcessingRepair where K : CGALKernel, new()
+    public sealed class PolygonMeshProcessingRepair<K> : PolygonMeshProcessingRepair where K : CGALKernel, new()
     {
         /// <summary>
         /// 
@@ -71,7 +71,7 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="poly">A triangle polygon mesh.</param>
         /// <param name="threshold">A bound on the ratio of the longest edge length and the shortest edge length.</param>
-        /// <returns></returns>
+        /// <returns>The number of needle triangles.</returns>
         public int NeedleTriangleCount(Polyhedron3<K> poly, double threshold)
         {
             if (!CheckIsValidTriangle(poly)) return 0;
@@ -107,9 +107,11 @@ namespace CGALDotNet.Processing
         /// removal of isolated points.
         /// </summary>
         /// <param name="poly">The polygon mesh.</param>
-        public void RepairPolygonSoup(Polyhedron3<K> poly)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool RepairPolygonSoup(Polyhedron3<K> poly)
         {
             Kernel.RepairPolygonSoup(poly.Ptr);
+            return true;
         }
 
         /// <summary>
@@ -166,17 +168,21 @@ namespace CGALDotNet.Processing
         /// <param name="triangleCount">The triangle indices arrays length.</param>
         /// <param name="quads">The quad indices array.</param>
         /// <param name="quadCount">The quads indices arrays length.</param>
-        public void PolygonMeshToPolygonSoup(Polyhedron3<K> poly, int[] triangles, int triangleCount, int[] quads, int quadCount)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool PolygonMeshToPolygonSoup(Polyhedron3<K> poly, int[] triangles, int triangleCount, int[] quads, int quadCount)
         {
-            if (!CheckIsValid(poly)) return;
+            if (!CheckIsValid(poly)) 
+                return false;
+
             Kernel.PolygonMeshToPolygonSoup(poly.Ptr, triangles, triangleCount, quads, quadCount);
+            return true;
         }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    internal abstract class PolygonMeshProcessingRepair : PolyhedraAlgorithm
+    public abstract class PolygonMeshProcessingRepair : PolyhedraAlgorithm
     {
         /// <summary>
         /// 

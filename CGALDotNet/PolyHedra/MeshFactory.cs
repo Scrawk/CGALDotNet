@@ -6,29 +6,12 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polyhedra
 {
-	/// <summary>
-	/// 
-	/// </summary>
 	public struct UVSphereParams
     {
-		/// <summary>
-		/// 
-		/// </summary>
 		public int meridians;
-
-		/// <summary>
-		/// 
-		/// </summary>
 		public int parallels;
-
-		/// <summary>
-		/// 
-		/// </summary>
 		public double scale;
 
-		/// <summary>
-		/// 
-		/// </summary>
 		public static UVSphereParams Default
         {
 			get
@@ -42,24 +25,12 @@ namespace CGALDotNet.Polyhedra
         }
 	}
 
-	/// <summary>
-	/// 
-	/// </summary>
 	public struct NormalizedCubeParams
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public int divisions;
 
-		/// <summary>
-		/// 
-		/// </summary>
+		public int divisions;
 		public double scale;
 
-		/// <summary>
-		/// 
-		/// </summary>
 		public static NormalizedCubeParams Default
 		{
 			get
@@ -202,6 +173,13 @@ namespace CGALDotNet.Polyhedra
 			list.Add(item4);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="triangles"></param>
+		/// <param name="quads"></param>
+		/// <param name="scale"></param>
 		public static void CreateCube(List<Point3d> points, List<int> triangles, List<int> quads, double scale = 1)
         {
             points.Add(new Point3d(-0.5, -0.5, -0.5) * scale); //0
@@ -239,6 +217,13 @@ namespace CGALDotNet.Polyhedra
 			}
         }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="triangles"></param>
+		/// <param name="quads"></param>
+		/// <param name="box"></param>
 		public static void CreateCube(List<Point3d> points, List<int> triangles, List<int> quads, Box3d box)
 		{
 			var corners = box.GetCorners();
@@ -287,6 +272,13 @@ namespace CGALDotNet.Polyhedra
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="triangles"></param>
+		/// <param name="quads"></param>
+		/// <param name="param"></param>
 		public static void CreatePlane(List<Point3d> points, List<int> triangles, List<int> quads, PlaneParams param)
 		{
 			double width_half = param.width / 2;
@@ -337,6 +329,13 @@ namespace CGALDotNet.Polyhedra
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="triangles"></param>
+		/// <param name="quads"></param>
+		/// <param name="param"></param>
 		public static void CreateUVSphere(List<Point3d> points, List<int> triangles, List<int> quads, UVSphereParams param)
 		{
 			double scale = param.scale * 0.5;
@@ -405,6 +404,13 @@ namespace CGALDotNet.Polyhedra
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="triangles"></param>
+		/// <param name="quads"></param>
+		/// <param name="param"></param>
 		public static void CreateNormalizedCube(List<Point3d> points, List<int> triangles, List<int>quads, NormalizedCubeParams param)
 		{
 			double scale = param.scale * 0.5;
@@ -462,8 +468,16 @@ namespace CGALDotNet.Polyhedra
 					}
 				}
 			}
+
+			WeldVertices(points, triangles, quads, 1e-4);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="indices"></param>
+		/// <param name="scale"></param>
 		public static void CreateTetrahedron(List<Point3d> points, List<int> indices, double scale = 1)
         {
 			scale *= 0.5;
@@ -482,6 +496,12 @@ namespace CGALDotNet.Polyhedra
 			indices.AddTriangle(3, 2, 0);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="indices"></param>
+		/// <param name="scale"></param>
 		public static void CreateOctahedron(List<Point3d> points, List<int> indices, double scale = 1)
         {
 			scale *= 0.5;
@@ -503,6 +523,12 @@ namespace CGALDotNet.Polyhedra
 			indices.AddTriangle(1, 4, 2);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="indices"></param>
+		/// <param name="scale"></param>
 		public static void CreateIcosahedron(List<Point3d> points, List<int> indices, double scale = 1)
 		{
 			scale *= 0.5;
@@ -545,6 +571,12 @@ namespace CGALDotNet.Polyhedra
 			indices.AddTriangle(9, 8, 1);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="indices"></param>
+		/// <param name="scale"></param>
 		public static void CreateDodecahedron(List<Point3d> points, List<int> indices, double scale = 1)
         {
 			scale *= 0.5;
@@ -611,7 +643,14 @@ namespace CGALDotNet.Polyhedra
 
 		}
 
-		public static void CreateTorus(List<Point3d> points, List<int> triangles, List<int> quad, TorusParams param)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="triangles"></param>
+		/// <param name="quads"></param>
+		/// <param name="param"></param>
+		public static void CreateTorus(List<Point3d> points, List<int> triangles, List<int> quads, TorusParams param)
         {
 
 			for (int j = 0; j <= param.radialDivisions; j++)
@@ -639,9 +678,9 @@ namespace CGALDotNet.Polyhedra
 					int c = (param.tubularDivisions + 1) * (j - 1) + i;
 					int d = (param.tubularDivisions + 1) * j + i;
 
-					if(quad != null)
+					if(quads != null)
                     {
-						quad.AddQuad(d, c, b, a);
+						quads.AddQuad(d, c, b, a);
                     }
 					else
                     {
@@ -651,8 +690,16 @@ namespace CGALDotNet.Polyhedra
 				}
 			}
 
+			WeldVertices(points, triangles, quads, 1e-4);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="triangles"></param>
+		/// <param name="quads"></param>
+		/// <param name="param"></param>
 		public static void CreateCylinder(List<Point3d> points, List<int> triangles, List<int> quads, CylinderParams param)
         {
 
@@ -720,8 +767,18 @@ namespace CGALDotNet.Polyhedra
 
 			if (param.radiusBottom > 0)
 				GenerateCap(points, triangles, param, false, ref index);
+
+			WeldVertices(points, triangles, quads, 1e-4);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="indices"></param>
+		/// <param name="param"></param>
+		/// <param name="top"></param>
+		/// <param name="index"></param>
 		private static void GenerateCap(List<Point3d> points, List<int> indices, CylinderParams param, bool top, ref int index )
 		{
 			// save the index of the first center vertex
@@ -766,6 +823,119 @@ namespace CGALDotNet.Polyhedra
 				else
 					indices.AddTriangle(i + 1, i, c);
 			}
+
+		}
+
+		/// <summary>
+		/// Welds duplicate vertices given some threshold.
+		/// This is not optimized and will be slow for large point sets.
+		/// </summary>
+		/// <param name="points">The points. Duplicats wiil be removed.</param>
+		/// <param name="triangles">The triangle indices to remap.</param>
+		/// <param name="quads">The quad indices to remap.</param>
+		/// <param name="threshold">The distance threshold for points.</param>
+		private static void WeldVertices(List<Point3d> points, List<int> triangles, List<int> quads, double threshold)
+        {
+			double sqthreshold = threshold * threshold;
+
+			//Find 
+
+			Dictionary<int, int> table = new Dictionary<int, int>();
+			for(int i = 0; i < points.Count; i++)
+            {
+				for (int j = 0; j < points.Count; j++)
+				{
+					if (i == j) continue;
+					//has been remapped so contiune.
+					if (table.ContainsKey(j)) continue;
+
+					double sqdist = Point3d.SqrDistance(points[i], points[j]);
+
+					if(sqdist < threshold)
+                    {
+						// Vertices too close.
+						// i stays were it is add j now points to i.
+						table[i] = i;
+						table[j] = i;
+					}
+				}
+			}
+
+			//record whats point indices are used.
+			var indexSet = new HashSet<int>();
+
+			if (triangles != null)
+			{
+				//remap any index that has moved.
+				for (int k = 0; k < triangles.Count; k++)
+				{
+					int i = triangles[k];
+
+					if (table.TryGetValue(i, out int j))
+					{
+						//points at index i where moved to j.
+						triangles[k] = j;
+						indexSet.Add(j);
+					}
+					else
+					{
+						//no change
+						indexSet.Add(i);
+					}
+				}
+			}
+
+			if (quads != null)
+			{
+				//remap any index that has moved.
+				for (int k = 0; k < quads.Count; k++)
+				{
+					int i = quads[k];
+
+					if (table.TryGetValue(i, out int j))
+					{
+						//points at index i where moved to j.
+						quads[k] = j;
+						indexSet.Add(j);
+					}
+					else
+					{
+						//no change
+						indexSet.Add(i);
+					}
+				}
+			}
+
+			//create a new point list containing only the points in used.
+			var newPoints = new List<Point3d>();
+			foreach(int i in indexSet)
+				newPoints.Add(points[i]);
+
+			if (triangles != null)
+			{
+				//find the point index in the new array.
+				for (int k = 0; k < triangles.Count; k++)
+				{
+					int i = triangles[k];
+					var point = points[i];
+					triangles[k] = newPoints.IndexOf(point);
+				}
+			}
+
+			if (quads != null)
+			{
+				//find the point index in the new array.
+				for (int k = 0; k < quads.Count; k++)
+				{
+					int i = quads[k];
+					var point = points[i];
+					quads[k] = newPoints.IndexOf(point);
+				}
+			}
+
+			//copy back into point list.
+			points.Clear();
+			points.AddRange(newPoints);
 
 		}
 

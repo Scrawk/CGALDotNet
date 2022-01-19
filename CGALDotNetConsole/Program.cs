@@ -30,13 +30,27 @@ namespace CGALDotNetConsole
             //bunny00.off
             //refined_elephant.off
 
-            string filename = "C:/Users/Justin/Desktop/CGALData/meshes/elk.off";
+            //string filename = "C:/Users/Justin/Desktop/CGALData/meshes/elk.off";
 
-            var poly = PolyhedronFactory<EEK>.CreateCube();
-            poly.ReadOFF(filename);
-            poly.Triangulate();
-            poly.Print();
 
+            var cube = PolyhedronFactory<EEK>.CreateCube();
+            var plane = PolyhedronFactory<EEK>.CreatePlane();
+            var ncube = PolyhedronFactory<EEK>.CreateNormalizedCube();
+            var uvsphere = PolyhedronFactory<EEK>.CreateUVSphere();
+            var toruse = PolyhedronFactory<EEK>.CreateTorus();
+            var cyliner = PolyhedronFactory<EEK>.CreateCylinder();
+            var cone = PolyhedronFactory<EEK>.CreateCone();
+
+            //cone.Print();
+            //PolygonMeshProcessingRepair<EEK>.Instance.RepairPolygonSoup(cone);
+
+            Console.WriteLine("Cube is closed " + cube.IsClosed);
+            Console.WriteLine("Plane is closed " + plane.IsClosed);
+            Console.WriteLine("NCube is closed " + ncube.IsClosed);
+            Console.WriteLine("uvsphere is closed " + uvsphere.IsClosed);
+            Console.WriteLine("toruse is closed " + toruse.IsClosed);
+            Console.WriteLine("cyliner is closed " + cyliner.IsClosed);
+            Console.WriteLine("cone is closed " + cone.IsClosed);
 
         }
 

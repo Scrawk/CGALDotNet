@@ -516,17 +516,6 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Reverses facet orientations (incl. plane equations if supported).
-        /// </summary>
-        internal void InsideOut()
-        {
-            if (!IsValid) return;
-
-            Kernel.InsideOut(Ptr);
-            IsUpdated = false;
-        }
-
-        /// <summary>
         /// Make all faces triangles.
         /// </summary>
         public void Triangulate()
@@ -818,8 +807,6 @@ namespace CGALDotNet.Polyhedra
         {
             if (IsUpdated) return;
             IsUpdated = true;
-
-            Console.WriteLine("Updating........\n");
 
             if (FindIfValid())
             {

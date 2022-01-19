@@ -79,26 +79,20 @@ namespace CGALDotNet.Processing
         /// <param name="method"></param>
         /// <param name="poly"></param>
         /// <param name="iterations"></param>
-        public void Subdivide(SUBDIVISION_METHOD method, Polyhedron3 poly, int iterations)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool Subdivide(SUBDIVISION_METHOD method, Polyhedron3 poly, int iterations)
         {
-            if (iterations < 0) return;
-
             switch (method)
             {
                 case SUBDIVISION_METHOD.CATMULL_CLARK:
-                    Kernel.SubdivePolyhedron_CatmullClark(poly.Ptr, iterations);
-                    break;
+                    return Subdivide_CatmullClark(poly, iterations);
                 case SUBDIVISION_METHOD.LOOP:
-                    Kernel.SubdivePolyhedron_Loop(poly.Ptr, iterations);
-                    break;
+                    return Subdivide_Loop(poly, iterations);
                 case SUBDIVISION_METHOD.SQRT3:
-                    Kernel.SubdivePolyhedron_Sqrt3(poly.Ptr, iterations);
-                    break;
+                    return Subdivide_Sqrt3(poly, iterations);
                 default:
-                    Kernel.SubdivePolyhedron_CatmullClark(poly.Ptr, iterations);
-                    break;
+                    return Subdivide_Sqrt3(poly, iterations);
             }
-            
         }
 
         /// <summary>
@@ -106,12 +100,14 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="poly"></param>
         /// <param name="iterations"></param>
-        public void Subdivide_CatmullClark(Polyhedron3 poly, int iterations)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool Subdivide_CatmullClark(Polyhedron3 poly, int iterations)
         {
-            if (iterations < 0) return;
+            if (!CheckIsValid(poly) ||  iterations <= 0) 
+                return false;
 
-            CheckIsValid(poly);
             Kernel.SubdivePolyhedron_CatmullClark(poly.Ptr, iterations);
+            return true;
         }
 
         /// <summary>
@@ -119,12 +115,15 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="poly"></param>
         /// <param name="iterations"></param>
-        public void Subdivide_Loop(Polyhedron3 poly, int iterations)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool Subdivide_Loop(Polyhedron3 poly, int iterations)
         {
-            if (iterations < 0) return;
+            if (!CheckIsValid(poly) || iterations <= 0)
+                return false;
 
             CheckIsValidTriangleException(poly);
             Kernel.SubdivePolyhedron_Loop(poly.Ptr, iterations);
+            return true;
         }
 
         /// <summary>
@@ -132,12 +131,15 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="poly"></param>
         /// <param name="iterations"></param>
-        public void Subdivide_Sqrt3(Polyhedron3 poly, int iterations)
+        /// <returns>True if function run or false if not a valid mesh.</returns>
+        public bool Subdivide_Sqrt3(Polyhedron3 poly, int iterations)
         {
-            if (iterations < 0) return;
+            if (!CheckIsValid(poly) || iterations <= 0)
+                return false;
 
             CheckIsValidTriangleException(poly);
             Kernel.SubdivePolyhedron_Sqrt3(poly.Ptr, iterations);
+            return true;
         }
 
         /// <summary>
