@@ -22,9 +22,14 @@ namespace CGALDotNet.Meshing
             SkinSurfaceMeshing_EEK_Release(ptr);
         }
 
+        internal override IntPtr MakeSkinSurface(double shrinkfactor, bool subdivide, Point3d[] points, int count)
+        {
+            return SkinSurfaceMeshing_EEK_MakeSkinSurface_Point3d(shrinkfactor, subdivide, points, count);
+        }
+
         internal override IntPtr MakeSkinSurface(double shrinkfactor, bool subdivide, HPoint3d[] points, int count)
         {
-            return SkinSurfaceMeshing_EEK_MakeSkinSurface(shrinkfactor, subdivide, points, count);
+            return SkinSurfaceMeshing_EEK_MakeSkinSurface_HPoint3d(shrinkfactor, subdivide, points, count);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -34,6 +39,9 @@ namespace CGALDotNet.Meshing
         private static extern void SkinSurfaceMeshing_EEK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr SkinSurfaceMeshing_EEK_MakeSkinSurface(double shrinkfactor, bool subdivide, HPoint3d[] points, int count);
+        private static extern IntPtr SkinSurfaceMeshing_EEK_MakeSkinSurface_Point3d(double shrinkfactor, bool subdivide, Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr SkinSurfaceMeshing_EEK_MakeSkinSurface_HPoint3d(double shrinkfactor, bool subdivide, HPoint3d[] points, int count);
     }
 }

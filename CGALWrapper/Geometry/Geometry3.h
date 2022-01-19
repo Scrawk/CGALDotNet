@@ -35,6 +35,12 @@ struct Point3d
     }
 
     template<class K>
+    CGAL::Weighted_point_3<K> ToCGALWeightedPoint() const
+    {
+        return CGAL::Weighted_point_3<K>(CGAL::Point_3<K>(x, y, z), 1);
+    }
+
+    template<class K>
     static Point3d FromCGAL(CGAL::Point_3<K> p)
     {
         double x = CGAL::to_double(p.x());

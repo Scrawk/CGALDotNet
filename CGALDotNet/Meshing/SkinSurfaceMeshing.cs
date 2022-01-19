@@ -52,6 +52,27 @@ namespace CGALDotNet.Meshing
         /// <param name="points"></param>
         /// <param name="count"></param>
         /// <returns></returns>
+        public Polyhedron3<K> CreateSkinPolyhedra(double shrinkFactor, bool subdivde, Point3d[] points, int count)
+        {
+            if (shrinkFactor < 0)
+                shrinkFactor = 0;
+
+            if (shrinkFactor == 0)
+                return new Polyhedron3<K>();
+
+            ErrorUtil.CheckArray(points, count);
+            var ptr = Kernel.MakeSkinSurface(shrinkFactor, subdivde, points, count);
+            return new Polyhedron3<K>(ptr);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shrinkFactor"></param>
+        /// <param name="subdivde"></param>
+        /// <param name="points"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public Polyhedron3<K> CreateSkinPolyhedra(double shrinkFactor, bool subdivde, HPoint3d[] points, int count)
         {
             if(shrinkFactor < 0)

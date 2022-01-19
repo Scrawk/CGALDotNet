@@ -768,7 +768,7 @@ namespace CGALDotNet.Polyhedra
 			if (param.radiusBottom > 0)
 				GenerateCap(points, triangles, param, false, ref index);
 
-			WeldVertices(points, triangles, quads, 1e-4);
+			//WeldVertices(points, triangles, quads, 1e-4);
 		}
 
 		/// <summary>

@@ -12,6 +12,8 @@ namespace CGALDotNet.Meshing
 
         internal abstract void Release(IntPtr ptr);
 
+        internal abstract IntPtr MakeSkinSurface(double shrinkfactor, bool subdivide, Point3d[] points, int count);
+
         internal abstract IntPtr MakeSkinSurface(double shrinkfactor, bool subdivide, HPoint3d[] points, int count);
     }
 }

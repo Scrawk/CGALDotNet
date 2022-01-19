@@ -21,36 +21,17 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            //ChineseDragon-10kv.off
-            //bunny00.off
-            //armadillo.off
-            //elephant.off
-            //elk.off
-            //diplodocus.off
-            //bunny00.off
-            //refined_elephant.off
+            var points = new HPoint3d[]
+            {
+                new HPoint3d(1, -1, -1, 1.25),
+                new HPoint3d(1, 1, 1, 1.25),
+                new HPoint3d(-1, 1, -1, 1.25),
+                new HPoint3d(-1, -1, 1, 1.25),
+            };
 
-            //string filename = "C:/Users/Justin/Desktop/CGALData/meshes/elk.off";
+            var poly = SkinSurfaceMeshing<EEK>.Instance.CreateSkinPolyhedra(0.5, false, points, points.Length);
 
-
-            var cube = PolyhedronFactory<EEK>.CreateCube();
-            var plane = PolyhedronFactory<EEK>.CreatePlane();
-            var ncube = PolyhedronFactory<EEK>.CreateNormalizedCube();
-            var uvsphere = PolyhedronFactory<EEK>.CreateUVSphere();
-            var toruse = PolyhedronFactory<EEK>.CreateTorus();
-            var cyliner = PolyhedronFactory<EEK>.CreateCylinder();
-            var cone = PolyhedronFactory<EEK>.CreateCone();
-
-            //cone.Print();
-            //PolygonMeshProcessingRepair<EEK>.Instance.RepairPolygonSoup(cone);
-
-            Console.WriteLine("Cube is closed " + cube.IsClosed);
-            Console.WriteLine("Plane is closed " + plane.IsClosed);
-            Console.WriteLine("NCube is closed " + ncube.IsClosed);
-            Console.WriteLine("uvsphere is closed " + uvsphere.IsClosed);
-            Console.WriteLine("toruse is closed " + toruse.IsClosed);
-            Console.WriteLine("cyliner is closed " + cyliner.IsClosed);
-            Console.WriteLine("cone is closed " + cone.IsClosed);
+            poly.Print();
 
         }
 

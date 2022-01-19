@@ -2,6 +2,7 @@
 
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry3.h"
+#include "../Polyhedra//Polyhedron3.h"
 
 #include <CGAL/Skin_surface_3.h>
 #include <CGAL/Polyhedron_3.h>
@@ -54,19 +55,46 @@ public:
 
 		return list;
 	}
+
+	static std::vector<WPoint> PointList(Point3d* points, int count)
+	{
+		std::vector< WPoint> list(count);
+		for (int i = 0; i < count; i++)
+		{
+			list[i] = points[i].ToCGALWeightedPoint<K>();
+		}
+
+		return list;
+	}
+
+	static void* MakeSkinSurface(double shrinkfactor, BOOL subdivide, Point3d* points, int count)
+	{
+		auto list = PointList(points, count);
+		auto poly = Polyhedron3<K>::NewPolyhedron();
+
+		Skin_surface_3 skin_surface(list.begin(), list.end(), shrinkfactor);
+		CGAL::mesh_skin_surface_3(skin_surface, poly->model);
+
+		if (subdivide)
+			CGAL::subdivide_skin_surface_mesh_3(skin_surface, poly->model);
+
+		poly->OnModelChanged();
+		return poly;
+	}
 	
 	static void* MakeSkinSurface(double shrinkfactor, BOOL subdivide, HPoint3d* points, int count)
 	{
 		auto list = PointList(points, count);
-		auto p = new Polyhedron();
+		auto poly = Polyhedron3<K>::NewPolyhedron();
 
 		Skin_surface_3 skin_surface(list.begin(), list.end(), shrinkfactor);
-		CGAL::mesh_skin_surface_3(skin_surface, *p);
+		CGAL::mesh_skin_surface_3(skin_surface, poly->model);
 
 		if(subdivide)
-			CGAL::subdivide_skin_surface_mesh_3(skin_surface, *p);
+			CGAL::subdivide_skin_surface_mesh_3(skin_surface, poly->model);
 
-		return p;
+		poly->OnModelChanged();
+		return poly;
 	}
 	
 
