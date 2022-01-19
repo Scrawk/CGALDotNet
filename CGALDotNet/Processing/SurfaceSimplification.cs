@@ -64,22 +64,18 @@ namespace CGALDotNet.Processing
         protected private SurfaceSimplificationKernel Kernel { get; private set; }
 
         /// <summary>
-        /// 
+        /// Simplify the mesh.
         /// </summary>
         /// <param name="poly">A valid triangle mesh.</param>
-        /// <param name="stop_ratio"></param>
-        /// <returns>True if function run or false if not a valid mesh.</returns>
-        public bool Simplify(Polyhedron3 poly, double stop_ratio)
+        /// <param name="stop_ratio">A percentage 0-1 of edges to remove.</param>
+        public void Simplify(Polyhedron3 poly, double stop_ratio)
         {
-            if (!CheckIsValidTriangle(poly))
-                return false;
-
             stop_ratio = CGALGlobal.Clamp01(stop_ratio);
-            if (stop_ratio == 0) 
-                return false;
-            
+            if (stop_ratio == 0) return;
+
+            CheckIsValidTriangleException(poly);
+            poly.SetIsUpdatedToFalse();
             Kernel.SimplifyPolyhedron(poly.Ptr, stop_ratio);
-            return true;
         }
 
         /// <summary>

@@ -6,6 +6,14 @@ using CGALDotNet.Polyhedra;
 
 namespace CGALDotNet.Processing
 {
+
+    public enum ORIENTATE
+    {
+        ORIENT,
+        ORIENTATE_TO_BOUND_A_VOLUME,
+        REVERSE_FACE_ORIENTATIONS
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -47,13 +55,10 @@ namespace CGALDotNet.Processing
         /// Indicates if mesh bounds a volume.
         /// </summary>
         /// <param name="poly">A closed triangle mesh.</param>
-        /// <returns>True/false result or undetermined if not a valid mesh.</returns>
-        public BOOL_OR_UNDETERMINED DoesBoundAVolume(Polyhedron3<K> poly)
+        public bool DoesBoundAVolume(Polyhedron3<K> poly)
         {
-            if (!CheckIsValidClosedTriangle(poly))
-                return BOOL_OR_UNDETERMINED.UNDETERMINED;
-
-            return Kernel.DoesBoundAVolume(poly.Ptr).ToBoolOrUndetermined();
+            CheckIsValidClosedTriangleException(poly);
+            return Kernel.DoesBoundAVolume(poly.Ptr);
         }
 
         /// <summary>
@@ -64,55 +69,61 @@ namespace CGALDotNet.Processing
         /// on the side of the face where its sequence of vertices is seen counterclockwise.
         /// </summary>
         /// <param name="poly">A closed triangle mesh.</param>
-        /// <returns>True/false result or undetermined if not a valid mesh.</returns>
-        public BOOL_OR_UNDETERMINED IsOutwardOriented(Polyhedron3<K> poly)
+        public bool IsOutwardOriented(Polyhedron3<K> poly)
         {
-            if (!CheckIsValidClosedTriangle(poly))
-                return BOOL_OR_UNDETERMINED.UNDETERMINED;
+            CheckIsValidClosedTriangleException(poly);
+            return Kernel.IsOutwardOriented(poly.Ptr);
+        }
 
-            return Kernel.IsOutwardOriented(poly.Ptr).ToBoolOrUndetermined();
+        /// <summary>
+        /// Orient the faces in the mesh.
+        /// </summary>
+        /// <param name="orientate">The orientation method.</param>
+        /// <param name="poly">A valid closed triangle mesh.</param>
+        public void Orient(ORIENTATE orientate, Polyhedron3<K> poly)
+        {
+            switch (orientate)
+            {
+                case ORIENTATE.ORIENT:
+                    Orient(poly);
+                    break;
+                case ORIENTATE.ORIENTATE_TO_BOUND_A_VOLUME:
+                    OrientToBoundAVolume(poly);
+                    break;
+                case ORIENTATE.REVERSE_FACE_ORIENTATIONS:
+                    ReverseFaceOrientations(poly);
+                    break;
+            }
         }
 
         /// <summary>
         /// Makes each connected component of a closed triangulated surface mesh inward or outward oriented.
         /// </summary>
         /// <param name="poly">A closed triangle mesh.</param>
-        /// <returns>True if function run or false if not a valid mesh.</returns>
-        public bool Orient(Polyhedron3<K> poly)
+        public void Orient(Polyhedron3<K> poly)
         {
-            if (!CheckIsValidClosedTriangle(poly))
-                return false;
-
+            CheckIsValidClosedTriangleException(poly);
             Kernel.Orient(poly.Ptr);
-            return true;
         }
 
         /// <summary>
         /// Orients the connected components of tm to make it bound a volume.
         /// </summary>
         /// <param name="poly">A closed triangle mesh.</param>
-        /// <returns>True if function run or false if not a valid mesh.</returns>
-        public bool OrientToBoundAVolume(Polyhedron3<K> poly)
+        public void OrientToBoundAVolume(Polyhedron3<K> poly)
         {
-            if (!CheckIsValidClosedTriangle(poly))
-                return false;
-
+            CheckIsValidClosedTriangleException(poly);
             Kernel.OrientToBoundAVolume(poly.Ptr);
-            return true;
         }
 
         /// <summary>
         /// Reverses for each face the order of the vertices along the face boundary.
         /// </summary>
         /// <param name="poly">A valid mesh.</param>
-        /// <returns>True if function run or false if not a valid mesh.</returns>
-        public bool ReverseFaceOrientations(Polyhedron3<K> poly)
+        public void ReverseFaceOrientations(Polyhedron3<K> poly)
         {
-            if (!CheckIsValid(poly))
-                return false;
-
+            CheckIsValidException(poly);
             Kernel.ReverseFaceOrientations(poly.Ptr);
-            return true;
         }
 
     }

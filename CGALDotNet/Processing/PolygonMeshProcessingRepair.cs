@@ -60,7 +60,7 @@ namespace CGALDotNet.Processing
         /// <returns>The number of degenerate faces in the mesh.</returns>
         public int DegenerateTriangleCount(Polyhedron3<K> poly)
         {
-            if (!CheckIsValidTriangle(poly)) return 0;
+            CheckIsValidTriangleException(poly);
 
             return Kernel.DegenerateTriangleCount(poly.Ptr);
         }
@@ -74,7 +74,7 @@ namespace CGALDotNet.Processing
         /// <returns>The number of needle triangles.</returns>
         public int NeedleTriangleCount(Polyhedron3<K> poly, double threshold)
         {
-            if (!CheckIsValidTriangle(poly)) return 0;
+            CheckIsValidTriangleException(poly);
 
             return Kernel.NeedleTriangleCount(poly.Ptr, threshold);
         }
@@ -89,7 +89,7 @@ namespace CGALDotNet.Processing
         /// <returns>The non manifold vertex count.</returns>
         public int NonManifoldVertexCount(Polyhedron3<K> poly)
         {
-            if (!CheckIsValidTriangle(poly)) return 0;
+            CheckIsValidTriangleException(poly);
 
             return Kernel.NonManifoldVertexCount(poly.Ptr);
         }
@@ -107,11 +107,10 @@ namespace CGALDotNet.Processing
         /// removal of isolated points.
         /// </summary>
         /// <param name="poly">The polygon mesh.</param>
-        /// <returns>True if function run or false if not a valid mesh.</returns>
-        public bool RepairPolygonSoup(Polyhedron3<K> poly)
+        public void RepairPolygonSoup(Polyhedron3<K> poly)
         {
+            poly.SetIsUpdatedToFalse();
             Kernel.RepairPolygonSoup(poly.Ptr);
-            return true;
         }
 
         /// <summary>
@@ -123,7 +122,8 @@ namespace CGALDotNet.Processing
         /// <returns>The number of stiched boundaries.</returns>
         public int StitchBoundaryCycles(Polyhedron3<K> poly)
         {
-            if (!CheckIsValid(poly)) return 0;
+            CheckIsValidException(poly);
+            poly.SetIsUpdatedToFalse();
             return Kernel.StitchBoundaryCycles(poly.Ptr);
         }
 
@@ -134,7 +134,8 @@ namespace CGALDotNet.Processing
         /// <returns>The number of stiched borders.</returns>
         public int StitchBorders(Polyhedron3<K> poly)
         {
-            if (!CheckIsValid(poly)) return 0;
+            CheckIsValidException(poly);
+            poly.SetIsUpdatedToFalse();
             return Kernel.StitchBorders(poly.Ptr);
         }
 
@@ -145,7 +146,8 @@ namespace CGALDotNet.Processing
         /// <returns>The number of vertices that were merged.</returns>
         public int MergeDuplicatedVerticesInBoundaryCycle(Polyhedron3<K> poly)
         {
-            if (!CheckIsValid(poly)) return 0;
+            CheckIsValidException(poly);
+            poly.SetIsUpdatedToFalse();
             return Kernel.MergeDuplicatedVerticesInBoundaryCycle(poly.Ptr);
         }
 
@@ -157,6 +159,7 @@ namespace CGALDotNet.Processing
         /// <returns>The number of vertices that were removed.</returns>
         public int RemoveIsolatedVertices(Polyhedron3<K> poly)
         {
+            poly.SetIsUpdatedToFalse();
             return Kernel.RemoveIsolatedVertices(poly.Ptr);
         }
 
@@ -168,14 +171,10 @@ namespace CGALDotNet.Processing
         /// <param name="triangleCount">The triangle indices arrays length.</param>
         /// <param name="quads">The quad indices array.</param>
         /// <param name="quadCount">The quads indices arrays length.</param>
-        /// <returns>True if function run or false if not a valid mesh.</returns>
-        public bool PolygonMeshToPolygonSoup(Polyhedron3<K> poly, int[] triangles, int triangleCount, int[] quads, int quadCount)
+        public void PolygonMeshToPolygonSoup(Polyhedron3<K> poly, int[] triangles, int triangleCount, int[] quads, int quadCount)
         {
-            if (!CheckIsValid(poly)) 
-                return false;
-
+            CheckIsValidException(poly);
             Kernel.PolygonMeshToPolygonSoup(poly.Ptr, triangles, triangleCount, quads, quadCount);
-            return true;
         }
     }
 

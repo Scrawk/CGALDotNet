@@ -231,5 +231,29 @@ namespace CGALDotNet.Geometry
             return string.Format("{0},{1},{2}", x.ToString(f), y.ToString(f), w.ToString(f));
         }
 
+        /// <summary>
+        /// Create a array of random points.
+        /// </summary>
+        /// <param name="seed">The seed</param>
+        /// <param name="count">The number of points to create.</param>
+        /// <param name="weight">The number of points weight.</param>
+        /// <param name="range">The range of the points.</param>
+        /// <returns>The point array.</returns>
+        public static HPoint2d[] RandomPoints(int seed, int count, double weight, Box2d range)
+        {
+            var points = new HPoint2d[count];
+            var rnd = new Random(seed);
+
+            for (int i = 0; i < count; i++)
+            {
+                double x = range.Min.x + rnd.NextDouble() * range.Max.x;
+                double y = range.Min.y + rnd.NextDouble() * range.Max.y;
+
+                points[i] = new HPoint2d(x, y, weight);
+            }
+
+            return points;
+        }
+
     }
 }

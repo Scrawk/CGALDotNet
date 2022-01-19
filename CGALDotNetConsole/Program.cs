@@ -21,12 +21,12 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var points = new HPoint3d[]
+            var points = new Point3d[]
             {
-                new HPoint3d(1, -1, -1, 1.25),
-                new HPoint3d(1, 1, 1, 1.25),
-                new HPoint3d(-1, 1, -1, 1.25),
-                new HPoint3d(-1, -1, 1, 1.25),
+                new Point3d(1, -1, -1),
+                new Point3d(1, 1, 1),
+                new Point3d(-1, 1, -1),
+                new Point3d(-1, -1, 1),
             };
 
             var poly = SkinSurfaceMeshing<EEK>.Instance.CreateSkinPolyhedra(0.5, false, points, points.Length);

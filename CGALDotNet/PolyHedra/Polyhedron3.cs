@@ -87,6 +87,63 @@ namespace CGALDotNet.Polyhedra
             catch (NotSupportedException) { };
         }
 
+        /// <summary>
+        /// Refines a triangle mesh
+        /// </summary>
+        /// <param name="density_control_factor">a factor to control density of the output mesh, 
+        /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
+        /// <returns>The number of new vertices.</returns>
+        public override int Refine(double density_control_factor = CGALGlobal.SQRT2)
+        {
+            try
+            {
+                IsUpdated = false;
+                var meshing = PolygonMeshProcessingMeshing<K>.Instance;
+                return meshing.Refine(this, density_control_factor);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Remeshes a triangulated region of a polygon mesh.
+        /// This operation sequentially performs edge splits, edge collapses, edge flips, 
+        /// tangential relaxation and projection to the initial surface to generate 
+        /// a smooth mesh with a prescribed edge length.
+        /// </summary>
+        /// <param name="iterations"></param>
+        /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
+        /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
+        public override void IsotropicRemeshing(int iterations, double target_edge_length)
+        {
+            try
+            {
+                IsUpdated = false;
+                var meshing = PolygonMeshProcessingMeshing<K>.Instance;
+                meshing.IsotropicRemeshing(this, iterations, target_edge_length);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
+        /// <summary>
+        /// Orient the faces in the mesh.
+        /// </summary>
+        /// <param name="orientate">The orientation method.</param>
+        public override void Orient(ORIENTATE orientate)
+        {
+            try
+            {
+                IsUpdated = false;
+                var orient = PolygonMeshProcessingOrientation<K>.Instance;
+                orient.Orient(orientate, this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
     }
 
     /// <summary>
@@ -780,6 +837,31 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="stop_ratio">A number between 0-1 that represents the percentage of vertices to remove.</param>
         public abstract void Simplify(double stop_ratio);
+
+        /// <summary>
+        /// Refines a triangle mesh
+        /// </summary>
+        /// <param name="density_control_factor">a factor to control density of the output mesh, 
+        /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
+        /// <returns>The number of new vertices.</returns>
+        public abstract int Refine(double density_control_factor = CGALGlobal.SQRT2);
+
+        /// <summary>
+        /// Remeshes a triangulated region of a polygon mesh.
+        /// This operation sequentially performs edge splits, edge collapses, edge flips, 
+        /// tangential relaxation and projection to the initial surface to generate 
+        /// a smooth mesh with a prescribed edge length.
+        /// </summary>
+        /// <param name="iterations"></param>
+        /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
+        /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
+        public abstract void IsotropicRemeshing(int iterations, double target_edge_length);
+
+        /// <summary>
+        /// Orient the faces in the mesh.
+        /// </summary>
+        /// <param name="orientate">The orientation method.</param>
+        public abstract void Orient(ORIENTATE orientate);
 
         /// <summary>
         /// Read data from a off file into the pollyhedron.
