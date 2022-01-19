@@ -131,14 +131,14 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Orient the faces in the mesh.
         /// </summary>
-        /// <param name="orientate">The orientation method.</param>
-        public override void Orient(ORIENTATE orientate)
+        /// <param name="oriente">The orientation method.</param>
+        public override void Orient(ORIENTATE oriente)
         {
             try
             {
                 IsUpdated = false;
                 var orient = PolygonMeshProcessingOrientation<K>.Instance;
-                orient.Orient(orientate, this);
+                orient.Orient(oriente, this);
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { };

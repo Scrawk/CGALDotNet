@@ -21,17 +21,16 @@ namespace CGALDotNetConsole
 
         public static void Main(string[] args)
         {
-            var points = new Point3d[]
+            var box1 = PolyhedronFactory<EEK>.CreateCube();
+            box1.Translate(new Point3d(0.5));
+
+            var box2 = PolyhedronFactory<EEK>.CreateCube();
+
+            Polyhedron3<EEK> result;
+            if(PolygonMeshProcessingBoolean<EEK>.Instance.Op(POLYHEDRA_BOOLEAN.DIFFERENCE, box1, box2, out result))
             {
-                new Point3d(1, -1, -1),
-                new Point3d(1, 1, 1),
-                new Point3d(-1, 1, -1),
-                new Point3d(-1, -1, 1),
-            };
-
-            var poly = SkinSurfaceMeshing<EEK>.Instance.CreateSkinPolyhedra(0.5, false, points, points.Length);
-
-            poly.Print();
+                result.Print();
+            }
 
         }
 
