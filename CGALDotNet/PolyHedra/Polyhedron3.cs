@@ -5,6 +5,7 @@ using System.Text;
 
 using CGALDotNet.Geometry;
 using CGALDotNet.Processing;
+using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Polyhedra
 {
@@ -142,6 +143,55 @@ namespace CGALDotNet.Polyhedra
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { };
+        }
+
+        /// <summary>
+        /// Split the mesh into its unconnected components.
+        /// </summary>
+        /// <param name="results">Each unconnect component as a new mesh.</param>
+        public void Split(List<Polyhedron3<K>> results)
+        {
+            try
+            {
+                var con = PolygonMeshProcessingConnections<K>.Instance;
+                con.SplitUnconnectedComponents(this, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
+        /// <summary>
+        /// Remove all unconnected compontents except the largest.
+        /// Largest is defined by the face count.
+        /// </summary>
+        /// <param name="num_components_to_keep">The numbero of largest components to keep.</param>
+        /// <returns>The number of components removed in the mesh.</returns>
+        public override int KeepLargest(int num_components_to_keep = 1)
+        {
+            try
+            {
+                var con = PolygonMeshProcessingConnections<K>.Instance;
+                return con.KeepLargestComponents(this, num_components_to_keep);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Create a mesh consisting of one polygon face.
+        /// </summary>
+        /// <param name="polygon">The faces polygon.</param>
+        /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the polygon is not simple.</exception>
+        public void CreatePolygonMesh(Polygon2<K> polygon, bool xz)
+        {
+            if (!polygon.IsSimple)
+                throw new InvalidOperationException("Polygon must be simple to convert to polyhedron mesh.");
+
+            var points = polygon.ToArray();
+            CreatePolygonMesh(points, xz);  
         }
 
     }
@@ -449,6 +499,20 @@ namespace CGALDotNet.Polyhedra
             Clear();
             IsUpdated = false;
             Kernel.CreateTriangleQuadMesh(Ptr, points, points.Length, triangles, triangles.Length, quads, quads.Length);
+        }
+
+        /// <summary>
+        /// Create a mesh consisting of one polygon face.
+        /// </summary>
+        /// <param name="points">The faces points</param>
+        /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
+        public void CreatePolygonMesh(Point2d[] points, bool xz)
+        {
+            ErrorUtil.CheckArray(points, points.Length);
+
+            Clear();
+            IsUpdated = false;
+            Kernel.CreatePolygonMesh(Ptr, points, points.Length, xz);
         }
 
         /// <summary>
@@ -878,6 +942,14 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="orientate">The orientation method.</param>
         public abstract void Orient(ORIENTATE orientate);
+
+        /// <summary>
+        /// Remove all unconnected compontents except the largest.
+        /// Largest is defined by the face count.
+        /// </summary>
+        /// <param name="num_components_to_keep">The numbero of largest components to keep.</param>
+        /// <returns>The number of components removed in the mesh.</returns>
+        public abstract int KeepLargest(int num_components_to_keep = 1);
 
         /// <summary>
         /// Read data from a off file into the pollyhedron.

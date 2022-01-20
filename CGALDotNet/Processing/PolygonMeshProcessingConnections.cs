@@ -48,7 +48,7 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="poly"></param>
         /// <param name="results"></param>
-        public void SplitConnectedComponents(Polyhedron3<K> poly, List<Polyhedron3<K>> results)
+        public void SplitUnconnectedComponents(Polyhedron3<K> poly, List<Polyhedron3<K>> results)
         {
             int count = Kernel.PolyhedronSplitConnectedComponents(Ptr, poly.Ptr);
             if (count == 0) return;

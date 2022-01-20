@@ -2,6 +2,7 @@
 
 #include "../CGALWrapper.h"
 #include "CGAL/Point_2.h"
+#include "CGAL/Point_3.h"
 #include "CGAL/Vector_2.h"
 #include "CGAL/Segment_2.h"
 
@@ -31,6 +32,18 @@ struct Point2d
     CGAL::Point_2<K> ToCGAL() const
     {
         return CGAL::Point_2<K>(x, y);
+    }
+
+    template<class K>
+    CGAL::Point_3<K> ToCGAL3() const
+    {
+        return CGAL::Point_3<K>(x, y, 0);
+    }
+
+    template<class K>
+    CGAL::Point_3<K> ToCGAL3XZ() const
+    {
+        return CGAL::Point_3<K>(x, 0, y);
     }
 
     template<class K>

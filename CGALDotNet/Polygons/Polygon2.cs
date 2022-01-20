@@ -6,6 +6,7 @@ using System.Text;
 using CGALDotNet.Geometry;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Meshing;
+using CGALDotNet.Polyhedra;
 
 namespace CGALDotNet.Polygons
 {
@@ -213,6 +214,22 @@ namespace CGALDotNet.Polygons
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { }
+        }
+
+        /// <summary>
+        /// Create a polyhedron3 mesh with one polygon face.
+        /// </summary>
+        /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
+        /// <returns>The new polyhedron mesh</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the polygon is not simple.</exception>
+        public Polyhedron3<K> ToPolyhedron3(bool xz)
+        {
+            if (!IsSimple)
+                throw new InvalidOperationException("Polygon must be simple to convert to polyhedron mesh.");
+
+            var poly = new Polyhedron3<K>();
+            poly.CreatePolygonMesh(this, xz);
+            return poly;
         }
     }
 

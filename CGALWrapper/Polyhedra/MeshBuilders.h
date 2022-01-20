@@ -158,3 +158,47 @@ public:
 		B.end_surface();
 	}
 };
+
+template <class HDS, class K>
+class BuildPolygonMesh : public CGAL::Modifier_base<HDS>
+{
+public:
+
+	Point2d* vertices;
+
+	int verticesCount;
+
+	BOOL xz;
+
+	void operator()(HDS& hds)
+	{
+		typedef typename HDS::Vertex   Vertex;
+		typedef typename Vertex::Point Point;
+
+		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds);
+
+		//Only a estimate of actual count
+		int numFaces = 1;
+		int numEdges = numFaces * 2;
+
+		B.begin_surface(verticesCount, numFaces, numEdges, B.ABSOLUTE_INDEXING);
+
+		for (int i = 0; i < verticesCount; i++)
+		{
+			if (xz)
+				B.add_vertex(vertices[i].ToCGAL3XZ<K>());
+			else
+				B.add_vertex(vertices[i].ToCGAL3<K>());
+		}
+
+		B.begin_facet();
+
+		for (int i = 0; i < verticesCount; i++)
+			B.add_vertex_to_facet(i);
+
+		B.end_facet();
+
+		B.end_surface();
+	}
+};
+

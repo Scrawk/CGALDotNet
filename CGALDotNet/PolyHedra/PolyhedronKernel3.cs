@@ -57,6 +57,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadCount);
 
+		internal abstract void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
+
 		internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
 
 		internal abstract PrimativeCount GetPrimativeCount(IntPtr ptr);

@@ -60,6 +60,8 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount);
 
+	CGALWRAPPER_API void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz);
+
 	CGALWRAPPER_API void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API PrimativeCount Polyhedron3_EEK_GetPrimativeCount(void* ptr);

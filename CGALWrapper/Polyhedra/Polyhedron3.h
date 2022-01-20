@@ -394,6 +394,19 @@ public:
 		poly->OnModelChanged();
 	}
 
+	static void CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		BuildPolygonMesh<HalfedgeDS, K> builder;
+		builder.vertices = points;
+		builder.verticesCount = pointsCount;
+		builder.xz = xz;
+
+		poly->model.delegate(builder);
+		poly->OnModelChanged();
+	}
+
 	static void GetPoints(void* ptr, Point3d* points, int count)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -411,23 +424,50 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		int triangleCount = 0;
-		int quadCount = 0;
-		int polygonCount = 0;
+		int degenerate = 0;
+		int three = 0;
+		int four = 0;
+		int five= 0;
+		int six = 0;
+		int greater = 0;
 
 		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
 		{
 			if (face->halfedge() == nullptr) continue;
 
-			if (face->is_triangle())
-				triangleCount++;
-			else if (face->is_quad())
-				quadCount++;
-			else
-				polygonCount++;
+			int count = FaceVertexCount(*face);
+
+			switch(count)
+			{
+				case 0:
+				case 1:
+				case 2:
+					degenerate++;
+					break;
+
+				case 3:
+					three++;
+					break;
+
+				case 4:
+					four++;
+					break;
+
+				case 5:
+					five++;
+					break;
+
+				case 6:
+					six++;
+					break;
+
+				default:
+					greater++;
+					break;
+			}
 		}
 
-		return { triangleCount, quadCount, polygonCount };
+		return { degenerate, three, four, five, six, greater };
 	}
 
 	static void GetTriangleIndices(void* ptr, int* indices, int count)
@@ -635,22 +675,7 @@ public:
 		{
 			if (face->halfedge() == nullptr) continue;
 
-			int num = 0;
-			Point3d centroid = { 0, 0, 0 };
-
-			auto hedge = face->facet_begin();
-			do
-			{
-				auto p = Point3d::FromCGAL<K>(hedge->vertex()->point());
-				centroid = centroid + p;
-				num++;
-			} 
-			while (++hedge != face->facet_begin());
-
-			if (num != 0)
-				centroid = centroid / num;
-
-			points[index] = centroid;
+			points[index] = ComputeCentroid(*face);
 
 			index++;
 
@@ -716,5 +741,41 @@ public:
 				normals[i] = Vector3d::FromCGAL<K>(vec);
 		}
 	}
+private:
+
+	static Point3d ComputeCentroid(const Face& face)
+	{
+		int num = 0;
+		Point3d centroid = { 0, 0, 0 };
+
+		auto hedge = face.facet_begin();
+		do
+		{
+			auto p = Point3d::FromCGAL<K>(hedge->vertex()->point());
+			centroid = centroid + p;
+			num++;
+		} 
+		while (++hedge != face.facet_begin());
+
+		if (num != 0)
+			centroid = centroid / num;
+
+		return centroid;
+	}
+
+	static int FaceVertexCount(const Face& face)
+	{
+		int num = 0;
+
+		auto hedge = face.facet_begin();
+		do
+		{
+			num++;
+		} 
+		while (++hedge != face.facet_begin());
+
+		return num;
+	}
+
 
 };

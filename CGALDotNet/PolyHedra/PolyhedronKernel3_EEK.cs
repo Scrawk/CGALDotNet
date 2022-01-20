@@ -133,6 +133,11 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, triangleCount, quads, quadCount);
 		}
 
+		internal override void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz)
+        {
+			Polyhedron3_EEK_CreatePolygonMesh(ptr, points, pointsCount, xz);
+        }
+
 		internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
 		{
 			Polyhedron3_EEK_GetPoints(ptr, points, count);
@@ -334,6 +339,9 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadCount);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);

@@ -482,18 +482,21 @@ namespace CGALDotNet.Polyhedra
         {
 			scale *= 0.5;
 
-			points.Add(new Point3d(0, 0, 1) * scale);
-			points.Add(new Point3d(1, 0, -0.5) * scale);
-			points.Add(new Point3d(-1, 0, -0.5) * scale);
+			// choose coordinates on the unit sphere
+			double a = 1.0 / 3.0;
+			double b = Math.Sqrt(8.0 / 9.0);
+			double c = Math.Sqrt(2.0 / 9.0);
+			double d = Math.Sqrt(2.0 / 3.0);
 
-			var p = (points[0] + points[1] + points[2]) / 3.0;
-			p.y = 1 * scale;
-			points.Add(p);
+			points.Add(new Point3d(0, 1, 0) * scale);
+			points.Add(new Point3d(-c, -a, d) * scale);
+			points.Add(new Point3d(-c, -a, -d) * scale);
+			points.Add(new Point3d(b, -a, 0) * scale);
 
 			indices.AddTriangle(0, 2, 1);
-			indices.AddTriangle(2, 3, 1);
-			indices.AddTriangle(1, 3, 0);
-			indices.AddTriangle(3, 2, 0);
+			indices.AddTriangle(0, 3, 2);
+			indices.AddTriangle(0, 1, 3);
+			indices.AddTriangle(3, 1, 2);
 		}
 
 		/// <summary>

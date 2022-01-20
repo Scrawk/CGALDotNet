@@ -3,8 +3,11 @@
 
 struct PrimativeCount
 {
-	int triangleCount;
-	int quadCount;
-	int polygonCount;
+	int degenerate;
+	int three;
+	int four;
+	int five;
+	int six;
+	int greater;
 };
 

@@ -122,6 +122,11 @@ void Polyhedron3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int poin
 	Polyhedron3<EEK>::CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, triangleCount, quads, quadCount);
 }
 
+void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz)
+{
+	Polyhedron3<EEK>::CreatePolygonMesh(ptr, points, pointsCount, xz);
+}
+
 void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 {
 	Polyhedron3<EEK>::GetPoints(ptr, points, count);
