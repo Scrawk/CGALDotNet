@@ -778,6 +778,26 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Try and create a polygon with this kernel.
+        /// </summary>
+        /// <typeparam name="T">The new kernel type.</typeparam>
+        /// <param name="poly">The new polygon</param>
+        /// <returns>True if polygon could be created using this kernel.</returns>
+        public static bool TryCreate<T>(out PolygonWithHoles2<T> poly) where T : CGALKernel, new()
+        {
+            try
+            {
+                poly = new PolygonWithHoles2<T>();
+                return true;
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            poly = null;
+            return false;
+        }
+
+        /// <summary>
         /// Release the unmanaged resoures.
         /// </summary>
         protected override void ReleasePtr()

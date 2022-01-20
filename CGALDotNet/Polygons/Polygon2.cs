@@ -64,19 +64,6 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Convert the polygon to a new polygon with a different kernel.
-        /// May result in different values due to precision issues.
-        /// </summary>
-        /// <typeparam name="T">The new kernel type.</typeparam>
-        /// <returns>The new polygon.</returns>
-        public Polygon2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var points = ArrayCache.Point2dArray(Count);
-            GetPoints(points, Count);
-            return new Polygon2<T>(points);
-        }
-
-        /// <summary>
         /// Triangulate the polygon.
         /// </summary>
         /// <param name="indices">The triangle indices.</param>
@@ -701,6 +688,39 @@ namespace CGALDotNet.Polygons
             var points = new Point2d[Count];
             GetPoints(points, points.Length);
             return points;
+        }
+
+        /// <summary>
+        /// Convert the polygon to a new polygon with a different kernel.
+        /// May result in different values due to precision issues.
+        /// </summary>
+        /// <typeparam name="T">The new kernel type.</typeparam>
+        /// <returns>The new polygon.</returns>
+        public Polygon2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var points = ArrayCache.Point2dArray(Count);
+            GetPoints(points, Count);
+            return new Polygon2<T>(points);
+        }
+
+        /// <summary>
+        /// Try and create a polygon with this kernel.
+        /// </summary>
+        /// <typeparam name="T">The new kernel type.</typeparam>
+        /// <param name="poly">The new polygon</param>
+        /// <returns>True if polygon could be created using this kernel.</returns>
+        public static bool TryCreate<T>(out Polygon2<T> poly) where T : CGALKernel, new()
+        {
+            try
+            {
+                poly = new Polygon2<T>();
+                return true;
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            poly = null;
+            return false;
         }
 
         /// <summary>
