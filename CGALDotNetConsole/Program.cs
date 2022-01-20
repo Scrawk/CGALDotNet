@@ -22,14 +22,7 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var points = Point3d.RandomPoints(0, 10, new Box3d(-10, 10));
-            var poly = SkinSurfaceMeshing<EEK>.Instance.CreateSkinPolyhedra(0.5, true, points, points.Length);
-            poly.Print();
-
-  
-            var connetions = PolygonMeshProcessingConnections<EEK>.Instance;
-
-            connetions.ConnectedComponents(poly);
+ 
         }
 
 

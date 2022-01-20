@@ -26,9 +26,14 @@ namespace CGALDotNet.Processing
             PolygonMeshProcessingConnections_EEK_PolyhedronConnectedComponents(polyPtr);
         }
 
-        internal override int PolyhedronSplitConnectedComponents(IntPtr polyPtr)
+        internal override int PolyhedronSplitConnectedComponents(IntPtr ptr, IntPtr polyPtr)
         {
-            return PolygonMeshProcessingConnections_EEK_PolyhedronSplitConnectedComponents(polyPtr);
+            return PolygonMeshProcessingConnections_EEK_PolyhedronSplitConnectedComponents(ptr, polyPtr);
+        }
+
+        internal override void PolyhedronGetSplitConnectedComponents(IntPtr ptr, IntPtr[] polyPtrs, int count)
+        {
+            PolygonMeshProcessingConnections_EEK_PolyhedronGetSplitConnectedComponents(ptr, polyPtrs, count);
         }
 
         internal override int PolyhedronKeepLargestConnectedComponents(IntPtr polyPtr, int nb_components_to_keep)
@@ -46,7 +51,10 @@ namespace CGALDotNet.Processing
         private static extern void PolygonMeshProcessingConnections_EEK_PolyhedronConnectedComponents(IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int PolygonMeshProcessingConnections_EEK_PolyhedronSplitConnectedComponents(IntPtr polyPtr);
+        private static extern int PolygonMeshProcessingConnections_EEK_PolyhedronSplitConnectedComponents(IntPtr ptr, IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonMeshProcessingConnections_EEK_PolyhedronGetSplitConnectedComponents(IntPtr ptr, [Out] IntPtr[] polyPtrs, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonMeshProcessingConnections_EEK_PolyhedronKeepLargestConnectedComponents(IntPtr polyPtr, int nb_components_to_keep);

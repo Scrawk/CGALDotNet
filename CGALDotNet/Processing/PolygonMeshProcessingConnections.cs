@@ -43,9 +43,32 @@ namespace CGALDotNet.Processing
             return string.Format("[PolygonMeshProcessingConnections<{0}>: ]", Kernel.KernelName);
         }
 
-        public void ConnectedComponents(Polyhedron3<K> poly)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="poly"></param>
+        /// <param name="results"></param>
+        public void SplitConnectedComponents(Polyhedron3<K> poly, List<Polyhedron3<K>> results)
         {
-            Kernel.PolyhedronConnectedComponents(poly.Ptr);
+            int count = Kernel.PolyhedronSplitConnectedComponents(Ptr, poly.Ptr);
+            if (count == 0) return;
+
+            var ptrs = new IntPtr[count];
+            Kernel.PolyhedronGetSplitConnectedComponents(Ptr, ptrs, count);
+
+            for (int i = 0; i < count; i++)
+                results.Add( new Polyhedron3<K>(ptrs[i]));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="poly"></param>
+        /// <param name="num_components_to_keep"></param>
+        /// <returns></returns>
+        public int KeepLargestComponents(Polyhedron3<K> poly, int num_components_to_keep)
+        {
+            return Kernel.PolyhedronKeepLargestConnectedComponents(poly.Ptr, num_components_to_keep);
         }
     }
 

@@ -19,6 +19,12 @@ public:
 	typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
 	typedef typename boost::graph_traits<Polyhedron>::faces_size_type Faces_Size;
 
+private:
+
+	std::vector<Polyhedron> buffer;
+
+public:
+
 	inline static PolygonMeshProcessingConnections* NewPolygonMeshProcessingConnections()
 	{
 		return new PolygonMeshProcessingConnections();
@@ -51,21 +57,41 @@ public:
 		//std::cout << cc.size() << " faces in the CC of " << std::endl;
 	}
 
-	static int PolyhedronSplitConnectedComponents(void* polyPtr)
+	static int PolyhedronSplitConnectedComponents(void* ptr, void* polyPtr)
 	{
+		auto con = CastToPolygonMeshProcessingConnections(ptr);
 		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
 
-		std::vector<Polyhedron> list;
-		CGAL::Polygon_mesh_processing::split_connected_components(poly->model, list);
+		con->buffer.clear();
+		CGAL::Polygon_mesh_processing::split_connected_components(poly->model, con->buffer);
 
-		return (int)list.size();
+		return (int)con->buffer.size();
+	}
+
+	static void PolyhedronGetSplitConnectedComponents(void* ptr, void** polyPtrs, int count)
+	{
+		auto con = CastToPolygonMeshProcessingConnections(ptr);
+
+		int size = (int)con->buffer.size();
+		if (size == 0) return;
+
+		for (int i = 0; i < count; i++)
+		{
+			auto poly = Polyhedron3<K>::NewPolyhedron();
+			poly->model = con->buffer[i];
+			polyPtrs[i] = poly;
+
+			if (i >= size) return;
+		}
+
+		con->buffer.clear();
 	}
 
 	static int PolyhedronKeepLargestConnectedComponents(void* polyPtr, int nb_components_to_keep)
 	{
 		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
 
-		return CGAL::Polygon_mesh_processing::keep_largest_connected_components(poly->model, nb_components_to_keep);
+		return (int)CGAL::Polygon_mesh_processing::keep_largest_connected_components(poly->model, nb_components_to_keep);
 	}
 
 };

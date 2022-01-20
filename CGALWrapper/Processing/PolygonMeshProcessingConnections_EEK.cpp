@@ -16,9 +16,14 @@ void PolygonMeshProcessingConnections_EEK_PolyhedronConnectedComponents(void* po
 	PolygonMeshProcessingConnections<EEK>::PolyhedronConnectedComponents(polyPtr);
 }
 
-int PolygonMeshProcessingConnections_EEK_PolyhedronSplitConnectedComponents(void* polyPtr)
+int PolygonMeshProcessingConnections_EEK_PolyhedronSplitConnectedComponents(void* ptr, void* polyPtr)
 {
-	return PolygonMeshProcessingConnections<EEK>::PolyhedronSplitConnectedComponents(polyPtr);
+	return PolygonMeshProcessingConnections<EEK>::PolyhedronSplitConnectedComponents(ptr, polyPtr);
+}
+
+void PolygonMeshProcessingConnections_EEK_PolyhedronGetSplitConnectedComponents(void* ptr, void** polyPtrs, int count)
+{
+	PolygonMeshProcessingConnections<EEK>::PolyhedronGetSplitConnectedComponents(ptr, polyPtrs, count);
 }
 
 int PolygonMeshProcessingConnections_EEK_PolyhedronKeepLargestConnectedComponents(void* polyPtr, int nb_components_to_keep)
