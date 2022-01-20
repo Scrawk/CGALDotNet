@@ -75,6 +75,8 @@ namespace CGALDotNet
         internal abstract PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel { get; }
 
         internal abstract PolygonMeshProcessingBooleanKernel PolygonMeshProcessingBooleanKernel { get; }
+
+        internal abstract PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -140,6 +142,8 @@ namespace CGALDotNet
         internal override PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel => throw new NotImplementedException();
 
         internal override PolygonMeshProcessingBooleanKernel PolygonMeshProcessingBooleanKernel => throw new NotImplementedException();
+
+        internal override PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -205,6 +209,8 @@ namespace CGALDotNet
         internal override PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel => PolygonMeshProcessingOrientationKernel_EEK.Instance;
 
         internal override PolygonMeshProcessingBooleanKernel PolygonMeshProcessingBooleanKernel => PolygonMeshProcessingBooleanKernel_EEK.Instance;
+
+        internal override PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel => PolygonMeshProcessingConnectionsKernel_EEK.Instance;
     }
 
 }

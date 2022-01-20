@@ -17,6 +17,16 @@ void Polyhedron3_EEK_Clear(void* ptr)
 	Polyhedron3<EEK>::Clear(ptr);
 }
 
+void Polyhedron3_EEK_ClearIndexMaps(void* ptr)
+{
+	Polyhedron3<EEK>::ClearIndexMaps(ptr);
+}
+
+void Polyhedron3_EEK_ClearNormalMaps(void* ptr)
+{
+	Polyhedron3<EEK>::ClearNormalMaps(ptr);
+}
+
 void* Polyhedron3_EEK_Copy(void* ptr)
 {
 	return Polyhedron3<EEK>::Copy(ptr);

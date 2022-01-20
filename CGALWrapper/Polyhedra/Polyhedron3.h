@@ -207,6 +207,24 @@ public:
 		poly->OnModelChanged();
 	}
 
+	static void ClearIndexMaps(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->vertexIndexMap.clear();
+		poly->rebuildVertexIndexMap = true;
+		poly->faceIndexMap.clear();
+		poly->rebuildFaceIndexMap = true;
+	}
+
+	static void ClearNormalMaps(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->vertexNormalMap.clear();
+		poly->rebuildVertexNormalMap = true;
+		poly->faceNormalMap.clear();
+		poly->rebuildFaceNormalMap = true;
+	}
+
 	static void* Copy(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);

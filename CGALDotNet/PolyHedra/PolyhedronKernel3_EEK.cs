@@ -28,6 +28,16 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_Clear(ptr);
 		}
 
+		internal override void ClearIndexMaps(IntPtr ptr)
+        {
+			Polyhedron3_EEK_ClearIndexMaps(ptr);
+		}
+
+		internal override void ClearNormalMaps(IntPtr ptr)
+        {
+			Polyhedron3_EEK_ClearNormalMaps(ptr);
+		}
+
 		internal override IntPtr Copy(IntPtr ptr)
 		{
 			return Polyhedron3_EEK_Copy(ptr);
@@ -261,6 +271,12 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern  void Polyhedron3_EEK_Clear(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_ClearIndexMaps(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_ClearNormalMaps(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Copy(IntPtr ptr);

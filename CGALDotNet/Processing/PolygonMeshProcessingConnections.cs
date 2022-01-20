@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNet.Polyhedra;
+
 namespace CGALDotNet.Processing
 {
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="K"></typeparam>
-    internal sealed class PolygonMeshProcessingConnected<K> : PolygonMeshProcessingConnected where K : CGALKernel, new()
+    public sealed class PolygonMeshProcessingConnections<K> : PolygonMeshProcessingConnections where K : CGALKernel, new()
     {
         /// <summary>
         /// 
         /// </summary>
-        public static readonly PolygonMeshProcessingConnected<K> Instance = new PolygonMeshProcessingConnected<K>();
+        public static readonly PolygonMeshProcessingConnections<K> Instance = new PolygonMeshProcessingConnections<K>();
 
         /// <summary>
         /// 
         /// </summary>
-        public PolygonMeshProcessingConnected() : base(new K())
+        public PolygonMeshProcessingConnections() : base(new K())
         {
 
         }
@@ -27,7 +29,7 @@ namespace CGALDotNet.Processing
         /// 
         /// </summary>
         /// <param name="ptr"></param>
-        internal PolygonMeshProcessingConnected(IntPtr ptr) : base(new K(), ptr)
+        internal PolygonMeshProcessingConnections(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
@@ -38,19 +40,24 @@ namespace CGALDotNet.Processing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[PolygonMeshProcessingConnected<{0}>: ]", Kernel.KernelName);
+            return string.Format("[PolygonMeshProcessingConnections<{0}>: ]", Kernel.KernelName);
+        }
+
+        public void ConnectedComponents(Polyhedron3<K> poly)
+        {
+            Kernel.PolyhedronConnectedComponents(poly.Ptr);
         }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    internal abstract class PolygonMeshProcessingConnected : CGALObject
+    public abstract class PolygonMeshProcessingConnections : PolyhedraAlgorithm
     {
         /// <summary>
         /// 
         /// </summary>
-        private PolygonMeshProcessingConnected()
+        private PolygonMeshProcessingConnections()
         {
 
         }
@@ -59,9 +66,9 @@ namespace CGALDotNet.Processing
         /// 
         /// </summary>
         /// <param name="kernel"></param>
-        internal PolygonMeshProcessingConnected(CGALKernel kernel)
+        internal PolygonMeshProcessingConnections(CGALKernel kernel)
         {
-            //Kernel = kernel.PolygonMeshProcessingConnectedKernel;
+            Kernel = kernel.PolygonMeshProcessingConnectionsKernel;
             Ptr = Kernel.Create();
         }
 
@@ -70,16 +77,16 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="kernel"></param>
         /// <param name="ptr"></param>
-        internal PolygonMeshProcessingConnected(CGALKernel kernel, IntPtr ptr) : base(ptr)
+        internal PolygonMeshProcessingConnections(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
-            //Kernel = kernel.PolygonMeshProcessingConnectedKernel;
+            Kernel = kernel.PolygonMeshProcessingConnectionsKernel;
             Ptr = ptr;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        internal PolygonMeshProcessingConnectedKernel Kernel { get; private set; }
+        internal PolygonMeshProcessingConnectionsKernel Kernel { get; private set; }
 
         /// <summary>
         /// Release any unmanaged resources.

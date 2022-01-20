@@ -330,6 +330,22 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Clear the polyhedron index maps.
+        /// </summary>
+        public void ClearIndexMaps()
+        {
+            Kernel.ClearIndexMaps(Ptr);
+        }
+
+        /// <summary>
+        /// Clear the polyhedron normals maps.
+        /// </summary>
+        public void ClearNormalMaps()
+        {
+            Kernel.ClearNormalMaps(Ptr);
+        }
+
+        /// <summary>
         /// Builds the vertex and/or face index maps if needed.
         /// </summary>
         /// <param name="vertices">True to build the vertex index map.</param>
