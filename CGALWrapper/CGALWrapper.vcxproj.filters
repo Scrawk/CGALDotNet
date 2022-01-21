@@ -270,9 +270,6 @@
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\Triangulation2_EIK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Arrangments\SweepLine_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -375,6 +372,9 @@
     <ClInclude Include="Processing\PolygonMeshProcessingConnections_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulations\BaseTriangulation2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -474,9 +474,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Triangulations\Triangulation2_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp">

@@ -22,17 +22,11 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var polygon = PolygonFactory<EEK>.CreateCircle(5, 5);
+            var points = Point2d.RandomPoints(0, 10, new Box2d(-10, 10));
 
-            var mesh = new Polyhedron3<EEK>();
-            mesh.CreatePolygonMesh(polygon, true);
-            mesh.Triangulate();
+            var tri = new Triangulation2<EEK>(points);
 
-            var prim = mesh.GetPrimativeCount();
-
-            mesh.Print();
-
-            Console.WriteLine(prim);
+            tri.Print();
  
         }
 

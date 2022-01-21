@@ -2,158 +2,194 @@
 #include "Triangulation2_EEK.h"
 #include "Triangulation2.h"
 
-#include <CGAL/Constrained_Delaunay_triangulation_2.h>
-#include <CGAL/Triangulation_conformer_2.h>
+typedef CGAL::Triangulation_vertex_base_with_info_2<int, EEK> Vb;
+typedef CGAL::Triangulation_face_base_with_info_2<int, EEK> Fb;
+typedef CGAL::Triangulation_data_structure_2<Vb, Fb> Tds;
+typedef CGAL::Triangulation_2<EEK, Tds> Triangulation_2;
+
+typedef typename Triangulation_2::Face_handle Face;
+typedef typename Triangulation_2::Vertex_handle Vertex;
+
+typedef Triangulation2<EEK, Triangulation_2, Vertex, Face> Tri2;
 
 void* Triangulation2_EEK_Create()
 {
-	return Triangulation2<EEK>::NewTriangulation2();
+	return Tri2::NewTriangulation2();
 }
 
 void Triangulation2_EEK_Release(void* ptr)
 {
-	Triangulation2<EEK>::DeleteTriangulation2(ptr);
+	Tri2::DeleteTriangulation2(ptr);
 }
 
 void Triangulation2_EEK_Clear(void* ptr)
 {
-	Triangulation2<EEK>::Clear(ptr);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->Clear();
 }
 
 void* Triangulation2_EEK_Copy(void* ptr)
 {
-	return Triangulation2<EEK>::Copy(ptr);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->Copy();
 }
 
 void Triangulation2_EEK_SetIndices(void* ptr)
 {
-	Triangulation2<EEK>::SetIndices(ptr);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->SetIndices();
 }
 
 int Triangulation2_EEK_BuildStamp(void* ptr)
 {
-	return Triangulation2<EEK>::BuildStamp(ptr);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->BuildStamp();
 }
 
 BOOL Triangulation2_EEK_IsValid(void* ptr, int level)
 {
-	return Triangulation2<EEK>::IsValid(ptr, level);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->IsValid(level);
 }
 
 int Triangulation2_EEK_VertexCount(void* ptr)
 {
-	return Triangulation2<EEK>::VertexCount(ptr);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->VertexCount();
 }
 
 int Triangulation2_EEK_FaceCount(void* ptr)
 {
-	return Triangulation2<EEK>::FaceCount(ptr);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->FaceCount();
 }
 
 void Triangulation2_EEK_InsertPoint(void* ptr, Point2d point)
 {
-	Triangulation2<EEK>::InsertPoint(ptr, point);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->InsertPoint(point);
 }
 
 void Triangulation2_EEK_InsertPoints(void* ptr, Point2d* points, int count)
 {
-	Triangulation2<EEK>::InsertPoints(ptr, points, count);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->InsertPoints(points, count);
 }
 
 void Triangulation2_EEK_InsertPolygon(void* triPtr, void* polyPtr)
 {
-	Triangulation2<EEK>::InsertPolygon(triPtr, polyPtr);
+	auto tri = Tri2::CastToTriangulation2(triPtr);
+	tri->InsertPolygon(polyPtr);
 }
 
 void Triangulation2_EEK_InsertPolygonWithHoles(void* triPtr, void* pwhPtr)
 {
-	Triangulation2<EEK>::InsertPolygonWithHoles(triPtr, pwhPtr);
+	auto tri = Tri2::CastToTriangulation2(triPtr);
+	tri->InsertPolygonWithHoles(pwhPtr);
 }
 
 void Triangulation2_EEK_GetPoints(void* ptr, Point2d* points, int count)
 {
-	Triangulation2<EEK>::GetPoints(ptr, points, count);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->GetPoints(points, count);
 }
 
 void Triangulation2_EEK_GetIndices(void* ptr, int* indices, int count)
 {
-	Triangulation2<EEK>::GetIndices(ptr, indices, count);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->GetIndices(indices, count);
 }
 
 BOOL Triangulation2_EEK_GetVertex(void* ptr, int index, TriVertex2& vertex)
 {
-	return Triangulation2<EEK>::GetVertex(ptr, index, vertex);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->GetVertex(index, vertex);
 }
 
 void Triangulation2_EEK_GetVertices(void* ptr, TriVertex2* vertices, int count)
 {
-	Triangulation2<EEK>::GetVertices(ptr, vertices, count);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->GetVertices(vertices, count);
 }
 
 bool Triangulation2_EEK_GetFace(void* ptr, int index, TriFace2& face)
 {
-	return Triangulation2<EEK>::GetFace(ptr, index, face);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->GetFace(index, face);
 }
 
 void Triangulation2_EEK_GetFaces(void* ptr, TriFace2* faces, int count)
 {
-	Triangulation2<EEK>::GetFaces(ptr, faces, count);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->GetFaces(faces, count);
 }
 
 BOOL Triangulation2_EEK_GetSegment(void* ptr, int faceIndex, int neighbourIndex, Segment2d& segment)
 {
-	return Triangulation2<EEK>::GetSegment(ptr, faceIndex, neighbourIndex, segment);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->GetSegment(faceIndex, neighbourIndex, segment);
 }
 
 BOOL Triangulation2_EEK_GetTriangle(void* ptr, int faceIndex, Triangle2d& triangle)
 {
-	return Triangulation2<EEK>::GetTriangle(ptr, faceIndex, triangle);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->GetTriangle(faceIndex, triangle);
 }
 
 void Triangulation2_EEK_GetTriangles(void* ptr, Triangle2d* triangles, int count)
 {
-	Triangulation2<EEK>::GetTriangles(ptr, triangles, count);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->GetTriangles(triangles, count);
 }
 
 BOOL Triangulation2_EEK_GetCircumcenter(void* ptr, int faceIndex, Point2d& circumcenter)
 {
-	return Triangulation2<EEK>::GetCircumcenter(ptr, faceIndex, circumcenter);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->GetCircumcenter(faceIndex, circumcenter);
 }
 
 void Triangulation2_EEK_GetCircumcenters(void* ptr, Point2d* circumcenters, int count)
 {
-	Triangulation2<EEK>::GetCircumcenters(ptr, circumcenters, count);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->GetCircumcenters(circumcenters, count);
 }
 
 int Triangulation2_EEK_NeighbourIndex(void* ptr, int faceIndex, int index)
 {
-	return Triangulation2<EEK>::NeighbourIndex(ptr, faceIndex, index);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->NeighbourIndex(faceIndex, index);
 }
 
 BOOL Triangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face)
 {
-	return Triangulation2<EEK>::LocateFace(ptr, point, face);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->LocateFace(point, face);
 }
 
 BOOL Triangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, BOOL ifNoCollision, TriVertex2& vertex)
 {
-	return Triangulation2<EEK>::MoveVertex(ptr, index, point, ifNoCollision, vertex);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->MoveVertex(index, point, ifNoCollision, vertex);
 }
 
 BOOL Triangulation2_EEK_RemoveVertex(void* ptr, int index)
 {
-	return Triangulation2<EEK>::RemoveVertex(ptr, index);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->RemoveVertex(index);
 }
 
 BOOL Triangulation2_EEK_FlipEdge(void* ptr, int faceIndex, int neighbour)
 {
-	return Triangulation2<EEK>::FlipEdge(ptr, faceIndex, neighbour);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	return tri->FlipEdge(faceIndex, neighbour);
 }
 
 void Triangulation2_EEK_Transform(void* ptr, Point2d translation, double rotation, double scale)
 {
-	Triangulation2<EEK>::Transform(ptr, translation, rotation, scale);
+	auto tri = Tri2::CastToTriangulation2(ptr);
+	tri->Transform(translation, rotation, scale);
 }
+
 
 
 
