@@ -16,7 +16,7 @@ extern "C"
 
 	CGALWRAPPER_API void* DelaunayTriangulation2_EEK_Copy(void* ptr);
 
-	CGALWRAPPER_API void DelaunayTriangulation_EEK_SetIndices(void* ptr);
+	CGALWRAPPER_API void DelaunayTriangulation2_EEK_SetIndices(void* ptr);
 
 	CGALWRAPPER_API int DelaunayTriangulation2_EEK_BuildStamp(void* ptr);
 

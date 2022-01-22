@@ -34,7 +34,7 @@ void* DelaunayTriangulation2_EEK_Copy(void* ptr)
 	return tri->Copy();
 }
 
-void DelaunayTriangulation_EEK_SetIndices(void* ptr)
+void DelaunayTriangulation2_EEK_SetIndices(void* ptr)
 {
 	auto tri = Tri2::CastToTriangulation2(ptr);
 	tri->SetIndices();

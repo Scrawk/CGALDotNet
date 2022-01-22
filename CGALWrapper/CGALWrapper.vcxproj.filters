@@ -369,6 +369,12 @@
     <ClInclude Include="Triangulations\BaseTriangulation2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -516,6 +522,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\PolygonMeshProcessingConnections_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

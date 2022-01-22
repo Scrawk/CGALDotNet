@@ -48,6 +48,8 @@ namespace CGALDotNet
 
         internal abstract ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 { get; }
 
+        internal abstract ConstrainedDelaunayTriangulationKernel2 ConstrainedDelaunayTriangulationKernel2 { get; }
+
         internal abstract ConformingTriangulationKernel2 ConformingTriangulationKernel2 { get; }
 
         internal abstract ConvexHullKernel2 ConvexHullKernel2 { get; }
@@ -115,6 +117,8 @@ namespace CGALDotNet
 
         internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => ConstrainedTriangulationKernel2_EIK.Instance;
 
+        internal override ConstrainedDelaunayTriangulationKernel2 ConstrainedDelaunayTriangulationKernel2 => throw new NotImplementedException();
+
         internal override ConformingTriangulationKernel2 ConformingTriangulationKernel2 => ConformingTriangulationKernel2_EIK.Instance;
 
         internal override ConvexHullKernel2 ConvexHullKernel2 => ConvexHullKernel2_EIK.Instance;
@@ -181,6 +185,8 @@ namespace CGALDotNet
         internal override DelaunayTriangulationKernel3 DelaunayTriangulationKernel3 => DelaunayTriangulationKernel3_EEK.Instance;
 
         internal override ConstrainedTriangulationKernel2 ConstrainedTriangulationKernel2 => ConstrainedTriangulationKernel2_EEK.Instance;
+
+        internal override ConstrainedDelaunayTriangulationKernel2 ConstrainedDelaunayTriangulationKernel2 => ConstrainedDelaunayTriangulationKernel2_EEK.Instance;
 
         internal override ConformingTriangulationKernel2 ConformingTriangulationKernel2 => ConformingTriangulationKernel2_EEK.Instance;
 

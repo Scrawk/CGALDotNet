@@ -8,14 +8,14 @@
 
 #include "CGAL/Segment_2.h"
 #include "CGAL/Point_2.h"
-#include <CGAL/Constrained_triangulation_2.h>
+#include <CGAL/Constrained_Delaunay_triangulation_2.h>
 #include <CGAL/Triangulation_face_base_with_info_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
-#include <CGAL/Constrained_triangulation_face_base_2.h>
+#include <CGAL/Constrained_Delaunay_triangulation_face_base_2.h>
 #include <CGAL/Constrained_triangulation_plus_2.h>
 
 template<class K, class TRI, class VERT, class FACE>
-class ConstrainedTriangulation2 : public BaseTriangulation2<K, TRI, VERT, FACE>
+class ConstrainedDelaunayTriangulation2 : public BaseTriangulation2<K, TRI, VERT, FACE>
 {
 
 public:
@@ -27,11 +27,11 @@ public:
 	typedef CGAL::Exact_intersections_tag Tag4;
 
 	typedef CGAL::Triangulation_vertex_base_with_info_2<int, K> Vb;
-	typedef CGAL::Constrained_triangulation_face_base_2<K> CFb;
+	typedef CGAL::Constrained_Delaunay_triangulation_face_base_2<K> CFb;
 	typedef CGAL::Triangulation_face_base_with_info_2<int, K, CFb> Fb;
 	typedef CGAL::Triangulation_data_structure_2<Vb, Fb> Tds;
-	typedef CGAL::Constrained_triangulation_2<K, Tds, Tag4> Triangulation_2;
-	
+	typedef CGAL::Constrained_Delaunay_triangulation_2<K, Tds, Tag4> Triangulation_2;
+
 	typedef typename Triangulation_2::Face_handle Face;
 	typedef typename Triangulation_2::Vertex_handle Vertex;
 	typedef typename Triangulation_2::Edge Edge;
@@ -39,14 +39,14 @@ public:
 public:
 
 
-	inline static ConstrainedTriangulation2* NewTriangulation2()
+	inline static ConstrainedDelaunayTriangulation2* NewTriangulation2()
 	{
-		return new ConstrainedTriangulation2();
+		return new ConstrainedDelaunayTriangulation2();
 	}
 
 	inline static void DeleteTriangulation2(void* ptr)
 	{
-		auto obj = static_cast<ConstrainedTriangulation2*>(ptr);
+		auto obj = static_cast<ConstrainedDelaunayTriangulation2*>(ptr);
 
 		if (obj != nullptr)
 		{
@@ -55,14 +55,14 @@ public:
 		}
 	}
 
-	inline static ConstrainedTriangulation2* CastToTriangulation2(void* ptr)
+	inline static ConstrainedDelaunayTriangulation2* CastToTriangulation2(void* ptr)
 	{
-		return static_cast<ConstrainedTriangulation2*>(ptr);
+		return static_cast<ConstrainedDelaunayTriangulation2*>(ptr);
 	}
 
 	void* Copy()
 	{
-		auto copy = new ConstrainedTriangulation2();
+		auto copy = new ConstrainedDelaunayTriangulation2();
 		copy->model = this->model;
 
 		return copy;
@@ -78,7 +78,7 @@ public:
 			//if (ifNoCollision)
 			//	v = this->model.move(*vert, point.ToCGAL<K>());
 			//else
-				v = this->model.move_if_no_collision(*vert, point.ToCGAL<K>());
+			v = this->model.move_if_no_collision(*vert, point.ToCGAL<K>());
 
 			if (v != *vert)
 				this->map.OnModelChanged();
@@ -169,7 +169,7 @@ public:
 
 			this->model.insert_constraint(a, b);
 		}
-		
+
 		this->map.OnModelChanged();
 	}
 
@@ -236,7 +236,7 @@ public:
 		}
 	}
 
-	void GetIncidentConstraints(int vertexIndex,  TriEdge2* constraints, int count)
+	void GetIncidentConstraints(int vertexIndex, TriEdge2* constraints, int count)
 	{
 		int i = 0;
 		auto vert = this->map.FindVertex(this->model, vertexIndex);
@@ -275,7 +275,7 @@ public:
 
 				} while (++edge != end);
 			}
-			
+
 		}
 	}
 
@@ -302,7 +302,7 @@ public:
 
 	int MarkDomains(int* indices, int count)
 	{
-		
+
 
 		this->map.SetVertexIndices(this->model);
 
@@ -336,7 +336,7 @@ public:
 		return num * 3;
 	}
 
-	private:
+private:
 
 	void MarkDomains(Triangulation_2& ct, Face start, int index, std::list<Edge>& border)
 	{

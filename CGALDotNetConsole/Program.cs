@@ -24,7 +24,7 @@ namespace CGALDotNetConsole
 
             var points = Point2d.RandomPoints(0, 10, new Box2d(-10, 10));
 
-            var tri = new ConstrainedTriangulation2<EEK>(points);
+            var tri = new ConstrainedDelaunayTriangulation2<EEK>(points);
 
             tri.Print();
  

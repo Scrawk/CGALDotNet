@@ -12,12 +12,13 @@ namespace CGALDotNet.Triangulations
     {
         TRIANGULATION,
         DELAUNAY,
-        CONSTRAINED
+        CONSTRAINED,
+        CONSTRAINED_DELAUNAY
     }
 
     /// <summary>
-    /// Base triangulation class for Triangulation, DelaunayTriangulation 
-    /// and ConstrainedTriangulation.
+    /// Base triangulation class for Triangulation, DelaunayTriangulation,
+    /// ConstrainedTriangulation and ConstrainedDelaunayTriangulation.
     /// </summary>
     public abstract class BaseTriangulation2 : CGALObject
     {

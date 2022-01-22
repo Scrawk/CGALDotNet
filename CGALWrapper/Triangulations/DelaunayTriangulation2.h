@@ -64,6 +64,8 @@ public:
 		return copy;
 	}
 
+	//Delauny only
+
 	void VoronoiCount(int& numSegments, int& numRays)
 	{
 		numSegments = 0;

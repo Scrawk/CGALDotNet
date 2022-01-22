@@ -63,6 +63,8 @@ namespace CGALDotNet.Triangulations
 
         internal abstract bool LocateFace(IntPtr ptr, Point2d point, out TriFace2 face);
 
+        internal abstract bool MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex);
+
         internal abstract bool RemoveVertex(IntPtr ptr, int index);
 
         internal abstract bool FlipEdge(IntPtr ptr, int faceIndex, int neighbour);

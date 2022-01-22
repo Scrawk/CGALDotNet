@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Triangulations
 {
-    internal abstract class ConstrainedTriangulationKernel2 : BaseTriangulationKernel2
+    internal abstract class ConstrainedDelaunayTriangulationKernel2 : BaseTriangulationKernel2
     {
 
         internal abstract int ConstrainedEdgesCount(IntPtr ptr);

@@ -46,7 +46,7 @@ void* ConstrainedTriangulation2_EEK_Copy(void* ptr)
 	return tri->Copy();
 }
 
-void ConstrainedTriangulation_EEK_SetIndices(void* ptr)
+void ConstrainedTriangulation2_EEK_SetIndices(void* ptr)
 {
 	auto tri = Tri2::CastToTriangulation2(ptr);
 	tri->SetIndices();
@@ -178,10 +178,10 @@ BOOL ConstrainedTriangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2
 	return tri->LocateFace(point, face);
 }
 
-BOOL ConstrainedTriangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, TriVertex2& vertex)
+BOOL ConstrainedTriangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, BOOL ifNoCollision, TriVertex2& vertex)
 {
 	auto tri = Tri2::CastToTriangulation2(ptr);
-	return tri->MoveVertex(index, point, vertex);
+	return tri->MoveVertex(index, point, ifNoCollision, vertex);
 }
 
 BOOL ConstrainedTriangulation2_EEK_RemoveVertex(void* ptr, int index)

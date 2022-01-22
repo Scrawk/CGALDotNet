@@ -12,17 +12,17 @@ namespace CGALDotNet.Triangulations
     /// The generic constrained triangulation class.
     /// </summary>
     /// <typeparam name="K">The kernel</typeparam>
-    public sealed class ConstrainedTriangulation2<K> : ConstrainedTriangulation2 where K : CGALKernel, new()
+    public sealed class ConstrainedDelaunayTriangulation2<K> : ConstrainedDelaunayTriangulation2 where K : CGALKernel, new()
     {
         /// <summary>
         /// A static instance of the triangulation.
         /// </summary>
-        public static readonly ConstrainedTriangulation2<K> Instance = new ConstrainedTriangulation2<K>();
+        public static readonly ConstrainedDelaunayTriangulation2<K> Instance = new ConstrainedDelaunayTriangulation2<K>();
 
         /// <summary>
         /// 
         /// </summary>
-        public ConstrainedTriangulation2() : base(new K())
+        public ConstrainedDelaunayTriangulation2() : base(new K())
         {
 
         }
@@ -31,7 +31,7 @@ namespace CGALDotNet.Triangulations
         /// 
         /// </summary>
         /// <param name="points"></param>
-        public ConstrainedTriangulation2(Point2d[] points) : base(new K(), points)
+        public ConstrainedDelaunayTriangulation2(Point2d[] points) : base(new K(), points)
         {
 
         }
@@ -40,7 +40,7 @@ namespace CGALDotNet.Triangulations
         /// 
         /// </summary>
         /// <param name="ptr"></param>
-        internal ConstrainedTriangulation2(IntPtr ptr) : base(new K(), ptr)
+        internal ConstrainedDelaunayTriangulation2(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
@@ -51,7 +51,7 @@ namespace CGALDotNet.Triangulations
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[ConstrainedTriangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
+            return string.Format("[ConstrainedDelaunayTriangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
                 Kernel.KernelName, VertexCount, TriangleCount);
         }
 
@@ -59,9 +59,9 @@ namespace CGALDotNet.Triangulations
         /// A deep copy of the triangulation.
         /// </summary>
         /// <returns>The deep copy.</returns>
-        public ConstrainedTriangulation2<K> Copy()
+        public ConstrainedDelaunayTriangulation2<K> Copy()
         {
-            return new ConstrainedTriangulation2<K>(Kernel.Copy(Ptr));
+            return new ConstrainedDelaunayTriangulation2<K>(Kernel.Copy(Ptr));
         }
 
         /// <summary>
@@ -87,16 +87,16 @@ namespace CGALDotNet.Triangulations
     /// <summary>
     /// The abstract triangulation class.
     /// </summary>
-    public abstract class ConstrainedTriangulation2 : BaseTriangulation2
+    public abstract class ConstrainedDelaunayTriangulation2 : BaseTriangulation2
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="kernel"></param>
-        internal ConstrainedTriangulation2(CGALKernel kernel) 
-            : base(kernel.ConstrainedTriangulationKernel2)
+        internal ConstrainedDelaunayTriangulation2(CGALKernel kernel)
+            : base(kernel.ConstrainedDelaunayTriangulationKernel2)
         {
-            TriangulationKernel = Kernel as ConstrainedTriangulationKernel2;
+            TriangulationKernel = Kernel as ConstrainedDelaunayTriangulationKernel2;
         }
 
         /// <summary>
@@ -104,10 +104,10 @@ namespace CGALDotNet.Triangulations
         /// </summary>
         /// <param name="kernel"></param>
         /// <param name="points"></param>
-        internal ConstrainedTriangulation2(CGALKernel kernel, Point2d[] points)
-            : base(kernel.ConstrainedTriangulationKernel2, points)
+        internal ConstrainedDelaunayTriangulation2(CGALKernel kernel, Point2d[] points)
+            : base(kernel.ConstrainedDelaunayTriangulationKernel2, points)
         {
-            TriangulationKernel = Kernel as ConstrainedTriangulationKernel2;
+            TriangulationKernel = Kernel as ConstrainedDelaunayTriangulationKernel2;
         }
 
         /// <summary>
@@ -115,16 +115,16 @@ namespace CGALDotNet.Triangulations
         /// </summary>
         /// <param name="kernel"></param>
         /// <param name="ptr"></param>
-        internal ConstrainedTriangulation2(CGALKernel kernel, IntPtr ptr) 
-            : base(kernel.ConstrainedTriangulationKernel2, ptr)
+        internal ConstrainedDelaunayTriangulation2(CGALKernel kernel, IntPtr ptr)
+            : base(kernel.ConstrainedDelaunayTriangulationKernel2, ptr)
         {
-            TriangulationKernel = Kernel as ConstrainedTriangulationKernel2;
+            TriangulationKernel = Kernel as ConstrainedDelaunayTriangulationKernel2;
         }
 
         /// <summary>
         /// The kernel with the functions unique to the constrained triangulation.
         /// </summary>
-        protected private ConstrainedTriangulationKernel2 TriangulationKernel { get; private set; }
+        protected private ConstrainedDelaunayTriangulationKernel2 TriangulationKernel { get; private set; }
 
         /// <summary>
         /// The number of constrainted edges in the triangulation.
@@ -302,7 +302,7 @@ namespace CGALDotNet.Triangulations
             count = TriangulationKernel.MarkDomains(Ptr, tmp, tmp.Length);
 
             for (int i = 0; i < count; i++)
-                indices.Add(tmp[i]);;
+                indices.Add(tmp[i]); ;
         }
 
         /// <summary>
