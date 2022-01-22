@@ -26,6 +26,10 @@ namespace CGALDotNetConsole
             var points = Point2d.RandomPoints(0, 10, new Box2d(-10, 10));
 
             var line = new Polyline2<EEK>(points);
+            line.ShrinkToCapacityToFitCount();
+
+            line.Remove(3, 6);
+            line.Insert(2, 5, points);
 
             line.Print();
  

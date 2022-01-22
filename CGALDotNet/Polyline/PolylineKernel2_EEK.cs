@@ -74,7 +74,17 @@ namespace CGALDotNet.Polylines
             Polyline2_EEK_EraseRange(ptr, start, count);
         }
 
-		internal override bool IsClosed(IntPtr ptr, double threshold)
+        internal override void Insert(IntPtr ptr, int index, Point2d point)
+        {
+            Polyline2_EEK_Insert(ptr, index, point);
+        }
+
+        internal override void InsertRange(IntPtr ptr, int start, int count, Point2d[] points)
+        {
+            Polyline2_EEK_InsertRange(ptr, start, count, points);
+        }
+
+        internal override bool IsClosed(IntPtr ptr, double threshold)
         {
             return Polyline2_EEK_IsClosed(ptr, threshold);
         }
@@ -164,6 +174,12 @@ namespace CGALDotNet.Polylines
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polyline2_EEK_EraseRange(IntPtr ptr, int start, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polyline2_EEK_Insert(IntPtr ptr, int index, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polyline2_EEK_InsertRange(IntPtr ptr, int start, int count, Point2d[] points);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Polyline2_EEK_IsClosed(IntPtr ptr, double threshold);

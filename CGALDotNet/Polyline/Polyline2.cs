@@ -148,12 +148,21 @@ namespace CGALDotNet.Polylines
         }
 
         /// <summary>
+        /// Shrink the capacity to match the point count.
+        /// </summary>
+        public void ShrinkToCapacityToFitCount()
+        {
+            Kernel.ShrinkToFit(Ptr);
+        }
+
+        /// <summary>
         /// Resize the point array.
         /// New elements will default to zero.
         /// </summary>
         /// <param name="count"></param>
         public void Resize(int count)
         {
+            Count = count;
             Kernel.Resize(Ptr, count);
         }
 
@@ -166,19 +175,15 @@ namespace CGALDotNet.Polylines
         }
 
         /// <summary>
-        /// Shrink the capacity to match the size of the point array.
-        /// </summary>
-        public void ShrinkToFit()
-        {
-            Kernel.ShrinkToFit(Ptr);
-        }
-
-        /// <summary>
         /// Remove the point at the index from the array.
         /// </summary>
         /// <param name="index">The points index</param>
         public void Remove(int index)
         {
+            if (index < 0 || index >= Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            Count--;
             Kernel.Erase(Ptr, index);
         }
 
@@ -189,7 +194,49 @@ namespace CGALDotNet.Polylines
         /// <param name="count">The number of points to remove.</param>
         public void Remove(int start, int count)
         {
+            if (start < 0 || start >= Count ||  start + count >= Count || count > Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            Count -= count;
             Kernel.EraseRange(Ptr, start, count);
+        }
+
+        /// <summary>
+        /// Remove the point at the index from the array.
+        /// </summary>
+        /// <param name="index">The points index.</param>
+        /// <param name="pointx">The point to insert.</param>
+        public void Insert(int index, Point2d point)
+        {
+            if (index < 0 || index >= Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            Count++;
+            Kernel.Insert(Ptr, index, point);
+        }
+
+        /// <summary>
+        /// Remove a range of points from the array.
+        /// </summary>
+        /// <param name="start">The starting index</param>
+        /// <param name="count">The number of points to remove.</param>
+        public void Insert(int start, int count, Point2d[] points)
+        {
+            if (start < 0 || start >= Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            ErrorUtil.CheckArray(points, count);
+            Count += count;
+            Kernel.InsertRange(Ptr, start, count, points);
+        }
+
+        /// <summary>
+        /// Add the point to the end of the poylline.
+        /// </summary>
+        /// <param name="point">The point to add.</param>
+        public void Add(Point2d point)
+        {
+            Insert(Count - 1, point);
         }
 
         /// <summary>

@@ -62,6 +62,16 @@ void Polyline2_EEK_EraseRange(void* ptr, int start, int count)
 	Polyline2<EEK>::Erase(ptr, start, count);
 }
 
+void Polyline2_EEK_Insert(void* ptr, int index, Point2d point)
+{
+	Polyline2<EEK>::Insert(ptr, index, point);
+}
+
+void Polyline2_EEK_InsertRange(void* ptr, int start, int count, Point2d* points)
+{
+	Polyline2<EEK>::Insert(ptr, start, count, points);
+}
+
 BOOL Polyline2_EEK_IsClosed(void* ptr, double threshold)
 {
 	return Polyline2<EEK>::IsClosed(ptr, threshold);

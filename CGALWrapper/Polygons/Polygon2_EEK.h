@@ -19,6 +19,22 @@ extern "C"
 
 	CGALWRAPPER_API void Polygon2_EEK_Clear(void* ptr);
 
+	CGALWRAPPER_API int Polygon2_EEK_Capacity(void* ptr);
+
+	CGALWRAPPER_API void Polygon2_EEK_Resize(void* ptr, int count);
+
+	CGALWRAPPER_API void Polygon2_EEK_ShrinkToFit(void* ptr);
+
+	CGALWRAPPER_API void Polygon2_EEK_Erase(void* ptr, int index);
+
+	CGALWRAPPER_API void Polygon2_EEK_EraseRange(void* ptr, int start, int count);
+
+	CGALWRAPPER_API void Polygon2_EEK_Insert(void* ptr, int index, Point2d point);
+
+	CGALWRAPPER_API void Polygon2_EEK_InsertRange(void* ptr, int start, int count, Point2d* points);
+
+	CGALWRAPPER_API double Polygon2_EEK_SqPerimeter(void* ptr);
+
 	CGALWRAPPER_API Point2d Polygon2_EEK_GetPoint(void* ptr, int index);
 
 	CGALWRAPPER_API void Polygon2_EEK_GetPoints(void* ptr, Point2d * points, int count);

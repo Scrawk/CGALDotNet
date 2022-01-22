@@ -22,6 +22,22 @@ namespace CGALDotNet.Polygons
 
         internal abstract void Clear(IntPtr ptr);
 
+        internal abstract int Capacity(IntPtr ptr);
+
+        internal abstract void Resize(IntPtr ptr, int count);
+
+        internal abstract void ShrinkToFit(IntPtr ptr);
+
+        internal abstract void Erase(IntPtr ptr, int index);
+
+        internal abstract void EraseRange(IntPtr ptr, int start, int count);
+
+        internal abstract void Insert(IntPtr ptr, int index, Point2d point);
+
+        internal abstract void InsertRange(IntPtr ptr, int start, int count, Point2d[] points);
+
+        internal abstract double SqPerimeter(IntPtr ptr);
+
         internal abstract Point2d GetPoint(IntPtr ptr, int index);
 
         internal abstract void GetPoints(IntPtr ptr, Point2d[] points, int count);

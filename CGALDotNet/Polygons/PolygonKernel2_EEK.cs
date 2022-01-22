@@ -44,6 +44,46 @@ namespace CGALDotNet.Polygons
             Polygon2_EEK_Copy(ptr);
         }
 
+        internal override int Capacity(IntPtr ptr)
+        {
+            return Polygon2_EEK_Capacity(ptr);
+        }
+
+        internal override void Resize(IntPtr ptr, int count)
+        {
+            Polygon2_EEK_Resize(ptr, count);
+        }
+
+        internal override void ShrinkToFit(IntPtr ptr)
+        {
+            Polygon2_EEK_ShrinkToFit(ptr);
+        }
+
+        internal override void Erase(IntPtr ptr, int index)
+        {
+            Polygon2_EEK_Erase(ptr, index);
+        }
+
+        internal override void EraseRange(IntPtr ptr, int start, int count)
+        {
+            Polygon2_EEK_EraseRange(ptr, start, count);
+        }
+
+        internal override void Insert(IntPtr ptr, int index, Point2d point)
+        {
+            Polygon2_EEK_Insert(ptr, index, point);
+        }
+
+        internal override void InsertRange(IntPtr ptr, int start, int count, Point2d[] points)
+        {
+            Polygon2_EEK_InsertRange(ptr, start, count, points);
+        }
+
+        internal override double SqPerimeter(IntPtr ptr)
+        {
+            return Polygon2_EEK_SqPerimeter(ptr);
+        }
+
         internal override Point2d GetPoint(IntPtr ptr, int index)
         {
             return Polygon2_EEK_GetPoint(ptr, index);
@@ -146,6 +186,30 @@ namespace CGALDotNet.Polygons
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polygon2_EEK_Clear(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int Polygon2_EEK_Capacity(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polygon2_EEK_Resize(IntPtr ptr, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polygon2_EEK_ShrinkToFit(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polygon2_EEK_Erase(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polygon2_EEK_EraseRange(IntPtr ptr, int start, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polygon2_EEK_Insert(IntPtr ptr, int index, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Polygon2_EEK_InsertRange(IntPtr ptr, int start, int count, Point2d[] points);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Polygon2_EEK_SqPerimeter(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d Polygon2_EEK_GetPoint(IntPtr ptr, int index);

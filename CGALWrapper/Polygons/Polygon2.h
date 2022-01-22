@@ -17,10 +17,11 @@ public:
 
 	Polygon2() {}
 
+	typedef CGAL::Point_2<K> Point_2;
+	typedef CGAL::Segment_2<K> Segment_2;
 	typedef CGAL::Polygon_2<K> Polygon_2;
 	typedef CGAL::Aff_transformation_2<K> Transformation_2;
-	typedef CGAL::Segment_2<K> Segment_2;
-
+	
 	inline static Polygon_2* NewPolygon2()
 	{
 		return new Polygon_2();
@@ -45,6 +46,14 @@ public:
 	inline static Polygon_2* CreatePolygon2(const Polygon_2& poly)
 	{
 		return new Polygon_2(poly);
+	}
+
+	inline static bool OutOfRange(Polygon_2* poly, int index)
+	{
+		if (index < 0 || index >= poly->size())
+			return true;
+		else
+			return false;
 	}
 
 	static int Count(void* ptr)
@@ -72,9 +81,90 @@ public:
 		polygon->clear();
 	}
 
+	static int Capacity(void* ptr)
+	{
+		auto polygon = CastToPolygon2(ptr);
+		return (int)polygon->container().capacity();
+	}
+
+	static void Resize(void* ptr, int count)
+	{
+		auto polygon = CastToPolygon2(ptr);
+		polygon->container().resize(count);
+	}
+
+	static void ShrinkToFit(void* ptr)
+	{
+		auto polygon = CastToPolygon2(ptr);
+		polygon->container().shrink_to_fit();
+	}
+
+	static void Erase(void* ptr, int index)
+	{
+		auto polygon = CastToPolygon2(ptr);
+
+		if (OutOfRange(polygon, index))
+			return;
+
+		polygon->container().erase(polygon->container().begin() + index);
+	}
+
+	static void Erase(void* ptr, int start, int count)
+	{
+		auto polygon = CastToPolygon2(ptr);
+
+		if (OutOfRange(polygon, start) ||
+			OutOfRange(polygon, start + count))
+			return;
+
+		polygon->container().erase(polygon->container().begin() + start, polygon->container().begin() + count);
+	}
+
+	static void Insert(void* ptr, int index, Point2d point)
+	{
+		auto polygon = CastToPolygon2(ptr);
+
+		if (OutOfRange(polygon, index))
+			return;
+
+		polygon->container().insert(polygon->container().begin() + index, point.ToCGAL<K>());
+	}
+
+	static void Insert(void* ptr, int start, int count, Point2d* points)
+	{
+		auto polygon = CastToPolygon2(ptr);
+
+		if (OutOfRange(polygon, start))
+			return;
+
+		std::vector<Point_2> tmp(count);
+		for (int i = 0; i < count; i++)
+			tmp.push_back(points[i].ToCGAL<K>());
+
+		polygon->container().insert(polygon->container().begin() + start, tmp.begin(), tmp.end());
+	}
+
+	static double SqPerimeter(void* ptr)
+	{
+		auto polygon = CastToPolygon2(ptr);
+
+		auto count = polygon->container().size();
+		if (count < 2) return 0;
+
+		auto sum = CGAL::squared_distance(polygon->vertex(0), polygon->vertex(1));
+
+		for (auto i = 1; i < count - 1; i++)
+			sum += CGAL::squared_distance(polygon->vertex(i), polygon->vertex(i + 1));
+
+		return CGAL::to_double(sum);
+	}
+
 	static Point2d GetPoint(void* ptr, int index)
 	{
 		auto polygon = CastToPolygon2(ptr);
+		if (OutOfRange(polygon, index)) 
+			return { 0, 0};
+
 		auto point = polygon->vertex(index);
 
 		return Point2d::FromCGAL<K>(point);
@@ -84,10 +174,15 @@ public:
 	{
 		auto polygon = CastToPolygon2(ptr);
 
+		auto size = polygon->size();
+		if (size == 0) return;
+
 		for (auto i = 0; i < count; i++)
 		{
 			auto point = polygon->vertex(i);
 			points[i] = Point2d::FromCGAL<K>(point);
+
+			if (i >= size) return;
 		}
 	}
 
@@ -111,6 +206,9 @@ public:
 	{
 		auto polygon = CastToPolygon2(ptr);
 
+		auto size = polygon->size();
+		if (size == 0) return;
+
 		for (auto i = 0; i < count; i++)
 		{
 			int i0 = Wrap(i + 0, count);
@@ -121,16 +219,15 @@ public:
 
 			segments[i].a = Point2d::FromCGAL<K>(v0);
 			segments[i].b = Point2d::FromCGAL<K>(v1);
+
+			if (i >= size) return;
 		}
 	}
 
 	static void SetPoint(void* ptr, int index, const Point2d& point)
 	{
 		auto polygon = CastToPolygon2(ptr);
-
-		auto size = polygon->size();
-		if (index < 0 || index >= size)
-			return;
+		if (OutOfRange(polygon, index)) return;
 
 		(*polygon)[index] = point.ToCGAL<K>();
 	}

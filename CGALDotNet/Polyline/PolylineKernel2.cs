@@ -32,6 +32,10 @@ namespace CGALDotNet.Polylines
 
 		internal abstract void EraseRange(IntPtr ptr, int start, int count);
 
+		internal abstract void Insert(IntPtr ptr, int index, Point2d point);
+
+		internal abstract void InsertRange(IntPtr ptr, int start, int count, Point2d[] points);
+
 		internal abstract bool IsClosed(IntPtr ptr, double threshold);
 
 		internal abstract double SqLength(IntPtr ptr);

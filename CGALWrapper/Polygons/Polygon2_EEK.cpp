@@ -16,6 +16,7 @@ void Polygon2_EEK_Release(void* ptr)
 
 int Polygon2_EEK_Count(void* ptr)
 {
+	auto polygon = Polygon2<EEK>::CastToPolygon2(ptr);
 	return Polygon2<EEK>::Count(ptr);
 }
 
@@ -32,6 +33,46 @@ void* Polygon2_EEK_Copy(void* ptr)
 void Polygon2_EEK_Clear(void* ptr)
 {
 	Polygon2<EEK>::Clear(ptr);
+}
+
+int Polygon2_EEK_Capacity(void* ptr)
+{
+	return Polygon2<EEK>::Capacity(ptr);
+}
+
+void Polygon2_EEK_Resize(void* ptr, int count)
+{
+	Polygon2<EEK>::Resize(ptr, count);
+}
+
+void Polygon2_EEK_ShrinkToFit(void* ptr)
+{
+	Polygon2<EEK>::ShrinkToFit(ptr);
+}
+
+void Polygon2_EEK_Erase(void* ptr, int index)
+{
+	Polygon2<EEK>::Erase(ptr, index);
+}
+
+void Polygon2_EEK_EraseRange(void* ptr, int start, int count)
+{
+	Polygon2<EEK>::Erase(ptr, start, count);
+}
+
+void Polygon2_EEK_Insert(void* ptr, int index, Point2d point)
+{
+	Polygon2<EEK>::Insert(ptr, index, point);
+}
+
+void Polygon2_EEK_InsertRange(void* ptr, int start, int count, Point2d* points)
+{
+	Polygon2<EEK>::Insert(ptr, start, count, points);
+}
+
+double Polygon2_EEK_SqPerimeter(void* ptr)
+{
+	return Polygon2<EEK>::SqPerimeter(ptr);
 }
 
 Point2d Polygon2_EEK_GetPoint(void* ptr, int index)

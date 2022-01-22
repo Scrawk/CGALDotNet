@@ -133,6 +133,30 @@ public:
 		polyline->points.erase(polyline->points.begin() + start, polyline->points.begin() + count);
 	}
 
+	static void Insert(void* ptr, int index, Point2d point)
+	{
+		auto polyline = CastToPolyline2(ptr);
+
+		if (polyline->OutOfRange(index))
+			return;
+
+		polyline->points.insert(polyline->points.begin() + index, point.ToCGAL<K>());
+	}
+
+	static void Insert(void* ptr, int start, int count, Point2d* points)
+	{
+		auto polyline = CastToPolyline2(ptr);
+
+		if (polyline->OutOfRange(start))
+			return;
+
+		std::vector<Point_2> tmp(count);
+		for (int i = 0; i < count; i++)
+			tmp.push_back(points[i].ToCGAL<K>());
+
+		polyline->points.insert(polyline->points.begin() + start, tmp.begin(), tmp.end());
+	}
+
 	static BOOL IsClosed(void* ptr, double threshold)
 	{
 		auto polyline = CastToPolyline2(ptr);
@@ -179,7 +203,9 @@ public:
 	static void GetPoints(void* ptr, Point2d* points, int count)
 	{
 		auto polyline = CastToPolyline2(ptr);
+
 		auto size = polyline->points.size();
+		if (size == 0) return;
 
 		for (auto i = 0; i < count; i++)
 		{
@@ -204,6 +230,7 @@ public:
 	{
 		auto polyline = CastToPolyline2(ptr);
 		auto size = polyline->points.size();
+		if (size == 0) return;
 
 		for (auto i = 0; i < count-1; i++)
 		{

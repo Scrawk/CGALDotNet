@@ -32,6 +32,10 @@ extern "C"
 
 	CGALWRAPPER_API  void Polyline2_EEK_EraseRange(void* ptr, int start, int count);
 
+	CGALWRAPPER_API void Polyline2_EEK_Insert(void* ptr, int index, Point2d point);
+
+	CGALWRAPPER_API void Polyline2_EEK_InsertRange(void* ptr, int start, int count, Point2d* points);
+
 	CGALWRAPPER_API BOOL Polyline2_EEK_IsClosed(void* ptr, double threshold);
 
 	CGALWRAPPER_API double Polyline2_EEK_SqLength(void* ptr);

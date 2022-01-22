@@ -300,6 +300,11 @@ namespace CGALDotNet.Polygons
         public int Count { get; private set; }
 
         /// <summary>
+        /// The capacity of the point array.
+        /// </summary>
+        public int Capacity => Kernel.Capacity(Ptr);
+
+        /// <summary>
         /// Is this a simple polygon.
         /// Certains actions can only be carried out on simple polygons.
         /// </summary>
@@ -411,6 +416,95 @@ namespace CGALDotNet.Polygons
             Count = 0;
             Kernel.Clear(Ptr);
             Update(false, ORIENTATION.ZERO);
+        }
+
+        /// <summary>
+        /// Shrink the capacity to match the point count.
+        /// </summary>
+        public void ShrinkToCapacityToFitCount()
+        {
+            Kernel.ShrinkToFit(Ptr);
+        }
+
+        /// <summary>
+        /// Resize the point array.
+        /// New elements will default to zero.
+        /// </summary>
+        /// <param name="count"></param>
+        public void Resize(int count)
+        {
+            Count = count;
+            IsUpdated = false;
+            Kernel.Resize(Ptr, count);
+        }
+
+        /// <summary>
+        /// Remove the point at the index from the array.
+        /// </summary>
+        /// <param name="index">The points index</param>
+        public void Remove(int index)
+        {
+            if (index < 0 || index >= Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            Count--;
+            IsUpdated = false;
+            Kernel.Erase(Ptr, index);
+        }
+
+        /// <summary>
+        /// Remove a range of points from the array.
+        /// </summary>
+        /// <param name="start">The starting index</param>
+        /// <param name="count">The number of points to remove.</param>
+        public void Remove(int start, int count)
+        {
+            if (start < 0 || start >= Count || start + count >= Count || count > Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            Count -= count;
+            IsUpdated = false;
+            Kernel.EraseRange(Ptr, start, count);
+        }
+
+        /// <summary>
+        /// Remove the point at the index from the array.
+        /// </summary>
+        /// <param name="index">The points index.</param>
+        /// <param name="pointx">The point to insert.</param>
+        public void Insert(int index, Point2d point)
+        {
+            if (index < 0 || index >= Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            Count++;
+            IsUpdated = false;
+            Kernel.Insert(Ptr, index, point);
+        }
+
+        /// <summary>
+        /// Remove a range of points from the array.
+        /// </summary>
+        /// <param name="start">The starting index</param>
+        /// <param name="count">The number of points to remove.</param>
+        public void Insert(int start, int count, Point2d[] points)
+        {
+            if (start < 0 || start >= Count)
+                throw new IndexOutOfRangeException("Index out of range.");
+
+            ErrorUtil.CheckArray(points, count);
+            Count += count;
+            IsUpdated = false;
+            Kernel.InsertRange(Ptr, start, count, points);
+        }
+
+        /// <summary>
+        /// Add the point to the end of the poylgon.
+        /// </summary>
+        /// <param name="point">The point to add.</param>
+        public void Add(Point2d point)
+        {
+            Insert(Count-1, point);
         }
 
         /// <summary>
@@ -621,6 +715,26 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Find the perimeter.
+        /// This is the length of the polygon boundary.
+        /// </summary>
+        /// <returns></returns>
+        public double FindPerimeter()
+        {
+            return Kernel.SqPerimeter(Ptr);
+        }
+
+        /// <summary>
+        /// Find the square perimeter.
+        /// This is the square length of the polygon boundary.
+        /// </summary>
+        /// <returns></returns>
+        public double FindSquarePerimeter()
+        {
+            return Kernel.SqPerimeter(Ptr);
+        }
+
+        /// <summary>
         /// Does the polygon contain the points.
         /// Must be simple to determine.
         /// </summary>
@@ -741,10 +855,13 @@ namespace CGALDotNet.Polygons
         {
             Update();
             builder.AppendLine(ToString());
+            builder.AppendLine("Capacity = " + Capacity);
+            builder.AppendLine("CCW = " + IsCounterClockWise);
             builder.AppendLine("Is convex = " + FindIfConvex());
             builder.AppendLine("Signed Area = " + FindSignedArea());
             builder.AppendLine("Area = " + FindArea());
-            builder.AppendLine("CCW = " + IsCounterClockWise);
+            builder.AppendLine("Perimeter = " + FindPerimeter());
+
         }
 
         /// <summary>
