@@ -21,6 +21,8 @@ namespace CGALDotNet
 
         internal abstract PolylineKernel2 PolylineKernel2 { get; }
 
+        internal abstract PolylineKernel3 PolylineKernel3 { get; }
+
         internal abstract PolygonKernel2 PolygonKernel2 { get; }
 
         internal abstract PolygonWithHolesKernel2 PolygonWithHolesKernel2 { get; }
@@ -92,6 +94,8 @@ namespace CGALDotNet
 
         internal override PolylineKernel2 PolylineKernel2 => throw new NotImplementedException();
 
+        internal override PolylineKernel3 PolylineKernel3 => throw new NotImplementedException();
+
         internal override PolygonKernel2 PolygonKernel2 => PolygonKernel2_EIK.Instance;
 
         internal override PolygonWithHolesKernel2 PolygonWithHolesKernel2 => PolygonWithHolesKernel2_EIK.Instance;
@@ -162,6 +166,8 @@ namespace CGALDotNet
         internal override GeometryKernel2 GeometryKernel2 => GeometryKernel2_EEK.Instance;
 
         internal override PolylineKernel2 PolylineKernel2 => PolylineKernel2_EEK.Instance;
+
+        internal override PolylineKernel3 PolylineKernel3 => PolylineKernel3_EEK.Instance;
 
         internal override PolygonKernel2 PolygonKernel2 => PolygonKernel2_EEK.Instance;
 

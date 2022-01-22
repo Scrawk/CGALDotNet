@@ -6,10 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <CGAL/enum.h> 
-#include <CGAL/Polygon_2.h>
 #include <CGAL/Aff_transformation_2.h>
-#include <CGAL/Vector_2.h>
-#include <CGAL/Direction_2.h>
 
 template<class K>
 class Polyline2

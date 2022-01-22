@@ -200,6 +200,35 @@ struct Vector3d
 
 };
 
+struct Segment3d
+{
+    Point3d a;
+    Point3d b;
+
+    template<class K, class SEG>
+    SEG ToCGAL() const
+    {
+        return { a.ToCGAL<K>(), b.ToCGAL<K>() };
+    }
+
+    template<class K>
+    static Segment3d FromCGAL(CGAL::Point_3<K> a, CGAL::Point_3<K> b)
+    {
+        auto A = Point3d::FromCGAL<K>(a);
+        auto B = Point3d::FromCGAL<K>(b);
+        return { A, B };
+    }
+
+    template<class K>
+    static Segment3d FromCGAL(CGAL::Segment_3<K> seg)
+    {
+        auto A = Point3d::FromCGAL<K>(seg.source());
+        auto B = Point3d::FromCGAL<K>(seg.target());
+        return { A, B };
+    }
+
+};
+
 struct Line3d
 {
     Point3d position;
