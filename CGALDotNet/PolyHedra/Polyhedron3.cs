@@ -1015,9 +1015,6 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("IsQuad = " + IsQuad);
             builder.AppendLine("IsBivalent = " + FindIfBivalent());
             builder.AppendLine("IsTrivalent = " + FindIfTrivalent());
-            builder.AppendLine("DoesSelfIntersect = " + DoesSelfIntersect());
-            builder.AppendLine("Area = " + FindArea());
-            builder.AppendLine("Volume = " + FindVolume());
             builder.AppendLine("DoesBoundAVolume = " + FindIfDoesBoundAVolume());
 
             var minmax = FindMinMaxEdgeLength();

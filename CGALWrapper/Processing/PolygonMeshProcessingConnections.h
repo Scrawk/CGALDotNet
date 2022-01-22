@@ -81,7 +81,7 @@ public:
 			poly->model = con->buffer[i];
 			polyPtrs[i] = poly;
 
-			if (i >= size) return;
+			if (i >= size) break;
 		}
 
 		con->buffer.clear();

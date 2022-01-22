@@ -23,16 +23,22 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var points = Point2d.RandomPoints(0, 10, new Box2d(-10, 10));
+            var poly = PolyhedronFactory<EEK>.CreateCube();
+            var slicer = PolygonMeshProcessingSlicer<EEK>.Instance;
 
-            var line = new Polyline2<EEK>(points);
-            line.ShrinkToCapacityToFitCount();
+            var lines = new List<Polyline3<EEK>>();
 
-            line.Remove(3, 6);
-            line.Insert(2, 5, points);
+            var plane = new Plane3d(new Point3d(0, 0, 0), new Vector3d(0, 1, 0));
 
-            line.Print();
- 
+            slicer.Slice(poly, plane, lines);
+
+            foreach(var line in lines)
+            {
+                line.Print();
+
+                foreach(var p in line)
+                    Console.WriteLine(p.ToString());
+            }
         }
 
 

@@ -387,6 +387,12 @@
     <ClInclude Include="Polylines\Polyline3_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingSlicer_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingSlicer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -543,6 +549,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Polylines\Polyline3_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\PolygonMeshProcessingSlicer_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,6 +15,9 @@ class Polyline3
 
 public:
 
+	typedef CGAL::Point_3<K> Point_3;
+	typedef CGAL::Segment_3<K> Segment_3;
+
 	Polyline3()
 	{
 
@@ -25,8 +28,10 @@ public:
 		points.resize(count);
 	}
 
-	typedef CGAL::Point_3<K> Point_3;
-	typedef CGAL::Segment_3<K> Segment_3;
+	Polyline3(const std::vector<Point_3>& points)
+	{
+		this->points = points;
+	}
 
 	std::vector<Point_3> points;
 
@@ -39,6 +44,11 @@ public:
 	inline static Polyline3* NewPolyline3(int count)
 	{
 		return new Polyline3(count);
+	}
+
+	inline static Polyline3* NewPolyline3(const std::vector<Point_3>& points)
+	{
+		return new Polyline3(points);
 	}
 
 	inline static void DeletePolyline3(void* ptr)
