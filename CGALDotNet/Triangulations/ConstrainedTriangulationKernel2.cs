@@ -8,6 +8,9 @@ namespace CGALDotNet.Triangulations
 {
     internal abstract class ConstrainedTriangulationKernel2 : BaseTriangulationKernel2
     {
+
+        internal abstract bool MoveVertex(IntPtr ptr, int index, Point2d point, out TriVertex2 vertex);
+
         internal abstract int ConstrainedEdgesCount(IntPtr ptr);
 
         internal abstract bool HasIncidentConstraints(IntPtr ptr, int index);

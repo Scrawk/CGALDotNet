@@ -201,8 +201,6 @@
     <ClInclude Include="Meshing\TetrahedralRemeshing_EEK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation3.h" />
     <ClInclude Include="Triangulations\Triangulation3_EEK.h" />
-    <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
-    <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
     <ClInclude Include="Geometry\Matrices.h" />
     <ClInclude Include="Polygons\PolygonSimplification2_EIK.h" />
     <ClInclude Include="Polygons\PolygonMinkowski_EIK.h" />
@@ -288,8 +286,6 @@
     <ClCompile Include="Meshing\SkinSurfaceMeshing_EEK.cpp" />
     <ClCompile Include="Meshing\TetrahedralRemeshing_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation3_EEK.cpp" />
-    <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />
-    <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />
     <ClCompile Include="Polygons\PolygonSimplification2_EIK.cpp" />
     <ClCompile Include="Polygons\PolygonMinkowski_EIK.cpp" />
     <ClCompile Include="Polygons\PolygonBoolean2_EIK.cpp" />

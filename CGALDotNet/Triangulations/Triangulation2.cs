@@ -153,6 +153,20 @@ namespace CGALDotNet.Triangulations
         protected private TriangulationKernel2 TriangulationKernel { get; private set; }
 
         /// <summary>
+        /// Move the vertex.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="point"></param>
+        /// <param name="ifNoCollision">If there is not already another vertex placed on the point, 
+        /// the triangulation is modified such that the new position of vertex same as point.</param>
+        /// <param name="vertex">The moved vertex</param>
+        /// <returns>True if the vertex was found.</returns>
+        public bool MoveVertex(int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex)
+        {
+            return TriangulationKernel.MoveVertex(Ptr, index, point, ifNoCollision, out vertex);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="builder"></param>

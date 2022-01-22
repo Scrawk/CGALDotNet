@@ -132,13 +132,25 @@ namespace CGALDotNet.Triangulations
         public int ConstrainedEdgeCount => TriangulationKernel.ConstrainedEdgesCount(Ptr);
 
         /// <summary>
+        /// Move the vertex.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="point"></param>
+        /// <param name="vertex">The moved vertex</param>
+        /// <returns>True if the vertex was found.</returns>
+        public bool MoveVertex(int index, Point2d point, out TriVertex2 vertex)
+        {
+            return TriangulationKernel.MoveVertex(Ptr, index, point, out vertex);
+        }
+
+        /// <summary>
         /// Insert the polygons points into the triangulation.
         /// May not retain the poylgons edges.
         /// </summary>
         /// <param name="polygon"></param>
         public void Insert(Polygon2 polygon)
         {
-            Kernel.InsertPolygon(Ptr, polygon.Ptr);
+            TriangulationKernel.InsertPolygon(Ptr, polygon.Ptr);
         }
 
         /// <summary>
@@ -148,7 +160,7 @@ namespace CGALDotNet.Triangulations
         /// <param name="pwh"></param>
         public void Insert(PolygonWithHoles2 pwh)
         {
-            Kernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
+            TriangulationKernel.InsertPolygonWithHoles(Ptr, pwh.Ptr);
         }
 
         /// <summary>

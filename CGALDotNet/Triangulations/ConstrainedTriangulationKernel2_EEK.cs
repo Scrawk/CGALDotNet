@@ -143,9 +143,9 @@ namespace CGALDotNet.Triangulations
             return ConstrainedTriangulation2_EEK_LocateFace(ptr, point, out face);
         }
 
-        internal override bool MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex)
+        internal override bool MoveVertex(IntPtr ptr, int index, Point2d point, out TriVertex2 vertex)
         {
-            return ConstrainedTriangulation2_EEK_MoveVertex(ptr, index, point, ifNoCollision, out vertex);
+            return ConstrainedTriangulation2_EEK_MoveVertex(ptr, index, point, out vertex);
         }
 
         internal override bool RemoveVertex(IntPtr ptr, int index)
@@ -314,7 +314,7 @@ namespace CGALDotNet.Triangulations
         private static extern bool ConstrainedTriangulation2_EEK_LocateFace(IntPtr ptr, Point2d point, [Out] out TriFace2 face);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool ConstrainedTriangulation2_EEK_MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, [Out] out TriVertex2 vertex);
+        private static extern bool ConstrainedTriangulation2_EEK_MoveVertex(IntPtr ptr, int index, Point2d point, [Out] out TriVertex2 vertex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool ConstrainedTriangulation2_EEK_RemoveVertex(IntPtr ptr, int index);

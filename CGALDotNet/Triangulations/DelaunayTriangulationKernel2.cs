@@ -8,6 +8,7 @@ namespace CGALDotNet.Triangulations
 {
     internal abstract class DelaunayTriangulationKernel2 : BaseTriangulationKernel2
     {
+        internal abstract bool MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex);
 
         internal abstract int VoronoiSegmentCount(IntPtr ptr);
 

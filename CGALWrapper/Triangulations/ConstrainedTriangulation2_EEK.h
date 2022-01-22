@@ -58,7 +58,7 @@ extern "C"
 
 	CGALWRAPPER_API BOOL ConstrainedTriangulation2_EEK_LocateFace(void* ptr, Point2d point, TriFace2& face);
 
-	CGALWRAPPER_API BOOL ConstrainedTriangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, BOOL ifNoCollision, TriVertex2& vertex);
+	CGALWRAPPER_API BOOL ConstrainedTriangulation2_EEK_MoveVertex(void* ptr, int index, Point2d point, TriVertex2& vertex);
 
 	CGALWRAPPER_API BOOL ConstrainedTriangulation2_EEK_RemoveVertex(void* ptr, int index);
 

@@ -6,7 +6,6 @@ typedef CGAL::Triangulation_vertex_base_with_info_2<int, EEK> Vb;
 typedef CGAL::Triangulation_face_base_with_info_2<int, EEK> Fb;
 typedef CGAL::Triangulation_data_structure_2<Vb, Fb> Tds;
 typedef CGAL::Triangulation_2<EEK, Tds> Triangulation_2;
-
 typedef typename Triangulation_2::Face_handle Face;
 typedef typename Triangulation_2::Vertex_handle Vertex;
 

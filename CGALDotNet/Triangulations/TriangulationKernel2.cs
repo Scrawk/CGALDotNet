@@ -9,6 +9,7 @@ namespace CGALDotNet.Triangulations
 {
     internal abstract class TriangulationKernel2 : BaseTriangulationKernel2 
     {
+        internal abstract bool MoveVertex(IntPtr ptr, int index, Point2d point, bool ifNoCollision, out TriVertex2 vertex);
 
     }
 }

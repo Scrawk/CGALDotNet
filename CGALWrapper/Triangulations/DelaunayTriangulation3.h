@@ -3,7 +3,6 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry3.h"
 #include "TriUtil.h"
-#include "../Geometry/Matrices.h"
 
 #include <vector>
 #include "CGAL/Point_3.h"
