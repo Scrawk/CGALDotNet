@@ -169,6 +169,8 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Polylines\Polyline2_EEK.h" />
+    <ClInclude Include="Polylines\Polyline2.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h" />
     <ClInclude Include="Geometry\MinMax.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingConnections_EEK.h" />
@@ -214,8 +216,8 @@
     <ClInclude Include="Polygons\PolygonVisibility_EIK.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3_EEK.h" />
-    <ClInclude Include="Circlar\Circle.h" />
-    <ClInclude Include="Circlar\Circle_EEK.h" />
+    <ClInclude Include="Circlar\Circle2.h" />
+    <ClInclude Include="Circlar\Circle2_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine.h" />
     <ClInclude Include="Polygons\PolygonMinkowski_EEK.h" />
     <ClInclude Include="Polygons\PolygonMinkowski.h" />
@@ -271,6 +273,7 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Polylines\Polyline2_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.cpp" />
     <ClCompile Include="Processing\PolygonMeshProcessingConnections_EEK.cpp" />
     <ClCompile Include="Processing\PolygonMeshProcessingBoolean_EEK.cpp" />
@@ -298,7 +301,7 @@
     <ClCompile Include="Polygons\PolygonWithHoles2_EIK.cpp" />
     <ClCompile Include="Polygons\PolygonVisibility_EIK.cpp" />
     <ClCompile Include="Polyhedra\NefPolyhedron3_EEK.cpp" />
-    <ClCompile Include="Circlar\Circle_EEK.cpp" />
+    <ClCompile Include="Circlar\Circle2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonMinkowski_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonVisibility_EEK.cpp" />
     <ClCompile Include="Polyhedra\Polyhedron3_EEK.cpp" />

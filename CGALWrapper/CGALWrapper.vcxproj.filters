@@ -171,10 +171,10 @@
     <ClInclude Include="Geometry\IsoRectangle2_EEK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Circlar\Circle.h">
+    <ClInclude Include="Circlar\Circle2.h">
       <Filter>Header Files\Circlar</Filter>
     </ClInclude>
-    <ClInclude Include="Circlar\Circle_EEK.h">
+    <ClInclude Include="Circlar\Circle2_EEK.h">
       <Filter>Header Files\Circlar</Filter>
     </ClInclude>
     <ClInclude Include="Triangulations\TriEdge2.h">
@@ -375,6 +375,12 @@
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polylines\Polyline2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Polylines\Polyline2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -419,7 +425,7 @@
     <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="Circlar\Circle_EEK.cpp">
+    <ClCompile Include="Circlar\Circle2_EEK.cpp">
       <Filter>Source Files\Circlar</Filter>
     </ClCompile>
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp">
@@ -525,6 +531,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Polylines\Polyline2_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

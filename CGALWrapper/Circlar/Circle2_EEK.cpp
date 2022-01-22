@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Circle_EEK.h"
-#include "Circle.h"
+#include "Circle2_EEK.h"
+#include "Circle2.h"
 
 #include <CGAL/Exact_circular_kernel_2.h>
 #include <CGAL/Circular_kernel_2.h>

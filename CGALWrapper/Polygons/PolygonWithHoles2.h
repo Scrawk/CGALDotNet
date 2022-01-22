@@ -163,6 +163,10 @@ public:
 		auto polygon = GetBoundaryOrHole(ptr, polyIndex);
 		if (polygon != nullptr)
 		{
+			auto size = polygon->size();
+			if (pointIndex < 0 || pointIndex >= size)
+				return;
+
 			(*polygon)[pointIndex] = Point_2(point.x, point.y);
 		}
 	}

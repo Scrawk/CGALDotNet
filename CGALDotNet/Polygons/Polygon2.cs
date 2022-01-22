@@ -721,26 +721,6 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Try and create a polygon with this kernel.
-        /// </summary>
-        /// <typeparam name="T">The new kernel type.</typeparam>
-        /// <param name="poly">The new polygon</param>
-        /// <returns>True if polygon could be created using this kernel.</returns>
-        public static bool TryCreate<T>(out Polygon2<T> poly) where T : CGALKernel, new()
-        {
-            try
-            {
-                poly = new Polygon2<T>();
-                return true;
-            }
-            catch (NotImplementedException) { }
-            catch (NotSupportedException) { }
-
-            poly = null;
-            return false;
-        }
-
-        /// <summary>
         /// Return all the points in the polygon in a list.
         /// </summary>
         /// <returns>The list.</returns>

@@ -128,6 +128,10 @@ public:
 	{
 		auto polygon = CastToPolygon2(ptr);
 
+		auto size = polygon->size();
+		if (index < 0 || index >= size)
+			return;
+
 		(*polygon)[index] = point.ToCGAL<K>();
 	}
 
