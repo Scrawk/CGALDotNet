@@ -30,14 +30,20 @@ namespace CGALDotNetConsole
 
             var plane = new Plane3d(new Point3d(0, 0, 0), new Vector3d(0, 1, 0));
 
-            slicer.Slice(poly, plane, lines);
+            var start = new Point3d(0, 0.5, 0);
+            var end = new Point3d(0, -0.5, 0);
+
+            slicer.Slice(poly, start, end, 0.25, lines);
 
             foreach(var line in lines)
             {
                 line.Print();
 
-                foreach(var p in line)
-                    Console.WriteLine(p.ToString());
+                for(int i = 0; i < line.Count; i++)
+                {
+                    Console.WriteLine(i + " " + line[i]);
+                }
+                    
             }
         }
 

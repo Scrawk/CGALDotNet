@@ -146,6 +146,14 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Reverses the orientation of the vertices in each face.
+        /// </summary>
+        public override void ReverseFaceOrientation()
+        {
+            Orient(ORIENTATE.REVERSE_FACE_ORIENTATIONS);
+        }
+
+        /// <summary>
         /// Split the mesh into its unconnected components.
         /// </summary>
         /// <param name="results">Each unconnect component as a new mesh.</param>
@@ -404,15 +412,6 @@ namespace CGALDotNet.Polyhedra
         public void BuildIndices(bool vertices, bool faces, bool force = false)
         {
             Kernel.BuildIndices(Ptr, vertices, faces, force);
-        }
-
-        /// <summary>
-        /// Computes the bounding box.
-        /// </summary>
-        /// <returns>The bounding box.</returns>
-        public Box3d GetBoundingBox()
-        {
-            return Kernel.GetBoundingBox(Ptr);
         }
 
         /// <summary>
@@ -740,6 +739,15 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Computes the bounding box.
+        /// </summary>
+        /// <returns>The bounding box.</returns>
+        public Box3d FindBoundingBox()
+        {
+            return Kernel.GetBoundingBox(Ptr);
+        }
+
+        /// <summary>
         /// Computes the area of a range of faces
         /// of a given triangulated surface mesh.
         /// </summary>
@@ -942,6 +950,11 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="orientate">The orientation method.</param>
         public abstract void Orient(ORIENTATE orientate);
+
+        /// <summary>
+        /// Reverses the orientation of the vertices in each face.
+        /// </summary>
+        public abstract void ReverseFaceOrientation();
 
         /// <summary>
         /// Remove all unconnected compontents except the largest.

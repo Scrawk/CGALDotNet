@@ -33,6 +33,11 @@ namespace CGALDotNet.Processing
             return PolygonMeshProcessingSlicer_EEK_Polyhedron_Slice(slicerPtr, polyPtr, plane, useTree);
         }
 
+        internal override int Slice(IntPtr slicerPtr, IntPtr polyPtr, Point3d start, Point3d end, double increment)
+        {
+            return PolygonMeshProcessingSlicer_EEK_Polyhedron_IncrementalSlice(slicerPtr, polyPtr, start, end, increment);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonMeshProcessingSlicer_EEK_Create();
 
@@ -44,5 +49,8 @@ namespace CGALDotNet.Processing
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonMeshProcessingSlicer_EEK_Polyhedron_Slice(IntPtr slicerPtr, IntPtr polyPtr, Plane3d plane, bool useTree);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonMeshProcessingSlicer_EEK_Polyhedron_IncrementalSlice(IntPtr slicerPtr, IntPtr polyPtr, Point3d start, Point3d end, double increment);
     }
 }

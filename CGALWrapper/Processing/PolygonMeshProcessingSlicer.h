@@ -20,7 +20,9 @@ public:
 
 	typedef CGAL::Polyhedron_3<K> Polyhedron;
 
+	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point;
+	typedef typename K::Vector_3 Vector;
 	typedef typename K::Plane_3 Plane;
 	typedef typename std::vector<Point> PointList;
 	typedef typename std::vector<PointList> PolylineList;
@@ -93,7 +95,44 @@ public:
 		}
 
 		return (int)scr->lines.size();
+	}
 
+	static int Polyhedron_Slice(void* slicerPtr, void* polyPtr, const Point3d& start, const Point3d& end, double increment)
+	{
+		if (increment <= 0)
+			return 0;
+
+		auto scr = CastToPolygonMeshProcessingSlicer(slicerPtr);
+		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
+
+		scr->lines.clear();
+
+		auto s = start.ToCGAL<K>();
+		auto e = end.ToCGAL<K>();
+
+		auto sq = CGAL::squared_distance(s, e);
+		if (sq == FT(0)) return 0;
+
+		auto len = CGAL::approximate_sqrt(sq);
+		auto inc = FT(increment);
+
+		auto dir = (e - s) / len;
+		auto current = FT(0);
+
+		AABB_tree tree(edges(poly->model).first, edges(poly->model).second, poly->model);
+		CGAL::Polygon_mesh_slicer<Polyhedron, K> slicer_aabb(poly->model, tree);
+
+		while (current < len)
+		{
+			Point p = s + dir * current;
+			auto plane = Plane(p, dir);
+
+			slicer_aabb(plane, std::back_inserter(scr->lines));
+
+			current += inc;
+		}
+
+		return (int)scr->lines.size();
 	}
 
 };

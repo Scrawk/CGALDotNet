@@ -499,6 +499,14 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Shrink the capacity to match the point count.
+        /// </summary>
+        public void ShrinkCapacityToFitCount()
+        {
+            Kernel.ShrinkToFit(Ptr);
+        }
+
+        /// <summary>
         /// Add the point to the end of the poylgon.
         /// </summary>
         /// <param name="point">The point to add.</param>

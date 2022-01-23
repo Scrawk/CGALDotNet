@@ -20,3 +20,8 @@ int PolygonMeshProcessingSlicer_EEK_Polyhedron_Slice(void* slicerPtr, void* poly
 {
 	return PolygonMeshProcessingSlicer<EEK>::Polyhedron_Slice(slicerPtr, polyPtr, plane, useTree);
 }
+
+int PolygonMeshProcessingSlicer_EEK_Polyhedron_IncrementalSlice(void* slicerPtr, void* polyPtr, const Point3d& start, const Point3d& end, double increment)
+{
+	return PolygonMeshProcessingSlicer<EEK>::Polyhedron_Slice(slicerPtr, polyPtr, start, end, increment);
+}

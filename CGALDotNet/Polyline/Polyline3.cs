@@ -150,7 +150,7 @@ namespace CGALDotNet.Polylines
         /// <summary>
         /// Shrink the capacity to match the point count.
         /// </summary>
-        public void ShrinkToCapacityToFitCount()
+        public void ShrinkCapacityToFitCount()
         {
             Kernel.ShrinkToFit(Ptr);
         }
@@ -199,6 +199,16 @@ namespace CGALDotNet.Polylines
 
             Count -= count;
             Kernel.EraseRange(Ptr, start, count);
+        }
+
+        /// <summary>
+        /// Remove the last point.
+        /// </summary>
+        public void RemoveLast()
+        {
+            if (Count == 0) return;
+            Kernel.Erase(Ptr, Count - 1);
+            Count--;
         }
 
         /// <summary>
@@ -463,6 +473,7 @@ namespace CGALDotNet.Polylines
         {
             builder.AppendLine(ToString());
             builder.AppendLine("Capacity = " + Capacity);
+            builder.AppendLine("IsClosed = " + IsClosed());
             builder.AppendLine("Length = " + FindLength());
         }
 
