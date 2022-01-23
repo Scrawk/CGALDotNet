@@ -171,6 +171,42 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator >=(Degree v1, Degree v2)
+        {
+            return v1.angle >= v2.angle;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator >(Degree v1, Degree v2)
+        {
+            return v1.angle > v2.angle;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator <(Degree v1, Degree v2)
+        {
+            return v1.angle < v2.angle;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator <=(Degree v1, Degree v2)
+        {
+            return v1.angle <= v2.angle;
+        }
+
+        /// <summary>
         /// Are these angles equal.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

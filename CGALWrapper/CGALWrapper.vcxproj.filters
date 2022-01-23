@@ -393,6 +393,12 @@
     <ClInclude Include="Processing\PolygonMeshProcessingSlicer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingFeatures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\PolygonMeshProcessingFeatures_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -552,6 +558,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\PolygonMeshProcessingSlicer_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Processing\PolygonMeshProcessingFeatures_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

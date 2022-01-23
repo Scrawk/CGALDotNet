@@ -86,6 +86,8 @@ namespace CGALDotNet
         internal abstract PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel { get; }
 
         internal abstract PolygonMeshProcessingSlicerKernel PolygonMeshProcessingSlicerKernel { get; }
+
+        internal abstract PolygonMeshProcessingFeaturesKernel PolygonMeshProcessingFeaturesKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -161,6 +163,8 @@ namespace CGALDotNet
         internal override PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel => throw new NotImplementedException();
 
         internal override PolygonMeshProcessingSlicerKernel PolygonMeshProcessingSlicerKernel => throw new NotImplementedException();
+
+        internal override PolygonMeshProcessingFeaturesKernel PolygonMeshProcessingFeaturesKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -236,6 +240,8 @@ namespace CGALDotNet
         internal override PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel => PolygonMeshProcessingConnectionsKernel_EEK.Instance;
 
         internal override PolygonMeshProcessingSlicerKernel PolygonMeshProcessingSlicerKernel => PolygonMeshProcessingSlicerKernel_EEK.Instance;
+
+        internal override PolygonMeshProcessingFeaturesKernel PolygonMeshProcessingFeaturesKernel => PolygonMeshProcessingFeaturesKernel_EEK.Instance;
     }
 
 }
