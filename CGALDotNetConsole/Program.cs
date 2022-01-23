@@ -23,15 +23,12 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var fea = PolygonMeshProcessingFeatures<EEK>.Instance;
+            var param = PlaneParams.Default;
 
-            var poly = PolyhedronFactory<EEK>.CreateCylinder();
+            var mesh = SurfaceMeshFactory<EEK>.CreatePlane(param);
+     
+            mesh.Print();
 
-
-            int edges = fea.DetectSharpEdges(poly, new Degree(20));
-         
-            
-            Console.WriteLine("edges = " + edges);
         }
 
 

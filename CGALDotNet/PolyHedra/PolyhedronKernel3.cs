@@ -61,7 +61,7 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
 
-		internal abstract PrimativeCount GetPrimativeCount(IntPtr ptr);
+		internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
 
 		internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
 

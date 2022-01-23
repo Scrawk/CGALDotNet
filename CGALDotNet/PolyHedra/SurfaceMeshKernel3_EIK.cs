@@ -209,10 +209,10 @@ namespace CGALDotNet.Polyhedra
         //    return SurfaceMesh3_EIK_CheckFaceVertices(ptr, count);
         //}
 
-        //internal override int MaxFaceVertices(IntPtr ptr)
-        //{
-        //    return SurfaceMesh3_EIK_MaxFaceVertices(ptr);
-        //}
+        internal override int MaxFaceVertices(IntPtr ptr)
+        {
+            return SurfaceMesh3_EIK_MaxFaceVertices(ptr);
+        }
 
         //internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
         //{

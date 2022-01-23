@@ -153,6 +153,11 @@ void SurfaceMesh3_EEK_RemoveFace(void* ptr, int index)
 	SurfaceMesh3<EEK>::RemoveFace(ptr, index);
 }
 
+void SurfaceMesh3_EEK_RemoveProperyMaps(void* ptr)
+{
+	SurfaceMesh3<EEK>::RemoveProperyMaps(ptr);
+}
+
 BOOL SurfaceMesh3_EEK_IsVertexValid(void* ptr, int index)
 {
 	return SurfaceMesh3<EEK>::IsVertexValid(ptr, index);
@@ -188,24 +193,52 @@ void SurfaceMesh3_EEK_Transform(void* ptr, const Matrix4x4d& matrix)
 	SurfaceMesh3<EEK>::Transform(ptr, matrix);
 }
 
-void SurfaceMesh3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount)
+BOOL SurfaceMesh3_EEK_IsVertexBorder(void* ptr, int index, BOOL check_all_incident_halfedges)
 {
-	SurfaceMesh3<EEK>::CreateTriangleMesh(ptr, points, pointsCount, indices, indicesCount);
+	return SurfaceMesh3<EEK>::IsVertexBorder(ptr, index, check_all_incident_halfedges);
 }
 
-BOOL SurfaceMesh3_EEK_CheckFaceVertices(void* ptr, int count)
+BOOL SurfaceMesh3_EEK_IsHalfedgeBorder(void* ptr, int index)
 {
-	return false;
-	//return SurfaceMesh3<EEK>::CheckFaceVertices(ptr, count);
+	return SurfaceMesh3<EEK>::IsHalfedgeBorder(ptr, index);
 }
 
-int SurfaceMesh3_EEK_MaxFaceVertices(void* ptr)
+BOOL SurfaceMesh3_EEK_IsEdgeBorder(void* ptr, int index)
 {
-	return 0;
-	//return SurfaceMesh3<EEK>::MaxFaceVertices(ptr);
+	return SurfaceMesh3<EEK>::IsEdgeBorder(ptr, index);
 }
-void SurfaceMesh3_EEK_GetTriangleIndices(void* ptr, int* indices, int count)
+
+int SurfaceMesh3_EEK_BorderEdgeCount(void* ptr)
 {
-	//SurfaceMesh3<EEK>::GetTriangleIndices(ptr, indices, count);
+	return SurfaceMesh3<EEK>::BorderEdgeCount(ptr);
 }
+
+BOOL SurfaceMesh3_EEK_IsClosed(void* ptr)
+{
+	return SurfaceMesh3<EEK>::IsClosed(ptr);
+}
+
+BOOL SurfaceMesh3_EEK_CheckFaceVertexCount(void* ptr, int count)
+{
+	return SurfaceMesh3<EEK>::CheckFaceVertexCount(ptr, count);
+}
+
+FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::GetFaceVertexCount(ptr);
+}
+
+void SurfaceMesh3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int trianglesCount, int* quads, int quadsCount)
+{
+	SurfaceMesh3<EEK>::CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, trianglesCount, quads, quadsCount);
+}
+
+void SurfaceMesh3_EEK_GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount)
+{
+	SurfaceMesh3<EEK>::GetTriangleQuadIndices(ptr, triangles, trianglesCount, quads, quadsCount);
+}
+
+
+
+
 

@@ -132,9 +132,9 @@ void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 	Polyhedron3<EEK>::GetPoints(ptr, points, count);
 }
 
-PrimativeCount Polyhedron3_EEK_GetPrimativeCount(void* ptr)
+FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr)
 {
-	return Polyhedron3<EEK>::GetPrimativeCount(ptr);
+	return Polyhedron3<EEK>::GetFaceVertexCount(ptr);
 }
 
 void Polyhedron3_EEK_GetTriangleIndices(void* ptr, int* indices, int count)

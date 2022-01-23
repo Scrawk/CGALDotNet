@@ -4,6 +4,7 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "FaceVertexCount.h"
 
 extern "C"
 {
@@ -16,6 +17,14 @@ extern "C"
 	CGALWRAPPER_API void* SurfaceMesh3_EEK_Copy(void* ptr);
 
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsValid(void* ptr);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsVertexValid(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsFaceValid(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsHalfedgeValid(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsEdgeValid(void* ptr, int index);
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_VertexCount(void* ptr);
 
@@ -67,13 +76,7 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_RemoveFace(void* ptr, int index);
 
-	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsVertexValid(void* ptr, int index);
-
-	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsEdgeValid(void* ptr, int index);
-
-	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsHalfedgeValid(void* ptr, int index);
-
-	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsFaceValid(void* ptr, int index);
+	CGALWRAPPER_API void SurfaceMesh3_EEK_RemoveProperyMaps(void* ptr);
 
 	CGALWRAPPER_API Point3d SurfaceMesh3_EEK_GetPoint(void* ptr, int index);
 
@@ -81,12 +84,24 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_Transform(void* ptr, const Matrix4x4d& matrix);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount);
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsVertexBorder(void* ptr, int index, BOOL check_all_incident_halfedges);
 
-	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_CheckFaceVertices(void* ptr, int count);
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsHalfedgeBorder(void* ptr, int index);
 
-	CGALWRAPPER_API int SurfaceMesh3_EEK_MaxFaceVertices(void* ptr);
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsEdgeBorder(void* ptr, int index);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_GetTriangleIndices(void* ptr, int* indices, int count);
+	CGALWRAPPER_API int SurfaceMesh3_EEK_BorderEdgeCount(void* ptr);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_IsClosed(void* ptr);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_CheckFaceVertexCount(void* ptr, int count);
+
+	CGALWRAPPER_API FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int trianglesCount, int* quads, int quadsCount);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount);
+
+	
 
 }

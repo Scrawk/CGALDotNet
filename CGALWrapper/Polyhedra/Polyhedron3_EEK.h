@@ -5,7 +5,7 @@
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
-#include "PrimativeCount.h"
+#include "FaceVertexCount.h"
 
 #include <CGAL/enum.h>
 
@@ -64,7 +64,7 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count);
 
-	CGALWRAPPER_API PrimativeCount Polyhedron3_EEK_GetPrimativeCount(void* ptr);
+	CGALWRAPPER_API FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_GetTriangleIndices(void* ptr, int* indices, int count);
 

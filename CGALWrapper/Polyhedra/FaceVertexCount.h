@@ -1,7 +1,7 @@
 #pragma once
 
 
-struct PrimativeCount
+struct FaceVertexCount
 {
 	int degenerate;
 	int three;

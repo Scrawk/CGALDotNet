@@ -87,7 +87,7 @@ namespace CGALDotNet.Polyhedra
 
         //internal abstract bool CheckFaceVertices(IntPtr ptr, int count);
 
-        //internal abstract int MaxFaceVertices(IntPtr ptr);
+        internal abstract int MaxFaceVertices(IntPtr ptr);
 
         //internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
 

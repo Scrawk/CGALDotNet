@@ -143,9 +143,9 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_GetPoints(ptr, points, count);
 		}
 
-		internal override PrimativeCount GetPrimativeCount(IntPtr ptr)
+		internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
 		{
-			return Polyhedron3_EEK_GetPrimativeCount(ptr);
+			return Polyhedron3_EEK_GetFaceVertexCount(ptr);
 		}
 
 		internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
@@ -347,7 +347,7 @@ namespace CGALDotNet.Polyhedra
 		private static extern void Polyhedron3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern PrimativeCount Polyhedron3_EEK_GetPrimativeCount(IntPtr ptr);
+		private static extern FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetTriangleIndices(IntPtr ptr, [Out] int[] indices, int count);

@@ -529,9 +529,9 @@ namespace CGALDotNet.Polyhedra
         /// Count the number of triangles, quads and polygons in the mesh.
         /// </summary>
         /// <returns>The number of triangles, quads and polygons in the mesh.</returns>
-        public PrimativeCount GetPrimativeCount()
+        public FaceVertexCount GetFaceVertexCount()
         {
-            return Kernel.GetPrimativeCount(Ptr);
+            return Kernel.GetFaceVertexCount(Ptr);
         }
 
         /// <summary>

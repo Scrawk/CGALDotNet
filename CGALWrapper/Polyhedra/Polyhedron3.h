@@ -5,7 +5,7 @@
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
-#include "PrimativeCount.h"
+#include "FaceVertexCount.h"
 #include "MeshBuilders.h"
 
 #include <limits>
@@ -420,7 +420,7 @@ public:
 		}
 	}
 
-	static PrimativeCount GetPrimativeCount(void* ptr)
+	static FaceVertexCount GetFaceVertexCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 

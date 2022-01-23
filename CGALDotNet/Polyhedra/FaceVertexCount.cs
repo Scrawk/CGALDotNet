@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CGALDotNet.Polyhedra
 {
-    public struct PrimativeCount
+    public struct FaceVertexCount
     {
         public int degenerate;
         public int three;
@@ -15,7 +15,7 @@ namespace CGALDotNet.Polyhedra
 
         public override string ToString()
         {
-            return string.Format("[PrimativeCount: Degenerate={0}, Three={1}, Four={2}, Five={3}, Six={4}, Greater={5}]",
+            return string.Format("[FaceVertexCount: Degenerate={0}, Three={1}, Four={2}, Five={3}, Six={4}, Greater={5}]",
                 degenerate, three, four, five, six, greater);
         }
 

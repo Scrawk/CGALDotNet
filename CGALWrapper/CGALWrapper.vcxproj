@@ -187,7 +187,7 @@
     <ClInclude Include="Processing\PolygonMeshProcessingMeshing_EEK.h" />
     <ClInclude Include="Polyhedra\MeshBuilders.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingMeshing.h" />
-    <ClInclude Include="Polyhedra\PrimativeCount.h" />
+    <ClInclude Include="Polyhedra\FaceVertexCount.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingOrientation.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingRepair.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingRepair_EEK.h" />
@@ -205,7 +205,6 @@
     <ClInclude Include="Meshing\ConformingTriangulation2_EIK.h" />
     <ClInclude Include="Polyhedra\NefPolyhedron3_EIK.h" />
     <ClInclude Include="Meshing\SkinSurfaceMesing.h" />
-    <ClInclude Include="Polyhedra\SurfaceMesh3_EIK.h" />
     <ClInclude Include="Meshing\SkinSurfaceMeshing_EEK.h" />
     <ClInclude Include="Meshing\TetrahedralRemeshing.h" />
     <ClInclude Include="Meshing\TetrahedralRemeshing_EEK.h" />
@@ -297,7 +296,6 @@
     <ClCompile Include="Hull\ConvexHull2_EIK.cpp" />
     <ClCompile Include="Meshing\ConformingTriangulation2_EIK.cpp" />
     <ClCompile Include="Polyhedra\NefPolyhedron3_EIK.cpp" />
-    <ClCompile Include="Polyhedra\SurfaceMesh3_EIK.cpp" />
     <ClCompile Include="Meshing\SkinSurfaceMeshing_EEK.cpp" />
     <ClCompile Include="Meshing\TetrahedralRemeshing_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation3_EEK.cpp" />

@@ -92,6 +92,12 @@ namespace CGALDotNet.Polyhedra
         protected private SurfaceMeshKernel3 Kernel { get; private set; }
 
         /// <summary>
+        /// Checks if the mesh is valid.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsValid => Kernel.IsValid(Ptr);
+
+        /// <summary>
         /// The number of vertices in the mesh.
         /// </summary>
         public int VertexCount => Kernel.VertexCount(Ptr);
@@ -122,30 +128,15 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <returns>Does the mesh only contain quads.</returns>
         //public bool IsPureQuad => Kernel.CheckFaceVertices(Ptr, 4);
- 
-        /// <summary>
-        /// The largest number of vertices in a face belonging to the mesh.
-        /// </summary>
-        /// <returns>The largest number of vertices in a face belonging to the mesh.</returns>
-        //public int MaxFaceVertices => Kernel.MaxFaceVertices(Ptr);
-
-        /// <summary>
-        /// Checks if the mesh is valid.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsValid()
-        {
-            return Kernel.IsValid(Ptr);
-        }
 
         /// <summary>
         /// Adds a vertex to the mesh.
         /// </summary>
         /// <param name="point">The vertices position</param>
         /// <returns>The vertices index in the mesh.</returns>
-        public SurfaceMeshVertex AddVertex(Point3d point)
+        public int AddVertex(Point3d point)
         {
-            return new SurfaceMeshVertex(Kernel.AddVertex(Ptr, point));
+            return Kernel.AddVertex(Ptr, point);
         }
 
         /// <summary>
@@ -154,9 +145,9 @@ namespace CGALDotNet.Polyhedra
         /// <param name="v0">The index of the vertex in the mesh.</param>
         /// <param name="v1">The index of the vertex in the mesh.</param>
         /// <returns>The index of the edge in the mesh.</returns>
-        public SurfaceMeshHalfedge AddEdge(SurfaceMeshVertex v0, SurfaceMeshVertex v1)
+        public int AddEdge(int v0, int v1)
         {
-            return new SurfaceMeshHalfedge(Kernel.AddEdge(Ptr, v0.index, v1.index));
+            return Kernel.AddEdge(Ptr, v0, v1);
         }
 
         /// <summary>
@@ -166,9 +157,9 @@ namespace CGALDotNet.Polyhedra
         /// <param name="v1">The index of the vertex in the mesh.</param>
         /// <param name="v2">The index of the vertex in the mesh.</param>
         /// <returns>The index of the face in the mesh.</returns>
-        public SurfaceMeshFace AddTriangle(SurfaceMeshVertex v0, SurfaceMeshVertex v1, SurfaceMeshVertex v2)
+        public int AddTriangle(int v0, int v1, int v2)
         {
-            return new SurfaceMeshFace(Kernel.AddTriangle(Ptr, v0.index, v1.index, v2.index));
+            return Kernel.AddTriangle(Ptr, v0, v1, v2);
         }
 
         /// <summary>
@@ -179,9 +170,9 @@ namespace CGALDotNet.Polyhedra
         /// <param name="v2">The index of the vertex in the mesh.</param>
         /// <param name="v3">The index of the vertex in the mesh.</param>
         /// <returns>The index of the face in the mesh.</returns>
-        public SurfaceMeshFace AddQuad(SurfaceMeshVertex v0, SurfaceMeshVertex v1, SurfaceMeshVertex v2, SurfaceMeshVertex v3)
+        public int AddQuad(int v0, int v1, int v2, int v3)
         {
-            return new SurfaceMeshFace(Kernel.AddQuad(Ptr, v0.index, v1.index, v2.index, v3.index));
+            return Kernel.AddQuad(Ptr, v0, v1, v2, v3);
         }
 
         /// <summary>
@@ -236,16 +227,6 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Get the vertices point.
-        /// </summary>
-        /// <param name="vertex">The vertex index in the mesh.</param>
-        /// <returns>The vertices point.</returns>
-        public Point3d GetPoint(SurfaceMeshVertex vertex)
-        {
-            return Kernel.GetPoint(Ptr, vertex.index);
-        }
-
-        /// <summary>
         /// Get the points in the mesh.
         /// </summary>
         /// <param name="points">The array to copy points into.</param>
@@ -261,9 +242,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="vertex">The index of the vertex in the mesh.</param>
         /// <returns>Returns the number of incident halfedges of vertex.</returns>
-        public int VertexDegree(SurfaceMeshVertex vertex)
+        public int VertexDegree(int vertex)
         {
-            return Kernel.VertexDegree(Ptr, vertex.index);
+            return Kernel.VertexDegree(Ptr, vertex);
         }
 
         /// <summary>
@@ -271,9 +252,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="face">The index of the face in the mesh.</param>
         /// <returns>Returns the number of incident halfedges of face.</returns>
-        public int FaceDegree(SurfaceMeshFace face)
+        public int FaceDegree(int face)
         {
-            return Kernel.FaceDegree(Ptr, face.index);
+            return Kernel.FaceDegree(Ptr, face);
         }
 
         /// <summary>
@@ -281,9 +262,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="vertex">The index of the vertex in the mesh.</param>
         /// <returns>Returns whether vertex is isolated.</returns>
-        public bool VertexIsIsolated(SurfaceMeshVertex vertex)
+        public bool VertexIsIsolated(int vertex)
         {
-            return Kernel.VertexIsIsolated(Ptr, vertex.index);
+            return Kernel.VertexIsIsolated(Ptr, vertex);
         }
 
         /// <summary>
@@ -299,9 +280,9 @@ namespace CGALDotNet.Polyhedra
         /// returns true, if the incident halfedge associated to vertex is a
         /// border halfedge, or if the vertex is isolated.</param>
         /// <returns>Returns whether vertex is a border vertex.</returns>
-        public bool VertexIsBorder(SurfaceMeshVertex vertex, bool check_all_incident_halfedges = true)
+        public bool VertexIsBorder(int vertex, bool check_all_incident_halfedges = true)
         {
-            return Kernel.VertexIsBorder(Ptr, vertex.index, check_all_incident_halfedges);
+            return Kernel.VertexIsBorder(Ptr, vertex, check_all_incident_halfedges);
         }
 
         /// <summary>
@@ -309,9 +290,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="edge">The index of the edge in the mesh.</param>
         /// <returns>Returns whether edge is a border edge.</returns>
-        public bool EdgeIsBorder(SurfaceMeshEdge edge)
+        public bool EdgeIsBorder(int edge)
         {
-            return Kernel.EdgeIsBorder(Ptr, edge.index);
+            return Kernel.EdgeIsBorder(Ptr, edge);
         }
 
         /// <summary>
@@ -319,9 +300,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="halfedge">The index of the halfedge in the mesh.</param>
         /// <returns>Returns the next halfedge within the incident face.</returns>
-        public SurfaceMeshHalfedge NextHalfedge(SurfaceMeshHalfedge halfedge)
+        public int NextHalfedge(int halfedge)
         {
-            return  new SurfaceMeshHalfedge(Kernel.NextHalfedge(Ptr, halfedge.index));
+            return  Kernel.NextHalfedge(Ptr, halfedge);
         }
 
         /// <summary>
@@ -329,9 +310,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="halfedge">The index of the halfedge in the mesh.</param>
         /// <returns>Returns the previous halfedge within the incident face.</returns>
-        public SurfaceMeshHalfedge PreviousHalfedge(SurfaceMeshHalfedge halfedge)
+        public int PreviousHalfedge(int halfedge)
         {
-            return new SurfaceMeshHalfedge(Kernel.PreviousHalfedge(Ptr, halfedge.index));
+            return Kernel.PreviousHalfedge(Ptr, halfedge);
         }
 
         /// <summary>
@@ -339,9 +320,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="halfedge">The index of the halfedge in the mesh.</param>
         /// <returns>Returns the opposite halfedge of halfedge.</returns>
-        public SurfaceMeshHalfedge OppositeHalfedge(SurfaceMeshHalfedge halfedge)
+        public int OppositeHalfedge(int halfedge)
         {
-            return new SurfaceMeshHalfedge(Kernel.OppositeHalfedge(Ptr, halfedge.index));   
+            return Kernel.OppositeHalfedge(Ptr, halfedge);   
         }
 
         /// <summary>
@@ -349,9 +330,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="halfedge">The index of the halfedge in the mesh.</param>
         /// <returns>Returns the vertex the halfedge emanates from.</returns>
-        public SurfaceMeshVertex SourceVertex(SurfaceMeshHalfedge halfedge)
+        public int SourceVertex(int halfedge)
         {
-            return new SurfaceMeshVertex(Kernel.SourceVertex(Ptr, halfedge.index));
+            return Kernel.SourceVertex(Ptr, halfedge);
         }
 
         /// <summary>
@@ -359,18 +340,18 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="halfedge">The index of the halfedge in the mesh.</param>
         /// <returns>Returns the vertex the halfedge points to.</returns>
-        public SurfaceMeshVertex TargetVertex(SurfaceMeshHalfedge halfedge)
+        public int TargetVertex(int halfedge)
         {
-            return new SurfaceMeshVertex(Kernel.TargetVertex(Ptr, halfedge.index));
+            return Kernel.TargetVertex(Ptr, halfedge);
         }
 
         /// <summary>
         /// Removes vertex from the halfedge data structure without adjusting anything.
         /// </summary>
         /// <param name="vertex">The index of the vertex in the mesh.</param>
-        public void RemoveVertex(SurfaceMeshVertex vertex)
+        public void RemoveVertex(int vertex)
         {
-            Kernel.RemoveVertex(Ptr, vertex.index);
+            Kernel.RemoveVertex(Ptr, vertex);
         }
 
         /// <summary>
@@ -378,18 +359,18 @@ namespace CGALDotNet.Polyhedra
         /// data structure without adjusting anything.
         /// </summary>
         /// <param name="edge">The index of the edge in the mesh.</param>
-        public void RemoveEdge(SurfaceMeshEdge edge)
+        public void RemoveEdge(int edge)
         {
-            Kernel.RemoveEdge(Ptr, edge.index);
+            Kernel.RemoveEdge(Ptr, edge);
         }
 
         /// <summary>
         /// Removes face from the halfedge data structure without adjusting anything.
         /// </summary>
         /// <param name="face">The index of the face in the mesh.</param>
-        public void RemoveFace(SurfaceMeshFace face)
+        public void RemoveFace(int face)
         {
-            Kernel.RemoveFace(Ptr, face.index);
+            Kernel.RemoveFace(Ptr, face);
         }
 
         /// <summary>
@@ -397,9 +378,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="vertex">The index of the vertex in the mesh.</param>
         /// <returns>True if valid.</returns>
-        public bool IsVertexValid(SurfaceMeshVertex vertex)
+        public bool IsVertexValid(int vertex)
         {
-            return Kernel.IsVertexValid(Ptr, vertex.index);
+            return Kernel.IsVertexValid(Ptr, vertex);
         }
 
         /// <summary>
@@ -407,9 +388,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="edge">The index of the edge in the mesh.</param>
         /// <returns>True if valid.</returns>
-        public bool IsEdgeValid(SurfaceMeshEdge edge)
+        public bool IsEdgeValid(int edge)
         {
-            return  Kernel.IsEdgeValid(Ptr, edge.index);
+            return  Kernel.IsEdgeValid(Ptr, edge);
         }
 
         /// <summary>
@@ -417,9 +398,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="halfedge">The index of the halfedge in the mesh.</param>
         /// <returns>True if valid.</returns>
-        public bool IsHalfedgeValid(SurfaceMeshHalfedge halfedge)
+        public bool IsHalfedgeValid(int halfedge)
         {
-            return  Kernel.IsHalfedgeValid(Ptr, halfedge.index);
+            return  Kernel.IsHalfedgeValid(Ptr, halfedge);
         }
 
         /// <summary>
@@ -427,9 +408,9 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="face">The index of the face in the mesh.</param>
         /// <returns>True if valid.</returns>
-        public bool IsFaceValid(SurfaceMeshFace face)
+        public bool IsFaceValid(int face)
         {
-            return Kernel.IsFaceValid(Ptr, face.index);
+            return Kernel.IsFaceValid(Ptr, face);
         }
 
         /// <summary>
@@ -487,23 +468,13 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Get the mesh indices. Presumes mesh is pure triangle mesh.
-        /// </summary>
-        /// <param name="indices">The indices array.</param>
-        /// <param name="count">The indices array length.</param>
-        //public void GetTriangleIndices(int[] indices, int count)
-        //{
-        //    ErrorUtil.CheckArray(indices, count);
-        //    Kernel.GetTriangleIndices(Ptr, indices, count);
-        //}
-
-        /// <summary>
         /// Print the polyhedron into a string builder.
         /// </summary>
         /// <param name="builder"></param>
         public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
+            builder.AppendLine("IsValid = " + IsValid);
             builder.AppendLine("VertexCount = " + VertexCount);
             builder.AppendLine("FaceCount = " + FaceCount);
             builder.AppendLine("EdgeCount = " + EdgeCount);

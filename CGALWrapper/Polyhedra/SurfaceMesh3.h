@@ -4,6 +4,7 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "FaceVertexCount.h"
 
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/Aff_transformation_3.h>
@@ -61,6 +62,30 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		return mesh->is_valid();
+	}
+
+	static BOOL IsVertexValid(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->is_valid(Vertex(index));
+	}
+
+	static BOOL IsFaceValid(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->is_valid(Face(index));
+	}
+
+	static BOOL IsHalfedgeValid(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->is_valid(Halfedge(index));
+	}
+
+	static BOOL IsEdgeValid(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->is_valid(Edge(index));
 	}
 
 	static int VertexCount(void* ptr)
@@ -213,28 +238,10 @@ public:
 		mesh->remove_face(Face(index));
 	}
 
-	static BOOL IsVertexValid(void* ptr, int index)
+	static void RemoveProperyMaps(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->is_valid(Vertex(index));
-	}
-
-	static BOOL IsEdgeValid(void* ptr, int index)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->is_valid(Edge(index));
-	}
-
-	static BOOL IsHalfedgeValid(void* ptr, int index)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->is_valid(Halfedge(index));
-	}
-
-	static BOOL IsFaceValid(void* ptr, int index)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->is_valid(Face(index));
+		mesh->remove_all_property_maps();
 	}
 
 	static Point3d GetPoint(void* ptr, int index)
@@ -268,7 +275,118 @@ public:
 		std::transform(mesh->points().begin(), mesh->points().end(), mesh->points().begin(), m);
 	}
 
-	static void CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* indices, int indicesCount)
+	static BOOL IsVertexBorder(void* ptr, int index, BOOL check_all_incident_halfedges)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->is_border(Vertex(index), check_all_incident_halfedges);
+	}
+
+	static BOOL IsHalfedgeBorder(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->is_border(Halfedge(index));
+	}
+
+	static BOOL IsEdgeBorder(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->is_border(Edge(index));
+	}
+
+	static int BorderEdgeCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int count = 0;
+		for (auto edge : mesh->edges())
+		{
+			if (mesh->is_removed(edge)) continue;
+			if (mesh->is_border(edge)) count++;
+		}
+
+		return count;
+	}
+
+	static BOOL IsClosed(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		for (auto edge : mesh->edges())
+		{
+			if (mesh->is_removed(edge)) continue;
+			if (mesh->is_border(edge)) return TRUE;
+		}
+
+		return TRUE;
+	}
+
+	static BOOL CheckFaceVertexCount(void* ptr, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		for (auto face : mesh->faces())
+		{
+			if (mesh->is_removed(face)) continue;
+
+			int i = mesh->degree(face);
+
+			if (i != count) return FALSE;
+		}
+
+		return TRUE;
+	}
+
+	static FaceVertexCount GetFaceVertexCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int degenerate = 0;
+		int three = 0;
+		int four = 0;
+		int five = 0;
+		int six = 0;
+		int greater = 0;
+
+		for (auto face : mesh->faces())
+		{
+			if (mesh->is_removed(face)) continue;
+
+			int count = mesh->degree(face);
+
+			switch (count)
+			{
+			case 0:
+			case 1:
+			case 2:
+				degenerate++;
+				break;
+
+			case 3:
+				three++;
+				break;
+
+			case 4:
+				four++;
+				break;
+
+			case 5:
+				five++;
+				break;
+
+			case 6:
+				six++;
+				break;
+
+			default:
+				greater++;
+				break;
+			}
+		}
+
+		return { degenerate, three, four, five, six, greater };
+	}
+
+	static void CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int trianglesCount, int* quads, int quadsCount)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 
@@ -278,128 +396,81 @@ public:
 		for (int i = 0; i < pointsCount; i++)
 			mesh->add_vertex(points[i].ToCGAL<K>());
 
-		for (int i = 0; i < indicesCount / 3; i++)
+		if (trianglesCount > 0)
 		{
-			int i0 = indices[i * 3 + 0];
-			int i1 = indices[i * 3 + 1];
-			int i2 = indices[i * 3 + 2];
+			for (int i = 0; i < trianglesCount / 3; i++)
+			{
+				int i0 = triangles[i * 3 + 0];
+				int i1 = triangles[i * 3 + 1];
+				int i2 = triangles[i * 3 + 2];
 
-			mesh->add_face(Vertex(i0), Vertex(i1), Vertex(i2));
+				mesh->add_face(Vertex(i0), Vertex(i1), Vertex(i2));
+			}
 		}
 
+		if (quadsCount > 0)
+		{
+			for (int i = 0; i < quadsCount / 4; i++)
+			{
+				int i0 = quads[i * 4 + 0];
+				int i1 = quads[i * 4 + 1];
+				int i2 = quads[i * 4 + 2];
+				int i3 = quads[i * 4 + 3];
+
+				mesh->add_face(Vertex(i0), Vertex(i1), Vertex(i2), Vertex(i3));
+			}
+		}
 	}
 
-	//following code not working.
-
-	/*
-	static BOOL CheckFaceVertices(void* ptr, int count)
+	static void GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 
-		std::unordered_set<int> set;
+		int triangleIndex = 0;
+		int quadIndex = 0;
 
-		for (auto edge = mesh->halfedges().begin(); edge != mesh->halfedges().end(); ++edge)
+		for (auto face : mesh->faces())
 		{
-			//halfe edge has already been checked if in set.
-			if (set.find(edge->idx()) == set.end()) continue;
-			//Add halfedge to set.
-			set.insert(edge->idx());
+			if (mesh->is_removed(face)) continue;
 
-			//Get the edges face if not null.
-			auto face = mesh->face(*edge);
-			//if (face == mesh->null_face()) continue;
+			int count = mesh->degree(face);
+			auto hedge0 = mesh->halfedge(face);
 
-			//Count the number of vertices in face.
-			int faceVertices = 0;
-			for (auto vertex : mesh->vertices_around_face(mesh->halfedge(face)))
+			if (count == 3 && triangleIndex < trianglesCount)
 			{
-				if (faceVertices >= count)
-					return FALSE;
+				auto hedge1 = mesh->next(hedge0);
+				auto hedge2 = mesh->next(hedge1);
 
-				faceVertices++;
+				triangles[triangleIndex * 3 + 0] = mesh->source(hedge0).idx();
+				triangles[triangleIndex * 3 + 1] = mesh->source(hedge1).idx();
+				triangles[triangleIndex * 3 + 2] = mesh->source(hedge2).idx();
+				triangleIndex++;
+			}
+			else if (count == 4 && quadIndex < quadsCount)
+			{
+				auto hedge1 = mesh->next(hedge0);
+				auto hedge2 = mesh->next(hedge1);
+				auto hedge3 = mesh->next(hedge2);
+
+				quads[quadIndex * 4 + 0] = mesh->source(hedge0).idx();
+				quads[quadIndex * 4 + 1] = mesh->source(hedge1).idx();
+				quads[quadIndex * 4 + 2] = mesh->source(hedge2).idx();
+				quads[quadIndex * 4 + 3] = mesh->source(hedge3).idx();
+				quadIndex++;
 			}
 		}
-
-		return TRUE;
 	}
 
-	static int MaxFaceVertices(void* ptr)
+private:
+
+	static int FaceVertexCount(const SurfaceMesh& mesh, Face face)
 	{
-		auto mesh = CastToSurfaceMesh(ptr);
-
-		std::unordered_set<int> set;
-
-		int max_value = -1;
-
-		for (auto edge = mesh->halfedges().begin(); edge != mesh->halfedges().end(); ++edge)
-		{
-			//halfe edge has already been checked if in set.
-			if (set.find(edge->idx()) == set.end()) continue;
-			//Add halfedge to set.
-			set.insert(edge->idx());
-
-			//Get the edges face if not null.
-			auto face = mesh->face(*edge);
-			//if (face == mesh->null_face()) continue;
-
-			//Count the number of vertices in face.
-			int faceVertices = 0;
-			for (auto vertex : mesh->vertices_around_face(mesh->halfedge(face)))
-			{
-				faceVertices++;
-			}
-
-			if (faceVertices > max_value)
-				max_value = faceVertices;
+		int count = 0;
+		for (auto vert : mesh.vertices_around_face(mesh.halfedge(face))) {
+			count++;
 		}
 
-		return max_value;
+		return count;
 	}
-
-	static void GetTriangleIndices(void* ptr, int* indices, int count)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-
-		std::unordered_set<int> set;
-
-		int arr[3] = { 0, 0, 0 };
-
-		int index = 0;
-		for (auto edge = mesh->halfedges().begin(); edge != mesh->halfedges().end(); ++edge)
-		{
-			//halfe edge has already been checked if in set.
-			if (set.find(edge->idx()) == set.end()) continue;
-			//Add halfedge to set.
-			set.insert(edge->idx());
-
-			//Get the edges face if not null.
-			auto face = mesh->face(*edge);
-			//if (face == mesh->null_face()) continue;
-
-			//Count the number of vertices in face.
-			int faceVertices = 0;
-			for (auto vertex : mesh->vertices_around_face(mesh->halfedge(face)))
-			{
-				arr[faceVertices] = vertex.idx();
-				faceVertices++;
-
-				if (faceVertices >= 3) break;
-			}
-
-			//If this is a triangle mesh then add the indices.
-			if (faceVertices < 3)
-			{
-				indices[index * 3 + 0] = arr[0];
-				indices[index * 3 + 1] = arr[1];
-				indices[index * 3 + 2] = arr[2];
-				index++;
-
-				if (index * 3 >= count) return;
-			}
-
-		}
-	}
-	*/
-	
 
 };
