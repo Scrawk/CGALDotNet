@@ -11,8 +11,7 @@ namespace CGALDotNet.Polyhedra
 {
 
     /// <summary>
-    /// Generic polyhedron definition.
-    /// A polyhedral surface Polyhedron_3 consists of vertices, edges, 
+    /// A polyhedral surface consists of vertices, edges, 
     /// facets and an incidence relation on them.
     //  Each edge is represented by two halfedges with opposite orientations.
     /// </summary>
@@ -30,7 +29,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Create from a pointer.
         /// </summary>
-        /// <param name="ptr">The polyhedrons pointer.</param>
+        /// <param name="ptr">The meshs pointer.</param>
         internal Polyhedron3(IntPtr ptr) : base(new K(), ptr)
         {
 
@@ -39,7 +38,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// The polyhdron as a string.
         /// </summary>
-        /// <returns>The polyhedron as a string.</returns>
+        /// <returns>The mesh as a string.</returns>
         public override string ToString()
         {
             return string.Format("[Polyhedron3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
@@ -47,16 +46,16 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Create a deep copy of the polyhedron.
+        /// Create a deep copy of the mesh.
         /// </summary>
-        /// <returns>A deep copy of the polyhedron.</returns>
+        /// <returns>A deep copy of the mesh.</returns>
         public Polyhedron3<K> Copy()
         {
             return new Polyhedron3<K>(Kernel.Copy(Ptr));
         }
 
         /// <summary>
-        /// Subdive the polyhedron.
+        /// Subdive the mesh.
         /// </summary>
         /// <param name="iterations">The number of iterations to perfrom.</param>
         /// <param name="method">The subdivision method.</param>
@@ -196,10 +195,10 @@ namespace CGALDotNet.Polyhedra
         public void CreatePolygonMesh(Polygon2<K> polygon, bool xz)
         {
             if (!polygon.IsSimple)
-                throw new InvalidOperationException("Polygon must be simple to convert to polyhedron mesh.");
+                throw new InvalidOperationException("Polygon must be simple to convert to mesh mesh.");
 
             var points = polygon.ToArray();
-            CreatePolygonMesh(points, xz);  
+            CreatePolygonMesh(points, points.Length, xz);  
         }
 
     }
@@ -228,7 +227,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polyhedron kernel.</param>
+        /// <param name="kernel">The mesh kernel.</param>
         internal Polyhedron3(CGALKernel kernel)
         {
             Kernel = kernel.PolyhedronKernel3;
@@ -238,15 +237,15 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
-        /// <param name="kernel">The polyhedron kernel.</param>
-        /// <param name="ptr">The polyhedrons pointer.</param>
+        /// <param name="kernel">The mesh kernel.</param>
+        /// <param name="ptr">The meshs pointer.</param>
         internal Polyhedron3(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.PolyhedronKernel3;
         }
 
         /// <summary>
-        /// The polyhedron kernel.
+        /// The mesh kernel.
         /// Contains the functions to the unmanaged CGAL polhedron.
         /// </summary>
         protected private PolyhedronKernel3 Kernel { get; private set; }
@@ -367,19 +366,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// returns true if the polyhedral surface is combinatorially consistent.
-        // For level == 1 the normalization of the border edges is checked too.
-        // This method checks that each face is at least a triangle and that the
-        // two incident facets of a non-border edge are distinct.
-        /// </summary>
-        /// <returns></returns>
-        public bool FindIfValid(int level = 0)
-        {
-            return Kernel.IsValid(Ptr, level);
-        }
-
-        /// <summary>
-        /// Clear the polyhedron.
+        /// Clear the mesh.
         /// </summary>
         public void Clear()
         {
@@ -388,7 +375,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Clear the polyhedron index maps.
+        /// Clear the mesh index maps.
         /// </summary>
         public void ClearIndexMaps()
         {
@@ -396,7 +383,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Clear the polyhedron normals maps.
+        /// Clear the mesh normals maps.
         /// </summary>
         public void ClearNormalMaps()
         {
@@ -443,61 +430,68 @@ namespace CGALDotNet.Polyhedra
         public void CreateMesh(Point3d[] points, int[] triangles, int[] quads)
         {
             bool hasTriangles = triangles != null && triangles.Length > 0;
-            bool hasquads = quads != null && quads.Length > 0;
+            bool hasQuads = quads != null && quads.Length > 0;
 
-            if (hasTriangles && hasquads)
-                CreateTriangleQuadMesh(points, triangles, quads);
+            if (hasTriangles && hasQuads)
+                CreateTriangleQuadMesh(points, points.Length, triangles, triangles.Length, quads, quads.Length);
             else if (hasTriangles)
-                CreateTriangleMesh(points, triangles);
-            else if (hasquads)
-                CreateQuadMesh(points, quads);
+                CreateTriangleMesh(points, points.Length, triangles, triangles.Length);
+            else if (hasQuads)
+                CreateQuadMesh(points, points.Length, quads, quads.Length);
         }
 
         /// <summary>
         /// Create a triangle mesh from the points and indices.
         /// </summary>
         /// <param name="points">The meshes points.</param>
-        /// <param name="indices">The meshes triangles as a index array.</param>
-        public void CreateTriangleMesh(Point3d[] points, int[] triangles)
+        /// <param name="pointCount">The point arrays length.</param>
+        /// <param name="indices">The meshes trinagles as a index array.</param>
+        /// <param name="indexCount">The indices array length.</param>
+        public void CreateTriangleMesh(Point3d[] points, int pointCount, int[] indices, int indexCount)
         {
-            ErrorUtil.CheckArray(points, points.Length);
-            ErrorUtil.CheckArray(triangles, triangles.Length);
+            ErrorUtil.CheckArray(points, pointCount);
+            ErrorUtil.CheckArray(indices, indexCount);
 
             Clear();
             IsUpdated = false;
-            Kernel.CreateTriangleMesh(Ptr, points, points.Length, triangles, triangles.Length);
+            Kernel.CreatePolygonalMesh(Ptr, points, pointCount, indices, indexCount, null, 0, null, 0, null, 0);
         }
 
         /// <summary>
         /// Create a quad mesh from the points and indices.
         /// </summary>
         /// <param name="points">The meshes points.</param>
-        /// <param name="quads">The meshes quads as a index array.</param>
-        public void CreateQuadMesh(Point3d[] points, int[] quads)
+        /// <param name="pointCount">The point arrays length.</param>
+        /// <param name="indices">The meshes trinagles as a index array.</param>
+        /// <param name="indexCount">The indices array length.</param>
+        public void CreateQuadMesh(Point3d[] points, int pointsCount, int[] indices, int indexCount)
         {
-            ErrorUtil.CheckArray(points, points.Length);
-            ErrorUtil.CheckArray(quads, quads.Length);
+            ErrorUtil.CheckArray(points, pointsCount);
+            ErrorUtil.CheckArray(indices, indexCount);
 
             Clear();
             IsUpdated = false;
-            Kernel.CreateQuadMesh(Ptr, points, points.Length, quads, quads.Length);
+            Kernel.CreatePolygonalMesh(Ptr, points, pointsCount, null, 0, indices, indexCount, null, 0, null, 0);
         }
 
         /// <summary>
-        /// Create a triangle mesh from the points and indices.
+        /// Create a mesh with quads and triangles
         /// </summary>
         /// <param name="points">The meshes points.</param>
-        /// <param name="triangles">The meshes triangles as a index array.</param>
-        /// <param name="quads">The meshes quads as a index array.</param>
-        public void CreateTriangleQuadMesh(Point3d[] points, int[] triangles, int[] quads)
+        /// <param name="pointsCount">The point array length.</param>
+        /// <param name="triangles">The meshes triangles.</param>
+        /// <param name="triangleCount">The triangle array length.</param>
+        /// <param name="quads">The meshes quads.</param>
+        /// <param name="quadsCount">The quads array length.</param>
+        public void CreateTriangleQuadMesh(Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadsCount)
         {
-            ErrorUtil.CheckArray(points, points.Length);
-            ErrorUtil.CheckArray(triangles, triangles.Length);
-            ErrorUtil.CheckArray(quads, quads.Length);
+            ErrorUtil.CheckArray(points, pointsCount);
+            ErrorUtil.CheckArray(triangles, triangleCount);
+            ErrorUtil.CheckArray(quads, quadsCount);
 
             Clear();
             IsUpdated = false;
-            Kernel.CreateTriangleQuadMesh(Ptr, points, points.Length, triangles, triangles.Length, quads, quads.Length);
+            Kernel.CreatePolygonalMesh(Ptr, points, pointsCount, triangles, triangleCount, quads, quadsCount, null, 0, null, 0);
         }
 
         /// <summary>
@@ -505,13 +499,67 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="points">The faces points</param>
         /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
-        public void CreatePolygonMesh(Point2d[] points, bool xz)
+        public void CreatePolygonMesh(Point2d[] points, int count, bool xz)
         {
-            ErrorUtil.CheckArray(points, points.Length);
+            ErrorUtil.CheckArray(points, count);
 
             Clear();
             IsUpdated = false;
-            Kernel.CreatePolygonMesh(Ptr, points, points.Length, xz);
+            Kernel.CreatePolygonMesh(Ptr, points, count, xz);
+        }
+
+        /// <summary>
+        /// Get the triangle and quad indices.
+        /// </summary>
+        /// <param name="triangles">The meshes triangles as a index array. Maybe null.</param>
+        /// <param name="quads">The meshes quads as a index array. Maybe null.</param>
+        public void GetIndices(int[] triangles, int[] quads)
+        {
+            bool hasTriangles = triangles != null && triangles.Length > 0;
+            bool hasQuads = quads != null && quads.Length > 0;
+
+            if (hasTriangles && hasQuads)
+                GetTriangleQuadIndices(triangles, triangles.Length, quads, quads.Length);
+            else if (hasTriangles)
+                GetTrianglIndices(triangles, triangles.Length);
+            else if (hasQuads)
+                GetQuadIndices(quads, quads.Length);
+        }
+
+        /// <summary>
+        /// Get the meshes triangles.
+        /// </summary>
+        /// <param name="triangles">The meshes triangles.</param>
+        /// <param name="trianglesCount">The triangle array length.</param>
+        public void GetTrianglIndices(int[] triangles, int trianglesCount)
+        {
+            ErrorUtil.CheckArray(triangles, trianglesCount);
+            Kernel.GetPolygonalIndices(Ptr, triangles, trianglesCount, null, 0, null, 0, null, 0);
+        }
+
+        /// <summary>
+        /// Get the meshes quads.
+        /// </summary>
+        /// <param name="quads">The meshes quads.</param>
+        /// <param name="quadsCount">The quads array length.</param>
+        public void GetQuadIndices(int[] quads, int quadsCount)
+        {
+            ErrorUtil.CheckArray(quads, quadsCount);
+            Kernel.GetPolygonalIndices(Ptr, null, 0, quads, quadsCount, null, 0, null, 0);
+        }
+
+        /// <summary>
+        /// Get the meshes triangles and quads.
+        /// </summary>
+        /// <param name="triangles">The meshes triangles.</param>
+        /// <param name="trianglesCount">The triangle array length.</param>
+        /// <param name="quads">The meshes quads.</param>
+        /// <param name="quadsCount">The quads array length.</param>
+        public void GetTriangleQuadIndices(int[] triangles, int trianglesCount, int[] quads, int quadsCount)
+        {
+            ErrorUtil.CheckArray(triangles, trianglesCount);
+            ErrorUtil.CheckArray(quads, quadsCount);
+            Kernel.GetPolygonalIndices(Ptr, triangles, trianglesCount, quads, quadsCount, null, 0, null, 0);
         }
 
         /// <summary>
@@ -532,28 +580,6 @@ namespace CGALDotNet.Polyhedra
         public FaceVertexCount GetFaceVertexCount()
         {
             return Kernel.GetFaceVertexCount(Ptr);
-        }
-
-        /// <summary>
-        /// Get the meshes triangle indices.
-        /// </summary>
-        /// <param name="indices">The array to copy the indices into.</param>
-        /// <param name="count">The ararys length.</param>
-        public void GetTriangleIndices(int[] indices, int count)
-        {
-            ErrorUtil.CheckArray(indices, count);
-            Kernel.GetTriangleIndices(Ptr, indices, count);
-        }
-
-        /// <summary>
-        /// Get the meshes quad indices.
-        /// </summary>
-        /// <param name="indices">The array to copy the indices into.</param>
-        /// <param name="count">The ararys length.</param>
-        public void GetQuadIndices(int[] indices, int count)
-        {
-            ErrorUtil.CheckArray(indices, count);
-            Kernel.GetQuadIndices(Ptr, indices, count);
         }
 
         /// <summary>
@@ -688,7 +714,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Find what side of the polyhedron the lies in.
+        /// Find what side of the mesh the lies in.
         /// </summary>
         /// <param name="point">The point to check.</param>
         /// <returns>ON_BOUNDED_SIDE if point inside mesh, 
@@ -736,6 +762,18 @@ namespace CGALDotNet.Polyhedra
                 return Kernel.DoesSelfIntersect(Ptr).ToBoolOrUndetermined();
             else
                 return BOOL_OR_UNDETERMINED.UNDETERMINED;
+        }
+
+        /// <summary>
+        /// returns true if the polyhedral surface is combinatorially consistent.
+        // For level == 1 the normalization of the border edges is checked too.
+        // This method checks that each face is at least a triangle and that the
+        // two incident facets of a non-border edge are distinct.
+        /// </summary>
+        /// <returns></returns>
+        public bool FindIfValid(int level = 0)
+        {
+            return Kernel.IsValid(Ptr, level);
         }
 
         /// <summary>
@@ -848,7 +886,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Indicates if the polyhedron bounds a volume.
+        /// Indicates if the mesh bounds a volume.
         /// Must be a closed and triangulated.
         /// </summary>
         /// <returns>True/Fasle if a valid triangle closed polyhedra,or UNDETERMINED if not.</returns>
@@ -905,16 +943,16 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Find the min, max and average edge lengths in the polyhedron.
+        /// Find the min, max and average edge lengths in the mesh.
         /// </summary>
-        /// <returns>The min, max and average edge lengths in the polyhedron.</returns>
+        /// <returns>The min, max and average edge lengths in the mesh.</returns>
         public MinMaxAvg FindMinMaxEdgeLength()
         {
             return Kernel.MinMaxEdgeLength(Ptr);
         }
 
         /// <summary>
-        /// Subdive the polyhedron.
+        /// Subdive the mesh.
         /// </summary>
         /// <param name="iterations">The number of iterations to perfrom.</param>
         /// <param name="method">The subdivision method.</param>
@@ -970,8 +1008,8 @@ namespace CGALDotNet.Polyhedra
         /// <param name="filename">The files name.</param>
         public void ReadOFF(string filename)
         {
-            Kernel.ReadOFF(Ptr, filename);
             IsUpdated = false;
+            Kernel.ReadOFF(Ptr, filename);
         }
 
         /// <summary>
@@ -984,7 +1022,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Update the polyhedron if needed.
+        /// Update the mesh if needed.
         /// </summary>
         protected void Update()
         {
@@ -994,9 +1032,9 @@ namespace CGALDotNet.Polyhedra
             if (FindIfValid())
             {
                 m_isValid = true;
-                m_isClosed = FindIfClosed() == BOOL_OR_UNDETERMINED.TRUE;
-                m_isTriangle = FindIfTriangleMesh() == BOOL_OR_UNDETERMINED.TRUE;
-                m_isQuad = FindIfQuadMesh() == BOOL_OR_UNDETERMINED.TRUE;
+                m_isClosed = FindIfClosed().ToBool();
+                m_isTriangle = FindIfTriangleMesh().ToBool();
+                m_isQuad = FindIfQuadMesh().ToBool();
             }
             else
             {
@@ -1008,7 +1046,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Print the polyhedron into a string builder.
+        /// Print the mesh into a string builder.
         /// </summary>
         /// <param name="builder"></param>
         public override void Print(StringBuilder builder)

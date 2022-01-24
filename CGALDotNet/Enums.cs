@@ -55,6 +55,11 @@ namespace CGALDotNet
         {
             return e ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
         }
+
+        internal static bool ToBool(this BOOL_OR_UNDETERMINED e)
+        {
+            return e == BOOL_OR_UNDETERMINED.TRUE;
+        }
     }
 
     public enum ANGLE 

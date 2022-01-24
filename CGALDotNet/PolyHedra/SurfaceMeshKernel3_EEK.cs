@@ -190,7 +190,7 @@ namespace CGALDotNet.Polyhedra
 
         internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
         {
-            SurfaceMesh3_EEK_GetPoints (ptr, points, count);
+            SurfaceMesh3_EEK_GetPoints(ptr, points, count);
         }
 
         internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
@@ -198,25 +198,127 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_Transform(ptr, matrix);
         }
 
-        internal override void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] indices, int indicesCount)
+        internal override bool IsVertexBorder(IntPtr ptr, int index, bool check_all_incident_halfedges)
         {
-            SurfaceMesh3_EEK_CreateTriangleMesh (ptr, points, pointsCount, indices, indicesCount);
+            return SurfaceMesh3_EEK_IsVertexBorder(ptr,index, check_all_incident_halfedges);
         }
 
-        //internal override bool CheckFaceVertices(IntPtr ptr, int count)
-        //{
-        //    return SurfaceMesh3_EEK_CheckFaceVertices(ptr, count);
-        //}
-
-        internal override int MaxFaceVertices(IntPtr ptr)
+        internal override bool IsHalfedgeBorder(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_MaxFaceVertices(ptr);
+            return SurfaceMesh3_EEK_IsHalfedgeBorder(ptr,index);
         }
 
-        //internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
-        //{
-        //    SurfaceMesh3_EEK_GetTriangleIndices(ptr, indices, count);
-        //}
+        internal override bool IsEdgeBorder(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_IsEdgeBorder(ptr,index);
+        }
+
+        internal override int BorderEdgeCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_BorderEdgeCount(ptr);   
+        }
+
+        internal override bool IsClosed(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_IsClosed(ptr);
+        }
+
+        internal override bool CheckFaceVertexCount(IntPtr ptr, int count)
+        {
+            return SurfaceMesh3_EEK_CheckFaceVertexCount(ptr, count);   
+        }
+
+        internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_GetFaceVertexCount(ptr);
+        }
+
+        internal override void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int trianglesCount, int[] quads, int quadsCount)
+        { 
+            SurfaceMesh3_EEK_CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, trianglesCount, quads, quadsCount);
+        }
+
+        internal override void GetTriangleQuadIndices(IntPtr ptr, int[] triangles, int trianglesCount, int[] quads, int quadsCount)
+        {
+            SurfaceMesh3_EEK_GetTriangleQuadIndices(ptr, triangles, trianglesCount, quads, quadsCount);
+        }
+
+        internal override void Join(IntPtr ptr, IntPtr otherPtr)
+        {
+            SurfaceMesh3_EEK_Join(ptr, otherPtr);
+        }
+
+        internal override void BuildAABBTree(IntPtr ptr)
+        { 
+            SurfaceMesh3_EEK_BuildAABBTree(ptr);
+        }
+
+        internal override void ReleaseAABBTree(IntPtr ptr)
+        { 
+            SurfaceMesh3_EEK_ReleaseAABBTree(ptr);
+        }
+
+        internal override Box3d GetBoundingBox(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_GetBoundingBox(ptr);
+        }
+
+        internal override void ReadOFF(IntPtr ptr, string filename)
+        { 
+            SurfaceMesh3_EEK_ReadOFF(ptr, filename);    
+        }
+
+        internal override void WriteOFF(IntPtr ptr, string filename)
+        { 
+            SurfaceMesh3_EEK_WriteOFF(ptr, filename);
+        }
+
+        internal override void Triangulate(IntPtr ptr)
+        {
+            SurfaceMesh3_EEK_Triangulate(ptr);
+        }
+
+        internal override bool DoesSelfIntersect(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_DoesBoundAVolume(ptr);
+        }
+
+        internal override double Area(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_Area(ptr);
+        }
+
+        internal override Point3d Centroid(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_Centroid(ptr);
+        }
+
+        internal override double Volume(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_Volume(ptr);
+        }
+
+        internal override bool DoesBoundAVolume(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_DoesBoundAVolume(ptr);
+        }
+
+        internal override BOUNDED_SIDE SideOfTriangleMesh(IntPtr ptr, Point3d point)
+        {
+            return SurfaceMesh3_EEK_SideOfTriangleMesh(ptr, point);
+        }
+
+        internal override bool DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides)
+        {
+            return SurfaceMesh3_EEK_DoIntersects(ptr, otherPtr, test_bounded_sides);
+        }
+
+        internal override MinMaxAvg MinMaxEdgeLength(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_MinMaxEdgeLength(ptr);
+        }
+
+        internal override void GetCentroids(IntPtr ptr, Point3d[] points, int count){ }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr SurfaceMesh3_EEK_Create();
@@ -330,16 +432,79 @@ namespace CGALDotNet.Polyhedra
         private static extern void SurfaceMesh3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] indices, int indicesCount);
+        private static extern bool SurfaceMesh3_EEK_IsVertexBorder(IntPtr ptr, int index, bool check_all_incident_halfedges);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool SurfaceMesh3_EEK_CheckFaceVertices(IntPtr ptr, int count);
+        private static extern bool SurfaceMesh3_EEK_IsHalfedgeBorder(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int SurfaceMesh3_EEK_MaxFaceVertices(IntPtr ptr);
+        private static extern bool SurfaceMesh3_EEK_IsEdgeBorder(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_GetTriangleIndices(IntPtr ptr,[Out] int[] indices, int count);
+        private static extern int SurfaceMesh3_EEK_BorderEdgeCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_IsClosed(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_CheckFaceVertexCount(IntPtr ptr, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int trianglesCount, int[] quads, int quadsCount);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetTriangleQuadIndices(IntPtr ptr, [Out] int[] triangles, int trianglesCount, [Out] int[] quads, int quadsCount);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_Join(IntPtr ptr, IntPtr otherPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_BuildAABBTree(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ReleaseAABBTree(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern Box3d SurfaceMesh3_EEK_GetBoundingBox(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ReadOFF(IntPtr ptr, string filename);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_WriteOFF(IntPtr ptr, string filename);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_Triangulate(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_DoesSelfIntersect(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double SurfaceMesh3_EEK_Area(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern Point3d SurfaceMesh3_EEK_Centroid(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double SurfaceMesh3_EEK_Volume(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_DoesBoundAVolume(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern BOUNDED_SIDE SurfaceMesh3_EEK_SideOfTriangleMesh(IntPtr ptr, Point3d point);
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+
+        private static extern bool SurfaceMesh3_EEK_DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern MinMaxAvg SurfaceMesh3_EEK_MinMaxEdgeLength(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetCentroids(IntPtr ptr, [Out] Point3d[] points, int count);
 
     }
 }

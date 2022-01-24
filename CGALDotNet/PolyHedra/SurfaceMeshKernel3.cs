@@ -83,13 +83,55 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
 
-        internal abstract void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] indices, int indicesCount);
+        internal abstract bool IsVertexBorder(IntPtr ptr, int index, bool check_all_incident_halfedges);
 
-        //internal abstract bool CheckFaceVertices(IntPtr ptr, int count);
+        internal abstract bool IsHalfedgeBorder(IntPtr ptr, int index);
 
-        internal abstract int MaxFaceVertices(IntPtr ptr);
+        internal abstract bool IsEdgeBorder(IntPtr ptr, int index);
 
-        //internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
+        internal abstract int BorderEdgeCount(IntPtr ptr);
+
+        internal abstract bool IsClosed(IntPtr ptr);
+
+        internal abstract bool CheckFaceVertexCount(IntPtr ptr, int count);
+
+        internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
+
+        internal abstract void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int trianglesCount, int[] quads, int quadsCount);
+
+        internal abstract void GetTriangleQuadIndices(IntPtr ptr, int[] triangles, int trianglesCount, int[] quads, int quadsCount);
+
+        internal abstract void Join(IntPtr ptr, IntPtr otherPtr);
+
+        internal abstract void BuildAABBTree(IntPtr ptr);
+
+        internal abstract void ReleaseAABBTree(IntPtr ptr);
+
+        internal abstract Box3d GetBoundingBox(IntPtr ptr);
+
+        internal abstract void ReadOFF(IntPtr ptr, string filename);
+
+        internal abstract void WriteOFF(IntPtr ptr, string filename);
+
+        internal abstract void Triangulate(IntPtr ptr);
+
+        internal abstract bool DoesSelfIntersect(IntPtr ptr);
+
+        internal abstract double Area(IntPtr ptr);
+
+        internal abstract Point3d Centroid(IntPtr ptr);
+
+        internal abstract double Volume(IntPtr ptr);
+
+        internal abstract bool DoesBoundAVolume(IntPtr ptr);
+
+        internal abstract BOUNDED_SIDE SideOfTriangleMesh(IntPtr ptr, Point3d point);
+
+        internal abstract bool DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
+
+        internal abstract MinMaxAvg MinMaxEdgeLength(IntPtr ptr);
+
+        internal abstract void GetCentroids(IntPtr ptr, Point3d[] points, int count);
 
     }
 }

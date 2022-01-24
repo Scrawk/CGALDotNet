@@ -51,21 +51,7 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
 
-		internal abstract void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount);
-
-		internal abstract void CreateQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] quads, int quadCount);
-
-		internal abstract void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadCount);
-
-		internal abstract void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
-
 		internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
-
-		internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
-
-		internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
-
-		internal abstract void GetQuadIndices(IntPtr ptr, int[] indices, int count);
 
 		internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
 
@@ -110,6 +96,23 @@ namespace CGALDotNet.Polyhedra
 		internal abstract void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count);
 
 		internal abstract void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count);
+
+		internal abstract void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
+
+		internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
+
+		internal abstract void CreatePolygonalMesh(IntPtr ptr,
+			Point3d[] points, int pointsCount,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount);
+
+		internal abstract void GetPolygonalIndices(IntPtr ptr,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount);
 
 	}
 }

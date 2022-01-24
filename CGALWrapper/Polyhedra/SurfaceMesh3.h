@@ -4,13 +4,27 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "../Geometry/MinMax.h"
 #include "FaceVertexCount.h"
 
+#include <limits>
 #include <fstream>
 #include <iostream>
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/Aff_transformation_3.h>
 #include <unordered_set>
+
+#include <CGAL/Polygon_mesh_processing/triangulate_faces.h>
+#include <CGAL/Side_of_triangle_mesh.h>
+#include <CGAL/Polygon_mesh_processing/orientation.h>
+#include <CGAL/Polygon_mesh_processing/self_intersections.h>
+#include <CGAL/Polygon_mesh_processing/measure.h>
+#include <CGAL/AABB_tree.h>
+#include <CGAL/AABB_traits.h>
+#include <CGAL/Polygon_mesh_processing/locate.h>
+#include <CGAL/Polygon_mesh_processing/intersection.h>
+#include <CGAL/Polygon_mesh_processing/bbox.h>
+#include <CGAL/Bbox_3.h>
 
 template<class K>
 class SurfaceMesh3
@@ -18,6 +32,7 @@ class SurfaceMesh3
 
 public:
 
+	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point_3;
 	typedef typename CGAL::Surface_mesh<Point_3> SurfaceMesh;
 	typedef typename SurfaceMesh::Edge_index Edge;
@@ -25,7 +40,18 @@ public:
 	typedef typename SurfaceMesh::Vertex_index Vertex;
 	typedef typename SurfaceMesh::Face_index Face;
 
+	typedef typename CGAL::AABB_face_graph_triangle_primitive<SurfaceMesh> AABB_face_graph_primitive;
+	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
+	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
+
+	~SurfaceMesh3()
+	{
+		DeleteTree();
+	}
+
 	SurfaceMesh model;
+
+	AABBTree* tree = nullptr;
 
 	inline static SurfaceMesh3* NewSurfaceMesh()
 	{
@@ -48,6 +74,24 @@ public:
 		return static_cast<SurfaceMesh3*>(ptr);
 	}
 
+	void DeleteTree()
+	{
+		if (tree != nullptr)
+		{
+			delete tree;
+			tree = nullptr;
+		}
+	}
+
+	void BuildAABBTree()
+	{
+		if (tree == nullptr)
+		{
+			tree = new AABBTree();
+			CGAL::Polygon_mesh_processing::build_AABB_tree(model, *tree);
+		}
+	}
+
 	static void Clear(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
@@ -60,13 +104,6 @@ public:
 		auto copy = new SurfaceMesh3();
 		copy->model = mesh->model;
 		return copy;
-	}
-
-	static void Join(void* ptr, void* otherPtr)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		auto other = CastToSurfaceMesh(otherPtr);
-		mesh->model.join(other->model);
 	}
 
 	static BOOL IsValid(void* ptr)
@@ -311,7 +348,7 @@ public:
 		int count = 0;
 		for (auto edge : mesh->model.edges())
 		{
-			if (mesh->model.is_removed(edge)) continue;
+			//if (mesh->model.is_removed(edge)) continue;
 			if (mesh->model.is_border(edge)) count++;
 		}
 
@@ -324,8 +361,8 @@ public:
 
 		for (auto edge : mesh->model.edges())
 		{
-			if (mesh->model.is_removed(edge)) continue;
-			if (mesh->model.is_border(edge)) return TRUE;
+			//if (mesh->model.is_removed(edge)) continue;
+			if (mesh->model.is_border(edge)) return FALSE;
 		}
 
 		return TRUE;
@@ -360,7 +397,7 @@ public:
 
 		for (auto face : mesh->model.faces())
 		{
-			if (mesh->model.is_removed(face)) continue;
+			//if (mesh->model.is_removed(face)) continue;
 
 			int count = mesh->model.degree(face);
 
@@ -442,7 +479,7 @@ public:
 		
 		for (auto face : mesh->model.faces())
 		{
-			if (mesh->model.is_removed(face)) continue;
+			//if (mesh->model.is_removed(face)) continue;
 
 			int count = mesh->model.degree(face);
 			auto hedge0 = mesh->model.halfedge(face);
@@ -473,9 +510,168 @@ public:
 		
 	}
 
+	static void Join(void* ptr, void* otherPtr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		auto other = CastToSurfaceMesh(otherPtr);
+		mesh->model.join(other->model);
+	}
+
+	static void BuildAABBTree(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->BuildAABBTree();
+	}
+
+	static void ReleaseAABBTree(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->DeleteTree();
+	}
+
+	static Box3d GetBoundingBox(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		if (mesh->tree != nullptr)
+		{
+			auto box = mesh->tree->root_node()->bbox();
+			return Box3d::FromCGAL<K>(box);
+		}
+		else
+		{
+			auto box = CGAL::Polygon_mesh_processing::bbox(mesh->model);
+			return Box3d::FromCGAL<K>(box);
+		}
+	}
+
+	static void ReadOFF(void* ptr, const char* filename)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		std::ifstream i(filename);
+		i >> mesh->model;
+	}
+
+	static void WriteOFF(void* ptr, const char* filename)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		std::ofstream o(filename);
+		o << mesh->model;
+	}
+
+	static void Triangulate(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		CGAL::Polygon_mesh_processing::triangulate_faces(mesh->model);
+	}
+
+	static BOOL DoesSelfIntersect(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return CGAL::Polygon_mesh_processing::does_self_intersect(mesh->model);
+	}
+
+	static double Area(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return CGAL::to_double(CGAL::Polygon_mesh_processing::area(mesh->model));
+	}
+
+	static Point3d Centroid(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		auto p = CGAL::Polygon_mesh_processing::centroid(mesh->model);
+		return Point3d::FromCGAL<K>(p);
+	}
+
+	static double Volume(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return CGAL::to_double(CGAL::Polygon_mesh_processing::volume(mesh->model));
+	}
+
+	static BOOL DoesBoundAVolume(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return CGAL::Polygon_mesh_processing::does_bound_a_volume(mesh->model);
+	}
+
+	static CGAL::Bounded_side SideOfTriangleMesh(void* ptr, const Point3d& point)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->BuildAABBTree();
+		CGAL::Side_of_triangle_mesh<SurfaceMesh, K> inside(*mesh->tree);
+		return inside(point.ToCGAL<K>());
+	}
+
+	static BOOL DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		auto other = CastToSurfaceMesh(otherPtr);
+		auto param = CGAL::parameters::do_overlap_test_of_bounded_sides(test_bounded_sides);
+
+		return CGAL::Polygon_mesh_processing::do_intersect(mesh->model, other->model, param, param);
+	}
+
+	static MinMaxAvg MinMaxEdgeLength(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		constexpr double MAX = std::numeric_limits<double>::max();
+
+		FT min = MAX;
+		FT max = 0;
+		FT avg = 0;
+
+		int count = 0;
+		for (auto edge : mesh->model.edges())
+		{
+			//if (mesh->model.is_removed(edge)) continue;
+
+			auto len = CGAL::Polygon_mesh_processing::edge_length(edge, mesh->model);
+	
+			count++;
+			avg += len;
+
+			if (len < min) min = len;
+			if (len > max) max = len;
+		}
+
+		if (min == MAX)
+			min = 0;
+
+		if (count != 0)
+			avg /= count;
+
+		MinMaxAvg m;
+		m.min = CGAL::to_double(min);
+		m.max = CGAL::to_double(max);
+		m.avg = CGAL::to_double(avg);
+
+		return m;
+	}
+
+	static void GetCentroids(void* ptr, Point3d* points, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		int numFaces = (int)mesh->model.number_of_faces();
+
+		int index = 0;
+		for (auto face : mesh->model.faces())
+		{
+			//if (mesh->model.is_removed(face)) continue;
+
+			points[index] = Point3d::FromCGAL<K>(ComputeCentroid(mesh->model, face));
+
+			index++;
+
+			if (index >= numFaces || index >= count)
+				return;
+		}
+	}
+
 private:
 
-	static int FaceVertexCount(const SurfaceMesh& mesh, Face face)
+	static int FaceVertexCount(const SurfaceMesh& mesh, const Face& face)
 	{
 		int count = 0;
 		for (auto vert : mesh.vertices_around_face(mesh.halfedge(face))) {
@@ -483,6 +679,30 @@ private:
 		}
 
 		return count;
+	}
+
+	static Point_3 ComputeCentroid(const SurfaceMesh& mesh, const Face& face)
+	{
+		int num = 0;
+		Point_3 centroid = { 0, 0, 0 };
+
+		for (auto vert : mesh.vertices_around_face(mesh.halfedge(face))) 
+		{
+			auto p = mesh.point(vert);
+			centroid.x() = centroid.x() + p.x();
+			centroid.y() = centroid.y() + p.y();
+			centroid.z() = centroid.z() + p.z();
+			num++;
+		}
+
+		if (num != 0)
+		{
+			centroid.x() = centroid.x() / num;
+			centroid.y() = centroid.y() / num;
+			centroid.z() = centroid.z() / num;
+		}
+
+		return centroid;
 	}
 
 };

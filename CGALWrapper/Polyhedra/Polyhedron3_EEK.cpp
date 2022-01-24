@@ -107,44 +107,9 @@ void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 	Polyhedron3<EEK>::MakeTriangle(ptr, p1, p2, p3);
 }
 
-void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount)
-{
-	Polyhedron3<EEK>::CreateTriangleMesh(ptr, points, pointsCount, triangles, triangleCount);
-}
-
-void Polyhedron3_EEK_CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount)
-{
-	Polyhedron3<EEK>::CreateQuadMesh(ptr, points, pointsCount, quads, quadCount);
-}
-
-void Polyhedron3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount)
-{
-	Polyhedron3<EEK>::CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, triangleCount, quads, quadCount);
-}
-
-void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz)
-{
-	Polyhedron3<EEK>::CreatePolygonMesh(ptr, points, pointsCount, xz);
-}
-
 void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 {
 	Polyhedron3<EEK>::GetPoints(ptr, points, count);
-}
-
-FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr)
-{
-	return Polyhedron3<EEK>::GetFaceVertexCount(ptr);
-}
-
-void Polyhedron3_EEK_GetTriangleIndices(void* ptr, int* indices, int count)
-{
-	Polyhedron3<EEK>::GetTriangleIndices(ptr, indices, count);
-}
-
-void Polyhedron3_EEK_GetQuadIndices(void* ptr, int* indices, int count)
-{
-	Polyhedron3<EEK>::GetQuadIndices(ptr, indices, count);
 }
 
 void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix)
@@ -255,6 +220,40 @@ void Polyhedron3_EEK_GetVertexNormals(void* ptr, Vector3d* normals, int count)
 void Polyhedron3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count)
 {
 	Polyhedron3<EEK>::GetFaceNormals(ptr, normals, count);
+}
+
+void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz)
+{
+	Polyhedron3<EEK>::CreatePolygonMesh(ptr, points, pointsCount, xz);
+}
+
+FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr)
+{
+	return Polyhedron3<EEK>::GetFaceVertexCount(ptr);
+}
+
+void Polyhedron3_EEK_CreatePolygonalMesh(void* ptr,
+	Point3d* points, int pointsCount,
+	int* triangles, int triangleCount,
+	int* quads, int quadCount,
+	int* pentagons, int pentagonCount,
+	int* hexagons, int hexagonCount)
+{
+	Polyhedron3<EEK>::CreatePolygonalMesh(ptr, 
+		points, pointsCount, 
+		triangles, triangleCount, 
+		quads, quadCount, 
+		pentagons, pentagonCount, 
+		hexagons, hexagonCount);
+}
+
+void Polyhedron3_EEK_GetPolygonalIndices(void* ptr,
+	int* triangles, int triangleCount,
+	int* quads, int quadCount,
+	int* pentagons, int pentagonCount,
+	int* hexagons, int hexagonCount)
+{
+
 }
 
 

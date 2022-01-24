@@ -118,44 +118,9 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_MakeTriangle(ptr, p1, p2, p3);
 		}
 
-		internal override void CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount)
-		{
-			Polyhedron3_EEK_CreateTriangleMesh(ptr, points, pointsCount, triangles, triangleCount);
-		}
-
-		internal override void CreateQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] quads, int quadCount)
-		{
-			Polyhedron3_EEK_CreateQuadMesh(ptr, points, pointsCount, quads, quadCount);
-		}
-
-		internal override void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadCount)
-		{
-			Polyhedron3_EEK_CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, triangleCount, quads, quadCount);
-		}
-
-		internal override void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz)
-        {
-			Polyhedron3_EEK_CreatePolygonMesh(ptr, points, pointsCount, xz);
-        }
-
 		internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
 		{
 			Polyhedron3_EEK_GetPoints(ptr, points, count);
-		}
-
-		internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
-		{
-			return Polyhedron3_EEK_GetFaceVertexCount(ptr);
-		}
-
-		internal override void GetTriangleIndices(IntPtr ptr, int[] indices, int count)
-		{
-			Polyhedron3_EEK_GetTriangleIndices(ptr, indices, count);
-		}
-
-		internal override void GetQuadIndices(IntPtr ptr, int[] indices, int count)
-		{
-			Polyhedron3_EEK_GetQuadIndices(ptr, indices, count);
 		}
 
 		internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
@@ -268,6 +233,44 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_GetFaceNormals(ptr, normals, count);
 		}
 
+		internal override void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz)
+        {
+			Polyhedron3_EEK_CreatePolygonMesh(ptr, points, pointsCount, xz);	
+        }
+
+		internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
+        {
+			return Polyhedron3_EEK_GetFaceVertexCount(ptr);
+        }
+
+		internal override void CreatePolygonalMesh(IntPtr ptr,
+			Point3d[] points, int pointsCount,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount)
+        {
+			Polyhedron3_EEK_CreatePolygonalMesh(ptr, 
+				points, pointsCount, 
+				triangles, triangleCount, 
+				quads, quadCount, pentagons, 
+				pentagonCount, 
+				hexagons, hexagonCount);
+        }
+
+		internal override void GetPolygonalIndices(IntPtr ptr,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount)
+        {
+			Polyhedron3_EEK_GetPolygonalIndices(ptr, 
+				triangles, triangleCount, 
+				quads, quadCount, 
+				pentagons, pentagonCount, 
+				hexagons, hexagonCount);
+        }
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
@@ -332,28 +335,7 @@ namespace CGALDotNet.Polyhedra
 		private static extern void Polyhedron3_EEK_MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_CreateTriangleMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_CreateQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] quads, int quadCount);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int triangleCount, int[] quads, int quadCount);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(IntPtr ptr);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_GetTriangleIndices(IntPtr ptr, [Out] int[] indices, int count);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_GetQuadIndices(IntPtr ptr, [Out] int[] indices, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);
@@ -420,5 +402,26 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetFaceNormals(IntPtr ptr, [Out] Vector3d[] normals, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_CreatePolygonalMesh(IntPtr ptr,
+			Point3d[] points, int pointsCount,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetPolygonalIndices(IntPtr ptr,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount);
 	}
 }

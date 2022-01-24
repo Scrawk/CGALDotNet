@@ -24,8 +24,6 @@ extern "C"
 
 	CGALWRAPPER_API void* Polyhedron3_EEK_Copy(void* ptr);
 
-	CGALWRAPPER_API void Polyhedron3_EEK_Join(void* ptr, void* otherPtr);
-
 	CGALWRAPPER_API void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force);
 	
 	CGALWRAPPER_API int Polyhedron3_EEK_VertexCount(void* ptr);
@@ -56,21 +54,7 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3);
 
-	CGALWRAPPER_API void Polyhedron3_EEK_CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz);
-
 	CGALWRAPPER_API void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count);
-
-	CGALWRAPPER_API FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_GetTriangleIndices(void* ptr, int* indices, int count);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_GetQuadIndices(void* ptr, int* indices, int count);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix);
 
@@ -115,5 +99,21 @@ extern "C"
 	CGALWRAPPER_API void Polyhedron3_EEK_GetVertexNormals(void* ptr, Vector3d* normals, int count);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count);
-	
+
+	CGALWRAPPER_API void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz);
+
+	CGALWRAPPER_API FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_CreatePolygonalMesh(void* ptr,
+		Point3d* points, int pointsCount,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount);
 }

@@ -4,6 +4,7 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "../Geometry/MinMax.h"
 #include "FaceVertexCount.h"
 
 extern "C"
@@ -101,6 +102,38 @@ extern "C"
 	CGALWRAPPER_API void SurfaceMesh3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int trianglesCount, int* quads, int quadsCount);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_Join(void* ptr, void* otherPtr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_BuildAABBTree(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ReleaseAABBTree(void* ptr);
+
+	CGALWRAPPER_API Box3d SurfaceMesh3_EEK_GetBoundingBox(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ReadOFF(void* ptr, const char* filename);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_WriteOFF(void* ptr, const char* filename);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_Triangulate(void* ptr);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_DoesSelfIntersect(void* ptr);
+
+	CGALWRAPPER_API double SurfaceMesh3_EEK_Area(void* ptr);
+
+	CGALWRAPPER_API Point3d SurfaceMesh3_EEK_Centroid(void* ptr);
+
+	CGALWRAPPER_API double SurfaceMesh3_EEK_Volume(void* ptr);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_DoesBoundAVolume(void* ptr);
+
+	CGALWRAPPER_API CGAL::Bounded_side SurfaceMesh3_EEK_SideOfTriangleMesh(void* ptr, const Point3d& point);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides);
+
+	CGALWRAPPER_API MinMaxAvg SurfaceMesh3_EEK_MinMaxEdgeLength(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetCentroids(void* ptr, Point3d* points, int count);
 
 	
 

@@ -25,7 +25,9 @@ namespace CGALDotNetConsole
 
             var param = PlaneParams.Default;
 
-            var mesh = SurfaceMeshFactory<EEK>.CreatePlane(param);
+            var mesh = PolyhedronFactory<EEK>.CreatePlane();
+
+            var count = mesh.GetFaceVertexCount();
      
             mesh.Print();
 

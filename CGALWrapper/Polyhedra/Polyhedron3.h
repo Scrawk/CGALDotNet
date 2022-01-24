@@ -36,6 +36,7 @@ class Polyhedron3
 
 public:
 
+	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point;
 	typedef typename K::Vector_3 Vector;
 	typedef CGAL::Polyhedron_3<K> Polyhedron;
@@ -350,63 +351,6 @@ public:
 		poly->model.make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
 	}
 
-	static void CreateTriangleMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount)
-	{
-		auto poly = CastToPolyhedron(ptr);
-
-		BuildTriangleMesh<HalfedgeDS, K> builder;
-		builder.vertices = points;
-		builder.verticesCount = pointsCount;
-		builder.triangles = triangles;
-		builder.triangleCount = triangleCount;
-
-		poly->model.delegate(builder);
-		poly->OnModelChanged();
-	}
-
-	static void CreateQuadMesh(void* ptr, Point3d* points, int pointsCount, int* quads, int quadCount)
-	{
-		auto poly = CastToPolyhedron(ptr);
-
-		BuildQuadMesh<HalfedgeDS, K> builder;
-		builder.vertices = points;
-		builder.verticesCount = pointsCount;
-		builder.quads = quads;
-		builder.quadCount = quadCount;
-
-		poly->model.delegate(builder);
-		poly->OnModelChanged();
-	}
-
-	static void CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int triangleCount, int* quads, int quadCount)
-	{
-		auto poly = CastToPolyhedron(ptr);
-
-		BuildTriangleQuadMesh<HalfedgeDS, K> builder;
-		builder.vertices = points;
-		builder.verticesCount = pointsCount;
-		builder.triangles = triangles;
-		builder.triangleCount = triangleCount;
-		builder.quads = quads;
-		builder.quadCount = quadCount;
-
-		poly->model.delegate(builder);
-		poly->OnModelChanged();
-	}
-
-	static void CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz)
-	{
-		auto poly = CastToPolyhedron(ptr);
-
-		BuildPolygonMesh<HalfedgeDS, K> builder;
-		builder.vertices = points;
-		builder.verticesCount = pointsCount;
-		builder.xz = xz;
-
-		poly->model.delegate(builder);
-		poly->OnModelChanged();
-	}
-
 	static void GetPoints(void* ptr, Point3d* points, int count)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -417,107 +361,6 @@ public:
 			points[i++] = Point3d::FromCGAL<K>(*point);
 
 			if (i >= count) return;
-		}
-	}
-
-	static FaceVertexCount GetFaceVertexCount(void* ptr)
-	{
-		auto poly = CastToPolyhedron(ptr);
-
-		int degenerate = 0;
-		int three = 0;
-		int four = 0;
-		int five= 0;
-		int six = 0;
-		int greater = 0;
-
-		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
-		{
-			if (face->halfedge() == nullptr) continue;
-
-			int count = FaceVertexCount(*face);
-
-			switch(count)
-			{
-				case 0:
-				case 1:
-				case 2:
-					degenerate++;
-					break;
-
-				case 3:
-					three++;
-					break;
-
-				case 4:
-					four++;
-					break;
-
-				case 5:
-					five++;
-					break;
-
-				case 6:
-					six++;
-					break;
-
-				default:
-					greater++;
-					break;
-			}
-		}
-
-		return { degenerate, three, four, five, six, greater };
-	}
-
-	static void GetTriangleIndices(void* ptr, int* indices, int count)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		poly->BuildVertexIndexMap();
-
-		int index = 0;
-		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
-		{
-			if (face->halfedge() == nullptr) continue;
-			if (!face->is_triangle()) continue;
-			
-			int i0 = poly->FindVertexIndex(face->halfedge()->prev()->vertex());
-			int i1 = poly->FindVertexIndex(face->halfedge()->vertex());
-			int i2 = poly->FindVertexIndex(face->halfedge()->next()->vertex());
-
-			indices[index * 3 + 0] = i0;
-			indices[index * 3 + 1] = i1;
-			indices[index * 3 + 2] = i2;
-			
-			index++;
-			if (index * 3 >= count) return;
-		}
-	}
-
-	static void GetQuadIndices(void* ptr, int* indices, int count)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		poly->BuildVertexIndexMap();
-
-		int index = 0;
-		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
-		{
-			if (face->halfedge() == nullptr) continue;
-			if (!face->is_quad()) continue;
-
-			int i0 = poly->FindVertexIndex(face->halfedge()->prev()->vertex());
-			int i1 = poly->FindVertexIndex(face->halfedge()->vertex());
-			int i2 = poly->FindVertexIndex(face->halfedge()->next()->vertex());
-			int i3 = poly->FindVertexIndex(face->halfedge()->next()->next()->vertex());
-
-			indices[index * 4 + 0] = i0;
-			indices[index * 4 + 1] = i1;
-			indices[index * 4 + 2] = i2;
-			indices[index * 4 + 3] = i3;
-			
-			index++;
-
-			if (index * 4 >= count) return;
 		}
 	}
 
@@ -638,29 +481,32 @@ public:
 
 		constexpr double MAX = std::numeric_limits<double>::max();
 
-		MinMaxAvg m;
-		m.min = MAX;
-		m.max = 0;
-		m.avg = 0;
+		FT min = MAX;
+		FT max = 0;
+		FT avg = 0;
 
 		int count = 0;
 		for (auto halfedge = poly->model.halfedges_begin(); halfedge != poly->model.halfedges_end(); ++halfedge)
 		{
-			auto ft = CGAL::Polygon_mesh_processing::edge_length(halfedge, poly->model);
-			double len = CGAL::to_double(ft);
+			auto len = CGAL::Polygon_mesh_processing::edge_length(halfedge, poly->model);
 
 			count++;
-			m.avg += len;
+			avg += len;
 
-			if (len < m.min) m.min = len;
-			if (len > m.max) m.max = len;
+			if (len < min) min = len;
+			if (len > max) max = len;
 		}
 
-		if (m.min == MAX)
-			m.min = 0;
+		if (min == MAX)
+			min = 0;
 
 		if (count != 0)
-			m.avg /= count;
+			avg /= count;
+
+		MinMaxAvg m;
+		m.min = CGAL::to_double(min);
+		m.max = CGAL::to_double(max);
+		m.avg = CGAL::to_double(avg);
 
 		return m;
 	}
@@ -675,7 +521,7 @@ public:
 		{
 			if (face->halfedge() == nullptr) continue;
 
-			points[index] = ComputeCentroid(*face);
+			points[index] = Point3d::FromCGAL<K>(ComputeCentroid(*face));
 
 			index++;
 
@@ -741,29 +587,34 @@ public:
 				normals[i] = Vector3d::FromCGAL<K>(vec);
 		}
 	}
-private:
 
-	static Point3d ComputeCentroid(const Face& face)
+	static Point ComputeCentroid(const Face& face)
 	{
 		int num = 0;
-		Point3d centroid = { 0, 0, 0 };
+		Point centroid = { 0, 0, 0 };
 
 		auto hedge = face.facet_begin();
 		do
 		{
-			auto p = Point3d::FromCGAL<K>(hedge->vertex()->point());
-			centroid = centroid + p;
+			auto p = hedge->vertex()->point();
+			centroid.x() = centroid.x() + p.x();
+			centroid.y() = centroid.y() + p.y();
+			centroid.z() = centroid.z() + p.z();
 			num++;
 		} 
 		while (++hedge != face.facet_begin());
 
 		if (num != 0)
-			centroid = centroid / num;
+		{
+			centroid.x() = centroid.x() / num;
+			centroid.y() = centroid.y() / num;
+			centroid.z() = centroid.z() / num;
+		}
 
 		return centroid;
 	}
 
-	static int FaceVertexCount(const Face& face)
+	static int CountFaceVertices(const Face& face)
 	{
 		int num = 0;
 
@@ -777,5 +628,199 @@ private:
 		return num;
 	}
 
+	static void CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		BuildPolygonMesh<HalfedgeDS, K> builder;
+		builder.vertices = points;
+		builder.verticesCount = pointsCount;
+		builder.xz = xz;
+
+		poly->model.delegate(builder);
+		poly->OnModelChanged();
+	}
+
+	static FaceVertexCount GetFaceVertexCount(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int degenerate = 0;
+		int three = 0;
+		int four = 0;
+		int five = 0;
+		int six = 0;
+		int greater = 0;
+
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
+		{
+			if (face->halfedge() == nullptr) continue;
+
+			int count = CountFaceVertices(*face);
+
+			switch (count)
+			{
+			case 0:
+			case 1:
+			case 2:
+				degenerate++;
+				break;
+
+			case 3:
+				three++;
+				break;
+
+			case 4:
+				four++;
+				break;
+
+			case 5:
+				five++;
+				break;
+
+			case 6:
+				six++;
+				break;
+
+			default:
+				greater++;
+				break;
+			}
+		}
+
+		return { degenerate, three, four, five, six, greater };
+	}
+
+	static void CreatePolygonalMesh(void* ptr,
+		Point3d* points, int pointsCount,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		BuildPolygonalMesh<HalfedgeDS, K> builder;
+		builder.vertices = points;
+		builder.verticesCount = pointsCount;
+		builder.triangles = triangles;
+		builder.triangleCount = triangleCount;
+		builder.quads = quads;
+		builder.quadCount = quadCount;
+		builder.pentagons = pentagons;
+		builder.pentagonCount = pentagonCount;
+		builder.hexagons = hexagons;
+		builder.hexagonCount = hexagonCount;
+
+		poly->model.delegate(builder);
+		poly->OnModelChanged();
+	}
+
+	static void GetPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		poly->BuildVertexIndexMap();
+
+		int triangleIndex = 0;
+		int quadIndex = 0;
+		int pentagonIndex = 0;
+		int hexagonIndex = 0;
+
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
+		{
+			if (face->halfedge() == nullptr) continue;
+
+			int count = CountFaceVertices(*face);
+
+			if (count == 3 && triangleIndex * 3 < triangleCount)
+			{
+				auto e0 = face->halfedge();
+				auto e1 = e0->next();
+				auto e2 = e1->next();
+
+				int i0 = poly->FindVertexIndex(e0->vertex());
+				int i1 = poly->FindVertexIndex(e1->vertex());
+				int i2 = poly->FindVertexIndex(e2->vertex());
+
+				triangles[triangleIndex * 3 + 0] = i0;
+				triangles[triangleIndex * 3 + 1] = i1;
+				triangles[triangleIndex * 3 + 2] = i2;
+
+				triangleIndex++;
+			}
+			else if (count == 4 && quadIndex * 4 < quadCount)
+			{
+				auto e0 = face->halfedge();
+				auto e1 = e0->next();
+				auto e2 = e1->next();
+				auto e3 = e2->next();
+
+				int i0 = poly->FindVertexIndex(e0->vertex());
+				int i1 = poly->FindVertexIndex(e1->vertex());
+				int i2 = poly->FindVertexIndex(e2->vertex());
+				int i3 = poly->FindVertexIndex(e3->vertex());
+
+				quads[quadIndex * 4 + 0] = i0;
+				quads[quadIndex * 4 + 1] = i1;
+				quads[quadIndex * 4 + 2] = i2;
+				quads[quadIndex * 4 + 3] = i3;
+
+				quadIndex++;
+			}
+			else if (count == 5 && pentagonIndex * 5 < pentagonCount)
+			{
+				auto e0 = face->halfedge();
+				auto e1 = e0->next();
+				auto e2 = e1->next();
+				auto e3 = e2->next();
+				auto e4 = e3->next();
+
+				int i0 = poly->FindVertexIndex(e0->vertex());
+				int i1 = poly->FindVertexIndex(e1->vertex());
+				int i2 = poly->FindVertexIndex(e2->vertex());
+				int i3 = poly->FindVertexIndex(e3->vertex());
+				int i4 = poly->FindVertexIndex(e4->vertex());
+
+				pentagons[pentagonIndex * 5 + 0] = i0;
+				pentagons[pentagonIndex * 5 + 1] = i1;
+				pentagons[pentagonIndex * 5 + 2] = i2;
+				pentagons[pentagonIndex * 5 + 3] = i3;
+				pentagons[pentagonIndex * 5 + 4] = i4;
+
+				quadIndex++;
+			}
+			else if (count == 6 && hexagonIndex * 6 < hexagonCount)
+			{
+				auto e0 = face->halfedge();
+				auto e1 = e0->next();
+				auto e2 = e1->next();
+				auto e3 = e2->next();
+				auto e4 = e3->next();
+				auto e5 = e4->next();
+
+				int i0 = poly->FindVertexIndex(e0->vertex());
+				int i1 = poly->FindVertexIndex(e1->vertex());
+				int i2 = poly->FindVertexIndex(e2->vertex());
+				int i3 = poly->FindVertexIndex(e3->vertex());
+				int i4 = poly->FindVertexIndex(e4->vertex());
+				int i5 = poly->FindVertexIndex(e5->vertex());
+
+				hexagons[hexagonIndex * 6 + 0] = i0;
+				hexagons[hexagonIndex * 6 + 1] = i1;
+				hexagons[hexagonIndex * 6 + 2] = i2;
+				hexagons[hexagonIndex * 6 + 3] = i3;
+				hexagons[hexagonIndex * 6 + 4] = i4;
+				hexagons[hexagonIndex * 6 + 5] = i5;
+
+				quadIndex++;
+			}
+
+
+		}
+	}
 
 };

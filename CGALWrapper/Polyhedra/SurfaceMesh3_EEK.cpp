@@ -23,11 +23,6 @@ void* SurfaceMesh3_EEK_Copy(void* ptr)
 	return SurfaceMesh3<EEK>::Copy(ptr);
 }
 
-void Polyhedron3_EEK_Join(void* ptr, void* otherPtr)
-{
-	SurfaceMesh3<EEK>::Join(ptr, otherPtr);
-}
-
 BOOL SurfaceMesh3_EEK_IsValid(void* ptr)
 {
 	return SurfaceMesh3<EEK>::IsValid(ptr);
@@ -241,6 +236,86 @@ void SurfaceMesh3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int poi
 void SurfaceMesh3_EEK_GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount)
 {
 	SurfaceMesh3<EEK>::GetTriangleQuadIndices(ptr, triangles, trianglesCount, quads, quadsCount);
+}
+
+void SurfaceMesh3_EEK_Join(void* ptr, void* otherPtr)
+{
+	SurfaceMesh3<EEK>::Join(ptr, otherPtr);
+}
+
+void SurfaceMesh3_EEK_BuildAABBTree(void* ptr)
+{
+	SurfaceMesh3<EEK>::BuildAABBTree(ptr);
+}
+
+void SurfaceMesh3_EEK_ReleaseAABBTree(void* ptr)
+{
+	SurfaceMesh3<EEK>::ReleaseAABBTree(ptr);
+}
+
+Box3d SurfaceMesh3_EEK_GetBoundingBox(void* ptr)
+{
+	return SurfaceMesh3<EEK>::GetBoundingBox(ptr);
+}
+
+void SurfaceMesh3_EEK_ReadOFF(void* ptr, const char* filename)
+{
+	SurfaceMesh3<EEK>::ReadOFF(ptr, filename);
+}
+
+void SurfaceMesh3_EEK_WriteOFF(void* ptr, const char* filename)
+{
+	SurfaceMesh3<EEK>::WriteOFF(ptr, filename);
+}
+
+void SurfaceMesh3_EEK_Triangulate(void* ptr)
+{
+	SurfaceMesh3<EEK>::Triangulate(ptr);
+}
+
+BOOL SurfaceMesh3_EEK_DoesSelfIntersect(void* ptr)
+{
+	return SurfaceMesh3<EEK>::DoesSelfIntersect(ptr);
+}
+
+double SurfaceMesh3_EEK_Area(void* ptr)
+{
+	return SurfaceMesh3<EEK>::Area(ptr);
+}
+
+Point3d SurfaceMesh3_EEK_Centroid(void* ptr)
+{
+	return SurfaceMesh3<EEK>::Centroid(ptr);
+}
+
+double SurfaceMesh3_EEK_Volume(void* ptr)
+{
+	return SurfaceMesh3<EEK>::Volume(ptr);
+}
+
+BOOL SurfaceMesh3_EEK_DoesBoundAVolume(void* ptr)
+{
+	return SurfaceMesh3<EEK>::DoesBoundAVolume(ptr);
+}
+
+CGAL::Bounded_side SurfaceMesh3_EEK_SideOfTriangleMesh(void* ptr, const Point3d& point)
+{
+	return SurfaceMesh3<EEK>::SideOfTriangleMesh(ptr, point);
+}
+
+BOOL SurfaceMesh3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides)
+{
+	return SurfaceMesh3<EEK>::DoIntersects(ptr, otherPtr, test_bounded_sides);
+ }
+
+MinMaxAvg SurfaceMesh3_EEK_MinMaxEdgeLength(void* ptr)
+{
+	return SurfaceMesh3<EEK>::MinMaxEdgeLength(ptr);
+}
+
+void SurfaceMesh3_EEK_GetCentroids(void* ptr, Point3d* points, int count)
+{
+	SurfaceMesh3<EEK>::GetCentroids(ptr, points, count);
 }
 
 
