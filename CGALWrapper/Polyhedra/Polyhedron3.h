@@ -217,11 +217,17 @@ public:
 		poly->rebuildFaceIndexMap = true;
 	}
 
-	static void ClearNormalMaps(void* ptr)
+	static void ClearVertexNormalMap(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		poly->vertexNormalMap.clear();
 		poly->rebuildVertexNormalMap = true;
+	}
+
+
+	static void ClearFaceNormalMap(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
 		poly->faceNormalMap.clear();
 		poly->rebuildFaceNormalMap = true;
 	}

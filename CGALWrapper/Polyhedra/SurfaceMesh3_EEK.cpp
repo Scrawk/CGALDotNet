@@ -1,7 +1,7 @@
 #include "SurfaceMesh3_EEK.h"
 #include "SurfaceMesh3.h"
 
-#include <unordered_set>
+#include <string>
 
 void* SurfaceMesh3_EEK_Create()
 {
@@ -318,7 +318,40 @@ void SurfaceMesh3_EEK_GetCentroids(void* ptr, Point3d* points, int count)
 	SurfaceMesh3<EEK>::GetCentroids(ptr, points, count);
 }
 
+int SurfaceMesh3_EEK_PropertyMapCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::PropertyMapCount(ptr);
+}
 
+void SurfaceMesh3_EEK_ClearVertexNormalMap(void* ptr)
+{
+	SurfaceMesh3<EEK>::ClearVertexNormalMap(ptr);
+}
+
+void SurfaceMesh3_EEK_ClearFaceNormalMap(void* ptr)
+{
+	SurfaceMesh3<EEK>::ClearFaceNormalMap(ptr);
+}
+
+void SurfaceMesh3_EEK_ComputeVertexNormals(void* ptr)
+{
+	SurfaceMesh3<EEK>::ComputeVertexNormals(ptr);
+}
+
+void SurfaceMesh3_EEK_ComputeFaceNormals(void* ptr)
+{
+	SurfaceMesh3<EEK>::ComputeFaceNormals(ptr);
+}
+
+void SurfaceMesh3_EEK_GetVertexNormals(void* ptr, Vector3d* normals, int count)
+{
+	SurfaceMesh3<EEK>::GetVertexNormals(ptr, normals, count);
+}
+
+void SurfaceMesh3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count)
+{
+	SurfaceMesh3<EEK>::GetFaceNormals(ptr, normals, count);
+}
 
 
 

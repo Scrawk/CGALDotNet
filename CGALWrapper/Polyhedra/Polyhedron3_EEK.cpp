@@ -22,9 +22,14 @@ void Polyhedron3_EEK_ClearIndexMaps(void* ptr)
 	Polyhedron3<EEK>::ClearIndexMaps(ptr);
 }
 
-void Polyhedron3_EEK_ClearNormalMaps(void* ptr)
+void Polyhedron3_EEK_ClearVertexNormalMap(void* ptr)
 {
-	Polyhedron3<EEK>::ClearNormalMaps(ptr);
+	Polyhedron3<EEK>::ClearVertexNormalMap(ptr);
+}
+
+void Polyhedron3_EEK_ClearFaceNormalMap(void* ptr)
+{
+	Polyhedron3<EEK>::ClearFaceNormalMap(ptr);
 }
 
 void* Polyhedron3_EEK_Copy(void* ptr)

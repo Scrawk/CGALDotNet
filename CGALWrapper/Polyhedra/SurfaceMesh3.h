@@ -32,6 +32,9 @@ class SurfaceMesh3
 
 public:
 
+	static constexpr const char* VERTEX_NORMAL_MAP_NAME = "v:normal";
+	static constexpr const char* FACE_NORMAL_MAP_NAME = "f:normal";
+
 	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point_3;
 	typedef typename CGAL::Surface_mesh<Point_3> SurfaceMesh;
@@ -39,7 +42,7 @@ public:
 	typedef typename SurfaceMesh::Halfedge_index Halfedge;
 	typedef typename SurfaceMesh::Vertex_index Vertex;
 	typedef typename SurfaceMesh::Face_index Face;
-
+;
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<SurfaceMesh> AABB_face_graph_primitive;
 	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
 	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
@@ -52,6 +55,10 @@ public:
 	SurfaceMesh model;
 
 	AABBTree* tree = nullptr;
+
+	bool vertexNormalsComputed = false;
+
+	bool faceNormalsComputed = false;
 
 	inline static SurfaceMesh3* NewSurfaceMesh()
 	{
@@ -92,10 +99,39 @@ public:
 		}
 	}
 
+	void ClearVertexNormalMap()
+	{
+		typedef K::Vector_3 Vector;
+		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::vertex_descriptor VertexDes;
+
+		auto pair = model.property_map<VertexDes, Vector>(VERTEX_NORMAL_MAP_NAME);
+		model.remove_property_map(pair.first);
+		vertexNormalsComputed = false;
+	}
+
+	void ClearFaceNormalMap()
+	{
+		typedef K::Vector_3 Vector;
+		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::face_descriptor FaceDes;
+
+		auto pair = model.property_map<FaceDes, Vector>(FACE_NORMAL_MAP_NAME);
+		model.remove_property_map(pair.first);
+		faceNormalsComputed = false;
+	}
+
+	void Clear()
+	{
+		vertexNormalsComputed = false;
+		faceNormalsComputed = false;
+		DeleteTree();
+		model.clear();
+		model.collect_garbage();
+	}
+
 	static void Clear(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.clear();
+		mesh->Clear();
 	}
 
 	static void* Copy(void* ptr)
@@ -271,24 +307,32 @@ public:
 	static void RemoveVertex(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->ClearVertexNormalMap();
+		mesh->ClearFaceNormalMap();
 		mesh->model.remove_vertex(Vertex(index));
 	}
 
 	static void RemoveEdge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->ClearVertexNormalMap();
+		mesh->ClearFaceNormalMap();
 		mesh->model.remove_edge(Edge(index));
 	}
 
 	static void RemoveFace(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->ClearVertexNormalMap();
+		mesh->ClearFaceNormalMap();
 		mesh->model.remove_face(Face(index));
 	}
 
 	static void RemoveProperyMaps(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->ClearVertexNormalMap();
+		mesh->ClearFaceNormalMap();
 		mesh->model.remove_all_property_maps();
 	}
 
@@ -319,6 +363,9 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		auto m = matrix.ToCGAL<K>();
+
+		mesh->ClearVertexNormalMap();
+		mesh->ClearFaceNormalMap();
 
 		std::transform(mesh->model.points().begin(), mesh->model.points().end(), mesh->model.points().begin(), m);
 	}
@@ -438,7 +485,7 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 
-		mesh->model.clear();
+		mesh->Clear();
 		mesh->model.collect_garbage();
 
 		for (int i = 0; i < pointsCount; i++)
@@ -476,7 +523,7 @@ public:
 
 		int triangleIndex = 0;
 		int quadIndex = 0;
-		
+
 		for (auto face : mesh->model.faces())
 		{
 			//if (mesh->model.is_removed(face)) continue;
@@ -507,7 +554,7 @@ public:
 				quadIndex++;
 			}
 		}
-		
+
 	}
 
 	static void Join(void* ptr, void* otherPtr)
@@ -628,7 +675,7 @@ public:
 			//if (mesh->model.is_removed(edge)) continue;
 
 			auto len = CGAL::Polygon_mesh_processing::edge_length(edge, mesh->model);
-	
+
 			count++;
 			avg += len;
 
@@ -669,24 +716,113 @@ public:
 		}
 	}
 
-private:
-
-	static int FaceVertexCount(const SurfaceMesh& mesh, const Face& face)
+	static int PropertyMapCount(void* ptr)
 	{
-		int count = 0;
-		for (auto vert : mesh.vertices_around_face(mesh.halfedge(face))) {
-			count++;
-		}
-
-		return count;
+		auto mesh = CastToSurfaceMesh(ptr);
+		return 0;
+		//return (int)mesh->model.properties<SurfaceMesh>().size();
 	}
+
+	static void ClearVertexNormalMap(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->ClearVertexNormalMap();
+	}
+
+	static void ClearFaceNormalMap(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->ClearFaceNormalMap();
+	}
+
+	static void ComputeVertexNormals(void* ptr)
+	{
+		typedef K::Vector_3 Vector;
+		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::vertex_descriptor VertexDes;
+
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		if (mesh->vertexNormalsComputed) return;
+
+		std::string key = VERTEX_NORMAL_MAP_NAME;
+		auto normals = mesh->model.add_property_map<VertexDes, Vector>(key, CGAL::NULL_VECTOR).first;
+		CGAL::Polygon_mesh_processing::compute_vertex_normals(mesh->model, normals);
+		mesh->vertexNormalsComputed = true;
+	}
+
+	static void ComputeFaceNormals(void* ptr)
+	{
+		typedef K::Vector_3 Vector;
+		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::face_descriptor FaceDes;
+
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		if (mesh->faceNormalsComputed) return;
+
+		std::string key = FACE_NORMAL_MAP_NAME;
+		auto normals = mesh->model.add_property_map<FaceDes, Vector>(key, CGAL::NULL_VECTOR).first;
+		CGAL::Polygon_mesh_processing::compute_face_normals(mesh->model, normals);
+		mesh->faceNormalsComputed = true;
+	}
+
+	static void GetVertexNormals(void* ptr, Vector3d* normals, int count)
+	{
+		typedef K::Vector_3 Vector;
+		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::vertex_descriptor VertexDes;
+
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		if (!mesh->vertexNormalsComputed)
+			ComputeVertexNormals(ptr);
+
+		auto pair = mesh->model.property_map<VertexDes, Vector>(VERTEX_NORMAL_MAP_NAME);
+		if (!pair.second) return;
+
+		for (auto vd : vertices(mesh->model))
+		{
+			int index = vd;
+
+			if (index < count)
+			{
+				auto n = pair.first[vd];
+				normals[index] = Vector3d::FromCGAL<K>(n);
+			}
+		}
+	}
+
+	static void GetFaceNormals(void* ptr, Vector3d* normals, int count)
+	{
+		typedef K::Vector_3 Vector;
+		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::face_descriptor FaceDes;
+
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		if (!mesh->faceNormalsComputed)
+			ComputeFaceNormals(ptr);
+
+		auto pair = mesh->model.property_map<FaceDes, Vector>(FACE_NORMAL_MAP_NAME);
+		if (!pair.second) return;
+
+		for (auto fd : faces(mesh->model))
+		{
+			int index = fd;
+
+			if (index < count)
+			{
+				auto n = pair.first[fd];
+				normals[index] = Vector3d::FromCGAL<K>(n);
+			}
+		}
+	}
+
+private:
 
 	static Point_3 ComputeCentroid(const SurfaceMesh& mesh, const Face& face)
 	{
 		int num = 0;
 		Point_3 centroid = { 0, 0, 0 };
 
-		for (auto vert : mesh.vertices_around_face(mesh.halfedge(face))) 
+		for (auto vert : mesh.vertices_around_face(mesh.halfedge(face)))
 		{
 			auto p = mesh.point(vert);
 			centroid.x() = centroid.x() + p.x();

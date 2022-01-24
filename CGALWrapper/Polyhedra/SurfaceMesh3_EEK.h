@@ -135,6 +135,20 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetCentroids(void* ptr, Point3d* points, int count);
 
+	CGALWRAPPER_API int SurfaceMesh3_EEK_PropertyMapCount(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearVertexNormalMap(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearFaceNormalMap(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ComputeVertexNormals(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ComputeFaceNormals(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetVertexNormals(void* ptr, Vector3d* normals, int count);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count);
+
 	
 
 }
