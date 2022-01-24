@@ -69,6 +69,8 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void RemoveFace(IntPtr ptr, int index);
 
+        internal abstract void RemoveProperyMaps(IntPtr ptr);
+
         internal abstract bool IsVertexValid(IntPtr ptr, int index);
 
         internal abstract bool IsEdgeValid(IntPtr ptr, int index);

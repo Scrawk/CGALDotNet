@@ -163,6 +163,11 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_RemoveFace(ptr, index);
         }
 
+        internal override void RemoveProperyMaps(IntPtr ptr)
+        {
+            SurfaceMesh3_EEK_RemoveProperyMaps(ptr);
+        }
+
         internal override bool IsVertexValid(IntPtr ptr, int index)
         {
             return SurfaceMesh3_EEK_IsVertexValid(ptr, index);
@@ -409,6 +414,9 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_RemoveFace(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_RemoveProperyMaps(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_IsVertexValid(IntPtr ptr, int index);

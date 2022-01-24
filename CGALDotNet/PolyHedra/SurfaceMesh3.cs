@@ -454,6 +454,14 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Remove all property maps from the mesh.
+        /// </summary>
+        public void RemovePropertyMaps()
+        {
+            Kernel.RemoveProperyMaps(Ptr);
+        }
+
+        /// <summary>
         /// Removes the two halfedges corresponding to edge from the halfedge
         /// data structure without adjusting anything.
         /// </summary>
