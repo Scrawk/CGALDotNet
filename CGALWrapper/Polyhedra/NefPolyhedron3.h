@@ -257,7 +257,7 @@ public:
 		auto nef = CastToNefPolyhedron(ptr);
 		auto mesh = SurfaceMesh3<K>::NewSurfaceMesh();
 
-		CGAL::convert_nef_polyhedron_to_polygon_mesh(*nef, *mesh);
+		CGAL::convert_nef_polyhedron_to_polygon_mesh(*nef, mesh->model);
 
 		return mesh;
 	}

@@ -23,6 +23,11 @@ void* SurfaceMesh3_EEK_Copy(void* ptr)
 	return SurfaceMesh3<EEK>::Copy(ptr);
 }
 
+void Polyhedron3_EEK_Join(void* ptr, void* otherPtr)
+{
+	SurfaceMesh3<EEK>::Join(ptr, otherPtr);
+}
+
 BOOL SurfaceMesh3_EEK_IsValid(void* ptr)
 {
 	return SurfaceMesh3<EEK>::IsValid(ptr);
@@ -237,6 +242,7 @@ void SurfaceMesh3_EEK_GetTriangleQuadIndices(void* ptr, int* triangles, int tria
 {
 	SurfaceMesh3<EEK>::GetTriangleQuadIndices(ptr, triangles, trianglesCount, quads, quadsCount);
 }
+
 
 
 

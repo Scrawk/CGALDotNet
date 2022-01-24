@@ -24,6 +24,8 @@ extern "C"
 
 	CGALWRAPPER_API void* Polyhedron3_EEK_Copy(void* ptr);
 
+	CGALWRAPPER_API void Polyhedron3_EEK_Join(void* ptr, void* otherPtr);
+
 	CGALWRAPPER_API void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force);
 	
 	CGALWRAPPER_API int Polyhedron3_EEK_VertexCount(void* ptr);
