@@ -12,8 +12,6 @@ class PolygonMeshProcessingOrientation
 
 public:
 
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
-
 	inline static PolygonMeshProcessingOrientation* NewPolygonMeshProcessingOrientation()
 	{
 		return new PolygonMeshProcessingOrientation();
@@ -35,40 +33,74 @@ public:
 		return static_cast<PolygonMeshProcessingOrientation*>(ptr);
 	}
 
-	static BOOL DoesBoundAVolume(void* polyPtr)
+	//Polyhedron
+
+	static BOOL DoesBoundAVolume_PH(void* meshPtr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
-		poly->OnModelChanged();
-		return CGAL::Polygon_mesh_processing::does_bound_a_volume(poly->model);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+		return CGAL::Polygon_mesh_processing::does_bound_a_volume(mesh->model);
 	}
 
-	static BOOL IsOutwardOriented(void* polyPtr)
+	static BOOL IsOutwardOriented_PH(void* meshPtr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
-		poly->OnModelChanged();
-		return CGAL::Polygon_mesh_processing::is_outward_oriented(poly->model);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);;
+		return CGAL::Polygon_mesh_processing::is_outward_oriented(mesh->model);
 	}
 
-	static void Orient(void* polyPtr)
+	static void Orient_PH(void* meshPtr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
-		poly->OnModelChanged();
-		return CGAL::Polygon_mesh_processing::orient(poly->model);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+		mesh->OnFaceNormalsChanged();
+		return CGAL::Polygon_mesh_processing::orient(mesh->model);
 	}
 
-	static void OrientToBoundAVolume(void* polyPtr)
+	static void OrientToBoundAVolume_PH(void* meshPtr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
-		poly->OnModelChanged();
-		return CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(poly->model);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+		mesh->OnFaceNormalsChanged();
+		return CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(mesh->model);
 	}
 
-	static void ReverseFaceOrientations(void* polyPtr)
+	static void ReverseFaceOrientations_PH(void* meshPtr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
-		poly->OnModelChanged();
-		return CGAL::Polygon_mesh_processing::reverse_face_orientations(poly->model);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+		mesh->OnFaceNormalsChanged();
+		return CGAL::Polygon_mesh_processing::reverse_face_orientations(mesh->model);
 	}
 
+	//Surface Mesh
+
+	static BOOL DoesBoundAVolume_SM(void* meshPtr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+		return CGAL::Polygon_mesh_processing::does_bound_a_volume(mesh->model);
+	}
+
+	static BOOL IsOutwardOriented_SM(void* meshPtr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+		return CGAL::Polygon_mesh_processing::is_outward_oriented(mesh->model);
+	}
+
+	static void Orient_SM(void* meshPtr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+		mesh->OnFaceNormalsChanged();
+		return CGAL::Polygon_mesh_processing::orient(mesh->model);
+	}
+
+	static void OrientToBoundAVolume_SM(void* meshPtr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+		mesh->OnFaceNormalsChanged();
+		return CGAL::Polygon_mesh_processing::orient_to_bound_a_volume(mesh->model);
+	}
+
+	static void ReverseFaceOrientations_SM(void* meshPtr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+		mesh->OnFaceNormalsChanged();
+		return CGAL::Polygon_mesh_processing::reverse_face_orientations(mesh->model);
+	}
 
 };

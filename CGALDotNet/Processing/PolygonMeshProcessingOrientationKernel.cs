@@ -10,14 +10,26 @@ namespace CGALDotNet.Processing
 
         internal abstract void Release(IntPtr ptr);
 
-        internal abstract bool DoesBoundAVolume(IntPtr polyPtr);
+        //Polyhedron 
+        internal abstract bool DoesBoundAVolume_PH(IntPtr polyPtr);
 
-        internal abstract bool IsOutwardOriented(IntPtr polyPtr);
+        internal abstract bool IsOutwardOriented_PH(IntPtr polyPtr);
 
-        internal abstract void Orient(IntPtr polyPtr);
+        internal abstract void Orient_PH(IntPtr polyPtr);
 
-        internal abstract void OrientToBoundAVolume(IntPtr polyPtr);
+        internal abstract void OrientToBoundAVolume_PH(IntPtr polyPtr);
 
-        internal abstract void ReverseFaceOrientations(IntPtr polyPtr);
+        internal abstract void ReverseFaceOrientations_PH(IntPtr polyPtr);
+
+        //Surface Mesh 
+        internal abstract bool DoesBoundAVolume_SM(IntPtr polyPtr);
+
+        internal abstract bool IsOutwardOriented_SM(IntPtr polyPtr);
+
+        internal abstract void Orient_SM(IntPtr polyPtr);
+
+        internal abstract void OrientToBoundAVolume_SM(IntPtr polyPtr);
+
+        internal abstract void ReverseFaceOrientations_SM(IntPtr polyPtr);
     }
 }

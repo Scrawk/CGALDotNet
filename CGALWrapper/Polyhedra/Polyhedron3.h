@@ -110,6 +110,18 @@ public:
 		OnFacesChanged();
 	}
 
+	void OnVertexNormalsChanged()
+	{
+		vertexNormalMap.clear();
+		rebuildVertexNormalMap = true;
+	}
+
+	void OnFaceNormalsChanged()
+	{
+		faceNormalMap.clear();
+		rebuildFaceNormalMap = true;
+	}
+
 	void OnVerticesChanged()
 	{
 		vertexIndexMap.clear();

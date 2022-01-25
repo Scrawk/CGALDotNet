@@ -21,29 +21,58 @@ namespace CGALDotNet.Processing
             PolygonMeshProcessingOrientation_EEK_Release(ptr);
         }
 
-        internal override bool DoesBoundAVolume(IntPtr polyPtr)
+        //Polyhedron
+
+        internal override bool DoesBoundAVolume_PH(IntPtr polyPtr)
         {
-            return PolygonMeshProcessingOrientation_EEK_DoesBoundAVolume(polyPtr);
+            return PolygonMeshProcessingOrientation_EEK_DoesBoundAVolume_PH(polyPtr);
         }
 
-        internal override bool IsOutwardOriented(IntPtr polyPtr)
+        internal override bool IsOutwardOriented_PH(IntPtr polyPtr)
         {
-            return PolygonMeshProcessingOrientation_EEK_IsOutwardOriented(polyPtr);
+            return PolygonMeshProcessingOrientation_EEK_IsOutwardOriented_PH(polyPtr);
         }
 
-        internal override void Orient(IntPtr polyPtr)
+        internal override void Orient_PH(IntPtr polyPtr)
         {
-            PolygonMeshProcessingOrientation_EEK_Orient(polyPtr);
+            PolygonMeshProcessingOrientation_EEK_Orient_PH(polyPtr);
         }
 
-        internal override void OrientToBoundAVolume(IntPtr polyPtr)
+        internal override void OrientToBoundAVolume_PH(IntPtr polyPtr)
         {
-            PolygonMeshProcessingOrientation_EEK_OrientToBoundAVolume(polyPtr);
+            PolygonMeshProcessingOrientation_EEK_OrientToBoundAVolume_PH(polyPtr);
         }
 
-        internal override void ReverseFaceOrientations(IntPtr polyPtr)
+        internal override void ReverseFaceOrientations_PH(IntPtr polyPtr)
         {
-            PolygonMeshProcessingOrientation_EEK_ReverseFaceOrientations(polyPtr);
+            PolygonMeshProcessingOrientation_EEK_ReverseFaceOrientations_PH(polyPtr);
+        }
+
+        //Surface Mesh
+
+        internal override bool DoesBoundAVolume_SM(IntPtr polyPtr)
+        {
+            return PolygonMeshProcessingOrientation_EEK_DoesBoundAVolume_SM(polyPtr);
+        }
+
+        internal override bool IsOutwardOriented_SM(IntPtr polyPtr)
+        {
+            return PolygonMeshProcessingOrientation_EEK_IsOutwardOriented_SM(polyPtr);
+        }
+
+        internal override void Orient_SM(IntPtr polyPtr)
+        {
+            PolygonMeshProcessingOrientation_EEK_Orient_SM(polyPtr);
+        }
+
+        internal override void OrientToBoundAVolume_SM(IntPtr polyPtr)
+        {
+            PolygonMeshProcessingOrientation_EEK_OrientToBoundAVolume_SM(polyPtr);
+        }
+
+        internal override void ReverseFaceOrientations_SM(IntPtr polyPtr)
+        {
+            PolygonMeshProcessingOrientation_EEK_ReverseFaceOrientations_SM(polyPtr);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -52,19 +81,38 @@ namespace CGALDotNet.Processing
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonMeshProcessingOrientation_EEK_Release(IntPtr ptr);
 
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingOrientation_EEK_DoesBoundAVolume(IntPtr polyPtr);
+        //Polyhedron
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingOrientation_EEK_IsOutwardOriented(IntPtr polyPtr);
+        private static extern bool PolygonMeshProcessingOrientation_EEK_DoesBoundAVolume_PH(IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void PolygonMeshProcessingOrientation_EEK_Orient(IntPtr polyPtr);
+        private static extern bool PolygonMeshProcessingOrientation_EEK_IsOutwardOriented_PH(IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void PolygonMeshProcessingOrientation_EEK_OrientToBoundAVolume(IntPtr polyPtr);
+        private static extern void PolygonMeshProcessingOrientation_EEK_Orient_PH(IntPtr polyPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void PolygonMeshProcessingOrientation_EEK_ReverseFaceOrientations(IntPtr polyPtr);
+        private static extern void PolygonMeshProcessingOrientation_EEK_OrientToBoundAVolume_PH(IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonMeshProcessingOrientation_EEK_ReverseFaceOrientations_PH(IntPtr polyPtr);
+
+        //Surface Mesh
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingOrientation_EEK_DoesBoundAVolume_SM(IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingOrientation_EEK_IsOutwardOriented_SM(IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonMeshProcessingOrientation_EEK_Orient_SM(IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonMeshProcessingOrientation_EEK_OrientToBoundAVolume_SM(IntPtr polyPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonMeshProcessingOrientation_EEK_ReverseFaceOrientations_SM(IntPtr polyPtr);
     }
 }

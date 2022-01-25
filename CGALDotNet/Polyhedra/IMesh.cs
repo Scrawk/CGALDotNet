@@ -48,6 +48,16 @@ namespace CGALDotNet.Polyhedra
         bool IsQuad { get; }
 
         /// <summary>
+        /// Is this a valid triangle mesh.
+        /// </summary>
+        bool IsValidTriangleMesh { get; }
+
+        /// <summary>
+        /// Is this a valid closed triangle mesh.
+        /// </summary>
+        bool IsValidClosedTriangleMesh { get; }
+
+        /// <summary>
         /// Clear the mesh.
         /// </summary>
         void Clear();
@@ -211,6 +221,11 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="builder"></param>
         void Print(StringBuilder builder);
+
+        /// <summary>
+        /// Reverses the orientation of the vertices in each face.
+        /// </summary>
+        void ReverseFaceOrientation();
 
     }
 }

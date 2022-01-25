@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Processing;
+using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Polyhedra
 {
@@ -63,6 +65,30 @@ namespace CGALDotNet.Polyhedra
         {
             IsUpdated = false;
             Kernel.Join(Ptr, other.Ptr);
+        }
+
+        /// <summary>
+        /// Orient the faces in the mesh.
+        /// </summary>
+        /// <param name="oriente">The orientation method.</param>
+        public override void Orient(ORIENTATE oriente)
+        {
+            try
+            {
+                IsUpdated = false;
+                var orient = PolygonMeshProcessingOrientation<K>.Instance;
+                orient.Orient(oriente, this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
+        /// <summary>
+        /// Reverses the orientation of the vertices in each face.
+        /// </summary>
+        public override void ReverseFaceOrientation()
+        {
+            Orient(ORIENTATE.REVERSE_FACE_ORIENTATIONS);
         }
     }
 
@@ -1048,6 +1074,17 @@ namespace CGALDotNet.Polyhedra
         {
             Kernel.GetFaceNormals(Ptr, normals, count);
         }
+
+        /// <summary>
+        /// Orient the faces in the mesh.
+        /// </summary>
+        /// <param name="orientate">The orientation method.</param>
+        public abstract void Orient(ORIENTATE orientate);
+
+        /// <summary>
+        /// Reverses the orientation of the vertices in each face.
+        /// </summary>
+        public abstract void ReverseFaceOrientation();
 
         /// <summary>
         /// Update the mesh if needed.

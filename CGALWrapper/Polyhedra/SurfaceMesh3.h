@@ -119,6 +119,24 @@ public:
 		faceNormalsComputed = false;
 	}
 
+	void OnModelChanged()
+	{
+		vertexNormalsComputed = false;
+		faceNormalsComputed = false;
+		DeleteTree();
+	}
+
+	void OnVertexNormalsChanged()
+	{
+		vertexNormalsComputed = false;
+		faceNormalsComputed = false;
+	}
+
+	void OnFaceNormalsChanged()
+	{
+		faceNormalsComputed = false;
+	}
+
 	void Clear()
 	{
 		vertexNormalsComputed = false;
