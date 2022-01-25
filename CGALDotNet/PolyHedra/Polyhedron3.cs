@@ -214,7 +214,7 @@ namespace CGALDotNet.Polyhedra
                 throw new InvalidOperationException("Mesh must be a valid closed mesh to create a dual mesh.");
 
             int faceCount = FaceCount;
-            var points = ArrayCache.Point3dArray(faceCount);
+            var points = new Point3d[faceCount];
             GetCentroids(points, faceCount);
 
             var count = GetDualFaceVertexCount();

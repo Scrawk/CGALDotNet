@@ -725,7 +725,13 @@ public:
 
 		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
 		{
-			auto count = vert->vertex_degree();
+			int count = 0;
+			auto start = vert->vertex_begin(), end = start;
+			CGAL_For_all(start, end)
+			{
+				count++;
+				if (count > 6) break;
+			}
 
 			switch (count)
 			{
@@ -860,7 +866,7 @@ public:
 				pentagons[pentagonIndex * 5 + 3] = i3;
 				pentagons[pentagonIndex * 5 + 4] = i4;
 
-				quadIndex++;
+				pentagonIndex++;
 			}
 			else if (count == 6 && hexagonIndex * 6 < hexagonCount)
 			{
@@ -885,7 +891,7 @@ public:
 				hexagons[hexagonIndex * 6 + 4] = i4;
 				hexagons[hexagonIndex * 6 + 5] = i5;
 
-				quadIndex++;
+				hexagonIndex++;
 			}
 		}
 	}
@@ -907,55 +913,52 @@ public:
 
 		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
 		{
-			auto hedgeb = vert->vertex_begin(), hedgee = hedgeb;
-
 			int count = 0;
-			CGAL_For_all(hedgeb, hedgee)
+			auto start = vert->vertex_begin(), end = start;
+			CGAL_For_all(start, end)
 			{
-				auto face = hedgeb->opposite()->face();
-
+				auto face = start->face();
 				indices[count++] = poly->FindFaceIndex(face);
-
 				if (count >= 6) break;
 			}
 
 			if (count == 3 && triangleIndex * 3 < triangleCount)
 			{
-				triangles[triangleIndex * 3 + 0] = indices[0];
+				triangles[triangleIndex * 3 + 0] = indices[2];
 				triangles[triangleIndex * 3 + 1] = indices[1];
-				triangles[triangleIndex * 3 + 2] = indices[2];
+				triangles[triangleIndex * 3 + 2] = indices[0];
 
 				triangleIndex++;
 			}
 			else if (count == 4 && quadIndex * 4 < quadCount)
 			{
-				quads[quadIndex * 4 + 0] = indices[0];
-				quads[quadIndex * 4 + 1] = indices[1];
-				quads[quadIndex * 4 + 2] = indices[2];
-				quads[quadIndex * 4 + 3] = indices[3];
+				quads[quadIndex * 4 + 0] = indices[3];
+				quads[quadIndex * 4 + 1] = indices[2];
+				quads[quadIndex * 4 + 2] = indices[1];
+				quads[quadIndex * 4 + 3] = indices[0];
 
 				quadIndex++;
 			}
 			else if (count == 5 && pentagonIndex * 5 < pentagonCount)
 			{
-				pentagons[pentagonIndex * 5 + 0] = indices[0];
-				pentagons[pentagonIndex * 5 + 1] = indices[1];
+				pentagons[pentagonIndex * 5 + 0] = indices[4];
+				pentagons[pentagonIndex * 5 + 1] = indices[3];
 				pentagons[pentagonIndex * 5 + 2] = indices[2];
-				pentagons[pentagonIndex * 5 + 3] = indices[3];
-				pentagons[pentagonIndex * 5 + 4] = indices[4];
+				pentagons[pentagonIndex * 5 + 3] = indices[1];
+				pentagons[pentagonIndex * 5 + 4] = indices[0];
 
-				quadIndex++;
+				pentagonIndex++;
 			}
 			else if (count == 6 && hexagonIndex * 6 < hexagonCount)
 			{
-				hexagons[hexagonIndex * 6 + 0] = indices[0];
-				hexagons[hexagonIndex * 6 + 1] = indices[1];
-				hexagons[hexagonIndex * 6 + 2] = indices[2];
-				hexagons[hexagonIndex * 6 + 3] = indices[3];
-				hexagons[hexagonIndex * 6 + 4] = indices[4];
-				hexagons[hexagonIndex * 6 + 5] = indices[5];
+				hexagons[hexagonIndex * 6 + 0] = indices[5];
+				hexagons[hexagonIndex * 6 + 1] = indices[4];
+				hexagons[hexagonIndex * 6 + 2] = indices[3];
+				hexagons[hexagonIndex * 6 + 3] = indices[2];
+				hexagons[hexagonIndex * 6 + 4] = indices[1];
+				hexagons[hexagonIndex * 6 + 5] = indices[0];
 
-				quadIndex++;
+				hexagonIndex++;
 			}
 
 		}

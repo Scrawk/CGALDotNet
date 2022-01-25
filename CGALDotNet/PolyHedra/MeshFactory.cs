@@ -202,12 +202,12 @@ namespace CGALDotNet.Polyhedra
 			}
 			else
 			{
-				triangles.AddTriangle(0, 2, 1); //face front
-				triangles.AddTriangle(0, 3, 2);
+				triangles.AddTriangle(0, 3, 1); //face front
+				triangles.AddTriangle(1, 3, 2);
 				triangles.AddTriangle(2, 3, 4); //face top
 				triangles.AddTriangle(2, 4, 5);
-				triangles.AddTriangle(1, 2, 5); //face right
-				triangles.AddTriangle(1, 5, 6);
+				triangles.AddTriangle(1, 2, 6); //face right
+				triangles.AddTriangle(2, 5, 6);
 				triangles.AddTriangle(0, 7, 4); //face left
 				triangles.AddTriangle(0, 4, 3);
 				triangles.AddTriangle(5, 4, 7); //face back

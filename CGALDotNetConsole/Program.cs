@@ -24,9 +24,11 @@ namespace CGALDotNetConsole
         {
 
             var param = PlaneParams.Default;
-            var mesh = PolyhedronFactory<EEK>.CreatePlane();
+            var mesh = PolyhedronFactory<EEK>.CreateIcosahedron();
 
             var dual = mesh.CreateDualMesh();
+
+            Console.WriteLine();
             dual.Print();
 
         }
