@@ -237,6 +237,11 @@ FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr)
 	return Polyhedron3<EEK>::GetFaceVertexCount(ptr);
 }
 
+FaceVertexCount Polyhedron3_EEK_GetDualFaceVertexCount(void* ptr)
+{
+	return Polyhedron3<EEK>::GetDualFaceVertexCount(ptr);
+}
+
 void Polyhedron3_EEK_CreatePolygonalMesh(void* ptr,
 	Point3d* points, int pointsCount,
 	int* triangles, int triangleCount,
@@ -264,6 +269,20 @@ void Polyhedron3_EEK_GetPolygonalIndices(void* ptr,
 		pentagons, pentagonCount,
 		hexagons, hexagonCount);
 }
+
+void Polyhedron3_EEK_GetDualPolygonalIndices(void* ptr,
+	int* triangles, int triangleCount,
+	int* quads, int quadCount,
+	int* pentagons, int pentagonCount,
+	int* hexagons, int hexagonCount)
+{
+	Polyhedron3<EEK>::GetDualPolygonalIndices(ptr,
+		triangles, triangleCount,
+		quads, quadCount,
+		pentagons, pentagonCount,
+		hexagons, hexagonCount);
+}
+
 
 
 

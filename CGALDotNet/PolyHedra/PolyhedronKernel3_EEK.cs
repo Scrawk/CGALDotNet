@@ -243,6 +243,11 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_GetFaceVertexCount(ptr);
         }
 
+		internal override FaceVertexCount GetDualFaceVertexCount(IntPtr ptr)
+		{
+			return Polyhedron3_EEK_GetDualFaceVertexCount(ptr);
+		}
+
 		internal override void CreatePolygonalMesh(IntPtr ptr,
 			Point3d[] points, int pointsCount,
 			int[] triangles, int triangleCount,
@@ -270,6 +275,19 @@ namespace CGALDotNet.Polyhedra
 				pentagons, pentagonCount, 
 				hexagons, hexagonCount);
         }
+
+		internal override void GetDualPolygonalIndices(IntPtr ptr,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount)
+		{
+			Polyhedron3_EEK_GetDualPolygonalIndices(ptr,
+				triangles, triangleCount,
+				quads, quadCount,
+				pentagons, pentagonCount,
+				hexagons, hexagonCount);
+		}
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
@@ -410,6 +428,9 @@ namespace CGALDotNet.Polyhedra
 		private static extern FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern FaceVertexCount Polyhedron3_EEK_GetDualFaceVertexCount(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_CreatePolygonalMesh(IntPtr ptr,
 			Point3d[] points, int pointsCount,
 			int[] triangles, int triangleCount,
@@ -419,6 +440,13 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetPolygonalIndices(IntPtr ptr,
+			[Out] int[] triangles, int triangleCount,
+			[Out] int[] quads, int quadCount,
+			[Out] int[] pentagons, int pentagonCount,
+			[Out] int[] hexagons, int hexagonCount);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetDualPolygonalIndices(IntPtr ptr,
 			[Out] int[] triangles, int triangleCount,
 			[Out] int[] quads, int quadCount,
 			[Out] int[] pentagons, int pentagonCount,

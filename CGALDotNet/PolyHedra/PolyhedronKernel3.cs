@@ -101,6 +101,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
 
+		internal abstract FaceVertexCount GetDualFaceVertexCount(IntPtr ptr);
+
 		internal abstract void CreatePolygonalMesh(IntPtr ptr,
 			Point3d[] points, int pointsCount,
 			int[] triangles, int triangleCount,
@@ -109,6 +111,12 @@ namespace CGALDotNet.Polyhedra
 			int[] hexagons, int hexagonCount);
 
 		internal abstract void GetPolygonalIndices(IntPtr ptr,
+			int[] triangles, int triangleCount,
+			int[] quads, int quadCount,
+			int[] pentagons, int pentagonCount,
+			int[] hexagons, int hexagonCount);
+
+		internal abstract void GetDualPolygonalIndices(IntPtr ptr,
 			int[] triangles, int triangleCount,
 			int[] quads, int quadCount,
 			int[] pentagons, int pentagonCount,

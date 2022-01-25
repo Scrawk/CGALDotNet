@@ -24,15 +24,31 @@ namespace CGALDotNetConsole
         {
 
             var param = PlaneParams.Default;
-
             var mesh = PolyhedronFactory<EEK>.CreateCube(1, true);
 
-            var centroids = new Point3d[mesh.FaceCount];
-            mesh.GetCentroids(centroids, centroids.Length);
+            var points = new Point3d[mesh.VertexCount];
+            mesh.GetPoints(points, points.Length);
 
-            foreach(var centroid in centroids)
-                Console.WriteLine(centroid);
+            var count = mesh.GetFaceVertexCount();
+            var indices = count.Indices();
+            mesh.GetPolygonalIndices(ref indices);
 
+            Console.WriteLine("Count " + count);
+            Console.WriteLine("Indices " + indices);
+
+            for(int i = 0; i < indices.quadCount / 4; i++)
+            {
+                int i0 = indices.quads[i * 4 + 0];
+                int i1 = indices.quads[i * 4 + 1];
+                int i2 = indices.quads[i * 4 + 2];
+                int i3 = indices.quads[i * 4 + 3];
+
+                Console.WriteLine(i0 + " " + i1 + " " + i2 + " " + i3);
+            }
+                
+            mesh.CreatePolygonalMesh(points, points.Length, indices);
+
+            mesh.Print();
         }
 
     }

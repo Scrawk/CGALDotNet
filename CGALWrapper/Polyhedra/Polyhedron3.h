@@ -712,6 +712,55 @@ public:
 		return { degenerate, three, four, five, six, greater };
 	}
 
+	static FaceVertexCount GetDualFaceVertexCount(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int degenerate = 0;
+		int three = 0;
+		int four = 0;
+		int five = 0;
+		int six = 0;
+		int greater = 0;
+
+		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
+		{
+
+			int count = vert->vertex_degree();
+
+			switch (count)
+			{
+			case 0:
+			case 1:
+			case 2:
+				degenerate++;
+				break;
+
+			case 3:
+				three++;
+				break;
+
+			case 4:
+				four++;
+				break;
+
+			case 5:
+				five++;
+				break;
+
+			case 6:
+				six++;
+				break;
+
+			default:
+				greater++;
+				break;
+			}
+		}
+
+		return { degenerate, three, four, five, six, greater };
+	}
+
 	static void CreatePolygonalMesh(void* ptr,
 		Point3d* points, int pointsCount,
 		int* triangles, int triangleCount,
@@ -839,7 +888,76 @@ public:
 
 				quadIndex++;
 			}
+		}
+	}
 
+	static void GetDualPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount)
+	{
+		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		poly->BuildVertexIndexMap();
+
+		int triangleIndex = 0;
+		int quadIndex = 0;
+		int pentagonIndex = 0;
+		int hexagonIndex = 0;
+		int indices[6];
+
+		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
+		{
+			Polyhedron3<EEK>::Vertex* v;
+			auto hedgeb = vert->vertex_begin(), hedgee = hedgeb;
+
+			int count = 0;
+			CGAL_For_all(hedgeb, hedgee)
+			{
+				v = &*(hedgeb->opposite()->vertex());
+				indices[count++] = poly->FindVertexIndex(v);
+
+				if (count >= 6) break;
+			}
+
+			if (count == 3 && triangleIndex * 3 < triangleCount)
+			{
+				triangles[triangleIndex * 3 + 0] = indices[0];
+				triangles[triangleIndex * 3 + 1] = indices[1];
+				triangles[triangleIndex * 3 + 2] = indices[2];
+
+				triangleIndex++;
+			}
+			else if (count == 4 && quadIndex * 4 < quadCount)
+			{
+				quads[quadIndex * 4 + 0] = indices[0];
+				quads[quadIndex * 4 + 1] = indices[1];
+				quads[quadIndex * 4 + 2] = indices[2];
+				quads[quadIndex * 4 + 3] = indices[3];
+
+				quadIndex++;
+			}
+			else if (count == 5 && pentagonIndex * 5 < pentagonCount)
+			{
+				pentagons[pentagonIndex * 5 + 0] = indices[0];
+				pentagons[pentagonIndex * 5 + 1] = indices[1];
+				pentagons[pentagonIndex * 5 + 2] = indices[2];
+				pentagons[pentagonIndex * 5 + 3] = indices[3];
+				pentagons[pentagonIndex * 5 + 4] = indices[4];
+
+				quadIndex++;
+			}
+			else if (count == 6 && hexagonIndex * 6 < hexagonCount)
+			{
+				hexagons[hexagonIndex * 6 + 0] = indices[0];
+				hexagons[hexagonIndex * 6 + 1] = indices[1];
+				hexagons[hexagonIndex * 6 + 2] = indices[2];
+				hexagons[hexagonIndex * 6 + 3] = indices[3];
+				hexagons[hexagonIndex * 6 + 4] = indices[4];
+				hexagons[hexagonIndex * 6 + 5] = indices[5];
+
+				quadIndex++;
+			}
 
 		}
 	}

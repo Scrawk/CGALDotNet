@@ -106,6 +106,8 @@ extern "C"
 
 	CGALWRAPPER_API FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr);
 
+	CGALWRAPPER_API FaceVertexCount Polyhedron3_EEK_GetDualFaceVertexCount(void* ptr);
+
 	CGALWRAPPER_API void Polyhedron3_EEK_CreatePolygonalMesh(void* ptr,
 		Point3d* points, int pointsCount,
 		int* triangles, int triangleCount,
@@ -114,6 +116,12 @@ extern "C"
 		int* hexagons, int hexagonCount);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_GetPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetDualPolygonalIndices(void* ptr,
 		int* triangles, int triangleCount,
 		int* quads, int quadCount,
 		int* pentagons, int pentagonCount,
