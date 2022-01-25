@@ -725,8 +725,7 @@ public:
 
 		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
 		{
-
-			int count = vert->vertex_degree();
+			auto count = vert->vertex_degree();
 
 			switch (count)
 			{
@@ -898,7 +897,7 @@ public:
 		int* hexagons, int hexagonCount)
 	{
 		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
-		poly->BuildVertexIndexMap();
+		poly->BuildFaceIndexMap();
 
 		int triangleIndex = 0;
 		int quadIndex = 0;
@@ -908,14 +907,14 @@ public:
 
 		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
 		{
-			Polyhedron3<EEK>::Vertex* v;
 			auto hedgeb = vert->vertex_begin(), hedgee = hedgeb;
 
 			int count = 0;
 			CGAL_For_all(hedgeb, hedgee)
 			{
-				v = &*(hedgeb->opposite()->vertex());
-				indices[count++] = poly->FindVertexIndex(v);
+				auto face = hedgeb->opposite()->face();
+
+				indices[count++] = poly->FindFaceIndex(face);
 
 				if (count >= 6) break;
 			}

@@ -201,6 +201,32 @@ namespace CGALDotNet.Polyhedra
             CreatePolygonMesh(points, points.Length, xz);  
         }
 
+        /// <summary>
+        /// Create the dual mesh where each face becomes a vertex
+        /// and each vertex becomes a face.
+        /// Must be a valid closed mesh to create the dual.
+        /// </summary>
+        /// <returns>The duel mesh.</returns>
+        /// <exception cref="InvalidOperationException">Is thrown if the mesh is not a valid closed mesh.</exception>
+        public Polyhedron3<K> CreateDualMesh()
+        {
+            if (!IsValidClosedMesh)
+                throw new InvalidOperationException("Mesh must be a valid closed mesh to create a dual mesh.");
+
+            int faceCount = FaceCount;
+            var points = ArrayCache.Point3dArray(faceCount);
+            GetCentroids(points, faceCount);
+
+            var count = GetDualFaceVertexCount();
+            var indices = count.Indices();
+            GetDualPolygonalIndices(ref indices);
+
+            var dual = new Polyhedron3<K>();
+            dual.CreatePolygonalMesh(points, points.Length, indices);
+
+            return dual;
+        }
+
     }
 
     /// <summary>
@@ -346,6 +372,11 @@ namespace CGALDotNet.Polyhedra
         /// Is the mesh a valid triangle mesh.
         /// </summary>
         public bool IsValidTriangleMesh => IsValid && IsTriangle;
+
+        /// <summary>
+        /// Is the mesh a valid closed mesh.
+        /// </summary>
+        public bool IsValidClosedMesh => IsValid && IsClosed;
 
         /// <summary>
         /// Is the mesh a valid closed triangle mesh.

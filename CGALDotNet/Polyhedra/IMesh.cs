@@ -53,6 +53,11 @@ namespace CGALDotNet.Polyhedra
         bool IsValidTriangleMesh { get; }
 
         /// <summary>
+        /// Is this a valid closed mesh.
+        /// </summary>
+        bool IsValidClosedMesh { get; }
+
+        /// <summary>
         /// Is this a valid closed triangle mesh.
         /// </summary>
         bool IsValidClosedTriangleMesh { get; }
