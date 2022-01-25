@@ -206,7 +206,7 @@ namespace CGALDotNet.Polyhedra
     /// <summary>
     /// The abstract polyhedra definition.
     /// </summary>
-    public abstract class Polyhedron3 : CGALObject
+    public abstract class Polyhedron3 : CGALObject, IMesh
     {
         /// <summary>
         /// Cached values found by running Update.
@@ -521,7 +521,7 @@ namespace CGALDotNet.Polyhedra
             if (hasTriangles && hasQuads)
                 GetTriangleQuadIndices(triangles, triangles.Length, quads, quads.Length);
             else if (hasTriangles)
-                GetTrianglIndices(triangles, triangles.Length);
+                GetTriangleIndices(triangles, triangles.Length);
             else if (hasQuads)
                 GetQuadIndices(quads, quads.Length);
         }
@@ -531,7 +531,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="triangles">The meshes triangles.</param>
         /// <param name="trianglesCount">The triangle array length.</param>
-        public void GetTrianglIndices(int[] triangles, int trianglesCount)
+        public void GetTriangleIndices(int[] triangles, int trianglesCount)
         {
             ErrorUtil.CheckArray(triangles, trianglesCount);
             Kernel.GetPolygonalIndices(Ptr, triangles, trianglesCount, null, 0, null, 0, null, 0);

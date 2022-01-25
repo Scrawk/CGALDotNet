@@ -135,17 +135,17 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void GetCentroids(IntPtr ptr, Point3d[] points, int count);
 
-        //internal abstract void ClearVertexNormalMap(IntPtr ptr);
+        internal abstract void ClearVertexNormalMap(IntPtr ptr);
 
-        //internal abstract void ClearFaceNormalMap(IntPtr ptr);
+        internal abstract void ClearFaceNormalMap(IntPtr ptr);
 
-        //internal abstract void ComputeVertexNormals(IntPtr ptr);
+        internal abstract void ComputeVertexNormals(IntPtr ptr);
 
-        //internal abstract void ComputeFaceNormals(IntPtr ptr);
+        internal abstract void ComputeFaceNormals(IntPtr ptr);
 
-        //internal abstract void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count);
+        internal abstract void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count);
 
-        //internal abstract void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count);
+        internal abstract void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count);
 
     }
 }

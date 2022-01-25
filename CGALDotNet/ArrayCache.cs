@@ -25,7 +25,7 @@ namespace CGALDotNet
         private static HPoint3d[] m_hpoints3d;
 
         [ThreadStatic]
-        private static int[] m_int;
+        private static int[] m_int1, m_int2;
 
         public void Clear()
         {
@@ -33,7 +33,8 @@ namespace CGALDotNet
             m_segments2d = null;
             m_points3d = null;
             m_hpoints3d = null;
-            m_int = null;
+            m_int1 = null;
+            m_int2 = null;
         }
 
         /// <summary>
@@ -41,10 +42,13 @@ namespace CGALDotNet
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
         /// <returns>Returns a array of Point2d objects that is at least the size of count.</returns>
-        public static Point2d[] Point2dArray(int count)
+        public static Point2d[] Point2dArray(int count, bool clear = false)
         {
             if(m_points2d == null || m_points2d.Length < count)
                 m_points2d = new Point2d[count];
+
+            if(clear)
+                Array.Clear(m_points3d, 0, m_points3d.Length);
 
             return m_points2d;
         }
@@ -54,10 +58,13 @@ namespace CGALDotNet
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
         /// <returns>Returns a array of Segment2d objects that is at least the size of count.</returns>
-        public static Segment2d[] Segment2dArray(int count)
+        public static Segment2d[] Segment2dArray(int count, bool clear = false)
         {
             if (m_segments2d == null || m_segments2d.Length < count)
                 m_segments2d = new Segment2d[count];
+
+            if (clear)
+                Array.Clear(m_segments2d, 0, m_segments2d.Length);
 
             return m_segments2d;
         }
@@ -67,10 +74,13 @@ namespace CGALDotNet
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
         /// <returns>Returns a array of Point3d objects that is at least the size of count.</returns>
-        public static Point3d[] Point3dArray(int count)
+        public static Point3d[] Point3dArray(int count, bool clear = false)
         {
             if (m_points3d == null || m_points3d.Length < count)
                 m_points3d = new Point3d[count];
+
+            if (clear)
+                Array.Clear(m_points3d, 0, m_points3d.Length);
 
             return m_points3d;
         }
@@ -80,10 +90,13 @@ namespace CGALDotNet
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
         /// <returns>Returns a array of HPoint3d objects that is at least the size of count.</returns>
-        public static HPoint3d[] HPoint3dArray(int count)
+        public static HPoint3d[] HPoint3dArray(int count, bool clear = false)
         {
             if (m_hpoints3d == null || m_hpoints3d.Length < count)
                 m_hpoints3d = new HPoint3d[count];
+
+            if (clear)
+                Array.Clear(m_hpoints3d, 0, m_hpoints3d.Length);
 
             return m_hpoints3d;
         }
@@ -93,12 +106,31 @@ namespace CGALDotNet
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
         /// <returns>Returns a array of ints that is at least the size of count.</returns>
-        public static int[] IntArray(int count)
+        public static int[] IntArray1(int count, bool clear = false)
         {
-            if (m_int == null || m_int.Length < count)
-                m_int = new int[count];
+            if (m_int1 == null || m_int1.Length < count)
+                m_int1 = new int[count];
 
-            return m_int;
+            if (clear)
+                Array.Clear(m_int1, 0, m_int1.Length);
+
+            return m_int1;
+        }
+
+        /// <summary>
+        /// Returns a array of ints that is at least the size of count.
+        /// </summary>
+        /// <param name="count">The minimum size of the array.</param>
+        /// <returns>Returns a array of ints that is at least the size of count.</returns>
+        public static int[] IntArray2(int count, bool clear = false)
+        {
+            if (m_int2 == null || m_int2.Length < count)
+                m_int2 = new int[count];
+
+            if (clear)
+                Array.Clear(m_int2, 0, m_int2.Length);
+
+            return m_int2;
         }
 
     }

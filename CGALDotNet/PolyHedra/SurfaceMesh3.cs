@@ -69,7 +69,7 @@ namespace CGALDotNet.Polyhedra
     /// <summary>
     /// The surface mesh abstract base class.
     /// </summary>
-    public abstract class SurfaceMesh3 : CGALObject
+    public abstract class SurfaceMesh3 : CGALObject, IMesh
     {
         /// <summary>
         /// Cached values found by running Update.
@@ -654,7 +654,7 @@ namespace CGALDotNet.Polyhedra
             if (hasTriangles && hasQuads)
                 GetTriangleQuadIndices(triangles, triangles.Length, quads, quads.Length);
             else if (hasTriangles)
-                GetTrianglIndices(triangles, triangles.Length);
+                GetTriangleIndices(triangles, triangles.Length);
             else if (hasQuads)
                 GetQuadIndices(quads, quads.Length);
         }
@@ -664,7 +664,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="triangles">The meshes triangles.</param>
         /// <param name="trianglesCount">The triangle array length.</param>
-        public void GetTrianglIndices(int[] triangles, int trianglesCount)
+        public void GetTriangleIndices(int[] triangles, int trianglesCount)
         {
             ErrorUtil.CheckArray(triangles, trianglesCount);
             Kernel.GetTriangleQuadIndices(Ptr, triangles, trianglesCount, null, 0);
@@ -987,6 +987,66 @@ namespace CGALDotNet.Polyhedra
         {
             ErrorUtil.CheckArray(points, count);
             Kernel.GetCentroids(Ptr, points, count);
+        }
+
+        /// <summary>
+        /// Clear the vertex normal map.
+        /// </summary>
+        public void ClearVertexNormalMap()
+        {
+            Kernel.ClearVertexNormalMap(Ptr);
+        }
+
+        /// <summary>
+        /// Clear the face normal map.
+        /// </summary>
+        public void ClearFaceNormalMap()
+        {
+            Kernel.ClearFaceNormalMap(Ptr);
+        }
+
+        /// <summary>
+        /// Compute the vertex normal map.
+        /// Will only be computed if mesh has
+        /// changed since last computation or 
+        /// no current nomral maps have been computed.
+        /// </summary>
+        public void ComputeVertexNormals()
+        {
+            Kernel.ComputeVertexNormals(Ptr);
+        }
+
+        /// <summary>
+        /// Compute the face normal map.
+        /// Will only be computed if mesh has
+        /// changed since last computation or 
+        /// no current nomral maps have been computed.
+        /// </summary>
+        public void ComputeFaceNormals()
+        {
+            Kernel.ComputeFaceNormals(Ptr);
+        }
+
+        /// <summary>
+        /// Get the vertex normals.
+        /// Will be compute if they have not aready.
+        /// </summary>
+        /// <param name="normals">The normal map array.</param>
+        /// <param name="count">The normal maps array length.</param>
+        public void GetVertexNormals(Vector3d[] normals, int count)
+        {
+            Kernel.GetVertexNormals(Ptr, normals, count);
+        }
+
+        /// <summary>
+        /// Get the face normals.
+        /// Will be compute if they have not aready.
+        /// </summary>
+        /// <param name="normals">The normal map array.</param>
+        /// <param name="count">The normal maps array length.</param>
+        public void GetFaceNormals(Vector3d[] normals, int count)
+        {
+            Kernel.GetFaceNormals(Ptr, normals, count);
         }
 
         /// <summary>

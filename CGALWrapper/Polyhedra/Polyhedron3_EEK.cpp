@@ -258,7 +258,11 @@ void Polyhedron3_EEK_GetPolygonalIndices(void* ptr,
 	int* pentagons, int pentagonCount,
 	int* hexagons, int hexagonCount)
 {
-
+	Polyhedron3<EEK>::GetPolygonalIndices(ptr,
+		triangles, triangleCount,
+		quads, quadCount,
+		pentagons, pentagonCount,
+		hexagons, hexagonCount);
 }
 
 

@@ -419,9 +419,9 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_GetPolygonalIndices(IntPtr ptr,
-			int[] triangles, int triangleCount,
-			int[] quads, int quadCount,
-			int[] pentagons, int pentagonCount,
-			int[] hexagons, int hexagonCount);
+			[Out] int[] triangles, int triangleCount,
+			[Out] int[] quads, int quadCount,
+			[Out] int[] pentagons, int pentagonCount,
+			[Out] int[] hexagons, int hexagonCount);
 	}
 }

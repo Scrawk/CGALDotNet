@@ -323,7 +323,40 @@ namespace CGALDotNet.Polyhedra
             return SurfaceMesh3_EEK_MinMaxEdgeLength(ptr);
         }
 
-        internal override void GetCentroids(IntPtr ptr, Point3d[] points, int count){ }
+        internal override void GetCentroids(IntPtr ptr, Point3d[] points, int count) 
+        { 
+            SurfaceMesh3_EEK_GetCentroids(ptr, points, count);  
+        }
+
+        internal override void ClearVertexNormalMap(IntPtr ptr)
+        {
+            SurfaceMesh3_EEK_ClearVertexNormalMap(ptr);
+        }
+
+        internal override void ClearFaceNormalMap(IntPtr ptr)
+        {
+            SurfaceMesh3_EEK_ClearFaceNormalMap(ptr);
+        }
+
+        internal override void ComputeVertexNormals(IntPtr ptr)
+        {
+            SurfaceMesh3_EEK_ComputeVertexNormals(ptr);
+        }
+
+        internal override void ComputeFaceNormals(IntPtr ptr)
+        {
+            SurfaceMesh3_EEK_ComputeFaceNormals(ptr);
+        }
+
+        internal override void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count)
+        {
+            SurfaceMesh3_EEK_GetVertexNormals(ptr, normals, count);
+        }
+
+        internal override void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count)
+        {
+            SurfaceMesh3_EEK_GetFaceNormals(ptr, normals, count);
+        }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr SurfaceMesh3_EEK_Create();
@@ -513,6 +546,24 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_GetCentroids(IntPtr ptr, [Out] Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ClearVertexNormalMap(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ClearFaceNormalMap(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ComputeVertexNormals(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ComputeFaceNormals(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetVertexNormals(IntPtr ptr, [Out] Vector3d[] normals, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetFaceNormals(IntPtr ptr, [Out] Vector3d[] normals, int count);
 
     }
 }

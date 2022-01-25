@@ -42,7 +42,7 @@ public:
 	typedef typename SurfaceMesh::Halfedge_index Halfedge;
 	typedef typename SurfaceMesh::Vertex_index Vertex;
 	typedef typename SurfaceMesh::Face_index Face;
-;
+
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<SurfaceMesh> AABB_face_graph_primitive;
 	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
 	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
