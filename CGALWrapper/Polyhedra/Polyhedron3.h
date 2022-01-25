@@ -597,27 +597,30 @@ public:
 	static Point ComputeCentroid(const Face& face)
 	{
 		int num = 0;
-		Point centroid = { 0, 0, 0 };
+		
+		FT x = 0;
+		FT y = 0;
+		FT z = 0;
 
 		auto hedge = face.facet_begin();
 		do
 		{
 			auto p = hedge->vertex()->point();
-			centroid.x() = centroid.x() + p.x();
-			centroid.y() = centroid.y() + p.y();
-			centroid.z() = centroid.z() + p.z();
+			x += p.x();
+			y += p.y();
+			z += p.z();
 			num++;
 		} 
 		while (++hedge != face.facet_begin());
 
 		if (num != 0)
 		{
-			centroid.x() = centroid.x() / num;
-			centroid.y() = centroid.y() / num;
-			centroid.z() = centroid.z() / num;
+			x /= num;
+			y /= num;
+			z /= num;
 		}
 
-		return centroid;
+		return { x, y, z };
 	}
 
 	static int CountFaceVertices(const Face& face)

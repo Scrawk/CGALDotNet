@@ -6,6 +6,8 @@
 #include "CGAL/Vector_2.h"
 #include "CGAL/Segment_2.h"
 
+#include <iostream>
+
 /*
 * Structs to pass data from C# and c++.
 * Must be c style layout.
@@ -98,6 +100,11 @@ struct Point2d
         return { x * rhs , y * rhs };
     }
 
+    friend std::ostream& operator<<(std::ostream& output, const Point2d& rhs) {
+        output << "(" << rhs.x << ", " << rhs.y << ")";
+        return output;
+    }
+
 };
 
 struct Vector2d
@@ -133,6 +140,11 @@ struct Vector2d
     bool operator!=(const Vector2d& rhs) const
     {
         return !operator==(rhs);
+    }
+
+    friend std::ostream& operator<<(std::ostream& output, const Vector2d& rhs) {
+        output << "(" << rhs.x << ", " << rhs.y << ")";
+        return output;
     }
 
 };

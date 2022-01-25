@@ -120,4 +120,10 @@ namespace CGALDotNet
         UNDETERMINED = 2
     }
 
+    public enum MESH_TYPE
+    {
+        POLYHEDRON,
+        SURFACE_MESH
+    }
+
 }

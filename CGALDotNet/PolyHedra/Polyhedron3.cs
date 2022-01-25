@@ -1067,11 +1067,6 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("IsBivalent = " + FindIfBivalent());
             builder.AppendLine("IsTrivalent = " + FindIfTrivalent());
             builder.AppendLine("DoesBoundAVolume = " + FindIfDoesBoundAVolume());
-
-            var minmax = FindMinMaxEdgeLength();
-            builder.AppendLine("MinEdgeLength = " + minmax.Min);
-            builder.AppendLine("MaxEdgeLength = " + minmax.Max);
-            builder.AppendLine("AverageEdgeLength = " + minmax.Average);
         }
 
         /// <summary>

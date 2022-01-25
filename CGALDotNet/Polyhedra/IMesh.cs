@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polyhedra
 {
-    interface IMesh
+    public interface IMesh
     {
 
         /// <summary>
@@ -193,6 +193,24 @@ namespace CGALDotNet.Polyhedra
         /// Make all faces triangles.
         /// </summary>
         void Triangulate();
+
+        /// <summary>
+        /// Read data from a off file into the pollyhedron.
+        /// </summary>
+        /// <param name="filename">The files name.</param>
+        void ReadOFF(string filename);
+
+        /// <summary>
+        /// Write data from a off file into the pollyhedron.
+        /// </summary>
+        /// <param name="filename">The files name.</param>
+        void WriteOFF(string filename);
+
+        /// <summary>
+        /// Print the mesh into a string builder.
+        /// </summary>
+        /// <param name="builder"></param>
+        void Print(StringBuilder builder);
 
     }
 }

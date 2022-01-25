@@ -27,21 +27,12 @@ namespace CGALDotNetConsole
 
             var mesh = PolyhedronFactory<EEK>.CreateCube(1, true);
 
-            //var indices = new int[mesh.FaceCount * 3];
-            //mesh.GetTriangleIndices(indices, indices.Length);
+            var centroids = new Point3d[mesh.FaceCount];
+            mesh.GetCentroids(centroids, centroids.Length);
 
-            var indices = new int[mesh.FaceCount * 4];
-            mesh.GetQuadIndices(indices, indices.Length);
+            foreach(var centroid in centroids)
+                Console.WriteLine(centroid);
 
-            for(int i = 0; i < indices.Length / 4; i++)
-            {
-                int i0 = indices[i * 4 + 0];
-                int i1 = indices[i * 4 + 1];
-                int i2 = indices[i * 4 + 2];
-                int i3 = indices[i * 4 + 3];
-
-                Console.WriteLine(i0 + " " + i1 + " " + i2 + " " + i3);
-            }
         }
 
     }

@@ -6,6 +6,8 @@
 #include <CGAL/Plane_3.h>
 #include <CGAL/Bbox_3.h>
 
+#include <iostream>
+
 /*
 * Structs to pass data from C# and c++.
 * Must be c style layout.
@@ -103,6 +105,11 @@ struct Point3d
         return { x * rhs , y * rhs, z * rhs };
     }
 
+    friend std::ostream& operator<<(std::ostream& output, const Point3d& rhs) {
+        output << "(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")";
+        return output;
+    }
+
 };
 
 //used to represent a weighted or homogenous point.
@@ -159,6 +166,11 @@ struct HPoint3d
         return { x * rhs , y * rhs, z * rhs, w * rhs };
     }
 
+    friend std::ostream& operator<<(std::ostream& output, const HPoint3d& rhs) {
+        output << "(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w << ")";
+        return output;
+    }
+
 };
 
 struct Vector3d
@@ -196,6 +208,11 @@ struct Vector3d
     bool operator!=(const Vector3d& rhs) const
     {
         return !operator==(rhs);
+    }
+
+    friend std::ostream& operator<<(std::ostream& output, const Vector3d& rhs) {
+        output << "(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ")";
+        return output;
     }
 
 };
