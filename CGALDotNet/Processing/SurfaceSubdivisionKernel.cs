@@ -10,10 +10,22 @@ namespace CGALDotNet.Processing
 
         internal abstract void Release(IntPtr ptr);
 
-        internal abstract void SubdivePolyhedron_CatmullClark(IntPtr polyPtr, int iterations);
+        //Polyhedron
 
-        internal abstract void SubdivePolyhedron_Loop(IntPtr polyPtr, int iterations);
+        internal abstract void Subdive_CatmullClark_PH(IntPtr polyPtr, int iterations);
 
-        internal abstract void SubdivePolyhedron_Sqrt3(IntPtr polyPtr, int iterations);
+        internal abstract void Subdive_Loop_PH(IntPtr polyPtr, int iterations);
+
+        internal abstract void Subdive_Sqrt3_PH(IntPtr polyPtr, int iterations);
+
+        //Surface Mesh
+
+        internal abstract void Subdive_CatmullClark_SM(IntPtr polyPtr, int iterations);
+
+        internal abstract void Subdive_DoSabin_SM(IntPtr polyPtr, int iterations);
+
+        internal abstract void Subdive_Loop_SM(IntPtr polyPtr, int iterations);
+
+        internal abstract void Subdive_Sqrt3_SM(IntPtr polyPtr, int iterations);
     }
 }

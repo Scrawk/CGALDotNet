@@ -177,6 +177,7 @@
     <ClInclude Include="Polylines\Polyline2.h" />
     <ClInclude Include="Polylines\Polyline3.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingSlicer.h" />
+    <ClInclude Include="Processing\SurfaceSimplification_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h" />
     <ClInclude Include="Geometry\MinMax.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingConnections_EEK.h" />
@@ -194,8 +195,6 @@
     <ClInclude Include="Processing\SurfaceSimplification.h" />
     <ClInclude Include="Processing\SurfaceSubdivision.h" />
     <ClInclude Include="Processing\SurfaceSubdivision_EEK.h" />
-    <ClInclude Include="Processing\SurfaceSimplification_EIK.h" />
-    <ClInclude Include="Processing\SurfaceSubdivision_EIK.h" />
     <ClInclude Include="Triangulations\BaseTriangulation2.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation3_EEK.h" />
@@ -290,7 +289,6 @@
     <ClCompile Include="Processing\PolygonMeshProcessingRepair_EEK.cpp" />
     <ClCompile Include="Processing\SurfaceSubdivision_EEK.cpp" />
     <ClCompile Include="Processing\SurfaceSimplification_EIK.cpp" />
-    <ClCompile Include="Processing\SurfaceSubdivision_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation3_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull3_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EIK.cpp" />

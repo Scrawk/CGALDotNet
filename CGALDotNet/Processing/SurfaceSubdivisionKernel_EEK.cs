@@ -20,19 +20,43 @@ namespace CGALDotNet.Processing
             SurfaceSubdivision_EEK_Release(ptr);
         }
 
-        internal override void SubdivePolyhedron_CatmullClark(IntPtr polyPtr, int iterations)
+        //Polyhedron
+
+        internal override void Subdive_CatmullClark_PH(IntPtr polyPtr, int iterations)
         {
-            SurfaceSubdivision_EEK_SubdivePolyhedron_CatmullClark(polyPtr, iterations);
+            SurfaceSubdivision_EEK_Subdive_CatmullClark_PH(polyPtr, iterations);
         }
 
-        internal override void SubdivePolyhedron_Loop(IntPtr polyPtr, int iterations)
+        internal override void Subdive_Loop_PH(IntPtr polyPtr, int iterations)
         {
-            SurfaceSubdivision_EEK_SubdivePolyhedron_Loop(polyPtr, iterations);
+            SurfaceSubdivision_EEK_Subdive_Loop_PH(polyPtr, iterations);
         }
 
-        internal override void SubdivePolyhedron_Sqrt3(IntPtr polyPtr, int iterations)
+        internal override void Subdive_Sqrt3_PH(IntPtr polyPtr, int iterations)
         {
-            SurfaceSubdivision_EEK_SubdivePolyhedron_Sqrt3(polyPtr, iterations);
+            SurfaceSubdivision_EEK_Subdive_Sqrt3_PH(polyPtr, iterations);
+        }
+
+        //Surface Mesh
+
+        internal override void Subdive_CatmullClark_SM(IntPtr polyPtr, int iterations)
+        {
+            SurfaceSubdivision_EEK_Subdive_CatmullClark_SM(polyPtr, iterations);
+        }
+
+        internal override void Subdive_DoSabin_SM(IntPtr polyPtr, int iterations)
+        {
+            SurfaceSubdivision_EEK_Subdive_DoSabin_SM(polyPtr, iterations);
+        }
+
+        internal override void Subdive_Loop_SM(IntPtr polyPtr, int iterations)
+        {
+            SurfaceSubdivision_EEK_Subdive_Loop_SM(polyPtr, iterations);
+        }
+
+        internal override void Subdive_Sqrt3_SM(IntPtr polyPtr, int iterations)
+        {
+            SurfaceSubdivision_EEK_Subdive_Sqrt3_SM(polyPtr, iterations);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -41,13 +65,29 @@ namespace CGALDotNet.Processing
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceSubdivision_EEK_Release(IntPtr ptr);
 
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceSubdivision_EEK_SubdivePolyhedron_CatmullClark(IntPtr polyPtr, int iterations);
+        //Polyhedron
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceSubdivision_EEK_SubdivePolyhedron_Loop(IntPtr polyPtr, int iterations);
+        private static extern void SurfaceSubdivision_EEK_Subdive_CatmullClark_PH(IntPtr polyPtr, int iterations);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceSubdivision_EEK_SubdivePolyhedron_Sqrt3(IntPtr polyPtr, int iterations);
+        private static extern void SurfaceSubdivision_EEK_Subdive_Loop_PH(IntPtr polyPtr, int iterations);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceSubdivision_EEK_Subdive_Sqrt3_PH(IntPtr polyPtr, int iterations);
+
+        //Surface Mesh
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceSubdivision_EEK_Subdive_CatmullClark_SM(IntPtr polyPtr, int iterations);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceSubdivision_EEK_Subdive_DoSabin_SM(IntPtr polyPtr, int iterations);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceSubdivision_EEK_Subdive_Loop_SM(IntPtr polyPtr, int iterations);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceSubdivision_EEK_Subdive_Sqrt3_SM(IntPtr polyPtr, int iterations);
     }
 }

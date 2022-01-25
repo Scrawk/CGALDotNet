@@ -318,12 +318,6 @@
     <ClInclude Include="Processing\SurfaceSimplification.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\SurfaceSimplification_EIK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Processing\SurfaceSubdivision_EIK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Polyhedra\FaceVertexCount.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -394,6 +388,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Processing\PolygonMeshProcessingFeatures_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing\SurfaceSimplification_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -522,9 +519,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\SurfaceSimplification_EIK.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Processing\SurfaceSubdivision_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\PolygonMeshProcessingMeshing_EEK.cpp">

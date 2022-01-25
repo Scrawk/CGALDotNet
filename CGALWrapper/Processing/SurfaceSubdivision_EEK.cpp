@@ -11,22 +11,46 @@ void SurfaceSubdivision_EEK_Release(void* ptr)
 	SurfaceSubdivision<EEK>::DeleteSurfaceSubdivision(ptr);
 }
 
-void SurfaceSubdivision_EEK_SubdivePolyhedron_CatmullClark(void* polyPtr, int iterations)
+//
+
+void SurfaceSubdivision_EEK_Subdive_CatmullClark_PH(void* meshPtr, int iterations)
 {
-	SurfaceSubdivision<EEK>::SubdivePolyhedron_CatmullClark(polyPtr, iterations);
+	SurfaceSubdivision<EEK>::Subdive_CatmullClark_PH(meshPtr, iterations);
 }
 
-void SurfaceSubdivision_EEK_SubdivePolyhedron_Loop(void* polyPtr, int iterations)
+void SurfaceSubdivision_EEK_Subdive_Loop_PH(void* meshPtr, int iterations)
 {
-	SurfaceSubdivision<EEK>::SubdivePolyhedron_Loop(polyPtr, iterations);
+	SurfaceSubdivision<EEK>::Subdive_Loop_PH(meshPtr, iterations);
 }
 
-void SurfaceSubdivision_EEK_SubdivePolyhedron_Sqrt3(void* polyPtr, int iterations)
+void SurfaceSubdivision_EEK_Subdive_Sqrt3_PH(void* meshPtr, int iterations)
 {
-	SurfaceSubdivision<EEK>::SubdivePolyhedron_Sqrt3(polyPtr, iterations);
+	SurfaceSubdivision<EEK>::Subdive_Sqrt3_PH(meshPtr, iterations);
 }
 
-void SurfaceSubdivision_EEK_SubdivePolyhedron_DooSabin(void* polyPtr, int iterations)
+void SurfaceSubdivision_EEK_Subdive_DooSabin_PH(void* meshPtr, int iterations)
 {
-	SurfaceSubdivision<EEK>::SubdivePolyhedron_DooSabin(polyPtr, iterations);
+	SurfaceSubdivision<EEK>::Subdive_DooSabin_PH(meshPtr, iterations);
+}
+
+//Surface Mesh
+
+void SurfaceSubdivision_EEK_Subdive_CatmullClark_SM(void* meshPtr, int iterations)
+{
+	SurfaceSubdivision<EEK>::Subdive_CatmullClark_SM(meshPtr, iterations);
+}
+
+void SurfaceSubdivision_EEK_Subdive_Loop_SM(void* meshPtr, int iterations)
+{
+	SurfaceSubdivision<EEK>::Subdive_Loop_SM(meshPtr, iterations);
+}
+
+void SurfaceSubdivision_EEK_Subdive_Sqrt3_SM(void* meshPtr, int iterations)
+{
+	SurfaceSubdivision<EEK>::Subdive_Loop_SM(meshPtr, iterations);
+}
+
+void SurfaceSubdivision_EEK_Subdive_DooSabin_SM(void* meshPtr, int iterations)
+{
+	SurfaceSubdivision<EEK>::Subdive_Loop_SM(meshPtr, iterations);
 }

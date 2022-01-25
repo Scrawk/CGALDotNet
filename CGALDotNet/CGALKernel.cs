@@ -146,7 +146,7 @@ namespace CGALDotNet
 
         internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => throw new NotImplementedException();
 
-        internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => SurfaceSubdivisionKernel_EIK.Instance;
+        internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => throw new NotImplementedException();
 
         internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => SurfaceSimplificationKernel_EIK.Instance;
 
