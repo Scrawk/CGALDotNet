@@ -43,6 +43,141 @@ namespace CGALDotNet.Processing
             return string.Format("[SubdivisionSurface<{0}>: ]", Kernel.KernelName);
         }
 
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="mesh">A valid mesh. Must be a triangle mesh for loop or sqrt3.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide(SUBDIVISION_METHOD method, Polyhedron3<K> mesh, int iterations)
+        {
+            switch (method)
+            {
+                case SUBDIVISION_METHOD.CATMULL_CLARK:
+                    Subdivide_CatmullClark(mesh, iterations);
+                    break;
+                case SUBDIVISION_METHOD.LOOP:
+                    Subdivide_Loop(mesh, iterations);
+                    break;
+                case SUBDIVISION_METHOD.SQRT3:
+                    Subdivide_Sqrt3(mesh, iterations);
+                    break;
+                default:
+                    Subdivide_Sqrt3(mesh, iterations);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="mesh">A valid mesh. Must be a triangle mesh for loop or sqrt3.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide(SUBDIVISION_METHOD method, SurfaceMesh3<K> mesh, int iterations)
+        {
+            switch (method)
+            {
+                case SUBDIVISION_METHOD.CATMULL_CLARK:
+                    Subdivide_CatmullClark(mesh, iterations);
+                    break;
+                case SUBDIVISION_METHOD.LOOP:
+                    Subdivide_Loop(mesh, iterations);
+                    break;
+                case SUBDIVISION_METHOD.SQRT3:
+                    Subdivide_Sqrt3(mesh, iterations);
+                    break;
+                default:
+                    Subdivide_Sqrt3(mesh, iterations);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide_CatmullClark(Polyhedron3<K> mesh, int iterations)
+        {
+            if (iterations <= 0) return;
+            CheckIsValidException(mesh);
+            Kernel.Subdive_CatmullClark_PH(mesh.Ptr, iterations);
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide_CatmullClark(SurfaceMesh3<K> mesh, int iterations)
+        {
+            if (iterations <= 0) return;
+            CheckIsValidException(mesh);
+            Kernel.Subdive_CatmullClark_SM(mesh.Ptr, iterations);
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid triangle mesh.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide_Loop(Polyhedron3<K> mesh, int iterations)
+        {
+            if (iterations <= 0) return;
+            CheckIsValidTriangleException(mesh);
+            Kernel.Subdive_Loop_PH(mesh.Ptr, iterations);
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid triangle mesh.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide_Loop(SurfaceMesh3<K> mesh, int iterations)
+        {
+            if (iterations <= 0) return;
+            CheckIsValidTriangleException(mesh);
+            Kernel.Subdive_Loop_SM(mesh.Ptr, iterations);
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid triangle mesh.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide_DoSabin(SurfaceMesh3<K> mesh, int iterations)
+        {
+            if (iterations <= 0) return;
+            CheckIsValidTriangleException(mesh);
+            Kernel.Subdive_DoSabin_SM(mesh.Ptr, iterations);
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid triangle mesh.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide_Sqrt3(Polyhedron3<K> mesh, int iterations)
+        {
+            if (iterations <= 0) return;
+            CheckIsValidTriangleException(mesh);
+            Kernel.Subdive_Sqrt3_PH(mesh.Ptr, iterations);
+        }
+
+        /// <summary>
+        /// Subdive each face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid triangle mesh.</param>
+        /// <param name="iterations">The number of subdivision iterations.</param>
+        public void Subdivide_Sqrt3(SurfaceMesh3<K> mesh, int iterations)
+        {
+            if (iterations <= 0) return;
+            CheckIsValidTriangleException(mesh);
+            Kernel.Subdive_Sqrt3_SM(mesh.Ptr, iterations);
+        }
+
     }
 
     /// <summary>
@@ -72,140 +207,6 @@ namespace CGALDotNet.Processing
         /// 
         /// </summary>
         protected private SurfaceSubdivisionKernel Kernel { get; private set; }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="method"></param>
-        /// <param name="mesh">A valid mesh. Must be a triangle mesh for loop or sqrt3.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide(SUBDIVISION_METHOD method, Polyhedron3 mesh, int iterations)
-        {
-            switch (method)
-            {
-                case SUBDIVISION_METHOD.CATMULL_CLARK:
-                    Subdivide_CatmullClark(mesh, iterations);
-                    break;
-                case SUBDIVISION_METHOD.LOOP:
-                    Subdivide_Loop(mesh, iterations);
-                    break;
-                case SUBDIVISION_METHOD.SQRT3:
-                    Subdivide_Sqrt3(mesh, iterations);
-                    break;
-                default:
-                    Subdivide_Sqrt3(mesh, iterations);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="method"></param>
-        /// <param name="mesh">A valid mesh. Must be a triangle mesh for loop or sqrt3.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide(SUBDIVISION_METHOD method, SurfaceMesh3 mesh, int iterations)
-        {
-            switch (method)
-            {
-                case SUBDIVISION_METHOD.CATMULL_CLARK:
-                    Subdivide_CatmullClark(mesh, iterations);
-                    break;
-                case SUBDIVISION_METHOD.LOOP:
-                    Subdivide_Loop(mesh, iterations);
-                    break;
-                case SUBDIVISION_METHOD.SQRT3:
-                    Subdivide_Sqrt3(mesh, iterations);
-                    break;
-                default:
-                    Subdivide_Sqrt3(mesh, iterations);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid mesh.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide_CatmullClark(Polyhedron3 mesh, int iterations)
-        {
-            if (iterations <= 0) return;
-            CheckIsValidException(mesh);
-            Kernel.Subdive_CatmullClark_PH(mesh.Ptr, iterations);
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid mesh.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide_CatmullClark(SurfaceMesh3 mesh, int iterations)
-        {
-            if (iterations <= 0) return;
-            CheckIsValidException(mesh);
-            Kernel.Subdive_CatmullClark_SM(mesh.Ptr, iterations);
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid triangle mesh.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide_Loop(Polyhedron3 mesh, int iterations)
-        {
-            if (iterations <= 0) return;
-            CheckIsValidTriangleException(mesh);
-            Kernel.Subdive_Loop_PH(mesh.Ptr, iterations);
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid triangle mesh.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide_Loop(SurfaceMesh3 mesh, int iterations)
-        {
-            if (iterations <= 0) return;
-            CheckIsValidTriangleException(mesh);
-            Kernel.Subdive_Loop_SM(mesh.Ptr, iterations);
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid triangle mesh.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide_DoSabin(SurfaceMesh3 mesh, int iterations)
-        {
-            if (iterations <= 0) return;
-            CheckIsValidTriangleException(mesh);
-            Kernel.Subdive_DoSabin_SM(mesh.Ptr, iterations);
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid triangle mesh.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide_Sqrt3(Polyhedron3 mesh, int iterations)
-        {
-            if (iterations <= 0) return;
-            CheckIsValidTriangleException(mesh);
-            Kernel.Subdive_Sqrt3_PH(mesh.Ptr, iterations);
-        }
-
-        /// <summary>
-        /// Subdive each face in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid triangle mesh.</param>
-        /// <param name="iterations">The number of subdivision iterations.</param>
-        public void Subdivide_Sqrt3(SurfaceMesh3 mesh, int iterations)
-        {
-            if (iterations <= 0) return;
-            CheckIsValidTriangleException(mesh);
-            Kernel.Subdive_Sqrt3_SM(mesh.Ptr, iterations);
-        }
 
         /// <summary>
         /// Release the unmanaged resourses.
