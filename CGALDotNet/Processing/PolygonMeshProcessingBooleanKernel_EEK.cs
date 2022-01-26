@@ -23,34 +23,68 @@ namespace CGALDotNet.Processing
             PolygonMeshProcessingBoolean_EEK_Release(ptr);
         }
 
-        internal override bool PolyhedronUnion(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr)
+        //Polyhedron
+
+        internal override bool Union_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
         {
-            return PolygonMeshProcessingBoolean_EEK_PolyhedronUnion(polyPtr1, polyPtr2, out resultPtr);
+            return PolygonMeshProcessingBoolean_EEK_Union_PH(meshPtr1, meshPtr2, out resultPtr);
         }
 
-        internal override bool PolyhedronDifference(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr)
+        internal override bool Difference_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
         {
-            return PolygonMeshProcessingBoolean_EEK_PolyhedronDifference(polyPtr1, polyPtr2, out resultPtr);
+            return PolygonMeshProcessingBoolean_EEK_Difference_PH(meshPtr1, meshPtr2, out resultPtr);
         }
 
-        internal override bool PolyhedronIntersection(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr)
+        internal override bool Intersection_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
         {
-            return PolygonMeshProcessingBoolean_EEK_PolyhedronIntersection(polyPtr1, polyPtr2, out resultPtr);
+            return PolygonMeshProcessingBoolean_EEK_Intersection_PH(meshPtr1, meshPtr2, out resultPtr);
         }
 
-        internal override bool PolyhedronClip(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr)
+        internal override bool Clip_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
         {
-            return PolygonMeshProcessingBoolean_EEK_PolyhedronClip(polyPtr1, polyPtr2, out resultPtr);
+            return PolygonMeshProcessingBoolean_EEK_Clip_PH(meshPtr1, meshPtr2, out resultPtr);
         }
 
-        internal override bool PlaneClip(IntPtr polyPtr1, Plane3d plane, out IntPtr resultPtr)
+        internal override bool PlaneClip_PH(IntPtr meshPtr1, Plane3d plane, out IntPtr resultPtr)
         {
-            return PolygonMeshProcessingBoolean_EEK_PlaneClip(polyPtr1, plane, out resultPtr);
+            return PolygonMeshProcessingBoolean_EEK_PlaneClip_PH(meshPtr1, plane, out resultPtr);
         }
 
-        internal override bool BoxClip(IntPtr polyPtr1, Box3d box, out IntPtr resultPtr)
+        internal override bool BoxClip_PH(IntPtr meshPtr1, Box3d box, out IntPtr resultPtr)
         {
-            return PolygonMeshProcessingBoolean_EEK_BoxClip(polyPtr1, box, out resultPtr);
+            return PolygonMeshProcessingBoolean_EEK_BoxClip_PH(meshPtr1, box, out resultPtr);
+        }
+
+        //Surface Mesh
+
+        internal override bool Union_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
+        {
+            return PolygonMeshProcessingBoolean_EEK_Union_SM(meshPtr1, meshPtr2, out resultPtr);
+        }
+
+        internal override bool Difference_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
+        {
+            return PolygonMeshProcessingBoolean_EEK_Difference_SM(meshPtr1, meshPtr2, out resultPtr);
+        }
+
+        internal override bool Intersection_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
+        {
+            return PolygonMeshProcessingBoolean_EEK_Intersection_SM(meshPtr1, meshPtr2, out resultPtr);
+        }
+
+        internal override bool Clip_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr)
+        {
+            return PolygonMeshProcessingBoolean_EEK_Clip_SM(meshPtr1, meshPtr2, out resultPtr);
+        }
+
+        internal override bool PlaneClip_SM(IntPtr meshPtr1, Plane3d plane, out IntPtr resultPtr)
+        {
+            return PolygonMeshProcessingBoolean_EEK_PlaneClip_SM(meshPtr1, plane, out resultPtr);
+        }
+
+        internal override bool BoxClip_SM(IntPtr meshPtr1, Box3d box, out IntPtr resultPtr)
+        {
+            return PolygonMeshProcessingBoolean_EEK_BoxClip_SM(meshPtr1, box, out resultPtr);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -59,22 +93,44 @@ namespace CGALDotNet.Processing
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonMeshProcessingBoolean_EEK_Release(IntPtr ptr);
 
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingBoolean_EEK_PolyhedronUnion(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr);
+        //Polyhedron
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingBoolean_EEK_PolyhedronDifference(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr);
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Union_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingBoolean_EEK_PolyhedronIntersection(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr);
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Difference_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingBoolean_EEK_PolyhedronClip(IntPtr polyPtr1, IntPtr polyPtr2, out IntPtr resultPtr);
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Intersection_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingBoolean_EEK_PlaneClip(IntPtr polyPtr1, Plane3d plane, out IntPtr resultPtr);
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Clip_PH(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool PolygonMeshProcessingBoolean_EEK_BoxClip(IntPtr polyPtr1, Box3d box, out IntPtr resultPtr);
+        private static extern bool PolygonMeshProcessingBoolean_EEK_PlaneClip_PH(IntPtr meshPtr1, Plane3d plane, out IntPtr resultPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingBoolean_EEK_BoxClip_PH(IntPtr meshPtr1, Box3d box, out IntPtr resultPtr);
+
+        //Surface Mesh
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Union_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Difference_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Intersection_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingBoolean_EEK_Clip_SM(IntPtr meshPtr1, IntPtr meshPtr2, out IntPtr resultPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingBoolean_EEK_PlaneClip_SM(IntPtr meshPtr1, Plane3d plane, out IntPtr resultPtr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool PolygonMeshProcessingBoolean_EEK_BoxClip_SM(IntPtr meshPtr1, Box3d box, out IntPtr resultPtr);
     }
 }

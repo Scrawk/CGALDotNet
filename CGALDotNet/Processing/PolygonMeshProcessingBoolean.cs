@@ -55,20 +55,20 @@ namespace CGALDotNet.Processing
         /// 
         /// </summary>
         /// <param name="op"></param>
-        /// <param name="poly1"></param>
-        /// <param name="poly2"></param>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool Op(POLYHEDRA_BOOLEAN op, Polyhedron3<K> poly1, Polyhedron3<K> poly2, out Polyhedron3<K> result)
+        public bool Op(POLYHEDRA_BOOLEAN op, Polyhedron3<K> mesh1, Polyhedron3<K> mesh2, out Polyhedron3<K> result)
         {
             switch (op)
             {
                 case POLYHEDRA_BOOLEAN.UNION:
-                    return Union(poly1, poly2, out result);
+                    return Union(mesh1, mesh2, out result);
                 case POLYHEDRA_BOOLEAN.INTERSECT:
-                    return Intersection(poly1, poly2, out result);
+                    return Intersection(mesh1, mesh2, out result);
                 case POLYHEDRA_BOOLEAN.DIFFERENCE:
-                    return Difference(poly1, poly2, out result);
+                    return Difference(mesh1, mesh2, out result);
             }
 
             result = null;
@@ -78,16 +78,40 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="poly1"></param>
-        /// <param name="poly2"></param>
+        /// <param name="op"></param>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool Union(Polyhedron3<K> poly1, Polyhedron3<K> poly2, out Polyhedron3<K> result)
+        public bool Op(POLYHEDRA_BOOLEAN op, SurfaceMesh3<K> mesh1, SurfaceMesh3<K> mesh2, out SurfaceMesh3<K> result)
         {
-            CheckIsValidException(poly1);
-            CheckIsValidException(poly2);
+            switch (op)
+            {
+                case POLYHEDRA_BOOLEAN.UNION:
+                    return Union(mesh1, mesh2, out result);
+                case POLYHEDRA_BOOLEAN.INTERSECT:
+                    return Intersection(mesh1, mesh2, out result);
+                case POLYHEDRA_BOOLEAN.DIFFERENCE:
+                    return Difference(mesh1, mesh2, out result);
+            }
 
-            if (Kernel.PolyhedronUnion(poly1.Ptr, poly2.Ptr, out IntPtr resultPtr))
+            result = null;
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public bool Union(Polyhedron3<K> mesh1, Polyhedron3<K> mesh2, out Polyhedron3<K> result)
+        {
+            CheckIsValidException(mesh1);
+            CheckIsValidException(mesh2);
+
+            if (Kernel.Union_PH(mesh1.Ptr, mesh2.Ptr, out IntPtr resultPtr))
             {
                 result = new Polyhedron3<K>(resultPtr);
                 return true;
@@ -102,16 +126,40 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="poly1"></param>
-        /// <param name="poly2"></param>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool Difference(Polyhedron3<K> poly1, Polyhedron3<K> poly2, out Polyhedron3<K> result)
+        public bool Union(SurfaceMesh3<K> mesh1, SurfaceMesh3<K> mesh2, out SurfaceMesh3<K> result)
         {
-            CheckIsValidException(poly1);
-            CheckIsValidException(poly2);
+            CheckIsValidException(mesh1);
+            CheckIsValidException(mesh2);
 
-            if (Kernel.PolyhedronDifference(poly1.Ptr, poly2.Ptr, out IntPtr resultPtr))
+            if (Kernel.Union_SM(mesh1.Ptr, mesh2.Ptr, out IntPtr resultPtr))
+            {
+                result = new SurfaceMesh3<K>(resultPtr);
+                return true;
+            }
+            else
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public bool Difference(Polyhedron3<K> mesh1, Polyhedron3<K> mesh2, out Polyhedron3<K> result)
+        {
+            CheckIsValidException(mesh1);
+            CheckIsValidException(mesh2);
+
+            if (Kernel.Difference_PH(mesh1.Ptr, mesh2.Ptr, out IntPtr resultPtr))
             {
                 result = new Polyhedron3<K>(resultPtr);
                 return true;
@@ -126,18 +174,66 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="poly1"></param>
-        /// <param name="poly2"></param>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool Intersection(Polyhedron3<K> poly1, Polyhedron3<K> poly2, out Polyhedron3<K> result)
+        public bool Difference(SurfaceMesh3<K> mesh1, SurfaceMesh3<K> mesh2, out SurfaceMesh3<K> result)
         {
-            CheckIsValidException(poly1);
-            CheckIsValidException(poly2);
+            CheckIsValidException(mesh1);
+            CheckIsValidException(mesh2);
 
-            if (Kernel.PolyhedronIntersection(poly1.Ptr, poly2.Ptr, out IntPtr resultPtr))
+            if (Kernel.Difference_SM(mesh1.Ptr, mesh2.Ptr, out IntPtr resultPtr))
+            {
+                result = new SurfaceMesh3<K>(resultPtr);
+                return true;
+            }
+            else
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public bool Intersection(Polyhedron3<K> mesh1, Polyhedron3<K> mesh2, out Polyhedron3<K> result)
+        {
+            CheckIsValidException(mesh1);
+            CheckIsValidException(mesh2);
+
+            if (Kernel.Intersection_PH(mesh1.Ptr, mesh2.Ptr, out IntPtr resultPtr))
             {
                 result = new Polyhedron3<K>(resultPtr);
+                return true;
+            }
+            else
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh1"></param>
+        /// <param name="mesh2"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public bool Intersection(SurfaceMesh3<K> mesh1, SurfaceMesh3<K> mesh2, out SurfaceMesh3<K> result)
+        {
+            CheckIsValidException(mesh1);
+            CheckIsValidException(mesh2);
+
+            if (Kernel.Intersection_PH(mesh1.Ptr, mesh2.Ptr, out IntPtr resultPtr))
+            {
+                result = new SurfaceMesh3<K>(resultPtr);
                 return true;
             }
             else

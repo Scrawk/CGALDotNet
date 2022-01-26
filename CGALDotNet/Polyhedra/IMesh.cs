@@ -135,6 +135,12 @@ namespace CGALDotNet.Polyhedra
         void GetTriangleQuadIndices(int[] triangles, int trianglesCount, int[] quads, int quadsCount);
 
         /// <summary>
+        /// Get the meshes triangles and quads.
+        /// </summary>
+        /// <param name="indices">The faces indices.</param>
+        public void GetPolygonalIndices(ref FaceVertexCountIndices indices);
+
+        /// <summary>
         /// Get the meshes points.
         /// </summary>
         /// <param name="points">The array to copy the points into.</param>

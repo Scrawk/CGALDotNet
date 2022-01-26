@@ -68,6 +68,24 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Convert to a polyhedron mesh.
+        /// </summary>
+        /// <returns>The polyhedron mesh.</returns>
+        public Polyhedron3<K> ToPolyhedronMesh()
+        {
+            var points = new Point3d[VertexCount];
+            GetPoints(points, points.Length);
+
+            var count = new FaceVertexCountIndices();
+            GetPolygonalIndices(ref count);
+
+            var mesh = new Polyhedron3<K>();
+            mesh.CreatePolygonalMesh(points, points.Length, count);
+
+            return mesh;
+        }
+
+        /// <summary>
         /// Orient the faces in the mesh.
         /// </summary>
         /// <param name="oriente">The orientation method.</param>
@@ -724,6 +742,18 @@ namespace CGALDotNet.Polyhedra
             ErrorUtil.CheckArray(triangles, trianglesCount);
             ErrorUtil.CheckArray(quads, quadsCount);
             Kernel.GetTriangleQuadIndices(Ptr, triangles, trianglesCount, quads, quadsCount);
+        }
+
+        /// <summary>
+        /// Get the meshes triangles and quads.
+        /// </summary>
+        /// <param name="indices">The faces indices.</param>
+        public void GetPolygonalIndices(ref FaceVertexCountIndices indices)
+        {
+            ErrorUtil.CheckArray(indices.triangles, indices.triangleCount);
+            ErrorUtil.CheckArray(indices.quads, indices.quadCount);
+
+            Kernel.GetTriangleQuadIndices(Ptr, indices.triangles, indices.triangleCount, indices.quads, indices.quadCount);
         }
 
         /// <summary>

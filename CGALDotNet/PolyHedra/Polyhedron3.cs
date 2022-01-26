@@ -227,6 +227,26 @@ namespace CGALDotNet.Polyhedra
             return dual;
         }
 
+        /// <summary>
+        /// Convert to a surface mesh.
+        /// </summary>
+        /// <returns>The surface mesh.</returns>
+        public SurfaceMesh3<K> ToSurfaceMesh()
+        {
+            var points = new Point3d[VertexCount];
+            GetPoints(points, points.Length);
+
+            var count = new FaceVertexCountIndices();
+            GetPolygonalIndices(ref count);
+
+            var mesh = new SurfaceMesh3<K>();
+            mesh.CreateTriangleQuadMesh(points, points.Length, 
+                count.triangles, count.triangleCount, 
+                count.quads, count.quadCount);
+
+            return mesh;
+        }
+
     }
 
     /// <summary>
