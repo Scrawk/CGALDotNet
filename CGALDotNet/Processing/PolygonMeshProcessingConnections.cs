@@ -43,18 +43,38 @@ namespace CGALDotNet.Processing
             return string.Format("[PolygonMeshProcessingConnections<{0}>: ]", Kernel.KernelName);
         }
 
+        public int UnconnectedComponents(Polyhedron3<K> mesh)
+        {
+            return Kernel.ConnectedComponents_PH(mesh.Ptr);
+        }
+
+        public int UnconnectedComponents(SurfaceMesh3<K> mesh)
+        {
+            return Kernel.ConnectedComponents_SM(mesh.Ptr);
+        }
+
+        public int ConnectedFaces(Polyhedron3<K> mesh, int faceIndex)
+        {
+            return Kernel.ConnectedComponent_PH(mesh.Ptr, faceIndex);
+        }
+
+        public int ConnectedFaces(SurfaceMesh3<K> mesh, int faceIndex)
+        {
+            return Kernel.ConnectedComponent_SM(mesh.Ptr, faceIndex);
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="poly"></param>
+        /// <param name="mesh"></param>
         /// <param name="results"></param>
-        public void SplitUnconnectedComponents(Polyhedron3<K> poly, List<Polyhedron3<K>> results)
+        public void SplitUnconnectedComponents(Polyhedron3<K> mesh, List<Polyhedron3<K>> results)
         {
-            int count = Kernel.PolyhedronSplitConnectedComponents(Ptr, poly.Ptr);
+            int count = Kernel.SplitConnectedComponents_PH(Ptr, mesh.Ptr);
             if (count == 0) return;
 
             var ptrs = new IntPtr[count];
-            Kernel.PolyhedronGetSplitConnectedComponents(Ptr, ptrs, count);
+            Kernel.GetSplitConnectedComponents_PH(Ptr, ptrs, count);
 
             for (int i = 0; i < count; i++)
                 results.Add( new Polyhedron3<K>(ptrs[i]));
@@ -63,12 +83,40 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="poly"></param>
+        /// <param name="mesh"></param>
+        /// <param name="results"></param>
+        public void SplitUnconnectedComponents(SurfaceMesh3<K> mesh, List<SurfaceMesh3<K>> results)
+        {
+            int count = Kernel.SplitConnectedComponents_SM(Ptr, mesh.Ptr);
+            if (count == 0) return;
+
+            var ptrs = new IntPtr[count];
+            Kernel.GetSplitConnectedComponents_SM(Ptr, ptrs, count);
+
+            for (int i = 0; i < count; i++)
+                results.Add(new SurfaceMesh3<K>(ptrs[i]));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh"></param>
         /// <param name="num_components_to_keep"></param>
         /// <returns></returns>
-        public int KeepLargestComponents(Polyhedron3<K> poly, int num_components_to_keep)
+        public int KeepLargestComponents(Polyhedron3<K> mesh, int num_components_to_keep)
         {
-            return Kernel.PolyhedronKeepLargestConnectedComponents(poly.Ptr, num_components_to_keep);
+            return Kernel.KeepLargestConnectedComponents_PH(mesh.Ptr, num_components_to_keep);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh"></param>
+        /// <param name="num_components_to_keep"></param>
+        /// <returns></returns>
+        public int KeepLargestComponents(SurfaceMesh3<K> mesh, int num_components_to_keep)
+        {
+            return Kernel.KeepLargestConnectedComponents_SM(mesh.Ptr, num_components_to_keep);
         }
     }
 

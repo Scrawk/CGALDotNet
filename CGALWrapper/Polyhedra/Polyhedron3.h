@@ -69,7 +69,7 @@ private:
 
 public:
 
-	Polyhedron3() 
+	Polyhedron3()
 	{
 
 	}
@@ -210,9 +210,9 @@ public:
 		if (item != vertexNormalMap.end())
 			return item->second;
 		else
-			return {0,0,0 };
+			return { 0,0,0 };
 	}
-	
+
 	static void Clear(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -255,8 +255,8 @@ public:
 	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		if(vertices) poly->BuildVertexIndexMap(force);
-		if(faces) poly->BuildFaceIndexMap(force);
+		if (vertices) poly->BuildVertexIndexMap(force);
+		if (faces) poly->BuildFaceIndexMap(force);
 	}
 
 	static int VertexCount(void* ptr)
@@ -323,7 +323,7 @@ public:
 			if (face->halfedge() == nullptr) return FALSE;
 			if (!face->is_triangle()) return FALSE;
 		}
-			
+
 		return TRUE;
 	}
 
@@ -554,8 +554,8 @@ public:
 
 		if (!poly->rebuildVertexNormalMap) return;
 		poly->rebuildVertexNormalMap = false;
-;
-		CGAL::Polygon_mesh_processing::compute_vertex_normals(poly->model, 
+		;
+		CGAL::Polygon_mesh_processing::compute_vertex_normals(poly->model,
 			boost::make_assoc_property_map(poly->vertexNormalMap));
 	}
 
@@ -566,7 +566,7 @@ public:
 		if (!poly->rebuildFaceNormalMap) return;
 		poly->rebuildFaceNormalMap = false;
 
-		CGAL::Polygon_mesh_processing::compute_face_normals(poly->model, 
+		CGAL::Polygon_mesh_processing::compute_face_normals(poly->model,
 			boost::make_assoc_property_map(poly->faceNormalMap));
 	}
 
@@ -609,7 +609,7 @@ public:
 	static Point ComputeCentroid(const Face& face)
 	{
 		int num = 0;
-		
+
 		FT x = 0;
 		FT y = 0;
 		FT z = 0;
@@ -622,8 +622,7 @@ public:
 			y += p.y();
 			z += p.z();
 			num++;
-		} 
-		while (++hedge != face.facet_begin());
+		} while (++hedge != face.facet_begin());
 
 		if (num != 0)
 		{
@@ -643,8 +642,7 @@ public:
 		do
 		{
 			num++;
-		} 
-		while (++hedge != face.facet_begin());
+		} while (++hedge != face.facet_begin());
 
 		return num;
 	}

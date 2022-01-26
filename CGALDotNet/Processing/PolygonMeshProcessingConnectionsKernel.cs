@@ -10,13 +10,28 @@ namespace CGALDotNet.Processing
 
         internal abstract void Release(IntPtr ptr);
 
-        internal abstract void PolyhedronConnectedComponents(IntPtr polyPtr);
+        //Polyhedron
 
-        internal abstract int PolyhedronSplitConnectedComponents(IntPtr ptr, IntPtr polyPtr);
+        internal abstract int ConnectedComponents_PH(IntPtr meshPtr);
 
-        internal abstract void PolyhedronGetSplitConnectedComponents(IntPtr ptr, IntPtr[] polyPtrs, int count);
+        internal abstract int ConnectedComponent_PH(IntPtr meshPtr, int index);
 
-        internal abstract int PolyhedronKeepLargestConnectedComponents(IntPtr polyPtr, int nb_components_to_keep);
+        internal abstract int SplitConnectedComponents_PH(IntPtr ptr, IntPtr meshPtr);
 
+        internal abstract void GetSplitConnectedComponents_PH(IntPtr ptr, IntPtr[] meshPtrs, int count);
+
+        internal abstract int KeepLargestConnectedComponents_PH(IntPtr meshPtr, int nb_components_to_keep);
+
+        //Surface Mesh
+
+        internal abstract int ConnectedComponents_SM(IntPtr meshPtr);
+
+        internal abstract int ConnectedComponent_SM(IntPtr meshPtr, int index);
+
+        internal abstract int SplitConnectedComponents_SM(IntPtr ptr, IntPtr meshPtr);
+
+        internal abstract void GetSplitConnectedComponents_SM(IntPtr ptr, IntPtr[] meshPtrs, int count);
+
+        internal abstract int KeepLargestConnectedComponents_SM(IntPtr meshPtr, int nb_components_to_keep);
     }
 }

@@ -23,14 +23,16 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var param = PlaneParams.Default;
-            var mesh = PolyhedronFactory<EEK>.CreateIcosahedron();
+            var mesh = SurfaceMeshFactory<EEK>.CreateCube();
 
-            var dual = mesh.CreateDualMesh();
+            var copy = mesh.Copy();
+            copy.Translate(new Point3d(10, 0, 0));
 
-            Console.WriteLine();
-            dual.Print();
+            mesh.Join(copy);
 
+            var count = PolygonMeshProcessingConnections<EEK>.Instance.UnconnectedComponents(mesh);
+
+            Console.WriteLine(count);
         }
 
      

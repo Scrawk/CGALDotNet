@@ -81,6 +81,21 @@ public:
 		return static_cast<SurfaceMesh3*>(ptr);
 	}
 
+	inline static Vertex NullVertex()
+	{
+		return SurfaceMesh::null_vertex();
+	}
+
+	inline static Face NullFace()
+	{
+		return SurfaceMesh::null_face();
+	}
+
+	inline static Halfedge NullEdge()
+	{
+		return SurfaceMesh::null_edge();
+	}
+
 	void DeleteTree()
 	{
 		if (tree != nullptr)
@@ -135,6 +150,18 @@ public:
 	void OnFaceNormalsChanged()
 	{
 		faceNormalsComputed = false;
+	}
+
+	Face FindFace(int index)
+	{
+		auto f = Face(index);
+		for (auto face : model.faces())
+		{
+			if (face == f)
+				return face;
+		}
+
+		return NullFace();
 	}
 
 	void Clear()
