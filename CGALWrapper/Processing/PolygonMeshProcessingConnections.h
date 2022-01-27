@@ -73,11 +73,16 @@ public:
 	{
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 
-		//std::vector<PFace_Des> cc;
-		//TODO - add get face
-		//CGAL::Polygon_mesh_processing::connected_component(fd, mesh->model, std::back_inserter(cc));
+		auto face = mesh->FindFace(index);
+		if (face != nullptr)
+		{
+			std::vector<PFace_Des> cc;
+			CGAL::Polygon_mesh_processing::connected_component(*face, mesh->model, std::back_inserter(cc));
 
-		return 0;
+			return (int)cc.size();
+		}
+		else
+			return 0;
 	}
 
 	static int SplitConnectedComponents_PH(void* ptr, void* meshPtr)
@@ -144,8 +149,8 @@ public:
 
 			return (int)cc.size();
 		}
-
-		return 0;
+		else
+			return 0;
 	}
 
 	static int SplitConnectedComponents_SM(void* ptr, void* meshPtr)

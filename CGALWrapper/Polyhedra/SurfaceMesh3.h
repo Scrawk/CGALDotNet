@@ -194,7 +194,7 @@ public:
 	{
 		BuildFaceIndexMap();
 
-		if (index < 0 || index >= model.number_of_faces())
+		if (index < 0 || index >= (int)model.number_of_faces())
 			return NullFace();
 
 		return faceMap[index];

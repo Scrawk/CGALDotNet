@@ -56,12 +56,12 @@ public:
 
 private:
 
-	std::map<Vertex_Handle, int> vertexIndexMap;
-	std::vector<Vertex_Handle> vertexMap;
+	std::map<Vertex_Des, int> vertexIndexMap;
+	std::vector<Vertex_Des> vertexMap;
 	bool rebuildVertexIndexMap = true;
 
-	std::map<Face_Handle, int> faceIndexMap;
-	std::vector<Face_Handle> faceMap;
+	std::map<Face_Des, int> faceIndexMap;
+	std::vector<Face_Des> faceMap;
 	bool rebuildFaceIndexMap = true;
 
 	std::map<Vertex_Des, Vector> vertexNormalMap;
@@ -222,14 +222,14 @@ public:
 			return NULL_INDEX;
 	}
 
-	Vertex FindVertex(int index)
+	Vertex_Des* FindVertex(int index)
 	{
 		BuildVertexIndexMap();
 
-		if (index < 0 || index >= model.size_of_vertices())
+		if (index < 0 || index >= (int)model.size_of_vertices())
 			return nullptr;
 
-		return vertexMap[index];
+		return &vertexMap[index];
 	}
 
 	int FindFaceIndex(Face_Handle vert)
@@ -243,14 +243,14 @@ public:
 			return NULL_INDEX;
 	}
 
-	Face FindFace(int index)
+	Face_Des* FindFace(int index)
 	{
 		BuildFaceIndexMap();
 
-		if (index < 0 || index >= model.size_of_facets())
+		if (index < 0 || index >= (int)model.size_of_facets())
 			return nullptr;
 
-		return faceMap[index];
+		return &faceMap[index];
 	}
 
 	Vector FindVertexNormal(Vertex_Des vert)
