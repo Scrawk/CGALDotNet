@@ -18,15 +18,13 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_Clear(void* ptr);
 
-	CGALWRAPPER_API void Polyhedron3_EEK_ClearIndexMaps(void* ptr);
+	CGALWRAPPER_API void Polyhedron3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges);
 
-	CGALWRAPPER_API void Polyhedron3_EEK_ClearVertexNormalMap(void* ptr);
+	CGALWRAPPER_API void Polyhedron3_EEK_ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces);
 
-	CGALWRAPPER_API void Polyhedron3_EEK_ClearFaceNormalMap(void* ptr);
+	CGALWRAPPER_API void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force);
 
 	CGALWRAPPER_API void* Polyhedron3_EEK_Copy(void* ptr);
-
-	CGALWRAPPER_API void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force);
 	
 	CGALWRAPPER_API int Polyhedron3_EEK_VertexCount(void* ptr);
 

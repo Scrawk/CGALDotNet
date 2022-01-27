@@ -15,6 +15,14 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void Clear(IntPtr ptr);
 
+        internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
+
+        internal abstract void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces);
+
+        internal abstract void ClearProperyMaps(IntPtr ptr);
+
+        internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
+
         internal abstract IntPtr Copy(IntPtr ptr);
 
         internal abstract bool IsValid(IntPtr ptr);
@@ -68,8 +76,6 @@ namespace CGALDotNet.Polyhedra
         internal abstract void RemoveEdge(IntPtr ptr, int index);
 
         internal abstract void RemoveFace(IntPtr ptr, int index);
-
-        internal abstract void RemoveProperyMaps(IntPtr ptr);
 
         internal abstract bool IsVertexValid(IntPtr ptr, int index);
 
@@ -134,10 +140,6 @@ namespace CGALDotNet.Polyhedra
         internal abstract MinMaxAvg MinMaxEdgeLength(IntPtr ptr);
 
         internal abstract void GetCentroids(IntPtr ptr, Point3d[] points, int count);
-
-        internal abstract void ClearVertexNormalMap(IntPtr ptr);
-
-        internal abstract void ClearFaceNormalMap(IntPtr ptr);
 
         internal abstract void ComputeVertexNormals(IntPtr ptr);
 

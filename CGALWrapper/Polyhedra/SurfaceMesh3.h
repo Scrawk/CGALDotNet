@@ -56,10 +56,15 @@ public:
 
 	AABBTree* tree = nullptr;
 
+	std::vector<Vertex> vertexMap;
+	bool rebuildVertexMap = true;
+
 	std::vector<Face> faceMap;
+	bool rebuildFaceMap = true;
 
-	bool rebuildFaceIndexMap = true;
-
+	std::vector<Halfedge> edgeMap;
+	bool rebuildEdgeMap = true;
+	
 	bool vertexNormalsComputed = false;
 
 	bool faceNormalsComputed = false;
@@ -102,12 +107,21 @@ public:
 
 	void OnVertexNormalsChanged()
 	{
+		ClearVertexNormalMap();
 		vertexNormalsComputed = false;
 	}
 
 	void OnFaceNormalsChanged()
 	{
+		ClearFaceNormalMap();
 		faceNormalsComputed = false;
+	}
+
+	void OnVertexIndicesChanged()
+	{
+		vertexMap.clear();
+		vertexMap.reserve(0);
+		vertexNormalsComputed = false;
 	}
 
 	void OnFaceIndicesChanged()
@@ -117,9 +131,16 @@ public:
 		faceNormalsComputed = false;
 	}
 
+	void OnEdgeIndicesChanged()
+	{
+		edgeMap.clear();
+		edgeMap.reserve(0);
+	}
+
 	void OnVerticesChanged()
 	{
 		OnVertexNormalsChanged();
+		OnVertexIndicesChanged();
 		DeleteTree();
 	}
 
@@ -130,10 +151,17 @@ public:
 		DeleteTree();
 	}
 
+	void OnEdgesChanged()
+	{
+		OnEdgeIndicesChanged();
+		DeleteTree();
+	}
+
 	void OnModelChanged()
 	{
 		OnVerticesChanged();
 		OnFacesChanged();
+		OnEdgesChanged();
 		DeleteTree();
 	}
 
@@ -175,10 +203,25 @@ public:
 		faceNormalsComputed = false;
 	}
 
+	void BuildVertexIndexMap(bool force = false)
+	{
+		if (!force && !rebuildVertexMap) return;
+		rebuildVertexMap = false;
+
+		auto count = model.number_of_vertices();
+		vertexMap.resize(count);
+
+		int index = 0;
+		for (auto vertex : model.vertices())
+		{
+			vertexMap[index++] = vertex;
+		}
+	}
+
 	void BuildFaceIndexMap(bool force = false)
 	{
-		if (!force && !rebuildFaceIndexMap) return;
-		rebuildFaceIndexMap = false;
+		if (!force && !rebuildFaceMap) return;
+		rebuildFaceMap = false;
 
 		auto count = model.number_of_faces();
 		faceMap.resize(count);
@@ -190,14 +233,52 @@ public:
 		}
 	}
 
+	void BuildEdgeIndexMap(bool force = false)
+	{
+		if (!force && !rebuildEdgeMap) return;
+		rebuildEdgeMap = false;
+
+		auto count = model.number_of_halfedges();
+		edgeMap.resize(count);
+
+		int index = 0;
+		for (auto edge : model.halfedges())
+		{
+			edgeMap[index++] = edge;
+		}
+	}
+
+	Vertex FindVertex(int index)
+	{
+		BuildVertexIndexMap();
+		int count = (int)model.number_of_verices();
+
+		if (index < 0 || index >= count)
+			return NullVertex();
+
+		return vertexMap[index];
+	}
+
 	Face FindFace(int index)
 	{
 		BuildFaceIndexMap();
+		int count = (int)model.number_of_faces();
 
-		if (index < 0 || index >= (int)model.number_of_faces())
+		if (index < 0 || index >= count)
 			return NullFace();
 
 		return faceMap[index];
+	}
+
+	Edge FindEdge(int index)
+	{
+		BuildEdgeIndexMap();
+		int count = (int)model.number_of_halfedges();
+
+		if (index < 0 || index >= count)
+			return NullEdge();
+
+		return edgeMap[index];
 	}
 
 	void Clear()
@@ -211,6 +292,37 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		mesh->Clear();
+	}
+
+	static void ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		if (vertices) mesh->OnVertexIndicesChanged();
+		if (faces) mesh->OnFaceIndicesChanged();
+		if (edges) mesh->OnEdgeIndicesChanged();
+	}
+
+	static void ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		if (vertices) mesh->OnVertexNormalsChanged();
+		if (faces) mesh->OnFaceNormalsChanged();
+	}
+
+	static void ClearProperyMaps(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->ClearVertexNormalMap();
+		mesh->ClearFaceNormalMap();
+		mesh->model.remove_all_property_maps();
+	}
+
+	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		if (vertices) mesh->BuildVertexIndexMap(force);
+		if (faces) mesh->BuildFaceIndexMap(force);
+		if (edges) mesh->BuildEdgeIndexMap(force);
 	}
 
 	static void* Copy(void* ptr)
@@ -403,14 +515,6 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 		mesh->model.remove_face(Face(index));
 		mesh->OnModelChanged();
-	}
-
-	static void RemoveProperyMaps(void* ptr)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->ClearVertexNormalMap();
-		mesh->ClearFaceNormalMap();
-		mesh->model.remove_all_property_maps();
 	}
 
 	static Point3d GetPoint(void* ptr, int index)
@@ -800,18 +904,6 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 		return 0;
 		//return (int)mesh->model.properties<SurfaceMesh>().size();
-	}
-
-	static void ClearVertexNormalMap(void* ptr)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->ClearVertexNormalMap();
-	}
-
-	static void ClearFaceNormalMap(void* ptr)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->ClearFaceNormalMap();
 	}
 
 	static void ComputeVertexNormals(void* ptr)

@@ -20,3 +20,4 @@ int PolygonMeshProcessingFeatures_EEK_SharpEdgesSegmentation(void* feaPtr, void*
 {
 	return PolygonMeshProcessingFeatures<EEK>::SharpEdgesSegmentation_PH(feaPtr, polyPtr, feature_angle);
 }
+

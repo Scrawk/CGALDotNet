@@ -15,6 +15,14 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_Clear(void* ptr);
 
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces);
+
+	CGALWRAPPER_API	void SurfaceMesh3_EEK_ClearProperyMaps(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force);
+
 	CGALWRAPPER_API void* SurfaceMesh3_EEK_Copy(void* ptr);
 
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsValid(void* ptr);
@@ -77,8 +85,6 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_RemoveFace(void* ptr, int index);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_RemoveProperyMaps(void* ptr);
-
 	CGALWRAPPER_API Point3d SurfaceMesh3_EEK_GetPoint(void* ptr, int index);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetPoints(void* ptr, Point3d* points, int count);
@@ -136,10 +142,6 @@ extern "C"
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetCentroids(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_PropertyMapCount(void* ptr);
-
-	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearVertexNormalMap(void* ptr);
-
-	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearFaceNormalMap(void* ptr);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_ComputeVertexNormals(void* ptr);
 

@@ -10,6 +10,7 @@
 
 #include <limits>
 #include <map>
+#include <unordered_map>
 #include <set>
 #include <fstream>
 #include <iostream>
@@ -46,8 +47,10 @@ public:
 	typedef typename HalfedgeDS::Face Face;
 	typedef typename Polyhedron::Vertex_handle Vertex_Handle;
 	typedef typename Polyhedron::Face_handle Face_Handle;
+	typedef typename Polyhedron::Halfedge_handle Halfedge_Handle;
 	typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
 	typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
+	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor Edge_Des;
 	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<Polyhedron> AABB_face_graph_primitive;
@@ -56,18 +59,22 @@ public:
 
 private:
 
-	std::map<Vertex_Des, int> vertexIndexMap;
+	std::unordered_map<Vertex_Des, int> vertexIndexMap;
 	std::vector<Vertex_Des> vertexMap;
 	bool rebuildVertexIndexMap = true;
 
-	std::map<Face_Des, int> faceIndexMap;
+	std::unordered_map<Face_Des, int> faceIndexMap;
 	std::vector<Face_Des> faceMap;
 	bool rebuildFaceIndexMap = true;
 
-	std::map<Vertex_Des, Vector> vertexNormalMap;
+	std::unordered_map<Halfedge_Handle, int> edgeIndexMap;
+	std::vector<Halfedge_Handle> edgeMap;
+	bool rebuildEdgeIndexMap = true;
+
+	std::unordered_map<Vertex_Des, Vector> vertexNormalMap;
 	bool rebuildVertexNormalMap = true;
 
-	std::map<Face_Des, Vector> faceNormalMap;
+	std::unordered_map<Face_Des, Vector> faceNormalMap;
 	bool rebuildFaceNormalMap = true;
 
 public:
@@ -135,6 +142,14 @@ public:
 		rebuildFaceIndexMap = true;
 	}
 
+	void OnEdgeIndicesChanged()
+	{
+		edgeMap.clear();
+		edgeMap.reserve(0);
+		edgeIndexMap.clear();
+		rebuildEdgeIndexMap = true;
+	}
+
 	void OnVerticesChanged()
 	{
 		OnVertexNormalsChanged();
@@ -149,10 +164,17 @@ public:
 		DeleteTree();
 	}
 
+	void OnEdgesChanged()
+	{
+		OnEdgeIndicesChanged();
+		DeleteTree();
+	}
+
 	void OnModelChanged()
 	{
 		OnVerticesChanged();
 		OnFacesChanged();
+		OnEdgesChanged();
 	}
 
 	void DeleteTree()
@@ -187,7 +209,7 @@ public:
 		{
 			vert->id() = index;
 			vertexMap[index] = vert;
-			vertexIndexMap.insert(std::pair<Vertex_Handle, int>(vert, index));
+			vertexIndexMap.insert(std::pair<Vertex_Des, int>(vert, index));
 			index++;
 		}
 	}
@@ -206,12 +228,31 @@ public:
 		{
 			face->id() = index;
 			faceMap[index] = face;
-			faceIndexMap.insert(std::pair<Face_Handle, int>(face, index));
+			faceIndexMap.insert(std::pair<Face_Des, int>(face, index));
 			index++;
 		}
 	}
 
-	int FindVertexIndex(Vertex_Handle vert)
+	void BuildEdgeIndexMap(bool force = false)
+	{
+		if (!force && !rebuildEdgeIndexMap) return;
+		rebuildEdgeIndexMap = false;
+
+		auto count = model.size_of_halfedges();
+		edgeMap.resize(count);
+		edgeIndexMap.clear();
+
+		int index = 0;
+		for (auto edge = model.halfedges_begin(); edge != model.halfedges_end(); ++edge)
+		{
+			edge->id() = index;
+			edgeMap[index] = edge;
+			edgeIndexMap.insert(std::pair<Halfedge_Handle, int>(edge, index));
+			index++;
+		}
+	}
+
+	int FindVertexIndex(Vertex_Des vert)
 	{
 		BuildVertexIndexMap();
 
@@ -225,14 +266,15 @@ public:
 	Vertex_Des* FindVertex(int index)
 	{
 		BuildVertexIndexMap();
+		int count = (int)model.size_of_vertices();
 
-		if (index < 0 || index >= (int)model.size_of_vertices())
+		if (index < 0 || index >= count)
 			return nullptr;
 
 		return &vertexMap[index];
 	}
 
-	int FindFaceIndex(Face_Handle vert)
+	int FindFaceIndex(Face_Des vert)
 	{
 		BuildFaceIndexMap();
 
@@ -246,11 +288,34 @@ public:
 	Face_Des* FindFace(int index)
 	{
 		BuildFaceIndexMap();
+		int count = (int)model.size_of_facets();
 
-		if (index < 0 || index >= (int)model.size_of_facets())
+		if (index < 0 || index >= count)
 			return nullptr;
 
 		return &faceMap[index];
+	}
+
+	int FindEdgeIndex(Edge_Des vert)
+	{
+		BuildEdgeIndexMap();
+
+		auto item = edgeIndexMap.find(vert);
+		if (item != edgeIndexMap.end())
+			return item->second;
+		else
+			return NULL_INDEX;
+	}
+
+	Edge_Des* FindEdge(int index)
+	{
+		BuildEdgeIndexMap();
+		int count = (int)model.size_of_halfedges();
+
+		if (index < 0 || index >= count)
+			return nullptr;
+
+		return &edgeMap[index];
 	}
 
 	Vector FindVertexNormal(Vertex_Des vert)
@@ -269,23 +334,26 @@ public:
 		poly->OnModelChanged();
 	}
 
-	static void ClearIndexMaps(void* ptr)
+	static void ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->OnVertexIndicesChanged();
-		poly->OnFaceIndicesChanged();
+		if (vertices) poly->OnVertexIndicesChanged();
+		if (faces) poly->OnFaceIndicesChanged();
+		if (edges) poly->OnEdgeIndicesChanged();
+	}
+	static void ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		if (vertices) poly->OnVertexNormalsChanged();
+		if (faces) poly->OnFaceNormalsChanged();
 	}
 
-	static void ClearVertexNormalMap(void* ptr)
+	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->OnVertexNormalsChanged();
-	}
-
-	static void ClearFaceNormalMap(void* ptr)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		poly->OnVertexNormalsChanged();
+		if (vertices) poly->BuildVertexIndexMap(force);
+		if (faces) poly->BuildFaceIndexMap(force);
+		if (edges) poly->BuildEdgeIndexMap(force);
 	}
 
 	static void* Copy(void* ptr)
@@ -294,13 +362,6 @@ public:
 		auto copy = NewPolyhedron();
 		copy->model = poly->model;
 		return copy;
-	}
-
-	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force)
-	{
-		auto poly = CastToPolyhedron(ptr);
-		if (vertices) poly->BuildVertexIndexMap(force);
-		if (faces) poly->BuildFaceIndexMap(force);
 	}
 
 	static int VertexCount(void* ptr)

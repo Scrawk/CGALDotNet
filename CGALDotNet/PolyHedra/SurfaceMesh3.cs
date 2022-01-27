@@ -284,6 +284,54 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Clear the index maps.
+        /// The index maps are used to access the meshes elemnts by index.
+        /// They are automaticaly created when a elements is accessed
+        /// be a function requiring it.
+        /// </summary>
+        /// <param name="vertices">True to clear the vertex index map.</param>
+        /// <param name="faces">True to clear the face index map.</param>
+        /// <param name="edges">True to clear the edges index map.</param>
+        public void ClearIndexMaps(bool vertices, bool faces, bool edges)
+        {
+            Kernel.ClearIndexMaps(Ptr, vertices, faces, edges);
+        }
+
+        /// <summary>
+        /// Clear the normal maps.
+        /// </summary>
+        /// <param name="vertices">True to clear the vertex normal map./param>
+        /// <param name="faces">True to clear the face normal map</param>
+        public void ClearNormalMaps(bool vertices, bool faces)
+        {
+            Kernel.ClearNormalMaps(Ptr, vertices, faces);   
+        }
+
+        /// <summary>
+        /// Clear the property maps.
+        /// </summary>
+        public void ClearProperyMaps()
+        {
+            Kernel.ClearProperyMaps(Ptr);
+        }
+
+        /// <summary>
+        /// Build the index maps.
+        /// The index maps are used to access the meshes elemnts by index.
+        /// They are automaticaly created when a elements is accessed
+        /// be a function requiring it but can be create ahead of time.
+        /// </summary>
+        /// <param name="vertices">True to build the vertex index maps.</param>
+        /// <param name="faces">True to build the face index maps.</param>
+        /// <param name="edges">True to build the edge index maps.</param>
+        /// <param name="force">The index maps wont be build if the mesh knows they are already built and upto date.
+        /// Setting force to true will build them always.</param>
+        public void BuildIndices(bool vertices, bool faces, bool edges, bool force = false)
+        {
+            Kernel.BuildIndices(Ptr, vertices, faces, edges, force);
+        }
+
+        /// <summary>
         /// Adds a vertex to the mesh.
         /// </summary>
         /// <param name="point">The vertices position</param>
@@ -500,14 +548,6 @@ namespace CGALDotNet.Polyhedra
         {
             IsUpdated = false;
             Kernel.RemoveVertex(Ptr, vertex);
-        }
-
-        /// <summary>
-        /// Remove all property maps from the mesh.
-        /// </summary>
-        public void RemovePropertyMaps()
-        {
-            Kernel.RemoveProperyMaps(Ptr);
         }
 
         /// <summary>
@@ -1048,22 +1088,6 @@ namespace CGALDotNet.Polyhedra
         {
             ErrorUtil.CheckArray(points, count);
             Kernel.GetCentroids(Ptr, points, count);
-        }
-
-        /// <summary>
-        /// Clear the vertex normal map.
-        /// </summary>
-        public void ClearVertexNormalMap()
-        {
-            Kernel.ClearVertexNormalMap(Ptr);
-        }
-
-        /// <summary>
-        /// Clear the face normal map.
-        /// </summary>
-        public void ClearFaceNormalMap()
-        {
-            Kernel.ClearFaceNormalMap(Ptr);
         }
 
         /// <summary>

@@ -15,13 +15,13 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void Clear(IntPtr ptr);
 
-		internal abstract void ClearIndexMaps(IntPtr ptr);
+		internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
 
-		internal abstract void ClearNormalMaps(IntPtr ptr);
+		internal abstract void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces);
+
+		internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
 
 		internal abstract IntPtr Copy(IntPtr ptr);
-
-		internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool force);
 
 		internal abstract int VertexCount(IntPtr ptr);
 

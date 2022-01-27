@@ -426,19 +426,27 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Clear the mesh index maps.
+        /// Clear the index maps.
+        /// The index maps are used to access the meshes elemnts by index.
+        /// They are automaticaly created when a elements is accessed
+        /// be a function requiring it.
         /// </summary>
-        public void ClearIndexMaps()
+        /// <param name="vertices">True to clear the vertex index map.</param>
+        /// <param name="faces">True to clear the face index map.</param>
+        /// <param name="edges">True to clear the edges index map.</param>
+        public void ClearIndexMaps(bool vertices, bool faces, bool edges)
         {
-            Kernel.ClearIndexMaps(Ptr);
+            Kernel.ClearIndexMaps(Ptr, vertices, faces, edges);
         }
 
         /// <summary>
-        /// Clear the mesh normals maps.
+        /// Clear the normal maps.
         /// </summary>
-        public void ClearNormalMaps()
+        /// <param name="vertices">True to clear the vertex normal map./param>
+        /// <param name="faces">True to clear the face normal map</param>
+        public void ClearNormalMaps(bool vertices, bool faces)
         {
-            Kernel.ClearNormalMaps(Ptr);
+            Kernel.ClearNormalMaps(Ptr, vertices, faces);
         }
 
         /// <summary>
@@ -446,17 +454,18 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="vertices">True to build the vertex index map.</param>
         /// <param name="faces">True to build the face index map.</param>
+        /// <param name="edges">True to build the face index map.</param>
         /// <param name="force">True to force the build even if already built.</param>
-        public void BuildIndices(bool vertices, bool faces, bool force = false)
+        public void BuildIndices(bool vertices, bool faces, bool edges, bool force = false)
         {
-            Kernel.BuildIndices(Ptr, vertices, faces, force);
+            Kernel.BuildIndices(Ptr, vertices, faces, edges, force);
         }
 
         /// <summary>
         /// A tetrahedron is added to the polyhedral surface
         /// with its vertices initialized to p1, p2, p3, and p4.
         /// </summary>
-        public void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+        internal void MakeTetrahedron(Point3d p1, Point3d p2, Point3d p3, Point3d p4)
         {
             Kernel.MakeTetrahedron(Ptr, p1, p2, p3, p4);
             IsUpdated = false;
@@ -466,7 +475,7 @@ namespace CGALDotNet.Polyhedra
         /// A triangle with border edges is added to the 
         /// polyhedral surface with its vertices initialized to p1, p2, and p3.
         /// </summary>
-        public void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
+        internal void MakeTriangle(Point3d p1, Point3d p2, Point3d p3)
         {
             Kernel.MakeTriangle(Ptr, p1, p2, p3);
             IsUpdated = false;

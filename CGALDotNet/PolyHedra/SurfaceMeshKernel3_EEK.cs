@@ -28,6 +28,26 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_Clear(ptr);
         }
 
+        internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
+        {
+
+        }
+
+        internal override void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces)
+        {
+
+        }
+
+        internal override void ClearProperyMaps(IntPtr ptr)
+        {
+
+        }
+
+        internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force)
+        {
+
+        }
+
         internal override IntPtr Copy(IntPtr ptr)
         {
             return SurfaceMesh3_EEK_Copy(ptr);
@@ -161,11 +181,6 @@ namespace CGALDotNet.Polyhedra
         internal override void RemoveFace(IntPtr ptr, int index)
         {
             SurfaceMesh3_EEK_RemoveFace(ptr, index);
-        }
-
-        internal override void RemoveProperyMaps(IntPtr ptr)
-        {
-            SurfaceMesh3_EEK_RemoveProperyMaps(ptr);
         }
 
         internal override bool IsVertexValid(IntPtr ptr, int index)
@@ -328,16 +343,6 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_GetCentroids(ptr, points, count);  
         }
 
-        internal override void ClearVertexNormalMap(IntPtr ptr)
-        {
-            SurfaceMesh3_EEK_ClearVertexNormalMap(ptr);
-        }
-
-        internal override void ClearFaceNormalMap(IntPtr ptr)
-        {
-            SurfaceMesh3_EEK_ClearFaceNormalMap(ptr);
-        }
-
         internal override void ComputeVertexNormals(IntPtr ptr)
         {
             SurfaceMesh3_EEK_ComputeVertexNormals(ptr);
@@ -366,6 +371,18 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_Clear(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ClearNormalMaps(IntPtr ptr, bool vertices, bool faces);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_ClearProperyMaps(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr SurfaceMesh3_EEK_Copy(IntPtr ptr);
@@ -447,9 +464,6 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_RemoveFace(IntPtr ptr, int index);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_RemoveProperyMaps(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_IsVertexValid(IntPtr ptr, int index);
@@ -546,12 +560,6 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_GetCentroids(IntPtr ptr, [Out] Point3d[] points, int count);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_ClearVertexNormalMap(IntPtr ptr);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_ClearFaceNormalMap(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_ComputeVertexNormals(IntPtr ptr);

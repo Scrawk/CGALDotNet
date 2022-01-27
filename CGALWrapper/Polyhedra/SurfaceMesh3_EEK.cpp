@@ -18,6 +18,26 @@ void SurfaceMesh3_EEK_Clear(void* ptr)
 	SurfaceMesh3<EEK>::Clear(ptr);
 }
 
+void SurfaceMesh3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
+{
+	SurfaceMesh3<EEK>::ClearIndexMaps(ptr, vertices, faces, edges);
+}
+
+void SurfaceMesh3_EEK_ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
+{
+	SurfaceMesh3<EEK>::ClearNormalMaps(ptr, vertices, faces);
+}
+
+void SurfaceMesh3_EEK_ClearProperyMaps(void* ptr)
+{
+	SurfaceMesh3<EEK>::ClearProperyMaps(ptr);
+}
+
+void SurfaceMesh3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
+{
+	SurfaceMesh3<EEK>::BuildIndices(ptr, vertices, faces, edges, force);
+}
+
 void* SurfaceMesh3_EEK_Copy(void* ptr)
 {
 	return SurfaceMesh3<EEK>::Copy(ptr);
@@ -151,11 +171,6 @@ void SurfaceMesh3_EEK_RemoveEdge(void* ptr, int index)
 void SurfaceMesh3_EEK_RemoveFace(void* ptr, int index)
 {
 	SurfaceMesh3<EEK>::RemoveFace(ptr, index);
-}
-
-void SurfaceMesh3_EEK_RemoveProperyMaps(void* ptr)
-{
-	SurfaceMesh3<EEK>::RemoveProperyMaps(ptr);
 }
 
 BOOL SurfaceMesh3_EEK_IsVertexValid(void* ptr, int index)
@@ -323,16 +338,6 @@ int SurfaceMesh3_EEK_PropertyMapCount(void* ptr)
 	return SurfaceMesh3<EEK>::PropertyMapCount(ptr);
 }
 
-void SurfaceMesh3_EEK_ClearVertexNormalMap(void* ptr)
-{
-	SurfaceMesh3<EEK>::ClearVertexNormalMap(ptr);
-}
-
-void SurfaceMesh3_EEK_ClearFaceNormalMap(void* ptr)
-{
-	SurfaceMesh3<EEK>::ClearFaceNormalMap(ptr);
-}
-
 void SurfaceMesh3_EEK_ComputeVertexNormals(void* ptr)
 {
 	SurfaceMesh3<EEK>::ComputeVertexNormals(ptr);
@@ -352,6 +357,7 @@ void SurfaceMesh3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count)
 {
 	SurfaceMesh3<EEK>::GetFaceNormals(ptr, normals, count);
 }
+
 
 
 

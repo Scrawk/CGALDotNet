@@ -28,25 +28,25 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_Clear(ptr);
 		}
 
-		internal override void ClearIndexMaps(IntPtr ptr)
+		internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
         {
-			Polyhedron3_EEK_ClearIndexMaps(ptr);
+			Polyhedron3_EEK_ClearIndexMaps(ptr, vertices, faces, edges);
 		}
 
-		internal override void ClearNormalMaps(IntPtr ptr)
+		internal override void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces)
         {
-			Polyhedron3_EEK_ClearNormalMaps(ptr);
+			Polyhedron3_EEK_ClearNormalMaps(ptr, vertices, faces);
+		}
+
+		internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force)
+		{
+			Polyhedron3_EEK_BuildIndices(ptr, vertices, faces, edges, force);
 		}
 
 		internal override IntPtr Copy(IntPtr ptr)
 		{
 			return Polyhedron3_EEK_Copy(ptr);
 		}
-
-		internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool force)
-        {
-			Polyhedron3_EEK_BuildIndices(ptr, vertices, faces, force);
-        }
 
 		internal override int VertexCount(IntPtr ptr)
 		{
@@ -299,16 +299,16 @@ namespace CGALDotNet.Polyhedra
 		private static extern  void Polyhedron3_EEK_Clear(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_ClearIndexMaps(IntPtr ptr);
+		private static extern void Polyhedron3_EEK_ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_ClearNormalMaps(IntPtr ptr);
+		private static extern void Polyhedron3_EEK_ClearNormalMaps(IntPtr ptr, bool vertices, bool faces);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Copy(IntPtr ptr);
-
-		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_BuildIndices(IntPtr ptr, bool vertices, bool faces, bool force);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern int Polyhedron3_EEK_VertexCount(IntPtr ptr);

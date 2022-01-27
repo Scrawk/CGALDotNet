@@ -17,29 +17,24 @@ void Polyhedron3_EEK_Clear(void* ptr)
 	Polyhedron3<EEK>::Clear(ptr);
 }
 
-void Polyhedron3_EEK_ClearIndexMaps(void* ptr)
+void Polyhedron3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
 {
-	Polyhedron3<EEK>::ClearIndexMaps(ptr);
+	Polyhedron3<EEK>::ClearIndexMaps(ptr, vertices, faces, edges);
 }
 
-void Polyhedron3_EEK_ClearVertexNormalMap(void* ptr)
+void Polyhedron3_EEK_ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
 {
-	Polyhedron3<EEK>::ClearVertexNormalMap(ptr);
+	Polyhedron3<EEK>::ClearNormalMaps(ptr, vertices, faces);
 }
 
-void Polyhedron3_EEK_ClearFaceNormalMap(void* ptr)
+void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
 {
-	Polyhedron3<EEK>::ClearFaceNormalMap(ptr);
+	Polyhedron3<EEK>::BuildIndices(ptr, vertices, faces, edges, force);
 }
 
 void* Polyhedron3_EEK_Copy(void* ptr)
 {
 	return Polyhedron3<EEK>::Copy(ptr);
-}
-
-void Polyhedron3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL force)
-{
-	Polyhedron3<EEK>::BuildIndices(ptr, vertices, faces, force);
 }
 
 int Polyhedron3_EEK_VertexCount(void* ptr)
