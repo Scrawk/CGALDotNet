@@ -56,6 +56,10 @@ public:
 
 	AABBTree* tree = nullptr;
 
+	std::vector<Face> faceMap;
+
+	bool rebuildFaceIndexMap = true;
+
 	bool vertexNormalsComputed = false;
 
 	bool faceNormalsComputed = false;
@@ -96,6 +100,43 @@ public:
 		return SurfaceMesh::null_edge();
 	}
 
+	void OnVertexNormalsChanged()
+	{
+		vertexNormalsComputed = false;
+	}
+
+	void OnFaceNormalsChanged()
+	{
+		faceNormalsComputed = false;
+	}
+
+	void OnFaceIndicesChanged()
+	{
+		faceMap.clear();
+		faceMap.reserve(0);
+		faceNormalsComputed = false;
+	}
+
+	void OnVerticesChanged()
+	{
+		OnVertexNormalsChanged();
+		DeleteTree();
+	}
+
+	void OnFacesChanged()
+	{
+		OnFaceNormalsChanged();
+		OnFaceIndicesChanged();
+		DeleteTree();
+	}
+
+	void OnModelChanged()
+	{
+		OnVerticesChanged();
+		OnFacesChanged();
+		DeleteTree();
+	}
+
 	void DeleteTree()
 	{
 		if (tree != nullptr)
@@ -134,43 +175,36 @@ public:
 		faceNormalsComputed = false;
 	}
 
-	void OnModelChanged()
+	void BuildFaceIndexMap(bool force = false)
 	{
-		vertexNormalsComputed = false;
-		faceNormalsComputed = false;
-		DeleteTree();
-	}
+		if (!force && !rebuildFaceIndexMap) return;
+		rebuildFaceIndexMap = false;
 
-	void OnVertexNormalsChanged()
-	{
-		vertexNormalsComputed = false;
-		faceNormalsComputed = false;
-	}
+		auto count = model.number_of_faces();
+		faceMap.resize(count);
 
-	void OnFaceNormalsChanged()
-	{
-		faceNormalsComputed = false;
+		int index = 0;
+		for (auto face : model.faces())
+		{
+			faceMap[index++] = face;
+		}
 	}
 
 	Face FindFace(int index)
 	{
-		auto f = Face(index);
-		for (auto face : model.faces())
-		{
-			if (face == f)
-				return face;
-		}
+		BuildFaceIndexMap();
 
-		return NullFace();
+		if (index < 0 || index >= model.number_of_faces())
+			return NullFace();
+
+		return faceMap[index];
 	}
 
 	void Clear()
 	{
-		vertexNormalsComputed = false;
-		faceNormalsComputed = false;
-		DeleteTree();
 		model.clear();
 		model.collect_garbage();
+		OnModelChanged();
 	}
 
 	static void Clear(void* ptr)
@@ -360,17 +394,15 @@ public:
 	static void RemoveEdge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->ClearVertexNormalMap();
-		mesh->ClearFaceNormalMap();
 		mesh->model.remove_edge(Edge(index));
+		mesh->OnModelChanged();
 	}
 
 	static void RemoveFace(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->ClearVertexNormalMap();
-		mesh->ClearFaceNormalMap();
 		mesh->model.remove_face(Face(index));
+		mesh->OnModelChanged();
 	}
 
 	static void RemoveProperyMaps(void* ptr)
@@ -607,6 +639,7 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 		auto other = CastToSurfaceMesh(otherPtr);
 		mesh->model.join(other->model);
+		mesh->OnModelChanged();
 	}
 
 	static void BuildAABBTree(void* ptr)
@@ -654,6 +687,7 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		CGAL::Polygon_mesh_processing::triangulate_faces(mesh->model);
+		mesh->OnModelChanged();
 	}
 
 	static BOOL DoesSelfIntersect(void* ptr)
@@ -816,9 +850,7 @@ public:
 		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::vertex_descriptor VertexDes;
 
 		auto mesh = CastToSurfaceMesh(ptr);
-
-		if (!mesh->vertexNormalsComputed)
-			ComputeVertexNormals(ptr);
+		ComputeVertexNormals(ptr);
 
 		auto pair = mesh->model.property_map<VertexDes, Vector>(VERTEX_NORMAL_MAP_NAME);
 		if (!pair.second) return;
@@ -841,9 +873,7 @@ public:
 		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::face_descriptor FaceDes;
 
 		auto mesh = CastToSurfaceMesh(ptr);
-
-		if (!mesh->faceNormalsComputed)
-			ComputeFaceNormals(ptr);
+		ComputeFaceNormals(ptr);
 
 		auto pair = mesh->model.property_map<FaceDes, Vector>(FACE_NORMAL_MAP_NAME);
 		if (!pair.second) return;

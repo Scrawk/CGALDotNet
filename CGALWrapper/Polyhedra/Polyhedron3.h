@@ -122,6 +122,7 @@ public:
 	void OnVertexIndicesChanged()
 	{
 		vertexMap.clear();
+		vertexMap.reserve(0);
 		vertexIndexMap.clear();
 		rebuildVertexIndexMap = true;
 	}
@@ -129,6 +130,7 @@ public:
 	void OnFaceIndicesChanged()
 	{
 		faceMap.clear();
+		faceMap.reserve(0);
 		faceIndexMap.clear();
 		rebuildFaceIndexMap = true;
 	}
@@ -211,6 +213,8 @@ public:
 
 	int FindVertexIndex(Vertex_Handle vert)
 	{
+		BuildVertexIndexMap();
+
 		auto item = vertexIndexMap.find(vert);
 		if (item != vertexIndexMap.end())
 			return item->second;
@@ -220,6 +224,8 @@ public:
 
 	Vertex FindVertex(int index)
 	{
+		BuildVertexIndexMap();
+
 		if (index < 0 || index >= model.size_of_vertices())
 			return nullptr;
 
@@ -228,6 +234,8 @@ public:
 
 	int FindFaceIndex(Face_Handle vert)
 	{
+		BuildFaceIndexMap();
+
 		auto item = faceIndexMap.find(vert);
 		if (item != faceIndexMap.end())
 			return item->second;
@@ -237,6 +245,8 @@ public:
 
 	Face FindFace(int index)
 	{
+		BuildFaceIndexMap();
+
 		if (index < 0 || index >= model.size_of_facets())
 			return nullptr;
 
