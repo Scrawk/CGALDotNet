@@ -29,10 +29,16 @@ public:
 	typedef typename SurfaceMesh::Face_index SFace;
 	typedef typename boost::graph_traits<SurfaceMesh>::face_descriptor SFace_Des;
 	typedef typename boost::graph_traits<SurfaceMesh>::faces_size_type SFaces_Size;
+
+	//CGAL::Polygon_mesh_processing::parameters::all_default()
 	
 	std::vector<Polyhedron> polyhedron_buffer;
 
 	std::vector<SurfaceMesh> surface_mesh_buffer;
+
+	std::vector<PFace_Des> polyhedron_face_buffer;
+
+	std::vector<SFace_Des> surface_face_buffer;
 
 public:
 
@@ -69,20 +75,40 @@ public:
 		return 0;
 	}
 
-	static int ConnectedComponent_PH(void* meshPtr, int index)
+	static int ConnectedComponent_PH(void* ptr, void* meshPtr, int index)
 	{
+		auto con = CastToPolygonMeshProcessingConnections(ptr);
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 
 		auto face = mesh->FindFace(index);
 		if (face != nullptr)
 		{
-			std::vector<PFace_Des> cc;
-			CGAL::Polygon_mesh_processing::connected_component(*face, mesh->model, std::back_inserter(cc));
+			con->polyhedron_face_buffer.clear();
+			auto ins = std::back_inserter(con->polyhedron_face_buffer);
+			CGAL::Polygon_mesh_processing::connected_component(*face, mesh->model, ins);
 
-			return (int)cc.size();
+			return (int)con->polyhedron_face_buffer.size();
 		}
 		else
 			return 0;
+	}
+
+	static void GetConnectedComponentFaceIndex_PH(void* ptr, void* meshPtr, int* indices, int count)
+	{
+		auto con = CastToPolygonMeshProcessingConnections(ptr);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+		int size = (int)con->polyhedron_face_buffer.size();
+
+		for (int i = 0; i < count; i++)
+		{
+			auto face = con->polyhedron_face_buffer[i];
+			int index = mesh->FindFaceIndex(face);
+			indices[i] = index;
+			
+			if (i >= size) break;
+		}
+
+		con->polyhedron_face_buffer.clear();
 	}
 
 	static int SplitConnectedComponents_PH(void* ptr, void* meshPtr)
@@ -99,9 +125,7 @@ public:
 	static void GetSplitConnectedComponents_PH(void* ptr, void** meshPtrs, int count)
 	{
 		auto con = CastToPolygonMeshProcessingConnections(ptr);
-
 		int size = (int)con->polyhedron_buffer.size();
-		if (size == 0) return;
 
 		for (int i = 0; i < count; i++)
 		{
@@ -115,10 +139,15 @@ public:
 		con->polyhedron_buffer.clear();
 	}
 
+	static int KeepLargeConnectedComponents_PH(void* meshPtr, int threshold_value)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+		return (int)CGAL::Polygon_mesh_processing::keep_large_connected_components(mesh->model, threshold_value);
+	}
+
 	static int KeepLargestConnectedComponents_PH(void* meshPtr, int nb_components_to_keep)
 	{
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
-
 		return (int)CGAL::Polygon_mesh_processing::keep_largest_connected_components(mesh->model, nb_components_to_keep);;
 	}
 
@@ -128,29 +157,49 @@ public:
 	{
 		auto mesh = SurfaceMesh3<EEK>::CastToSurfaceMesh(meshPtr);
 
-		auto map = mesh->model.add_property_map<SFace_Des, std::size_t>("f:CC").first;
-		auto num = CGAL::Polygon_mesh_processing::connected_components(mesh->model, map);
+		auto pair = mesh->model.property_map<SFace_Des, std::size_t>("f:CC");
+		auto map = pair.first;
 
-		//auto key = mesh->model.property_map<SFace_Des, std::size_t>("f:CC");
-		//mesh->model.remove_property_map(key.first);
+		//auto map = mesh->model.add_property_map<SFace_Des, std::size_t>("f:CC").first;
+		auto num = CGAL::Polygon_mesh_processing::connected_components(mesh->model, map);
+		//mesh->model.remove_property_map(pair.first);
 		
 		return (int)num;
 	}
 
-	static int ConnectedComponent_SM(void* meshPtr, int index)
+	static int ConnectedComponent_SM(void* ptr, void* meshPtr, int index)
 	{
+		auto con = CastToPolygonMeshProcessingConnections(ptr);
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 
 		SFace face = mesh->FindFace(index);
 		if (face != SurfaceMesh3<K>::NullFace())
 		{
-			std::vector<SFace_Des> cc;
-			CGAL::Polygon_mesh_processing::connected_component(face, mesh->model, std::back_inserter(cc));
+			con->surface_face_buffer.clear();
+			auto ins = std::back_inserter(con->surface_face_buffer);
+			CGAL::Polygon_mesh_processing::connected_component(face, mesh->model, ins);
 
-			return (int)cc.size();
+			return (int)con->surface_face_buffer.size();
 		}
 		else
 			return 0;
+	}
+
+	static void GetConnectedComponentFaceIndex_SM(void* ptr, void* meshPtr, int* indices, int count)
+	{
+		auto con = CastToPolygonMeshProcessingConnections(ptr);
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+		int size = (int)con->surface_face_buffer.size();
+
+		for (int i = 0; i < count; i++)
+		{
+			auto face = con->surface_face_buffer[i];
+			indices[i] = face;
+
+			if (i >= size) break;
+		}
+
+		con->surface_face_buffer.clear();
 	}
 
 	static int SplitConnectedComponents_SM(void* ptr, void* meshPtr)
@@ -167,9 +216,7 @@ public:
 	static void GetSplitConnectedComponents_SM(void* ptr, void** meshPtrs, int count)
 	{
 		auto con = CastToPolygonMeshProcessingConnections(ptr);
-
 		int size = (int)con->surface_mesh_buffer.size();
-		if (size == 0) return;
 
 		for (int i = 0; i < count; i++)
 		{
@@ -183,10 +230,15 @@ public:
 		con->surface_mesh_buffer.clear();
 	}
 
+	static int KeepLargeConnectedComponents_SM(void* meshPtr, int threshold_value)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+		return (int)CGAL::Polygon_mesh_processing::keep_large_connected_components(mesh->model, threshold_value);
+	}
+
 	static int KeepLargestConnectedComponents_SM(void* meshPtr, int nb_components_to_keep)
 	{
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
-
 		return (int)CGAL::Polygon_mesh_processing::keep_largest_connected_components(mesh->model, nb_components_to_keep);
 	}
 

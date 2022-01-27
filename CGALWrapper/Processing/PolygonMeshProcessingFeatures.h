@@ -13,8 +13,9 @@ class PolygonMeshProcessingFeatures
 
 public:
 
-	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 	typedef typename K::Point_3 Point;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+	
 
 	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor edge_descriptor;
 	typedef typename boost::graph_traits<Polyhedron>::face_descriptor face_descriptor;
@@ -41,7 +42,7 @@ public:
 		return static_cast<PolygonMeshProcessingFeatures*>(ptr);
 	}
 
-	static int DetectSharpEdges(void* feaPtr, void* polyPtr, double feature_angle)
+	static int DetectSharpEdges_PH(void* feaPtr, void* polyPtr, double feature_angle)
 	{
 		auto fea = CastToPolygonMeshProcessingFeatures(feaPtr);
 		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
@@ -53,7 +54,7 @@ public:
 		return (int)map.size();
 	}
 
-	static int SharpEdgesSegmentation(void* feaPtr, void* polyPtr, double feature_angle)
+	static int SharpEdgesSegmentation_PH(void* feaPtr, void* polyPtr, double feature_angle)
 	{
 		return 0;
 	}

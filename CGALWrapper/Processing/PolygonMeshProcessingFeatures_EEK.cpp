@@ -13,10 +13,10 @@ void PolygonMeshProcessingFeatures_EEK_Release(void* ptr)
 
 int PolygonMeshProcessingFeatures_EEK_DetectSharpEdges(void* feaPtr, void* polyPtr, double feature_angle)
 {
-	return PolygonMeshProcessingFeatures<EEK>::DetectSharpEdges(feaPtr, polyPtr, feature_angle);
+	return PolygonMeshProcessingFeatures<EEK>::DetectSharpEdges_PH(feaPtr, polyPtr, feature_angle);
 }
 
 int PolygonMeshProcessingFeatures_EEK_SharpEdgesSegmentation(void* feaPtr, void* polyPtr, double feature_angle)
 {
-	return PolygonMeshProcessingFeatures<EEK>::SharpEdgesSegmentation(feaPtr, polyPtr, feature_angle);
+	return PolygonMeshProcessingFeatures<EEK>::SharpEdgesSegmentation_PH(feaPtr, polyPtr, feature_angle);
 }

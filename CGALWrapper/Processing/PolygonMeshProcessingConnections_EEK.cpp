@@ -25,9 +25,14 @@ int PolygonMeshProcessingConnections_EEK_ConnectedComponents_PH(void* meshPtr)
 	return PolygonMeshProcessingConnections<EEK>::ConnectedComponents_PH(meshPtr);
 }
 
-int PolygonMeshProcessingConnections_EEK_ConnectedComponent_PH(void* meshPtr, int index)
+int PolygonMeshProcessingConnections_EEK_ConnectedComponent_PH(void* ptr, void* meshPtr, int index)
 {
-	return PolygonMeshProcessingConnections<EEK>::ConnectedComponent_PH(meshPtr, index);
+	return PolygonMeshProcessingConnections<EEK>::ConnectedComponent_PH(ptr, meshPtr, index);
+}
+
+void PolygonMeshProcessingConnections_EEK_GetConnectedComponentsFaceIndex_PH(void* ptr, void* meshPtr, int* indices, int count)
+{
+	PolygonMeshProcessingConnections<EEK>::GetConnectedComponentFaceIndex_PH(ptr, meshPtr, indices, count);
 }
 
 int PolygonMeshProcessingConnections_EEK_SplitConnectedComponents_PH(void* ptr, void* meshPtr)
@@ -38,6 +43,11 @@ int PolygonMeshProcessingConnections_EEK_SplitConnectedComponents_PH(void* ptr, 
 void PolygonMeshProcessingConnections_EEK_GetSplitConnectedComponents_PH(void* ptr, void** meshPtrs, int count)
 {
 	PolygonMeshProcessingConnections<EEK>::GetSplitConnectedComponents_PH(ptr, meshPtrs, count);
+}
+
+int PolygonMeshProcessingConnections_EEK_KeepLargeConnectedComponents_PH(void* meshPtr, int threshold_value)
+{
+	return PolygonMeshProcessingConnections<EEK>::KeepLargeConnectedComponents_PH(meshPtr, threshold_value);
 }
 
 int PolygonMeshProcessingConnections_EEK_KeepLargestConnectedComponents_PH(void* meshPtr, int nb_components_to_keep)
@@ -52,9 +62,14 @@ int PolygonMeshProcessingConnections_EEK_ConnectedComponents_SM(void* meshPtr)
 	return PolygonMeshProcessingConnections<EEK>::ConnectedComponents_SM(meshPtr);
 }
 
-int PolygonMeshProcessingConnections_EEK_ConnectedComponent_SM(void* meshPtr, int index)
+int PolygonMeshProcessingConnections_EEK_ConnectedComponent_SM(void* ptr, void* meshPtr, int index)
 {
-	return PolygonMeshProcessingConnections<EEK>::ConnectedComponent_SM(meshPtr, index);
+	return PolygonMeshProcessingConnections<EEK>::ConnectedComponent_SM(ptr, meshPtr, index);
+}
+
+void PolygonMeshProcessingConnections_EEK_GetConnectedComponentsFaceIndex_SM(void* ptr, void* meshPtr, int* indices, int count)
+{
+	PolygonMeshProcessingConnections<EEK>::GetConnectedComponentFaceIndex_SM(ptr, meshPtr, indices, count);
 }
 
 int PolygonMeshProcessingConnections_EEK_SplitConnectedComponents_SM(void* ptr, void* meshPtr)
@@ -65,6 +80,11 @@ int PolygonMeshProcessingConnections_EEK_SplitConnectedComponents_SM(void* ptr, 
 void PolygonMeshProcessingConnections_EEK_GetSplitConnectedComponents_SM(void* ptr, void** meshPtrs, int count)
 {
 	PolygonMeshProcessingConnections<EEK>::GetSplitConnectedComponents_SM(ptr, meshPtrs, count);
+}
+
+int PolygonMeshProcessingConnections_EEK_KeepLargeConnectedComponents_SM(void* meshPtr, int threshold_value)
+{
+	return PolygonMeshProcessingConnections<EEK>::KeepLargeConnectedComponents_SM(meshPtr, threshold_value);
 }
 
 int PolygonMeshProcessingConnections_EEK_KeepLargestConnectedComponents_SM(void* meshPtr, int nb_components_to_keep)

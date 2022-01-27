@@ -28,9 +28,14 @@ namespace CGALDotNet.Processing
             return PolygonMeshProcessingConnections_EEK_ConnectedComponents_PH(meshPtr);
         }
 
-        internal override int ConnectedComponent_PH(IntPtr meshPtr, int index)
+        internal override int ConnectedComponent_PH(IntPtr ptr, IntPtr meshPtr, int index)
         {
-            return PolygonMeshProcessingConnections_EEK_ConnectedComponent_PH(meshPtr, index);
+            return PolygonMeshProcessingConnections_EEK_ConnectedComponent_PH(ptr, meshPtr, index);
+        }
+
+        internal override void GetConnectedComponentsFaceIndex_PH(IntPtr ptr, IntPtr meshPtr, int[] indices, int count)
+        {
+            PolygonMeshProcessingConnections_EEK_GetConnectedComponentsFaceIndex_PH(ptr, meshPtr, indices, count);
         }
 
         internal override int SplitConnectedComponents_PH(IntPtr ptr, IntPtr meshPtr)
@@ -41,6 +46,11 @@ namespace CGALDotNet.Processing
         internal override void GetSplitConnectedComponents_PH(IntPtr ptr, IntPtr[] meshPtrs, int count)
         {
             PolygonMeshProcessingConnections_EEK_GetSplitConnectedComponents_PH(ptr, meshPtrs, count);
+        }
+
+        internal override int KeepLargeConnectedComponents_PH(IntPtr meshPtr, int threshold_value)
+        {
+            return PolygonMeshProcessingConnections_EEK_KeepLargeConnectedComponents_PH(meshPtr, threshold_value);
         }
 
         internal override int KeepLargestConnectedComponents_PH(IntPtr meshPtr, int nb_components_to_keep)
@@ -55,9 +65,14 @@ namespace CGALDotNet.Processing
             return PolygonMeshProcessingConnections_EEK_ConnectedComponents_SM(meshPtr);
         }
 
-        internal override int ConnectedComponent_SM(IntPtr meshPtr, int index)
+        internal override int ConnectedComponent_SM(IntPtr ptr, IntPtr meshPtr, int index)
         {
-            return PolygonMeshProcessingConnections_EEK_ConnectedComponent_SM(meshPtr, index);
+            return PolygonMeshProcessingConnections_EEK_ConnectedComponent_SM(ptr, meshPtr, index);
+        }
+
+        internal override void GetConnectedComponentsFaceIndex_SM(IntPtr ptr, IntPtr meshPtr, int[] indices, int count)
+        {
+            PolygonMeshProcessingConnections_EEK_GetConnectedComponentsFaceIndex_SM(ptr, meshPtr, indices, count);
         }
 
         internal override int SplitConnectedComponents_SM(IntPtr ptr, IntPtr meshPtr)
@@ -68,6 +83,11 @@ namespace CGALDotNet.Processing
         internal override void GetSplitConnectedComponents_SM(IntPtr ptr, IntPtr[] meshPtrs, int count)
         {
             PolygonMeshProcessingConnections_EEK_GetSplitConnectedComponents_SM(ptr, meshPtrs, count);
+        }
+
+        internal override int KeepLargeConnectedComponents_SM(IntPtr meshPtr, int threshold_value)
+        {
+            return PolygonMeshProcessingConnections_EEK_KeepLargeConnectedComponents_SM(meshPtr, threshold_value);
         }
 
         internal override int KeepLargestConnectedComponents_SM(IntPtr meshPtr, int nb_components_to_keep)
@@ -87,7 +107,10 @@ namespace CGALDotNet.Processing
         private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponents_PH(IntPtr meshPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponent_PH(IntPtr meshPtr, int index);
+        private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponent_PH(IntPtr ptr, IntPtr meshPtr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonMeshProcessingConnections_EEK_GetConnectedComponentsFaceIndex_PH(IntPtr ptr, IntPtr meshPtr, [Out] int[] indices, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponent_PH(IntPtr meshPtr);
@@ -99,6 +122,9 @@ namespace CGALDotNet.Processing
         private static extern void PolygonMeshProcessingConnections_EEK_GetSplitConnectedComponents_PH(IntPtr ptr, [Out] IntPtr[] meshPtrs, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonMeshProcessingConnections_EEK_KeepLargeConnectedComponents_PH(IntPtr meshPtr, int threshold_value);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonMeshProcessingConnections_EEK_KeepLargestConnectedComponents_PH(IntPtr meshPtr, int nb_components_to_keep);
 
         //Surface Mesh
@@ -107,7 +133,10 @@ namespace CGALDotNet.Processing
         private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponents_SM(IntPtr meshPtr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponent_SM(IntPtr meshPtr, int index);
+        private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponent_SM(IntPtr ptr, IntPtr meshPtr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void PolygonMeshProcessingConnections_EEK_GetConnectedComponentsFaceIndex_SM(IntPtr ptr, IntPtr meshPtr, [Out] int[] indices, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonMeshProcessingConnections_EEK_ConnectedComponent_SM(IntPtr meshPtr);
@@ -117,6 +146,9 @@ namespace CGALDotNet.Processing
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonMeshProcessingConnections_EEK_GetSplitConnectedComponents_SM(IntPtr ptr, [Out] IntPtr[] meshPtrs, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int PolygonMeshProcessingConnections_EEK_KeepLargeConnectedComponents_SM(IntPtr meshPtr, int threshold_value);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int PolygonMeshProcessingConnections_EEK_KeepLargestConnectedComponents_SM(IntPtr meshPtr, int nb_components_to_keep);
