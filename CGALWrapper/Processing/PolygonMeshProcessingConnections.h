@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/Polygon_mesh_processing/connected_components.h>
 #include <CGAL/boost/graph/Face_filtered_graph.h>
@@ -20,7 +21,7 @@ public:
 
 	typedef typename K::Point_3 Point_3;
 
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 	typedef typename boost::graph_traits<Polyhedron>::face_descriptor PFace_Des;
 	typedef typename boost::graph_traits<Polyhedron>::faces_size_type PFaces_Size;
 

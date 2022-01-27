@@ -43,21 +43,43 @@ namespace CGALDotNet.Processing
             return string.Format("[PolygonMeshProcessingConnections<{0}>: ]", Kernel.KernelName);
         }
 
-        public int UnconnectedComponents(Polyhedron3<K> mesh)
-        {
-            return Kernel.ConnectedComponents_PH(mesh.Ptr);
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh"></param>
+        /// <returns></returns>
+        //public int UnconnectedComponents(Polyhedron3<K> mesh)
+        //{
+        //    return Kernel.ConnectedComponents_PH(mesh.Ptr);
+        //}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh"></param>
+        /// <returns></returns>
         public int UnconnectedComponents(SurfaceMesh3<K> mesh)
         {
             return Kernel.ConnectedComponents_SM(mesh.Ptr);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh"></param>
+        /// <param name="faceIndex"></param>
+        /// <returns></returns>
         public int ConnectedFaces(Polyhedron3<K> mesh, int faceIndex)
         {
             return Kernel.ConnectedComponent_PH(mesh.Ptr, faceIndex);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mesh"></param>
+        /// <param name="faceIndex"></param>
+        /// <returns></returns>
         public int ConnectedFaces(SurfaceMesh3<K> mesh, int faceIndex)
         {
             return Kernel.ConnectedComponent_SM(mesh.Ptr, faceIndex);

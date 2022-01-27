@@ -5,6 +5,7 @@
 #include "../Polyhedra/SurfaceMesh3.h"
 
 #include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Polygon_mesh_processing/repair.h>
 #include <CGAL/Polygon_mesh_processing/shape_predicates.h>
 #include <CGAL/Polygon_mesh_processing/manifoldness.h>
@@ -22,7 +23,7 @@ class PolygonMeshProcessingRepair
 public:
 
 	typedef typename K::Point_3 Point;
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
 	typedef typename HalfedgeDS::Vertex Vertex;
 	typedef typename HalfedgeDS::Face Face;

@@ -4,6 +4,8 @@
 #include "../Polyhedra/Polyhedron3.h"
 #include "../Polyhedra/SurfaceMesh3.h"
 
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Subdivision_method_3/subdivision_methods_3.h>
 
 template<class K>

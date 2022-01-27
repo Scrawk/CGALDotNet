@@ -4,6 +4,8 @@
 #include "../Polyhedra/Polyhedron3.h"
 #include "../Polyhedra/SurfaceMesh3.h"
 
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Surface_mesh_simplification/edge_collapse.h>
 #include <CGAL/Surface_mesh_simplification/Policies/Edge_collapse/Count_ratio_stop_predicate.h>
 
@@ -13,7 +15,7 @@ class SurfaceSimplification
 
 public:
 
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 
 	inline static SurfaceSimplification* NewSimplification()
 	{

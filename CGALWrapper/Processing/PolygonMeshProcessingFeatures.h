@@ -13,7 +13,7 @@ class PolygonMeshProcessingFeatures
 
 public:
 
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 	typedef typename K::Point_3 Point;
 
 	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor edge_descriptor;

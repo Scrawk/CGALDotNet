@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <list>
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Polygon_mesh_slicer.h>
 #include <CGAL/AABB_halfedge_graph_segment_primitive.h>
 #include <CGAL/AABB_tree.h>
@@ -18,7 +20,7 @@ class PolygonMeshProcessingSlicer
 
 public:
 
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 
 	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point;

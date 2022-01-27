@@ -15,6 +15,7 @@
 #include <iostream>
 #include <CGAL/enum.h>
 #include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
 #include <CGAL/Polygon_mesh_processing/transform.h>
 #include <CGAL/Aff_transformation_3.h>
@@ -39,7 +40,7 @@ public:
 	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point;
 	typedef typename K::Vector_3 Vector;
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
 	typedef typename HalfedgeDS::Vertex Vertex;
 	typedef typename HalfedgeDS::Face Face;
@@ -56,9 +57,11 @@ public:
 private:
 
 	std::map<Vertex_Handle, int> vertexIndexMap;
+	std::vector<Vertex_Handle> vertexMap;
 	bool rebuildVertexIndexMap = true;
 
 	std::map<Face_Handle, int> faceIndexMap;
+	std::vector<Face_Handle> faceMap;
 	bool rebuildFaceIndexMap = true;
 
 	std::map<Vertex_Des, Vector> vertexNormalMap;
@@ -104,12 +107,6 @@ public:
 		return static_cast<Polyhedron3*>(ptr);
 	}
 
-	void OnModelChanged()
-	{
-		OnVerticesChanged();
-		OnFacesChanged();
-	}
-
 	void OnVertexNormalsChanged()
 	{
 		vertexNormalMap.clear();
@@ -122,22 +119,38 @@ public:
 		rebuildFaceNormalMap = true;
 	}
 
+	void OnVertexIndicesChanged()
+	{
+		vertexMap.clear();
+		vertexIndexMap.clear();
+		rebuildVertexIndexMap = true;
+	}
+
+	void OnFaceIndicesChanged()
+	{
+		faceMap.clear();
+		faceIndexMap.clear();
+		rebuildFaceIndexMap = true;
+	}
+
 	void OnVerticesChanged()
 	{
-		vertexIndexMap.clear();
-		vertexNormalMap.clear();
-		rebuildVertexIndexMap = true;
-		rebuildVertexNormalMap = true;
+		OnVertexNormalsChanged();
+		OnVertexIndicesChanged();
 		DeleteTree();
 	}
 
 	void OnFacesChanged()
 	{
-		faceIndexMap.clear();
-		faceNormalMap.clear();
-		rebuildFaceIndexMap = true;
-		rebuildFaceNormalMap = true;
+		OnFaceNormalsChanged();
+		OnFaceIndicesChanged();
 		DeleteTree();
+	}
+
+	void OnModelChanged()
+	{
+		OnVerticesChanged();
+		OnFacesChanged();
 	}
 
 	void DeleteTree()
@@ -163,12 +176,17 @@ public:
 		if (!force && !rebuildVertexIndexMap) return;
 		rebuildVertexIndexMap = false;
 
+		auto count = model.size_of_vertices();
+		vertexMap.resize(count);
 		vertexIndexMap.clear();
 
 		int index = 0;
 		for (auto vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
 		{
-			vertexIndexMap.insert(std::pair<Vertex_Handle, int>(vert, index++));
+			vert->id() = index;
+			vertexMap[index] = vert;
+			vertexIndexMap.insert(std::pair<Vertex_Handle, int>(vert, index));
+			index++;
 		}
 	}
 
@@ -177,12 +195,17 @@ public:
 		if (!force && !rebuildFaceIndexMap) return;
 		rebuildFaceIndexMap = false;
 
+		auto count = model.size_of_facets();
+		faceMap.resize(count);
 		faceIndexMap.clear();
 
 		int index = 0;
 		for (auto face = model.facets_begin(); face != model.facets_end(); ++face)
 		{
-			faceIndexMap.insert(std::pair<Face_Handle, int>(face, index++));
+			face->id() = index;
+			faceMap[index] = face;
+			faceIndexMap.insert(std::pair<Face_Handle, int>(face, index));
+			index++;
 		}
 	}
 
@@ -195,6 +218,14 @@ public:
 			return NULL_INDEX;
 	}
 
+	Vertex FindVertex(int index)
+	{
+		if (index < 0 || index >= model.size_of_vertices())
+			return nullptr;
+
+		return vertexMap[index];
+	}
+
 	int FindFaceIndex(Face_Handle vert)
 	{
 		auto item = faceIndexMap.find(vert);
@@ -202,6 +233,14 @@ public:
 			return item->second;
 		else
 			return NULL_INDEX;
+	}
+
+	Face FindFace(int index)
+	{
+		if (index < 0 || index >= model.size_of_facets())
+			return nullptr;
+
+		return faceMap[index];
 	}
 
 	Vector FindVertexNormal(Vertex_Des vert)
@@ -223,25 +262,20 @@ public:
 	static void ClearIndexMaps(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->vertexIndexMap.clear();
-		poly->rebuildVertexIndexMap = true;
-		poly->faceIndexMap.clear();
-		poly->rebuildFaceIndexMap = true;
+		poly->OnVertexIndicesChanged();
+		poly->OnFaceIndicesChanged();
 	}
 
 	static void ClearVertexNormalMap(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->vertexNormalMap.clear();
-		poly->rebuildVertexNormalMap = true;
+		poly->OnVertexNormalsChanged();
 	}
-
 
 	static void ClearFaceNormalMap(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->faceNormalMap.clear();
-		poly->rebuildFaceNormalMap = true;
+		poly->OnVertexNormalsChanged();
 	}
 
 	static void* Copy(void* ptr)

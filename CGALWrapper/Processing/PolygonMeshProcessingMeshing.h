@@ -4,6 +4,8 @@
 #include "../Polyhedra/Polyhedron3.h"
 #include "../Polyhedra/SurfaceMesh3.h"
 
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Polygon_mesh_processing/extrude.h>
 #include <CGAL/Polygon_mesh_processing/fair.h>
 #include <CGAL/Polygon_mesh_processing/refine.h>
@@ -19,7 +21,7 @@ class PolygonMeshProcessingMeshing
 
 public:
 
-	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 	typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor        halfedge_descriptor;
 	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor            edge_descriptor;
 
