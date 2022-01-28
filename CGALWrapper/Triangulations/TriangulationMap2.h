@@ -2,7 +2,7 @@
 
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry2.h"
-#include "../Utility/IndexMap.h"
+#include "../Collections/IndexMap.h"
 
 #include "CGAL/Point_2.h"
 #include <CGAL/Constrained_triangulation_2.h>

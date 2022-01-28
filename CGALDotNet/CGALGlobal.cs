@@ -39,6 +39,24 @@ namespace CGALDotNet
         public const double DEG_TO_RAD = Math.PI / 180.0;
 
         /// <summary>
+        /// Get the version of CGAL in use.
+        /// </summary>
+        public static string Version
+        {
+            get
+            {
+                int v = CGALGlobal_VersionNumber();
+
+                int MAJOR = v / 10000000 % 100;
+                int MINOR = v / 100000 % 100;
+                int PATCH = v / 10000 % 10;
+                int BUILD = v % 10000;
+
+                return string.Format("{0}.{1}.{2}.{3}", MAJOR, MINOR, PATCH, BUILD);
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="n"></param>
@@ -572,6 +590,8 @@ namespace CGALDotNet
             return CGALGlobal_EEK_Parallel_Segment2(s1, s2);
         }
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int CGALGlobal_VersionNumber();
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern ANGLE CGALGlobal_EEK_Angle_Vector2(Vector2d u, Vector2d v);

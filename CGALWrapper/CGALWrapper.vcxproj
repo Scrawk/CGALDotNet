@@ -237,7 +237,6 @@
     <ClInclude Include="Polygons\PolygonOffset2.h" />
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h" />
     <ClInclude Include="Triangulations\Triangulation3.h" />
-    <ClInclude Include="Triangulations\TriangulationMap3.h" />
     <ClInclude Include="Triangulations\TriEdge2.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />
@@ -251,7 +250,7 @@
     <ClInclude Include="Triangulations\DelaunayTriangulation2.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EEK.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Utility\IndexMap.h" />
+    <ClInclude Include="Collections\IndexMap.h" />
     <ClInclude Include="Geometry\Intersections_EEK.h" />
     <ClInclude Include="Geometry\IsoRectangle2_EEK.h" />
     <ClInclude Include="pch.h" />
@@ -273,6 +272,7 @@
     <ClInclude Include="Triangulations\TriFace2.h" />
     <ClInclude Include="Triangulations\TriUtil.h" />
     <ClInclude Include="Triangulations\TriVertex2.h" />
+    <ClInclude Include="Utility\VersionNumber.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
@@ -332,6 +332,7 @@
     <ClCompile Include="Polygons\PolygonSimplification2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonWithHoles2_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation2_EEK.cpp" />
+    <ClCompile Include="Utility\VersionNumber.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CGALWrapper.rc" />

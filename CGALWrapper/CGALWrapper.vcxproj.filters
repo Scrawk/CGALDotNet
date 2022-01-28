@@ -111,7 +111,7 @@
     <ClInclude Include="Polygons\PolygonPartition2.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\IndexMap.h">
+    <ClInclude Include="Collections\IndexMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Triangulations\TriVertex2.h">
@@ -288,9 +288,6 @@
     <ClInclude Include="Triangulations\Triangulation3_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Triangulations\TriangulationMap3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Meshing\SkinSurfaceMesing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -394,6 +391,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geometry\Index.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\VersionNumber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -552,6 +552,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\PolygonMeshProcessingFeatures_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\VersionNumber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

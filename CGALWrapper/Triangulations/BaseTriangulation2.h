@@ -7,7 +7,7 @@
 #include "TriUtil.h"
 #include "TriVertex2.h"
 #include "TriFace2.h"
-#include "TriEDge2.h"
+#include "TriEdge2.h"
 #include "TriangulationMap2.h"
 
 #include <vector>

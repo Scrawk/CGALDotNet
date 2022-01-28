@@ -13,6 +13,9 @@ namespace CGALDotNet
     public class ArrayCache
     {
         [ThreadStatic]
+        public static bool Disable = false;
+
+        [ThreadStatic]
         private static Point2d[] m_points2d;
 
         [ThreadStatic]
@@ -44,7 +47,7 @@ namespace CGALDotNet
         /// <returns>Returns a array of Point2d objects that is at least the size of count.</returns>
         public static Point2d[] Point2dArray(int count, bool clear = false)
         {
-            if(m_points2d == null || m_points2d.Length < count)
+            if (MakeNewArray(m_points2d, count))
                 m_points2d = new Point2d[count];
 
             if(clear)
@@ -60,7 +63,7 @@ namespace CGALDotNet
         /// <returns>Returns a array of Segment2d objects that is at least the size of count.</returns>
         public static Segment2d[] Segment2dArray(int count, bool clear = false)
         {
-            if (m_segments2d == null || m_segments2d.Length < count)
+            if (MakeNewArray(m_segments2d, count))
                 m_segments2d = new Segment2d[count];
 
             if (clear)
@@ -76,7 +79,7 @@ namespace CGALDotNet
         /// <returns>Returns a array of Point3d objects that is at least the size of count.</returns>
         public static Point3d[] Point3dArray(int count, bool clear = false)
         {
-            if (m_points3d == null || m_points3d.Length < count)
+            if (MakeNewArray(m_points3d, count))
                 m_points3d = new Point3d[count];
 
             if (clear)
@@ -92,7 +95,7 @@ namespace CGALDotNet
         /// <returns>Returns a array of HPoint3d objects that is at least the size of count.</returns>
         public static HPoint3d[] HPoint3dArray(int count, bool clear = false)
         {
-            if (m_hpoints3d == null || m_hpoints3d.Length < count)
+            if (MakeNewArray(m_hpoints3d, count))
                 m_hpoints3d = new HPoint3d[count];
 
             if (clear)
@@ -108,7 +111,7 @@ namespace CGALDotNet
         /// <returns>Returns a array of ints that is at least the size of count.</returns>
         public static int[] IntArray1(int count, bool clear = false)
         {
-            if (m_int1 == null || m_int1.Length < count)
+            if (MakeNewArray(m_int1, count))
                 m_int1 = new int[count];
 
             if (clear)
@@ -124,13 +127,24 @@ namespace CGALDotNet
         /// <returns>Returns a array of ints that is at least the size of count.</returns>
         public static int[] IntArray2(int count, bool clear = false)
         {
-            if (m_int2 == null || m_int2.Length < count)
+            if (MakeNewArray(m_int2, count))
                 m_int2 = new int[count];
 
             if (clear)
                 Array.Clear(m_int2, 0, m_int2.Length);
 
             return m_int2;
+        }
+
+        /// <summary>
+        /// Should a new array be created.
+        /// </summary>
+        /// <param name="arr">The current array.</param>
+        /// <param name="count">The required new array size.</param>
+        /// <returns>Creates a new array if disabled, the current one is null or to small.</returns>
+        private static bool MakeNewArray(Array arr, int count)
+        {
+            return (Disable || arr == null || arr.Length < count);
         }
 
     }

@@ -29,7 +29,6 @@ public:
 
 	bool mapBuilt;
 
-
 	void Clear()
 	{
 		ClearMap();
@@ -41,7 +40,6 @@ public:
 		mapBuilt = false;
 		map.clear();
 	}
-
 
 	void ResetIndices()
 	{
