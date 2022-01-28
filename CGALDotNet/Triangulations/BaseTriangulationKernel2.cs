@@ -8,7 +8,7 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Triangulations
 {
-    internal abstract class BaseTriangulationKernel2 : FuncKernel
+    internal abstract class BaseTriangulationKernel2 : CGALObjectKernel
     {
 
         internal abstract IntPtr Create();

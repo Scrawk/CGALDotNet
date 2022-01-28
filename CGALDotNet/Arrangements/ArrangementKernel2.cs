@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Arrangements
 {
-    internal abstract class ArrangementKernel2 : FuncKernel
+    internal abstract class ArrangementKernel2 : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

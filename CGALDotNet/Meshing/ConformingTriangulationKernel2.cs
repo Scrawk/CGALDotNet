@@ -7,7 +7,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Meshing
 {
-    internal abstract class ConformingTriangulationKernel2 : FuncKernel
+    internal abstract class ConformingTriangulationKernel2 : CGALObjectKernel
 	{
 
 		internal abstract IntPtr Create();

@@ -7,7 +7,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    internal abstract class PolygonVisibilityKernel : FuncKernel
+    internal abstract class PolygonVisibilityKernel : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

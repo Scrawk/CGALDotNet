@@ -7,7 +7,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polyhedra
 {
-    internal abstract class PolyhedronKernel3 : FuncKernel
+    internal abstract class PolyhedronKernel3 : CGALObjectKernel
 	{
         internal abstract IntPtr Create();
 

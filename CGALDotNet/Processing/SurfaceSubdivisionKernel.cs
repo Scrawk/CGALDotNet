@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CGALDotNet.Processing
 {
-    internal abstract class SurfaceSubdivisionKernel : FuncKernel
+    internal abstract class SurfaceSubdivisionKernel : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

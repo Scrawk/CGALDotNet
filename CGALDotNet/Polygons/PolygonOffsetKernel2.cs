@@ -7,7 +7,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polygons
 {
-    internal abstract class PolygonOffsetKernel2 : FuncKernel
+    internal abstract class PolygonOffsetKernel2 : CGALObjectKernel
     {
 
         internal abstract IntPtr Create();

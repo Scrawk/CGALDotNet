@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CGALDotNet.Processing
 {
-    internal abstract class PolygonMeshProcessingMeshingKernel : FuncKernel
+    internal abstract class PolygonMeshProcessingMeshingKernel : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

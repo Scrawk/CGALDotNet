@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CGALDotNet.Geometry
 {
-    internal abstract class GeometryKernel2 : FuncKernel
+    internal abstract class GeometryKernel2 : CGALObjectKernel
     {
         internal abstract IntPtr IsoRectangle_Create(Point2d min, Point2d max);
 

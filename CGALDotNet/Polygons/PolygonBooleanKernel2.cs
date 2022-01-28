@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet.Polygons
 {
-    internal abstract class PolygonBooleanKernel2 : FuncKernel
+    internal abstract class PolygonBooleanKernel2 : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

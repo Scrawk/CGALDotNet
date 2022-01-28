@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Processing
 {
-	internal abstract class PolygonMeshProcessingFeaturesKernel : FuncKernel
+	internal abstract class PolygonMeshProcessingFeaturesKernel : CGALObjectKernel
 	{
 		internal abstract IntPtr Create();
 

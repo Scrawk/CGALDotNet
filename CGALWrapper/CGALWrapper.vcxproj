@@ -238,6 +238,7 @@
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h" />
     <ClInclude Include="Triangulations\Triangulation3.h" />
     <ClInclude Include="Triangulations\TriEdge2.h" />
+    <ClInclude Include="Collections\UnmanagedList.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />
     <ClInclude Include="Hull\ConvexHull2.h" />
@@ -314,6 +315,7 @@
     <ClCompile Include="Polyhedra\SurfaceMesh3_EEK.cpp" />
     <ClCompile Include="Meshing\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
+    <ClCompile Include="Collections\UnmanagedList.cpp" />
     <ClCompile Include="Utility\CGALGlobal_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />

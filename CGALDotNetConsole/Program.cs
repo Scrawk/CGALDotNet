@@ -26,8 +26,7 @@ namespace CGALDotNetConsole
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
             var smesh = SurfaceMeshFactory<EEK>.CreateCube();
 
-            Console.WriteLine("Version = " + CGALGlobal.Version);
-           
+            
         }
 
      

@@ -8,7 +8,7 @@ using CGALDotNet.Polyhedra;
 
 namespace CGALDotNet.Hulls
 {
-    internal abstract class ConvexHullKernel3 : FuncKernel
+    internal abstract class ConvexHullKernel3 : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

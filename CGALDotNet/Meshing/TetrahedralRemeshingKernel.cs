@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Meshing
 {
-    internal abstract class TetrahedralRemeshingKernel : FuncKernel
+    internal abstract class TetrahedralRemeshingKernel : CGALObjectKernel
     {
 		internal abstract IntPtr Create();
 

@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polylines
 {
-	internal abstract class PolylineKernel2 : FuncKernel
+	internal abstract class PolylineKernel2 : CGALObjectKernel
 	{
 		internal abstract IntPtr Create();
 

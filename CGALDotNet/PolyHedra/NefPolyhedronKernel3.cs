@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polyhedra
 {
-    internal abstract class NefPolyhedronKernel3 : FuncKernel
+    internal abstract class NefPolyhedronKernel3 : CGALObjectKernel
     {
 		internal abstract IntPtr CreateFromSpace(NEF_CONTENT space);
 

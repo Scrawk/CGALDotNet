@@ -7,7 +7,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Triangulations
 {
-    internal abstract class BaseTriangulationKernel3 : FuncKernel
+    internal abstract class BaseTriangulationKernel3 : CGALObjectKernel
     {
 
         internal abstract IntPtr Create();

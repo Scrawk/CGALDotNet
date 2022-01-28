@@ -396,6 +396,9 @@
     <ClInclude Include="Utility\VersionNumber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Collections\UnmanagedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -555,6 +558,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utility\VersionNumber.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Collections\UnmanagedList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

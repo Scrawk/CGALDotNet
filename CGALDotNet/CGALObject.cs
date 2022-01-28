@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using System.Runtime.InteropServices;
+
 namespace CGALDotNet
 {
     /// <summary>
@@ -9,6 +11,10 @@ namespace CGALDotNet
     /// </summary>
     public abstract class CGALObject : IDisposable
     {
+        protected const string DLL_NAME = "CGALWrapper.dll";
+
+        protected const CallingConvention CDECL = CallingConvention.Cdecl;
+
         /// <summary>
         /// The pointer to the unmanged CGAL object.
         /// </summary>
@@ -119,6 +125,9 @@ namespace CGALDotNet
         /// <param name="ptr">The new ptr. The old ptr will be released first.</param>
         protected void Swap(IntPtr ptr)
         {
+            if(IsDisposed)
+                throw new CGALUnmanagedResourcesReleasedExeception("Can not swap when object has beed disposed.");
+
             ReleasePtr(Ptr);
             Ptr = ptr;
         }

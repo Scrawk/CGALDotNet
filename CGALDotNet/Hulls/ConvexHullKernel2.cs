@@ -8,7 +8,7 @@ using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Hulls
 {
-    internal abstract class ConvexHullKernel2 : FuncKernel
+    internal abstract class ConvexHullKernel2 : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

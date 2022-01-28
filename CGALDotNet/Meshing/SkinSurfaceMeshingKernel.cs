@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Meshing
 {
-    internal abstract class SkinSurfaceMeshingKernel : FuncKernel
+    internal abstract class SkinSurfaceMeshingKernel : CGALObjectKernel
     {
         internal abstract IntPtr Create();
 

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace CGALDotNet
 {
-    internal abstract class FuncKernel
+    internal abstract class CGALObjectKernel
     {
         protected const string DLL_NAME = "CGALWrapper.dll";
 
