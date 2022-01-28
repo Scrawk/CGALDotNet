@@ -45,12 +45,14 @@ public:
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
 	typedef typename HalfedgeDS::Vertex Vertex;
 	typedef typename HalfedgeDS::Face Face;
+	typedef typename HalfedgeDS::Halfedge Halfedge;
 	typedef typename Polyhedron::Vertex_handle Vertex_Handle;
 	typedef typename Polyhedron::Face_handle Face_Handle;
 	typedef typename Polyhedron::Halfedge_handle Halfedge_Handle;
 	typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
 	typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
 	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor Edge_Des;
+	typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor Halfedge_Des;
 	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<Polyhedron> AABB_face_graph_primitive;
@@ -67,8 +69,8 @@ private:
 	std::vector<Face_Des> faceMap;
 	bool rebuildFaceIndexMap = true;
 
-	std::unordered_map<Halfedge_Handle, int> edgeIndexMap;
-	std::vector<Halfedge_Handle> edgeMap;
+	std::unordered_map<Halfedge_Des, int> edgeIndexMap;
+	std::vector<Halfedge_Des> edgeMap;
 	bool rebuildEdgeIndexMap = true;
 
 	std::unordered_map<Vertex_Des, Vector> vertexNormalMap;
@@ -207,7 +209,7 @@ public:
 		int index = 0;
 		for (auto vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
 		{
-			vert->id() = index;
+			//vert->id() = index;
 			vertexMap[index] = vert;
 			vertexIndexMap.insert(std::pair<Vertex_Des, int>(vert, index));
 			index++;
@@ -226,7 +228,7 @@ public:
 		int index = 0;
 		for (auto face = model.facets_begin(); face != model.facets_end(); ++face)
 		{
-			face->id() = index;
+			//face->id() = index;
 			faceMap[index] = face;
 			faceIndexMap.insert(std::pair<Face_Des, int>(face, index));
 			index++;
@@ -245,7 +247,7 @@ public:
 		int index = 0;
 		for (auto edge = model.halfedges_begin(); edge != model.halfedges_end(); ++edge)
 		{
-			edge->id() = index;
+			//edge->id() = index;
 			edgeMap[index] = edge;
 			edgeIndexMap.insert(std::pair<Halfedge_Handle, int>(edge, index));
 			index++;
@@ -296,11 +298,11 @@ public:
 		return &faceMap[index];
 	}
 
-	int FindEdgeIndex(Edge_Des vert)
+	int FindEdgeIndex(Halfedge_Des edge)
 	{
 		BuildEdgeIndexMap();
 
-		auto item = edgeIndexMap.find(vert);
+		auto item = edgeIndexMap.find(edge);
 		if (item != edgeIndexMap.end())
 			return item->second;
 		else

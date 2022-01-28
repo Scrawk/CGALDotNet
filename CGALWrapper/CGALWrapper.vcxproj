@@ -169,6 +169,7 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Geometry\Index.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingFeatures_EEK.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingFeatures.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingSlicer_EEK.h" />

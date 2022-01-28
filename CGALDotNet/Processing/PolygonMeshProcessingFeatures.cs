@@ -45,10 +45,19 @@ namespace CGALDotNet.Processing
             return string.Format("[PolygonMeshProcessingFeatures<{0}>: ]", Kernel.KernelName);
         }
 
-        public int DetectSharpEdges(Polyhedron3<EEK> poly, Degree feature_angle)
+        public void DetectSharpEdges(Polyhedron3<EEK> mesh, Degree feature_angle, List<int> results)
         {
-            return Kernel.DetectSharpEdges(Ptr, poly.Ptr, feature_angle);
+            int count = Kernel.DetectSharpEdges_PH(Ptr, mesh.Ptr, feature_angle.angle);
+            if (count == 0) return;
 
+            var indices = new int[count];
+            Kernel.GetSharpEdges_PH(Ptr, mesh.Ptr, indices, count);
+            results.AddRange(indices);
+        }
+
+        public void SharpEdgesSegmentation(SurfaceMesh3<K> mesh, Degree feature_angle)
+        {
+            var icount = Kernel.SharpEdgesSegmentation_PH(Ptr, mesh.Ptr, feature_angle.angle);
         }
     }
 

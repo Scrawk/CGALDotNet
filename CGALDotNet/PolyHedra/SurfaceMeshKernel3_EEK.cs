@@ -28,25 +28,25 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_Clear(ptr);
         }
 
-        internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
-        {
-
-        }
+        //internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
+        //{
+        //    SurfaceMesh3_EEK_ClearIndexMaps(ptr, vertices, faces, edges);
+        //}
 
         internal override void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces)
         {
-
+            SurfaceMesh3_EEK_ClearNormalMaps(ptr, vertices, faces);
         }
 
         internal override void ClearProperyMaps(IntPtr ptr)
         {
-
+            SurfaceMesh3_EEK_ClearProperyMaps(ptr);
         }
 
-        internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force)
-        {
-
-        }
+        //internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force)
+        //{
+        //    SurfaceMesh3_EEK_BuildIndices(ptr, vertices, faces, edges, force);
+        //}
 
         internal override IntPtr Copy(IntPtr ptr)
         {

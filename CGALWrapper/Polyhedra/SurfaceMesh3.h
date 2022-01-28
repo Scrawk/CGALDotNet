@@ -56,14 +56,16 @@ public:
 
 	AABBTree* tree = nullptr;
 
-	std::vector<Vertex> vertexMap;
-	bool rebuildVertexMap = true;
+	//std::vector<Vertex> vertexMap;
+	//bool rebuildVertexMap = true;
 
-	std::vector<Face> faceMap;
-	bool rebuildFaceMap = true;
+	//std::vector<Face> faceMap;
+	//bool rebuildFaceMap = true;
 
-	std::vector<Halfedge> edgeMap;
-	bool rebuildEdgeMap = true;
+	//std::vector<Halfedge> edgeMap;
+	//bool rebuildEdgeMap = true;
+
+	bool collectGarbage = false;
 	
 	bool vertexNormalsComputed = false;
 
@@ -119,22 +121,25 @@ public:
 
 	void OnVertexIndicesChanged()
 	{
-		vertexMap.clear();
-		vertexMap.reserve(0);
-		vertexNormalsComputed = false;
+		//vertexMap.clear();
+		//vertexMap.reserve(0);
+		//vertexNormalsComputed = false;
+		collectGarbage = true;
 	}
 
 	void OnFaceIndicesChanged()
 	{
-		faceMap.clear();
-		faceMap.reserve(0);
-		faceNormalsComputed = false;
+		//faceMap.clear();
+		//faceMap.reserve(0);
+		//faceNormalsComputed = false;
+		collectGarbage = true;
 	}
 
 	void OnEdgeIndicesChanged()
 	{
-		edgeMap.clear();
-		edgeMap.reserve(0);
+		//edgeMap.clear();
+		//edgeMap.reserve(0);
+		collectGarbage = true;
 	}
 
 	void OnVerticesChanged()
@@ -203,6 +208,14 @@ public:
 		faceNormalsComputed = false;
 	}
 
+	void CollectGarbage()
+	{
+		if (!collectGarbage) return;
+		collectGarbage = false;
+		model.collect_garbage();
+	}
+
+	/*
 	void BuildVertexIndexMap(bool force = false)
 	{
 		if (!force && !rebuildVertexMap) return;
@@ -214,6 +227,7 @@ public:
 		int index = 0;
 		for (auto vertex : model.vertices())
 		{
+			//std::cout << "Vetex = " << vertex<< " Index " << index << std::endl;
 			vertexMap[index++] = vertex;
 		}
 	}
@@ -223,12 +237,15 @@ public:
 		if (!force && !rebuildFaceMap) return;
 		rebuildFaceMap = false;
 
+		std::cout << "Build faces" << std::endl;
+
 		auto count = model.number_of_faces();
 		faceMap.resize(count);
 
 		int index = 0;
 		for (auto face : model.faces())
 		{
+			//std::cout << "Face = " << face << " Index " << index << std::endl;
 			faceMap[index++] = face;
 		}
 	}
@@ -244,48 +261,50 @@ public:
 		int index = 0;
 		for (auto edge : model.halfedges())
 		{
+			//std::cout << "Edge = " << edge << " Index " << index << std::endl;
 			edgeMap[index++] = edge;
 		}
 	}
+	*/
 
 	Vertex FindVertex(int index)
 	{
-		BuildVertexIndexMap();
+		CollectGarbage();
 		int count = (int)model.number_of_verices();
 
 		if (index < 0 || index >= count)
 			return NullVertex();
 
-		return vertexMap[index];
+		return Vertex(index);
 	}
 
 	Face FindFace(int index)
 	{
-		BuildFaceIndexMap();
+		CollectGarbage();
 		int count = (int)model.number_of_faces();
 
 		if (index < 0 || index >= count)
 			return NullFace();
 
-		return faceMap[index];
+		return Face(index);
 	}
 
 	Edge FindEdge(int index)
 	{
-		BuildEdgeIndexMap();
+		CollectGarbage();
 		int count = (int)model.number_of_halfedges();
 
 		if (index < 0 || index >= count)
 			return NullEdge();
 
-		return edgeMap[index];
+		return Edge(index);
 	}
 
 	void Clear()
 	{
 		model.clear();
-		model.collect_garbage();
 		OnModelChanged();
+		CollectGarbage();
 	}
 
 	static void Clear(void* ptr)
@@ -294,6 +313,7 @@ public:
 		mesh->Clear();
 	}
 
+	/*
 	static void ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
@@ -301,6 +321,7 @@ public:
 		if (faces) mesh->OnFaceIndicesChanged();
 		if (edges) mesh->OnEdgeIndicesChanged();
 	}
+	*/
 
 	static void ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
 	{
@@ -317,13 +338,16 @@ public:
 		mesh->model.remove_all_property_maps();
 	}
 
+	/*
 	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
 	{
+		std::cout << "Build indices" << std::endl;
 		auto mesh = CastToSurfaceMesh(ptr);
 		if (vertices) mesh->BuildVertexIndexMap(force);
 		if (faces) mesh->BuildFaceIndexMap(force);
 		if (edges) mesh->BuildEdgeIndexMap(force);
 	}
+	*/
 
 	static void* Copy(void* ptr)
 	{
@@ -420,7 +444,7 @@ public:
 	static void CollectGarbage(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->model.collect_garbage();
+		mesh->CollectGarbage();
 	}
 
 	static void SetRecycleGarbage(void* ptr, BOOL collect)

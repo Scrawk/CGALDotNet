@@ -68,31 +68,11 @@ namespace CGALDotNet.Polyhedra
         void Clear();
 
         /// <summary>
-        /// Clear the index maps.
-        /// The index maps are used to access the meshes elemnts by index.
-        /// They are automaticaly created when a elements is accessed
-        /// be a function requiring it.
-        /// </summary>
-        /// <param name="vertices">True to clear the vertex index map.</param>
-        /// <param name="faces">True to clear the face index map.</param>
-        /// <param name="edges">True to clear the edges index map.</param>
-        void ClearIndexMaps(bool vertices, bool faces, bool edges);
-
-        /// <summary>
         /// Clear the normal maps.
         /// </summary>
         /// <param name="vertices">True to clear the vertex normal map./param>
         /// <param name="faces">True to clear the face normal map</param>
         void ClearNormalMaps(bool vertices, bool faces);
-
-        /// <summary>
-        /// Builds the vertex and/or face index maps if needed.
-        /// </summary>
-        /// <param name="vertices">True to build the vertex index map.</param>
-        /// <param name="faces">True to build the face index map.</param>
-        /// <param name="edges">True to build the face index map.</param>
-        /// <param name="force">True to force the build even if already built.</param>
-        void BuildIndices(bool vertices, bool faces, bool edges, bool force = false);
 
         /// <summary>
         /// Create a mesh from the points and indices.

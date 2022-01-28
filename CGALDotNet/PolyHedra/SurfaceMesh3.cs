@@ -292,10 +292,10 @@ namespace CGALDotNet.Polyhedra
         /// <param name="vertices">True to clear the vertex index map.</param>
         /// <param name="faces">True to clear the face index map.</param>
         /// <param name="edges">True to clear the edges index map.</param>
-        public void ClearIndexMaps(bool vertices, bool faces, bool edges)
-        {
-            Kernel.ClearIndexMaps(Ptr, vertices, faces, edges);
-        }
+        //public void ClearIndexMaps(bool vertices, bool faces, bool edges)
+        //{
+        //    Kernel.ClearIndexMaps(Ptr, vertices, faces, edges);
+        //}
 
         /// <summary>
         /// Clear the normal maps.
@@ -326,10 +326,10 @@ namespace CGALDotNet.Polyhedra
         /// <param name="edges">True to build the edge index maps.</param>
         /// <param name="force">The index maps wont be build if the mesh knows they are already built and upto date.
         /// Setting force to true will build them always.</param>
-        public void BuildIndices(bool vertices, bool faces, bool edges, bool force = false)
-        {
-            Kernel.BuildIndices(Ptr, vertices, faces, edges, force);
-        }
+        //public void BuildIndices(bool vertices, bool faces, bool edges, bool force = false)
+        //{
+        //    Kernel.BuildIndices(Ptr, vertices, faces, edges, force);
+        //}
 
         /// <summary>
         /// Adds a vertex to the mesh.
@@ -405,11 +405,11 @@ namespace CGALDotNet.Polyhedra
         /// garbage(if any) while if set to false only new elements are created.
         /// </summary>
         /// <returns></returns>
-        public bool DoesRecycleGarbage
-        {
-            get { return Kernel.DoesRecycleGarbage(Ptr); }
-            set { Kernel.SetRecycleGarbage(Ptr, value); }
-        }
+        //public bool DoesRecycleGarbage
+        //{
+        //    get { return Kernel.DoesRecycleGarbage(Ptr); }
+        //    set { Kernel.SetRecycleGarbage(Ptr, value); }
+        //}
 
         /// <summary>
         /// Get the vertices point.
@@ -1182,7 +1182,6 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("EdgeCount = " + EdgeCount);
             builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
             builder.AppendLine("HasGarbage = " + HasGarbage);
-            builder.AppendLine("DoesRecycleGarbage = " + DoesRecycleGarbage);
             builder.AppendLine("IsTriangle = " + IsTriangle);
             builder.AppendLine("IsQuad = " + IsQuad);
             builder.AppendLine("IsClosed = " + IsClosed);

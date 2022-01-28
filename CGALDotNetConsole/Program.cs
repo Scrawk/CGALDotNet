@@ -23,8 +23,20 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var mesh = PolyhedronFactory<EEK>.CreateCube();
+            var pmesh = PolyhedronFactory<EEK>.CreateCube();
+            var smesh = SurfaceMeshFactory<EEK>.CreateCube();
 
+            smesh.Print();
+            //smesh.RemoveFace(3);
+
+            var fea = PolygonMeshProcessingFeatures<EEK>.Instance;
+ 
+            var results = new List<int>();
+            fea.SharpEdgesSegmentation(smesh, Degree.A90);
+
+            //results.Sort();
+            //foreach(var i in results)
+            //    Console.WriteLine(i);
         }
 
      

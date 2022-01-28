@@ -6,13 +6,39 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Processing
 {
-    internal abstract class PolygonMeshProcessingFeaturesKernel : FuncKernel
-    {
-        internal abstract IntPtr Create();
+	internal abstract class PolygonMeshProcessingFeaturesKernel : FuncKernel
+	{
+		internal abstract IntPtr Create();
 
-        internal abstract void Release(IntPtr ptr);
+		internal abstract void Release(IntPtr ptr);
 
-        internal abstract int DetectSharpEdges(IntPtr feaPtr, IntPtr polyPtr, Degree feature_angle);
+		//Polyhedron
 
-    }
+		internal abstract int DetectSharpEdges_PH(IntPtr feaPtr, IntPtr meshPtr, double feature_angle);
+
+		internal abstract void GetSharpEdges_PH(IntPtr feaPtr, IntPtr meshPtr, int[] indices, int count);
+
+		internal abstract Index2 SharpEdgesSegmentation_PH(IntPtr feaPtr, IntPtr meshPtr, double feature_angle);
+
+		internal abstract void ClearPatchBuffer_PH(IntPtr feaPtr);
+
+		internal abstract int GetPatchBufferFaceCount_PH(IntPtr feaPtr, int patchIndex);
+
+		internal abstract int GetPatchBufferFaceIndex_PH(IntPtr feaPtr, int patchIndex, int faceIndex);
+
+		//Surface Mesh
+
+		internal abstract int DetectSharpEdges_SM(IntPtr feaPtr, IntPtr meshPtr, double feature_angle);
+
+		internal abstract void GetSharpEdges_SM(IntPtr feaPtr, IntPtr meshPtr, int[] indices, int count);
+
+		internal abstract Index2 SharpEdgesSegmentation_SM(IntPtr feaPtr, IntPtr meshPtr, double feature_angle);
+
+		internal abstract void ClearPatchBuffer_SM(IntPtr feaPtr);
+
+		internal abstract int GetPatchBufferFaceCount_SM(IntPtr feaPtr, int patchIndex);
+
+		internal abstract int GetPatchBufferFaceIndex_SM(IntPtr feaPtr, int patchIndex, int faceIndex);
+
+	}
 }
