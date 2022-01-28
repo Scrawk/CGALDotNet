@@ -12,6 +12,8 @@ namespace CGALDotNet
     /// </summary>
     public static class CGALGlobal
     {
+        public const int NULL_INDEX = -1;
+
         private const string DLL_NAME = "CGALWrapper.dll";
 
         private const CallingConvention CDECL = CallingConvention.Cdecl;

@@ -31,12 +31,23 @@ namespace CGALDotNetConsole
 
             var fea = PolygonMeshProcessingFeatures<EEK>.Instance;
  
-            var results = new List<int>();
-            fea.SharpEdgesSegmentation(smesh, Degree.A90);
+            var edges = new List<int>();
+            var patches = new List<List<int>>();
+            fea.SharpEdgesSegmentation(smesh, Degree.A90, edges, patches);
 
-            //results.Sort();
-            //foreach(var i in results)
-            //    Console.WriteLine(i);
+       
+            foreach(var i in edges)
+                Console.WriteLine("Edges " + i);
+
+            foreach (var patch in patches)
+            {
+                Console.WriteLine("Patch");
+
+                foreach(var face in patch)
+                {
+                    Console.WriteLine("Face " + face);
+                }
+            }
         }
 
      
