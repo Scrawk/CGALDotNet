@@ -90,6 +90,37 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Check if the mesh is a valid closed mesh.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        protected void CheckIsValidClosedException(IMesh mesh)
+        {
+            if (mesh == null)
+                throw new NullReferenceException("The mesh is null.");
+
+            if (!CheckInput) return;
+
+            if (!mesh.IsValid)
+                throw new InvalidOperationException("The mesh is not valid.");
+
+            if (!mesh.IsClosed)
+                throw new InvalidOperationException("The mesh must be a closed mesh.");
+        }
+
+        /// <summary>
+        /// Check if the mesh is a valid closed mesh.
+        /// </summary>
+        /// <param name="polygon">The polygon to check.</param>
+        protected bool CheckIsValidClosed(IMesh mesh)
+        {
+            if (mesh == null)
+                throw new NullReferenceException("The mesh is null.");
+
+            if (!CheckInput) return true;
+            return mesh.IsValidClosedMesh;
+        }
+
+        /// <summary>
         /// Check if the mesh is a valid triangle mesh.
         /// </summary>
         /// <param name="polygon">The polygon to check.</param>

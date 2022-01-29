@@ -49,7 +49,7 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// Detects the edges that are considered to be sharp with respect to the given angle bound.
         /// </summary>
-        /// <param name="mesh">The mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="feature_angle">Angle in deg gives the maximum angle between 
         /// the two normal vectors of adjacent triangles. For an edge of the input polygon mesh, 
         /// if the angle between the two normal vectors of its incident facets is bigger than 
@@ -57,6 +57,7 @@ namespace CGALDotNet.Processing
         /// <param name="featureEdges">The halfedge indices of the edges that count as sharp.</param>
         public void DetectSharpEdges(Polyhedron3<K> mesh, Degree feature_angle, List<int> featureEdges)
         {
+            CheckIsValidException(mesh);
             int num_edges = Kernel.DetectSharpEdges_PH(Ptr, mesh.Ptr, feature_angle.angle);
 
             GetFeatureEdges(MESH_TYPE.POLYHEDRON, mesh.Ptr, num_edges, featureEdges);
@@ -65,7 +66,7 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// Detects the edges that are considered to be sharp with respect to the given angle bound.
         /// </summary>
-        /// <param name="mesh">The mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="feature_angle">Angle in deg gives the maximum angle between 
         /// the two normal vectors of adjacent triangles. For an edge of the input polygon mesh, 
         /// if the angle between the two normal vectors of its incident facets is bigger than 
@@ -73,6 +74,7 @@ namespace CGALDotNet.Processing
         /// <param name="featureEdges">The halfedge indices of the edges that count as sharp.</param>
         public void DetectSharpEdges(SurfaceMesh3<K> mesh, Degree feature_angle, List<int> featureEdges)
         {
+            CheckIsValidException(mesh);
             int num_edges = Kernel.DetectSharpEdges_SM(Ptr, mesh.Ptr, feature_angle.angle);
 
             GetFeatureEdges(MESH_TYPE.SURFACE_MESH, mesh.Ptr, num_edges, featureEdges);
@@ -83,7 +85,7 @@ namespace CGALDotNet.Processing
         /// The sharp edges are then used to define a segmentation of a mesh, that is done by computing 
         /// a surface patch id for each face.
         /// </summary>
-        /// <param name="mesh">The mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="feature_angle">Angle in deg gives the maximum angle between 
         /// the two normal vectors of adjacent triangles. For an edge of the input polygon mesh, 
         /// if the angle between the two normal vectors of its incident facets is bigger than 
@@ -92,6 +94,7 @@ namespace CGALDotNet.Processing
         /// <param name="featurePatches">The face indices for each patch found.</param>
         public void SharpEdgesSegmentation(SurfaceMesh3<K> mesh, Degree feature_angle, List<int> featureEdges, List<List<int>> featurePatches)
         {
+            CheckIsValidException(mesh);
             var count = Kernel.SharpEdgesSegmentation_SM(Ptr, mesh.Ptr, feature_angle.angle);
 
             int num_edges = count.first;
@@ -106,7 +109,7 @@ namespace CGALDotNet.Processing
         /// The sharp edges are then used to define a segmentation of a mesh, that is done by computing 
         /// a surface patch id for each face.
         /// </summary>
-        /// <param name="mesh">The mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="feature_angle">Angle in deg gives the maximum angle between 
         /// the two normal vectors of adjacent triangles. For an edge of the input polygon mesh, 
         /// if the angle between the two normal vectors of its incident facets is bigger than 
@@ -114,6 +117,7 @@ namespace CGALDotNet.Processing
         /// <param name="featurePatches">The face indices for each patch found.</param>
         public void SharpEdgesSegmentation(SurfaceMesh3<K> mesh, Degree feature_angle, List<List<int>> featurePatches)
         {
+            CheckIsValidException(mesh);
             var count = Kernel.SharpEdgesSegmentation_SM(Ptr, mesh.Ptr, feature_angle.angle);
 
             int num_patches = count.second;

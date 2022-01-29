@@ -46,31 +46,35 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// Returns the number of unconnect components in the mesh.
         /// </summary>
-        /// <param name="mesh"></param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <returns>Returns the number of unconnect components in the mesh.</returns>
         //public int UnconnectedComponents(Polyhedron3<K> mesh)
         //{
+        //    CheckIsValidException(mesh);
         //    return Kernel.ConnectedComponents_PH(mesh.Ptr);
         //}
 
         /// <summary>
         /// Returns the number of unconnect components in the mesh.
         /// </summary>
-        /// <param name="mesh"></param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <returns>Returns the number of unconnect components in the mesh.</returns>
         public int UnconnectedComponents(SurfaceMesh3<K> mesh)
         {
+            CheckIsValidException(mesh);
             return Kernel.ConnectedComponents_SM(mesh.Ptr);
         }
 
         /// <summary>
         /// Returns a list of face indices that are part of the same component as the provided face index.
         /// </summary>
-        /// <param name="mesh">The mesh the face is in.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="faceIndex">The faces index in the mesh.</param>
         /// <param name="results">A list of face indices that are part of the same component as the provided face index.</param>
         public void ConnectedFaces(Polyhedron3<K> mesh, int faceIndex, List<int> results)
         {
+            CheckIsValidException(mesh);
+
             int count = Kernel.ConnectedComponent_PH(Ptr, mesh.Ptr, faceIndex);
             if (count == 0) return;
 
@@ -82,11 +86,13 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// Returns a list of face indices that are part of the same component as the provided face index.
         /// </summary>
-        /// <param name="mesh">The mesh the face is in.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="faceIndex">The faces index in the mesh.</param>
         /// <param name="results">A list of face indices that are part of the same component as the provided face index.</param>
         public void ConnectedFaces(SurfaceMesh3<K> mesh, int faceIndex, List<int> results)
         {
+            CheckIsValidException(mesh);
+
             int count = Kernel.ConnectedComponent_SM(Ptr, mesh.Ptr, faceIndex);
             if (count == 0) return;
 
@@ -98,10 +104,12 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// Split each component in the mesh into individual meshes.
         /// </summary>
-        /// <param name="mesh">The mesh to split.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="results">The split meshes.</param>
         public void SplitUnconnectedComponents(Polyhedron3<K> mesh, List<Polyhedron3<K>> results)
         {
+            CheckIsValidException(mesh);
+
             int count = Kernel.SplitConnectedComponents_PH(Ptr, mesh.Ptr);
             if (count == 0) return;
 
@@ -115,10 +123,12 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// Split each component in the mesh into individual meshes.
         /// </summary>
-        /// <param name="mesh">The mesh to split.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="results">The split meshes.</param>
         public void SplitUnconnectedComponents(SurfaceMesh3<K> mesh, List<SurfaceMesh3<K>> results)
         {
+            CheckIsValidException(mesh);
+
             int count = Kernel.SplitConnectedComponents_SM(Ptr, mesh.Ptr);
             if (count == 0) return;
 
@@ -132,44 +142,48 @@ namespace CGALDotNet.Processing
         /// <summary>
         /// Removes connected components with less than a given number of faces.
         /// </summary>
-        /// <param name="mesh">The mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="threshold_value">The number of faces a component must have so that it is kept</param>
         /// <returns>The number of components removed.</returns>
         public int KeepLargeComponents(Polyhedron3<K> mesh, int threshold_value)
         {
+            CheckIsValidException(mesh);
             return Kernel.KeepLargeConnectedComponents_PH(mesh.Ptr, threshold_value);
         }
 
         /// <summary>
         /// Removes connected components with less than a given number of faces.
         /// </summary>
-        /// <param name="mesh">The mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="threshold_value">The number of faces a component must have so that it is kept</param>
         /// <returns>The number of components removed.</returns>
         public int KeepLargeComponents(SurfaceMesh3<K> mesh, int threshold_value)
         {
+            CheckIsValidException(mesh);
             return Kernel.KeepLargeConnectedComponents_SM(mesh.Ptr, threshold_value);
         }
 
         /// <summary>
         /// Removes the small connected components and all isolated vertices.
         /// </summary>
-        /// <param name="mesh">he mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="num_components_to_keep">Keep this number of the largest connected components.</param>
         /// <returns>The number of components removed.</returns>
         public int KeepLargestComponents(Polyhedron3<K> mesh, int num_components_to_keep)
         {
+            CheckIsValidException(mesh);
             return Kernel.KeepLargestConnectedComponents_PH(mesh.Ptr, num_components_to_keep);
         }
 
         /// <summary>
         /// Removes the small connected components and all isolated vertices.
         /// </summary>
-        /// <param name="mesh">he mesh.</param>
+        /// <param name="mesh">A valid mesh.</param>
         /// <param name="num_components_to_keep">Keep this number of the largest connected components.</param>
         /// <returns>The number of components removed.</returns>
         public int KeepLargestComponents(SurfaceMesh3<K> mesh, int num_components_to_keep)
         {
+            CheckIsValidException(mesh);
             return Kernel.KeepLargestConnectedComponents_SM(mesh.Ptr, num_components_to_keep);
         }
     }

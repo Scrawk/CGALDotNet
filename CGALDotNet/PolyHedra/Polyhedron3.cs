@@ -113,19 +113,22 @@ namespace CGALDotNet.Polyhedra
         /// tangential relaxation and projection to the initial surface to generate 
         /// a smooth mesh with a prescribed edge length.
         /// </summary>
-        /// <param name="iterations"></param>
+        /// <param name="iterations">The number of times to perform the remeshing.</param>
         /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
         /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-        public override void IsotropicRemeshing(int iterations, double target_edge_length)
+        /// <returns>The number of new vertices added.</returns>
+        public override int IsotropicRemeshing(double target_edge_length, int iterations = 1)
         {
             try
             {
                 IsUpdated = false;
                 var meshing = PolygonMeshProcessingMeshing<K>.Instance;
-                meshing.IsotropicRemeshing(this, iterations, target_edge_length);
+                return meshing.IsotropicRemeshing(this, target_edge_length, iterations);
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { };
+
+            return 0;
         }
 
         /// <summary>
@@ -1108,10 +1111,11 @@ namespace CGALDotNet.Polyhedra
         /// tangential relaxation and projection to the initial surface to generate 
         /// a smooth mesh with a prescribed edge length.
         /// </summary>
-        /// <param name="iterations"></param>
+        /// <param name="iterations">The number of times to perform the remeshing.</param>
         /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
         /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-        public abstract void IsotropicRemeshing(int iterations, double target_edge_length);
+        /// <returns>The number of new vertices added.</returns>
+        public abstract int IsotropicRemeshing(double target_edge_length, int iterations = 1);
 
         /// <summary>
         /// Orient the faces in the mesh.
