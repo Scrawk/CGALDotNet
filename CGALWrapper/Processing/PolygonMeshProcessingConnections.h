@@ -172,12 +172,12 @@ public:
 		auto con = CastToPolygonMeshProcessingConnections(ptr);
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 
-		int face = mesh->FindFaceIndex(index);
-		if (face != NULL_INDEX)
+		auto face = mesh->FindFace(index);
+		if (face != SurfaceMesh3<K>::NullFace())
 		{
 			con->surface_face_buffer.clear();
 			auto ins = std::back_inserter(con->surface_face_buffer);
-			CGAL::Polygon_mesh_processing::connected_component(SFace(face), mesh->model, ins);
+			CGAL::Polygon_mesh_processing::connected_component(face, mesh->model, ins);
 
 			return (int)con->surface_face_buffer.size();
 		}

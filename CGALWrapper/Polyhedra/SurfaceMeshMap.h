@@ -34,7 +34,27 @@ private:
 
 public:
 
-	void OnVertexIndicesChanged()
+	int VertexCount()
+	{
+		return (int)vertexMap.size();
+	}
+
+	int FaceCount()
+	{
+		return (int)faceMap.size();
+	}
+
+	int EdgeCount()
+	{
+		return (int)edgeMap.size();
+	}
+
+	int BuildStamp()
+	{
+		return buildStamp;
+	}
+
+	void OnVerticesChanged()
 	{
 		vertexMap.clear();
 		vertexMap.reserve(0);
@@ -44,7 +64,7 @@ public:
 		buildStamp++;
 	}
 
-	void OnFaceIndicesChanged()
+	void OnFacesChanged()
 	{
 		faceMap.clear();
 		faceMap.reserve(0);
@@ -54,7 +74,7 @@ public:
 		buildStamp++;
 	}
 
-	void OnEdgeIndicesChanged()
+	void OnEdgesChanged()
 	{
 		edgeMap.clear();
 		edgeMap.reserve(0);
@@ -62,6 +82,12 @@ public:
 		edgeIndexMap.reserve(0);
 		rebuildEdgeIndexMap = true;
 		buildStamp++;
+	}
+	void Clear()
+	{
+		OnVerticesChanged();
+		OnFacesChanged();
+		OnEdgesChanged();
 	}
 
 	void BuildVertexMaps(const SurfaceMesh& model, bool force = false)
@@ -123,8 +149,6 @@ public:
 
 	int FindVertexIndex(Vertex vertex)
 	{
-		BuildVertexMaps();
-
 		auto item = vertexIndexMap.find(vertex);
 		if (item != vertexIndexMap.end())
 			return item->second;
@@ -134,20 +158,21 @@ public:
 
 	Vertex FindVertex(int index)
 	{
-		BuildVertexMaps();
 		int count = (int)vertexMap.size();
-
 		if (index < 0 || index >= count)
 			return SurfaceMesh::null_vertex();
 
 		return Vertex(vertexMap[index]);
 	}
 
-	int FindFaceIndex(int index)
+	Vertex GetVertex(int index)
 	{
-		BuildFaceMaps();
+		return Vertex(vertexMap[index]);
+	}
 
-		auto item = faceIndexMap.find(Face(index));
+	int FindFaceIndex(Face face)
+	{
+		auto item = faceIndexMap.find(face);
 		if (item != faceIndexMap.end())
 			return item->second;
 		else
@@ -156,20 +181,21 @@ public:
 
 	Face FindFace(int index)
 	{
-		BuildFaceMaps();
 		int count = (int)faceMap.size();
-
 		if (index < 0 || index >= count)
 			return SurfaceMesh::null_face();
 
 		return Face(faceMap[index]);
 	}
 
-	int FindEdgeIndex(int index)
+	Face GetFace(int index)
 	{
-		BuildEdgeMaps();
+		return Face(faceMap[index]);
+	}
 
-		auto item = edgeIndexMap.find(Edge(index));
+	int FindEdgeIndex(Edge edge)
+	{
+		auto item = edgeIndexMap.find(edge);
 		if (item != edgeIndexMap.end())
 			return item->second;
 		else
@@ -178,13 +204,57 @@ public:
 
 	Edge FindEdge(int index)
 	{
-		BuildEdgeMaps();
 		int count = (int)edgeMap.size();
-
 		if (index < 0 || index >= count)
 			return SurfaceMesh::null_edge();
 
 		return Edge(edgeMap[index]);
+	}
+
+	Edge GetEdge(int index)
+	{
+		return Edge(edgeMap[index]);
+	}
+
+	void PrintVertices(const SurfaceMesh& model)
+	{
+		std::cout << "Vertex indices" << std::endl;
+		for (auto vertex : model.vertices())
+		{
+			int index = FindVertexIndex(vertex);
+			if (index == NULL_INDEX)
+			{
+				std::cout << "Vertex = " << vertex
+					<< ", Index = " << index << std::endl;
+			}
+			else
+			{
+				auto point = model.point(vertex);
+				std::cout << "Vertex = " << vertex
+					<< ", Index = " << index
+					<< ", Point = " << point << std::endl;
+			}
+		}
+	}
+
+	void PrintFaces(const SurfaceMesh& model)
+	{
+		std::cout << "Face indices" << std::endl;
+		for (auto face : model.faces())
+		{
+			std::cout << "Face = " << face
+				<< ", Index = " << FindFaceIndex(face) << std::endl;
+		}
+	}
+
+	void PrintEdges(const SurfaceMesh& model)
+	{
+		std::cout << "Edges indices" << std::endl;
+		for (auto edge : model.edges())
+		{
+			std::cout << "Edge = " << edge
+				<< ", Index = " << FindEdgeIndex(edge) << std::endl;
+		}
 	}
 
 };
