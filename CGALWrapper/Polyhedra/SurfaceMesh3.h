@@ -7,6 +7,7 @@
 #include "../Geometry/MinMax.h"
 #include "../Utility/ArrayUtil.h"
 #include "FaceVertexCount.h"
+#include "SurfaceMeshMap.h"
 
 #include <limits>
 #include <fstream>

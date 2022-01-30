@@ -1336,6 +1336,7 @@ namespace CGALDotNet.Polyhedra
         public override void Print(StringBuilder builder)
         {
             builder.AppendLine(ToString());
+            builder.AppendLine("BuildStamp = " + BuildStamp);
             builder.AppendLine("IsValid = " + IsValid);
             builder.AppendLine("VertexCount = " + VertexCount);
             builder.AppendLine("FaceCount = " + FaceCount);

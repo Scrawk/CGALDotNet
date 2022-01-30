@@ -179,6 +179,7 @@
     <ClInclude Include="Polylines\Polyline3.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingSlicer.h" />
     <ClInclude Include="Processing\SurfaceSimplification_EIK.h" />
+    <ClInclude Include="Polyhedra\SurfaceMeshMap.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h" />
     <ClInclude Include="Geometry\MinMax.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingConnections_EEK.h" />
