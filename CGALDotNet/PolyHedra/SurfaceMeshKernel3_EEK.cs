@@ -28,10 +28,10 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_Clear(ptr);
         }
 
-        //internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
-        //{
-        //    SurfaceMesh3_EEK_ClearIndexMaps(ptr, vertices, faces, edges);
-        //}
+        internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
+        {
+            SurfaceMesh3_EEK_ClearIndexMaps(ptr, vertices, faces, edges);
+        }
 
         internal override void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces)
         {
@@ -43,10 +43,15 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_ClearProperyMaps(ptr);
         }
 
-        //internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force)
-        //{
-        //    SurfaceMesh3_EEK_BuildIndices(ptr, vertices, faces, edges, force);
-        //}
+        internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force)
+        {
+            SurfaceMesh3_EEK_BuildIndices(ptr, vertices, faces, edges, force);
+        }
+
+        internal override void PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool build)
+        {
+            SurfaceMesh3_EEK_PrintIndices(ptr, vertices, faces, edges, build);
+        }
 
         internal override IntPtr Copy(IntPtr ptr)
         {
@@ -211,6 +216,16 @@ namespace CGALDotNet.Polyhedra
         internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
         {
             SurfaceMesh3_EEK_GetPoints(ptr, points, count);
+        }
+
+        internal override void SetPoint(IntPtr ptr, int index, Point3d point)
+        {
+            SurfaceMesh3_EEK_SetPoint(ptr, index, point);    
+        }
+
+        internal override void SetPoints(IntPtr ptr, Point3d[] points, int count)
+        {
+            SurfaceMesh3_EEK_SetPoints(ptr, points, count); 
         }
 
         internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
@@ -385,6 +400,9 @@ namespace CGALDotNet.Polyhedra
         private static extern void SurfaceMesh3_EEK_BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool build);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr SurfaceMesh3_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -482,6 +500,12 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_SetPoint(IntPtr ptr, int index, Point3d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_SetPoints(IntPtr ptr, Point3d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);

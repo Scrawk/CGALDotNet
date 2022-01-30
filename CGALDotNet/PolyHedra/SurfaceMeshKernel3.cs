@@ -15,13 +15,15 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void Clear(IntPtr ptr);
 
-        //internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
+        internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
 
         internal abstract void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces);
 
         internal abstract void ClearProperyMaps(IntPtr ptr);
 
-        //internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
+        internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
+
+        internal abstract void PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool build);
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
@@ -88,6 +90,10 @@ namespace CGALDotNet.Polyhedra
         internal abstract Point3d GetPoint(IntPtr ptr, int index);
 
         internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
+
+        internal abstract void SetPoint(IntPtr ptr, int index, Point3d point);
+
+        internal abstract void SetPoints(IntPtr ptr, Point3d[] points, int count);
 
         internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
 

@@ -5,15 +5,17 @@
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
+#include "../Utility/ArrayUtil.h"
 #include "FaceVertexCount.h"
 
 #include <limits>
 #include <fstream>
 #include <iostream>
+#include <unordered_set>
+#include <unordered_map>
+
 #include <CGAL/Surface_mesh.h>
 #include <CGAL/Aff_transformation_3.h>
-#include <unordered_set>
-
 #include <CGAL/Polygon_mesh_processing/triangulate_faces.h>
 #include <CGAL/Side_of_triangle_mesh.h>
 #include <CGAL/Polygon_mesh_processing/orientation.h>
@@ -54,22 +56,27 @@ public:
 
 	SurfaceMesh model;
 
+private:
+
 	AABBTree* tree = nullptr;
 
-	//std::vector<Vertex> vertexMap;
-	//bool rebuildVertexMap = true;
+	std::unordered_map<Vertex, int> vertexIndexMap;
+	std::vector<Vertex> vertexMap;
+	bool rebuildVertexIndexMap = true;
 
-	//std::vector<Face> faceMap;
-	//bool rebuildFaceMap = true;
+	std::unordered_map<Face, int> faceIndexMap;
+	std::vector<Face> faceMap;
+	bool rebuildFaceIndexMap = true;
 
-	//std::vector<Halfedge> edgeMap;
-	//bool rebuildEdgeMap = true;
+	std::unordered_map<Edge, int> edgeIndexMap;
+	std::vector<Edge> edgeMap;
+	bool rebuildEdgeIndexMap = true;
 
-	bool collectGarbage = false;
-	
 	bool vertexNormalsComputed = false;
 
 	bool faceNormalsComputed = false;
+
+public:
 
 	inline static SurfaceMesh3* NewSurfaceMesh()
 	{
@@ -92,6 +99,11 @@ public:
 		return static_cast<SurfaceMesh3*>(ptr);
 	}
 
+	inline static Point3d NullPoint()
+	{
+		return { 0, 0, 0 };
+	}
+
 	inline static Vertex NullVertex()
 	{
 		return SurfaceMesh::null_vertex();
@@ -102,9 +114,14 @@ public:
 		return SurfaceMesh::null_face();
 	}
 
-	inline static Halfedge NullEdge()
+	inline static Edge NullEdge()
 	{
 		return SurfaceMesh::null_edge();
+	}
+
+	inline static Halfedge NullHalfedge()
+	{
+		return SurfaceMesh::null_halfedge();
 	}
 
 	void OnVertexNormalsChanged()
@@ -121,25 +138,29 @@ public:
 
 	void OnVertexIndicesChanged()
 	{
-		//vertexMap.clear();
-		//vertexMap.reserve(0);
-		//vertexNormalsComputed = false;
-		collectGarbage = true;
+		vertexMap.clear();
+		vertexMap.reserve(0);
+		vertexIndexMap.clear();
+		vertexIndexMap.reserve(0);
+		rebuildVertexIndexMap = true;
 	}
 
 	void OnFaceIndicesChanged()
 	{
-		//faceMap.clear();
-		//faceMap.reserve(0);
-		//faceNormalsComputed = false;
-		collectGarbage = true;
+		faceMap.clear();
+		faceMap.reserve(0);
+		faceIndexMap.clear();
+		faceIndexMap.reserve(0);
+		rebuildFaceIndexMap = true;
 	}
 
 	void OnEdgeIndicesChanged()
 	{
-		//edgeMap.clear();
-		//edgeMap.reserve(0);
-		collectGarbage = true;
+		edgeMap.clear();
+		edgeMap.reserve(0);
+		edgeIndexMap.clear();
+		edgeIndexMap.reserve(0);
+		rebuildEdgeIndexMap = true;
 	}
 
 	void OnVerticesChanged()
@@ -168,6 +189,13 @@ public:
 		OnFacesChanged();
 		OnEdgesChanged();
 		DeleteTree();
+	}
+
+	void BuildModel()
+	{
+		BuildVertexMaps();
+		BuildFaceMaps();
+		BuildEdgeMaps();
 	}
 
 	void DeleteTree()
@@ -208,103 +236,134 @@ public:
 		faceNormalsComputed = false;
 	}
 
-	void CollectGarbage()
+	void BuildVertexMaps(bool force = false)
 	{
-		if (!collectGarbage) return;
-		collectGarbage = false;
-		model.collect_garbage();
-	}
+		if (!force && !rebuildVertexIndexMap) return;
+		rebuildVertexIndexMap = false;
 
-	/*
-	void BuildVertexIndexMap(bool force = false)
-	{
-		if (!force && !rebuildVertexMap) return;
-		rebuildVertexMap = false;
-
-		auto count = model.number_of_vertices();
-		vertexMap.resize(count);
+		vertexMap.clear();
+		vertexMap.reserve(model.number_of_vertices());
+		vertexIndexMap.clear();
 
 		int index = 0;
 		for (auto vertex : model.vertices())
 		{
 			//std::cout << "Vetex = " << vertex<< " Index " << index << std::endl;
-			vertexMap[index++] = vertex;
+			vertexMap.push_back(vertex);
+			vertexIndexMap.insert(std::pair<Vertex, int>(vertex, index));
+			index++;
 		}
 	}
 
-	void BuildFaceIndexMap(bool force = false)
+	void BuildFaceMaps(bool force = false)
 	{
-		if (!force && !rebuildFaceMap) return;
-		rebuildFaceMap = false;
+		if (!force && !rebuildFaceIndexMap) return;
+		rebuildFaceIndexMap = false;
 
-		std::cout << "Build faces" << std::endl;
-
-		auto count = model.number_of_faces();
-		faceMap.resize(count);
+		faceMap.clear();
+		faceMap.reserve(model.number_of_faces());
+		faceIndexMap.clear();
 
 		int index = 0;
 		for (auto face : model.faces())
 		{
 			//std::cout << "Face = " << face << " Index " << index << std::endl;
-			faceMap[index++] = face;
+			faceMap.push_back(face);
+			faceIndexMap.insert(std::pair<Face, int>(face, index));
+			index++;
 		}
 	}
 
-	void BuildEdgeIndexMap(bool force = false)
+	void BuildEdgeMaps(bool force = false)
 	{
-		if (!force && !rebuildEdgeMap) return;
-		rebuildEdgeMap = false;
+		if (!force && !rebuildEdgeIndexMap) return;
+		rebuildEdgeIndexMap = false;
 
-		auto count = model.number_of_halfedges();
-		edgeMap.resize(count);
+		edgeMap.clear();
+		edgeMap.reserve(model.number_of_edges());
+		edgeIndexMap.clear();
 
 		int index = 0;
-		for (auto edge : model.halfedges())
+		for (auto edge : model.edges())
 		{
 			//std::cout << "Edge = " << edge << " Index " << index << std::endl;
-			edgeMap[index++] = edge;
+			edgeMap.push_back(edge);
+			edgeIndexMap.insert(std::pair<Edge, int>(edge, index));
+			index++;
 		}
 	}
-	*/
+
+	int FindVertexIndex(Vertex vertex)
+	{
+		BuildVertexMaps();
+
+		auto item = vertexIndexMap.find(vertex);
+		if (item != vertexIndexMap.end())
+			return item->second;
+		else
+			return NULL_INDEX;
+	}
 
 	Vertex FindVertex(int index)
 	{
-		CollectGarbage();
-		int count = (int)model.number_of_verices();
+		BuildVertexMaps();
+		int count = (int)vertexMap.size();
 
 		if (index < 0 || index >= count)
 			return NullVertex();
 
-		return Vertex(index);
+		return Vertex(vertexMap[index]);
+	}
+
+	int FindFaceIndex(int index)
+	{
+		BuildFaceMaps();
+
+		auto item = faceIndexMap.find(Face(index));
+		if (item != faceIndexMap.end())
+			return item->second;
+		else
+			return NULL_INDEX;
 	}
 
 	Face FindFace(int index)
 	{
-		CollectGarbage();
-		int count = (int)model.number_of_faces();
+		BuildFaceMaps();
+		int count = (int)faceMap.size();
 
 		if (index < 0 || index >= count)
 			return NullFace();
 
-		return Face(index);
+		return Face(faceMap[index]);
+	}
+
+	int FindEdgeIndex(int index)
+	{
+		BuildEdgeMaps();
+
+		auto item = edgeIndexMap.find(Edge(index));
+		if (item != edgeIndexMap.end())
+			return item->second;
+		else
+			return NULL_INDEX;
 	}
 
 	Edge FindEdge(int index)
 	{
-		CollectGarbage();
-		int count = (int)model.number_of_halfedges();
+		BuildEdgeMaps();
+		int count = (int)edgeMap.size();
 
 		if (index < 0 || index >= count)
 			return NullEdge();
 
-		return Edge(index);
+		return Edge(edgeMap[index]);
 	}
 
 	void Clear()
 	{
 		model.clear();
+		model.collect_garbage();
 		OnModelChanged();
-		CollectGarbage();
 	}
 
 	static void Clear(void* ptr)
@@ -313,7 +372,6 @@ public:
 		mesh->Clear();
 	}
 
-	/*
 	static void ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
@@ -321,7 +379,6 @@ public:
 		if (faces) mesh->OnFaceIndicesChanged();
 		if (edges) mesh->OnEdgeIndicesChanged();
 	}
-	*/
 
 	static void ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
 	{
@@ -338,16 +395,64 @@ public:
 		mesh->model.remove_all_property_maps();
 	}
 
-	/*
 	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
 	{
-		std::cout << "Build indices" << std::endl;
 		auto mesh = CastToSurfaceMesh(ptr);
-		if (vertices) mesh->BuildVertexIndexMap(force);
-		if (faces) mesh->BuildFaceIndexMap(force);
-		if (edges) mesh->BuildEdgeIndexMap(force);
+		if (vertices) mesh->BuildVertexMaps(force);
+		if (faces) mesh->BuildFaceMaps(force);
+		if (edges) mesh->BuildEdgeMaps(force);
 	}
-	*/
+
+	static void PrintIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL build)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		if (build)
+			BuildIndices(ptr, vertices, faces, edges, build);
+
+		if (vertices)
+		{
+			std::cout << "Vertex indices" << std::endl;
+			for (auto vertex : mesh->model.vertices())
+			{
+				int index = mesh->FindVertexIndex(vertex);
+				Point_3 point;
+
+				if (index == NULL_INDEX)
+					point = SurfaceMesh3::NullPoint().ToCGAL<K>();
+				else
+				{
+					point = mesh->model.point(vertex);
+
+					std::cout << "Vertex = " << vertex
+						<< ", Index = " << index
+						<< ", Point = " << point << std::endl;
+				}
+			}
+		}
+
+		if (faces)
+		{
+			std::cout << "Face indices" << std::endl;
+			for (auto face : mesh->model.faces())
+			{
+				std::cout << "Face = " << face
+					<< ", Index = " << mesh->FindFaceIndex(face) << std::endl;
+			}
+		}
+
+		if (edges)
+		{
+			std::cout << "Edges indices" << std::endl;
+			for (auto edge : mesh->model.edges())
+			{
+				std::cout << "Edge = " << edge
+					<< ", Index = " << mesh->FindEdgeIndex(edge) << std::endl;
+
+			}
+		}
+
+	}
 
 	static void* Copy(void* ptr)
 	{
@@ -414,24 +519,28 @@ public:
 	static int AddVertex(void* ptr, Point3d point)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
 		return mesh->model.add_vertex(point.ToCGAL<K>());
 	}
 
 	static int AddEdge(void* ptr, int v0, int v1)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
 		return mesh->model.add_edge(Vertex(v0), Vertex(v1));
 	}
 
 	static int AddTriangle(void* ptr, int v0, int v1, int v2)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
 		return mesh->model.add_face(Vertex(v0), Vertex(v1), Vertex(v2));
 	}
 
 	static int AddQuad(void* ptr, int v0, int v1, int v2, int v3)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
 		return mesh->model.add_face(Vertex(v0), Vertex(v1), Vertex(v2), Vertex(v3));
 	}
 
@@ -444,7 +553,8 @@ public:
 	static void CollectGarbage(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->CollectGarbage();
+		mesh->model.collect_garbage();
+		mesh->OnModelChanged();
 	}
 
 	static void SetRecycleGarbage(void* ptr, BOOL collect)
@@ -522,29 +632,52 @@ public:
 	static void RemoveVertex(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->ClearVertexNormalMap();
-		mesh->ClearFaceNormalMap();
-		mesh->model.remove_vertex(Vertex(index));
+		mesh->BuildVertexMaps();
+
+		Vertex vertex = mesh->FindVertex(index);
+		if (vertex == NullVertex()) return;
+
+		mesh->model.remove_vertex(vertex);
+		mesh->OnModelChanged();
 	}
 
 	static void RemoveEdge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->model.remove_edge(Edge(index));
+		mesh->BuildEdgeMaps();
+
+		Edge edge = mesh->FindEdge(index);
+		if (edge == NullEdge()) return;
+
+		mesh->model.remove_edge(edge);
 		mesh->OnModelChanged();
 	}
 
 	static void RemoveFace(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->model.remove_face(Face(index));
+		mesh->BuildFaceMaps();
+
+		Face face = mesh->FindFace(index);
+		if (face == NullFace()) return;
+
+		mesh->model.remove_face(face);
 		mesh->OnModelChanged();
 	}
 
 	static Point3d GetPoint(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		auto point = mesh->model.point(Vertex(index));
+		mesh->BuildVertexMaps();
+
+		if (index < 0 || index >= (int)mesh->vertexMap.size())
+			return SurfaceMesh3::NullPoint();
+
+		Vertex v = mesh->vertexMap[index];
+		if( v == NullVertex())
+			return SurfaceMesh3::NullPoint();
+
+		auto point = mesh->model.point(v);
 		return Point3d::FromCGAL<K>(point);
 	}
 
@@ -552,16 +685,72 @@ public:
 	{
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
 
-		int index = 0;
-		for (auto point = mesh->model.points().begin(); point != mesh->model.points().end(); ++point)
-		{
-			points[index] = Point3d::FromCGAL<K>(*point);
+		mesh->BuildVertexMaps();
+		int num_vertices = (int)mesh->vertexMap.size();
+		if (num_vertices == 0) return;
+		if (num_vertices != count) return;
 
-			index++;
-			if (index >= count)
-				return;
+		/*
+		for (auto vertex : mesh->model.vertices())
+		{
+			auto index = mesh->FindVertexIndex(vertex);
+
+			if (index < 0 || index >= num_vertices)
+				continue;
+
+			auto p = mesh->model.point(vertex);
+			points[index] = Point3d::FromCGAL<K>(p);
+		}
+		*/
+
+		for (int i = 0; i < num_vertices; i++)
+		{
+			auto vertex = mesh->vertexMap[i];
+			if (vertex == SurfaceMesh3::NullVertex())
+				points[i] = SurfaceMesh3::NullPoint();
+			else
+			{
+				auto p = mesh->model.point(vertex);
+				points[i] = Point3d::FromCGAL<K>(p);
+			}
+		}
+	}
+
+	static void SetPoint(void* ptr, int index, Point3d point)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		mesh->BuildVertexMaps();
+		if (index < 0 || index >= (int)mesh->vertexMap.size())
+			return;
+
+		auto vertex = mesh->vertexMap[index];
+		auto point_map = mesh->model.points();
+		point_map[vertex] = point.ToCGAL<EEK>();
+
+		mesh->OnModelChanged();
+	}
+
+	static void SetPoints(void* ptr, Point3d* points, int count)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		mesh->BuildVertexMaps();
+		int num_vertices = (int)mesh->vertexMap.size();
+		if (num_vertices == 0) return;
+		if (num_vertices != count) return;
+
+		auto point_map = mesh->model.points();
+
+		for (int i = 0; i < num_vertices; i++)
+		{
+			auto vertex = mesh->vertexMap[i];
+
+			if(vertex != SurfaceMesh3::NullVertex())
+				point_map[vertex] = points[i].ToCGAL<K>();
 		}
 
+		mesh->OnModelChanged();
 	}
 
 	static void Transform(void* ptr, const Matrix4x4d& matrix)
@@ -569,9 +758,7 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 		auto m = matrix.ToCGAL<K>();
 
-		mesh->ClearVertexNormalMap();
-		mesh->ClearFaceNormalMap();
-
+		mesh->OnModelChanged();
 		std::transform(mesh->model.points().begin(), mesh->model.points().end(), mesh->model.points().begin(), m);
 	}
 
@@ -600,7 +787,6 @@ public:
 		int count = 0;
 		for (auto edge : mesh->model.edges())
 		{
-			//if (mesh->model.is_removed(edge)) continue;
 			if (mesh->model.is_border(edge)) count++;
 		}
 
@@ -613,7 +799,6 @@ public:
 
 		for (auto edge : mesh->model.edges())
 		{
-			//if (mesh->model.is_removed(edge)) continue;
 			if (mesh->model.is_border(edge)) return FALSE;
 		}
 
@@ -649,8 +834,6 @@ public:
 
 		for (auto face : mesh->model.faces())
 		{
-			//if (mesh->model.is_removed(face)) continue;
-
 			int count = mesh->model.degree(face);
 
 			switch (count)
@@ -691,7 +874,7 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 
 		mesh->Clear();
-		mesh->model.collect_garbage();
+		mesh->OnModelChanged();
 
 		for (int i = 0; i < pointsCount; i++)
 			mesh->model.add_vertex(points[i].ToCGAL<K>());
@@ -722,40 +905,52 @@ public:
 		}
 	}
 
-	static void GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount)
+	static void GetTriangleQuadIndices(void* ptr, int* triangles, int triangleCount, int* quads, int quadCount)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->BuildModel();
 
 		int triangleIndex = 0;
 		int quadIndex = 0;
 
+		auto null_vertex = SurfaceMesh3::NullVertex();
+		ArrayUtil::FillWithNull(triangles, triangleCount);
+		ArrayUtil::FillWithNull(quads, quadCount);
+
 		for (auto face : mesh->model.faces())
 		{
-			//if (mesh->model.is_removed(face)) continue;
-
 			int count = mesh->model.degree(face);
 			auto hedge0 = mesh->model.halfedge(face);
 
-			if (count == 3 && triangleIndex < trianglesCount)
+			if (count == 3 && triangleIndex < triangleCount)
 			{
 				auto hedge1 = mesh->model.next(hedge0);
 				auto hedge2 = mesh->model.next(hedge1);
 
-				triangles[triangleIndex * 3 + 0] = mesh->model.source(hedge0).idx();
-				triangles[triangleIndex * 3 + 1] = mesh->model.source(hedge1).idx();
-				triangles[triangleIndex * 3 + 2] = mesh->model.source(hedge2).idx();
+				auto vertex0 = mesh->model.source(hedge0);
+				auto vertex1 = mesh->model.source(hedge1);
+				auto vertex2 = mesh->model.source(hedge2);
+
+				triangles[triangleIndex * 3 + 0] = vertex0 != null_vertex ? mesh->FindVertexIndex(vertex0) : NULL_INDEX;
+				triangles[triangleIndex * 3 + 1] = vertex1 != null_vertex ? mesh->FindVertexIndex(vertex1) : NULL_INDEX;
+				triangles[triangleIndex * 3 + 2] = vertex2 != null_vertex ? mesh->FindVertexIndex(vertex2) : NULL_INDEX;
 				triangleIndex++;
 			}
-			else if (count == 4 && quadIndex < quadsCount)
+			else if (count == 4 && quadIndex < quadCount)
 			{
 				auto hedge1 = mesh->model.next(hedge0);
 				auto hedge2 = mesh->model.next(hedge1);
 				auto hedge3 = mesh->model.next(hedge2);
 
-				quads[quadIndex * 4 + 0] = mesh->model.source(hedge0).idx();
-				quads[quadIndex * 4 + 1] = mesh->model.source(hedge1).idx();
-				quads[quadIndex * 4 + 2] = mesh->model.source(hedge2).idx();
-				quads[quadIndex * 4 + 3] = mesh->model.source(hedge3).idx();
+				auto vertex0 = mesh->model.source(hedge0);
+				auto vertex1 = mesh->model.source(hedge1);
+				auto vertex2 = mesh->model.source(hedge2);
+				auto vertex3 = mesh->model.source(hedge3);
+
+				quads[quadIndex * 4 + 0] = vertex0 != null_vertex ? mesh->FindVertexIndex(vertex0) : NULL_INDEX;
+				quads[quadIndex * 4 + 1] = vertex1 != null_vertex ? mesh->FindVertexIndex(vertex1) : NULL_INDEX;
+				quads[quadIndex * 4 + 2] = vertex2 != null_vertex ? mesh->FindVertexIndex(vertex2) : NULL_INDEX;
+				quads[quadIndex * 4 + 3] = vertex3 != null_vertex ? mesh->FindVertexIndex(vertex3) : NULL_INDEX;
 				quadIndex++;
 			}
 		}
@@ -879,8 +1074,6 @@ public:
 		int count = 0;
 		for (auto edge : mesh->model.edges())
 		{
-			//if (mesh->model.is_removed(edge)) continue;
-
 			auto len = CGAL::Polygon_mesh_processing::edge_length(edge, mesh->model);
 
 			count++;
@@ -912,8 +1105,6 @@ public:
 		int index = 0;
 		for (auto face : mesh->model.faces())
 		{
-			//if (mesh->model.is_removed(face)) continue;
-
 			points[index] = Point3d::FromCGAL<K>(ComputeCentroid(mesh->model, face));
 
 			index++;
@@ -938,11 +1129,11 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 
 		if (mesh->vertexNormalsComputed) return;
+		mesh->vertexNormalsComputed = true;
 
 		std::string key = VERTEX_NORMAL_MAP_NAME;
 		auto normals = mesh->model.add_property_map<VertexDes, Vector>(key, CGAL::NULL_VECTOR).first;
 		CGAL::Polygon_mesh_processing::compute_vertex_normals(mesh->model, normals);
-		mesh->vertexNormalsComputed = true;
 	}
 
 	static void ComputeFaceNormals(void* ptr)
@@ -953,11 +1144,11 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 
 		if (mesh->faceNormalsComputed) return;
+		mesh->faceNormalsComputed = true;
 
 		std::string key = FACE_NORMAL_MAP_NAME;
 		auto normals = mesh->model.add_property_map<FaceDes, Vector>(key, CGAL::NULL_VECTOR).first;
 		CGAL::Polygon_mesh_processing::compute_face_normals(mesh->model, normals);
-		mesh->faceNormalsComputed = true;
 	}
 
 	static void GetVertexNormals(void* ptr, Vector3d* normals, int count)

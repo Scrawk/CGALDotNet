@@ -5,6 +5,7 @@ using System.Text;
 using CGALDotNet.Geometry;
 using CGALDotNet.Processing;
 using CGALDotNet.Polygons;
+using CGALDotNet.Extensions;
 
 namespace CGALDotNet.Polyhedra
 {
@@ -292,10 +293,10 @@ namespace CGALDotNet.Polyhedra
         /// <param name="vertices">True to clear the vertex index map.</param>
         /// <param name="faces">True to clear the face index map.</param>
         /// <param name="edges">True to clear the edges index map.</param>
-        //public void ClearIndexMaps(bool vertices, bool faces, bool edges)
-        //{
-        //    Kernel.ClearIndexMaps(Ptr, vertices, faces, edges);
-        //}
+        public void ClearIndexMaps(bool vertices, bool faces, bool edges)
+        {
+            Kernel.ClearIndexMaps(Ptr, vertices, faces, edges);
+        }
 
         /// <summary>
         /// Clear the normal maps.
@@ -304,7 +305,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="faces">True to clear the face normal map</param>
         public void ClearNormalMaps(bool vertices, bool faces)
         {
-            Kernel.ClearNormalMaps(Ptr, vertices, faces);   
+            Kernel.ClearNormalMaps(Ptr, vertices, faces);
         }
 
         /// <summary>
@@ -326,10 +327,22 @@ namespace CGALDotNet.Polyhedra
         /// <param name="edges">True to build the edge index maps.</param>
         /// <param name="force">The index maps wont be build if the mesh knows they are already built and upto date.
         /// Setting force to true will build them always.</param>
-        //public void BuildIndices(bool vertices, bool faces, bool edges, bool force = false)
-        //{
-        //    Kernel.BuildIndices(Ptr, vertices, faces, edges, force);
-        //}
+        public void BuildIndices(bool vertices, bool faces, bool edges, bool force = false)
+        {
+            Kernel.BuildIndices(Ptr, vertices, faces, edges, force);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vertices"></param>
+        /// <param name="faces"></param>
+        /// <param name="edges"></param>
+        /// <param name="build"></param>
+        public void PrintIndices(bool vertices, bool faces, bool edges, bool build)
+        {
+            Kernel.PrintIndices(Ptr, vertices, faces, edges, build);
+        }
 
         /// <summary>
         /// Adds a vertex to the mesh.
@@ -405,11 +418,23 @@ namespace CGALDotNet.Polyhedra
         /// garbage(if any) while if set to false only new elements are created.
         /// </summary>
         /// <returns></returns>
-        //public bool DoesRecycleGarbage
-        //{
-        //    get { return Kernel.DoesRecycleGarbage(Ptr); }
-        //    set { Kernel.SetRecycleGarbage(Ptr, value); }
-        //}
+        public bool DoesRecycleGarbage
+        {
+            get { return Kernel.DoesRecycleGarbage(Ptr); }
+            set { Kernel.SetRecycleGarbage(Ptr, value); }
+        }
+
+        /// <summary>
+        /// Array accessor for the polygon.
+        /// Getting a point wraps around the polygon.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public Point3d this[int i]
+        {
+            get => GetPoint(i);
+            set => SetPoint(i, value);
+        }
 
         /// <summary>
         /// Get the vertices point.
@@ -422,6 +447,17 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Get the vertices point.
+        /// </summary>
+        /// <param name="index">The vertex index in the mesh. Will be clamped to size of points.</param>
+        /// <returns>The vertices point.</returns>
+        public Point3d GetPointClamped(int index)
+        {
+            index = CGALGlobal.Clamp(index, 0, VertexCount - 1);
+            return Kernel.GetPoint(Ptr, index);
+        }
+
+        /// <summary>
         /// Get the points in the mesh.
         /// </summary>
         /// <param name="points">The array to copy points into.</param>
@@ -430,6 +466,29 @@ namespace CGALDotNet.Polyhedra
         {
             ErrorUtil.CheckArray(points, count);
             Kernel.GetPoints(Ptr, points, count);
+        }
+
+        /// <summary>
+        /// Set the point at the index.
+        /// </summary>
+        /// <param name="index">The points index</param>
+        /// <param name="point">The points</param>
+        public void SetPoint(int index, Point3d point)
+        {
+            IsUpdated = false;
+            Kernel.SetPoint(Ptr, index, point);
+        }
+
+        /// <summary>
+        /// Set the points from a array.
+        /// </summary>
+        /// <param name="points">The point array.</param>
+        /// <param name="count">The point arrays length.</param>
+        public void SetPoints(Point3d[] points, int count)
+        {
+            ErrorUtil.CheckArray(points, count);
+            IsUpdated = false;
+            Kernel.SetPoints(Ptr, points, count);
         }
 
         /// <summary>
@@ -1144,6 +1203,31 @@ namespace CGALDotNet.Polyhedra
         /// Reverses the orientation of the vertices in each face.
         /// </summary>
         public abstract void ReverseFaceOrientation();
+
+        /// <summary>
+        /// Return all the points in the mesh in a array.
+        /// </summary>
+        /// <returns>The array.</returns>
+        public Point3d[] ToArray()
+        {
+            var points = new Point3d[VertexCount];
+            GetPoints(points, points.Length);
+            return points;
+        }
+
+        /// <summary>
+        /// Return all the points in the mesh in a list.
+        /// </summary>
+        /// <returns>The list.</returns>
+        public List<Point3d> ToList()
+        {
+            int count = VertexCount;
+            var points = new List<Point3d>(count);
+            for (int i = 0; i < count; i++)
+                points.Add(GetPoint(i));
+        
+            return points;
+        }
 
         /// <summary>
         /// Update the mesh if needed.

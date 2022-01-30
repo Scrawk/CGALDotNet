@@ -179,6 +179,13 @@ public:
 		OnEdgesChanged();
 	}
 
+	void BuildModel()
+	{
+		BuildVertexIndexMap();
+		BuildFaceIndexMap();
+		BuildEdgeIndexMap();
+	}
+
 	void DeleteTree()
 	{
 		if (tree != nullptr)

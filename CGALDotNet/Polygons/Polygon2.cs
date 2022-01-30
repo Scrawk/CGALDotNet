@@ -830,19 +830,6 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Convert the polygon to a new polygon with a different kernel.
-        /// May result in different values due to precision issues.
-        /// </summary>
-        /// <typeparam name="T">The new kernel type.</typeparam>
-        /// <returns>The new polygon.</returns>
-        public Polygon2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var points = ArrayCache.Point2dArray(Count);
-            GetPoints(points, Count);
-            return new Polygon2<T>(points);
-        }
-
-        /// <summary>
         /// Return all the points in the polygon in a list.
         /// </summary>
         /// <returns>The list.</returns>
@@ -853,6 +840,19 @@ namespace CGALDotNet.Polygons
                 points.Add(GetPoint(i));
 
             return points;
+        }
+
+        /// <summary>
+        /// Convert the polygon to a new polygon with a different kernel.
+        /// May result in different values due to precision issues.
+        /// </summary>
+        /// <typeparam name="T">The new kernel type.</typeparam>
+        /// <returns>The new polygon.</returns>
+        public Polygon2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var points = ArrayCache.Point2dArray(Count);
+            GetPoints(points, Count);
+            return new Polygon2<T>(points);
         }
 
         /// <summary>

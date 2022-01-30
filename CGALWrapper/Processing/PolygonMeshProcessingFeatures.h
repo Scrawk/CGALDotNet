@@ -176,7 +176,8 @@ public:
 		int index = 0;
 		for (auto edge : fea->surface_edge_buffer)
 		{
-			indices[index++] = mesh->model.halfedge(edge);
+			auto hedge = edge.halfedge();
+			indices[index++] = mesh->FindEdgeIndex(hedge);
 
 			if (index >= count)
 				break;

@@ -6,6 +6,7 @@ using System.Text;
 using CGALDotNet.Geometry;
 using CGALDotNet.Processing;
 using CGALDotNet.Polygons;
+using CGALDotNet.Extensions;
 
 namespace CGALDotNet.Polyhedra
 {
@@ -1154,6 +1155,31 @@ namespace CGALDotNet.Polyhedra
         {
             Kernel.WriteOFF(Ptr, filename);
         }
+
+        /// <summary>
+        /// Return all the points in the mesh in a array.
+        /// </summary>
+        /// <returns>The array.</returns>
+        public Point3d[] ToArray()
+        {
+            var points = new Point3d[VertexCount];
+            GetPoints(points, points.Length);
+            return points;
+        }
+
+        /// <summary>
+        /// Return all the points in the mesh in a list.
+        /// </summary>
+        /// <returns>The list.</returns>
+        //public List<Point3d> ToList()
+        //{
+        //    int count = VertexCount;
+        //    var points = new List<Point3d>(count);
+        //    for (int i = 0; i < count.; i++)
+        //        points.Add(GetPoint(i));
+        //
+        //    return points;
+        //}
 
         /// <summary>
         /// Update the mesh if needed.

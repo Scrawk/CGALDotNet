@@ -399,6 +399,9 @@
     <ClInclude Include="Collections\UnmanagedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\ArrayUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

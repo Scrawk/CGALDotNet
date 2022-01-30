@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CGALDotNet.Geometry
-{
+using CGALDotNet.Geometry;
 
+namespace CGALDotNet.Extensions
+{
 
     public static class ArrayExtension
     {
@@ -86,6 +87,17 @@ namespace CGALDotNet.Geometry
                 if (!array[i].IsFinite)
                     array[i] = array[i].Finite;
             }
+        }
+
+        public static bool HasNullIndex(this int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == CGALGlobal.NULL_INDEX)
+                    return true;
+            }
+
+            return false;
         }
     }
 

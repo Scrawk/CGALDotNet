@@ -239,6 +239,7 @@
     <ClInclude Include="Triangulations\Triangulation3.h" />
     <ClInclude Include="Triangulations\TriEdge2.h" />
     <ClInclude Include="Collections\UnmanagedList.h" />
+    <ClInclude Include="Utility\ArrayUtil.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EEK.h" />
     <ClInclude Include="Hull\ConvexHull2.h" />
