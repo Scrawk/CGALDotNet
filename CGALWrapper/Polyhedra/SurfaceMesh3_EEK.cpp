@@ -13,6 +13,11 @@ void SurfaceMesh3_EEK_Release(void* ptr)
 	SurfaceMesh3<EEK>::DeleteSurfaceMesh(ptr);
 }
 
+int SurfaceMesh3_EEK_GetBuildStamp(void* ptr)
+{
+	return SurfaceMesh3<EEK>::GetBuildStamp(ptr);
+}
+
 void SurfaceMesh3_EEK_Clear(void* ptr)
 {
 	SurfaceMesh3<EEK>::Clear(ptr);
@@ -58,9 +63,9 @@ int SurfaceMesh3_EEK_VertexCount(void* ptr)
 	return SurfaceMesh3<EEK>::VertexCount(ptr);
 }
 
-int SurfaceMesh3_EEK_HalfEdgeCount(void* ptr)
+int SurfaceMesh3_EEK_HalfedgeCount(void* ptr)
 {
-	return SurfaceMesh3<EEK>::HalfEdgeCount(ptr);
+	return SurfaceMesh3<EEK>::HalfedgeCount(ptr);
 }
 
 int SurfaceMesh3_EEK_EdgeCount(void* ptr)
@@ -71,6 +76,46 @@ int SurfaceMesh3_EEK_EdgeCount(void* ptr)
 int SurfaceMesh3_EEK_FaceCount(void* ptr)
 {
 	return SurfaceMesh3<EEK>::FaceCount(ptr);
+}
+
+int SurfaceMesh3_EEK_RemovedVertexCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::RemovedVertexCount(ptr);
+}
+
+int SurfaceMesh3_EEK_RemovedHalfedgeCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::RemovedHalfedgeCount(ptr);
+}
+
+int SurfaceMesh3_EEK_RemovedEdgeCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::RemovedEdgeCount(ptr);
+}
+
+int SurfaceMesh3_EEK_RemovedFaceCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::RemovedFaceCount(ptr);
+}
+
+BOOL SurfaceMesh3_EEK_IsVertexRemoved(void* ptr, int index) 
+{
+	return SurfaceMesh3<EEK>::IsVertexRemoved(ptr, index);
+}
+
+BOOL SurfaceMesh3_EEK_IsFaceRemoved(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::IsFaceRemoved(ptr, index);
+}
+
+BOOL SurfaceMesh3_EEK_IsHalfedgeRemoved(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::IsHalfedgeRemoved(ptr, index);
+}
+
+BOOL SurfaceMesh3_EEK_IsEdgeRemoved(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::IsEdgeRemoved(ptr, index);
 }
 
 int SurfaceMesh3_EEK_AddVertex(void* ptr, Point3d point)
@@ -163,19 +208,19 @@ int SurfaceMesh3_EEK_TargetVertex(void* ptr, int index)
 	return SurfaceMesh3<EEK>::TargetVertex(ptr, index);
 }
 
-void SurfaceMesh3_EEK_RemoveVertex(void* ptr, int index)
+BOOL SurfaceMesh3_EEK_RemoveVertex(void* ptr, int index)
 {
-	SurfaceMesh3<EEK>::RemoveVertex(ptr, index);
+	return SurfaceMesh3<EEK>::RemoveVertex(ptr, index);
 }
 
-void SurfaceMesh3_EEK_RemoveEdge(void* ptr, int index)
+BOOL SurfaceMesh3_EEK_RemoveEdge(void* ptr, int index)
 {
-	SurfaceMesh3<EEK>::RemoveEdge(ptr, index);
+	return SurfaceMesh3<EEK>::RemoveEdge(ptr, index);
 }
 
-void SurfaceMesh3_EEK_RemoveFace(void* ptr, int index)
+BOOL SurfaceMesh3_EEK_RemoveFace(void* ptr, int index)
 {
-	SurfaceMesh3<EEK>::RemoveFace(ptr, index);
+	return SurfaceMesh3<EEK>::RemoveFace(ptr, index);
 }
 
 BOOL SurfaceMesh3_EEK_IsVertexValid(void* ptr, int index)

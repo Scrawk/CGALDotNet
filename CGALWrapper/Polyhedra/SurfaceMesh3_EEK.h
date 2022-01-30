@@ -13,6 +13,8 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_Release(void* ptr);
 
+	CGALWRAPPER_API int SurfaceMesh3_EEK_GetBuildStamp(void* ptr);
+
 	CGALWRAPPER_API void SurfaceMesh3_EEK_Clear(void* ptr);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges);
@@ -39,11 +41,27 @@ extern "C"
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_VertexCount(void* ptr);
 
-	CGALWRAPPER_API int SurfaceMesh3_EEK_HalfEdgeCount(void* ptr);
+	CGALWRAPPER_API int SurfaceMesh3_EEK_HalfedgeCount(void* ptr);
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_EdgeCount(void* ptr);
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_FaceCount(void* ptr);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_RemovedVertexCount(void* ptr);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_RemovedHalfedgeCount(void* ptr);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_RemovedEdgeCount(void* ptr);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_RemovedFaceCount(void* ptr);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsVertexRemoved(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsFaceRemoved(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsHalfedgeRemoved(void* ptr, int index);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_IsEdgeRemoved(void* ptr, int index);
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_AddVertex(void* ptr, Point3d point);
 
@@ -81,11 +99,11 @@ extern "C"
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_TargetVertex(void* ptr, int index);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_RemoveVertex(void* ptr, int index);
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_RemoveVertex(void* ptr, int index);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_RemoveEdge(void* ptr, int index);
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_RemoveEdge(void* ptr, int index);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_RemoveFace(void* ptr, int index);
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_RemoveFace(void* ptr, int index);
 
 	CGALWRAPPER_API Point3d SurfaceMesh3_EEK_GetPoint(void* ptr, int index);
 

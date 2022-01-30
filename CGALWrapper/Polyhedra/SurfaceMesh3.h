@@ -58,6 +58,8 @@ public:
 
 private:
 
+	int buildStamp = 1;
+
 	AABBTree* tree = nullptr;
 
 	std::unordered_map<Vertex, int> vertexIndexMap;
@@ -143,6 +145,7 @@ public:
 		vertexIndexMap.clear();
 		vertexIndexMap.reserve(0);
 		rebuildVertexIndexMap = true;
+		buildStamp++;
 	}
 
 	void OnFaceIndicesChanged()
@@ -152,6 +155,7 @@ public:
 		faceIndexMap.clear();
 		faceIndexMap.reserve(0);
 		rebuildFaceIndexMap = true;
+		buildStamp++;
 	}
 
 	void OnEdgeIndicesChanged()
@@ -161,6 +165,7 @@ public:
 		edgeIndexMap.clear();
 		edgeIndexMap.reserve(0);
 		rebuildEdgeIndexMap = true;
+		buildStamp++;
 	}
 
 	void OnVerticesChanged()
@@ -359,6 +364,12 @@ public:
 		return Edge(edgeMap[index]);
 	}
 
+	static int GetBuildStamp(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->buildStamp;
+	}
+
 	void Clear()
 	{
 		model.clear();
@@ -465,7 +476,7 @@ public:
 	static BOOL IsValid(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_valid();
+		return mesh->model.is_valid(false);
 	}
 
 	static BOOL IsVertexValid(void* ptr, int index)
@@ -498,7 +509,7 @@ public:
 		return (int)mesh->model.number_of_vertices();
 	}
 
-	static int HalfEdgeCount(void* ptr)
+	static int HalfedgeCount(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		return (int)mesh->model.number_of_halfedges();
@@ -514,6 +525,54 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		return (int)mesh->model.number_of_faces();
+	}
+
+	static int RemovedVertexCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return (int)mesh->model.number_of_removed_vertices();
+	}
+
+	static int RemovedHalfedgeCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return (int)mesh->model.number_of_removed_halfedges();
+	}
+
+	static int RemovedEdgeCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return (int)mesh->model.number_of_removed_edges();
+	}
+
+	static int RemovedFaceCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return (int)mesh->model.number_of_removed_faces();
+	}
+
+	static BOOL IsVertexRemoved(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.is_removed(Vertex(index));
+	}
+
+	static BOOL IsFaceRemoved(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.is_removed(Face(index));
+	}
+
+	static BOOL IsHalfedgeRemoved(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.is_removed(Halfedge(index));
+	}
+
+	static BOOL IsEdgeRemoved(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.is_removed(Edge(index));
 	}
 
 	static int AddVertex(void* ptr, Point3d point)
@@ -629,40 +688,43 @@ public:
 		return mesh->model.target(Halfedge(index));
 	}
 
-	static void RemoveVertex(void* ptr, int index)
+	static BOOL RemoveVertex(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		mesh->BuildVertexMaps();
 
 		Vertex vertex = mesh->FindVertex(index);
-		if (vertex == NullVertex()) return;
+		if (vertex == NullVertex()) return FALSE;
 
 		mesh->model.remove_vertex(vertex);
 		mesh->OnModelChanged();
+		return TRUE;
 	}
 
-	static void RemoveEdge(void* ptr, int index)
+	static BOOL RemoveEdge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		mesh->BuildEdgeMaps();
 
 		Edge edge = mesh->FindEdge(index);
-		if (edge == NullEdge()) return;
+		if (edge == NullEdge()) return FALSE;
 
 		mesh->model.remove_edge(edge);
 		mesh->OnModelChanged();
+		return TRUE;
 	}
 
-	static void RemoveFace(void* ptr, int index)
+	static BOOL RemoveFace(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		mesh->BuildFaceMaps();
 
 		Face face = mesh->FindFace(index);
-		if (face == NullFace()) return;
+		if (face == NullFace()) return FALSE;
 
 		mesh->model.remove_face(face);
 		mesh->OnModelChanged();
+		return TRUE;
 	}
 
 	static Point3d GetPoint(void* ptr, int index)

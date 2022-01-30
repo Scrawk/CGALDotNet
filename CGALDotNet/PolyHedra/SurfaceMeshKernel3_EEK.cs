@@ -23,6 +23,11 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_Release(ptr);
         }
 
+        internal override int GetBuildStamp(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_GetBuildStamp(ptr);
+        }
+
         internal override void Clear(IntPtr ptr)
         {
             SurfaceMesh3_EEK_Clear(ptr);
@@ -68,9 +73,9 @@ namespace CGALDotNet.Polyhedra
             return SurfaceMesh3_EEK_VertexCount(ptr);
         }
 
-        internal override int HalfEdgeCount(IntPtr ptr)
+        internal override int HalfedgeCount(IntPtr ptr)
         {
-            return SurfaceMesh3_EEK_HalfEdgeCount(ptr);
+            return SurfaceMesh3_EEK_HalfedgeCount(ptr);
         }
 
         internal override int EdgeCount(IntPtr ptr)
@@ -81,6 +86,46 @@ namespace CGALDotNet.Polyhedra
         internal override int FaceCount(IntPtr ptr)
         {
             return SurfaceMesh3_EEK_FaceCount(ptr);
+        }
+
+        internal override int RemovedVertexCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_RemovedVertexCount(ptr);
+        }
+
+        internal override int RemovedHalfedgeCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_RemovedHalfedgeCount(ptr);
+        }
+
+        internal override int RemovedEdgeCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_RemovedEdgeCount(ptr);
+        }
+
+        internal override int RemovedFaceCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_RemovedFaceCount(ptr);
+        }
+
+        internal override bool IsVertexRemoved(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_IsVertexRemoved(ptr, index);
+        }
+
+        internal override bool IsFaceRemoved(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_IsFaceRemoved(ptr, index);
+        }
+
+        internal override bool IsHalfedgeRemoved(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_IsHalfedgeRemoved(ptr,index);
+        }
+
+        internal override bool IsEdgeRemoved(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_IsEdgeRemoved(ptr, index);
         }
 
         internal override int AddVertex(IntPtr ptr, Point3d point)
@@ -173,19 +218,19 @@ namespace CGALDotNet.Polyhedra
             return SurfaceMesh3_EEK_TargetVertex(ptr, index);
         }
 
-        internal override void RemoveVertex(IntPtr ptr, int index)
+        internal override bool RemoveVertex(IntPtr ptr, int index)
         {
-            SurfaceMesh3_EEK_RemoveVertex(ptr, index);  
+            return SurfaceMesh3_EEK_RemoveVertex(ptr, index);  
         }
 
-        internal override void RemoveEdge(IntPtr ptr, int index)
+        internal override bool RemoveEdge(IntPtr ptr, int index)
         {
-            SurfaceMesh3_EEK_RemoveEdge(ptr, index);
+            return SurfaceMesh3_EEK_RemoveEdge(ptr, index);
         }
 
-        internal override void RemoveFace(IntPtr ptr, int index)
+        internal override bool RemoveFace(IntPtr ptr, int index)
         {
-            SurfaceMesh3_EEK_RemoveFace(ptr, index);
+            return SurfaceMesh3_EEK_RemoveFace(ptr, index);
         }
 
         internal override bool IsVertexValid(IntPtr ptr, int index)
@@ -385,6 +430,9 @@ namespace CGALDotNet.Polyhedra
         private static extern void SurfaceMesh3_EEK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_GetBuildStamp(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_Clear(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -412,13 +460,37 @@ namespace CGALDotNet.Polyhedra
         private static extern int SurfaceMesh3_EEK_VertexCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int SurfaceMesh3_EEK_HalfEdgeCount(IntPtr ptr);
+        private static extern int SurfaceMesh3_EEK_HalfedgeCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int SurfaceMesh3_EEK_EdgeCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int SurfaceMesh3_EEK_FaceCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_RemovedVertexCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_RemovedHalfedgeCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_RemovedEdgeCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_RemovedFaceCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_IsVertexRemoved(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_IsFaceRemoved(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_IsHalfedgeRemoved(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_IsEdgeRemoved(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int SurfaceMesh3_EEK_AddVertex(IntPtr ptr, Point3d point);
@@ -475,13 +547,13 @@ namespace CGALDotNet.Polyhedra
         private static extern int SurfaceMesh3_EEK_TargetVertex(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_RemoveVertex(IntPtr ptr, int index);
+        private static extern bool SurfaceMesh3_EEK_RemoveVertex(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_RemoveEdge(IntPtr ptr, int index);
+        private static extern bool SurfaceMesh3_EEK_RemoveEdge(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_RemoveFace(IntPtr ptr, int index);
+        private static extern bool SurfaceMesh3_EEK_RemoveFace(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_IsVertexValid(IntPtr ptr, int index);

@@ -5,6 +5,9 @@ using System.Runtime.InteropServices;
 
 using CGALDotNet.Geometry;
 
+[assembly: InternalsVisibleTo("CGALDotNetConsole")]
+[assembly: InternalsVisibleTo("CGALDotNetTest")]
+
 namespace CGALDotNet
 {
     /// <summary>

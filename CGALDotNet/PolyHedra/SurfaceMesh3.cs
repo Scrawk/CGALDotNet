@@ -55,7 +55,7 @@ namespace CGALDotNet.Polyhedra
         public override string ToString()
         {
             return string.Format("[SurfaceMesh3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
-                Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount);
+                Kernel.KernelName, VertexCount, HalfedgeCount, FaceCount);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// The number of half edges in the mesh.
         /// </summary>
-        public int HalfEdgeCount => Kernel.HalfEdgeCount(Ptr);
+        public int HalfedgeCount => Kernel.HalfedgeCount(Ptr);
 
         /// <summary>
         /// The number of edges in the mesh.
@@ -181,6 +181,39 @@ namespace CGALDotNet.Polyhedra
         /// The number of border edges.
         /// </summary>
         public int BorderEdgeCount => Kernel.BorderEdgeCount(Ptr);
+
+        /// <summary>
+        /// The current build stamp.
+        /// </summary>
+        public int BuildStamp => Kernel.GetBuildStamp(Ptr);
+
+        /// <summary>
+        /// The number of vertices currenly maked to be removed
+        /// but have not. Calling collect garbage will remove them.
+        /// </summary>
+        /// <returns>The number of vertices marked to be removed.</returns>
+        public int RemovedVertexCount => Kernel.RemovedVertexCount(Ptr);
+
+        /// <summary>
+        /// The number of halfedges currenly maked to be removed
+        /// but have not. Calling collect garbage will remove them.
+        /// </summary>
+        /// <returns>The number of half edges marked to be removed.</returns>
+        public int RemovedHalfedgeCount => Kernel.RemovedHalfedgeCount(Ptr);
+
+        /// <summary>
+        /// The number of edges currenly maked to be removed
+        /// but have not. Calling collect garbage will remove them.
+        /// </summary>
+        /// <returns>The number of edges marked to be removed.</returns>
+        public int RemovedEdgeCount => Kernel.RemovedEdgeCount(Ptr);
+
+        /// <summary>
+        /// The number of faces currenly maked to be removed
+        /// but have not. Calling collect garbage will remove them.
+        /// </summary>
+        /// <returns>The number of face marked to be removed.</returns>
+        public int RemovedFaceCount => Kernel.RemovedFaceCount(Ptr);
 
         /// <summary>
         /// Returns true if the meshl surface is combinatorially consistent.
@@ -276,7 +309,7 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// CLear the mesh.
+        /// Clear the mesh.
         /// </summary>
         public void Clear()
         {
@@ -603,10 +636,11 @@ namespace CGALDotNet.Polyhedra
         /// Removes vertex from the halfedge data structure without adjusting anything.
         /// </summary>
         /// <param name="vertex">The index of the vertex in the mesh.</param>
-        public void RemoveVertex(int vertex)
+        /// <returns>True if face removed.</returns>
+        public bool RemoveVertex(int vertex)
         {
             IsUpdated = false;
-            Kernel.RemoveVertex(Ptr, vertex);
+            return Kernel.RemoveVertex(Ptr, vertex);
         }
 
         /// <summary>
@@ -614,20 +648,62 @@ namespace CGALDotNet.Polyhedra
         /// data structure without adjusting anything.
         /// </summary>
         /// <param name="edge">The index of the edge in the mesh.</param>
-        public void RemoveEdge(int edge)
+        /// <returns>True if face removed.</returns>
+        public bool RemoveEdge(int edge)
         {
             IsUpdated = false;
-            Kernel.RemoveEdge(Ptr, edge);
+            return Kernel.RemoveEdge(Ptr, edge);
         }
 
         /// <summary>
         /// Removes face from the halfedge data structure without adjusting anything.
         /// </summary>
         /// <param name="face">The index of the face in the mesh.</param>
-        public void RemoveFace(int face)
+        /// <returns>True if face removed.</returns>
+        public bool RemoveFace(int face)
         {
             IsUpdated = false;
-            Kernel.RemoveFace(Ptr, face);
+            return Kernel.RemoveFace(Ptr, face);
+        }
+
+        /// <summary>
+        /// Has this vertex been marked to be removed.
+        /// </summary>
+        /// <param name="index">The vertices index in the mesh.</param>
+        /// <returns>Has this vertex been marked to be removed.</returns>
+        public bool IsVertexRemoved(int index)
+        {
+            return Kernel.IsVertexRemoved(Ptr, index);
+        }
+
+        /// <summary>
+        /// Has this face been marked to be removed.
+        /// </summary>
+        /// <param name="index">The faces index in the mesh.</param>
+        /// <returns>Has this face been marked to be removed.</returns>
+        public bool IsFaceRemoved(int index)
+        {
+            return Kernel.IsFaceRemoved(Ptr, index);
+        }
+
+        /// <summary>
+        /// Has this halfedge been marked to be removed.
+        /// </summary>
+        /// <param name="index">The halfedge index in the mesh.</param>
+        /// <returns>Has this halfedge been marked to be removed.</returns>
+        public bool IsHalfedgeRemoved(int index)
+        {
+            return Kernel.IsHalfedgeRemoved(Ptr, index);
+        }
+
+        /// <summary>
+        /// Has this edge been marked to be removed.
+        /// </summary>
+        /// <param name="index">The edges index in the mesh.</param>
+        /// <returns>Has this edge been marked to be removed.</returns>
+        public bool IsEdgeRemoved(int index)
+        {
+            return Kernel.IsEdgeRemoved(Ptr, index);
         }
 
         /// <summary>
@@ -1264,6 +1340,10 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("VertexCount = " + VertexCount);
             builder.AppendLine("FaceCount = " + FaceCount);
             builder.AppendLine("EdgeCount = " + EdgeCount);
+            builder.AppendLine("RemovedVertexCount = " + RemovedVertexCount);
+            builder.AppendLine("RemovedFaceCount = " + RemovedFaceCount);
+            builder.AppendLine("RemovedHalfdgeCount = " + RemovedHalfedgeCount);
+            builder.AppendLine("RemovedEdgeCount = " + RemovedEdgeCount);
             builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
             builder.AppendLine("HasGarbage = " + HasGarbage);
             builder.AppendLine("IsTriangle = " + IsTriangle);

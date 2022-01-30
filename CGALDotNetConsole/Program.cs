@@ -27,21 +27,14 @@ namespace CGALDotNetConsole
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
             var smesh = SurfaceMeshFactory<EEK>.CreateCube();
 
+            smesh.SetIsUpdatedToFalse();
+
             Console.WriteLine("Before");
             Print(smesh);
 
             smesh.RemoveVertex(0);
-            smesh.RemoveVertex(0);
-            smesh.RemoveVertex(0);
-            smesh.RemoveVertex(0);
-
             smesh.RemoveFace(0);
-
-            //smesh.RemoveEdge(0);
-            //smesh.RemoveEdge(0);
-            //smesh.RemoveEdge(0);
-
-            smesh.CollectGarbage();
+            smesh.RemoveEdge(0);
 
             Console.WriteLine("");
             Console.WriteLine("After");
@@ -78,6 +71,8 @@ namespace CGALDotNetConsole
             Console.WriteLine("Get Indices");
             var indices = new int[mesh.FaceCount * 3];
             mesh.GetTriangleIndices(indices, indices.Length);
+
+            //indices = indices.RemoveNullTriangles();
 
             for (int i = 0; i < indices.Length / 3; i++)
             {

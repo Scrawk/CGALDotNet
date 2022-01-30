@@ -13,6 +13,8 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void Release(IntPtr ptr);
 
+        internal abstract int GetBuildStamp(IntPtr ptr);
+
         internal abstract void Clear(IntPtr ptr);
 
         internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
@@ -31,11 +33,27 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract int VertexCount(IntPtr ptr);
 
-        internal abstract int HalfEdgeCount(IntPtr ptr);
+        internal abstract int HalfedgeCount(IntPtr ptr);
 
         internal abstract int EdgeCount(IntPtr ptr);
 
         internal abstract int FaceCount(IntPtr ptr);
+
+        internal abstract int RemovedVertexCount(IntPtr ptr);
+
+        internal abstract int RemovedHalfedgeCount(IntPtr ptr);
+
+        internal abstract int RemovedEdgeCount(IntPtr ptr);
+
+        internal abstract int RemovedFaceCount(IntPtr ptr);
+
+        internal abstract bool IsVertexRemoved(IntPtr ptr, int index);
+
+        internal abstract bool IsFaceRemoved(IntPtr ptr, int index);
+
+        internal abstract bool IsHalfedgeRemoved(IntPtr ptr, int index);
+
+        internal abstract bool IsEdgeRemoved(IntPtr ptr, int index);
 
         internal abstract int AddVertex(IntPtr ptr, Point3d point);
 
@@ -73,11 +91,11 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract int TargetVertex(IntPtr ptr, int index);
 
-        internal abstract void RemoveVertex(IntPtr ptr, int index);
+        internal abstract bool RemoveVertex(IntPtr ptr, int index);
 
-        internal abstract void RemoveEdge(IntPtr ptr, int index);
+        internal abstract bool RemoveEdge(IntPtr ptr, int index);
 
-        internal abstract void RemoveFace(IntPtr ptr, int index);
+        internal abstract bool RemoveFace(IntPtr ptr, int index);
 
         internal abstract bool IsVertexValid(IntPtr ptr, int index);
 
