@@ -7,6 +7,7 @@
 #include "../Geometry/MinMax.h"
 #include "FaceVertexCount.h"
 #include "MeshBuilders.h"
+#include "PolyhedronMap.h"
 
 #include <limits>
 #include <map>
@@ -61,17 +62,19 @@ public:
 
 private:
 
-	std::unordered_map<Vertex_Des, int> vertexIndexMap;
-	std::vector<Vertex_Des> vertexMap;
-	bool rebuildVertexIndexMap = true;
+	PolyhedronMap<K> map;
 
-	std::unordered_map<Face_Des, int> faceIndexMap;
-	std::vector<Face_Des> faceMap;
-	bool rebuildFaceIndexMap = true;
+	//std::unordered_map<Vertex_Des, int> vertexIndexMap;
+	//std::vector<Vertex_Des> vertexMap;
+	//bool rebuildVertexIndexMap = true;
 
-	std::unordered_map<Halfedge_Des, int> edgeIndexMap;
-	std::vector<Halfedge_Des> edgeMap;
-	bool rebuildEdgeIndexMap = true;
+	//std::unordered_map<Face_Des, int> faceIndexMap;
+	//std::vector<Face_Des> faceMap;
+	//bool rebuildFaceIndexMap = true;
+
+	//std::unordered_map<Halfedge_Des, int> edgeIndexMap;
+	//std::vector<Halfedge_Des> edgeMap;
+	//bool rebuildEdgeIndexMap = true;
 
 	std::unordered_map<Vertex_Des, Vector> vertexNormalMap;
 	bool rebuildVertexNormalMap = true;
@@ -128,6 +131,7 @@ public:
 		rebuildFaceNormalMap = true;
 	}
 
+	/*
 	void OnVertexIndicesChanged()
 	{
 		vertexMap.clear();
@@ -151,24 +155,25 @@ public:
 		edgeIndexMap.clear();
 		rebuildEdgeIndexMap = true;
 	}
+	*/
 
 	void OnVerticesChanged()
 	{
 		OnVertexNormalsChanged();
-		OnVertexIndicesChanged();
+		map.OnVerticesChanged();
 		DeleteTree();
 	}
-
+	
 	void OnFacesChanged()
 	{
 		OnFaceNormalsChanged();
-		OnFaceIndicesChanged();
+		map.OnFacesChanged();
 		DeleteTree();
 	}
 
-	void OnEdgesChanged()
+	void OnHalfedgesChanged()
 	{
-		OnEdgeIndicesChanged();
+		map.OnHalfedgesChanged();
 		DeleteTree();
 	}
 
@@ -176,14 +181,14 @@ public:
 	{
 		OnVerticesChanged();
 		OnFacesChanged();
-		OnEdgesChanged();
+		OnHalfedgesChanged();
 	}
 
 	void BuildModel()
 	{
-		BuildVertexIndexMap();
-		BuildFaceIndexMap();
-		BuildEdgeIndexMap();
+		map.BuildVertexMaps();
+		map.BuildFaceMaps();
+		map.BuildHalfedgeMaps();
 	}
 
 	void DeleteTree()
@@ -204,6 +209,7 @@ public:
 		}
 	}
 
+	/*
 	void BuildVertexIndexMap(bool force = false)
 	{
 		if (!force && !rebuildVertexIndexMap) return;
@@ -260,71 +266,42 @@ public:
 			index++;
 		}
 	}
+	*/
 
 	int FindVertexIndex(Vertex_Des vert)
 	{
-		BuildVertexIndexMap();
-
-		auto item = vertexIndexMap.find(vert);
-		if (item != vertexIndexMap.end())
-			return item->second;
-		else
-			return NULL_INDEX;
+		map.BuildVertexMaps(model);
+		return map.FindVertexIndex(vert);
 	}
 
 	Vertex_Des* FindVertex(int index)
 	{
-		BuildVertexIndexMap();
-		int count = (int)model.size_of_vertices();
-
-		if (index < 0 || index >= count)
-			return nullptr;
-
-		return &vertexMap[index];
+		map.BuildVertexMaps(model);
+		return map.FindVertex(index);
 	}
 
-	int FindFaceIndex(Face_Des vert)
+	int FindFaceIndex(Face_Des face)
 	{
-		BuildFaceIndexMap();
-
-		auto item = faceIndexMap.find(vert);
-		if (item != faceIndexMap.end())
-			return item->second;
-		else
-			return NULL_INDEX;
+		map.BuildFaceMaps(model);
+		return map.FindFaceIndex(face);
 	}
 
 	Face_Des* FindFace(int index)
 	{
-		BuildFaceIndexMap();
-		int count = (int)model.size_of_facets();
-
-		if (index < 0 || index >= count)
-			return nullptr;
-
-		return &faceMap[index];
+		map.BuildFaceMaps(model);
+		return map.FindFace(index);
 	}
 
-	int FindEdgeIndex(Halfedge_Des edge)
+	int FindHalfedgeIndex(Halfedge_Des edge)
 	{
-		BuildEdgeIndexMap();
-
-		auto item = edgeIndexMap.find(edge);
-		if (item != edgeIndexMap.end())
-			return item->second;
-		else
-			return NULL_INDEX;
+		map.BuildHalfedgeMaps(model);
+		return map.FindHalfedgeIndex(edge);
 	}
 
 	Edge_Des* FindEdge(int index)
 	{
-		BuildEdgeIndexMap();
-		int count = (int)model.size_of_halfedges();
-
-		if (index < 0 || index >= count)
-			return nullptr;
-
-		return &edgeMap[index];
+		map.BuildEdgeMaps(model);
+		return map.FindHalfedge(index);
 	}
 
 	Vector FindVertexNormal(Vertex_Des vert)
@@ -346,9 +323,9 @@ public:
 	static void ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		if (vertices) poly->OnVertexIndicesChanged();
-		if (faces) poly->OnFaceIndicesChanged();
-		if (edges) poly->OnEdgeIndicesChanged();
+		if (vertices) poly->map.OnVerticesChanged();
+		if (faces) poly->map.OnFacesChanged();
+		if (edges) poly->map.OnHalfedgesChanged();
 	}
 	static void ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
 	{
@@ -360,9 +337,9 @@ public:
 	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		if (vertices) poly->BuildVertexIndexMap(force);
-		if (faces) poly->BuildFaceIndexMap(force);
-		if (edges) poly->BuildEdgeIndexMap(force);
+		if (vertices) poly->map.BuildVertexMaps(poly->model, force);
+		if (faces) poly->map.BuildFaceMaps(poly->model, force);
+		if (edges) poly->map.BuildHalfedgeMaps(poly->model, force);
 	}
 
 	static void* Copy(void* ptr)
@@ -688,7 +665,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 		ComputeVertexNormals(ptr);
-		poly->BuildVertexIndexMap();
+		poly->map.BuildVertexMaps(poly->model);
 
 		for (auto const& pair : poly->vertexNormalMap)
 		{
@@ -706,7 +683,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 		ComputeFaceNormals(ptr);
-		poly->BuildFaceIndexMap();
+		poly->map.BuildFaceMaps(poly->model);
 
 		for (auto const& pair : poly->faceNormalMap)
 		{
@@ -910,7 +887,7 @@ public:
 		int* hexagons, int hexagonCount)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->BuildVertexIndexMap();
+		poly->map.BuildVertexMaps(poly->model);
 
 		int triangleIndex = 0;
 		int quadIndex = 0;
@@ -1015,7 +992,7 @@ public:
 		int* hexagons, int hexagonCount)
 	{
 		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
-		poly->BuildFaceIndexMap();
+		poly->map.BuildFaceMaps(poly->model);
 
 		int triangleIndex = 0;
 		int quadIndex = 0;

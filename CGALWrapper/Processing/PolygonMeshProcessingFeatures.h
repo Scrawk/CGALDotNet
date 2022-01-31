@@ -99,7 +99,7 @@ public:
 		for (auto edge : fea->polyhedron_edge_buffer)
 		{
 			auto hedge = edge.halfedge();
-			indices[index++] = mesh->FindEdgeIndex(hedge);
+			indices[index++] = mesh->FindHalfedgeIndex(hedge);
 
 			if (index >= count)
 				break;
