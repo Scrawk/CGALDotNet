@@ -27,57 +27,21 @@ namespace CGALDotNetConsole
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
             var smesh = SurfaceMeshFactory<EEK>.CreateCube(1, true);
 
-            var count = smesh.GetFaceVertexCount();
-            var indices = count.Indices();
-            smesh.GetPolygonalIndices(ref indices);
+            smesh.Print();
+            smesh.PrintIndices(true, false, false, false, false);
 
-            indices.Print();
-
-            return;
-
-            Console.WriteLine("Before " + smesh.IsVertexRemoved(-1));
-
+            Console.WriteLine("");
+            Console.WriteLine("Before " + smesh.VertexDegree(0));
+    
             smesh.RemoveVertex(0);
             smesh.CollectGarbage();
 
-            Console.WriteLine("After " + smesh.IsVertexRemoved(0));
+            Console.WriteLine("After " + smesh.VertexDegree(0));
+            Console.WriteLine("");
 
-            Console.WriteLine("Indices");
+            smesh.Print();
             smesh.PrintIndices(true, false, false, false, false);
         }
-
-        static void Print(SurfaceMesh3<EEK> mesh)
-        {
-            mesh.Print();
-            //PrintIndices(mesh);
-   ;
-            Console.WriteLine("Points");
-            foreach (var p in mesh)
-                Console.WriteLine(p);
-        }
-
-        static void PrintIndices(SurfaceMesh3<EEK> mesh)
-        {
-            Console.WriteLine("Actual Indices");
-            mesh.PrintIndices(true, true, true, true, false);
-
-            Console.WriteLine("Get Indices");
-            var indices = new int[mesh.FaceCount * 3];
-            mesh.GetTriangleIndices(indices, indices.Length);
-
-            //indices = indices.RemoveNullTriangles();
-
-            for (int i = 0; i < indices.Length / 3; i++)
-            {
-                int i0 = indices[i * 3 + 0];
-                int i1 = indices[i * 3 + 1];
-                int i2 = indices[i * 3 + 2];
-
-                Console.WriteLine(i0 + " " + i1 + " " + i2);
-            }
-        }
-
-
 
     }
 }

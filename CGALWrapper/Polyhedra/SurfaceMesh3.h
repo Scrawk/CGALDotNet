@@ -336,25 +336,33 @@ public:
 	static BOOL IsVertexValid(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_valid(Vertex(index));
+		auto vertex = mesh->FindVertex(index);
+		if (vertex == NullVertex()) return FALSE;
+		return mesh->model.is_valid(vertex);
 	}
 
 	static BOOL IsFaceValid(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_valid(Face(index));
+		auto face = mesh->FindFace(index);
+		if (face == NullFace()) return FALSE;
+		return mesh->model.is_valid(face);
 	}
 
 	static BOOL IsHalfedgeValid(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_valid(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return FALSE;
+		return mesh->model.is_valid(hedge);
 	}
 
 	static BOOL IsEdgeValid(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_valid(Edge(index));
+		auto edge = mesh->FindEdge(index);
+		if (edge == NullEdge()) return FALSE;
+		return mesh->model.is_valid(edge);
 	}
 
 	static int VertexCount(void* ptr)
@@ -409,25 +417,32 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		auto vertex = mesh->map.FindVertex(index);
-		return vertex != NullVertex() ? mesh->model.is_removed(vertex) : false;
+		if (vertex == NullVertex()) return FALSE;
+		return mesh->model.is_removed(vertex);
 	}
 
 	static BOOL IsFaceRemoved(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_removed(Face(index));
+		auto face = mesh->FindFace(index);
+		if (face == NullFace()) return FALSE;
+		return mesh->model.is_removed(face);
 	}
 
 	static BOOL IsHalfedgeRemoved(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_removed(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return FALSE;
+		return mesh->model.is_removed(hedge);
 	}
 
 	static BOOL IsEdgeRemoved(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_removed(Edge(index));
+		auto edge = mesh->FindEdge(index);
+		if (edge == NullEdge()) return FALSE;
+		return mesh->model.is_removed(edge);
 	}
 
 	static int AddVertex(void* ptr, Point3d point)
@@ -440,22 +455,46 @@ public:
 	static int AddEdge(void* ptr, int v0, int v1)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto vertex0 = mesh->FindVertex(v0);
+		auto vertex1 = mesh->FindVertex(v1);
+		if (vertex0 == NullVertex()) return NULL_INDEX;
+		if (vertex1 == NullVertex()) return NULL_INDEX;
+
 		mesh->OnModelChanged();
-		return mesh->model.add_edge(Vertex(v0), Vertex(v1));
+		return mesh->model.add_edge(vertex0, vertex1);
 	}
 
 	static int AddTriangle(void* ptr, int v0, int v1, int v2)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto vertex0 = mesh->FindVertex(v0);
+		auto vertex1 = mesh->FindVertex(v1);
+		auto vertex2 = mesh->FindVertex(v2);
+		if (vertex0 == NullVertex()) return NULL_INDEX;
+		if (vertex1 == NullVertex()) return NULL_INDEX;
+		if (vertex2 == NullVertex()) return NULL_INDEX;
+
 		mesh->OnModelChanged();
-		return mesh->model.add_face(Vertex(v0), Vertex(v1), Vertex(v2));
+		return mesh->model.add_face(vertex0, vertex1, vertex2);
 	}
 
 	static int AddQuad(void* ptr, int v0, int v1, int v2, int v3)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto vertex0 = mesh->FindVertex(v0);
+		auto vertex1 = mesh->FindVertex(v1);
+		auto vertex2 = mesh->FindVertex(v2);
+		auto vertex3 = mesh->FindVertex(v3);
+		if (vertex0 == NullVertex()) return NULL_INDEX;
+		if (vertex1 == NullVertex()) return NULL_INDEX;
+		if (vertex2 == NullVertex()) return NULL_INDEX;
+		if (vertex3 == NullVertex()) return NULL_INDEX;
+
 		mesh->OnModelChanged();
-		return mesh->model.add_face(Vertex(v0), Vertex(v1), Vertex(v2), Vertex(v3));
+		return mesh->model.add_face(vertex0, vertex1, vertex2, vertex3);
 	}
 
 	static int AddPentagon(void* ptr, int v0, int v1, int v2, int v3, int v4)
@@ -463,10 +502,13 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 		mesh->OnModelChanged();
 
-		std::vector<Vertex> face(5);
-		face[0] = Vertex(v0); face[1] = Vertex(v1);
-		face[2] = Vertex(v2); face[3] = Vertex(v3);
-		face[4] = Vertex(v4);
+		std::vector<Vertex> face(6);
+		face[0] = mesh->FindVertex(v0); face[1] = mesh->FindVertex(v1);
+		face[2] = mesh->FindVertex(v2); face[3] = mesh->FindVertex(v3);
+		face[4] = mesh->FindVertex(v4);
+
+		for (auto v : face)
+			if (v == NullVertex()) return NULL_INDEX;
 
 		return mesh->model.add_face(face);
 	}
@@ -477,9 +519,12 @@ public:
 		mesh->OnModelChanged();
 
 		std::vector<Vertex> face(6);
-		face[0] = Vertex(v0); face[1] = Vertex(v1);
-		face[2] = Vertex(v2); face[3] = Vertex(v3);
-		face[4] = Vertex(v4); face[5] = Vertex(v5);
+		face[0] = mesh->FindVertex(v0); face[1] = mesh->FindVertex(v1);
+		face[2] = mesh->FindVertex(v2); face[3] = mesh->FindVertex(v3);
+		face[4] = mesh->FindVertex(v4); face[5] = mesh->FindVertex(v5);
+
+		for (auto v : face)
+			if (v == NullVertex()) return NULL_INDEX;
 
 		return mesh->model.add_face(face);
 	}
@@ -491,8 +536,12 @@ public:
 
 		std::vector<Vertex> face(count);
 		for (int i = 0; i < count; i++)
-			face[i] = Vertex(indices[i]);
-
+		{
+			auto vertex = mesh->FindVertex(indices[i]);
+			if (vertex == NullVertex()) return NULL_INDEX;
+			face[i] = vertex;
+		}
+			
 		return mesh->model.add_face(face);
 	}
 
@@ -524,85 +573,113 @@ public:
 	static int VertexDegree(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.degree(Vertex(index));
+		auto vertex = mesh->FindVertex(index);
+		if (vertex == NullVertex()) return NULL_INDEX;
+		return mesh->model.degree(vertex);
 	}
 
 	static int FaceDegree(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.degree(Face(index));
+		auto face = mesh->FindFace(index);
+		if (face == NullFace()) return FALSE;
+		return mesh->model.degree(face);
 	}
 
 	static BOOL VertexIsIsolated(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_isolated(Vertex(index));
+		auto vertex = mesh->FindVertex(index);
+		if (vertex == NullVertex()) return FALSE;
+		return mesh->model.is_isolated(vertex);
 	}
 
 	static BOOL VertexIsBorder(void* ptr, int index, BOOL check_all_incident_halfedges)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_border(Vertex(index), check_all_incident_halfedges);
+		auto vertex = mesh->FindVertex(index);
+		if (vertex == NullVertex()) return FALSE;
+		return mesh->model.is_border(vertex, check_all_incident_halfedges);
 	}
 
 	static BOOL EdgeIsBorder(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_border(Edge(index));
+		auto edge = mesh->FindEdge(index);
+		if (edge == NullEdge()) return FALSE;
+		return mesh->model.is_border(edge);
 	}
 
 	static int NextHalfedge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.next(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.next(hedge);
 	}
 
 	static int PreviousHalfedge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.prev(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.prev(hedge);
 	}
 
 	static int OppositeHalfedge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.opposite(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.opposite(hedge);
 	}
 
 	static int SourceVertex(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.source(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.source(hedge);
 	}
 
 	static int TargetVertex(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.target(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.target(hedge);
 	}
 
 	static int NextAroundSource(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.next_around_source(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.next_around_source(hedge);
 	}
 
 	static int NextAroundTarget(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.next_around_target(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.next_around_target(hedge);
 	}
 
 	static int PreviousAroundSource(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.prev_around_source(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.prev_around_source(hedge);
 	}
 
 	static int PreviousAroundTarget(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.prev_around_target(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.prev_around_target(hedge);
 	}
 
 	static int EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex)
@@ -611,13 +688,18 @@ public:
 		if (halfedgeIndex < 0) halfedgeIndex = 0;
 		if (halfedgeIndex > 1) halfedgeIndex = 1;
 
-		return mesh->model.halfedge(Edge(edgeIndex), halfedgeIndex);
+		auto edge = mesh->FindEdge(edgeIndex);
+		if (edge == NullEdge()) return FALSE;
+
+		return mesh->model.halfedge(edge, halfedgeIndex);
 	}
 
 	static int HalfedgesEdge(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.edge(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.edge(hedge);
 	}
 
 	static BOOL RemoveVertex(void* ptr, int index)
@@ -625,7 +707,7 @@ public:
 		auto mesh = CastToSurfaceMesh(ptr);
 		mesh->map.BuildVertexMaps(mesh->model);
 
-		Vertex vertex = mesh->map.FindVertex(index);
+		Vertex vertex = mesh->FindVertex(index);
 		if (vertex == NullVertex()) return FALSE;
 
 		mesh->model.remove_vertex(vertex);
@@ -707,7 +789,7 @@ public:
 
 		auto vertex = mesh->map.GetVertex(index);
 		auto point_map = mesh->model.points();
-		point_map[vertex] = point.ToCGAL<EEK>();
+		point_map[vertex] = point.ToCGAL<K>();
 
 		mesh->OnModelChanged();
 	}
@@ -746,19 +828,25 @@ public:
 	static BOOL IsVertexBorder(void* ptr, int index, BOOL check_all_incident_halfedges)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_border(Vertex(index), check_all_incident_halfedges);
+		auto vertex = mesh->FindVertex(index);
+		if (vertex == NullVertex()) return FALSE;
+		return mesh->model.is_border(vertex, check_all_incident_halfedges);
 	}
 
 	static BOOL IsHalfedgeBorder(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_border(Halfedge(index));
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge == NullHalfedge()) return NULL_INDEX;
+		return mesh->model.is_border(hedge);
 	}
 
 	static BOOL IsEdgeBorder(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_border(Edge(index));
+		auto edge = mesh->FindEdge(index);
+		if (edge == NullEdge()) return FALSE;
+		return mesh->model.is_border(edge);
 	}
 
 	static int BorderEdgeCount(void* ptr)
@@ -793,7 +881,6 @@ public:
 		for (auto face : mesh->model.faces())
 		{
 			int i = mesh->model.degree(face);
-
 			if (i != count) return FALSE;
 		}
 
