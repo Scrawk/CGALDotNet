@@ -27,8 +27,6 @@ namespace CGALDotNetConsole
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
             var smesh = SurfaceMeshFactory<EEK>.CreateCube();
 
-            smesh.SetIsUpdatedToFalse();
-
             Console.WriteLine("Before");
             Print(smesh);
 
@@ -59,14 +57,12 @@ namespace CGALDotNetConsole
             {
                 Console.WriteLine(i + " " + points[i]);
             }
-
-            
         }
 
         static void PrintIndices(SurfaceMesh3<EEK> mesh)
         {
             Console.WriteLine("Actual Indices");
-            mesh.PrintIndices(true, true, true, true);
+            mesh.PrintIndices(true, true, true, true, false);
 
             Console.WriteLine("Get Indices");
             var indices = new int[mesh.FaceCount * 3];

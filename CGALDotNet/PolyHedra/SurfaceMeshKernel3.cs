@@ -17,15 +17,15 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void Clear(IntPtr ptr);
 
-        internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
+        internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges);
 
         internal abstract void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces);
 
         internal abstract void ClearProperyMaps(IntPtr ptr);
 
-        internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
+        internal abstract void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges, bool force);
 
-        internal abstract void PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool build);
+        internal abstract void PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges, bool force);
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
@@ -63,6 +63,12 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract int AddQuad(IntPtr ptr, int v0, int v1, int v2, int v3);
 
+        internal abstract int AddPentagon(IntPtr ptr, int v0, int v1, int v2, int v3, int v4);
+
+        internal abstract int AddHexagon(IntPtr ptr, int v0, int v1, int v2, int v3, int v4, int v5);
+
+        internal abstract int AddFace(IntPtr ptr, int[] indices, int count);
+
         internal abstract bool HasGarbage(IntPtr ptr);
 
         internal abstract void CollectGarbage(IntPtr ptr);
@@ -90,6 +96,16 @@ namespace CGALDotNet.Polyhedra
         internal abstract int SourceVertex(IntPtr ptr, int index);
 
         internal abstract int TargetVertex(IntPtr ptr, int index);
+
+        internal abstract int NextAroundSource(IntPtr ptr, int index);
+
+        internal abstract int NextAroundTarget(IntPtr ptr, int index);
+
+        internal abstract int PreviousAroundSource(IntPtr ptr, int index);
+
+        internal abstract int PreviousAroundTarget(IntPtr ptr, int index);
+
+        internal abstract int EdgesHalfedge(IntPtr ptr, int edgeIndex, int halfedgeIndex);
 
         internal abstract bool RemoveVertex(IntPtr ptr, int index);
 
@@ -126,12 +142,6 @@ namespace CGALDotNet.Polyhedra
         internal abstract bool IsClosed(IntPtr ptr);
 
         internal abstract bool CheckFaceVertexCount(IntPtr ptr, int count);
-
-        internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
-
-        internal abstract void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int trianglesCount, int[] quads, int quadsCount);
-
-        internal abstract void GetTriangleQuadIndices(IntPtr ptr, int[] triangles, int trianglesCount, int[] quads, int quadsCount);
 
         internal abstract void Join(IntPtr ptr, IntPtr otherPtr);
 
@@ -172,6 +182,30 @@ namespace CGALDotNet.Polyhedra
         internal abstract void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count);
 
         internal abstract void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count);
+
+        internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
+
+        internal abstract FaceVertexCount GetDualFaceVertexCount(IntPtr ptr);
+
+        internal abstract void CreatePolygonalMesh(IntPtr ptr,
+            Point3d[] points, int pointsCount,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount);
+
+        internal abstract void GetPolygonalIndices(IntPtr ptr,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount);
+
+        internal abstract void GetDualPolygonalIndices(IntPtr ptr,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount);
+
 
     }
 }

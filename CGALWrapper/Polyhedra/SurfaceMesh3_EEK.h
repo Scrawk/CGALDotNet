@@ -17,15 +17,15 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_Clear(void* ptr);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges);
+	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces);
 
 	CGALWRAPPER_API	void SurfaceMesh3_EEK_ClearProperyMaps(void* ptr);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force);
+	CGALWRAPPER_API void SurfaceMesh3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges, BOOL force);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_PrintIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL build);
+	CGALWRAPPER_API void SurfaceMesh3_EEK_PrintIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges, BOOL force);
 
 	CGALWRAPPER_API void* SurfaceMesh3_EEK_Copy(void* ptr);
 
@@ -71,6 +71,12 @@ extern "C"
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_AddQuad(void* ptr, int v0, int v1, int v2, int v3);
 
+	CGALWRAPPER_API int SurfaceMesh3_EEK_AddPentagon(void* ptr, int v0, int v1, int v2, int v3, int v4);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_AddHexagon(void* ptr, int v0, int v1, int v2, int v3, int v4, int v5);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_AddFace(void* ptr, int* indices, int count);
+
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_HasGarbage(void* ptr);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_CollectGarbage(void* ptr);
@@ -99,6 +105,18 @@ extern "C"
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_TargetVertex(void* ptr, int index);
 
+	CGALWRAPPER_API int SurfaceMesh3_EEK_NextAroundSource(void* ptr, int index);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_NextAroundTarget(void* ptr, int index);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_PreviousAroundSource(void* ptr, int index);
+
+	CGALWRAPPER_API int SurfaceMesh3_EEK_PreviousAroundTarget(void* ptr, int index);
+
+	CGALWRAPPER_API int SurfaceMesh3_EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex);
+
+	CGALWRAPPER_API int SurfaceMesh3_HalfedgesEdge(void* ptr, int index);
+
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_RemoveVertex(void* ptr, int index);
 
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_RemoveEdge(void* ptr, int index);
@@ -126,12 +144,6 @@ extern "C"
 	CGALWRAPPER_API int SurfaceMesh3_EEK_IsClosed(void* ptr);
 
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_CheckFaceVertexCount(void* ptr, int count);
-
-	CGALWRAPPER_API FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr);
-
-	CGALWRAPPER_API void SurfaceMesh3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int trianglesCount, int* quads, int quadsCount);
-
-	CGALWRAPPER_API void SurfaceMesh3_EEK_GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_Join(void* ptr, void* otherPtr);
 
@@ -175,6 +187,28 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count);
 
-	
+	CGALWRAPPER_API FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr);
+
+	CGALWRAPPER_API FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(void* ptr);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_CreatePolygonalMesh(void* ptr,
+		Point3d* points, int pointsCount,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetDualPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount);
+
 
 }

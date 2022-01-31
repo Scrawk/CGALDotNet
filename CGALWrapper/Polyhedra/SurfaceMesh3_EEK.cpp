@@ -23,9 +23,9 @@ void SurfaceMesh3_EEK_Clear(void* ptr)
 	SurfaceMesh3<EEK>::Clear(ptr);
 }
 
-void SurfaceMesh3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
+void SurfaceMesh3_EEK_ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges)
 {
-	SurfaceMesh3<EEK>::ClearIndexMaps(ptr, vertices, faces, edges);
+	SurfaceMesh3<EEK>::ClearIndexMaps(ptr, vertices, faces, edges, halfedges);
 }
 
 void SurfaceMesh3_EEK_ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
@@ -38,14 +38,14 @@ void SurfaceMesh3_EEK_ClearProperyMaps(void* ptr)
 	SurfaceMesh3<EEK>::ClearProperyMaps(ptr);
 }
 
-void SurfaceMesh3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
+void SurfaceMesh3_EEK_BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges, BOOL force)
 {
-	SurfaceMesh3<EEK>::BuildIndices(ptr, vertices, faces, edges, force);
+	SurfaceMesh3<EEK>::BuildIndices(ptr, vertices, faces, edges, halfedges, force);
 }
 
-void SurfaceMesh3_EEK_PrintIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL build)
+void SurfaceMesh3_EEK_PrintIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges, BOOL force)
 {
-	SurfaceMesh3<EEK>::PrintIndices(ptr, vertices, faces, edges, build);
+	SurfaceMesh3<EEK>::PrintIndices(ptr, vertices, faces, edges, halfedges, force);
 }
 
 void* SurfaceMesh3_EEK_Copy(void* ptr)
@@ -138,6 +138,21 @@ int SurfaceMesh3_EEK_AddQuad(void* ptr, int v0, int v1, int v2, int v3)
 	return SurfaceMesh3<EEK>::AddQuad(ptr, v0, v1, v2, v3);
 }
 
+int SurfaceMesh3_EEK_AddPentagon(void* ptr, int v0, int v1, int v2, int v3, int v4)
+{
+	return SurfaceMesh3<EEK>::AddPentagon(ptr, v0, v1, v2, v3, v4);
+}
+
+int SurfaceMesh3_EEK_AddHexagon(void* ptr, int v0, int v1, int v2, int v3, int v4, int v5)
+{
+	return SurfaceMesh3<EEK>::AddHexagon(ptr, v0, v1, v2, v3, v4, v5);
+}
+
+int SurfaceMesh3_EEK_AddFace(void* ptr, int* indices, int count)
+{
+	return SurfaceMesh3<EEK>::AddFace(ptr, indices, count);
+}
+
 BOOL SurfaceMesh3_EEK_HasGarbage(void* ptr)
 {
 	return SurfaceMesh3<EEK>::HasGarbage(ptr);
@@ -206,6 +221,36 @@ int SurfaceMesh3_EEK_SourceVertex(void* ptr, int index)
 int SurfaceMesh3_EEK_TargetVertex(void* ptr, int index)
 {
 	return SurfaceMesh3<EEK>::TargetVertex(ptr, index);
+}
+
+int SurfaceMesh3_EEK_NextAroundSource(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::NextAroundSource(ptr, index);
+}
+
+int SurfaceMesh3_EEK_NextAroundTarget(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::NextAroundTarget(ptr, index);
+}
+
+int SurfaceMesh3_EEK_PreviousAroundSource(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::PreviousAroundSource(ptr, index);
+}
+
+int SurfaceMesh3_EEK_PreviousAroundTarget(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::PreviousAroundTarget(ptr, index);
+}
+
+int SurfaceMesh3_EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex)
+{
+	return SurfaceMesh3<EEK>::EdgesHalfedge(ptr, edgeIndex, halfedgeIndex);
+}
+
+int SurfaceMesh3_HalfedgesEdge(void* ptr, int index)
+{
+	return SurfaceMesh3<EEK>::HalfedgesEdge(ptr, index);
 }
 
 BOOL SurfaceMesh3_EEK_RemoveVertex(void* ptr, int index)
@@ -291,26 +336,6 @@ int SurfaceMesh3_EEK_BorderEdgeCount(void* ptr)
 BOOL SurfaceMesh3_EEK_IsClosed(void* ptr)
 {
 	return SurfaceMesh3<EEK>::IsClosed(ptr);
-}
-
-BOOL SurfaceMesh3_EEK_CheckFaceVertexCount(void* ptr, int count)
-{
-	return SurfaceMesh3<EEK>::CheckFaceVertexCount(ptr, count);
-}
-
-FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr)
-{
-	return SurfaceMesh3<EEK>::GetFaceVertexCount(ptr);
-}
-
-void SurfaceMesh3_EEK_CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int trianglesCount, int* quads, int quadsCount)
-{
-	SurfaceMesh3<EEK>::CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, trianglesCount, quads, quadsCount);
-}
-
-void SurfaceMesh3_EEK_GetTriangleQuadIndices(void* ptr, int* triangles, int trianglesCount, int* quads, int quadsCount)
-{
-	SurfaceMesh3<EEK>::GetTriangleQuadIndices(ptr, triangles, trianglesCount, quads, quadsCount);
 }
 
 void SurfaceMesh3_EEK_Join(void* ptr, void* otherPtr)
@@ -416,6 +441,62 @@ void SurfaceMesh3_EEK_GetVertexNormals(void* ptr, Vector3d* normals, int count)
 void SurfaceMesh3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count)
 {
 	SurfaceMesh3<EEK>::GetFaceNormals(ptr, normals, count);
+}
+
+BOOL SurfaceMesh3_EEK_CheckFaceVertexCount(void* ptr, int count)
+{
+	return SurfaceMesh3<EEK>::CheckFaceVertexCount(ptr, count);
+}
+
+FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::GetFaceVertexCount(ptr);
+}
+
+FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(void* ptr)
+{
+	return SurfaceMesh3<EEK>::GetDualFaceVertexCount(ptr);
+}
+
+void CreatePolygonalMesh(void* ptr,
+	Point3d* points, int pointsCount,
+	int* triangles, int triangleCount,
+	int* quads, int quadCount,
+	int* pentagons, int pentagonCount,
+	int* hexagons, int hexagonCount)
+{
+	SurfaceMesh3<EEK>::CreatePolygonalMesh(ptr,
+		points, pointsCount,
+		triangles, triangleCount,
+		quads, quadCount,
+		pentagons, pentagonCount,
+		hexagons, hexagonCount);
+}
+
+void SurfaceMesh3_EEK_GetPolygonalIndices(void* ptr,
+	int* triangles, int triangleCount,
+	int* quads, int quadCount,
+	int* pentagons, int pentagonCount,
+	int* hexagons, int hexagonCount)
+{
+	SurfaceMesh3<EEK>::GetPolygonalIndices(ptr,
+		triangles, triangleCount,
+		quads, quadCount,
+		pentagons, pentagonCount,
+		hexagons, hexagonCount);
+}
+
+void SurfaceMesh3_EEK_GetDualPolygonalIndices(void* ptr,
+	int* triangles, int triangleCount,
+	int* quads, int quadCount,
+	int* pentagons, int pentagonCount,
+	int* hexagons, int hexagonCount)
+{
+	SurfaceMesh3<EEK>::GetDualPolygonalIndices(ptr,
+		triangles, triangleCount,
+		quads, quadCount,
+		pentagons, pentagonCount,
+		hexagons, hexagonCount);
 }
 
 

@@ -32,6 +32,10 @@ private:
 	std::vector<Edge> edgeMap;
 	bool rebuildEdgeIndexMap = true;
 
+	std::unordered_map<Halfedge, int> halfedgeIndexMap;
+	std::vector<Halfedge> halfedgeMap;
+	bool rebuildHalfedgeIndexMap = true;
+
 public:
 
 	int VertexCount()
@@ -47,6 +51,11 @@ public:
 	int EdgeCount()
 	{
 		return (int)edgeMap.size();
+	}
+
+	int HalfedgeCount()
+	{
+		return (int)halfedgeMap.size();
 	}
 
 	int BuildStamp()
@@ -83,11 +92,23 @@ public:
 		rebuildEdgeIndexMap = true;
 		buildStamp++;
 	}
+
+	void OnHalfedgesChanged()
+	{
+		halfedgeMap.clear();
+		halfedgeMap.reserve(0);
+		halfedgeIndexMap.clear();
+		halfedgeIndexMap.reserve(0);
+		rebuildHalfedgeIndexMap = true;
+		buildStamp++;
+	}
+
 	void Clear()
 	{
 		OnVerticesChanged();
 		OnFacesChanged();
 		OnEdgesChanged();
+		OnHalfedgesChanged();
 	}
 
 	void BuildVertexMaps(const SurfaceMesh& model, bool force = false)
@@ -143,6 +164,25 @@ public:
 			//std::cout << "Edge = " << edge << " Index " << index << std::endl;
 			edgeMap.push_back(edge);
 			edgeIndexMap.insert(std::pair<Edge, int>(edge, index));
+			index++;
+		}
+	}
+
+	void BuildHalfedgeMaps(const SurfaceMesh& model, bool force = false)
+	{
+		if (!force && !rebuildHalfedgeIndexMap) return;
+		rebuildHalfedgeIndexMap = false;
+
+		halfedgeMap.clear();
+		halfedgeMap.reserve(model.number_of_halfedges());
+		halfedgeIndexMap.clear();
+
+		int index = 0;
+		for (auto edge : model.halfedges())
+		{
+			//std::cout << "Halfedge = " << edge << " Index " << index << std::endl;
+			halfedgeMap.push_back(edge);
+			halfedgeIndexMap.insert(std::pair<Halfedge, int>(edge, index));
 			index++;
 		}
 	}
@@ -216,6 +256,29 @@ public:
 		return Edge(edgeMap[index]);
 	}
 
+	int FindHalfedgeIndex(Halfedge edge)
+	{
+		auto item = halfedgeIndexMap.find(edge);
+		if (item != halfedgeIndexMap.end())
+			return item->second;
+		else
+			return NULL_INDEX;
+	}
+
+	Halfedge FindHalfedge(int index)
+	{
+		int count = (int)halfedgeMap.size();
+		if (index < 0 || index >= count)
+			return SurfaceMesh::null_halfedge();
+
+		return Halfedge(halfedgeMap[index]);
+	}
+
+	Halfedge GetHalfedge(int index)
+	{
+		return Halfedge(halfedgeMap[index]);
+	}
+
 	void PrintVertices(const SurfaceMesh& model)
 	{
 		std::cout << "Vertex indices" << std::endl;
@@ -254,6 +317,16 @@ public:
 		{
 			std::cout << "Edge = " << edge
 				<< ", Index = " << FindEdgeIndex(edge) << std::endl;
+		}
+	}
+
+	void PrintHalfedges(const SurfaceMesh& model)
+	{
+		std::cout << "Halfedges indices" << std::endl;
+		for (auto edge : model.halfedges())
+		{
+			std::cout << "Halfedge = " << edge
+				<< ", Index = " << FindHalfedgeIndex(edge) << std::endl;
 		}
 	}
 

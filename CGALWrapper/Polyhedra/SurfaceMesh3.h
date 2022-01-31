@@ -147,11 +147,18 @@ public:
 		DeleteTree();
 	}
 
+	void OnHalfedgesChanged()
+	{
+		map.OnHalfedgesChanged();
+		DeleteTree();
+	}
+
 	void OnModelChanged()
 	{
 		OnVerticesChanged();
 		OnFacesChanged();
 		OnEdgesChanged();
+		OnHalfedgesChanged();
 		DeleteTree();
 	}
 
@@ -160,6 +167,7 @@ public:
 		map.BuildVertexMaps(model);
 		map.BuildFaceMaps(model);
 		map.BuildEdgeMaps(model);
+		map.BuildHalfedgeMaps(model);
 	}
 
 	void DeleteTree()
@@ -236,6 +244,18 @@ public:
 		return map.FindEdge(index);
 	}
 
+	int FindHalfedgeIndex(Edge edge)
+	{
+		map.BuildHalfedgeMaps(model);
+		return map.FindHalfedgeIndex(edge);
+	}
+
+	Halfedge FindHalfedge(int index)
+	{
+		map.BuildHalfedgeMaps(model);
+		return map.FindHalfedge(index);
+	}
+
 	static int GetBuildStamp(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
@@ -255,12 +275,13 @@ public:
 		mesh->Clear();
 	}
 
-	static void ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges)
+	static void ClearIndexMaps(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		if (vertices) mesh->map.OnVerticesChanged();
 		if (faces) mesh->map.OnFacesChanged();
 		if (edges) mesh->map.OnEdgesChanged();
+		if (halfedges) mesh->map.OnEdgesChanged();
 	}
 
 	static void ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
@@ -278,22 +299,24 @@ public:
 		mesh->model.remove_all_property_maps();
 	}
 
-	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL force)
+	static void BuildIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges, BOOL force)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		if (vertices) mesh->map.BuildVertexMaps(mesh->model, force);
 		if (faces) mesh->map.BuildFaceMaps(mesh->model, force);
 		if (edges) mesh->map.BuildEdgeMaps(mesh->model, force);
+		if (halfedges) mesh->map.BuildHalfedgeMaps(mesh->model, force);
 	}
 
-	static void PrintIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL build)
+	static void PrintIndices(void* ptr, BOOL vertices, BOOL faces, BOOL edges, BOOL halfedges, BOOL force)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		BuildIndices(ptr, vertices, faces, edges, halfedges, force);
 
-		if (build) BuildIndices(ptr, vertices, faces, edges, true);
 		if (vertices) mesh->map.PrintVertices(mesh->model);
 		if (faces) mesh->map.PrintFaces(mesh->model);
 		if (edges) mesh->map.PrintEdges(mesh->model);
+		if (halfedges) mesh->map.PrintHalfedges(mesh->model);
 	}
 
 	static void* Copy(void* ptr)
@@ -434,6 +457,44 @@ public:
 		return mesh->model.add_face(Vertex(v0), Vertex(v1), Vertex(v2), Vertex(v3));
 	}
 
+	static int AddPentagon(void* ptr, int v0, int v1, int v2, int v3, int v4)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
+
+		std::vector<Vertex> face(5);
+		face[0] = Vertex(v0); face[1] = Vertex(v1);
+		face[2] = Vertex(v2); face[3] = Vertex(v3);
+		face[4] = Vertex(v4);
+
+		return mesh->model.add_face(face);
+	}
+
+	static int AddHexagon(void* ptr, int v0, int v1, int v2, int v3, int v4, int v5)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
+
+		std::vector<Vertex> face(6);
+		face[0] = Vertex(v0); face[1] = Vertex(v1);
+		face[2] = Vertex(v2); face[3] = Vertex(v3);
+		face[4] = Vertex(v4); face[5] = Vertex(v5);
+
+		return mesh->model.add_face(face);
+	}
+
+	static int AddFace(void* ptr, int* indices, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
+
+		std::vector<Vertex> face(count);
+		for (int i = 0; i < count; i++)
+			face[i] = Vertex(indices[i]);
+
+		return mesh->model.add_face(face);
+	}
+
 	static BOOL HasGarbage(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
@@ -517,6 +578,45 @@ public:
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 		return mesh->model.target(Halfedge(index));
+	}
+
+	static int NextAroundSource(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.next_around_source(Halfedge(index));
+	}
+
+	static int NextAroundTarget(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.next_around_target(Halfedge(index));
+	}
+
+	static int PreviousAroundSource(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.prev_around_source(Halfedge(index));
+	}
+
+	static int PreviousAroundTarget(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.prev_around_target(Halfedge(index));
+	}
+
+	static int EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		if (halfedgeIndex < 0) halfedgeIndex = 0;
+		if (halfedgeIndex > 1) halfedgeIndex = 1;
+
+		return mesh->model.halfedge(Edge(edgeIndex), halfedgeIndex);
+	}
+
+	static int HalfedgesEdge(void* ptr, int index)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		return mesh->model.edge(Halfedge(index));
 	}
 
 	static BOOL RemoveVertex(void* ptr, int index)
@@ -691,150 +791,12 @@ public:
 
 		for (auto face : mesh->model.faces())
 		{
-			if (mesh->model.is_removed(face)) continue;
-
 			int i = mesh->model.degree(face);
 
 			if (i != count) return FALSE;
 		}
 
 		return TRUE;
-	}
-
-	static FaceVertexCount GetFaceVertexCount(void* ptr)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-
-		int degenerate = 0;
-		int three = 0;
-		int four = 0;
-		int five = 0;
-		int six = 0;
-		int greater = 0;
-
-		for (auto face : mesh->model.faces())
-		{
-			int count = mesh->model.degree(face);
-
-			switch (count)
-			{
-			case 0:
-			case 1:
-			case 2:
-				degenerate++;
-				break;
-
-			case 3:
-				three++;
-				break;
-
-			case 4:
-				four++;
-				break;
-
-			case 5:
-				five++;
-				break;
-
-			case 6:
-				six++;
-				break;
-
-			default:
-				greater++;
-				break;
-			}
-		}
-
-		return { degenerate, three, four, five, six, greater };
-	}
-
-	static void CreateTriangleQuadMesh(void* ptr, Point3d* points, int pointsCount, int* triangles, int trianglesCount, int* quads, int quadsCount)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-
-		mesh->Clear();
-		mesh->OnModelChanged();
-
-		for (int i = 0; i < pointsCount; i++)
-			mesh->model.add_vertex(points[i].ToCGAL<K>());
-
-		if (trianglesCount > 0)
-		{
-			for (int i = 0; i < trianglesCount / 3; i++)
-			{
-				int i0 = triangles[i * 3 + 0];
-				int i1 = triangles[i * 3 + 1];
-				int i2 = triangles[i * 3 + 2];
-
-				mesh->model.add_face(Vertex(i0), Vertex(i1), Vertex(i2));
-			}
-		}
-
-		if (quadsCount > 0)
-		{
-			for (int i = 0; i < quadsCount / 4; i++)
-			{
-				int i0 = quads[i * 4 + 0];
-				int i1 = quads[i * 4 + 1];
-				int i2 = quads[i * 4 + 2];
-				int i3 = quads[i * 4 + 3];
-
-				mesh->model.add_face(Vertex(i0), Vertex(i1), Vertex(i2), Vertex(i3));
-			}
-		}
-	}
-
-	static void GetTriangleQuadIndices(void* ptr, int* triangles, int triangleCount, int* quads, int quadCount)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-		mesh->BuildModel();
-
-		int triangleIndex = 0;
-		int quadIndex = 0;
-
-		auto null_vertex = SurfaceMesh3::NullVertex();
-		ArrayUtil::FillWithNull(triangles, triangleCount);
-		ArrayUtil::FillWithNull(quads, quadCount);
-
-		for (auto face : mesh->model.faces())
-		{
-			int count = mesh->model.degree(face);
-			auto hedge0 = mesh->model.halfedge(face);
-
-			if (count == 3 && triangleIndex < triangleCount)
-			{
-				auto hedge1 = mesh->model.next(hedge0);
-				auto hedge2 = mesh->model.next(hedge1);
-
-				auto vertex0 = mesh->model.source(hedge0);
-				auto vertex1 = mesh->model.source(hedge1);
-				auto vertex2 = mesh->model.source(hedge2);
-
-				triangles[triangleIndex * 3 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
-				triangles[triangleIndex * 3 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
-				triangles[triangleIndex * 3 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
-				triangleIndex++;
-			}
-			else if (count == 4 && quadIndex < quadCount)
-			{
-				auto hedge1 = mesh->model.next(hedge0);
-				auto hedge2 = mesh->model.next(hedge1);
-				auto hedge3 = mesh->model.next(hedge2);
-
-				auto vertex0 = mesh->model.source(hedge0);
-				auto vertex1 = mesh->model.source(hedge1);
-				auto vertex2 = mesh->model.source(hedge2);
-				auto vertex3 = mesh->model.source(hedge3);
-
-				quads[quadIndex * 4 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
-				quads[quadIndex * 4 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
-				quads[quadIndex * 4 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
-				quads[quadIndex * 4 + 3] = vertex3 != null_vertex ? mesh->map.FindVertexIndex(vertex3) : NULL_INDEX;
-				quadIndex++;
-			}
-		}
-
 	}
 
 	static void Join(void* ptr, void* otherPtr)
@@ -1075,6 +1037,396 @@ public:
 				normals[index] = Vector3d::FromCGAL<K>(n);
 			}
 		}
+	}
+
+	static FaceVertexCount GetFaceVertexCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int degenerate = 0;
+		int three = 0;
+		int four = 0;
+		int five = 0;
+		int six = 0;
+		int greater = 0;
+
+		for (auto face : mesh->model.faces())
+		{
+			int count = mesh->model.degree(face);
+
+			switch (count)
+			{
+			case 0:
+			case 1:
+			case 2:
+				degenerate++;
+				break;
+
+			case 3:
+				three++;
+				break;
+
+			case 4:
+				four++;
+				break;
+
+			case 5:
+				five++;
+				break;
+
+			case 6:
+				six++;
+				break;
+
+			default:
+				greater++;
+				break;
+			}
+		}
+
+		return { degenerate, three, four, five, six, greater };
+	}
+
+	static FaceVertexCount GetDualFaceVertexCount(void* ptr)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int degenerate = 0;
+		int three = 0;
+		int four = 0;
+		int five = 0;
+		int six = 0;
+		int greater = 0;
+
+		for (auto vert : mesh->model.vertices())
+		{
+			int count = mesh->model.degree(vert);
+
+			switch (count)
+			{
+			case 0:
+			case 1:
+			case 2:
+				degenerate++;
+				break;
+
+			case 3:
+				three++;
+				break;
+
+			case 4:
+				four++;
+				break;
+
+			case 5:
+				five++;
+				break;
+
+			case 6:
+				six++;
+				break;
+
+			default:
+				greater++;
+				break;
+			}
+		}
+
+		return { degenerate, three, four, five, six, greater };
+	}
+
+	static void CreatePolygonalMesh(void* ptr,
+		Point3d* points, int pointsCount,
+		int* triangles, int trianglesCount, 
+		int* quads, int quadsCount,
+		int* pentagons, int pentagonsCount,
+		int* hexagons, int hexagonsCount)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		mesh->Clear();
+		mesh->OnModelChanged();
+
+		ArrayUtil::MakeOutOfBoundsNull(triangles, trianglesCount, pointsCount);
+		ArrayUtil::MakeOutOfBoundsNull(quads, quadsCount, pointsCount);
+		ArrayUtil::MakeOutOfBoundsNull(pentagons, pentagonsCount, pointsCount);
+		ArrayUtil::MakeOutOfBoundsNull(hexagons, hexagonsCount, pointsCount);
+
+		std::vector<Vertex> list;
+
+		for (int i = 0; i < pointsCount; i++)
+			mesh->model.add_vertex(points[i].ToCGAL<K>());
+
+		if (trianglesCount > 0)
+		{
+			for (int i = 0; i < trianglesCount / 3; i++)
+			{
+				int i0 = triangles[i * 3 + 0];
+				int i1 = triangles[i * 3 + 1];
+				int i2 = triangles[i * 3 + 2];
+
+				if (i0 == NULL_INDEX || i1 == NULL_INDEX || i2 == NULL_INDEX)
+					continue;
+
+				list.clear();
+				list.push_back(Vertex(i0));
+				list.push_back(Vertex(i1));
+				list.push_back(Vertex(i2));
+				mesh->model.add_face(list);
+			}
+		}
+
+		if (quadsCount > 0)
+		{
+			for (int i = 0; i < quadsCount / 4; i++)
+			{
+				int i0 = quads[i * 4 + 0];
+				int i1 = quads[i * 4 + 1];
+				int i2 = quads[i * 4 + 2];
+				int i3 = quads[i * 4 + 3];
+
+				if (i0 == NULL_INDEX || i1 == NULL_INDEX || i2 == NULL_INDEX || 
+					i3 == NULL_INDEX)
+					continue;
+
+				list.clear();
+				list.push_back(Vertex(i0));
+				list.push_back(Vertex(i1));
+				list.push_back(Vertex(i2));
+				list.push_back(Vertex(i3));
+				mesh->model.add_face(list);
+			}
+		}
+
+		if (pentagonsCount > 0)
+		{
+			for (int i = 0; i < pentagonsCount / 5; i++)
+			{
+				int i0 = pentagons[i * 5 + 0];
+				int i1 = pentagons[i * 5 + 1];
+				int i2 = pentagons[i * 5 + 2];
+				int i3 = pentagons[i * 5 + 3];
+				int i4 = pentagons[i * 5 + 4];
+
+				if (i0 == NULL_INDEX || i1 == NULL_INDEX || i2 == NULL_INDEX ||
+					i3 == NULL_INDEX || i4 == NULL_INDEX)
+					continue;
+
+				list.clear();
+				list.push_back(Vertex(pentagons[i * 5 + 0]));
+				list.push_back(Vertex(pentagons[i * 5 + 1]));
+				list.push_back(Vertex(pentagons[i * 5 + 2]));
+				list.push_back(Vertex(pentagons[i * 5 + 3]));
+				list.push_back(Vertex(pentagons[i * 5 + 4]));
+				mesh->model.add_face(list);
+			}
+		}
+
+		if (hexagonsCount > 0)
+		{
+			for (int i = 0; i < hexagonsCount / 6; i++)
+			{
+				int i0 = hexagons[i * 6 + 0];
+				int i1 = hexagons[i * 6 + 1];
+				int i2 = hexagons[i * 6 + 2];
+				int i3 = hexagons[i * 6 + 3];
+				int i4 = hexagons[i * 6 + 4];
+				int i5 = hexagons[i * 6 + 5];
+
+				if (i0 == NULL_INDEX || i1 == NULL_INDEX || i2 == NULL_INDEX ||
+					i3 == NULL_INDEX || i4 == NULL_INDEX || i5 == NULL_INDEX)
+					continue;
+
+				list.clear();
+				list.push_back(Vertex(hexagons[i * 6 + 0]));
+				list.push_back(Vertex(hexagons[i * 6 + 1]));
+				list.push_back(Vertex(hexagons[i * 6 + 2]));
+				list.push_back(Vertex(hexagons[i * 6 + 3]));
+				list.push_back(Vertex(hexagons[i * 6 + 4]));
+				list.push_back(Vertex(hexagons[i * 6 + 6]));
+				mesh->model.add_face(list);
+			}
+		}
+
+	}
+
+	static void GetPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->BuildModel();
+
+		int triangleIndex = 0;
+		int quadIndex = 0;
+		int pentagonIndex = 0;
+		int hexagonIndex = 0;
+
+		auto null_vertex = NullVertex();
+		ArrayUtil::FillWithNull(triangles, triangleCount);
+		ArrayUtil::FillWithNull(quads, quadCount);
+		ArrayUtil::FillWithNull(pentagons, pentagonCount);
+		ArrayUtil::FillWithNull(hexagons, hexagonCount);
+
+		for (auto face : mesh->model.faces())
+		{
+			int count = mesh->model.degree(face);
+			auto hedge0 = mesh->model.halfedge(face);
+
+			if (count == 3 && triangleIndex < triangleCount)
+			{
+				auto hedge1 = mesh->model.next(hedge0);
+				auto hedge2 = mesh->model.next(hedge1);
+
+				auto vertex0 = mesh->model.source(hedge0);
+				auto vertex1 = mesh->model.source(hedge1);
+				auto vertex2 = mesh->model.source(hedge2);
+
+				triangles[triangleIndex * 3 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
+				triangles[triangleIndex * 3 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
+				triangles[triangleIndex * 3 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
+				triangleIndex++;
+			}
+			else if (count == 4 && quadIndex < quadCount)
+			{
+				auto hedge1 = mesh->model.next(hedge0);
+				auto hedge2 = mesh->model.next(hedge1);
+				auto hedge3 = mesh->model.next(hedge2);
+
+				auto vertex0 = mesh->model.source(hedge0);
+				auto vertex1 = mesh->model.source(hedge1);
+				auto vertex2 = mesh->model.source(hedge2);
+				auto vertex3 = mesh->model.source(hedge3);
+
+				quads[quadIndex * 4 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
+				quads[quadIndex * 4 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
+				quads[quadIndex * 4 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
+				quads[quadIndex * 4 + 3] = vertex3 != null_vertex ? mesh->map.FindVertexIndex(vertex3) : NULL_INDEX;
+				quadIndex++;
+			}
+			else if (count == 5 && pentagonIndex < pentagonCount)
+			{
+				auto hedge1 = mesh->model.next(hedge0);
+				auto hedge2 = mesh->model.next(hedge1);
+				auto hedge3 = mesh->model.next(hedge2);
+				auto hedge4 = mesh->model.next(hedge3);
+
+				auto vertex0 = mesh->model.source(hedge0);
+				auto vertex1 = mesh->model.source(hedge1);
+				auto vertex2 = mesh->model.source(hedge2);
+				auto vertex3 = mesh->model.source(hedge3);
+				auto vertex4 = mesh->model.source(hedge4);
+
+				pentagons[pentagonIndex * 5 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
+				pentagons[pentagonIndex * 5 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
+				pentagons[pentagonIndex * 5 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
+				pentagons[pentagonIndex * 5 + 3] = vertex3 != null_vertex ? mesh->map.FindVertexIndex(vertex3) : NULL_INDEX;
+				pentagons[pentagonIndex * 5 + 4] = vertex4 != null_vertex ? mesh->map.FindVertexIndex(vertex4) : NULL_INDEX;
+				pentagonIndex++;
+			}
+			else if (count == 6 && hexagonIndex < hexagonCount)
+			{
+				auto hedge1 = mesh->model.next(hedge0);
+				auto hedge2 = mesh->model.next(hedge1);
+				auto hedge3 = mesh->model.next(hedge2);
+				auto hedge4 = mesh->model.next(hedge3);
+				auto hedge5 = mesh->model.next(hedge4);
+
+				auto vertex0 = mesh->model.source(hedge0);
+				auto vertex1 = mesh->model.source(hedge1);
+				auto vertex2 = mesh->model.source(hedge2);
+				auto vertex3 = mesh->model.source(hedge3);
+				auto vertex4 = mesh->model.source(hedge4);
+				auto vertex5 = mesh->model.source(hedge5);
+
+				hexagons[hexagonIndex * 6 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
+				hexagons[hexagonIndex * 6 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
+				hexagons[hexagonIndex * 6 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
+				hexagons[hexagonIndex * 6 + 3] = vertex3 != null_vertex ? mesh->map.FindVertexIndex(vertex3) : NULL_INDEX;
+				hexagons[hexagonIndex * 6 + 4] = vertex4 != null_vertex ? mesh->map.FindVertexIndex(vertex4) : NULL_INDEX;
+				hexagons[hexagonIndex * 6 + 5] = vertex5 != null_vertex ? mesh->map.FindVertexIndex(vertex5) : NULL_INDEX;
+				hexagonIndex++;
+			}
+		}
+	}
+
+	static void GetDualPolygonalIndices(void* ptr,
+		int* triangles, int triangleCount,
+		int* quads, int quadCount,
+		int* pentagons, int pentagonCount,
+		int* hexagons, int hexagonCount)
+	{
+
+		auto mesh = CastToSurfaceMesh(ptr);
+		mesh->BuildModel();
+
+		int triangleIndex = 0;
+		int quadIndex = 0;
+		int pentagonIndex = 0;
+		int hexagonIndex = 0;
+		int indices[6];
+
+		auto null_vertex = NullVertex();
+		ArrayUtil::FillWithNull(triangles, triangleCount);
+		ArrayUtil::FillWithNull(quads, quadCount);
+		ArrayUtil::FillWithNull(pentagons, pentagonCount);
+		ArrayUtil::FillWithNull(hexagons, hexagonCount);
+
+		/*
+		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
+		{
+			int count = 0;
+			auto start = vert->vertex_begin(), end = start;
+			CGAL_For_all(start, end)
+			{
+				auto face = start->face();
+				indices[count++] = poly->FindFaceIndex(face);
+				if (count >= 6) break;
+			}
+
+			if (count == 3 && triangleIndex * 3 < triangleCount)
+			{
+				triangles[triangleIndex * 3 + 0] = indices[2];
+				triangles[triangleIndex * 3 + 1] = indices[1];
+				triangles[triangleIndex * 3 + 2] = indices[0];
+
+				triangleIndex++;
+			}
+			else if (count == 4 && quadIndex * 4 < quadCount)
+			{
+				quads[quadIndex * 4 + 0] = indices[3];
+				quads[quadIndex * 4 + 1] = indices[2];
+				quads[quadIndex * 4 + 2] = indices[1];
+				quads[quadIndex * 4 + 3] = indices[0];
+
+				quadIndex++;
+			}
+			else if (count == 5 && pentagonIndex * 5 < pentagonCount)
+			{
+				pentagons[pentagonIndex * 5 + 0] = indices[4];
+				pentagons[pentagonIndex * 5 + 1] = indices[3];
+				pentagons[pentagonIndex * 5 + 2] = indices[2];
+				pentagons[pentagonIndex * 5 + 3] = indices[1];
+				pentagons[pentagonIndex * 5 + 4] = indices[0];
+
+				pentagonIndex++;
+			}
+			else if (count == 6 && hexagonIndex * 6 < hexagonCount)
+			{
+				hexagons[hexagonIndex * 6 + 0] = indices[5];
+				hexagons[hexagonIndex * 6 + 1] = indices[4];
+				hexagons[hexagonIndex * 6 + 2] = indices[3];
+				hexagons[hexagonIndex * 6 + 3] = indices[2];
+				hexagons[hexagonIndex * 6 + 4] = indices[1];
+				hexagons[hexagonIndex * 6 + 5] = indices[0];
+
+				hexagonIndex++;
+			}
+
+		}
+		*/
 	}
 
 private:

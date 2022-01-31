@@ -33,9 +33,9 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_Clear(ptr);
         }
 
-        internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
+        internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges)
         {
-            SurfaceMesh3_EEK_ClearIndexMaps(ptr, vertices, faces, edges);
+            SurfaceMesh3_EEK_ClearIndexMaps(ptr, vertices, faces, edges, halfedges);
         }
 
         internal override void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces)
@@ -48,14 +48,14 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_ClearProperyMaps(ptr);
         }
 
-        internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force)
+        internal override void BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges, bool force)
         {
-            SurfaceMesh3_EEK_BuildIndices(ptr, vertices, faces, edges, force);
+            SurfaceMesh3_EEK_BuildIndices(ptr, vertices, faces, edges, halfedges, force);
         }
 
-        internal override void PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool build)
+        internal override void PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges, bool force)
         {
-            SurfaceMesh3_EEK_PrintIndices(ptr, vertices, faces, edges, build);
+            SurfaceMesh3_EEK_PrintIndices(ptr, vertices, faces, edges, halfedges, force);
         }
 
         internal override IntPtr Copy(IntPtr ptr)
@@ -120,7 +120,7 @@ namespace CGALDotNet.Polyhedra
 
         internal override bool IsHalfedgeRemoved(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_IsHalfedgeRemoved(ptr,index);
+            return SurfaceMesh3_EEK_IsHalfedgeRemoved(ptr, index);
         }
 
         internal override bool IsEdgeRemoved(IntPtr ptr, int index)
@@ -155,32 +155,32 @@ namespace CGALDotNet.Polyhedra
 
         internal override void CollectGarbage(IntPtr ptr)
         {
-            SurfaceMesh3_EEK_CollectGarbage(ptr);   
+            SurfaceMesh3_EEK_CollectGarbage(ptr);
         }
 
         internal override void SetRecycleGarbage(IntPtr ptr, bool collect)
         {
-            SurfaceMesh3_EEK_SetRecycleGarbage(ptr, collect);   
+            SurfaceMesh3_EEK_SetRecycleGarbage(ptr, collect);
         }
 
         internal override bool DoesRecycleGarbage(IntPtr ptr)
         {
-            return SurfaceMesh3_EEK_DoesRecycleGarbage(ptr);    
+            return SurfaceMesh3_EEK_DoesRecycleGarbage(ptr);
         }
 
         internal override int VertexDegree(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_VertexDegree(ptr, index);   
+            return SurfaceMesh3_EEK_VertexDegree(ptr, index);
         }
 
         internal override int FaceDegree(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_FaceDegree(ptr, index); 
+            return SurfaceMesh3_EEK_FaceDegree(ptr, index);
         }
 
         internal override bool VertexIsIsolated(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_VertexIsIsolated(ptr, index);   
+            return SurfaceMesh3_EEK_VertexIsIsolated(ptr, index);
         }
 
         internal override bool VertexIsBorder(IntPtr ptr, int index, bool check_all_incident_halfedges)
@@ -195,17 +195,17 @@ namespace CGALDotNet.Polyhedra
 
         internal override int NextHalfedge(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_NextHalfedge(ptr, index);   
+            return SurfaceMesh3_EEK_NextHalfedge(ptr, index);
         }
 
         internal override int PreviousHalfedge(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_PreviousHalfedge(ptr, index);   
+            return SurfaceMesh3_EEK_PreviousHalfedge(ptr, index);
         }
 
         internal override int OppositeHalfedge(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_OppositeHalfedge(ptr, index);   
+            return SurfaceMesh3_EEK_OppositeHalfedge(ptr, index);
         }
 
         internal override int SourceVertex(IntPtr ptr, int index)
@@ -216,6 +216,31 @@ namespace CGALDotNet.Polyhedra
         internal override int TargetVertex(IntPtr ptr, int index)
         {
             return SurfaceMesh3_EEK_TargetVertex(ptr, index);
+        }
+
+        internal override int NextAroundSource(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_NextAroundSource(ptr, index);
+        }
+
+        internal override int NextAroundTarget(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_NextAroundTarget(ptr, index);
+        }
+
+        internal override int PreviousAroundSource(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_PreviousAroundSource(ptr, index);
+        }
+
+        internal override int PreviousAroundTarget(IntPtr ptr, int index)
+        {
+            return SurfaceMesh3_EEK_PreviousAroundTarget(ptr, index);
+        }
+
+        internal override int EdgesHalfedge(IntPtr ptr, int edgeIndex, int halfedgeIndex)
+        {
+            return SurfaceMesh3_EdgesHalfedge(ptr, edgeIndex, halfedgeIndex);
         }
 
         internal override bool RemoveVertex(IntPtr ptr, int index)
@@ -308,19 +333,19 @@ namespace CGALDotNet.Polyhedra
             return SurfaceMesh3_EEK_CheckFaceVertexCount(ptr, count);   
         }
 
-        internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
+        internal override int AddPentagon(IntPtr ptr, int v0, int v1, int v2, int v3, int v4)
         {
-            return SurfaceMesh3_EEK_GetFaceVertexCount(ptr);
+            return SurfaceMesh3_EEK_AddPentagon(ptr, v0, v1, v2, v3, v4);
         }
 
-        internal override void CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int trianglesCount, int[] quads, int quadsCount)
-        { 
-            SurfaceMesh3_EEK_CreateTriangleQuadMesh(ptr, points, pointsCount, triangles, trianglesCount, quads, quadsCount);
+        internal override int AddHexagon(IntPtr ptr, int v0, int v1, int v2, int v3, int v4, int v5)
+        {
+            return SurfaceMesh3_EEK_AddHexagon(ptr, v0, v1, v2, v3, v4, v5);
         }
 
-        internal override void GetTriangleQuadIndices(IntPtr ptr, int[] triangles, int trianglesCount, int[] quads, int quadsCount)
+        internal override int AddFace(IntPtr ptr, int[] indices, int count)
         {
-            SurfaceMesh3_EEK_GetTriangleQuadIndices(ptr, triangles, trianglesCount, quads, quadsCount);
+            return SurfaceMesh3_EEK_AddFace(ptr, indices, count);
         }
 
         internal override void Join(IntPtr ptr, IntPtr otherPtr)
@@ -423,6 +448,57 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_GetFaceNormals(ptr, normals, count);
         }
 
+        internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_GetFaceVertexCount(ptr);    
+        }
+
+        internal override FaceVertexCount GetDualFaceVertexCount(IntPtr ptr)
+        {
+            return SurfaceMesh3_EEK_GetDualFaceVertexCount(ptr);
+        }
+
+        internal override void CreatePolygonalMesh(IntPtr ptr,
+            Point3d[] points, int pointsCount,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount)
+        {
+            SurfaceMesh3_EEK_CreatePolygonalMesh(ptr, 
+                points, pointsCount, 
+                triangles, triangleCount, 
+                quads, quadCount, 
+                pentagons, pentagonCount, 
+                hexagons, hexagonCount);
+        }
+
+        internal override void GetPolygonalIndices(IntPtr ptr,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount)
+        {
+            SurfaceMesh3_EEK_GetPolygonalIndices(ptr,
+                triangles, triangleCount,
+                quads, quadCount,
+                pentagons, pentagonCount,
+                hexagons, hexagonCount);
+        }
+
+        internal override void GetDualPolygonalIndices(IntPtr ptr,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount)
+        {
+            SurfaceMesh3_EEK_GetDualPolygonalIndices(ptr,
+                triangles, triangleCount,
+                quads, quadCount,
+                pentagons, pentagonCount,
+                hexagons, hexagonCount);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr SurfaceMesh3_EEK_Create();
 
@@ -436,7 +512,7 @@ namespace CGALDotNet.Polyhedra
         private static extern void SurfaceMesh3_EEK_Clear(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
+        private static extern void SurfaceMesh3_EEK_ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool halfedges, bool edges);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_ClearNormalMaps(IntPtr ptr, bool vertices, bool faces);
@@ -445,10 +521,10 @@ namespace CGALDotNet.Polyhedra
         private static extern void SurfaceMesh3_EEK_ClearProperyMaps(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool force);
+        private static extern void SurfaceMesh3_EEK_BuildIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges, bool force);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool build);
+        private static extern void SurfaceMesh3_EEK_PrintIndices(IntPtr ptr, bool vertices, bool faces, bool edges, bool halfedges, bool build);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr SurfaceMesh3_EEK_Copy(IntPtr ptr);
@@ -505,6 +581,15 @@ namespace CGALDotNet.Polyhedra
         private static extern int SurfaceMesh3_EEK_AddQuad(IntPtr ptr, int v0, int v1, int v2, int v3);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_AddPentagon(IntPtr ptr, int v0, int v1, int v2, int v3, int v4);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_AddHexagon(IntPtr ptr, int v0, int v1, int v2, int v3, int v4, int v5);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_AddFace(IntPtr ptr, int[] indices, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_HasGarbage(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -548,6 +633,21 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_RemoveVertex(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_NextAroundSource(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_NextAroundTarget(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_PreviousAroundSource(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EEK_PreviousAroundTarget(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int SurfaceMesh3_EdgesHalfedge(IntPtr ptr, int edgeIndex, int halfedgeIndex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_RemoveEdge(IntPtr ptr, int index);
@@ -599,15 +699,6 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_CheckFaceVertexCount(IntPtr ptr, int count);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(IntPtr ptr);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_CreateTriangleQuadMesh(IntPtr ptr, Point3d[] points, int pointsCount, int[] triangles, int trianglesCount, int[] quads, int quadsCount);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_GetTriangleQuadIndices(IntPtr ptr, [Out] int[] triangles, int trianglesCount, [Out] int[] quads, int quadsCount);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_Join(IntPtr ptr, IntPtr otherPtr);
@@ -668,6 +759,34 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_GetFaceNormals(IntPtr ptr, [Out] Vector3d[] normals, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_CreatePolygonalMesh(IntPtr ptr,
+            Point3d[] points, int pointsCount,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetPolygonalIndices(IntPtr ptr,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetDualPolygonalIndices(IntPtr ptr,
+            int[] triangles, int triangleCount,
+            int[] quads, int quadCount,
+            int[] pentagons, int pentagonCount,
+            int[] hexagons, int hexagonCount);
 
     }
 }

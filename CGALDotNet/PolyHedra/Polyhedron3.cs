@@ -491,7 +491,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="points">The meshes points.</param>
         /// <param name="triangles">The meshes triangles as a index array. Maybe null.</param>
         /// <param name="quads">The meshes quads as a index array. Maybe null.</param>
-        public void CreateMesh(Point3d[] points, int[] triangles, int[] quads)
+        public void CreateMesh(Point3d[] points, int[] triangles, int[] quads = null)
         {
             bool hasTriangles = triangles != null && triangles.Length > 0;
             bool hasQuads = quads != null && quads.Length > 0;
@@ -600,7 +600,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="triangles">The meshes triangles as a index array. Maybe null.</param>
         /// <param name="quads">The meshes quads as a index array. Maybe null.</param>
-        public void GetIndices(int[] triangles, int[] quads)
+        public void GetIndices(int[] triangles, int[] quads = null)
         {
             bool hasTriangles = triangles != null && triangles.Length > 0;
             bool hasQuads = quads != null && quads.Length > 0;
