@@ -458,7 +458,7 @@ FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(void* ptr)
 	return SurfaceMesh3<EEK>::GetDualFaceVertexCount(ptr);
 }
 
-void CreatePolygonalMesh(void* ptr,
+void SurfaceMesh3_EEK_CreatePolygonalMesh(void* ptr,
 	Point3d* points, int pointsCount,
 	int* triangles, int triangleCount,
 	int* quads, int quadCount,

@@ -25,38 +25,35 @@ namespace CGALDotNetConsole
         {
 
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
-            var smesh = SurfaceMeshFactory<EEK>.CreateCube();
+            var smesh = SurfaceMeshFactory<EEK>.CreateCube(1, true);
 
-            Console.WriteLine("Before");
-            Print(smesh);
+            var count = smesh.GetFaceVertexCount();
+            var indices = count.Indices();
+            smesh.GetPolygonalIndices(ref indices);
+
+            indices.Print();
+
+            return;
+
+            Console.WriteLine("Before " + smesh.IsVertexRemoved(-1));
 
             smesh.RemoveVertex(0);
-            smesh.RemoveFace(0);
-            smesh.RemoveEdge(0);
+            smesh.CollectGarbage();
 
-            Console.WriteLine("");
-            Console.WriteLine("After");
-            Print(smesh);
+            Console.WriteLine("After " + smesh.IsVertexRemoved(0));
 
-
+            Console.WriteLine("Indices");
+            smesh.PrintIndices(true, false, false, false, false);
         }
 
         static void Print(SurfaceMesh3<EEK> mesh)
         {
             mesh.Print();
-            PrintIndices(mesh);
+            //PrintIndices(mesh);
    ;
             Console.WriteLine("Points");
-
-            var points = new Point3d[mesh.VertexCount];
-            mesh.GetPoints(points, points.Length);
-
-            //var points = mesh.ToArray();
-
-            for (int i = 0; i < points.Length; i++)
-            {
-                Console.WriteLine(i + " " + points[i]);
-            }
+            foreach (var p in mesh)
+                Console.WriteLine(p);
         }
 
         static void PrintIndices(SurfaceMesh3<EEK> mesh)

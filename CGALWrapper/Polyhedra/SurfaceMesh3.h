@@ -222,7 +222,7 @@ public:
 
 	int FindFaceIndex(Face face)
 	{
-		map.BuildFaceMaps();
+		map.BuildFaceMaps(model);
 		return map.FindFaceIndex(face);
 	}
 
@@ -408,7 +408,8 @@ public:
 	static BOOL IsVertexRemoved(void* ptr, int index)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
-		return mesh->model.is_removed(Vertex(index));
+		auto vertex = mesh->map.FindVertex(index);
+		return vertex != NullVertex() ? mesh->model.is_removed(vertex) : false;
 	}
 
 	static BOOL IsFaceRemoved(void* ptr, int index)
@@ -1263,8 +1264,8 @@ public:
 		int quadIndex = 0;
 		int pentagonIndex = 0;
 		int hexagonIndex = 0;
+		int indices[6];
 
-		auto null_vertex = NullVertex();
 		ArrayUtil::FillWithNull(triangles, triangleCount);
 		ArrayUtil::FillWithNull(quads, quadCount);
 		ArrayUtil::FillWithNull(pentagons, pentagonCount);
@@ -1273,80 +1274,48 @@ public:
 		for (auto face : mesh->model.faces())
 		{
 			int count = mesh->model.degree(face);
-			auto hedge0 = mesh->model.halfedge(face);
+			if (count < 3 || count > 6) continue;
+
+			auto hedge = mesh->model.halfedge(face);
+			for (int i = 0; i < count; i++)
+			{
+				auto vertex = mesh->model.source(hedge);
+				indices[i] = mesh->FindVertexIndex(vertex);
+				hedge = mesh->model.next(hedge);
+			}
 
 			if (count == 3 && triangleIndex < triangleCount)
 			{
-				auto hedge1 = mesh->model.next(hedge0);
-				auto hedge2 = mesh->model.next(hedge1);
-
-				auto vertex0 = mesh->model.source(hedge0);
-				auto vertex1 = mesh->model.source(hedge1);
-				auto vertex2 = mesh->model.source(hedge2);
-
-				triangles[triangleIndex * 3 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
-				triangles[triangleIndex * 3 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
-				triangles[triangleIndex * 3 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
+				triangles[triangleIndex * 3 + 0] = indices[0];
+				triangles[triangleIndex * 3 + 1] = indices[1];
+				triangles[triangleIndex * 3 + 2] = indices[2];
 				triangleIndex++;
 			}
 			else if (count == 4 && quadIndex < quadCount)
 			{
-				auto hedge1 = mesh->model.next(hedge0);
-				auto hedge2 = mesh->model.next(hedge1);
-				auto hedge3 = mesh->model.next(hedge2);
-
-				auto vertex0 = mesh->model.source(hedge0);
-				auto vertex1 = mesh->model.source(hedge1);
-				auto vertex2 = mesh->model.source(hedge2);
-				auto vertex3 = mesh->model.source(hedge3);
-
-				quads[quadIndex * 4 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
-				quads[quadIndex * 4 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
-				quads[quadIndex * 4 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
-				quads[quadIndex * 4 + 3] = vertex3 != null_vertex ? mesh->map.FindVertexIndex(vertex3) : NULL_INDEX;
+				quads[quadIndex * 4 + 0] = indices[0];
+				quads[quadIndex * 4 + 1] = indices[1];
+				quads[quadIndex * 4 + 2] = indices[2];
+				quads[quadIndex * 4 + 3] = indices[3];
 				quadIndex++;
 			}
 			else if (count == 5 && pentagonIndex < pentagonCount)
 			{
-				auto hedge1 = mesh->model.next(hedge0);
-				auto hedge2 = mesh->model.next(hedge1);
-				auto hedge3 = mesh->model.next(hedge2);
-				auto hedge4 = mesh->model.next(hedge3);
-
-				auto vertex0 = mesh->model.source(hedge0);
-				auto vertex1 = mesh->model.source(hedge1);
-				auto vertex2 = mesh->model.source(hedge2);
-				auto vertex3 = mesh->model.source(hedge3);
-				auto vertex4 = mesh->model.source(hedge4);
-
-				pentagons[pentagonIndex * 5 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
-				pentagons[pentagonIndex * 5 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
-				pentagons[pentagonIndex * 5 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
-				pentagons[pentagonIndex * 5 + 3] = vertex3 != null_vertex ? mesh->map.FindVertexIndex(vertex3) : NULL_INDEX;
-				pentagons[pentagonIndex * 5 + 4] = vertex4 != null_vertex ? mesh->map.FindVertexIndex(vertex4) : NULL_INDEX;
+				pentagons[pentagonIndex * 5 + 0] = indices[0];
+				pentagons[pentagonIndex * 5 + 1] = indices[1];
+				pentagons[pentagonIndex * 5 + 2] = indices[2];
+				pentagons[pentagonIndex * 5 + 3] = indices[3];
+				pentagons[pentagonIndex * 5 + 4] = indices[4];
 				pentagonIndex++;
 			}
 			else if (count == 6 && hexagonIndex < hexagonCount)
 			{
-				auto hedge1 = mesh->model.next(hedge0);
-				auto hedge2 = mesh->model.next(hedge1);
-				auto hedge3 = mesh->model.next(hedge2);
-				auto hedge4 = mesh->model.next(hedge3);
-				auto hedge5 = mesh->model.next(hedge4);
-
-				auto vertex0 = mesh->model.source(hedge0);
-				auto vertex1 = mesh->model.source(hedge1);
-				auto vertex2 = mesh->model.source(hedge2);
-				auto vertex3 = mesh->model.source(hedge3);
-				auto vertex4 = mesh->model.source(hedge4);
-				auto vertex5 = mesh->model.source(hedge5);
-
-				hexagons[hexagonIndex * 6 + 0] = vertex0 != null_vertex ? mesh->map.FindVertexIndex(vertex0) : NULL_INDEX;
-				hexagons[hexagonIndex * 6 + 1] = vertex1 != null_vertex ? mesh->map.FindVertexIndex(vertex1) : NULL_INDEX;
-				hexagons[hexagonIndex * 6 + 2] = vertex2 != null_vertex ? mesh->map.FindVertexIndex(vertex2) : NULL_INDEX;
-				hexagons[hexagonIndex * 6 + 3] = vertex3 != null_vertex ? mesh->map.FindVertexIndex(vertex3) : NULL_INDEX;
-				hexagons[hexagonIndex * 6 + 4] = vertex4 != null_vertex ? mesh->map.FindVertexIndex(vertex4) : NULL_INDEX;
-				hexagons[hexagonIndex * 6 + 5] = vertex5 != null_vertex ? mesh->map.FindVertexIndex(vertex5) : NULL_INDEX;
+				hexagons[hexagonIndex * 6 + 0] = indices[0];
+				hexagons[hexagonIndex * 6 + 1] = indices[1];
+				hexagons[hexagonIndex * 6 + 2] = indices[2];
+				hexagons[hexagonIndex * 6 + 3] = indices[3];
+				hexagons[hexagonIndex * 6 + 4] = indices[4];
+				hexagons[hexagonIndex * 6 + 5] = indices[5];
 				hexagonIndex++;
 			}
 		}
@@ -1368,65 +1337,61 @@ public:
 		int hexagonIndex = 0;
 		int indices[6];
 
-		auto null_vertex = NullVertex();
 		ArrayUtil::FillWithNull(triangles, triangleCount);
 		ArrayUtil::FillWithNull(quads, quadCount);
 		ArrayUtil::FillWithNull(pentagons, pentagonCount);
 		ArrayUtil::FillWithNull(hexagons, hexagonCount);
 
-		/*
-		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
+		for (auto vert : mesh->model.vertices())
 		{
-			int count = 0;
-			auto start = vert->vertex_begin(), end = start;
-			CGAL_For_all(start, end)
+			int count = mesh->model.degree(vert);
+			if (count < 3 || count > 6) continue;
+
+			auto hedge = mesh->model.halfedge(vert);
+			for (int i = 0; i < count; i++)
 			{
-				auto face = start->face();
-				indices[count++] = poly->FindFaceIndex(face);
-				if (count >= 6) break;
+				auto face = mesh->model.face(hedge);
+				indices[i] = mesh->FindFaceIndex(face);
+				hedge = mesh->model.next_around_source(hedge);
 			}
 
-			if (count == 3 && triangleIndex * 3 < triangleCount)
+			if (count == 3 && triangleIndex < triangleCount)
 			{
-				triangles[triangleIndex * 3 + 0] = indices[2];
+				triangles[triangleIndex * 3 + 0] = indices[0];
 				triangles[triangleIndex * 3 + 1] = indices[1];
-				triangles[triangleIndex * 3 + 2] = indices[0];
-
+				triangles[triangleIndex * 3 + 2] = indices[2];
 				triangleIndex++;
 			}
-			else if (count == 4 && quadIndex * 4 < quadCount)
+			else if (count == 4 && quadIndex < quadCount)
 			{
-				quads[quadIndex * 4 + 0] = indices[3];
-				quads[quadIndex * 4 + 1] = indices[2];
-				quads[quadIndex * 4 + 2] = indices[1];
-				quads[quadIndex * 4 + 3] = indices[0];
-
+				quads[quadIndex * 4 + 0] = indices[0];
+				quads[quadIndex * 4 + 1] = indices[1];
+				quads[quadIndex * 4 + 2] = indices[2];
+				quads[quadIndex * 4 + 3] = indices[3];
 				quadIndex++;
 			}
-			else if (count == 5 && pentagonIndex * 5 < pentagonCount)
+			else if (count == 5 && pentagonIndex < pentagonCount)
 			{
-				pentagons[pentagonIndex * 5 + 0] = indices[4];
-				pentagons[pentagonIndex * 5 + 1] = indices[3];
+				pentagons[pentagonIndex * 5 + 0] = indices[0];
+				pentagons[pentagonIndex * 5 + 1] = indices[1];
 				pentagons[pentagonIndex * 5 + 2] = indices[2];
-				pentagons[pentagonIndex * 5 + 3] = indices[1];
-				pentagons[pentagonIndex * 5 + 4] = indices[0];
-
+				pentagons[pentagonIndex * 5 + 3] = indices[3];
+				pentagons[pentagonIndex * 5 + 4] = indices[4];
 				pentagonIndex++;
 			}
-			else if (count == 6 && hexagonIndex * 6 < hexagonCount)
+			else if (count == 6 && hexagonIndex < hexagonCount)
 			{
-				hexagons[hexagonIndex * 6 + 0] = indices[5];
-				hexagons[hexagonIndex * 6 + 1] = indices[4];
-				hexagons[hexagonIndex * 6 + 2] = indices[3];
-				hexagons[hexagonIndex * 6 + 3] = indices[2];
-				hexagons[hexagonIndex * 6 + 4] = indices[1];
-				hexagons[hexagonIndex * 6 + 5] = indices[0];
-
+				hexagons[hexagonIndex * 6 + 0] = indices[0];
+				hexagons[hexagonIndex * 6 + 1] = indices[1];
+				hexagons[hexagonIndex * 6 + 2] = indices[2];
+				hexagons[hexagonIndex * 6 + 3] = indices[3];
+				hexagons[hexagonIndex * 6 + 4] = indices[4];
+				hexagons[hexagonIndex * 6 + 5] = indices[5];
 				hexagonIndex++;
 			}
 
 		}
-		*/
+		
 	}
 
 private:

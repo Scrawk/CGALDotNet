@@ -183,6 +183,13 @@ namespace CGALDotNet.Polyhedra
         FaceVertexCount GetFaceVertexCount();
 
         /// <summary>
+        /// Count the number of triangles, quads and polygons in the dual mesh.
+        /// A dual mesh is were faces become vertices and vertices become faces.
+        /// </summary>
+        /// <returns>The number of triangles, quads and polygons in the mesh.</returns>
+        FaceVertexCount GetDualFaceVertexCount();
+
+        /// <summary>
         /// Get a centroid (the avergae face position) for each face in the mesh.
         /// </summary>
         /// <param name="points">The point array.</param>
