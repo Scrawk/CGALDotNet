@@ -23,18 +23,23 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_Release(ptr);
 		}
 
+		internal override int GetBuildStamp(IntPtr ptr)
+		{
+			return Polyhedron3_EEK_GetBuildStamp(ptr);
+		}
+
 		internal override void Clear(IntPtr ptr)
 		{
 			Polyhedron3_EEK_Clear(ptr);
 		}
 
 		internal override void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges)
-        {
+		{
 			Polyhedron3_EEK_ClearIndexMaps(ptr, vertices, faces, edges);
 		}
 
 		internal override void ClearNormalMaps(IntPtr ptr, bool vertices, bool faces)
-        {
+		{
 			Polyhedron3_EEK_ClearNormalMaps(ptr, vertices, faces);
 		}
 
@@ -104,9 +109,9 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		internal override Box3d GetBoundingBox(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_GetBoundingBox(ptr);
-        }
+		}
 
 		internal override void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 		{
@@ -209,39 +214,39 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		internal override void GetCentroids(IntPtr ptr, Point3d[] points, int count)
-        {
+		{
 			Polyhedron3_EEK_GetCentroids(ptr, points, count);
 		}
 
 		internal override void ComputeVertexNormals(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_ComputeVertexNormals(ptr);
 		}
 
 		internal override void ComputeFaceNormals(IntPtr ptr)
-        {
+		{
 			Polyhedron3_EEK_ComputeFaceNormals(ptr);
 		}
 
 		internal override void GetVertexNormals(IntPtr ptr, Vector3d[] normals, int count)
-        {
+		{
 			Polyhedron3_EEK_GetVertexNormals(ptr, normals, count);
 		}
 
 		internal override void GetFaceNormals(IntPtr ptr, Vector3d[] normals, int count)
-        {
+		{
 			Polyhedron3_EEK_GetFaceNormals(ptr, normals, count);
 		}
 
 		internal override void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz)
-        {
-			Polyhedron3_EEK_CreatePolygonMesh(ptr, points, pointsCount, xz);	
-        }
+		{
+			Polyhedron3_EEK_CreatePolygonMesh(ptr, points, pointsCount, xz);
+		}
 
 		internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
-        {
+		{
 			return Polyhedron3_EEK_GetFaceVertexCount(ptr);
-        }
+		}
 
 		internal override FaceVertexCount GetDualFaceVertexCount(IntPtr ptr)
 		{
@@ -254,27 +259,27 @@ namespace CGALDotNet.Polyhedra
 			int[] quads, int quadCount,
 			int[] pentagons, int pentagonCount,
 			int[] hexagons, int hexagonCount)
-        {
-			Polyhedron3_EEK_CreatePolygonalMesh(ptr, 
-				points, pointsCount, 
-				triangles, triangleCount, 
-				quads, quadCount, pentagons, 
-				pentagonCount, 
+		{
+			Polyhedron3_EEK_CreatePolygonalMesh(ptr,
+				points, pointsCount,
+				triangles, triangleCount,
+				quads, quadCount, pentagons,
+				pentagonCount,
 				hexagons, hexagonCount);
-        }
+		}
 
 		internal override void GetPolygonalIndices(IntPtr ptr,
 			int[] triangles, int triangleCount,
 			int[] quads, int quadCount,
 			int[] pentagons, int pentagonCount,
 			int[] hexagons, int hexagonCount)
-        {
-			Polyhedron3_EEK_GetPolygonalIndices(ptr, 
-				triangles, triangleCount, 
-				quads, quadCount, 
-				pentagons, pentagonCount, 
+		{
+			Polyhedron3_EEK_GetPolygonalIndices(ptr,
+				triangles, triangleCount,
+				quads, quadCount,
+				pentagons, pentagonCount,
 				hexagons, hexagonCount);
-        }
+		}
 
 		internal override void GetDualPolygonalIndices(IntPtr ptr,
 			int[] triangles, int triangleCount,
@@ -293,10 +298,13 @@ namespace CGALDotNet.Polyhedra
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern  void Polyhedron3_EEK_Release(IntPtr ptr);
+		private static extern void Polyhedron3_EEK_Release(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern  void Polyhedron3_EEK_Clear(IntPtr ptr);
+		private static extern int Polyhedron3_EEK_GetBuildStamp(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_Clear(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);
@@ -314,7 +322,7 @@ namespace CGALDotNet.Polyhedra
 		private static extern int Polyhedron3_EEK_VertexCount(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern  int Polyhedron3_EEK_FaceCount(IntPtr ptr);
+		private static extern int Polyhedron3_EEK_FaceCount(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern int Polyhedron3_EEK_HalfEdgeCount(IntPtr ptr);

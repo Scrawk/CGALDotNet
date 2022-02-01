@@ -313,6 +313,12 @@ public:
 			return { 0,0,0 };
 	}
 
+	static int GetBuildStamp(void* ptr)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return poly->map.BuildStamp();
+	}
+
 	static void Clear(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);

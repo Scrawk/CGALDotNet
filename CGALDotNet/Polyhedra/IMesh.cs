@@ -63,6 +63,11 @@ namespace CGALDotNet.Polyhedra
         bool IsValidClosedTriangleMesh { get; }
 
         /// <summary>
+        /// The current build stamp.
+        /// </summary>
+        int BuildStamp { get; }
+
+        /// <summary>
         /// Clear the mesh.
         /// </summary>
         void Clear();

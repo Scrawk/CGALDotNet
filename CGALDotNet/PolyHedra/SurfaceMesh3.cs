@@ -40,16 +40,6 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Create a deep copy of the mesh.
-        /// </summary>
-        /// <returns>The deep copy.</returns>
-        public SurfaceMesh3<K> Copy()
-        {
-            var ptr = Kernel.Copy(Ptr);
-            return new SurfaceMesh3<K>(ptr);
-        }
-
-        /// <summary>
         /// The mesh as a string.
         /// </summary>
         /// <returns>The mesh as a string.</returns>
@@ -60,6 +50,33 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Create a deep copy of the mesh.
+        /// </summary>
+        /// <returns>The deep copy.</returns>
+        public SurfaceMesh3<K> Copy()
+        {
+            var ptr = Kernel.Copy(Ptr);
+            return new SurfaceMesh3<K>(ptr);
+        }
+
+        /// <summary>
+        /// Subdive the mesh.
+        /// </summary>
+        /// <param name="iterations">The number of iterations to perfrom.</param>
+        /// <param name="method">The subdivision method.</param>
+        public override void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.SQRT3)
+        {
+            try
+            {
+                var sub = SubdivisionSurface<K>.Instance;
+                sub.Subdivide(method, this, iterations);
+                IsUpdated = false;
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
+        /// <summary>
         /// Copy the other mesh to this one.
         /// </summary>
         /// <param name="other"></param>
@@ -67,6 +84,32 @@ namespace CGALDotNet.Polyhedra
         {
             IsUpdated = false;
             Kernel.Join(Ptr, other.Ptr);
+        }
+
+        /// <summary>
+        /// Create the dual mesh where each face becomes a vertex
+        /// and each vertex becomes a face.
+        /// Must be a valid closed mesh to create the dual.
+        /// </summary>
+        /// <returns>The duel mesh.</returns>
+        /// <exception cref="InvalidOperationException">Is thrown if the mesh is not a valid closed mesh.</exception>
+        public SurfaceMesh3<K> CreateDualMesh()
+        {
+            if (!IsValidClosedMesh)
+                throw new InvalidOperationException("Mesh must be a valid closed mesh to create a dual mesh.");
+
+            int faceCount = FaceCount;
+            var points = new Point3d[faceCount];
+            GetCentroids(points, faceCount);
+
+            var count = GetDualFaceVertexCount();
+            var indices = count.Indices();
+            GetDualPolygonalIndices(ref indices);
+
+            var dual = new SurfaceMesh3<K>();
+            dual.CreatePolygonalMesh(points, points.Length, indices);
+
+            return dual;
         }
 
         /// <summary>
@@ -1288,6 +1331,13 @@ namespace CGALDotNet.Polyhedra
         {
             return Kernel.MinMaxEdgeLength(Ptr);
         }
+
+        /// <summary>
+        /// Subdive the mesh.
+        /// </summary>
+        /// <param name="iterations">The number of iterations to perfrom.</param>
+        /// <param name="method">The subdivision method.</param>
+        public abstract void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.SQRT3);
 
         /// <summary>
         /// Get a centroid (the avergae face position) for each face in the mesh.

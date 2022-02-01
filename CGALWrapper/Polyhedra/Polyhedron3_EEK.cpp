@@ -12,6 +12,11 @@ void Polyhedron3_EEK_Release(void* ptr)
 	Polyhedron3<EEK>::DeletePolyhedron(ptr);
 }
 
+int Polyhedron3_EEK_GetBuildStamp(void* ptr)
+{
+	return Polyhedron3<EEK>::GetBuildStamp(ptr);
+}
+
 void Polyhedron3_EEK_Clear(void* ptr)
 {
 	Polyhedron3<EEK>::Clear(ptr);

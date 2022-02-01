@@ -24,14 +24,17 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var pmesh = PolyhedronFactory<EEK>.CreateCube();
-            var smesh = SurfaceMeshFactory<EEK>.CreateCube(1, true);
+            var pmesh = PolyhedronFactory<EEK>.CreateIcosahedron();
+            var smesh = SurfaceMeshFactory<EEK>.CreateIcosahedron();
+
+            var pdual = pmesh.CreateDualMesh();
+            var sdual = smesh.CreateDualMesh();
 
             pmesh.Print();
+            smesh.Print();
 
-            var dual = pmesh.CreateDualMesh();   
-            
-            dual.Print();
+            pdual.Print();
+            sdual.Print();
   
         }
 

@@ -13,6 +13,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void Release(IntPtr ptr);
 
+		internal abstract int GetBuildStamp(IntPtr ptr);
+
 		internal abstract void Clear(IntPtr ptr);
 
 		internal abstract void ClearIndexMaps(IntPtr ptr, bool vertices, bool faces, bool edges);

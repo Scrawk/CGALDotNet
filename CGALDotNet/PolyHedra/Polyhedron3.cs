@@ -328,6 +328,11 @@ namespace CGALDotNet.Polyhedra
         public int BorderHalfEdgeCount => Kernel.BorderHalfEdgeCount(Ptr);
 
         /// <summary>
+        /// The current build stamp.
+        /// </summary>
+        public int BuildStamp => Kernel.GetBuildStamp(Ptr);
+
+        /// <summary>
         /// Returns true if the polyhedral surface is combinatorially consistent.
         /// Must be a valid mesh to check many other properties.
         /// </summary>
@@ -1214,6 +1219,7 @@ namespace CGALDotNet.Polyhedra
             Update();
 
             builder.AppendLine(ToString());
+            builder.AppendLine("BuildStamp = " + BuildStamp);
             builder.AppendLine("VertexCount = " + VertexCount);
             builder.AppendLine("FaceCount= " + FaceCount);
             builder.AppendLine("HalfEdgeCount = " + HalfEdgeCount);
