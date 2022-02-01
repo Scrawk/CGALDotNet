@@ -298,7 +298,7 @@ void SurfaceMesh3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 	SurfaceMesh3<EEK>::GetPoints(ptr, points, count);
 }
 
-void SurfaceMesh3_EEK_SetPoint(void* ptr, int index, Point3d point)
+void SurfaceMesh3_EEK_SetPoint(void* ptr, int index, const Point3d& point)
 {
 	SurfaceMesh3<EEK>::SetPoint(ptr, index, point);
 }

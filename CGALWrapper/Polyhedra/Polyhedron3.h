@@ -177,10 +177,22 @@ public:
 		return map.FindVertexIndex(vert);
 	}
 
-	Vertex_Des* FindVertex(int index)
+	Vertex_Des* FindVertexDes(int index)
+	{
+		map.BuildVertexMaps(model);
+		return map.FindVertexDes(index);
+	}
+
+	Vertex* FindVertex(int index)
 	{
 		map.BuildVertexMaps(model);
 		return map.FindVertex(index);
+	}
+
+	Vertex* GetVertex(int index)
+	{
+		map.BuildVertexMaps(model);
+		return map.GetVertex(index);
 	}
 
 	int FindFaceIndex(Face_Des face)
@@ -189,10 +201,10 @@ public:
 		return map.FindFaceIndex(face);
 	}
 
-	Face_Des* FindFace(int index)
+	Face_Des* FindFaceDes(int index)
 	{
 		map.BuildFaceMaps(model);
-		return map.FindFace(index);
+		return map.FindFaceDes(index);
 	}
 
 	int FindHalfedgeIndex(Halfedge_Des edge)
@@ -201,10 +213,10 @@ public:
 		return map.FindHalfedgeIndex(edge);
 	}
 
-	Edge_Des* FindEdge(int index)
+	Edge_Des* FindHalfdgeDes(int index)
 	{
 		map.BuildEdgeMaps(model);
-		return map.FindHalfedge(index);
+		return map.FindHalfedgeDes(index);
 	}
 
 	Vector FindVertexNormal(Vertex_Des vert)
@@ -369,17 +381,54 @@ public:
 		poly->model.make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
 	}
 
+	static Point3d GetPoint(void* ptr, int index)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto vertex = poly->FindVertex(index);
+		if (vertex != nullptr)
+			return Point3d::FromCGAL(vertex->point());
+		else
+			return { 0, 0, 0 };
+	}
+
 	static void GetPoints(void* ptr, Point3d* points, int count)
 	{
 		auto poly = CastToPolyhedron(ptr);
 		int i = 0;
 
-		for (auto point = poly->model.points_begin(); point != poly->model.points_end(); ++point)
+		for (const auto point : poly->model.points())
 		{
-			points[i++] = Point3d::FromCGAL<K>(*point);
-
+			points[i++] = Point3d::FromCGAL<K>(point);
 			if (i >= count) return;
 		}
+	}
+
+	static void SetPoint(void* ptr, int index, const Point3d& point)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto vertex = poly->FindVertex(index);
+		if (vertex != nullptr)
+			vertex->point() = point.ToCGAL<K>();
+	}
+
+	static void SetPoints(void* ptr, Point3d* points, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		for (int i = 0; i < count; i++)
+		{
+			auto vertex = poly->GetVertex(i);
+			vertex->point() = points[i].ToCGAL<K>();
+		}
+
+		//int i = 0;
+		//for (auto& point : poly->model.points())
+		//{
+		//	point = points[i++].ToCGAL<K>();
+		//	if (i >= count) return;
+		//}
 	}
 
 	static void Transform(void* ptr, const Matrix4x4d& matrix)

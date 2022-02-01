@@ -173,7 +173,7 @@ namespace CGALDotNet.Polyhedra
     /// <summary>
     /// The surface mesh abstract base class.
     /// </summary>
-    public abstract class SurfaceMesh3 : CGALObject, IMesh, IEnumerable<Point3d>
+    public abstract class SurfaceMesh3 : CGALObject, IMesh
     {
         /// <summary>
         /// Cached values found by running Update.
@@ -579,19 +579,12 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="index">The vertex index in the mesh.</param>
         /// <returns>The vertices point.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If index is out of range.</exception>
         public Point3d GetPoint(int index)
         {
-            return Kernel.GetPoint(Ptr, index);
-        }
+            if(index < 0 || index >= VertexCount) 
+                    throw new ArgumentOutOfRangeException("Index must be a number >= 0 and < count");
 
-        /// <summary>
-        /// Get the vertices point.
-        /// </summary>
-        /// <param name="index">The vertex index in the mesh. Will be clamped to size of points.</param>
-        /// <returns>The vertices point.</returns>
-        public Point3d GetPointClamped(int index)
-        {
-            index = CGALGlobal.Clamp(index, 0, VertexCount - 1);
             return Kernel.GetPoint(Ptr, index);
         }
 
@@ -610,9 +603,14 @@ namespace CGALDotNet.Polyhedra
         /// Set the point at the index.
         /// </summary>
         /// <param name="index">The points index</param>
-        /// <param name="point">The points</param>
+        /// <param name="point">The points</param>am>
+        /// <exception cref="ArgumentOutOfRangeException">If index is out of range.</exception>
         public void SetPoint(int index, Point3d point)
         {
+            if (index < 0 || index >= VertexCount)
+                throw new ArgumentOutOfRangeException("Index must be a number >= 0 and < count");
+
+
             IsUpdated = false;
             Kernel.SetPoint(Ptr, index, point);
         }
@@ -1465,9 +1463,9 @@ namespace CGALDotNet.Polyhedra
         public abstract void ReverseFaceOrientation();
 
         /// <summary>
-        /// Enumerate all points in the polygon.
+        /// Enumerate all points in the mesh.
         /// </summary>
-        /// <returns>Each point in polygon.</returns>
+        /// <returns>Each point in mesh.</returns>
         public IEnumerator<Point3d> GetEnumerator()
         {
             for (int i = 0; i < VertexCount; i++)
@@ -1475,9 +1473,9 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Enumerate all points in the polygon.
+        /// Enumerate all points in the mesh.
         /// </summary>
-        /// <returns>Each point in polygon.</returns>
+        /// <returns>Each point in mesh.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();

@@ -56,7 +56,13 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3);
 
+	CGALWRAPPER_API Point3d Polyhedron3_EEK_GetPoint(void* ptr, int index);
+
 	CGALWRAPPER_API void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_SetPoint(void* ptr, int index, const Point3d& point);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_SetPoints(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix);
 

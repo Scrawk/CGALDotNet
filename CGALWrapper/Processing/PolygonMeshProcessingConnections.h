@@ -80,7 +80,7 @@ public:
 		auto con = CastToPolygonMeshProcessingConnections(ptr);
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 
-		auto face = mesh->FindFace(index);
+		auto face = mesh->FindFaceDes(index);
 		if (face != nullptr)
 		{
 			con->polyhedron_face_buffer.clear();

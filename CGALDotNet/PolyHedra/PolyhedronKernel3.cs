@@ -53,7 +53,13 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
 
+		internal abstract Point3d GetPoint(IntPtr ptr, int index);
+
 		internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
+
+		internal abstract void SetPoint(IntPtr ptr, int index, Point3d point);
+
+		internal abstract void SetPoints(IntPtr ptr, Point3d[] points, int count);
 
 		internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
 

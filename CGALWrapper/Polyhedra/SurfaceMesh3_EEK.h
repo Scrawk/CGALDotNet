@@ -127,7 +127,7 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetPoints(void* ptr, Point3d* points, int count);
 
-	CGALWRAPPER_API void SurfaceMesh3_EEK_SetPoint(void* ptr, int index, Point3d point);
+	CGALWRAPPER_API void SurfaceMesh3_EEK_SetPoint(void* ptr, int index, const Point3d& point);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_SetPoints(void* ptr, Point3d* points, int count);
 

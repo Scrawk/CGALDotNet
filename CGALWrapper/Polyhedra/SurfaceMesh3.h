@@ -779,7 +779,7 @@ public:
 		}
 	}
 
-	static void SetPoint(void* ptr, int index, Point3d point)
+	static void SetPoint(void* ptr, int index, const Point3d& point)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 

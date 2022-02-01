@@ -24,18 +24,27 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var pmesh = PolyhedronFactory<EEK>.CreateIcosahedron();
+            var pmesh = PolyhedronFactory<EEK>.CreateCube();
             var smesh = SurfaceMeshFactory<EEK>.CreateIcosahedron();
 
-            var pdual = pmesh.CreateDualMesh();
-            var sdual = smesh.CreateDualMesh();
+            Console.WriteLine("before");
+            foreach (var point in pmesh)
+                Console.WriteLine(point);
 
-            pmesh.Print();
-            smesh.Print();
+            var points = new Point3d[pmesh.VertexCount];
 
-            pdual.Print();
-            sdual.Print();
-  
+            for (int i = 0; i < pmesh.VertexCount; i++)
+            {
+                points[i] = new Point3d(1, 2, 3);
+                //pmesh.SetPoint(i, new Point3d(1, 2, 3));
+            }
+
+            pmesh.SetPoints(points, points.Length);
+
+            Console.WriteLine("before");
+            foreach (var point in pmesh)
+                Console.WriteLine(point);
+
         }
 
     }

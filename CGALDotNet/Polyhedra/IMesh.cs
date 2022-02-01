@@ -6,7 +6,7 @@ using CGALDotNet.Geometry;
 
 namespace CGALDotNet.Polyhedra
 {
-    public interface IMesh
+    public interface IMesh : IEnumerable<Point3d>
     {
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="points">The faces points</param>
         /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
-        //void CreatePolygonMesh(Point2d[] points, int count, bool xz);
+        void CreatePolygonMesh(Point2d[] points, int count, bool xz);
 
         /// <summary>
         /// Get the triangle and quad indices.
@@ -175,11 +175,42 @@ namespace CGALDotNet.Polyhedra
         void GetDualPolygonalIndices(ref FaceVertexCountIndices indices);
 
         /// <summary>
-        /// Get the meshes points.
+        /// Array accessor for the polygon.
+        /// Getting a point wraps around the polygon.
         /// </summary>
-        /// <param name="points">The array to copy the points into.</param>
-        /// <param name="count">The ararys length.</param>
+        /// <param name="i">The points index.</param>
+        /// <returns>The vertices point.</returns>
+        Point3d this[int i] { get; set; }
+
+        /// <summary>
+        /// Get the vertices point.
+        /// </summary>
+        /// <param name="index">The vertex index in the mesh.</param>
+        /// <returns>The vertices point.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If index is out of range.</exception>
+        Point3d GetPoint(int index);
+
+        /// <summary>
+        /// Get the points in the mesh.
+        /// </summary>
+        /// <param name="points">The array to copy points into.</param>
+        /// <param name="count">The point array length.</param>
         void GetPoints(Point3d[] points, int count);
+
+        /// <summary>
+        /// Set the point at the index.
+        /// </summary>
+        /// <param name="index">The points index</param>
+        /// <param name="point">The points</param>am>
+        /// <exception cref="ArgumentOutOfRangeException">If index is out of range.</exception>
+        void SetPoint(int index, Point3d point);
+
+        /// <summary>
+        /// Set the points from a array.
+        /// </summary>
+        /// <param name="points">The point array.</param>
+        /// <param name="count">The point arrays length.</param>
+        void SetPoints(Point3d[] points, int count);
 
         /// <summary>
         /// Count the number of triangles, quads and polygons in the mesh.

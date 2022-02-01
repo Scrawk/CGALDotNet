@@ -692,14 +692,67 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Get the meshes points.
+        /// Array accessor for the polygon.
+        /// Getting a point wraps around the polygon.
         /// </summary>
-        /// <param name="points">The array to copy the points into.</param>
-        /// <param name="count">The ararys length.</param>
+        /// <param name="i">The points index.</param>
+        /// <returns>The vertices point.</returns>
+        public Point3d this[int i]
+        {
+            get => GetPoint(i);
+            set => SetPoint(i, value);
+        }
+
+        /// <summary>
+        /// Get the vertices point.
+        /// </summary>
+        /// <param name="index">The vertex index in the mesh.</param>
+        /// <returns>The vertices point.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If index is out of range.</exception>
+        public Point3d GetPoint(int index)
+        {
+            if (index < 0 || index >= VertexCount)
+                throw new ArgumentOutOfRangeException("Index must be a number >= 0 and < count");
+
+            return Kernel.GetPoint(Ptr, index);
+        }
+
+        /// <summary>
+        /// Get the points in the mesh.
+        /// </summary>
+        /// <param name="points">The array to copy points into.</param>
+        /// <param name="count">The point array length.</param>
         public void GetPoints(Point3d[] points, int count)
         {
             ErrorUtil.CheckArray(points, count);
             Kernel.GetPoints(Ptr, points, count);
+        }
+
+        /// <summary>
+        /// Set the point at the index.
+        /// </summary>
+        /// <param name="index">The points index</param>
+        /// <param name="point">The points</param>am>
+        /// <exception cref="ArgumentOutOfRangeException">If index is out of range.</exception>
+        public void SetPoint(int index, Point3d point)
+        {
+            if (index < 0 || index >= VertexCount)
+                throw new ArgumentOutOfRangeException("Index must be a number >= 0 and < count");
+
+            IsUpdated = false;
+            Kernel.SetPoint(Ptr, index, point);
+        }
+
+        /// <summary>
+        /// Set the points from a array.
+        /// </summary>
+        /// <param name="points">The point array.</param>
+        /// <param name="count">The point arrays length.</param>
+        public void SetPoints(Point3d[] points, int count)
+        {
+            ErrorUtil.CheckArray(points, count);
+            IsUpdated = false;
+            Kernel.SetPoints(Ptr, points, count);
         }
 
         /// <summary>
@@ -1141,6 +1194,25 @@ namespace CGALDotNet.Polyhedra
         /// <param name="num_components_to_keep">The numbero of largest components to keep.</param>
         /// <returns>The number of components removed in the mesh.</returns>
         public abstract int KeepLargest(int num_components_to_keep = 1);
+
+        /// <summary>
+        /// Enumerate all points in the mesh.
+        /// </summary>
+        /// <returns>Each point in mesh.</returns>
+        public IEnumerator<Point3d> GetEnumerator()
+        {
+            for (int i = 0; i < VertexCount; i++)
+                yield return GetPoint(i);
+        }
+
+        /// <summary>
+        /// Enumerate all points in the mesh.
+        /// </summary>
+        /// <returns>Each point in mesh.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         /// <summary>
         /// Read data from a off file into the pollyhedron.

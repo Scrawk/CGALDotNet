@@ -112,9 +112,24 @@ void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 	Polyhedron3<EEK>::MakeTriangle(ptr, p1, p2, p3);
 }
 
+Point3d Polyhedron3_EEK_GetPoint(void* ptr, int index)
+{
+	return Polyhedron3<EEK>::GetPoint(ptr, index);
+}
+
 void Polyhedron3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 {
-	Polyhedron3<EEK>::GetPoints(ptr, points, count);
+	return Polyhedron3<EEK>::GetPoints(ptr, points, count);
+}
+
+void Polyhedron3_EEK_SetPoint(void* ptr, int index, const Point3d& point)
+{
+	Polyhedron3<EEK>::SetPoint(ptr, index, point);
+}
+
+void Polyhedron3_EEK_SetPoints(void* ptr, Point3d* points, int count)
+{
+	Polyhedron3<EEK>::SetPoints(ptr, points, count);
 }
 
 void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix)
@@ -282,6 +297,8 @@ void Polyhedron3_EEK_GetDualPolygonalIndices(void* ptr,
 		pentagons, pentagonCount,
 		hexagons, hexagonCount);
 }
+
+
 
 
 
