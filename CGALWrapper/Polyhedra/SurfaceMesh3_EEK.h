@@ -191,6 +191,8 @@ extern "C"
 
 	CGALWRAPPER_API FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(void* ptr);
 
+	CGALWRAPPER_API void SurfaceMesh3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int count, BOOL xz);
+
 	CGALWRAPPER_API void SurfaceMesh3_EEK_CreatePolygonalMesh(void* ptr,
 		Point3d* points, int pointsCount,
 		int* triangles, int triangleCount,

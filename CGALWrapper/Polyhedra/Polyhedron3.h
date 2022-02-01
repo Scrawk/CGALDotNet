@@ -64,18 +64,6 @@ private:
 
 	PolyhedronMap<K> map;
 
-	//std::unordered_map<Vertex_Des, int> vertexIndexMap;
-	//std::vector<Vertex_Des> vertexMap;
-	//bool rebuildVertexIndexMap = true;
-
-	//std::unordered_map<Face_Des, int> faceIndexMap;
-	//std::vector<Face_Des> faceMap;
-	//bool rebuildFaceIndexMap = true;
-
-	//std::unordered_map<Halfedge_Des, int> edgeIndexMap;
-	//std::vector<Halfedge_Des> edgeMap;
-	//bool rebuildEdgeIndexMap = true;
-
 	std::unordered_map<Vertex_Des, Vector> vertexNormalMap;
 	bool rebuildVertexNormalMap = true;
 
@@ -131,32 +119,6 @@ public:
 		rebuildFaceNormalMap = true;
 	}
 
-	/*
-	void OnVertexIndicesChanged()
-	{
-		vertexMap.clear();
-		vertexMap.reserve(0);
-		vertexIndexMap.clear();
-		rebuildVertexIndexMap = true;
-	}
-
-	void OnFaceIndicesChanged()
-	{
-		faceMap.clear();
-		faceMap.reserve(0);
-		faceIndexMap.clear();
-		rebuildFaceIndexMap = true;
-	}
-
-	void OnEdgeIndicesChanged()
-	{
-		edgeMap.clear();
-		edgeMap.reserve(0);
-		edgeIndexMap.clear();
-		rebuildEdgeIndexMap = true;
-	}
-	*/
-
 	void OnVerticesChanged()
 	{
 		OnVertexNormalsChanged();
@@ -208,65 +170,6 @@ public:
 			CGAL::Polygon_mesh_processing::build_AABB_tree(model, *tree);
 		}
 	}
-
-	/*
-	void BuildVertexIndexMap(bool force = false)
-	{
-		if (!force && !rebuildVertexIndexMap) return;
-		rebuildVertexIndexMap = false;
-
-		auto count = model.size_of_vertices();
-		vertexMap.resize(count);
-		vertexIndexMap.clear();
-
-		int index = 0;
-		for (auto vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
-		{
-			//vert->id() = index;
-			vertexMap[index] = vert;
-			vertexIndexMap.insert(std::pair<Vertex_Des, int>(vert, index));
-			index++;
-		}
-	}
-
-	void BuildFaceIndexMap(bool force = false)
-	{
-		if (!force && !rebuildFaceIndexMap) return;
-		rebuildFaceIndexMap = false;
-
-		auto count = model.size_of_facets();
-		faceMap.resize(count);
-		faceIndexMap.clear();
-
-		int index = 0;
-		for (auto face = model.facets_begin(); face != model.facets_end(); ++face)
-		{
-			//face->id() = index;
-			faceMap[index] = face;
-			faceIndexMap.insert(std::pair<Face_Des, int>(face, index));
-			index++;
-		}
-	}
-
-	void BuildEdgeIndexMap(bool force = false)
-	{
-		if (!force && !rebuildEdgeIndexMap) return;
-		rebuildEdgeIndexMap = false;
-
-		auto count = model.size_of_halfedges();
-		edgeMap.resize(count);
-		edgeIndexMap.clear();
-
-		int index = 0;
-		for (auto edge = model.halfedges_begin(); edge != model.halfedges_end(); ++edge)
-		{
-			//edge->id() = index;
-			edgeMap[index] = edge;
-			edgeIndexMap.insert(std::pair<Halfedge_Handle, int>(edge, index));
-			index++;
-		}
-	}
-	*/
 
 	int FindVertexIndex(Vertex_Des vert)
 	{

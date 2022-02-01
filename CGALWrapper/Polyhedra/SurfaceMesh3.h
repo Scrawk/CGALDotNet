@@ -1223,6 +1223,28 @@ public:
 		return { degenerate, three, four, five, six, greater };
 	}
 
+	static void CreatePolygonMesh(void* ptr, Point2d* points, int count, BOOL xz)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		std::vector<Vertex> face(count);
+		for (int i = 0; i < count; i++)
+		{
+			if (xz)
+			{
+				auto p = points[i].ToCGAL3XZ<K>();
+				face[i] = mesh->model.add_vertex(p);
+			}
+			else
+			{
+				auto p = points[i].ToCGAL3<K>();
+				face[i] = mesh->model.add_vertex(p);
+			}
+		}
+
+		mesh->model.add_face(face);
+	}
+
 	static void CreatePolygonalMesh(void* ptr,
 		Point3d* points, int pointsCount,
 		int* triangles, int trianglesCount, 

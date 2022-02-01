@@ -458,6 +458,11 @@ namespace CGALDotNet.Polyhedra
             return SurfaceMesh3_EEK_GetDualFaceVertexCount(ptr);
         }
 
+        internal override void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int count, bool xz)
+        {
+            SurfaceMesh3_EEK_CreatePolygonMesh(ptr, points, count, xz);
+        }
+
         internal override void CreatePolygonalMesh(IntPtr ptr,
             Point3d[] points, int pointsCount,
             int[] triangles, int triangleCount,
@@ -765,6 +770,9 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_CreatePolygonMesh(IntPtr ptr, Point2d[] points, int count, bool xz);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_CreatePolygonalMesh(IntPtr ptr,

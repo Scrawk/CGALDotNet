@@ -458,6 +458,11 @@ FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(void* ptr)
 	return SurfaceMesh3<EEK>::GetDualFaceVertexCount(ptr);
 }
 
+void SurfaceMesh3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int count, BOOL xz)
+{
+	SurfaceMesh3<EEK>::CreatePolygonMesh(ptr, points, count, xz);
+}
+
 void SurfaceMesh3_EEK_CreatePolygonalMesh(void* ptr,
 	Point3d* points, int pointsCount,
 	int* triangles, int triangleCount,

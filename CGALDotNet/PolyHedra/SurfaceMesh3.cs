@@ -87,6 +87,21 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Create a mesh consisting of one polygon face.
+        /// </summary>
+        /// <param name="polygon">The faces polygon.</param>
+        /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the polygon is not simple.</exception>
+        public void CreatePolygonMesh(Polygon2<K> polygon, bool xz)
+        {
+            if (!polygon.IsSimple)
+                throw new InvalidOperationException("Polygon must be simple to convert to mesh mesh.");
+
+            var points = polygon.ToArray();
+            CreatePolygonMesh(points, points.Length, xz);
+        }
+
+        /// <summary>
         /// Create the dual mesh where each face becomes a vertex
         /// and each vertex becomes a face.
         /// Must be a valid closed mesh to create the dual.
@@ -471,6 +486,50 @@ namespace CGALDotNet.Polyhedra
         {
             IsUpdated = false;
             return Kernel.AddQuad(Ptr, v0, v1, v2, v3);
+        }
+
+        /// <summary>
+        /// Adds a pentagon face to the mesh.
+        /// </summary>
+        /// <param name="v0">The index of the vertex in the mesh.</param>
+        /// <param name="v1">The index of the vertex in the mesh.</param>
+        /// <param name="v2">The index of the vertex in the mesh.</param>
+        /// <param name="v3">The index of the vertex in the mesh.</param>
+        /// <param name="v4">The index of the vertex in the mesh.</param>
+        /// <returns>The index of the face in the mesh.</returns>
+        public int AddPentagon(int v0, int v1, int v2, int v3, int v4)
+        {
+            IsUpdated = false;
+            return Kernel.AddPentagon(Ptr, v0, v1, v2, v3, v4);
+        }
+
+        /// <summary>
+        /// Adds a hexagon face to the mesh.
+        /// </summary>
+        /// <param name="v0">The index of the vertex in the mesh.</param>
+        /// <param name="v1">The index of the vertex in the mesh.</param>
+        /// <param name="v2">The index of the vertex in the mesh.</param>
+        /// <param name="v3">The index of the vertex in the mesh.</param>
+        /// <param name="v4">The index of the vertex in the mesh.</param>
+        /// <param name="v5">The index of the vertex in the mesh.</param>
+        /// <returns>The index of the face in the mesh.</returns>
+        public int AddHexagon(int v0, int v1, int v2, int v3, int v4, int v5)
+        {
+            IsUpdated = false;
+            return Kernel.AddHexagon(Ptr, v0, v1, v2, v3, v4, v5);
+        }
+
+        /// <summary>
+        /// Add a polygon face to the mesh.
+        /// </summary>
+        /// <param name="indices">The indices of the points in the mesm.</param>
+        /// <param name="count">The indices array length.</param>
+        /// <returns>The index of the face in the mesh.</returns>
+        public int AddPolygon(int[] indices, int count)
+        {
+            ErrorUtil.CheckArray(indices, count);
+            IsUpdated = false;
+            return Kernel.AddFace(Ptr, indices, count);
         }
 
         /// <summary>
@@ -939,14 +998,14 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <param name="points">The faces points</param>
         /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
-        //public void CreatePolygonMesh(Point2d[] points, int count, bool xz)
-        //{
-        //    ErrorUtil.CheckArray(points, count);
-        //
-        //    Clear();
-        //    IsUpdated = false;
-        //    Kernel.CreatePolygonMesh(Ptr, points, count, xz);
-        //}
+        public void CreatePolygonMesh(Point2d[] points, int count, bool xz)
+        {
+            ErrorUtil.CheckArray(points, count);
+
+            Clear();
+            IsUpdated = false;
+            Kernel.CreatePolygonMesh(Ptr, points, count, xz);
+        }
 
         /// <summary>
         /// Get the triangle and quad indices.
