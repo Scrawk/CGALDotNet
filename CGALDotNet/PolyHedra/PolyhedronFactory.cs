@@ -12,11 +12,30 @@ namespace CGALDotNet.Polyhedra
 		private static List<int> triangles = new List<int>();
 		private static List<int> quads = new List<int>();
 
-		public static Polyhedron3<K> CreateCube( double scale = 1, bool allowQuads = false)
+		public static Dictionary<string, Polyhedron3<K>> CreateAll(bool allowPolygons = false)
+        {
+			var meshes = new Dictionary<string, Polyhedron3<K>>();
+
+			meshes.Add("Cube", CreateCube(1, allowPolygons));
+			meshes.Add("Plane", CreatePlane(allowPolygons));
+			meshes.Add("Torus", CreateTorus(allowPolygons));
+			meshes.Add("Cone", CreateCone(allowPolygons));
+			meshes.Add("Cylinder", CreateCylinder(allowPolygons));
+			meshes.Add("UVSphere", CreateUVSphere(allowPolygons));
+			meshes.Add("NormalizedCube", CreateNormalizedCube(allowPolygons));
+			meshes.Add("Icosahedron", CreateIcosahedron());
+			meshes.Add("Tetrahedron", CreateTetrahedron());
+			meshes.Add("Octahedron", CreateOctahedron());
+			meshes.Add("Dodecahedron", CreateDodecahedron());
+
+			return meshes;
+		}
+
+		public static Polyhedron3<K> CreateCube( double scale = 1, bool allowPolygons = false)
 		{
 			var mesh = new Polyhedron3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
 				points.Clear();
 				triangles.Clear();
@@ -35,11 +54,11 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateCube(Box3d box, bool allowQuads = false)
+		public static Polyhedron3<K> CreateCube(Box3d box, bool allowPolygons = false)
 		{
 			var mesh = new Polyhedron3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
 				points.Clear();
 				triangles.Clear();
@@ -58,16 +77,16 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreatePlane(bool allowQuads = false)
+		public static Polyhedron3<K> CreatePlane(bool allowPolygons = false)
         {
-			return CreatePlane(PlaneParams.Default, allowQuads);
+			return CreatePlane(PlaneParams.Default, allowPolygons);
         }
 
-		public static Polyhedron3<K> CreatePlane(PlaneParams param, bool allowQuads = false)
+		public static Polyhedron3<K> CreatePlane(PlaneParams param, bool allowPolygons = false)
 		{
 			var mesh = new Polyhedron3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
             {
 				points.Clear();
 				triangles.Clear();
@@ -86,16 +105,16 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateTorus(bool allowQuads = false)
+		public static Polyhedron3<K> CreateTorus(bool allowPolygons = false)
         {
-			return CreateTorus(TorusParams.Default, allowQuads);
+			return CreateTorus(TorusParams.Default, allowPolygons);
         }
 
-		public static Polyhedron3<K> CreateTorus(TorusParams param, bool allowQuads = false)
+		public static Polyhedron3<K> CreateTorus(TorusParams param, bool allowPolygons = false)
 		{
 			var mesh = new Polyhedron3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
 				points.Clear();
 				triangles.Clear();
@@ -114,27 +133,27 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateCone(bool allowQuads = false)
+		public static Polyhedron3<K> CreateCone(bool allowPolygons = false)
 		{
-			return CreateCone(CylinderParams.Default, allowQuads);
+			return CreateCone(CylinderParams.Default, allowPolygons);
 		}
 
-		public static Polyhedron3<K> CreateCone(CylinderParams param, bool allowQuads = false)
+		public static Polyhedron3<K> CreateCone(CylinderParams param, bool allowPolygons = false)
         {
 			param.radiusTop = 0;
-			return CreateCylinder(param, allowQuads);
+			return CreateCylinder(param, allowPolygons);
 		}
 
-		public static Polyhedron3<K> CreateCylinder(bool allowQuads = false)
+		public static Polyhedron3<K> CreateCylinder(bool allowPolygons = false)
         {
-			return CreateCylinder(CylinderParams.Default, allowQuads);
+			return CreateCylinder(CylinderParams.Default, allowPolygons);
         }
 
-		public static Polyhedron3<K> CreateCylinder(CylinderParams param, bool allowQuads = false)
+		public static Polyhedron3<K> CreateCylinder(CylinderParams param, bool allowPolygons = false)
 		{
 			var mesh = new Polyhedron3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
 				points.Clear();
 				triangles.Clear();
@@ -153,16 +172,16 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateUVSphere(bool allowQuads = false)
+		public static Polyhedron3<K> CreateUVSphere(bool allowPolygons = false)
         {
-			return CreateUVSphere(UVSphereParams.Default, allowQuads);
+			return CreateUVSphere(UVSphereParams.Default, allowPolygons);
         }
 
-		public static Polyhedron3<K> CreateUVSphere(UVSphereParams param, bool allowQuads = false)
+		public static Polyhedron3<K> CreateUVSphere(UVSphereParams param, bool allowPolygons = false)
 		{
 			var mesh = new Polyhedron3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
 				points.Clear();
 				triangles.Clear();
@@ -181,16 +200,16 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateNormalizedCube(bool allowQuads = false)
+		public static Polyhedron3<K> CreateNormalizedCube(bool allowPolygons = false)
         {
-			return CreateNormalizedCube(NormalizedCubeParams.Default, allowQuads);
+			return CreateNormalizedCube(NormalizedCubeParams.Default, allowPolygons);
         }
 
-		public static Polyhedron3<K> CreateNormalizedCube(NormalizedCubeParams param, bool allowQuads = false)
+		public static Polyhedron3<K> CreateNormalizedCube(NormalizedCubeParams param, bool allowPolygons = false)
 		{
 			var mesh = new Polyhedron3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
 				points.Clear();
 				triangles.Clear();
@@ -209,11 +228,11 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateIcosahedron(double scale = 1)
+		public static Polyhedron3<K> CreateTetrahedron(double scale = 1)
 		{
 			points.Clear();
 			triangles.Clear();
-			MeshFactory.CreateIcosahedron(points, triangles, scale);
+			MeshFactory.CreateTetrahedron(points, triangles, scale);
 
 			var mesh = new Polyhedron3<K>();
 			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
@@ -221,11 +240,11 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateTetrahedron(double scale = 1)
+		public static Polyhedron3<K> CreateIcosahedron(double scale = 1)
 		{
 			points.Clear();
 			triangles.Clear();
-			MeshFactory.CreateTetrahedron(points, triangles, scale);
+			MeshFactory.CreateIcosahedron(points, triangles, scale);
 
 			var mesh = new Polyhedron3<K>();
 			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);

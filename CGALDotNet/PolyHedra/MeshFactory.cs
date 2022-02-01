@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 using CGALDotNet.Geometry;
 
@@ -120,6 +120,8 @@ namespace CGALDotNet.Polyhedra
 	/// </summary>
 	public static class MeshFactory
     {
+
+		private const double WELD_EPS = 1e-4;
 
 		private static Point3d[] Origins =
 		{
@@ -469,7 +471,7 @@ namespace CGALDotNet.Polyhedra
 				}
 			}
 
-			WeldVertices(points, triangles, quads, 1e-4);
+			WeldVertices(points, triangles, quads);
 		}
 
 		/// <summary>
@@ -693,7 +695,7 @@ namespace CGALDotNet.Polyhedra
 				}
 			}
 
-			WeldVertices(points, triangles, quads, 1e-4);
+			WeldVertices(points, triangles, quads);
 		}
 
 		/// <summary>
@@ -771,7 +773,7 @@ namespace CGALDotNet.Polyhedra
 			if (param.radiusBottom > 0)
 				GenerateCap(points, triangles, param, false, ref index);
 
-			//WeldVertices(points, triangles, quads, 1e-4);
+			WeldVertices(points, triangles, quads);
 		}
 
 		/// <summary>
@@ -830,6 +832,58 @@ namespace CGALDotNet.Polyhedra
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="indices"></param>
+		/// <param name="indexTable"></param>
+		/// <param name="pointTable"></param>
+		private static void RemapIndices(List<Point3d> points, 
+			List<int> indices, 
+			Dictionary<int, List<Point3d>> indexTable, 
+			Dictionary<Point3d, int> pointTable)
+        {
+			if (indices == null) return;
+
+			for (int k = 0; k < indices.Count; k++)
+			{
+				int i = indices[k];
+
+				if (indexTable.ContainsKey(i))
+				{
+					var point = indexTable[i].First();
+					i = pointTable[point];
+					indices[k] = i;
+				}
+				else
+				{
+					var point = points[i];
+
+					if (!pointTable.ContainsKey(point))
+						pointTable.Add(point, i);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="points"></param>
+		/// <param name="indices"></param>
+		/// <param name="newPoints"></param>
+		private static void RemapIndices(List<Point3d> points, List<int> indices, List<Point3d> newPoints)
+        {
+			if (indices == null) return;
+
+			for (int k = 0; k < indices.Count; k++)
+			{
+				int i = indices[k];
+				var point = points[i];
+				indices[k] = newPoints.IndexOf(point);
+			}
+		}
+
+		/// <summary>
 		/// Welds duplicate vertices given some threshold.
 		/// This is not optimized and will be slow for large point sets.
 		/// </summary>
@@ -837,104 +891,66 @@ namespace CGALDotNet.Polyhedra
 		/// <param name="triangles">The triangle indices to remap.</param>
 		/// <param name="quads">The quad indices to remap.</param>
 		/// <param name="threshold">The distance threshold for points.</param>
-		private static void WeldVertices(List<Point3d> points, List<int> triangles, List<int> quads, double threshold)
+		private static void WeldVertices(List<Point3d> points, List<int> triangles, List<int> quads)
         {
-			double sqthreshold = threshold * threshold;
+			double sqthreshold = WELD_EPS * WELD_EPS;
 
-			//Find 
-
-			Dictionary<int, int> table = new Dictionary<int, int>();
-			for(int i = 0; i < points.Count; i++)
-            {
+			//Find the points that are to close and put them in a list together.
+			//That set then goes in a dictionary with any one of the indices as the key.
+			var indexTable = new Dictionary<int, List<Point3d>>();
+			for (int i = 0; i < points.Count; i++)
+			{
 				for (int j = 0; j < points.Count; j++)
 				{
 					if (i == j) continue;
-					//has been remapped so contiune.
-					if (table.ContainsKey(j)) continue;
 
 					double sqdist = Point3d.SqrDistance(points[i], points[j]);
-
-					if(sqdist < threshold)
-                    {
-						// Vertices too close.
-						// i stays were it is add j now points to i.
-						table[i] = i;
-						table[j] = i;
+					if (sqdist <= sqthreshold)
+					{
+						if(indexTable.ContainsKey(i))
+                        {
+							indexTable[i].Add(points[i]);
+							indexTable[i].Add(points[j]);
+						}
+						else if (indexTable.ContainsKey(j))
+						{
+							indexTable[j].Add(points[i]);
+							indexTable[j].Add(points[j]);
+						}
+						else
+                        {
+							var set = new HashSet<Point3d>();
+							set.Add(points[i]);
+							set.Add(points[j]);
+						}
 					}
 				}
 			}
 
-			//record whats point indices are used.
-			var indexSet = new HashSet<int>();
-
-			if (triangles != null)
-			{
-				//remap any index that has moved.
-				for (int k = 0; k < triangles.Count; k++)
-				{
-					int i = triangles[k];
-
-					if (table.TryGetValue(i, out int j))
-					{
-						//points at index i where moved to j.
-						triangles[k] = j;
-						indexSet.Add(j);
-					}
-					else
-					{
-						//no change
-						indexSet.Add(i);
-					}
-				}
+			//Take the first point in the index table
+			//and make a point table where the point is
+			//the key and any of the points indices is the value.
+			var pointTable = new Dictionary<Point3d, int>();
+			foreach (var kvp in indexTable)
+            {
+				int index = kvp.Key;
+				var set = kvp.Value;
+				pointTable.Add(set.First(), index);
 			}
 
-			if (quads != null)
-			{
-				//remap any index that has moved.
-				for (int k = 0; k < quads.Count; k++)
-				{
-					int i = quads[k];
-
-					if (table.TryGetValue(i, out int j))
-					{
-						//points at index i where moved to j.
-						quads[k] = j;
-						indexSet.Add(j);
-					}
-					else
-					{
-						//no change
-						indexSet.Add(i);
-					}
-				}
-			}
+			//Remap the indies so the same index points to the same point.
+			RemapIndices(points, triangles, indexTable, pointTable);
+			RemapIndices(points, quads, indexTable, pointTable);
 
 			//create a new point list containing only the points in used.
 			var newPoints = new List<Point3d>();
-			foreach(int i in indexSet)
-				newPoints.Add(points[i]);
+			foreach(var kvp in indexTable)
+				newPoints.Add(kvp.Value.First());
 
-			if (triangles != null)
-			{
-				//find the point index in the new array.
-				for (int k = 0; k < triangles.Count; k++)
-				{
-					int i = triangles[k];
-					var point = points[i];
-					triangles[k] = newPoints.IndexOf(point);
-				}
-			}
-
-			if (quads != null)
-			{
-				//find the point index in the new array.
-				for (int k = 0; k < quads.Count; k++)
-				{
-					int i = quads[k];
-					var point = points[i];
-					quads[k] = newPoints.IndexOf(point);
-				}
-			}
+			//Remap the indices so point to the same point in the new point table
+			//that has had all the duplicate points removed.
+			RemapIndices(points, triangles, newPoints);
+			RemapIndices(points, quads, newPoints);
 
 			//copy back into point list.
 			points.Clear();

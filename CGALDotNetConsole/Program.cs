@@ -24,26 +24,18 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var pmesh = PolyhedronFactory<EEK>.CreateCube();
-            var smesh = SurfaceMeshFactory<EEK>.CreateIcosahedron();
 
-            Console.WriteLine("before");
-            foreach (var point in pmesh)
-                Console.WriteLine(point);
+            var meshes = PolyhedronFactory<EEK>.CreateAll();
 
-            var points = new Point3d[pmesh.VertexCount];
-
-            for (int i = 0; i < pmesh.VertexCount; i++)
+            foreach(var kvp in meshes)
             {
-                points[i] = new Point3d(1, 2, 3);
-                //pmesh.SetPoint(i, new Point3d(1, 2, 3));
+                if(!kvp.Value.IsClosed)
+                {
+                    Console.WriteLine(kvp.Key + " is not closed");
+                    kvp.Value.Print();
+                }
+
             }
-
-            pmesh.SetPoints(points, points.Length);
-
-            Console.WriteLine("before");
-            foreach (var point in pmesh)
-                Console.WriteLine(point);
 
         }
 
