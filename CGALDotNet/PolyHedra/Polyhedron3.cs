@@ -99,7 +99,7 @@ namespace CGALDotNet.Polyhedra
             try
             {
                 IsUpdated = false;
-                var meshing = PolygonMeshProcessingMeshing<K>.Instance;
+                var meshing = MeshProcessingMeshing<K>.Instance;
                 return meshing.Refine(this, density_control_factor);
             }
             catch (NotImplementedException) { }
@@ -123,7 +123,7 @@ namespace CGALDotNet.Polyhedra
             try
             {
                 IsUpdated = false;
-                var meshing = PolygonMeshProcessingMeshing<K>.Instance;
+                var meshing = MeshProcessingMeshing<K>.Instance;
                 return meshing.IsotropicRemeshing(this, target_edge_length, iterations);
             }
             catch (NotImplementedException) { }
@@ -141,7 +141,7 @@ namespace CGALDotNet.Polyhedra
             try
             {
                 IsUpdated = false;
-                var orient = PolygonMeshProcessingOrientation<K>.Instance;
+                var orient = MeshProcessingOrientation<K>.Instance;
                 orient.Orient(oriente, this);
             }
             catch (NotImplementedException) { }
@@ -164,7 +164,7 @@ namespace CGALDotNet.Polyhedra
         {
             try
             {
-                var con = PolygonMeshProcessingConnections<K>.Instance;
+                var con = MeshProcessingConnections<K>.Instance;
                 con.SplitUnconnectedComponents(this, results);
             }
             catch (NotImplementedException) { }
@@ -181,7 +181,7 @@ namespace CGALDotNet.Polyhedra
         {
             try
             {
-                var con = PolygonMeshProcessingConnections<K>.Instance;
+                var con = MeshProcessingConnections<K>.Instance;
                 return con.KeepLargestComponents(this, num_components_to_keep);
             }
             catch (NotImplementedException) { }

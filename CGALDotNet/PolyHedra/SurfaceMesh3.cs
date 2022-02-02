@@ -151,7 +151,7 @@ namespace CGALDotNet.Polyhedra
             try
             {
                 IsUpdated = false;
-                var orient = PolygonMeshProcessingOrientation<K>.Instance;
+                var orient = MeshProcessingOrientation<K>.Instance;
                 orient.Orient(oriente, this);
             }
             catch (NotImplementedException) { }

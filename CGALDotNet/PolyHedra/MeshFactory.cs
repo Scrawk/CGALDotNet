@@ -156,6 +156,7 @@ namespace CGALDotNet.Polyhedra
 			var list = new IndexList();
 			list.points = new List<Point3d>();
 			list.triangles = new List<int>();
+			list.quads = new List<int>();
 			list.pentagons = new List<int>();
 			list.hexagons = new List<int>();
 			return list;

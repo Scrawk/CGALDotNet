@@ -75,19 +75,19 @@ namespace CGALDotNet
 
         internal abstract SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel { get; }
 
-        internal abstract PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel { get; }
+        internal abstract MeshProcessingMeshingKernel MeshProcessingMeshingKernel { get; }
 
-        internal abstract PolygonMeshProcessingRepairKernel PolygonMeshProcessingRepairKernel { get; }
+        internal abstract MeshProcessingRepairKernel MeshProcessingRepairKernel { get; }
 
-        internal abstract PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel { get; }
+        internal abstract MeshProcessingOrientationKernel MeshProcessingOrientationKernel { get; }
 
-        internal abstract PolygonMeshProcessingBooleanKernel PolygonMeshProcessingBooleanKernel { get; }
+        internal abstract MeshProcessingBooleanKernel MeshProcessingBooleanKernel { get; }
 
-        internal abstract PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel { get; }
+        internal abstract MeshProcessingConnectionsKernel MeshProcessingConnectionsKernel { get; }
 
-        internal abstract PolygonMeshProcessingSlicerKernel PolygonMeshProcessingSlicerKernel { get; }
+        internal abstract MeshProcessingSlicerKernel MeshProcessingSlicerKernel { get; }
 
-        internal abstract PolygonMeshProcessingFeaturesKernel PolygonMeshProcessingFeaturesKernel { get; }
+        internal abstract MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -152,19 +152,19 @@ namespace CGALDotNet
 
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => throw new NotImplementedException();
 
-        internal override PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel => throw new NotImplementedException();
+        internal override MeshProcessingMeshingKernel MeshProcessingMeshingKernel => throw new NotImplementedException();
 
-        internal override PolygonMeshProcessingRepairKernel PolygonMeshProcessingRepairKernel => throw new NotImplementedException();
+        internal override MeshProcessingRepairKernel MeshProcessingRepairKernel => throw new NotImplementedException();
 
-        internal override PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel => throw new NotImplementedException();
+        internal override MeshProcessingOrientationKernel MeshProcessingOrientationKernel => throw new NotImplementedException();
 
-        internal override PolygonMeshProcessingBooleanKernel PolygonMeshProcessingBooleanKernel => throw new NotImplementedException();
+        internal override MeshProcessingBooleanKernel MeshProcessingBooleanKernel => throw new NotImplementedException();
 
-        internal override PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel => throw new NotImplementedException();
+        internal override MeshProcessingConnectionsKernel MeshProcessingConnectionsKernel => throw new NotImplementedException();
 
-        internal override PolygonMeshProcessingSlicerKernel PolygonMeshProcessingSlicerKernel => throw new NotImplementedException();
+        internal override MeshProcessingSlicerKernel MeshProcessingSlicerKernel => throw new NotImplementedException();
 
-        internal override PolygonMeshProcessingFeaturesKernel PolygonMeshProcessingFeaturesKernel => throw new NotImplementedException();
+        internal override MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -229,19 +229,19 @@ namespace CGALDotNet
 
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => SkinSurfaceMeshingKernel_EEK.Instance;
 
-        internal override PolygonMeshProcessingMeshingKernel PolygonMeshProcessingMeshingKernel => PolygonMeshProcessingMeshingKernel_EEK.Instance;
+        internal override MeshProcessingMeshingKernel MeshProcessingMeshingKernel => MeshProcessingMeshingKernel_EEK.Instance;
 
-        internal override PolygonMeshProcessingRepairKernel PolygonMeshProcessingRepairKernel => PolygonMeshProcessingRepairKernel_EEK.Instance;
+        internal override MeshProcessingRepairKernel MeshProcessingRepairKernel => MeshProcessingRepairKernel_EEK.Instance;
 
-        internal override PolygonMeshProcessingOrientationKernel PolygonMeshProcessingOrientationKernel => PolygonMeshProcessingOrientationKernel_EEK.Instance;
+        internal override MeshProcessingOrientationKernel MeshProcessingOrientationKernel => MeshProcessingOrientationKernel_EEK.Instance;
 
-        internal override PolygonMeshProcessingBooleanKernel PolygonMeshProcessingBooleanKernel => PolygonMeshProcessingBooleanKernel_EEK.Instance;
+        internal override MeshProcessingBooleanKernel MeshProcessingBooleanKernel => MeshProcessingBooleanKernel_EEK.Instance;
 
-        internal override PolygonMeshProcessingConnectionsKernel PolygonMeshProcessingConnectionsKernel => PolygonMeshProcessingConnectionsKernel_EEK.Instance;
+        internal override MeshProcessingConnectionsKernel MeshProcessingConnectionsKernel => MeshProcessingConnectionsKernel_EEK.Instance;
 
-        internal override PolygonMeshProcessingSlicerKernel PolygonMeshProcessingSlicerKernel => PolygonMeshProcessingSlicerKernel_EEK.Instance;
+        internal override MeshProcessingSlicerKernel MeshProcessingSlicerKernel => MeshProcessingSlicerKernel_EEK.Instance;
 
-        internal override PolygonMeshProcessingFeaturesKernel PolygonMeshProcessingFeaturesKernel => PolygonMeshProcessingFeaturesKernel_EEK.Instance;
+        internal override MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel => MeshProcessingFeaturesKernel_EEK.Instance;
     }
 
 }

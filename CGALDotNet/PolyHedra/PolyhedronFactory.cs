@@ -284,7 +284,7 @@ namespace CGALDotNet.Polyhedra
 
 		private static void WeldVertices(Polyhedron3<K> mesh)
         {
-			var repair = PolygonMeshProcessingRepair<K>.Instance;
+			var repair = MeshProcessingRepair<K>.Instance;
 			repair.RepairPolygonSoup(mesh);
 		}
 	}

@@ -318,40 +318,40 @@
     <ClInclude Include="Polyhedra\PolygonalCount.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingMeshing.h">
+    <ClInclude Include="Processing\MeshProcessingMeshing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Polyhedra\MeshBuilders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingMeshing_EEK.h">
+    <ClInclude Include="Processing\MeshProcessingMeshing_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingOrientation.h">
+    <ClInclude Include="Processing\MeshProcessingOrientation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingOrientation_EEK.h">
+    <ClInclude Include="Processing\MeshProcessingOrientation_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingRepair.h">
+    <ClInclude Include="Processing\MeshProcessingRepair.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingRepair_EEK.h">
+    <ClInclude Include="Processing\MeshProcessingRepair_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geometry\MinMax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingBoolean_EEK.h">
+    <ClInclude Include="Processing\MeshProcessingBoolean_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingBoolean.h">
+    <ClInclude Include="Processing\MeshProcessingBoolean.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingConnections.h">
+    <ClInclude Include="Processing\MeshProcessingConnections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingConnections_EEK.h">
+    <ClInclude Include="Processing\MeshProcessingConnections_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Triangulations\BaseTriangulation2.h">
@@ -375,16 +375,16 @@
     <ClInclude Include="Polylines\Polyline3_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingSlicer_EEK.h">
+    <ClInclude Include="Processing\MeshProcessingSlicer_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingSlicer.h">
+    <ClInclude Include="Processing\MeshProcessingSlicer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingFeatures.h">
+    <ClInclude Include="Processing\MeshProcessingFeatures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processing\PolygonMeshProcessingFeatures_EEK.h">
+    <ClInclude Include="Processing\MeshProcessingFeatures_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Processing\SurfaceSimplification_EIK.h">
@@ -536,19 +536,19 @@
     <ClCompile Include="Processing\SurfaceSimplification_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingMeshing_EEK.cpp">
+    <ClCompile Include="Processing\MeshProcessingMeshing_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingOrientation_EEK.cpp">
+    <ClCompile Include="Processing\MeshProcessingOrientation_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingRepair_EEK.cpp">
+    <ClCompile Include="Processing\MeshProcessingRepair_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingBoolean_EEK.cpp">
+    <ClCompile Include="Processing\MeshProcessingBoolean_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingConnections_EEK.cpp">
+    <ClCompile Include="Processing\MeshProcessingConnections_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.cpp">
@@ -560,10 +560,10 @@
     <ClCompile Include="Polylines\Polyline3_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingSlicer_EEK.cpp">
+    <ClCompile Include="Processing\MeshProcessingSlicer_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processing\PolygonMeshProcessingFeatures_EEK.cpp">
+    <ClCompile Include="Processing\MeshProcessingFeatures_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utility\VersionNumber.cpp">
