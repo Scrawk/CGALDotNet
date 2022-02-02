@@ -107,9 +107,9 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
 
-		internal abstract FaceVertexCount GetFaceVertexCount(IntPtr ptr);
+		internal abstract PolygonalCount GetPolygonalCount(IntPtr ptr);
 
-		internal abstract FaceVertexCount GetDualFaceVertexCount(IntPtr ptr);
+		internal abstract PolygonalCount GetDualPolygonalCount(IntPtr ptr);
 
 		internal abstract void CreatePolygonalMesh(IntPtr ptr,
 			Point3d[] points, int pointsCount,

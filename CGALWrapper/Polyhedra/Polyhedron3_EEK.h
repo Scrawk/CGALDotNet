@@ -5,7 +5,7 @@
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
-#include "FaceVertexCount.h"
+#include "PolygonalCount.h"
 
 #include <CGAL/enum.h>
 
@@ -110,9 +110,9 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCount, BOOL xz);
 
-	CGALWRAPPER_API FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr);
+	CGALWRAPPER_API PolygonalCount Polyhedron3_EEK_GetPolygonalCount(void* ptr);
 
-	CGALWRAPPER_API FaceVertexCount Polyhedron3_EEK_GetDualFaceVertexCount(void* ptr);
+	CGALWRAPPER_API PolygonalCount Polyhedron3_EEK_GetDualPolygonalCount(void* ptr);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_CreatePolygonalMesh(void* ptr,
 		Point3d* points, int pointsCount,

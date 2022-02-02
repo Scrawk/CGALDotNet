@@ -1,7 +1,7 @@
 #pragma once
 
 
-struct FaceVertexCount
+struct PolygonalCount
 {
 	int degenerate;
 	int three;

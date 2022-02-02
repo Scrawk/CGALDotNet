@@ -132,9 +132,9 @@ namespace CGALDotNet.Polyhedra
 			if (hexagons != null) hexagons.Clear();
 		}
 
-		internal FaceVertexCountIndices ToIndices()
+		internal PolygonalIndices ToIndices()
         {
-			var indices = new FaceVertexCountIndices();
+			var indices = new PolygonalIndices();
 			if (triangles != null)  indices.triangles = triangles.ToArray();
 			if (quads != null) indices.quads = quads.ToArray();
 			if (pentagons != null) indices.pentagons = pentagons.ToArray();

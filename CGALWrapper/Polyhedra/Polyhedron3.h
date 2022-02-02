@@ -5,7 +5,7 @@
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
-#include "FaceVertexCount.h"
+#include "PolygonalCount.h"
 #include "MeshBuilders.h"
 #include "PolyhedronMap.h"
 
@@ -709,7 +709,7 @@ public:
 		poly->OnModelChanged();
 	}
 
-	static FaceVertexCount GetFaceVertexCount(void* ptr)
+	static PolygonalCount GetPolygonalCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 
@@ -759,7 +759,7 @@ public:
 		return { degenerate, three, four, five, six, greater };
 	}
 
-	static FaceVertexCount GetDualFaceVertexCount(void* ptr)
+	static PolygonalCount GetDualPolygonalCount(void* ptr)
 	{
 		auto poly = CastToPolyhedron(ptr);
 

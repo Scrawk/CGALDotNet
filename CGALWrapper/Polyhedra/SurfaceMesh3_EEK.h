@@ -5,7 +5,7 @@
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
-#include "FaceVertexCount.h"
+#include "PolygonalCount.h"
 
 extern "C"
 {
@@ -187,9 +187,9 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetFaceNormals(void* ptr, Vector3d* normals, int count);
 
-	CGALWRAPPER_API FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr);
+	CGALWRAPPER_API PolygonalCount SurfaceMesh3_EEK_GetPolygonalCount(void* ptr);
 
-	CGALWRAPPER_API FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(void* ptr);
+	CGALWRAPPER_API PolygonalCount SurfaceMesh3_EEK_GetDualPolygonalCount(void* ptr);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int count, BOOL xz);
 

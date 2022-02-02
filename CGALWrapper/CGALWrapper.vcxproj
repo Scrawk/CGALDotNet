@@ -191,7 +191,7 @@
     <ClInclude Include="Processing\PolygonMeshProcessingMeshing_EEK.h" />
     <ClInclude Include="Polyhedra\MeshBuilders.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingMeshing.h" />
-    <ClInclude Include="Polyhedra\FaceVertexCount.h" />
+    <ClInclude Include="Polyhedra\PolygonalCount.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingOrientation.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingRepair.h" />
     <ClInclude Include="Processing\PolygonMeshProcessingRepair_EEK.h" />

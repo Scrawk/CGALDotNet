@@ -247,14 +247,14 @@ void Polyhedron3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int pointsCou
 	Polyhedron3<EEK>::CreatePolygonMesh(ptr, points, pointsCount, xz);
 }
 
-FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(void* ptr)
+PolygonalCount Polyhedron3_EEK_GetPolygonalCount(void* ptr)
 {
-	return Polyhedron3<EEK>::GetFaceVertexCount(ptr);
+	return Polyhedron3<EEK>::GetPolygonalCount(ptr);
 }
 
-FaceVertexCount Polyhedron3_EEK_GetDualFaceVertexCount(void* ptr)
+PolygonalCount Polyhedron3_EEK_GetDualPolygonalCount(void* ptr)
 {
-	return Polyhedron3<EEK>::GetDualFaceVertexCount(ptr);
+	return Polyhedron3<EEK>::GetDualPolygonalCount(ptr);
 }
 
 void Polyhedron3_EEK_CreatePolygonalMesh(void* ptr,

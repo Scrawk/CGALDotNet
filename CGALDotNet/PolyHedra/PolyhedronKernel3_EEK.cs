@@ -258,14 +258,14 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_CreatePolygonMesh(ptr, points, pointsCount, xz);
 		}
 
-		internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
+		internal override PolygonalCount GetPolygonalCount(IntPtr ptr)
 		{
-			return Polyhedron3_EEK_GetFaceVertexCount(ptr);
+			return Polyhedron3_EEK_GetPolygonalCount(ptr);
 		}
 
-		internal override FaceVertexCount GetDualFaceVertexCount(IntPtr ptr)
+		internal override PolygonalCount GetDualPolygonalCount(IntPtr ptr)
 		{
-			return Polyhedron3_EEK_GetDualFaceVertexCount(ptr);
+			return Polyhedron3_EEK_GetDualPolygonalCount(ptr);
 		}
 
 		internal override void CreatePolygonalMesh(IntPtr ptr,
@@ -457,10 +457,10 @@ namespace CGALDotNet.Polyhedra
 		private static extern void Polyhedron3_EEK_CreatePolygonMesh(IntPtr ptr, Point2d[] points, int pointsCount, bool xz);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern FaceVertexCount Polyhedron3_EEK_GetFaceVertexCount(IntPtr ptr);
+		private static extern PolygonalCount Polyhedron3_EEK_GetPolygonalCount(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern FaceVertexCount Polyhedron3_EEK_GetDualFaceVertexCount(IntPtr ptr);
+		private static extern PolygonalCount Polyhedron3_EEK_GetDualPolygonalCount(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_CreatePolygonalMesh(IntPtr ptr,

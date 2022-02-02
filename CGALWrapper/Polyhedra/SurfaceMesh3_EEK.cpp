@@ -448,14 +448,14 @@ BOOL SurfaceMesh3_EEK_CheckFaceVertexCount(void* ptr, int count)
 	return SurfaceMesh3<EEK>::CheckFaceVertexCount(ptr, count);
 }
 
-FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(void* ptr)
+PolygonalCount SurfaceMesh3_EEK_GetPolygonalCount(void* ptr)
 {
-	return SurfaceMesh3<EEK>::GetFaceVertexCount(ptr);
+	return SurfaceMesh3<EEK>::GetPolygonalCount(ptr);
 }
 
-FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(void* ptr)
+PolygonalCount SurfaceMesh3_EEK_GetDualPolygonalCount(void* ptr)
 {
-	return SurfaceMesh3<EEK>::GetDualFaceVertexCount(ptr);
+	return SurfaceMesh3<EEK>::GetDualPolygonalCount(ptr);
 }
 
 void SurfaceMesh3_EEK_CreatePolygonMesh(void* ptr, Point2d* points, int count, BOOL xz)

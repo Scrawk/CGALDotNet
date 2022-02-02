@@ -448,14 +448,14 @@ namespace CGALDotNet.Polyhedra
             SurfaceMesh3_EEK_GetFaceNormals(ptr, normals, count);
         }
 
-        internal override FaceVertexCount GetFaceVertexCount(IntPtr ptr)
+        internal override PolygonalCount GetPolygonalCount(IntPtr ptr)
         {
-            return SurfaceMesh3_EEK_GetFaceVertexCount(ptr);    
+            return SurfaceMesh3_EEK_GetPolygonalCount(ptr);    
         }
 
-        internal override FaceVertexCount GetDualFaceVertexCount(IntPtr ptr)
+        internal override PolygonalCount GetDualPolygonalCount(IntPtr ptr)
         {
-            return SurfaceMesh3_EEK_GetDualFaceVertexCount(ptr);
+            return SurfaceMesh3_EEK_GetDualPolygonalCount(ptr);
         }
 
         internal override void CreatePolygonMesh(IntPtr ptr, Point2d[] points, int count, bool xz)
@@ -766,10 +766,10 @@ namespace CGALDotNet.Polyhedra
         private static extern void SurfaceMesh3_EEK_GetFaceNormals(IntPtr ptr, [Out] Vector3d[] normals, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern FaceVertexCount SurfaceMesh3_EEK_GetFaceVertexCount(IntPtr ptr);
+        private static extern PolygonalCount SurfaceMesh3_EEK_GetPolygonalCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern FaceVertexCount SurfaceMesh3_EEK_GetDualFaceVertexCount(IntPtr ptr);
+        private static extern PolygonalCount SurfaceMesh3_EEK_GetDualPolygonalCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_CreatePolygonMesh(IntPtr ptr, Point2d[] points, int count, bool xz);
@@ -784,17 +784,17 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_GetPolygonalIndices(IntPtr ptr,
-            int[] triangles, int triangleCount,
-            int[] quads, int quadCount,
-            int[] pentagons, int pentagonCount,
-            int[] hexagons, int hexagonCount);
+            [Out] int[] triangles, int triangleCount,
+            [Out] int[] quads, int quadCount,
+            [Out] int[] pentagons, int pentagonCount,
+            [Out] int[] hexagons, int hexagonCount);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_GetDualPolygonalIndices(IntPtr ptr,
-            int[] triangles, int triangleCount,
-            int[] quads, int quadCount,
-            int[] pentagons, int pentagonCount,
-            int[] hexagons, int hexagonCount);
+            [Out] int[] triangles, int triangleCount,
+            [Out] int[] quads, int quadCount,
+            [Out] int[] pentagons, int pentagonCount,
+            [Out] int[] hexagons, int hexagonCount);
 
     }
 }

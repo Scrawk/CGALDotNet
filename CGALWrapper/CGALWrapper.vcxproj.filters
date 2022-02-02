@@ -315,7 +315,7 @@
     <ClInclude Include="Processing\SurfaceSimplification.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Polyhedra\FaceVertexCount.h">
+    <ClInclude Include="Polyhedra\PolygonalCount.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Processing\PolygonMeshProcessingMeshing.h">

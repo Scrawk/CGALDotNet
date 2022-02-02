@@ -24,23 +24,41 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var mesh = PolyhedronFactory<EEK>.CreateDodecahedron(1, true);
+            var cube1 = SurfaceMeshFactory<EEK>.CreateCube();
+            cube1.Translate(new Point3d(-1, 0, 0));
 
-            mesh.Print();
+            var cube2 = SurfaceMeshFactory<EEK>.CreateCube();
+            cube2.Translate(new Point3d(1, 0, 0));
 
+            cube1.Join(cube2);
 
-            var meshes = PolyhedronFactory<EEK>.CreateAll(true);
+            var pmesh = cube1.ToPolyhedronMesh();
+            var smesh = cube1.Copy();
 
-            foreach(var kvp in meshes)
-            {
-                if(kvp.Value.VertexCount == 0)
-                {
-                    Console.WriteLine(kvp.Key + " is empty");
-                    kvp.Value.Print();
-                }
+            pmesh.Print();
+            smesh.Print();
 
-            }
+            //ConnectedFaces(pmesh, smesh);
+        }
 
+        private static void UnconnectedComponents(Polyhedron3<EEK> pmesh, SurfaceMesh3<EEK> smesh)
+        {
+            var proc = PolygonMeshProcessingConnections<EEK>.Instance;
+            //Console.WriteLine("Unconnected component PM = " + proc.UnconnectedComponents(pmesh));
+            //Console.WriteLine("Unconnected component SM = " + proc.UnconnectedComponents(smesh));
+        }
+
+        private static void ConnectedFaces(Polyhedron3<EEK> pmesh, SurfaceMesh3<EEK> smesh)
+        {
+            var proc = PolygonMeshProcessingConnections<EEK>.Instance;
+
+            var pfaces = new List<int>();
+            proc.ConnectedFaces(pmesh, 0, pfaces);
+            Console.WriteLine("Connected faces PM = " + pfaces.Count);
+
+            var sfaces = new List<int>();
+            proc.ConnectedFaces(smesh, 0, sfaces);
+            Console.WriteLine("Connected faces SM = " + sfaces.Count);
         }
 
     }

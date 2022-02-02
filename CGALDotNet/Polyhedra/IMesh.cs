@@ -122,7 +122,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="points">The meshs points.</param>
         /// <param name="pointsCount">The length of the point array.</param>
         /// <param name="indices">The faces indices.</param>
-        void CreatePolygonalMesh(Point3d[] points, int pointsCount, FaceVertexCountIndices indices);
+        void CreatePolygonalMesh(Point3d[] points, int pointsCount, PolygonalIndices indices);
 
         /// <summary>
         /// Create a mesh consisting of one polygon face.
@@ -164,15 +164,15 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Get the meshes triangles, quads, pentagons and hexagons.
         /// </summary>
-        /// <param name="indices">The faces indices.</param>
-        void GetPolygonalIndices(ref FaceVertexCountIndices indices);
+        /// <returns>The indices.</returns>
+        PolygonalIndices GetPolygonalIndices();
 
         /// <summary>
         /// Get the dual meshes triangles, quads, pentagons and hexagons.
         /// A dual mesh is were faces become vertices and vertices become faces.
         /// </summary>
         /// <param name="indices">The faces indices</param>
-        void GetDualPolygonalIndices(ref FaceVertexCountIndices indices);
+        PolygonalIndices GetDualPolygonalIndices();
 
         /// <summary>
         /// Array accessor for the polygon.
@@ -216,14 +216,14 @@ namespace CGALDotNet.Polyhedra
         /// Count the number of triangles, quads and polygons in the mesh.
         /// </summary>
         /// <returns>The number of triangles, quads and polygons in the mesh.</returns>
-        FaceVertexCount GetFaceVertexCount();
+        PolygonalCount GetPolygonalCount();
 
         /// <summary>
         /// Count the number of triangles, quads and polygons in the dual mesh.
         /// A dual mesh is were faces become vertices and vertices become faces.
         /// </summary>
         /// <returns>The number of triangles, quads and polygons in the mesh.</returns>
-        FaceVertexCount GetDualFaceVertexCount();
+        PolygonalCount GetDualPolygonalCount();
 
         /// <summary>
         /// Get a centroid (the avergae face position) for each face in the mesh.

@@ -6,7 +6,7 @@
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
 #include "../Utility/ArrayUtil.h"
-#include "FaceVertexCount.h"
+#include "PolygonalCount.h"
 #include "SurfaceMeshMap.h"
 
 #include <limits>
@@ -1127,7 +1127,7 @@ public:
 		}
 	}
 
-	static FaceVertexCount GetFaceVertexCount(void* ptr)
+	static PolygonalCount GetPolygonalCount(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 
@@ -1175,7 +1175,7 @@ public:
 		return { degenerate, three, four, five, six, greater };
 	}
 
-	static FaceVertexCount GetDualFaceVertexCount(void* ptr)
+	static PolygonalCount GetDualPolygonalCount(void* ptr)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
 

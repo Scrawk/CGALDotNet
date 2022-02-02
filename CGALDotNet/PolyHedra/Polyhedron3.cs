@@ -221,10 +221,8 @@ namespace CGALDotNet.Polyhedra
             var points = new Point3d[faceCount];
             GetCentroids(points, faceCount);
 
-            var count = GetDualFaceVertexCount();
-            var indices = count.Indices();
-            GetDualPolygonalIndices(ref indices);
-
+            var indices = GetDualPolygonalIndices();
+   
             var dual = new Polyhedron3<K>();
             dual.CreatePolygonalMesh(points, points.Length, indices);
 
@@ -240,13 +238,10 @@ namespace CGALDotNet.Polyhedra
             var points = new Point3d[VertexCount];
             GetPoints(points, points.Length);
 
-            var count = new FaceVertexCountIndices();
-            GetPolygonalIndices(ref count);
-
+            var indices = GetPolygonalIndices();
+     
             var mesh = new SurfaceMesh3<K>();
-            mesh.CreateTriangleQuadMesh(points, points.Length, 
-                count.triangles, count.triangleCount, 
-                count.quads, count.quadCount);
+            mesh.CreatePolygonalMesh(points, points.Length, indices);
 
             return mesh;
         }
@@ -569,7 +564,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="points">The meshs points.</param>
         /// <param name="pointsCount">The length of the point array.</param>
         /// <param name="indices">The faces indices.</param>
-        public void CreatePolygonalMesh(Point3d[] points, int pointsCount, FaceVertexCountIndices indices)
+        public void CreatePolygonalMesh(Point3d[] points, int pointsCount, PolygonalIndices indices)
         {
             ErrorUtil.CheckArray(points, pointsCount);
             ErrorUtil.CheckArray(indices.triangles, indices.triangleCount);
@@ -657,38 +652,39 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Get the meshes triangles, quads, pentagons and hexagons.
         /// </summary>
-        /// <param name="indices">The faces indices.</param>
-        public void GetPolygonalIndices(ref FaceVertexCountIndices indices)
+        /// <returns>The indices.</returns>
+        public PolygonalIndices GetPolygonalIndices()
         {
-            ErrorUtil.CheckArray(indices.triangles, indices.triangleCount);
-            ErrorUtil.CheckArray(indices.quads, indices.quadCount);
-            ErrorUtil.CheckArray(indices.pentagons, indices.pentagonCount);
-            ErrorUtil.CheckArray(indices.hexagons, indices.hexagonCount);
+            var count = GetPolygonalCount();
+            var indices = count.Indices();
 
             Kernel.GetPolygonalIndices(Ptr, 
                 indices.triangles, indices.triangleCount, 
                 indices.quads, indices.quadCount,
                 indices.pentagons, indices.pentagonCount,
                 indices.hexagons, indices.hexagonCount);
+
+            return indices;
         }
+
 
         /// <summary>
         /// Get the dual meshes triangles, quads, pentagons and hexagons.
         /// A dual mesh is were faces become vertices and vertices become faces.
         /// </summary>
-        /// <param name="indices">The faces indices</param>
-        public void GetDualPolygonalIndices(ref FaceVertexCountIndices indices)
+        /// <returns>The indices</returns>
+        public PolygonalIndices GetDualPolygonalIndices()
         {
-            ErrorUtil.CheckArray(indices.triangles, indices.triangleCount);
-            ErrorUtil.CheckArray(indices.quads, indices.quadCount);
-            ErrorUtil.CheckArray(indices.pentagons, indices.pentagonCount);
-            ErrorUtil.CheckArray(indices.hexagons, indices.hexagonCount);
+            var count = GetPolygonalCount();
+            var indices = count.Indices();
 
-            Kernel.GetDualPolygonalIndices(Ptr, 
+            Kernel.GetDualPolygonalIndices(Ptr,
                 indices.triangles, indices.triangleCount,
                 indices.quads, indices.quadCount,
                 indices.pentagons, indices.pentagonCount,
                 indices.hexagons, indices.hexagonCount);
+
+            return indices;
         }
 
         /// <summary>
@@ -759,9 +755,9 @@ namespace CGALDotNet.Polyhedra
         /// Count the number of triangles, quads and polygons in the mesh.
         /// </summary>
         /// <returns>The number of triangles, quads and polygons in the mesh.</returns>
-        public FaceVertexCount GetFaceVertexCount()
+        public PolygonalCount GetPolygonalCount()
         {
-            return Kernel.GetFaceVertexCount(Ptr);
+            return Kernel.GetPolygonalCount(Ptr);
         }
 
         /// <summary>
@@ -769,9 +765,9 @@ namespace CGALDotNet.Polyhedra
         /// A dual mesh is were faces become vertices and vertices become faces.
         /// </summary>
         /// <returns>The number of triangles, quads and polygons in the mesh.</returns>
-        public FaceVertexCount GetDualFaceVertexCount()
+        public PolygonalCount GetDualPolygonalCount()
         {
-            return Kernel.GetDualFaceVertexCount(Ptr);
+            return Kernel.GetDualPolygonalCount(Ptr);
         }
 
         /// <summary>
