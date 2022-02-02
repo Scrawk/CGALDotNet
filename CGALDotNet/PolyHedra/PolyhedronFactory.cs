@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Processing;
 
 namespace CGALDotNet.Polyhedra
 {
     public static class PolyhedronFactory<K> where K : CGALKernel, new()
     {
-		private static List<Point3d> points = new List<Point3d>();
-		private static List<int> triangles = new List<int>();
-		private static List<int> quads = new List<int>();
+		private static IndexList triangleList = IndexList.CreateTriangleIndexList();
+		private static IndexList polygonList = IndexList.CreatePolygonIndexList();
 
 		public static Dictionary<string, Polyhedron3<K>> CreateAll(bool allowPolygons = false)
         {
@@ -26,7 +26,7 @@ namespace CGALDotNet.Polyhedra
 			meshes.Add("Icosahedron", CreateIcosahedron());
 			meshes.Add("Tetrahedron", CreateTetrahedron());
 			meshes.Add("Octahedron", CreateOctahedron());
-			meshes.Add("Dodecahedron", CreateDodecahedron());
+			meshes.Add("Dodecahedron", CreateDodecahedron(1, allowPolygons));
 
 			return meshes;
 		}
@@ -37,18 +37,17 @@ namespace CGALDotNet.Polyhedra
 
 			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateCube(points, triangles, quads, scale);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateCube(polygonList, scale);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateCube(points, triangles, null, scale);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateCube(triangleList, scale);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
@@ -60,18 +59,17 @@ namespace CGALDotNet.Polyhedra
 
 			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateCube(points, triangles, quads, box);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateCube(polygonList, box);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateCube(points, triangles, null, box);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateCube(triangleList, box);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
@@ -88,18 +86,17 @@ namespace CGALDotNet.Polyhedra
 
 			if (allowPolygons)
             {
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreatePlane(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreatePlane(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
             {
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreatePlane(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreatePlane(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
@@ -116,19 +113,20 @@ namespace CGALDotNet.Polyhedra
 
 			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateTorus(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateTorus(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateTorus(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateTorus(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
+
+			WeldVertices(mesh);
 
 			return mesh;
 		}
@@ -155,19 +153,20 @@ namespace CGALDotNet.Polyhedra
 
 			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateCylinder(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateCylinder(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateCylinder(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateCylinder(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
+
+			WeldVertices(mesh);
 
 			return mesh;
 		}
@@ -183,18 +182,17 @@ namespace CGALDotNet.Polyhedra
 
 			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateUVSphere(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateUVSphere(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
             {
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateUVSphere(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateUVSphere(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
@@ -211,69 +209,83 @@ namespace CGALDotNet.Polyhedra
 
 			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateNormalizedCube(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateNormalizedCube(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateNormalizedCube(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateNormalizedCube(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
+
+			WeldVertices(mesh);
 
 			return mesh;
 		}
 
 		public static Polyhedron3<K> CreateTetrahedron(double scale = 1)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateTetrahedron(points, triangles, scale);
+			triangleList.Clear();
+			MeshFactory.CreateTetrahedron(triangleList, scale);
 
 			var mesh = new Polyhedron3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+			mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 
 			return mesh;
 		}
 
 		public static Polyhedron3<K> CreateIcosahedron(double scale = 1)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateIcosahedron(points, triangles, scale);
+			triangleList.Clear();
+			MeshFactory.CreateIcosahedron(triangleList, scale);
 
 			var mesh = new Polyhedron3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+			mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 
 			return mesh;
 		}
 
 		public static Polyhedron3<K> CreateOctahedron(double scale = 1)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateOctahedron(points, triangles, scale);
+			triangleList.Clear();
+			MeshFactory.CreateOctahedron(triangleList, scale);
 
 			var mesh = new Polyhedron3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+			mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 
 			return mesh;
 		}
 
-		public static Polyhedron3<K> CreateDodecahedron(double scale = 1)
+		public static Polyhedron3<K> CreateDodecahedron(double scale = 1, bool allowPolygons = false)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateDodecahedron(points, triangles, scale);
-
 			var mesh = new Polyhedron3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+
+			if (allowPolygons)
+			{
+				polygonList.Clear();
+				MeshFactory.CreateDodecahedron(polygonList, scale);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
+			}
+			else
+			{
+				triangleList.Clear();
+				MeshFactory.CreateDodecahedron(triangleList, scale);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
+			}
 
 			return mesh;
+		}
+
+		private static void WeldVertices(Polyhedron3<K> mesh)
+        {
+			var repair = PolygonMeshProcessingRepair<K>.Instance;
+			repair.RepairPolygonSoup(mesh);
 		}
 	}
 }

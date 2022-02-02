@@ -3,258 +3,289 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Geometry;
+using CGALDotNet.Processing;
 
 namespace CGALDotNet.Polyhedra
 {
 	public static class SurfaceMeshFactory<K> where K : CGALKernel, new()
 	{
-		private static List<Point3d> points = new List<Point3d>();
-		private static List<int> triangles = new List<int>();
-		private static List<int> quads = new List<int>();
+		private static IndexList triangleList = IndexList.CreateTriangleIndexList();
+		private static IndexList polygonList = IndexList.CreatePolygonIndexList();
 
-		public static SurfaceMesh3<K> CreateCube(double scale = 1, bool allowQuads = false)
+		public static Dictionary<string, SurfaceMesh3<K>> CreateAll(bool allowPolygons = false)
+		{
+			var meshes = new Dictionary<string, SurfaceMesh3<K>>();
+
+			meshes.Add("Cube", CreateCube(1, allowPolygons));
+			meshes.Add("Plane", CreatePlane(allowPolygons));
+			meshes.Add("Torus", CreateTorus(allowPolygons));
+			meshes.Add("Cone", CreateCone(allowPolygons));
+			meshes.Add("Cylinder", CreateCylinder(allowPolygons));
+			meshes.Add("UVSphere", CreateUVSphere(allowPolygons));
+			meshes.Add("NormalizedCube", CreateNormalizedCube(allowPolygons));
+			meshes.Add("Icosahedron", CreateIcosahedron());
+			meshes.Add("Tetrahedron", CreateTetrahedron());
+			meshes.Add("Octahedron", CreateOctahedron());
+			meshes.Add("Dodecahedron", CreateDodecahedron(1, allowPolygons));
+
+			return meshes;
+		}
+
+		public static SurfaceMesh3<K> CreateCube(double scale = 1, bool allowPolygons = false)
 		{
 			var mesh = new SurfaceMesh3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateCube(points, triangles, quads, scale);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateCube(polygonList, scale);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateCube(points, triangles, null, scale);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateCube(triangleList, scale);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
 		}
 
-		public static SurfaceMesh3<K> CreateCube(Box3d box, bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateCube(Box3d box, bool allowPolygons = false)
 		{
 			var mesh = new SurfaceMesh3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateCube(points, triangles, quads, box);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateCube(polygonList, box);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateCube(points, triangles, null, box);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateCube(triangleList, box);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
 		}
 
-		public static SurfaceMesh3<K> CreatePlane(bool allowQuads = false)
+		public static SurfaceMesh3<K> CreatePlane(bool allowPolygons = false)
 		{
-			return CreatePlane(PlaneParams.Default, allowQuads);
+			return CreatePlane(PlaneParams.Default, allowPolygons);
 		}
 
-		public static SurfaceMesh3<K> CreatePlane(PlaneParams param, bool allowQuads = false)
+		public static SurfaceMesh3<K> CreatePlane(PlaneParams param, bool allowPolygons = false)
 		{
 			var mesh = new SurfaceMesh3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreatePlane(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreatePlane(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreatePlane(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreatePlane(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
 		}
 
-		public static SurfaceMesh3<K> CreateTorus(bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateTorus(bool allowPolygons = false)
 		{
-			return CreateTorus(TorusParams.Default, allowQuads);
+			return CreateTorus(TorusParams.Default, allowPolygons);
 		}
 
-		public static SurfaceMesh3<K> CreateTorus(TorusParams param, bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateTorus(TorusParams param, bool allowPolygons = false)
 		{
 			var mesh = new SurfaceMesh3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateTorus(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateTorus(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateTorus(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateTorus(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
+
+			WeldVertices(mesh);
 
 			return mesh;
 		}
 
-		public static SurfaceMesh3<K> CreateCone(bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateCone(bool allowPolygons = false)
 		{
-			return CreateCone(CylinderParams.Default, allowQuads);
+			return CreateCone(CylinderParams.Default, allowPolygons);
 		}
 
-		public static SurfaceMesh3<K> CreateCone(CylinderParams param, bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateCone(CylinderParams param, bool allowPolygons = false)
 		{
 			param.radiusTop = 0;
-			return CreateCylinder(param, allowQuads);
+			return CreateCylinder(param, allowPolygons);
 		}
 
-		public static SurfaceMesh3<K> CreateCylinder(bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateCylinder(bool allowPolygons = false)
 		{
-			return CreateCylinder(CylinderParams.Default, allowQuads);
+			return CreateCylinder(CylinderParams.Default, allowPolygons);
 		}
 
-		public static SurfaceMesh3<K> CreateCylinder(CylinderParams param, bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateCylinder(CylinderParams param, bool allowPolygons = false)
 		{
 			var mesh = new SurfaceMesh3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateCylinder(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateCylinder(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateCylinder(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateCylinder(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
+			}
+
+			WeldVertices(mesh);
+
+			return mesh;
+		}
+
+		public static SurfaceMesh3<K> CreateUVSphere(bool allowPolygons = false)
+		{
+			return CreateUVSphere(UVSphereParams.Default, allowPolygons);
+		}
+
+		public static SurfaceMesh3<K> CreateUVSphere(UVSphereParams param, bool allowPolygons = false)
+		{
+			var mesh = new SurfaceMesh3<K>();
+
+			if (allowPolygons)
+			{
+				polygonList.Clear();
+				MeshFactory.CreateUVSphere(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
+			}
+			else
+			{
+				triangleList.Clear();
+				MeshFactory.CreateUVSphere(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
 			return mesh;
 		}
 
-		public static SurfaceMesh3<K> CreateUVSphere(bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateNormalizedCube(bool allowPolygons = false)
 		{
-			return CreateUVSphere(UVSphereParams.Default, allowQuads);
+			return CreateNormalizedCube(NormalizedCubeParams.Default, allowPolygons);
 		}
 
-		public static SurfaceMesh3<K> CreateUVSphere(UVSphereParams param, bool allowQuads = false)
+		public static SurfaceMesh3<K> CreateNormalizedCube(NormalizedCubeParams param, bool allowPolygons = false)
 		{
 			var mesh = new SurfaceMesh3<K>();
 
-			if (allowQuads)
+			if (allowPolygons)
 			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateUVSphere(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
+				polygonList.Clear();
+				MeshFactory.CreateNormalizedCube(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
 			}
 			else
 			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateUVSphere(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+				triangleList.Clear();
+				MeshFactory.CreateNormalizedCube(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 
-			return mesh;
-		}
-
-		public static SurfaceMesh3<K> CreateNormalizedCube(bool allowQuads = false)
-		{
-			return CreateNormalizedCube(NormalizedCubeParams.Default, allowQuads);
-		}
-
-		public static SurfaceMesh3<K> CreateNormalizedCube(NormalizedCubeParams param, bool allowQuads = false)
-		{
-			var mesh = new SurfaceMesh3<K>();
-
-			if (allowQuads)
-			{
-				points.Clear();
-				triangles.Clear();
-				quads.Clear();
-				MeshFactory.CreateNormalizedCube(points, triangles, quads, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), quads.ToArray());
-			}
-			else
-			{
-				points.Clear();
-				triangles.Clear();
-				MeshFactory.CreateNormalizedCube(points, triangles, null, param);
-				mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
-			}
-
-			return mesh;
-		}
-
-		public static SurfaceMesh3<K> CreateIcosahedron(double scale = 1)
-		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateIcosahedron(points, triangles, scale);
-
-			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+			WeldVertices(mesh);
 
 			return mesh;
 		}
 
 		public static SurfaceMesh3<K> CreateTetrahedron(double scale = 1)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateTetrahedron(points, triangles, scale);
+			triangleList.Clear();
+			MeshFactory.CreateTetrahedron(triangleList, scale);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+			mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
+
+			return mesh;
+		}
+
+		public static SurfaceMesh3<K> CreateIcosahedron(double scale = 1)
+		{
+			triangleList.Clear();
+			MeshFactory.CreateIcosahedron(triangleList, scale);
+
+			var mesh = new SurfaceMesh3<K>();
+			mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 
 			return mesh;
 		}
 
 		public static SurfaceMesh3<K> CreateOctahedron(double scale = 1)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateOctahedron(points, triangles, scale);
+			triangleList.Clear();
+			MeshFactory.CreateOctahedron(triangleList, scale);
 
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+			mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 
 			return mesh;
 		}
 
-		public static SurfaceMesh3<K> CreateDodecahedron(double scale = 1)
+		public static SurfaceMesh3<K> CreateDodecahedron(double scale = 1, bool allowPolygons = false)
 		{
-			points.Clear();
-			triangles.Clear();
-			MeshFactory.CreateDodecahedron(points, triangles, scale);
-
 			var mesh = new SurfaceMesh3<K>();
-			mesh.CreateMesh(points.ToArray(), triangles.ToArray(), null);
+
+			if (allowPolygons)
+			{
+				polygonList.Clear();
+				MeshFactory.CreateDodecahedron(polygonList, scale);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
+			}
+			else
+			{
+				triangleList.Clear();
+				MeshFactory.CreateDodecahedron(triangleList, scale);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
+			}
 
 			return mesh;
+		}
+
+		private static void WeldVertices(SurfaceMesh3<K> mesh)
+		{
+			var repair = PolygonMeshProcessingRepair<K>.Instance;
+			//repair.RepairPolygonSoup(mesh);
 		}
 	}
 }

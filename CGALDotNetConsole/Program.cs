@@ -24,14 +24,18 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
+            var mesh = PolyhedronFactory<EEK>.CreateDodecahedron(1, true);
 
-            var meshes = PolyhedronFactory<EEK>.CreateAll();
+            mesh.Print();
+
+
+            var meshes = PolyhedronFactory<EEK>.CreateAll(true);
 
             foreach(var kvp in meshes)
             {
-                if(!kvp.Value.IsClosed)
+                if(kvp.Value.VertexCount == 0)
                 {
-                    Console.WriteLine(kvp.Key + " is not closed");
+                    Console.WriteLine(kvp.Key + " is empty");
                     kvp.Value.Print();
                 }
 
