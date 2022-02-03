@@ -13,20 +13,20 @@ namespace CGALDotNetTest.Processing
 {
 
     [TestClass]
-    public class MeshProcessingMeshingSurfaceMeshTest
+    public class MeshProcessingMeshingPolyhedronTest
     {
 
         private MeshProcessingMeshing<EEK> Processor => MeshProcessingMeshing<EEK>.Instance;
 
-        private SurfaceMesh3<EEK> testMesh;
+        private Polyhedron3<EEK> testMesh;
 
-        private SurfaceMesh3<EEK> TestMesh
+        private Polyhedron3<EEK> TestMesh
         {
             get
             {
                 if (testMesh == null)
                 {
-                    testMesh = SurfaceMeshFactory<EEK>.CreateCube(1, true);
+                    testMesh = PolyhedronFactory<EEK>.CreateCube(1, true);
                 }
 
                 return testMesh.Copy();
@@ -39,21 +39,19 @@ namespace CGALDotNetTest.Processing
             var extured = Processor.Extrude(TestMesh, new Vector3d(0, 1, 0));
         }
 
-        /*
         [TestMethod]
         public void Fair()
         {
             var success = Processor.Fair(TestMesh, 0, 1);
             Assert.IsTrue(success);
         }
-        */
 
         [TestMethod]
         public void Refine()
         {
             var mesh = TestMesh;
             mesh.Triangulate();
- 
+
             double factor = 5;
             int new_verts = Processor.Refine(mesh, factor);
         }
@@ -76,6 +74,7 @@ namespace CGALDotNetTest.Processing
             Processor.RandomPerturbation(mesh, 0.1);
         }
 
+        /*
         [TestMethod]
         public void SmoothByAngle()
         {
@@ -83,8 +82,9 @@ namespace CGALDotNetTest.Processing
             mesh.Triangulate();
 
             var featureAngle = new Degree(120);
-            Processor.SmoothMeshByAngle(mesh, featureAngle, 1);  
+            Processor.SmoothMeshByAngle(mesh, featureAngle, 1);
         }
+        */
 
         /*
         [TestMethod]
@@ -122,7 +122,7 @@ namespace CGALDotNetTest.Processing
         public void TriangulateFaces()
         {
             var mesh = TestMesh;
-            bool success = Processor.TriangulateFaces(mesh, new int[] {0, 1}, 2);
+            bool success = Processor.TriangulateFaces(mesh, new int[] { 0, 1 }, 2);
 
             Assert.IsTrue(success);
             Assert.AreEqual(8, mesh.FaceCount);

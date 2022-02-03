@@ -53,6 +53,16 @@ int MeshProcessingMeshing_EEK_SplitLongEdges_PH(void* meshPtr, double target_edg
 	return MeshProcessingMeshing<EEK>::SplitLongEdges_PH(meshPtr, target_edge_length);
 }
 
+BOOL MeshProcessingMeshing_EEK_TriangulateFace_PH(void* meshPtr, int index)
+{
+	return MeshProcessingMeshing<EEK>::TriangulateFace_PH(meshPtr, index);
+}
+
+BOOL MeshProcessingMeshing_EEK_TriangulateFaces_PH(void* meshPtr, int* faces, int count)
+{
+	return MeshProcessingMeshing<EEK>::TriangulateFaces_PH(meshPtr, faces, count);
+}
+
 //Surface Mesh
 
 void* MeshProcessingMeshing_EEK_Extrude_SM(void* meshPtr, Vector3d dir)
@@ -93,4 +103,14 @@ void MeshProcessingMeshing_EEK_SmoothShape_SM(void* meshPtr, double timeStep, in
 int MeshProcessingMeshing_EEK_SplitLongEdges_SM(void* meshPtr, double target_edge_length)
 {
 	return MeshProcessingMeshing<EEK>::SplitLongEdges_SM(meshPtr, target_edge_length);
+}
+
+BOOL MeshProcessingMeshing_EEK_TriangulateFace_SM(void* meshPtr, int index)
+{
+	return MeshProcessingMeshing<EEK>::TriangulateFace_SM(meshPtr, index);
+}
+
+BOOL MeshProcessingMeshing_EEK_TriangulateFaces_SM(void* meshPtr, int* faces, int count)
+{
+	return MeshProcessingMeshing<EEK>::TriangulateFaces_SM(meshPtr, faces, count);
 }

@@ -378,6 +378,66 @@ namespace CGALDotNet.Processing
 
             return new_edges;
         }
+
+        /// <summary>
+        /// Triangulate a single face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <param name="face">The faces index in the mesh.</param>
+        /// <returns>True if successful.</returns>
+        public bool TriangulateFace(Polyhedron3<K> mesh, int face)
+        {
+            CheckIsValidException(mesh);
+
+            mesh.SetIsUpdatedToFalse();
+            return Kernel.TriangulateFace_PH(mesh.Ptr, face);
+        }
+
+        /// <summary>
+        /// Triangulate a single face in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <param name="face">The faces index in the mesh.</param>
+        /// <returns>True if successful.</returns>
+        public bool TriangulateFace(SurfaceMesh3<K> mesh, int face)
+        {
+            CheckIsValidException(mesh);
+
+            mesh.SetIsUpdatedToFalse();
+            return Kernel.TriangulateFace_SM(mesh.Ptr, face);
+        }
+
+        /// <summary>
+        /// Triangulate a range of faces in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <param name="faces">The faces to triangulate.</param>
+        /// <param name="count">The length of the face array.</param>
+        /// <returns>True if successful.</returns>
+        public bool TriangulateFaces(Polyhedron3<K> mesh, int[] faces, int count)
+        {
+            CheckIsValidException(mesh);
+            ErrorUtil.CheckArray(faces, count);
+
+            mesh.SetIsUpdatedToFalse();
+            return Kernel.TriangulateFaces_PH(mesh.Ptr, faces, count);
+        }
+
+        /// <summary>
+        /// Triangulate a range of faces in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <param name="faces">The faces to triangulate.</param>
+        /// <param name="count">The length of the face array.</param>
+        /// <returns>True if successful.</returns>
+        public bool TriangulateFaces(SurfaceMesh3<K> mesh, int[] faces, int count)
+        {
+            CheckIsValidException(mesh);
+            ErrorUtil.CheckArray(faces, count);
+
+            mesh.SetIsUpdatedToFalse();
+            return Kernel.TriangulateFaces_SM(mesh.Ptr, faces, count);
+        }
     }
 
     /// <summary>

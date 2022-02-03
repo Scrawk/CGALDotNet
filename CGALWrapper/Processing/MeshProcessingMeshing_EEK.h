@@ -28,6 +28,10 @@ extern "C"
 
 	CGALWRAPPER_API int MeshProcessingMeshing_EEK_SplitLongEdges_PH(void* meshPtr, double target_edge_length);
 
+	CGALWRAPPER_API BOOL MeshProcessingMeshing_EEK_TriangulateFace_PH(void* meshPtr, int index);
+
+	CGALWRAPPER_API BOOL MeshProcessingMeshing_EEK_TriangulateFaces_PH(void* meshPtr, int* faces, int count);
+
 	//Surface Mesh
 
 	CGALWRAPPER_API void* MeshProcessingMeshing_EEK_Extrude_SM(void* meshPtr, Vector3d dir);
@@ -46,5 +50,8 @@ extern "C"
 
 	CGALWRAPPER_API int MeshProcessingMeshing_EEK_SplitLongEdges_SM(void* meshPtr, double target_edge_length);
 
+	CGALWRAPPER_API BOOL MeshProcessingMeshing_EEK_TriangulateFace_SM(void* meshPtr, int index);
+
+	CGALWRAPPER_API BOOL MeshProcessingMeshing_EEK_TriangulateFaces_SM(void* meshPtr, int* faces, int count);
 }
 

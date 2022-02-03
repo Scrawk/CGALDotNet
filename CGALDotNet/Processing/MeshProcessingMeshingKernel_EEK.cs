@@ -65,6 +65,16 @@ namespace CGALDotNet.Processing
             return MeshProcessingMeshing_EEK_SplitLongEdges_PH(meshPtr, target_edge_length);
         }
 
+        internal override bool TriangulateFace_PH(IntPtr meshPtr, int index)
+        {
+            return MeshProcessingMeshing_EEK_TriangulateFace_PH(meshPtr, index);
+        }
+
+        internal override bool TriangulateFaces_PH(IntPtr meshPtr, int[] faces, int count)
+        {
+            return MeshProcessingMeshing_EEK_TriangulateFaces_PH(meshPtr, faces, count);
+        }
+
         //Surface Mesh
 
         internal override IntPtr Extrude_SM(IntPtr meshPtr, Vector3d dir)
@@ -107,6 +117,16 @@ namespace CGALDotNet.Processing
             return MeshProcessingMeshing_EEK_SplitLongEdges_SM(meshPtr, target_edge_length);
         }
 
+        internal override bool TriangulateFace_SM(IntPtr meshPtr, int index)
+        {
+            return MeshProcessingMeshing_EEK_TriangulateFace_SM(meshPtr, index);
+        }
+
+        internal override bool TriangulateFaces_SM(IntPtr meshPtr, int[] faces, int count)
+        {
+            return MeshProcessingMeshing_EEK_TriangulateFaces_SM(meshPtr, faces, count);
+        }
+
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr MeshProcessingMeshing_EEK_Create();
@@ -140,6 +160,12 @@ namespace CGALDotNet.Processing
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int MeshProcessingMeshing_EEK_SplitLongEdges_PH(IntPtr meshPtr, double target_edge_length);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool MeshProcessingMeshing_EEK_TriangulateFace_PH(IntPtr meshPtr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool MeshProcessingMeshing_EEK_TriangulateFaces_PH(IntPtr meshPtr, int[] faces, int count);
+
         //SurfaceMesh
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -165,5 +191,11 @@ namespace CGALDotNet.Processing
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int MeshProcessingMeshing_EEK_SplitLongEdges_SM(IntPtr meshPtr, double target_edge_length);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool MeshProcessingMeshing_EEK_TriangulateFace_SM(IntPtr meshPtr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool MeshProcessingMeshing_EEK_TriangulateFaces_SM(IntPtr meshPtr, int[] faces, int count);
     }
 }

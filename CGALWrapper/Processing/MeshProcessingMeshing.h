@@ -16,7 +16,7 @@
 #include <CGAL/Polygon_mesh_processing/smooth_mesh.h>
 #include <CGAL/Polygon_mesh_processing/smooth_shape.h>
 #include <CGAL/Polygon_mesh_processing/detect_features.h>
-
+#include <CGAL/Polygon_mesh_processing/triangulate_faces.h>
 
 template<class K>
 class MeshProcessingMeshing
@@ -239,13 +239,51 @@ public:
 
 		int count_before = (int)mesh->model.size_of_halfedges();
 
-		std::vector<PEdge_Des> border;
-		CGAL::Polygon_mesh_processing::border_halfedges(faces(mesh->model), mesh->model,
-			boost::make_function_output_iterator(HalfedgeToEdge_PM(mesh->model, border)));
+		//std::vector<PEdge_Des> border;
+		//CGAL::Polygon_mesh_processing::border_halfedges(faces(mesh->model), mesh->model,
+		//	boost::make_function_output_iterator(HalfedgeToEdge_PM(mesh->model, border)));
+		//CGAL::Polygon_mesh_processing::split_long_edges(border, target_edge_length, mesh->model);
 
-		CGAL::Polygon_mesh_processing::split_long_edges(border, target_edge_length, mesh->model);
+		CGAL::Polygon_mesh_processing::split_long_edges(edges(mesh->model), target_edge_length, mesh->model);
 
 		return (int)mesh->model.size_of_halfedges() - count_before;
+	}
+
+	static BOOL TriangulateFace_PH(void* meshPtr, int index)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+
+		auto face = mesh->FindFaceDes(index);
+
+		if (face != nullptr)
+		{
+			std::vector<PFace_Des> faces;
+			faces.push_back(*face);
+			return CGAL::Polygon_mesh_processing::triangulate_faces(faces, mesh->model);
+		}
+		else
+		{
+			return FALSE;
+		}
+
+	}
+
+	static BOOL TriangulateFaces_PH(void* meshPtr, int* faces, int count)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+
+		std::vector<PFace_Des> _faces;
+		for (int i = 0; i < count; i++)
+		{
+			auto face = mesh->FindFaceDes(faces[i]);
+			if (face != nullptr)
+				_faces.push_back(*face);
+		}
+
+		if (_faces.size() == 0)
+			return FALSE;
+
+		return CGAL::Polygon_mesh_processing::triangulate_faces(_faces, mesh->model);
 	}
 
 	//Surface Mesh
@@ -419,20 +457,56 @@ public:
 		*/
 	}
 
-
 	static int SplitLongEdges_SM(void* meshPtr, double target_edge_length)
 	{
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 
 		int count_before = (int)mesh->model.number_of_halfedges();
 
-		std::vector<SEdge_Des> border;
-		auto it = boost::make_function_output_iterator(HalfedgeToEdge_SM(mesh->model, border));
-		CGAL::Polygon_mesh_processing::border_halfedges(faces(mesh->model), mesh->model, it);
+		//std::vector<SEdge_Des> border;
+		//auto it = boost::make_function_output_iterator(HalfedgeToEdge_SM(mesh->model, border));
+		//CGAL::Polygon_mesh_processing::border_halfedges(faces(mesh->model), mesh->model, it);
+		//CGAL::Polygon_mesh_processing::split_long_edges(border, target_edge_length, mesh->model);
 
-		CGAL::Polygon_mesh_processing::split_long_edges(border, target_edge_length, mesh->model);
+		CGAL::Polygon_mesh_processing::split_long_edges(edges(mesh->model),  target_edge_length, mesh->model);
 
 		return (int)mesh->model.number_of_halfedges() - count_before;
-		
+	}
+
+	static BOOL TriangulateFace_SM(void* meshPtr, int index)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+
+		auto face = mesh->FindFace(index);
+
+		if (face != SurfaceMesh3<K>::NullFace())
+		{
+			std::vector<SFace> faces;
+			faces.push_back(face);
+			return CGAL::Polygon_mesh_processing::triangulate_faces(faces, mesh->model);
+		}
+		else
+		{
+			return FALSE;
+		}
+
+	}
+
+	static BOOL TriangulateFaces_SM(void* meshPtr, int* faces, int count)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
+
+		std::vector<SFace> _faces;
+		for (int i = 0; i < count; i++)
+		{
+			auto face = mesh->FindFace(faces[i]);
+			if (face != SurfaceMesh3<K>::NullFace())
+				_faces.push_back(face);
+		}
+
+		if (_faces.size() == 0)
+			return FALSE;
+
+		return CGAL::Polygon_mesh_processing::triangulate_faces(_faces, mesh->model);
 	}
 };

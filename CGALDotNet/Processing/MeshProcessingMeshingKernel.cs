@@ -30,6 +30,10 @@ namespace CGALDotNet.Processing
 
 		internal abstract int SplitLongEdges_PH(IntPtr meshPtr, double target_edge_length);
 
+		internal abstract bool TriangulateFace_PH(IntPtr meshPtr, int index);
+
+		internal abstract bool TriangulateFaces_PH(IntPtr meshPtr, int[] faces, int count);
+
 		//Surface Mesh
 
 		internal abstract IntPtr Extrude_SM(IntPtr meshPtr, Vector3d dir);
@@ -47,5 +51,9 @@ namespace CGALDotNet.Processing
 		internal abstract void SmoothShape_SM(IntPtr meshPtr, double timeStep, int iterations);
 
 		internal abstract int SplitLongEdges_SM(IntPtr meshPtr, double target_edge_length);
+
+		internal abstract bool TriangulateFace_SM(IntPtr meshPtr, int index);
+
+		internal abstract bool TriangulateFaces_SM(IntPtr meshPtr, int[] faces, int count);
 	}
 }
