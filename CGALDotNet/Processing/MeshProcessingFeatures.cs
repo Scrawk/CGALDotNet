@@ -81,7 +81,7 @@ namespace CGALDotNet.Processing
         }
 
         /// <summary>
-        /// Detects the sharp edges of pmesh according to angle as the DetectSharpEdges function does. 
+        /// Detects the sharp edges of mesh according to angle as the DetectSharpEdges function does. 
         /// The sharp edges are then used to define a segmentation of a mesh, that is done by computing 
         /// a surface patch id for each face.
         /// </summary>

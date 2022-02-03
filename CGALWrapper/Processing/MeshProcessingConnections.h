@@ -155,14 +155,14 @@ public:
 
 	static int ConnectedComponents_SM(void* meshPtr)
 	{
-		auto mesh = SurfaceMesh3<EEK>::CastToSurfaceMesh(meshPtr);
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 
-		auto pair = mesh->model.property_map<SFace_Des, std::size_t>("f:CC");
-		auto map = pair.first;
+		//auto pair = mesh->model.property_map<SFace_Des, std::size_t>("f:CC");
+		//auto map = pair.first;
 
-		//auto map = mesh->model.add_property_map<SFace_Des, std::size_t>("f:CC").first;
+		auto map = mesh->model.add_property_map<SFace_Des, std::size_t>("f:CC").first;
 		auto num = CGAL::Polygon_mesh_processing::connected_components(mesh->model, map);
-		//mesh->model.remove_property_map(pair.first);
+		mesh->model.remove_property_map(map);
 		
 		return (int)num;
 	}

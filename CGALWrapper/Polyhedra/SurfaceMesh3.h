@@ -244,7 +244,7 @@ public:
 		return map.FindEdge(index);
 	}
 
-	int FindHalfedgeIndex(Edge edge)
+	int FindHalfedgeIndex(Halfedge edge)
 	{
 		map.BuildHalfedgeMaps(model);
 		return map.FindHalfedgeIndex(edge);

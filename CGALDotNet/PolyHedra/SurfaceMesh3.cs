@@ -1552,6 +1552,15 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        internal void PrintVertices()
+        {
+            foreach(var p in this)
+                Console.WriteLine(p);
+        }
+
+        /// <summary>
         /// Release any unmanaged resources.
         /// </summary>
         protected override void ReleasePtr()

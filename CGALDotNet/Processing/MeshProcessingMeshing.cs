@@ -116,17 +116,18 @@ namespace CGALDotNet.Processing
         /// <param name="index">The vertex index in the mesh to start hthe k ring region from.</param>
         /// <param name="k_ring">The number of vertics to expand the region to.</param>
         /// <returns>If the fairing was successfully run.</returns>
-        public bool Fair(SurfaceMesh3<K> mesh, int index, int k_ring)
-        {
-            CheckIsValidTriangle(mesh);
-
-            var i = Kernel.Fair_SM(mesh.Ptr, index, k_ring);
-
-            bool successful = i.first != 0;
-            //int region_size = i.second;
-
-            return successful;
-        }
+        //public bool Fair(SurfaceMesh3<K> mesh, int index, int k_ring)
+        //{
+        //    CheckIsValidTriangle(mesh);
+        //
+        //    //TODO - need to implemt kring
+        //    var i = Kernel.Fair_SM(mesh.Ptr, index, k_ring);
+        //
+        //    bool successful = i.first != 0;
+        //    //int region_size = i.second;
+        //
+        //    return successful;
+        //}
 
         /// <summary>
         /// Refines a triangle mesh
@@ -266,13 +267,13 @@ namespace CGALDotNet.Processing
         /// <param name="mesh">A valid triangle mesh.</param>
         /// <param name="featureAngle">The edge angle that counts a feature and wont be smoothed.</param>
         /// <param name="iterations">The number of iterations for the sequence of the smoothing iterations performed</param>
-        public void SmoothMeshByAngle(Polyhedron3<K> mesh, Degree featureAngle, int iterations = 1)
-        {
-            CheckIsValidTriangleException(mesh);
-            if (featureAngle.angle <= 0 || iterations < 0) return;
-
-            Kernel.SmoothMesh_PH(mesh.Ptr, featureAngle.angle, iterations);
-        }
+        //public void SmoothMeshByAngle(Polyhedron3<K> mesh, Degree featureAngle, int iterations = 1)
+        //{
+        //    CheckIsValidTriangleException(mesh);
+        //    if (featureAngle.angle <= 0 || iterations < 0) return;
+        //
+        //    Kernel.SmoothMesh_PH(mesh.Ptr, featureAngle.angle, iterations);
+        //}
 
         /// <summary>
         /// Smooths a triangulated mesh.
@@ -307,13 +308,13 @@ namespace CGALDotNet.Processing
         /// A larger time step results in faster convergence but details may be distorted to have a larger 
         /// extent compared to more iterations with a smaller step. Typical values scale in the interval (1e-6, 1].</param>
         /// <param name="iterations">The number of iterations for the sequence of the smoothing iterations performed.</param>
-        public void SmoothShape(Polyhedron3<K> mesh, double timeStep = 0.0001, int iterations = 1)
-        {
-            CheckIsValidTriangleException(mesh);
-            if (timeStep <= 0 || iterations < 0) return;
-
-            Kernel.SmoothShape_PH(mesh.Ptr, timeStep, iterations);
-        }
+        //public void SmoothShape(Polyhedron3<K> mesh, double timeStep = 0.0001, int iterations = 1)
+        //{
+        //    CheckIsValidTriangleException(mesh);
+        //    if (timeStep <= 0 || iterations < 0) return;
+        //
+        //    Kernel.SmoothShape_PH(mesh.Ptr, timeStep, iterations);
+        //}
 
         /// <summary>
         /// smooths the overall shape of the mesh by using the mean curvature flow.
@@ -326,13 +327,13 @@ namespace CGALDotNet.Processing
         /// A larger time step results in faster convergence but details may be distorted to have a larger 
         /// extent compared to more iterations with a smaller step. Typical values scale in the interval (1e-6, 1].</param>
         /// <param name="iterations">The number of iterations for the sequence of the smoothing iterations performed.</param>
-        public void SmoothShape(SurfaceMesh3<K> mesh, double timeStep = 0.0001, int iterations = 1)
-        {
-            CheckIsValidTriangleException(mesh);
-            if (timeStep <= 0 || iterations < 0) return;
-
-            Kernel.SmoothShape_SM(mesh.Ptr, timeStep, iterations);
-        }
+        //public void SmoothShape(SurfaceMesh3<K> mesh, double timeStep = 0.0001, int iterations = 1)
+        //{
+        //    CheckIsValidTriangleException(mesh);
+        //    if (timeStep <= 0 || iterations < 0) return;
+        //
+        //    Kernel.SmoothShape_SM(mesh.Ptr, timeStep, iterations);
+        //}
 
         /// <summary>
         /// splits the edges listed in edges into sub-edges that are not longer than the given threshold max_length.
