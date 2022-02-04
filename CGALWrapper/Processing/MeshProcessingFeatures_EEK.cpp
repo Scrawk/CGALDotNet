@@ -43,6 +43,16 @@ int MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_PH(void* feaPtr, int patc
 	return MeshProcessingFeatures<EEK>::GetPatchBufferFaceIndex_PH(feaPtr, patchIndex, faceIndex);
 }
 
+MinMaxAvg MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_PH(void* ptr)
+{
+	return MeshProcessingFeatures<EEK>::EdgeLengthMinMaxAvg_PH(ptr);
+}
+
+MinMaxAvg MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_PH(void* ptr)
+{
+	return MeshProcessingFeatures<EEK>::FaceAreaMinMaxAvg_PH(ptr);
+}
+
 //Surface Mesh
 
 int MeshProcessingFeatures_EEK_DetectSharpEdges_SM(void* feaPtr, void* meshPtr, double feature_angle)
@@ -73,6 +83,16 @@ int MeshProcessingFeatures_EEK_GetPatchBufferFaceCount_SM(void* feaPtr, int patc
 int MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_SM(void* feaPtr, int patchIndex, int faceIndex)
 {
 	return MeshProcessingFeatures<EEK>::GetPatchBufferFaceIndex_SM(feaPtr, patchIndex, faceIndex);
+}
+
+MinMaxAvg MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_SM(void* ptr)
+{
+	return MeshProcessingFeatures<EEK>::EdgeLengthMinMaxAvg_SM(ptr);
+}
+
+MinMaxAvg MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_SM(void* ptr)
+{
+	return MeshProcessingFeatures<EEK>::FaceAreaMinMaxAvg_SM(ptr);
 }
 
 

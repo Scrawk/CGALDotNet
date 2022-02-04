@@ -62,5 +62,34 @@ namespace CGALDotNetTest.Processing
 
         }
         */
+
+        [TestMethod]
+        public void EdgeLengthMinMaxAvg()
+        {
+            var mesh = TestMesh;
+            mesh.Scale(new Point3d(2, 0.5, 1));
+
+            var minmax = Processor.EdgeLengthMinMaxAvg(mesh);
+
+            Assert.AreEqual(0.5, minmax.Min);
+            Assert.AreEqual(2, minmax.Max);
+            Assert.AreEqual(1.17, Math.Round(minmax.Average, 2));
+        }
+
+        [TestMethod]
+        public void FaceAreaMinMaxAvg()
+        {
+            var mesh = TestMesh;
+            mesh.Scale(new Point3d(2, 0.5, 1));
+
+            var minmax = Processor.FaceAreaMinMaxAvg(mesh);
+
+            Console.WriteLine(minmax);
+
+            Assert.AreEqual(0.25, minmax.Min);
+            Assert.AreEqual(1, minmax.Max);
+            Assert.AreEqual(0.58, Math.Round(minmax.Average, 2));
+        }
+
     }
 }

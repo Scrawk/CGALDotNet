@@ -55,6 +55,16 @@ namespace CGALDotNet.Processing
             return MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_PH(feaPtr, patchIndex, faceIndex);
         }
 
+        internal override MinMaxAvg EdgeLengthMinMaxAvg_PH(IntPtr ptr)
+        {
+            return MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_PH(ptr);
+        }
+
+        internal override MinMaxAvg FaceAreaMinMaxAvg_PH(IntPtr ptr)
+        {
+            return MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_PH(ptr);
+        }
+
         //Surface Mesh
 
         internal override int DetectSharpEdges_SM(IntPtr feaPtr, IntPtr meshPtr, double feature_angle)
@@ -87,6 +97,16 @@ namespace CGALDotNet.Processing
             return MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_SM(feaPtr, patchIndex, faceIndex);
         }
 
+        internal override MinMaxAvg EdgeLengthMinMaxAvg_SM(IntPtr ptr)
+        {
+            return MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_SM(ptr);
+        }
+
+        internal override MinMaxAvg FaceAreaMinMaxAvg_SM(IntPtr ptr)
+        {
+            return MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_SM(ptr);
+        }
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr MeshProcessingFeatures_EEK_Create();
 
@@ -112,6 +132,12 @@ namespace CGALDotNet.Processing
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_PH(IntPtr feaPtr, int patchIndex, int faceIndex);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern MinMaxAvg MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_PH(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern MinMaxAvg MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_PH(IntPtr ptr);
+
         //Surface Mesh
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int MeshProcessingFeatures_EEK_DetectSharpEdges_SM(IntPtr feaPtr, IntPtr meshPtr, double feature_angle);
@@ -130,6 +156,12 @@ namespace CGALDotNet.Processing
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_SM(IntPtr feaPtr, int patchIndex, int faceIndex);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern MinMaxAvg MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern MinMaxAvg MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_SM(IntPtr ptr);
 
     }
 }

@@ -26,6 +26,10 @@ namespace CGALDotNet.Processing
 
 		internal abstract int GetPatchBufferFaceIndex_PH(IntPtr feaPtr, int patchIndex, int faceIndex);
 
+		internal abstract MinMaxAvg EdgeLengthMinMaxAvg_PH(IntPtr ptr);
+
+		internal abstract MinMaxAvg FaceAreaMinMaxAvg_PH(IntPtr ptr);
+
 		//Surface Mesh
 
 		internal abstract int DetectSharpEdges_SM(IntPtr feaPtr, IntPtr meshPtr, double feature_angle);
@@ -39,6 +43,10 @@ namespace CGALDotNet.Processing
 		internal abstract int GetPatchBufferFaceCount_SM(IntPtr feaPtr, int patchIndex);
 
 		internal abstract int GetPatchBufferFaceIndex_SM(IntPtr feaPtr, int patchIndex, int faceIndex);
+
+		internal abstract MinMaxAvg EdgeLengthMinMaxAvg_SM(IntPtr ptr);
+
+		internal abstract MinMaxAvg FaceAreaMinMaxAvg_SM(IntPtr ptr);
 
 	}
 }

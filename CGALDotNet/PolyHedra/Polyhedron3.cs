@@ -1139,15 +1139,6 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Find the min, max and average edge lengths in the mesh.
-        /// </summary>
-        /// <returns>The min, max and average edge lengths in the mesh.</returns>
-        public MinMaxAvg FindMinMaxEdgeLength()
-        {
-            return Kernel.MinMaxEdgeLength(Ptr);
-        }
-
-        /// <summary>
         /// Subdive the mesh.
         /// </summary>
         /// <param name="iterations">The number of iterations to perfrom.</param>

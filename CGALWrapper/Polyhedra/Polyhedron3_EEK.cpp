@@ -212,11 +212,6 @@ void Polyhedron3_EEK_WriteOFF(void* ptr, const char* filename)
 	Polyhedron3<EEK>::WriteOFF(ptr, filename);
 }
 
-MinMaxAvg Polyhedron3_EEK_MinMaxEdgeLength(void* ptr)
-{
-	return Polyhedron3<EEK>::MinMaxEdgeLength(ptr);
-}
-
 void Polyhedron3_EEK_GetCentroids(void* ptr, Point3d* points, int count)
 {
 	Polyhedron3<EEK>::GetCentroids(ptr, points, count);

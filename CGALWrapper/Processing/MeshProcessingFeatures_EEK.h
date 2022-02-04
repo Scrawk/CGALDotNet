@@ -3,6 +3,7 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Index.h"
+#include "../Geometry/MinMax.h"
 
 extern "C"
 {
@@ -24,6 +25,10 @@ extern "C"
 
 	CGALWRAPPER_API int MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_PH(void* feaPtr, int patchIndex, int faceIndex);
 
+	CGALWRAPPER_API MinMaxAvg MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_PH(void* ptr);
+
+	CGALWRAPPER_API MinMaxAvg MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_PH(void* ptr);
+
 	//Surface Mesh
 
 	CGALWRAPPER_API  int MeshProcessingFeatures_EEK_DetectSharpEdges_SM(void* feaPtr, void* meshPtr, double feature_angle);
@@ -37,6 +42,10 @@ extern "C"
 	CGALWRAPPER_API int MeshProcessingFeatures_EEK_GetPatchBufferFaceCount_SM(void* feaPtr, int patchIndex);
 
 	CGALWRAPPER_API int MeshProcessingFeatures_EEK_GetPatchBufferFaceIndex_SM(void* feaPtr, int patchIndex, int faceIndex);
+
+	CGALWRAPPER_API MinMaxAvg MeshProcessingFeatures_EEK_EdgeLengthMinMaxAvg_SM(void* ptr);
+
+	CGALWRAPPER_API MinMaxAvg MeshProcessingFeatures_EEK_FaceAreaMinMaxAvg_SM(void* ptr);
 
 }
 

@@ -4,8 +4,9 @@
 #include "../Geometry/Index.h"
 #include "../Polyhedra/Polyhedron3.h"
 #include "../Polyhedra/SurfaceMesh3.h"
-#include "../Polylines/Polyline3.h"
+#include "../Geometry/MinMax.h"
 
+#include <limits>
 #include <CGAL/Polygon_mesh_processing/detect_features.h>
 
 template<class K>
@@ -14,6 +15,7 @@ class MeshProcessingFeatures
 
 public:
 
+	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point_3;
 
 	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
@@ -148,6 +150,78 @@ public:
 			return 0;
 	}
 
+	static MinMaxAvg EdgeLengthMinMaxAvg_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		constexpr double MAX = std::numeric_limits<double>::max();
+
+		FT min = MAX;
+		FT max = 0;
+		FT avg = 0;
+
+		int count = 0;
+		for (auto halfedge = mesh->model.halfedges_begin(); halfedge != mesh->model.halfedges_end(); ++halfedge)
+		{
+			auto len = CGAL::Polygon_mesh_processing::edge_length(halfedge, mesh->model);
+
+			count++;
+			avg += len;
+
+			if (len < min) min = len;
+			if (len > max) max = len;
+		}
+
+		if (min == MAX)
+			min = 0;
+
+		if (count != 0)
+			avg /= count;
+
+		MinMaxAvg m;
+		m.min = CGAL::to_double(min);
+		m.max = CGAL::to_double(max);
+		m.avg = CGAL::to_double(avg);
+
+		return m;
+	}
+
+	static MinMaxAvg FaceAreaMinMaxAvg_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		constexpr double MAX = std::numeric_limits<double>::max();
+
+		FT min = MAX;
+		FT max = 0;
+		FT avg = 0;
+
+		int count = 0;
+		for (auto face = mesh->model.facets_begin(); face != mesh->model.facets_end(); ++face)
+		{
+			auto area = CGAL::Polygon_mesh_processing::face_area(face, mesh->model);
+
+			count++;
+			avg += area;
+
+			if (area < min) min = area;
+			if (area > max) max = area;
+		}
+
+		if (min == MAX)
+			min = 0;
+
+		if (count != 0)
+			avg /= count;
+
+		MinMaxAvg m;
+		m.min = CGAL::to_double(min);
+		m.max = CGAL::to_double(max);
+		m.avg = CGAL::to_double(avg);
+
+		return m;
+	}
+
 	//SurfaceMesh
 
 	static int DetectSharpEdges_SM(void* feaPtr, void* meshPtr, double feature_angle)
@@ -260,6 +334,78 @@ public:
 		}
 		else
 			return 0;
+	}
+
+	static MinMaxAvg EdgeLengthMinMaxAvg_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		constexpr double MAX = std::numeric_limits<double>::max();
+
+		FT min = MAX;
+		FT max = 0;
+		FT avg = 0;
+
+		int count = 0;
+		for (auto halfedge : mesh->model.halfedges())
+		{
+			auto len = CGAL::Polygon_mesh_processing::edge_length(halfedge, mesh->model);
+
+			count++;
+			avg += len;
+
+			if (len < min) min = len;
+			if (len > max) max = len;
+		}
+
+		if (min == MAX)
+			min = 0;
+
+		if (count != 0)
+			avg /= count;
+
+		MinMaxAvg m;
+		m.min = CGAL::to_double(min);
+		m.max = CGAL::to_double(max);
+		m.avg = CGAL::to_double(avg);
+
+		return m;
+	}
+
+	static MinMaxAvg FaceAreaMinMaxAvg_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		constexpr double MAX = std::numeric_limits<double>::max();
+
+		FT min = MAX;
+		FT max = 0;
+		FT avg = 0;
+
+		int count = 0;
+		for (auto face : mesh->model.faces())
+		{
+			auto area = CGAL::Polygon_mesh_processing::face_area(face, mesh->model);
+
+			count++;
+			avg += area;
+
+			if (area < min) min = area;
+			if (area > max) max = area;
+		}
+
+		if (min == MAX)
+			min = 0;
+
+		if (count != 0)
+			avg /= count;
+
+		MinMaxAvg m;
+		m.min = CGAL::to_double(min);
+		m.max = CGAL::to_double(max);
+		m.avg = CGAL::to_double(avg);
+
+		return m;
 	}
 
 };

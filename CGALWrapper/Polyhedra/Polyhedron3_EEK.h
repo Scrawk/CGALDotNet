@@ -96,8 +96,6 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_WriteOFF(void* ptr, const char* filename);
 
-	CGALWRAPPER_API MinMaxAvg Polyhedron3_EEK_MinMaxEdgeLength(void* ptr);
-
 	CGALWRAPPER_API void Polyhedron3_EEK_GetCentroids(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_ComputeVertexNormals(void* ptr);
