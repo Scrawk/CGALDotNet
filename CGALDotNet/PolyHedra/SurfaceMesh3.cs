@@ -85,6 +85,123 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Simplify the polyhedra.
+        /// </summary>
+        /// <param name="stop_ratio">A number between 0-1 that represents the percentage of vertices to remove.</param>
+        public override void Simplify(double stop_ratio)
+        {
+            try
+            {
+                var sim = SurfaceSimplification<K>.Instance;
+                sim.Simplify(this, stop_ratio);
+                IsUpdated = false;
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
+        /// <summary>
+        /// Refines a triangle mesh
+        /// </summary>
+        /// <param name="density_control_factor">a factor to control density of the output mesh, 
+        /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
+        /// <returns>The number of new vertices.</returns>
+        public override int Refine(double density_control_factor = CGALGlobal.SQRT2)
+        {
+            try
+            {
+                IsUpdated = false;
+                var meshing = MeshProcessingMeshing<K>.Instance;
+                return meshing.Refine(this, density_control_factor);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return 0;
+        }
+        /// <summary>
+        /// Remeshes a triangulated region of a polygon mesh.
+        /// This operation sequentially performs edge splits, edge collapses, edge flips, 
+        /// tangential relaxation and projection to the initial surface to generate 
+        /// a smooth mesh with a prescribed edge length.
+        /// </summary>
+        /// <param name="iterations">The number of times to perform the remeshing.</param>
+        /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
+        /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
+        /// <returns>The number of new vertices added.</returns>
+        public override int IsotropicRemeshing(double target_edge_length, int iterations = 1)
+        {
+            try
+            {
+                IsUpdated = false;
+                var meshing = MeshProcessingMeshing<K>.Instance;
+                return meshing.IsotropicRemeshing(this, target_edge_length, iterations);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Orient the faces in the mesh.
+        /// </summary>
+        /// <param name="oriente">The orientation method.</param>
+        public override void Orient(ORIENTATE oriente)
+        {
+            try
+            {
+                IsUpdated = false;
+                var orient = MeshProcessingOrientation<K>.Instance;
+                orient.Orient(oriente, this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
+        /// <summary>
+        /// Reverses the orientation of the vertices in each face.
+        /// </summary>
+        public override void ReverseFaceOrientation()
+        {
+            Orient(ORIENTATE.REVERSE_FACE_ORIENTATIONS);
+        }
+
+        /// <summary>
+        /// Split the mesh into its unconnected components.
+        /// </summary>
+        /// <param name="results">Each unconnect component as a new mesh.</param>
+        public void Split(List<SurfaceMesh3<K>> results)
+        {
+            try
+            {
+                var con = MeshProcessingConnections<K>.Instance;
+                con.SplitUnconnectedComponents(this, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+        }
+
+        /// <summary>
+        /// Remove all unconnected compontents except the largest.
+        /// Largest is defined by the face count.
+        /// </summary>
+        /// <param name="num_components_to_keep">The numbero of largest components to keep.</param>
+        /// <returns>The number of components removed in the mesh.</returns>
+        public override int KeepLargest(int num_components_to_keep = 1)
+        {
+            try
+            {
+                var con = MeshProcessingConnections<K>.Instance;
+                return con.KeepLargestComponents(this, num_components_to_keep);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return 0;
+        }
+
+        /// <summary>
         /// Copy the other mesh to this one.
         /// </summary>
         /// <param name="other"></param>
@@ -151,28 +268,39 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
-        /// Orient the faces in the mesh.
+        /// Find the min, max and average edge lengths in the mesh
         /// </summary>
-        /// <param name="oriente">The orientation method.</param>
-        public override void Orient(ORIENTATE oriente)
+        /// <returns>The min, max and average edge lengths in the mesh.</returns>
+        public override MinMaxAvg FindMinMaxAvgEdgeLength()
         {
             try
             {
-                IsUpdated = false;
-                var orient = MeshProcessingOrientation<K>.Instance;
-                orient.Orient(oriente, this);
+                var fea = MeshProcessingFeatures<K>.Instance;
+                return fea.EdgeLengthMinMaxAvg(this);
             }
             catch (NotImplementedException) { }
             catch (NotSupportedException) { };
+
+            return new MinMaxAvg();
         }
 
         /// <summary>
-        /// Reverses the orientation of the vertices in each face.
+        /// Find the min, max and average face areas in the mesh
         /// </summary>
-        public override void ReverseFaceOrientation()
+        /// <returns>The min, max and average face areas in the mesh.</returns>
+        public override MinMaxAvg FindMinMaxAvgFaceArea()
         {
-            Orient(ORIENTATE.REVERSE_FACE_ORIENTATIONS);
+            try
+            {
+                var fea = MeshProcessingFeatures<K>.Instance;
+                return fea.FaceAreaMinMaxAvg(this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return new MinMaxAvg();
         }
+
     }
 
     /// <summary>
@@ -1390,10 +1518,13 @@ namespace CGALDotNet.Polyhedra
         /// Find the min, max and average edge lengths in the mesh
         /// </summary>
         /// <returns>The min, max and average edge lengths in the mesh.</returns>
-        public MinMaxAvg FindMinMaxEdgeLength()
-        {
-            return Kernel.MinMaxEdgeLength(Ptr);
-        }
+        public abstract MinMaxAvg FindMinMaxAvgEdgeLength();
+
+        /// <summary>
+        /// Find the min, max and average face areas in the mesh
+        /// </summary>
+        /// <returns>The min, max and average face areas in the mesh.</returns>
+        public abstract MinMaxAvg FindMinMaxAvgFaceArea();
 
         /// <summary>
         /// Subdive the mesh.
@@ -1401,6 +1532,51 @@ namespace CGALDotNet.Polyhedra
         /// <param name="iterations">The number of iterations to perfrom.</param>
         /// <param name="method">The subdivision method.</param>
         public abstract void Subdivide(int iterations, SUBDIVISION_METHOD method = SUBDIVISION_METHOD.SQRT3);
+
+        /// <summary>
+        /// Simplify the polyhedra.
+        /// </summary>
+        /// <param name="stop_ratio">A number between 0-1 that represents the percentage of vertices to remove.</param>
+        public abstract void Simplify(double stop_ratio);
+
+        /// <summary>
+        /// Refines a triangle mesh
+        /// </summary>
+        /// <param name="density_control_factor">a factor to control density of the output mesh, 
+        /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
+        /// <returns>The number of new vertices.</returns>
+        public abstract int Refine(double density_control_factor = CGALGlobal.SQRT2);
+
+        /// <summary>
+        /// Remeshes a triangulated region of a polygon mesh.
+        /// This operation sequentially performs edge splits, edge collapses, edge flips, 
+        /// tangential relaxation and projection to the initial surface to generate 
+        /// a smooth mesh with a prescribed edge length.
+        /// </summary>
+        /// <param name="iterations">The number of times to perform the remeshing.</param>
+        /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
+        /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
+        /// <returns>The number of new vertices added.</returns>
+        public abstract int IsotropicRemeshing(double target_edge_length, int iterations = 1);
+
+        /// <summary>
+        /// Orient the faces in the mesh.
+        /// </summary>
+        /// <param name="orientate">The orientation method.</param>
+        public abstract void Orient(ORIENTATE orientate);
+
+        /// <summary>
+        /// Reverses the orientation of the vertices in each face.
+        /// </summary>
+        public abstract void ReverseFaceOrientation();
+
+        /// <summary>
+        /// Remove all unconnected compontents except the largest.
+        /// Largest is defined by the face count.
+        /// </summary>
+        /// <param name="num_components_to_keep">The numbero of largest components to keep.</param>
+        /// <returns>The number of components removed in the mesh.</returns>
+        public abstract int KeepLargest(int num_components_to_keep = 1);
 
         /// <summary>
         /// Get a centroid (the avergae face position) for each face in the mesh.
@@ -1456,17 +1632,6 @@ namespace CGALDotNet.Polyhedra
         {
             Kernel.GetFaceNormals(Ptr, normals, count);
         }
-
-        /// <summary>
-        /// Orient the faces in the mesh.
-        /// </summary>
-        /// <param name="orientate">The orientation method.</param>
-        public abstract void Orient(ORIENTATE orientate);
-
-        /// <summary>
-        /// Reverses the orientation of the vertices in each face.
-        /// </summary>
-        public abstract void ReverseFaceOrientation();
 
         /// <summary>
         /// Enumerate all points in the mesh.

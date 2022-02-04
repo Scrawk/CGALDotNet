@@ -173,8 +173,6 @@ extern "C"
 
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_sides);
 
-	CGALWRAPPER_API MinMaxAvg SurfaceMesh3_EEK_MinMaxEdgeLength(void* ptr);
-
 	CGALWRAPPER_API void SurfaceMesh3_EEK_GetCentroids(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_PropertyMapCount(void* ptr);

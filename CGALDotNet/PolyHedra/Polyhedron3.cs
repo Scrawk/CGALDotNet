@@ -254,6 +254,40 @@ namespace CGALDotNet.Polyhedra
             return mesh;
         }
 
+        /// <summary>
+        /// Find the min, max and average edge lengths in the mesh
+        /// </summary>
+        /// <returns>The min, max and average edge lengths in the mesh.</returns>
+        public override MinMaxAvg FindMinMaxAvgEdgeLength()
+        {
+            try
+            {
+                var fea = MeshProcessingFeatures<K>.Instance;
+                return fea.EdgeLengthMinMaxAvg(this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return new MinMaxAvg();
+        }
+
+        /// <summary>
+        /// Find the min, max and average face areas in the mesh
+        /// </summary>
+        /// <returns>The min, max and average face areas in the mesh.</returns>
+        public override MinMaxAvg FindMinMaxAvgFaceArea()
+        {
+            try
+            {
+                var fea = MeshProcessingFeatures<K>.Instance;
+                return fea.FaceAreaMinMaxAvg(this);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return new MinMaxAvg();
+        }
+
     }
 
     /// <summary>
@@ -1189,6 +1223,18 @@ namespace CGALDotNet.Polyhedra
         /// <param name="num_components_to_keep">The numbero of largest components to keep.</param>
         /// <returns>The number of components removed in the mesh.</returns>
         public abstract int KeepLargest(int num_components_to_keep = 1);
+
+        /// <summary>
+        /// Find the min, max and average edge lengths in the mesh
+        /// </summary>
+        /// <returns>The min, max and average edge lengths in the mesh.</returns>
+        public abstract MinMaxAvg FindMinMaxAvgEdgeLength();
+
+        /// <summary>
+        /// Find the min, max and average face areas in the mesh
+        /// </summary>
+        /// <returns>The min, max and average face areas in the mesh.</returns>
+        public abstract MinMaxAvg FindMinMaxAvgFaceArea();
 
         /// <summary>
         /// Enumerate all points in the mesh.

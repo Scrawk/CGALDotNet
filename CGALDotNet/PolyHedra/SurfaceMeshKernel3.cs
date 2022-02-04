@@ -171,8 +171,6 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract bool DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
 
-        internal abstract MinMaxAvg MinMaxEdgeLength(IntPtr ptr);
-
         internal abstract void GetCentroids(IntPtr ptr, Point3d[] points, int count);
 
         internal abstract void ComputeVertexNormals(IntPtr ptr);

@@ -418,11 +418,6 @@ namespace CGALDotNet.Polyhedra
             return SurfaceMesh3_EEK_DoIntersects(ptr, otherPtr, test_bounded_sides);
         }
 
-        internal override MinMaxAvg MinMaxEdgeLength(IntPtr ptr)
-        {
-            return SurfaceMesh3_EEK_MinMaxEdgeLength(ptr);
-        }
-
         internal override void GetCentroids(IntPtr ptr, Point3d[] points, int count) 
         { 
             SurfaceMesh3_EEK_GetCentroids(ptr, points, count);  
@@ -743,12 +738,9 @@ namespace CGALDotNet.Polyhedra
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern BOUNDED_SIDE SurfaceMesh3_EEK_SideOfTriangleMesh(IntPtr ptr, Point3d point);
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool SurfaceMesh3_EEK_DoIntersects(IntPtr ptr, IntPtr otherPtr, bool test_bounded_sides);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern MinMaxAvg SurfaceMesh3_EEK_MinMaxEdgeLength(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_GetCentroids(IntPtr ptr, [Out] Point3d[] points, int count);

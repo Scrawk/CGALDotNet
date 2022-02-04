@@ -408,11 +408,6 @@ BOOL SurfaceMesh3_EEK_DoIntersects(void* ptr, void* otherPtr, BOOL test_bounded_
 	return SurfaceMesh3<EEK>::DoIntersects(ptr, otherPtr, test_bounded_sides);
  }
 
-MinMaxAvg SurfaceMesh3_EEK_MinMaxEdgeLength(void* ptr)
-{
-	return SurfaceMesh3<EEK>::MinMaxEdgeLength(ptr);
-}
-
 void SurfaceMesh3_EEK_GetCentroids(void* ptr, Point3d* points, int count)
 {
 	SurfaceMesh3<EEK>::GetCentroids(ptr, points, count);

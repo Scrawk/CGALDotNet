@@ -991,42 +991,6 @@ public:
 		return CGAL::Polygon_mesh_processing::do_intersect(mesh->model, other->model, param, param);
 	}
 
-	static MinMaxAvg MinMaxEdgeLength(void* ptr)
-	{
-		auto mesh = CastToSurfaceMesh(ptr);
-
-		constexpr double MAX = std::numeric_limits<double>::max();
-
-		FT min = MAX;
-		FT max = 0;
-		FT avg = 0;
-
-		int count = 0;
-		for (auto edge : mesh->model.edges())
-		{
-			auto len = CGAL::Polygon_mesh_processing::edge_length(edge, mesh->model);
-
-			count++;
-			avg += len;
-
-			if (len < min) min = len;
-			if (len > max) max = len;
-		}
-
-		if (min == MAX)
-			min = 0;
-
-		if (count != 0)
-			avg /= count;
-
-		MinMaxAvg m;
-		m.min = CGAL::to_double(min);
-		m.max = CGAL::to_double(max);
-		m.avg = CGAL::to_double(avg);
-
-		return m;
-	}
-
 	static void GetCentroids(void* ptr, Point3d* points, int count)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
