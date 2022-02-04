@@ -170,9 +170,11 @@
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
     <ClInclude Include="Geometry\Index.h" />
+    <ClInclude Include="Processing\MeshProcessingLocate_EEK.h" />
     <ClInclude Include="Polyhedra\PolyhedronMap.h" />
     <ClInclude Include="Processing\MeshProcessingFeatures_EEK.h" />
     <ClInclude Include="Processing\MeshProcessingFeatures.h" />
+    <ClInclude Include="Processing\MeshProcessingLocate.h" />
     <ClInclude Include="Processing\MeshProcessingSlicer_EEK.h" />
     <ClInclude Include="Polylines\Polyline3_EEK.h" />
     <ClInclude Include="Polylines\Polyline2_EEK.h" />
@@ -282,6 +284,7 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingLocate_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingFeatures_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingSlicer_EEK.cpp" />
     <ClCompile Include="Polylines\Polyline3_EEK.cpp" />
