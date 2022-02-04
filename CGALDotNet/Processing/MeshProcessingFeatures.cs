@@ -38,15 +38,6 @@ namespace CGALDotNet.Processing
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return string.Format("[MeshProcessingFeatures<{0}>: ]", Kernel.KernelName);
-        }
-
-        /// <summary>
         /// Detects the edges that are considered to be sharp with respect to the given angle bound.
         /// </summary>
         /// <param name="mesh">A valid mesh.</param>
@@ -78,6 +69,50 @@ namespace CGALDotNet.Processing
             int num_edges = Kernel.DetectSharpEdges_SM(Ptr, mesh.Ptr, feature_angle.angle);
 
             GetFeatureEdges(MESH_TYPE.SURFACE_MESH, mesh.Ptr, num_edges, featureEdges);
+        }
+
+        /// <summary>
+        /// Find the min, max and average edge lengths in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <returns>The min, max and average edge lengths in the mesh.</returns>
+        public MinMaxAvg EdgeLengthMinMaxAvg(Polyhedron3<K> mesh)
+        {
+            CheckIsValidException(mesh);
+            return Kernel.EdgeLengthMinMaxAvg_PH(mesh.Ptr);
+        }
+
+        /// <summary>
+        /// Find the min, max and average edge lengths in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <returns>The min, max and average edge lengths in the mesh.</returns>
+        public MinMaxAvg EdgeLengthMinMaxAvg(SurfaceMesh3<K> mesh)
+        {
+            CheckIsValidException(mesh);
+            return Kernel.EdgeLengthMinMaxAvg_SM(mesh.Ptr);
+        }
+
+        /// <summary>
+        /// Find the min, max and average face areas in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <returns>The min, max and average face areas in the mesh.</returns>
+        public MinMaxAvg FaceAreaMinMaxAvg(Polyhedron3<K> mesh)
+        {
+            CheckIsValidException(mesh);
+            return Kernel.FaceAreaMinMaxAvg_PH(mesh.Ptr);
+        }
+
+        /// <summary>
+        /// Find the min, max and average face areas in the mesh.
+        /// </summary>
+        /// <param name="mesh">A valid mesh.</param>
+        /// <returns>The min, max and average face areas in the mesh.</returns>
+        public MinMaxAvg FaceAreaMinMaxAvg(SurfaceMesh3<K> mesh)
+        {
+            CheckIsValidException(mesh);
+            return Kernel.FaceAreaMinMaxAvg_SM(mesh.Ptr);
         }
 
         /// <summary>
@@ -126,47 +161,12 @@ namespace CGALDotNet.Processing
         }
 
         /// <summary>
-        /// Find the min, max and average edge lengths in the mesh.
+        /// 
         /// </summary>
-        /// <param name="mesh">A valid mesh.</param>
-        /// <returns>The min, max and average edge lengths in the mesh.</returns>
-        public MinMaxAvg EdgeLengthMinMaxAvg(Polyhedron3<K> mesh)
+        /// <returns></returns>
+        public override string ToString()
         {
-            CheckIsValidException(mesh);
-            return Kernel.EdgeLengthMinMaxAvg_PH(mesh.Ptr);
-        }
-
-        /// <summary>
-        /// Find the min, max and average edge lengths in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid mesh.</param>
-        /// <returns>The min, max and average edge lengths in the mesh.</returns>
-        public MinMaxAvg EdgeLengthMinMaxAvg(SurfaceMesh3<K> mesh)
-        {
-            CheckIsValidException(mesh);
-            return Kernel.EdgeLengthMinMaxAvg_SM(mesh.Ptr);
-        }
-
-        /// <summary>
-        /// Find the min, max and average face areas in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid mesh.</param>
-        /// <returns>The min, max and average face areas in the mesh.</returns>
-        public MinMaxAvg FaceAreaMinMaxAvg(Polyhedron3<K> mesh)
-        {
-            CheckIsValidException(mesh);
-            return Kernel.FaceAreaMinMaxAvg_PH(mesh.Ptr);
-        }
-
-        /// <summary>
-        /// Find the min, max and average face areas in the mesh.
-        /// </summary>
-        /// <param name="mesh">A valid mesh.</param>
-        /// <returns>The min, max and average face areas in the mesh.</returns>
-        public MinMaxAvg FaceAreaMinMaxAvg(SurfaceMesh3<K> mesh)
-        {
-            CheckIsValidException(mesh);
-            return Kernel.FaceAreaMinMaxAvg_SM(mesh.Ptr);
+            return string.Format("[MeshProcessingFeatures<{0}>: ]", Kernel.KernelName);
         }
     }
 
@@ -175,14 +175,6 @@ namespace CGALDotNet.Processing
     /// </summary>
     public abstract class MeshProcessingFeatures : PolyhedraAlgorithm
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private MeshProcessingFeatures()
-        {
-
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -204,6 +196,13 @@ namespace CGALDotNet.Processing
             Ptr = ptr;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private MeshProcessingFeatures()
+        {
+
+        }
         /// <summary>
         /// 
         /// </summary>
