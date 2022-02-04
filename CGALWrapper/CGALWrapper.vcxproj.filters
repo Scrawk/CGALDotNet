@@ -414,6 +414,9 @@
     <ClInclude Include="Processing\MeshProcessingLocate_EEK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polyhedra\MeshHitResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

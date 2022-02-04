@@ -5,7 +5,7 @@
 #include "CGAL/Vector_3.h"
 #include <CGAL/Plane_3.h>
 #include <CGAL/Bbox_3.h>
-
+#include <CGAL/Ray_3.h>
 #include <iostream>
 
 /*
@@ -321,6 +321,24 @@ struct Box3d
         Point3d max = { xmax, ymax, zmax };
 
         return { min, max };
+    }
+};
+
+struct  Ray3d
+{
+    Point3d position;
+    Vector3d direction;
+
+    template<class K, class RAY>
+    RAY ToCGAL() const
+    {
+        return { position.ToCGAL<K>(), direction.ToCGAL<K>() };
+    }
+
+    template<class K>
+    static Ray3d FromCGAL(CGAL::Point_3<K> pos, CGAL::Vector_3<K> dir)
+    {
+        return { Point3d::FromCGAL(pos), Vector3d::FromCGAL(dir) };
     }
 };
 

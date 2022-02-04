@@ -57,9 +57,9 @@ public:
 
 	SurfaceMesh model;
 
-private:
-
 	AABBTree* tree = nullptr;
+
+private:
 
 	SurfaceMeshMap<K> map;
 

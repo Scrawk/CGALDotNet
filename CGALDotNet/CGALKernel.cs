@@ -88,6 +88,8 @@ namespace CGALDotNet
         internal abstract MeshProcessingSlicerKernel MeshProcessingSlicerKernel { get; }
 
         internal abstract MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel { get; }
+
+        internal abstract MeshProcessingLocateKernel MeshProcessingLocateKernel { get; }
     }
 
     public class EIK : CGALKernel
@@ -165,6 +167,8 @@ namespace CGALDotNet
         internal override MeshProcessingSlicerKernel MeshProcessingSlicerKernel => throw new NotImplementedException();
 
         internal override MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel => throw new NotImplementedException();
+
+        internal override MeshProcessingLocateKernel MeshProcessingLocateKernel => throw new NotImplementedException();
     }
 
     public class EEK : CGALKernel
@@ -242,6 +246,8 @@ namespace CGALDotNet
         internal override MeshProcessingSlicerKernel MeshProcessingSlicerKernel => MeshProcessingSlicerKernel_EEK.Instance;
 
         internal override MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel => MeshProcessingFeaturesKernel_EEK.Instance;
+
+        internal override MeshProcessingLocateKernel MeshProcessingLocateKernel => MeshProcessingLocateKernel_EEK.Instance;
     }
 
 }
