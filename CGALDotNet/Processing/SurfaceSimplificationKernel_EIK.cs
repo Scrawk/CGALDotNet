@@ -20,9 +20,14 @@ namespace CGALDotNet.Processing
             SurfaceSimplification_EIK_Release(ptr);
         }
 
-        internal override void SimplifyPolyhedron(IntPtr polyPtr, double stop_ratio)
+        internal override void Simplify_PH(IntPtr meshPtr, double stop_ratio)
         {
-            SurfaceSimplification_EIK_SimplifyPolyhedron(polyPtr, stop_ratio);    
+            SurfaceSimplification_EIK_Simplify_PH(meshPtr, stop_ratio);    
+        }
+
+        internal override void Simplify_SM(IntPtr meshPtr, double stop_ratio)
+        {
+            SurfaceSimplification_EIK_Simplify_SM(meshPtr, stop_ratio);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -32,6 +37,9 @@ namespace CGALDotNet.Processing
         private static extern void SurfaceSimplification_EIK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceSimplification_EIK_SimplifyPolyhedron(IntPtr polyPtr, double stop_ratio);
+        private static extern void SurfaceSimplification_EIK_Simplify_PH(IntPtr meshPtr, double stop_ratio);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceSimplification_EIK_Simplify_SM(IntPtr meshPtr, double stop_ratio);
     }
 }

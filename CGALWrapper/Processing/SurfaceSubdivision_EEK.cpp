@@ -11,7 +11,7 @@ void SurfaceSubdivision_EEK_Release(void* ptr)
 	SurfaceSubdivision<EEK>::DeleteSurfaceSubdivision(ptr);
 }
 
-//
+//Polyhedron
 
 void SurfaceSubdivision_EEK_Subdive_CatmullClark_PH(void* meshPtr, int iterations)
 {

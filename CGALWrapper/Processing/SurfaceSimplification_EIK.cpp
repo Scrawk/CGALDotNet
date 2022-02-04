@@ -11,7 +11,12 @@ void SurfaceSimplification_EIK_Release(void* ptr)
 	SurfaceSimplification<EIK>::DeleteSurfaceSimplification(ptr);
 }
 
-void SurfaceSimplification_EIK_SimplifyPolyhedron(void* polyPtr, double stop_ratio)
+void SurfaceSimplification_EIK_Simplify_PH(void* meshPtr, double stop_ratio)
 {
-	SurfaceSimplification<EIK>::SimplifyPolyhedron(polyPtr, stop_ratio);
+	SurfaceSimplification<EIK>::Simplify_PH(meshPtr, stop_ratio);
+}
+
+void SurfaceSimplification_EIK_Simplify_SM(void* meshPtr, double stop_ratio)
+{
+	SurfaceSimplification<EIK>::Simplify_SM(meshPtr, stop_ratio);
 }

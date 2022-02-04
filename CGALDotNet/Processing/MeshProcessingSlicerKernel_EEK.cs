@@ -28,14 +28,26 @@ namespace CGALDotNet.Processing
             MeshProcessingSlicer_EEK_GetLines(slicerPtr, lines, count);
         }
 
-        internal override int Slice(IntPtr slicerPtr, IntPtr polyPtr, Plane3d plane, bool useTree)
+        //Polyhedron
+        internal override int Slice_PH(IntPtr slicerPtr, IntPtr meshPtr, Plane3d plane, bool useTree)
         {
-            return MeshProcessingSlicer_EEK_Polyhedron_Slice(slicerPtr, polyPtr, plane, useTree);
+            return MeshProcessingSlicer_EEK_Slice_PH(slicerPtr, meshPtr, plane, useTree);
         }
 
-        internal override int Slice(IntPtr slicerPtr, IntPtr polyPtr, Point3d start, Point3d end, double increment)
+        internal override int IncrementalSlice_PH(IntPtr slicerPtr, IntPtr meshPtr, Point3d start, Point3d end, double increment)
         {
-            return MeshProcessingSlicer_EEK_Polyhedron_IncrementalSlice(slicerPtr, polyPtr, start, end, increment);
+            return MeshProcessingSlicer_EEK_IncrementalSlice_PH(slicerPtr, meshPtr, start, end, increment);
+        }
+
+        //Surface Mesh
+        internal override int Slice_SM(IntPtr slicerPtr, IntPtr meshPtr, Plane3d plane, bool useTree)
+        {
+            return MeshProcessingSlicer_EEK_Slice_SM(slicerPtr, meshPtr, plane, useTree);
+        }
+
+        internal override int IncrementalSlice_SM(IntPtr slicerPtr, IntPtr meshPtr, Point3d start, Point3d end, double increment)
+        {
+            return MeshProcessingSlicer_EEK_IncrementalSlice_SM(slicerPtr, meshPtr, start, end, increment);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -47,10 +59,18 @@ namespace CGALDotNet.Processing
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void MeshProcessingSlicer_EEK_GetLines(IntPtr slicerPtr, IntPtr[] lines, int count);
 
+        //Polyhedron
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingSlicer_EEK_Polyhedron_Slice(IntPtr slicerPtr, IntPtr polyPtr, Plane3d plane, bool useTree);
+        private static extern int MeshProcessingSlicer_EEK_Slice_PH(IntPtr slicerPtr, IntPtr meshPtr, Plane3d plane, bool useTree);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingSlicer_EEK_Polyhedron_IncrementalSlice(IntPtr slicerPtr, IntPtr polyPtr, Point3d start, Point3d end, double increment);
+        private static extern int MeshProcessingSlicer_EEK_IncrementalSlice_PH(IntPtr slicerPtr, IntPtr meshPtr, Point3d start, Point3d end, double increment);
+
+        //SurfaceMesh
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingSlicer_EEK_Slice_SM(IntPtr slicerPtr, IntPtr meshPtr, Plane3d plane, bool useTree);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingSlicer_EEK_IncrementalSlice_SM(IntPtr slicerPtr, IntPtr meshPtr, Point3d start, Point3d end, double increment);
     }
 }

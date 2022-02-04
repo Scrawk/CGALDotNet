@@ -16,12 +16,26 @@ void MeshProcessingSlicer_EEK_GetLines(void* slicerPtr, void** lines, int count)
 	MeshProcessingSlicer<EEK>::GetLines(slicerPtr, lines, count);
 }
 
-int MeshProcessingSlicer_EEK_Polyhedron_Slice(void* slicerPtr, void* polyPtr, const Plane3d& plane, BOOL useTree)
+//Polyhedron
+
+int MeshProcessingSlicer_EEK_Slice_PH(void* slicerPtr, void* meshPtr, const Plane3d& plane, BOOL useTree)
 {
-	return MeshProcessingSlicer<EEK>::Polyhedron_Slice(slicerPtr, polyPtr, plane, useTree);
+	return MeshProcessingSlicer<EEK>::Polyhedron_Slice_PH(slicerPtr, meshPtr, plane, useTree);
 }
 
-int MeshProcessingSlicer_EEK_Polyhedron_IncrementalSlice(void* slicerPtr, void* polyPtr, const Point3d& start, const Point3d& end, double increment)
+int MeshProcessingSlicer_EEK_IncrementalSlice_PH(void* slicerPtr, void* meshPtr, const Point3d& start, const Point3d& end, double increment)
 {
-	return MeshProcessingSlicer<EEK>::Polyhedron_Slice(slicerPtr, polyPtr, start, end, increment);
+	return MeshProcessingSlicer<EEK>::Polyhedron_Slice_PH(slicerPtr, meshPtr, start, end, increment);
+}
+
+//SUrfaceMesh
+
+int MeshProcessingSlicer_EEK_Slice_SM(void* slicerPtr, void* meshPtr, const Plane3d& plane, BOOL useTree)
+{
+	return MeshProcessingSlicer<EEK>::Polyhedron_Slice_SM(slicerPtr, meshPtr, plane, useTree);
+}
+
+int MeshProcessingSlicer_EEK_IncrementalSlice_SM(void* slicerPtr, void* meshPtr, const Point3d& start, const Point3d& end, double increment)
+{
+	return MeshProcessingSlicer<EEK>::Polyhedron_Slice_SM(slicerPtr, meshPtr, start, end, increment);
 }

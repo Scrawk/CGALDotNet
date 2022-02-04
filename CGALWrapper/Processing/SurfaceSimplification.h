@@ -15,7 +15,11 @@ class SurfaceSimplification
 
 public:
 
+	typedef typename K::Point_3 Point;
+
 	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+
+	typedef typename CGAL::Surface_mesh<Point> SurfaceMesh;
 
 	inline static SurfaceSimplification* NewSimplification()
 	{
@@ -39,12 +43,20 @@ public:
 	}
 
 
-	static void SimplifyPolyhedron(void* polyPtr, double stop_ratio)
+	static void Simplify_PH(void* polyPtr, double stop_ratio)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(polyPtr);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(polyPtr);
 
 		CGAL::Surface_mesh_simplification::Count_ratio_stop_predicate<Polyhedron> stop(stop_ratio);
-		CGAL::Surface_mesh_simplification::edge_collapse(poly->model, stop);
+		CGAL::Surface_mesh_simplification::edge_collapse(mesh->model, stop);
+	}
+
+	static void Simplify_SM(void* polyPtr, double stop_ratio)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(polyPtr);
+
+		CGAL::Surface_mesh_simplification::Count_ratio_stop_predicate<SurfaceMesh> stop(stop_ratio);
+		CGAL::Surface_mesh_simplification::edge_collapse(mesh->model, stop);
 	}
 
 };

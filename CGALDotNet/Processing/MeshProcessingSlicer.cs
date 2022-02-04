@@ -46,28 +46,56 @@ namespace CGALDotNet.Processing
         }
         
         /// <summary>
-        /// 
+        /// Find the line formed from the intersection of the plane and the mesh.
         /// </summary>
-        /// <param name="poly"></param>
-        /// <param name="plane"></param>
-        /// <param name="results"></param>
-        public void Slice(Polyhedron3<K> poly, Plane3d plane, List<Polyline3<K>> results)
+        /// <param name="mesh">The mesh. Is not modified.</param>
+        /// <param name="plane">The plane.</param>
+        /// <param name="results">The polylines from the intersection.</param>
+        public void Slice(Polyhedron3<K> mesh, Plane3d plane, List<Polyline3<K>> results)
         {
-            int count = Kernel.Slice(Ptr, poly.Ptr, plane, true);
+            int count = Kernel.Slice_PH(Ptr, mesh.Ptr, plane, true);
             GetLines(count, results);
         }
 
         /// <summary>
-        /// 
+        /// Find the line formed from the intersection of the plane and the mesh.
         /// </summary>
-        /// <param name="poly"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="increment"></param>
-        /// <param name="results"></param>
-        public void Slice(Polyhedron3<K> poly, Point3d start, Point3d end, double increment, List<Polyline3<K>> results)
+        /// <param name="mesh">The mesh. Is not modified.</param>
+        /// <param name="plane">The plane.</param>
+        /// <param name="results">The polylines from the intersection.</param>
+        public void Slice(SurfaceMesh3<K> mesh, Plane3d plane, List<Polyline3<K>> results)
         {
-            int count = Kernel.Slice(Ptr, poly.Ptr, start, end, increment);
+            int count = Kernel.Slice_SM(Ptr, mesh.Ptr, plane, true);
+            GetLines(count, results);
+        }
+
+        /// <summary>
+        /// Find the lines formed by slicing the mesh from the start
+        /// point to the end point creating a plane at each increment.
+        /// </summary>
+        /// <param name="mesh">The mesh. Is not modified.</param>
+        /// <param name="start">The point to start from.</param>
+        /// <param name="end">The point to end at.</param>
+        /// <param name="increment">Amount to increment each plane.</param>
+        /// <param name="results">he polylines from the intersection.</param>
+        public void Slice(Polyhedron3<K> mesh, Point3d start, Point3d end, double increment, List<Polyline3<K>> results)
+        {
+            int count = Kernel.IncrementalSlice_PH(Ptr, mesh.Ptr, start, end, increment);
+            GetLines(count, results);
+        }
+
+        /// <summary>
+        /// Find the lines formed by slicing the mesh from the start
+        /// point to the end point creating a plane at each increment.
+        /// </summary>
+        /// <param name="mesh">The mesh. Is not modified.</param>
+        /// <param name="start">The point to start from.</param>
+        /// <param name="end">The point to end at.</param>
+        /// <param name="increment">Amount to increment each plane.</param>
+        /// <param name="results">he polylines from the intersection.</param>
+        public void Slice(SurfaceMesh3<K> mesh, Point3d start, Point3d end, double increment, List<Polyline3<K>> results)
+        {
+            int count = Kernel.IncrementalSlice_SM(Ptr, mesh.Ptr, start, end, increment);
             GetLines(count, results);
         }
 

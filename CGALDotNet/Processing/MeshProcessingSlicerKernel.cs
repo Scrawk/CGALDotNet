@@ -14,9 +14,17 @@ namespace CGALDotNet.Processing
 
         internal abstract void GetLines(IntPtr slicerPtr, IntPtr[] lines, int count);
 
-        internal abstract int Slice(IntPtr slicerPtr, IntPtr polyPtr, Plane3d plane, bool useTree);
+        //Polyhedron
 
-        internal abstract int Slice(IntPtr slicerPtr, IntPtr polyPtr, Point3d start, Point3d end, double increment);
+        internal abstract int Slice_PH(IntPtr slicerPtr, IntPtr meshPtr, Plane3d plane, bool useTree);
+
+        internal abstract int IncrementalSlice_PH(IntPtr slicerPtr, IntPtr meshPtr, Point3d start, Point3d end, double increment);
+
+        //SUrfaceMesh
+
+        internal abstract int Slice_SM(IntPtr slicerPtr, IntPtr meshPtr, Plane3d plane, bool useTree);
+
+        internal abstract int IncrementalSlice_SM(IntPtr slicerPtr, IntPtr meshPtr, Point3d start, Point3d end, double increment);
 
     }
 }

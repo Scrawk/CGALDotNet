@@ -10,6 +10,8 @@ namespace CGALDotNet.Processing
 
         internal abstract void Release(IntPtr ptr);
 
-        internal abstract void SimplifyPolyhedron(IntPtr polyPtr, double stop_ratio);
+        internal abstract void Simplify_PH(IntPtr meshPtr, double stop_ratio);
+
+        internal abstract void Simplify_SM(IntPtr meshPtr, double stop_ratio);
     }
 }

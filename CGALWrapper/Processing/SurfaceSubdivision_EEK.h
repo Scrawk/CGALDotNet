@@ -8,7 +8,7 @@ extern "C"
 
 	CGALWRAPPER_API void SurfaceSubdivision_EEK_Release(void* ptr);
 
-	// 
+	// Polyhedron
 
 	CGALWRAPPER_API void SurfaceSubdivision_EEK_Subdive_CatmullClark_PH(void* meshPtr, int iterations);
 
