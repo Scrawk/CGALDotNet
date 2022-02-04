@@ -16,6 +16,9 @@
 #include <CGAL/Polygon_mesh_processing/stitch_borders.h>
 #include <CGAL/Polygon_mesh_processing/merge_border_vertices.h>
 
+namespace PMP = CGAL::Polygon_mesh_processing;
+namespace NP = CGAL::parameters;
+
 template<class K>
 class MeshProcessingRepair
 {
@@ -23,17 +26,16 @@ class MeshProcessingRepair
 public:
 
 	typedef typename K::Point_3 Point;
+
 	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
-	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
-	typedef typename HalfedgeDS::Vertex Vertex;
-	typedef typename HalfedgeDS::Face Face;
-	typedef typename Polyhedron::Vertex_handle Vertex_Handle;
-	typedef typename Polyhedron::Face_handle Face_Handle;
-	typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
-	typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
-	typedef typename  boost::graph_traits<Polyhedron>::edge_descriptor Edge_Des;
+	typedef typename boost::graph_traits<Polyhedron>::face_descriptor PFace_Des;
+
+	typedef typename CGAL::Surface_mesh<Point> SurfaceMesh;
+	typedef typename boost::graph_traits<SurfaceMesh>::face_descriptor SFace_Des;
 
 	typedef std::vector<std::size_t> PolygonIndex;
+
+	
 
 	inline static MeshProcessingRepair* NewMeshProcessingRepair()
 	{
@@ -56,144 +58,273 @@ public:
 		return static_cast<MeshProcessingRepair*>(ptr);
 	}
 
-	static int DegenerateHalfEdgeCount(void* ptr)
+	//Polyhedron
+
+	static int DegenerateEdgeCount_PH(void* ptr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
 
-		int count = 0;
-		for (auto halfedge = poly->model.edges_begin(); halfedge != poly->model.edges_end(); ++halfedge)
-		{
-			//if (CGAL::Polygon_mesh_processing::is_degenerate_edge(halfedge, poly->model))
-			//	count++;
-		}
+		//int count = 0;
+		//for (auto edge = mesh->model.edges_begin(); edge != mesh->model.edges_end(); ++edge)
+		//{
+		//	if (PMP::is_degenerate_edge(edge, mesh->model))
+		//		count++;
+		//}
 
-		return count;
-	}
-
-	static int DegenerateTriangleCount(void* ptr)
-	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-
-		int count = 0;
-		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
-		{
-			if (CGAL::Polygon_mesh_processing::is_degenerate_triangle_face(face, poly->model))
-				count++;
-		}
-
-		return count;
-	}
-
-	static int NeedleTriangleCount(void* ptr, double threshold)
-	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-
-		int count = 0;
-		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
-		{
-			if (CGAL::Polygon_mesh_processing::is_needle_triangle_face(face, poly->model, threshold) != nullptr)
-				count++;
-		}
-
-		return count;
-	}
-
-	static int NonManifoldVertexCount(void* ptr)
-	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-
-		int count = 0;
-		for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
-		{
-			if (CGAL::Polygon_mesh_processing::is_non_manifold_vertex(vert, poly->model))
-				count++;
-		}
-
-		return count;
-	}
-
-	static void RepairPolygonSoup(void* ptr)
-	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-
-		std::vector<Point> points;
-		std::vector<PolygonIndex> polygons;
-
-		CGAL::Polygon_mesh_processing::polygon_mesh_to_polygon_soup(poly->model, points, polygons);
-
-		CGAL::Polygon_mesh_processing::repair_polygon_soup(points, polygons);
-
-		poly->model.clear();
-		poly->OnModelChanged();
-		CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh(points, polygons, poly->model);
-	}
-
-	static int StitchBoundaryCycles(void* ptr)
-	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-
-		poly->OnModelChanged();
-		return (int)CGAL::Polygon_mesh_processing::stitch_boundary_cycles(poly->model);
-	}
-
-	static int StitchBorders(void* ptr)
-	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-
-		poly->OnModelChanged();
-		return (int)CGAL::Polygon_mesh_processing::stitch_borders(poly->model);
-	}
-
-	static int MergeDuplicatedVerticesInBoundaryCycle(void* ptr)
-	{
 		return 0;
-		//auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
-		//poly->OnModelChanged();
-		//return CGAL::Polygon_mesh_processing::merge_duplicated_vertices_in_boundary_cycle(poly->model);
 	}
 
-	static int RemoveIsolatedVertices(void* ptr)
+	static int DegenerateTriangleCount_PH(void* ptr)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
 
-		poly->OnModelChanged();
-		return (int)CGAL::Polygon_mesh_processing::remove_isolated_vertices(poly->model);
+		int count = 0;
+		for (auto face = mesh->model.facets_begin(); face != mesh->model.facets_end(); ++face)
+		{
+			if (PMP::is_degenerate_triangle_face(face, mesh->model))
+				count++;
+		}
+
+		return count;
 	}
 
-	static void PolygonMeshToPolygonSoup(void* ptr, int* triangles, int triangleCount, int* quads, int quadCount)
+	static int NeedleTriangleCount_PH(void* ptr, double threshold)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		int count = 0;
+		for (auto face = mesh->model.facets_begin(); face != mesh->model.facets_end(); ++face)
+		{
+			if (PMP::is_needle_triangle_face(face, mesh->model, threshold) != nullptr)
+				count++;
+		}
+
+		return count;
+	}
+
+	static int NonManifoldVertexCount_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		int count = 0;
+		for (auto vert = mesh->model.vertices_begin(); vert != mesh->model.vertices_end(); ++vert)
+		{
+			if (PMP::is_non_manifold_vertex(vert, mesh->model))
+				count++;
+		}
+
+		return count;
+	}
+
+	static void RepairPolygonSoup_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
 
 		std::vector<Point> points;
 		std::vector<PolygonIndex> polygons;
-		CGAL::Polygon_mesh_processing::polygon_mesh_to_polygon_soup(poly->model, points, polygons);
 
-		int numTri = 0;
-		int numQuad = 0;
-		for (auto i = 0; i < polygons.size(); i++)
+		PMP::polygon_mesh_to_polygon_soup(mesh->model, points, polygons);
+
+		PMP::repair_polygon_soup(points, polygons);
+
+		mesh->model.clear();
+		mesh->OnModelChanged();
+		PMP::polygon_soup_to_polygon_mesh(points, polygons, mesh->model);
+	}
+
+	static int StitchBoundaryCycles_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		mesh->OnModelChanged();
+		return (int)PMP::stitch_boundary_cycles(mesh->model);
+	}
+
+	static int StitchBorders_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		mesh->OnModelChanged();
+		return (int)PMP::stitch_borders(mesh->model);
+	}
+
+	static int MergeDuplicatedVerticesInBoundaryCycle_PH(void* ptr, int index)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+		mesh->OnModelChanged();
+
+		int before = (int)mesh->model.size_of_halfedges();
+
+		auto hedge = mesh->FindHalfedgeDes(index);
+		if(hedge != nullptr)
+			PMP::merge_duplicated_vertices_in_boundary_cycle(*hedge, mesh->model);
+
+		return before - (int)mesh->model.size_of_halfedges();
+	}
+
+	static int MergeDuplicatedVerticesInBoundaryCycles_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+		mesh->OnModelChanged();
+
+		int before = (int)mesh->model.size_of_halfedges();
+
+		PMP::merge_duplicated_vertices_in_boundary_cycles(mesh->model);
+
+		return before - (int)mesh->model.size_of_halfedges();
+	}
+
+	static int RemoveIsolatedVertices_PH(void* ptr)
+	{
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		mesh->OnModelChanged();
+		return (int)PMP::remove_isolated_vertices(mesh->model);
+	}
+
+	//Surface Mesh
+
+	static int DegenerateEdgeCount_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		int count = 0;
+		for (const auto edge : mesh->model.edges())
 		{
-			auto polygonIndex = polygons[i];
-			int numVerts = (int)polygonIndex.size();
-
-			if (numVerts == 3)
-			{
-				triangles[numTri * 3 + 0] = (int)polygonIndex[0];
-				triangles[numTri * 3 + 1] = (int)polygonIndex[1];
-				triangles[numTri * 3 + 2] = (int)polygonIndex[2];
-				numTri++;
-			}
-			else if (numVerts == 4)
-			{
-				quads[numTri * 4 + 0] = (int)polygonIndex[0];
-				quads[numTri * 4 + 1] = (int)polygonIndex[1];
-				quads[numTri * 4 + 2] = (int)polygonIndex[2];
-				quads[numTri * 4 + 3] = (int)polygonIndex[3];
-				numQuad++;
-			}
-
-			if (numTri * 3 >= triangleCount) return;
-			if (numQuad * 4 >= quadCount) return;
+			if (PMP::is_degenerate_edge(edge, mesh->model))
+				count++;
 		}
+
+		return count;
+	}
+
+	static int DegenerateTriangleCount_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		int count = 0;
+		for (const auto& face : mesh->model.faces())
+		{
+			if (PMP::is_degenerate_triangle_face(face, mesh->model))
+				count++;
+		}
+
+		return count;
+	}
+
+	static int NeedleTriangleCount_SM(void* ptr, double threshold)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		auto null_edge = SurfaceMesh3<K>::NullHalfedge();
+
+		int count = 0;
+		for (const auto& face : mesh->model.faces())
+		{
+			if (PMP::is_needle_triangle_face(face, mesh->model, threshold) != null_edge)
+				count++;
+		}
+
+		return count;
+	}
+
+	static int NonManifoldVertexCount_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		int count = 0;
+		for (const auto& vert : mesh->model.vertices())
+		{
+			if (PMP::is_non_manifold_vertex(vert, mesh->model))
+				count++;
+		}
+
+		return count;
+	}
+
+	static void RepairPolygonSoup_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		std::vector<Point> points;
+		std::vector<PolygonIndex> polygons;
+
+		PMP::polygon_mesh_to_polygon_soup(mesh->model, points, polygons);
+
+		PMP::repair_polygon_soup(points, polygons);
+
+		mesh->model.clear();
+		mesh->OnModelChanged();
+		PMP::polygon_soup_to_polygon_mesh(points, polygons, mesh->model);
+	}
+
+	static int StitchBoundaryCycles_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		mesh->OnModelChanged();
+		return (int)PMP::stitch_boundary_cycles(mesh->model);
+	}
+
+	static int StitchBorders_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		mesh->OnModelChanged();
+		return (int)PMP::stitch_borders(mesh->model);
+	}
+
+	static int MergeDuplicatedVerticesInBoundaryCycle_SM(void* ptr, int index)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
+
+		int before = (int)mesh->model.number_of_halfedges();
+
+		auto hedge = mesh->FindHalfedge(index);
+		if (hedge != SurfaceMesh3<K>::NullHalfedge())
+			PMP::merge_duplicated_vertices_in_boundary_cycle(hedge, mesh->model);
+
+		return before - (int)mesh->model.number_of_halfedges();
+	}
+
+	static int MergeDuplicatedVerticesInBoundaryCycles_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+		mesh->OnModelChanged();
+
+		int before = (int)mesh->model.number_of_halfedges();
+
+		PMP::merge_duplicated_vertices_in_boundary_cycles(mesh->model);
+
+		return before - (int)mesh->model.number_of_halfedges();
+	}
+
+	static int RemoveIsolatedVertices_SM(void* ptr)
+	{
+		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+
+		mesh->OnModelChanged();
+		return (int)PMP::remove_isolated_vertices(mesh->model);
 	}
 
 };
+
+/*
+PMP::merge_duplicate_points_in_polygon_soup()
+PMP::merge_duplicate_polygons_in_polygon_soup()
+PMP::remove_isolated_points_in_polygon_soup()
+PMP::repair_polygon_soup()
+PMP::stitch_boundary_cycle()
+PMP::stitch_boundary_cycles()
+PMP::stitch_borders()
+PMP::is_polygon_soup_a_polygon_mesh()
+PMP::polygon_soup_to_polygon_mesh()
+PMP::polygon_mesh_to_polygon_soup()
+PMP::remove_isolated_vertices()
+PMP::is_non_manifold_vertex()
+PMP::duplicate_non_manifold_vertices()
+PMP::merge_duplicated_vertices_in_boundary_cycle()
+PMP::merge_duplicated_vertices_in_boundary_cycles()
+PMP::remove_connected_components_of_negligible_size()
+*/

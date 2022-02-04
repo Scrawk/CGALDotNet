@@ -211,13 +211,18 @@ public:
 			return NULL_INDEX;
 	}
 
-	Edge_Des* FindHalfedgeDes(int index)
+	Halfedge_Des* FindHalfedgeDes(int index)
 	{
 		int count = (int)halfedgeDesMap.size();
 		if (index < 0 || index >= count)
 			return nullptr;
 
 		return &halfedgeDesMap[index];
+	}
+
+	Halfedge_Des GetHalfedgeDes(int index)
+	{
+		return halfedgeDesMap[index];
 	}
 
 };

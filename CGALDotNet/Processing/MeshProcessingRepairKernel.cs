@@ -10,24 +10,48 @@ namespace CGALDotNet.Processing
 
         internal abstract void Release(IntPtr ptr);
 
-		internal abstract int DegenerateHalfEdgeCount(IntPtr ptr);
+		//Polyhedron
 
-		internal abstract int DegenerateTriangleCount(IntPtr ptr);
+		internal abstract int DegenerateEdgeCount_PH(IntPtr ptr);
 
-		internal abstract int NeedleTriangleCount(IntPtr ptr, double threshold);
+		internal abstract int DegenerateTriangleCount_PH(IntPtr ptr);
 
-		internal abstract int NonManifoldVertexCount(IntPtr ptr);
+		internal abstract int NeedleTriangleCount_PH(IntPtr ptr, double threshold);
 
-		internal abstract void RepairPolygonSoup(IntPtr ptr);
+		internal abstract int NonManifoldVertexCount_PH(IntPtr ptr);
 
-		internal abstract int StitchBoundaryCycles(IntPtr ptr);
+		internal abstract void RepairPolygonSoup_PH(IntPtr ptr);
 
-		internal abstract int StitchBorders(IntPtr ptr);
+		internal abstract int StitchBoundaryCycles_PH(IntPtr ptr);
 
-		internal abstract int MergeDuplicatedVerticesInBoundaryCycle(IntPtr ptr);
+		internal abstract int StitchBorders_PH(IntPtr ptr);
 
-		internal abstract int RemoveIsolatedVertices(IntPtr ptr);
+		internal abstract int MergeDuplicatedVerticesInBoundaryCycle_PH(IntPtr ptr, int index);
 
-		internal abstract void PolygonMeshToPolygonSoup(IntPtr ptr, int[] triangles, int triangleCount, int[] quads, int quadCount);
+		internal abstract int MergeDuplicatedVerticesInBoundaryCycles_PH(IntPtr ptr);
+
+		internal abstract int RemoveIsolatedVertices_PH(IntPtr ptr);
+
+		//SurfaceMesh
+
+		internal abstract int DegenerateEdgeCount_SM(IntPtr ptr);
+
+		internal abstract int DegenerateTriangleCount_SM(IntPtr ptr);
+
+		internal abstract int NeedleTriangleCount_SM(IntPtr ptr, double threshold);
+
+		internal abstract int NonManifoldVertexCount_SM(IntPtr ptr);
+
+		internal abstract void RepairPolygonSoup_SM(IntPtr ptr);
+
+		internal abstract int StitchBoundaryCycles_SM(IntPtr ptr);
+
+		internal abstract int StitchBorders_SM(IntPtr ptr);
+
+		internal abstract int MergeDuplicatedVerticesInBoundaryCycle_SM(IntPtr ptr, int index);
+
+		internal abstract int MergeDuplicatedVerticesInBoundaryCycles_SM(IntPtr ptr);
+
+		internal abstract int RemoveIsolatedVertices_SM(IntPtr ptr);
 	}
 }

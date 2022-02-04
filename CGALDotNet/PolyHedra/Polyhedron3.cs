@@ -28,6 +28,14 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Construct from points and triangle indices.
+        /// </summary>
+        public Polyhedron3(Point3d[] points, int[] triangles) : base(new K())
+        {
+            CreateMesh(points, triangles);
+        }
+
+        /// <summary>
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The meshs pointer.</param>
@@ -43,7 +51,7 @@ namespace CGALDotNet.Polyhedra
         public override string ToString()
         {
             return string.Format("[Polyhedron3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
-                Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount);
+                Kernel.KernelName, VertexCount, HalfedgeCount, FaceCount);
         }
 
         /// <summary>
@@ -308,7 +316,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Number of half edges.
         /// </summary>
-        public int HalfEdgeCount => Kernel.HalfEdgeCount(Ptr);
+        public int HalfedgeCount => Kernel.HalfEdgeCount(Ptr);
 
         /// <summary>
         /// Number of border edges.
@@ -1290,7 +1298,7 @@ namespace CGALDotNet.Polyhedra
             builder.AppendLine("BuildStamp = " + BuildStamp);
             builder.AppendLine("VertexCount = " + VertexCount);
             builder.AppendLine("FaceCount= " + FaceCount);
-            builder.AppendLine("HalfEdgeCount = " + HalfEdgeCount);
+            builder.AppendLine("HalfEdgeCount = " + HalfedgeCount);
             builder.AppendLine("BorderEdgeCount = " + BorderEdgeCount);
             builder.AppendLine("BorderHalfEdgeCount = " + BorderHalfEdgeCount);
             builder.AppendLine("IsValid = " + IsValid);

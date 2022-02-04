@@ -213,10 +213,16 @@ public:
 		return map.FindHalfedgeIndex(edge);
 	}
 
-	Edge_Des* FindHalfdgeDes(int index)
+	Halfedge_Des* FindHalfedgeDes(int index)
 	{
-		map.BuildEdgeMaps(model);
+		map.BuildHalfedgeMaps(model);
 		return map.FindHalfedgeDes(index);
+	}
+
+	Halfedge_Des GetHalfedgeDes(int index)
+	{
+		map.BuildHalfedgeMaps(model);
+		return map.GetHalfedgeDes(index);
 	}
 
 	Vector FindVertexNormal(Vertex_Des vert)

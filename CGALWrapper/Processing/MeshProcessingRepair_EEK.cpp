@@ -11,52 +11,107 @@ void MeshProcessingRepair_EEK_Release(void* ptr)
 	MeshProcessingRepair<EEK>::DeleteMeshProcessingRepair(ptr);
 }
 
-int MeshProcessingRepair_EEK_DegenerateHalfEdgeCount(void* ptr)
+//Polyhedron
+
+int MeshProcessingRepair_EEK_DegenerateEdgeCount_PH(void* ptr)
 {
-	return MeshProcessingRepair<EEK>::DegenerateHalfEdgeCount(ptr);
+	return MeshProcessingRepair<EEK>::DegenerateEdgeCount_PH(ptr);
 }
 
-int MeshProcessingRepair_EEK_DegenerateTriangleCount(void* ptr)
+int MeshProcessingRepair_EEK_DegenerateTriangleCount_PH(void* ptr)
 {
-	return MeshProcessingRepair<EEK>::DegenerateTriangleCount(ptr);
+	return MeshProcessingRepair<EEK>::DegenerateTriangleCount_PH(ptr);
 }
 
-int MeshProcessingRepair_EEK_NeedleTriangleCount(void* ptr, double threshold)
+int MeshProcessingRepair_EEK_NeedleTriangleCount_PH(void* ptr, double threshold)
 {
-	return MeshProcessingRepair<EEK>::NeedleTriangleCount(ptr, threshold);
+	return MeshProcessingRepair<EEK>::NeedleTriangleCount_PH(ptr, threshold);
 }
 
-int MeshProcessingRepair_EEK_NonManifoldVertexCount(void* ptr)
+int MeshProcessingRepair_EEK_NonManifoldVertexCount_PH(void* ptr)
 {
-	return MeshProcessingRepair<EEK>::NonManifoldVertexCount(ptr);
+	return MeshProcessingRepair<EEK>::NonManifoldVertexCount_PH(ptr);
 }
 
-void MeshProcessingRepair_EEK_RepairPolygonSoup(void* ptr)
+void MeshProcessingRepair_EEK_RepairPolygonSoup_PH(void* ptr)
 {
-	MeshProcessingRepair<EEK>::RepairPolygonSoup(ptr);
+	MeshProcessingRepair<EEK>::RepairPolygonSoup_PH(ptr);
 }
 
-int MeshProcessingRepair_EEK_StitchBoundaryCycles(void* ptr)
+int MeshProcessingRepair_EEK_StitchBoundaryCycles_PH(void* ptr)
 {
-	return MeshProcessingRepair<EEK>::StitchBoundaryCycles(ptr);
+	return MeshProcessingRepair<EEK>::StitchBoundaryCycles_PH(ptr);
 }
 
-int MeshProcessingRepair_EEK_StitchBorders(void* ptr)
+int MeshProcessingRepair_EEK_StitchBorders_PH(void* ptr)
 {
-	return MeshProcessingRepair<EEK>::StitchBorders(ptr);
+	return MeshProcessingRepair<EEK>::StitchBorders_PH(ptr);
 }
 
-int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle(void* ptr)
+int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle_PH(void* ptr, int index)
 {
-	return MeshProcessingRepair<EEK>::MergeDuplicatedVerticesInBoundaryCycle(ptr);
+	return MeshProcessingRepair<EEK>::MergeDuplicatedVerticesInBoundaryCycle_PH(ptr, index);
 }
 
-int MeshProcessingRepair_EEK_RemoveIsolatedVertices(void* ptr)
+int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycles_PH(void* ptr)
 {
-	return MeshProcessingRepair<EEK>::RemoveIsolatedVertices(ptr);
+	return MeshProcessingRepair<EEK>::MergeDuplicatedVerticesInBoundaryCycles_PH(ptr);
 }
 
-void MeshProcessingRepair_EEK_PolygonMeshToPolygonSoup(void* ptr, int* triangles, int triangleCount, int* quads, int quadCount)
+int MeshProcessingRepair_EEK_RemoveIsolatedVertices_PH(void* ptr)
 {
-	MeshProcessingRepair<EEK>::PolygonMeshToPolygonSoup(ptr, triangles, triangleCount, quads, quadCount);
+	return MeshProcessingRepair<EEK>::RemoveIsolatedVertices_PH(ptr);
 }
+
+//SurfaceMesh
+
+int MeshProcessingRepair_EEK_DegenerateEdgeCount_SM(void* ptr)
+{
+	return MeshProcessingRepair<EEK>::DegenerateEdgeCount_SM(ptr);
+}
+
+int MeshProcessingRepair_EEK_DegenerateTriangleCount_SM(void* ptr)
+{
+	return MeshProcessingRepair<EEK>::DegenerateTriangleCount_SM(ptr);
+}
+
+int MeshProcessingRepair_EEK_NeedleTriangleCount_SM(void* ptr, double threshold)
+{
+	return MeshProcessingRepair<EEK>::NeedleTriangleCount_SM(ptr, threshold);
+}
+
+int MeshProcessingRepair_EEK_NonManifoldVertexCount_SM(void* ptr)
+{
+	return MeshProcessingRepair<EEK>::NonManifoldVertexCount_SM(ptr);
+}
+
+void MeshProcessingRepair_EEK_RepairPolygonSoup_SM(void* ptr)
+{
+	MeshProcessingRepair<EEK>::RepairPolygonSoup_SM(ptr);
+}
+
+int MeshProcessingRepair_EEK_StitchBoundaryCycles_SM(void* ptr)
+{
+	return MeshProcessingRepair<EEK>::StitchBoundaryCycles_SM(ptr);
+}
+
+int MeshProcessingRepair_EEK_StitchBorders_SM(void* ptr)
+{
+	return MeshProcessingRepair<EEK>::StitchBorders_SM(ptr);
+}
+
+int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle_SM(void* ptr, int index)
+{
+	return MeshProcessingRepair<EEK>::MergeDuplicatedVerticesInBoundaryCycle_SM(ptr, index);
+}
+
+int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycles_SM(void* ptr)
+{
+	return MeshProcessingRepair<EEK>::MergeDuplicatedVerticesInBoundaryCycles_SM(ptr);
+}
+
+int MeshProcessingRepair_EEK_RemoveIsolatedVertices_SM(void* ptr)
+{
+	return MeshProcessingRepair<EEK>::RemoveIsolatedVertices_SM(ptr);
+}
+

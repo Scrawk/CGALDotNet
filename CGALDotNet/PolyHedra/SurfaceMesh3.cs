@@ -31,6 +31,14 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Construct from points and triangle indices.
+        /// </summary>
+        public SurfaceMesh3(Point3d[] points, int[] triangles) : base(new K())
+        {
+            CreateMesh(points, triangles);
+        }
+
+        /// <summary>
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The surface meshes pointer.</param>

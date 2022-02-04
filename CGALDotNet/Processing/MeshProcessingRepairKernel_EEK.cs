@@ -21,55 +21,111 @@ namespace CGALDotNet.Processing
             MeshProcessingRepair_EEK_Release(ptr);
         }
 
-        internal override int DegenerateHalfEdgeCount(IntPtr ptr)
+        //Polyhedron
+
+        internal override int DegenerateEdgeCount_PH(IntPtr ptr)
         {
-            return MeshProcessingRepair_EEK_DegenerateHalfEdgeCount(ptr);
+            return MeshProcessingRepair_EEK_DegenerateEdgeCount_PH(ptr);
         }
 
-        internal override int DegenerateTriangleCount(IntPtr ptr)
+        internal override int DegenerateTriangleCount_PH(IntPtr ptr)
         {
-            return MeshProcessingRepair_EEK_DegenerateTriangleCount(ptr);
+            return MeshProcessingRepair_EEK_DegenerateTriangleCount_PH(ptr);
         }
 
-        internal override int NeedleTriangleCount(IntPtr ptr, double threshold)
+        internal override int NeedleTriangleCount_PH(IntPtr ptr, double threshold)
         {
-            return MeshProcessingRepair_EEK_NeedleTriangleCount(ptr, threshold);
+            return MeshProcessingRepair_EEK_NeedleTriangleCount_PH(ptr, threshold);
         }
 
-        internal override int NonManifoldVertexCount(IntPtr ptr)
+        internal override int NonManifoldVertexCount_PH(IntPtr ptr)
         {
-            return MeshProcessingRepair_EEK_NonManifoldVertexCount(ptr);
+            return MeshProcessingRepair_EEK_NonManifoldVertexCount_PH(ptr);
         }
 
-        internal override void RepairPolygonSoup(IntPtr ptr)
+        internal override void RepairPolygonSoup_PH(IntPtr ptr)
         {
-            MeshProcessingRepair_EEK_RepairPolygonSoup(ptr);
+            MeshProcessingRepair_EEK_RepairPolygonSoup_PH(ptr);
         }
 
-        internal override int StitchBoundaryCycles(IntPtr ptr)
+        internal override int StitchBoundaryCycles_PH(IntPtr ptr)
         {
-            return MeshProcessingRepair_EEK_StitchBoundaryCycles(ptr);
+            return MeshProcessingRepair_EEK_StitchBoundaryCycles_PH(ptr);
         }
 
-        internal override int StitchBorders(IntPtr ptr)
+        internal override int StitchBorders_PH(IntPtr ptr)
         {
-           return MeshProcessingRepair_EEK_StitchBorders(ptr);   
+            return MeshProcessingRepair_EEK_StitchBorders_PH(ptr);
         }
 
-        internal override int MergeDuplicatedVerticesInBoundaryCycle(IntPtr ptr)
+        internal override int MergeDuplicatedVerticesInBoundaryCycle_PH(IntPtr ptr, int index)
         {
-            return MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle(ptr);
+            return MergeDuplicatedVerticesInBoundaryCycle_PH(ptr, index);
         }
 
-        internal override int RemoveIsolatedVertices(IntPtr ptr)
+        internal override int MergeDuplicatedVerticesInBoundaryCycles_PH(IntPtr ptr)
         {
-            return MeshProcessingRepair_EEK_RemoveIsolatedVertices(ptr);
+            return MergeDuplicatedVerticesInBoundaryCycles_PH(ptr);
         }
 
-        internal override void PolygonMeshToPolygonSoup(IntPtr ptr, int[] triangles, int triangleCount, int[] quads, int quadCount)
+        internal override int RemoveIsolatedVertices_PH(IntPtr ptr)
         {
-            MeshProcessingRepair_EEK_PolygonMeshToPolygonSoup(ptr, triangles, triangleCount, quads, quadCount);
+            return MeshProcessingRepair_EEK_RemoveIsolatedVertices_PH(ptr);
         }
+
+        //SurfaceMesh
+
+        internal override int DegenerateEdgeCount_SM(IntPtr ptr)
+        {
+            return MeshProcessingRepair_EEK_DegenerateEdgeCount_SM(ptr);
+        }
+
+        internal override int DegenerateTriangleCount_SM(IntPtr ptr)
+        {
+            return MeshProcessingRepair_EEK_DegenerateTriangleCount_SM(ptr);
+        }
+
+        internal override int NeedleTriangleCount_SM(IntPtr ptr, double threshold)
+        {
+            return MeshProcessingRepair_EEK_NeedleTriangleCount_SM(ptr, threshold);
+        }
+
+        internal override int NonManifoldVertexCount_SM(IntPtr ptr)
+        {
+            return MeshProcessingRepair_EEK_NonManifoldVertexCount_SM(ptr);
+        }
+
+        internal override void RepairPolygonSoup_SM(IntPtr ptr)
+        {
+            MeshProcessingRepair_EEK_RepairPolygonSoup_SM(ptr);
+        }
+
+        internal override int StitchBoundaryCycles_SM(IntPtr ptr)
+        {
+            return MeshProcessingRepair_EEK_StitchBoundaryCycles_SM(ptr);
+        }
+
+        internal override int StitchBorders_SM(IntPtr ptr)
+        {
+            return MeshProcessingRepair_EEK_StitchBorders_SM(ptr);
+        }
+
+        internal override int MergeDuplicatedVerticesInBoundaryCycle_SM(IntPtr ptr, int index)
+        {
+            return MergeDuplicatedVerticesInBoundaryCycle_SM(ptr, index);
+        }
+
+        internal override int MergeDuplicatedVerticesInBoundaryCycles_SM(IntPtr ptr)
+        {
+            return MergeDuplicatedVerticesInBoundaryCycles_SM(ptr);
+        }
+
+        internal override int RemoveIsolatedVertices_SM(IntPtr ptr)
+        {
+            return MeshProcessingRepair_EEK_RemoveIsolatedVertices_SM(ptr);
+        }
+
+
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr MeshProcessingRepair_EEK_Create();
@@ -77,34 +133,66 @@ namespace CGALDotNet.Processing
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void MeshProcessingRepair_EEK_Release(IntPtr ptr);
 
+        //Polyhedron
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_DegenerateHalfEdgeCount(IntPtr ptr);
+        private static extern int MeshProcessingRepair_EEK_DegenerateEdgeCount_PH(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_DegenerateTriangleCount(IntPtr ptr);
+        private static extern int MeshProcessingRepair_EEK_DegenerateTriangleCount_PH(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_NeedleTriangleCount(IntPtr ptr, double threshold);
+        private static extern int MeshProcessingRepair_EEK_NeedleTriangleCount_PH(IntPtr ptr, double threshold);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_NonManifoldVertexCount(IntPtr ptr);
+        private static extern int MeshProcessingRepair_EEK_NonManifoldVertexCount_PH(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void MeshProcessingRepair_EEK_RepairPolygonSoup(IntPtr ptr);
+        private static extern void MeshProcessingRepair_EEK_RepairPolygonSoup_PH(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_StitchBoundaryCycles(IntPtr ptr);
+        private static extern int MeshProcessingRepair_EEK_StitchBoundaryCycles_PH(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_StitchBorders(IntPtr ptr);
+        private static extern int MeshProcessingRepair_EEK_StitchBorders_PH(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle(IntPtr ptr);
+        private static extern int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle_PH(IntPtr ptr, int index);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int MeshProcessingRepair_EEK_RemoveIsolatedVertices(IntPtr ptr);
+        private static extern int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycles_PH(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void MeshProcessingRepair_EEK_PolygonMeshToPolygonSoup(IntPtr ptr, [Out] int[] triangles, int triangleCount, [Out] int[] quads, int quadCount);
+        private static extern int MeshProcessingRepair_EEK_RemoveIsolatedVertices_PH(IntPtr ptr);
+
+        //SurfaceMesh
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_DegenerateEdgeCount_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_DegenerateTriangleCount_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_NeedleTriangleCount_SM(IntPtr ptr, double threshold);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_NonManifoldVertexCount_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void MeshProcessingRepair_EEK_RepairPolygonSoup_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_StitchBoundaryCycles_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_StitchBorders_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycle_SM(IntPtr ptr, int index);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_MergeDuplicatedVerticesInBoundaryCycles_SM(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int MeshProcessingRepair_EEK_RemoveIsolatedVertices_SM(IntPtr ptr);
     }
 }
