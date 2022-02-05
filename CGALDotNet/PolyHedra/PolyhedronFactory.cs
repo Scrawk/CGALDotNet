@@ -133,13 +133,12 @@ namespace CGALDotNet.Polyhedra
 
 		public static Polyhedron3<K> CreateCone(bool allowPolygons = false)
 		{
-			return CreateCone(CylinderParams.Default, allowPolygons);
+			return CreateCone(ConeParams.Default, allowPolygons);
 		}
 
-		public static Polyhedron3<K> CreateCone(CylinderParams param, bool allowPolygons = false)
+		public static Polyhedron3<K> CreateCone(ConeParams param, bool allowPolygons = false)
         {
-			param.radiusTop = 0;
-			return CreateCylinder(param, allowPolygons);
+			return CreateCylinder(param.AsCylinderParam(), allowPolygons);
 		}
 
 		public static Polyhedron3<K> CreateCylinder(bool allowPolygons = false)
@@ -163,6 +162,30 @@ namespace CGALDotNet.Polyhedra
 			{
 				triangleList.Clear();
 				MeshFactory.CreateCylinder(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
+			}
+
+			WeldVertices(mesh);
+
+			return mesh;
+		}
+
+		public static Polyhedron3<K> CreateCapsule(CapsuleParams param, bool allowPolygons = false)
+		{
+			var mesh = new Polyhedron3<K>();
+
+			if (allowPolygons)
+			{
+				polygonList.Clear();
+				MeshFactory.CreateCapsule(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
+			}
+			else
+			{
+				triangleList.Clear();
+				MeshFactory.CreateCapsule(triangleList, param);
 				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
 			}
 

@@ -133,13 +133,12 @@ namespace CGALDotNet.Polyhedra
 
 		public static SurfaceMesh3<K> CreateCone(bool allowPolygons = false)
 		{
-			return CreateCone(CylinderParams.Default, allowPolygons);
+			return CreateCone(ConeParams.Default, allowPolygons);
 		}
 
-		public static SurfaceMesh3<K> CreateCone(CylinderParams param, bool allowPolygons = false)
+		public static SurfaceMesh3<K> CreateCone(ConeParams param, bool allowPolygons = false)
 		{
-			param.radiusTop = 0;
-			return CreateCylinder(param, allowPolygons);
+			return CreateCylinder(param.AsCylinderParam(), allowPolygons);
 		}
 
 		public static SurfaceMesh3<K> CreateCylinder(bool allowPolygons = false)

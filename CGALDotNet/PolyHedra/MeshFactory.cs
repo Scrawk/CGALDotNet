@@ -95,8 +95,6 @@ namespace CGALDotNet.Polyhedra
 		public double height;
 		public int radialDivisions;
 		public int heightDivisions;
-		public double thetaStart;
-		public double thetaLength;
 
 		public static CylinderParams Default
 		{
@@ -108,8 +106,59 @@ namespace CGALDotNet.Polyhedra
 				param.height = 1;
 				param.radialDivisions = 8;
 				param.heightDivisions = 4;
-				param.thetaStart = 0;
-				param.thetaLength = Math.PI * 2;
+				return param;
+			}
+		}
+	}
+
+	public struct ConeParams
+	{
+		public double radiusBottom;
+		public double height;
+		public int radialDivisions;
+		public int heightDivisions;
+
+		public static ConeParams Default
+		{
+			get
+			{
+				var param = new ConeParams();
+				param.radiusBottom = 0.5;
+				param.height = 1;
+				param.radialDivisions = 8;
+				param.heightDivisions = 4;
+				return param;
+			}
+		}
+		internal CylinderParams AsCylinderParam()
+		{
+			var param = new CylinderParams();
+			param.radiusTop = 0;
+			param.radiusBottom = this.radiusBottom;
+			param.height = this.height;
+			param.radialDivisions = this.radialDivisions;
+			param.heightDivisions = this.heightDivisions;
+			return param;
+
+		}
+	}
+
+	public struct CapsuleParams
+	{
+		public double radius;
+		public double height;
+		public int radialDivisions;
+		public int heightDivisions;
+
+		public static CapsuleParams Default
+		{
+			get
+			{
+				var param = new CapsuleParams();
+				param.radius = 0.5;
+				param.height = 1;
+				param.radialDivisions = 12;
+				param.heightDivisions = 12;
 				return param;
 			}
 		}
@@ -723,6 +772,9 @@ namespace CGALDotNet.Polyhedra
         {
 
 			int index = 0;
+			double thetaStart = 0;
+			double thetaLength = Math.PI * 2;
+
 			var indexArray = new List<List<int>>();
 			double halfHeight = param.height / 2;
 
@@ -738,7 +790,7 @@ namespace CGALDotNet.Polyhedra
 				{
 					double u = x / (double)param.radialDivisions;
 
-					double theta = u * param.thetaLength + param.thetaStart;
+					double theta = u * thetaLength + thetaStart;
 
 					double sinTheta = Math.Sin(theta);
 					double cosTheta = Math.Cos(theta);
@@ -792,6 +844,9 @@ namespace CGALDotNet.Polyhedra
 
 		private static void GenerateCap(IndexList list, CylinderParams param, bool top, ref int index )
 		{
+			double thetaStart = 0;
+			double thetaLength = Math.PI * 2;
+
 			// save the index of the first center vertex
 			int centerIndexStart = index;
 			double halfHeight = param.height / 2.0;
@@ -810,7 +865,7 @@ namespace CGALDotNet.Polyhedra
 			for (int x = 0; x <= param.radialDivisions; x++)
 			{
 				double u = x / (double)param.radialDivisions;
-				double theta = u * param.thetaLength + param.thetaStart;
+				double theta = u * thetaLength + thetaStart;
 
 				double cosTheta = Math.Cos(theta);
 				double sinTheta = Math.Sin(theta);
@@ -837,120 +892,193 @@ namespace CGALDotNet.Polyhedra
 
 		}
 
-		/*
-		private static void RemapIndices(List<Point3d> points, 
-			List<int> indices, 
-			Dictionary<int, List<Point3d>> indexTable, 
-			Dictionary<Point3d, int> pointTable)
-        {
-			if (indices == null) return;
+		internal static void CreateCapsule(IndexList list, CapsuleParams param)
+		{
+			int heightDivisions = param.heightDivisions;
+			int numSegments = param.radialDivisions;
 
-			for (int k = 0; k < indices.Count; k++)
+			double ringsBody = param.heightDivisions + 1;
+			double ringsTotal = param.heightDivisions + ringsBody;
+
+			double bodyIncr = 1.0 / (ringsBody - 1.0);
+			double ringIncr = 1.0 / (heightDivisions - 1.0);
+
+			for (var x = 0; x < heightDivisions / 2; x++)
 			{
-				int i = indices[k];
+				double r = Math.Sin(Math.PI * x * ringIncr);
+				double y = Math.Sin(Math.PI * (x * ringIncr - 0.5));
+				double dy = -0.5;
 
-				if (indexTable.ContainsKey(i))
-				{
-					var point = indexTable[i].First();
-					i = pointTable[point];
-					indices[k] = i;
-				}
-				else
-				{
-					var point = points[i];
+				CalculateRing(list, param, numSegments, r, y, dy);
+			}
 
-					if (!pointTable.ContainsKey(point))
-						pointTable.Add(point, i);
+			for (var x = 0; x < ringsBody; x++)
+			{
+				double r = 1;
+				double y = 0;
+				double dy = x * bodyIncr - 0.5;
+
+				CalculateRing(list, param, numSegments, r, y, dy);
+			}
+
+			for (var x = heightDivisions / 2; x < param.heightDivisions; x++)
+			{
+				double r = Math.Sin(Math.PI * x * ringIncr);
+				double y = Math.Sin(Math.PI * (x * ringIncr - 0.5));
+				double dy = 0.5;
+
+				CalculateRing(list, param, numSegments, r, y, dy);
+			}
+
+			for (var r = 0; r < ringsTotal - 1; r++)
+			{
+				for (var s = 0; s < numSegments - 1; s++)
+				{
+					int i0 = r * numSegments + (s + 1);
+					int i1 = r * numSegments + (s + 0);
+					int i2 = (r + 1) * numSegments + (s + 1);
+
+					int i3 = (r + 1) * numSegments + (s + 0);
+					int i4 = (r + 1) * numSegments + (s + 1);
+					int i5 = r * numSegments + s;
+
+					list.triangles.AddTriangle(i2, i1, i0);
+					list.triangles.AddTriangle(i5, i4, i3);
 				}
+			}
+			
+		}
+
+		private static void CalculateRing(IndexList list, CapsuleParams param, int segments, double r, double y, double dy)
+		{
+			double radius = param.radius;
+			double height = radius * 2;
+			double segIncr = 1.0 / (segments - 1.0);
+
+			for (var s = 0; s < segments; s++)
+			{
+				var x = -Math.Cos((Math.PI * 2) * s * segIncr) * r;
+				var z = Math.Sin((Math.PI * 2) * s * segIncr) * r;
+
+				var point = new Point3d(radius * x, radius * y + height * dy, radius * z);
+				list.points.Add(point);
 			}
 		}
 
-		private static void RemapIndices(List<Point3d> points, List<int> indices, List<Point3d> newPoints)
-        {
-			if (indices == null) return;
+	/*
+	private static void RemapIndices(List<Point3d> points, 
+		List<int> indices, 
+		Dictionary<int, List<Point3d>> indexTable, 
+		Dictionary<Point3d, int> pointTable)
+	{
+		if (indices == null) return;
 
-			for (int k = 0; k < indices.Count; k++)
+		for (int k = 0; k < indices.Count; k++)
+		{
+			int i = indices[k];
+
+			if (indexTable.ContainsKey(i))
 			{
-				int i = indices[k];
+				var point = indexTable[i].First();
+				i = pointTable[point];
+				indices[k] = i;
+			}
+			else
+			{
 				var point = points[i];
-				indices[k] = newPoints.IndexOf(point);
+
+				if (!pointTable.ContainsKey(point))
+					pointTable.Add(point, i);
 			}
 		}
+	}
+
+	private static void RemapIndices(List<Point3d> points, List<int> indices, List<Point3d> newPoints)
+	{
+		if (indices == null) return;
+
+		for (int k = 0; k < indices.Count; k++)
+		{
+			int i = indices[k];
+			var point = points[i];
+			indices[k] = newPoints.IndexOf(point);
+		}
+	}
 
 
-		/// <summary>
-		/// Welds duplicate vertices given some threshold.
-		/// This is not optimized and will be slow for large point sets.
-		/// </summary>
-		/// <param name="list"></param>
-		private static void WeldVertices(IndexList list)
-        {
+	/// <summary>
+	/// Welds duplicate vertices given some threshold.
+	/// This is not optimized and will be slow for large point sets.
+	/// </summary>
+	/// <param name="list"></param>
+	private static void WeldVertices(IndexList list)
+	{
 
-			double sqthreshold = WELD_EPS * WELD_EPS;
+		double sqthreshold = WELD_EPS * WELD_EPS;
 
-			//Find the points that are to close and put them in a list together.
-			//That set then goes in a dictionary with any one of the indices as the key.
-			var indexTable = new Dictionary<int, List<Point3d>>();
-			for (int i = 0; i < list.points.Count; i++)
+		//Find the points that are to close and put them in a list together.
+		//That set then goes in a dictionary with any one of the indices as the key.
+		var indexTable = new Dictionary<int, List<Point3d>>();
+		for (int i = 0; i < list.points.Count; i++)
+		{
+			for (int j = 0; j < list.points.Count; j++)
 			{
-				for (int j = 0; j < list.points.Count; j++)
-				{
-					if (i == j) continue;
+				if (i == j) continue;
 
-					double sqdist = Point3d.SqrDistance(list.points[i], list.points[j]);
-					if (sqdist <= sqthreshold)
+				double sqdist = Point3d.SqrDistance(list.points[i], list.points[j]);
+				if (sqdist <= sqthreshold)
+				{
+					if(indexTable.ContainsKey(i))
 					{
-						if(indexTable.ContainsKey(i))
-                        {
-							indexTable[i].Add(list.points[i]);
-							indexTable[i].Add(list.points[j]);
-						}
-						else if (indexTable.ContainsKey(j))
-						{
-							indexTable[j].Add(list.points[i]);
-							indexTable[j].Add(list.points[j]);
-						}
-						else
-                        {
-							var set = new HashSet<Point3d>();
-							set.Add(list.points[i]);
-							set.Add(list.points[j]);
-						}
+						indexTable[i].Add(list.points[i]);
+						indexTable[i].Add(list.points[j]);
+					}
+					else if (indexTable.ContainsKey(j))
+					{
+						indexTable[j].Add(list.points[i]);
+						indexTable[j].Add(list.points[j]);
+					}
+					else
+					{
+						var set = new HashSet<Point3d>();
+						set.Add(list.points[i]);
+						set.Add(list.points[j]);
 					}
 				}
 			}
-
-			//Take the first point in the index table
-			//and make a point table where the point is
-			//the key and any of the points indices is the value.
-			var pointTable = new Dictionary<Point3d, int>();
-			foreach (var kvp in indexTable)
-            {
-				int index = kvp.Key;
-				var set = kvp.Value;
-				pointTable.Add(set.First(), index);
-			}
-
-			//Remap the indies so the same index points to the same point.
-			RemapIndices(list.points, list.triangles, indexTable, pointTable);
-			RemapIndices(list.points, list.quads, indexTable, pointTable);
-
-			//create a new point list containing only the points in used.
-			var newPoints = new List<Point3d>();
-			foreach(var kvp in indexTable)
-				newPoints.Add(kvp.Value.First());
-
-			//Remap the indices so point to the same point in the new point table
-			//that has had all the duplicate points removed.
-			RemapIndices(list.points, list.triangles, newPoints);
-			RemapIndices(list.points, list.quads, newPoints);
-
-			//copy back into point list.
-			list.points.Clear();
-			list.points.AddRange(newPoints);
-
 		}
-		*/
+
+		//Take the first point in the index table
+		//and make a point table where the point is
+		//the key and any of the points indices is the value.
+		var pointTable = new Dictionary<Point3d, int>();
+		foreach (var kvp in indexTable)
+		{
+			int index = kvp.Key;
+			var set = kvp.Value;
+			pointTable.Add(set.First(), index);
+		}
+
+		//Remap the indies so the same index points to the same point.
+		RemapIndices(list.points, list.triangles, indexTable, pointTable);
+		RemapIndices(list.points, list.quads, indexTable, pointTable);
+
+		//create a new point list containing only the points in used.
+		var newPoints = new List<Point3d>();
+		foreach(var kvp in indexTable)
+			newPoints.Add(kvp.Value.First());
+
+		//Remap the indices so point to the same point in the new point table
+		//that has had all the duplicate points removed.
+		RemapIndices(list.points, list.triangles, newPoints);
+		RemapIndices(list.points, list.quads, newPoints);
+
+		//copy back into point list.
+		list.points.Clear();
+		list.points.AddRange(newPoints);
 
 	}
+	*/
+
+}
 }
