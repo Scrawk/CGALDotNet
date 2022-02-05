@@ -56,49 +56,34 @@ namespace CGALDotNetGeometry.Numerics
         public readonly static Vector3d NegativeInfinity = new Vector3d(REAL.NegativeInfinity);
 
         /// <summary>
-        /// Convert to a 2 dimension vector.
+        /// 3D vector to 3D swizzle vector.
         /// </summary>
-	    public Vector2d xy
-	    {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new Vector2d(x, y); }
-	    }
+        public Vector3d xzy => new Vector3d(x, z, y);
 
         /// <summary>
-        /// Convert to a 2 dimension vector.
+        /// 3D vector to 2D vector.
         /// </summary>
-        public Vector2d xz
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new Vector2d(x, z); }
-        }
+        public Vector2d xy => new Vector2d(x, y);
 
         /// <summary>
-        /// Convert to a 2 dimension vector.
+        /// 3D vector to 2D vector.
         /// </summary>
-        public Vector2d zy
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new Vector2d(z, y); }
-        }
+        public Vector2d xz => new Vector2d(x, z);
 
         /// <summary>
-        /// Convert to a 4 dimension vector.
+        /// 3D vector to 2D vector.
         /// </summary>
-        public Vector4d xyz0
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new Vector4d(x, y, z, 0); }
-        }
+        public Vector2d zy => new Vector2d(z, y);
 
         /// <summary>
-        /// Convert to a 4 dimension vector.
+        /// 3D vector to 4D vector with w as 0.
         /// </summary>
-        public Vector4d xyz1
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get { return new Vector4d(x, y, z, 1); }
-        }
+        public Vector4d xyz0 => new Vector4d(x, y, z, 0);
+
+        /// <summary>
+        /// 3D vector to 4D vector with w as 1.
+        /// </summary>
+        public Vector4d xyz1 => new Vector4d(x, y, z, 1);
 
         /// <summary>
         /// A vector all with the value v.
@@ -156,6 +141,35 @@ namespace CGALDotNetGeometry.Numerics
                     throw new IndexOutOfRangeException("Vector3d index out of range.");
 
                 fixed (REAL* array = &x) { array[i] = value; }
+            }
+        }
+
+        /// <summary>
+        /// Are all the components of vector finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (!MathUtil.IsFinite(x)) return false;
+                if (!MathUtil.IsFinite(y)) return false;
+                if (!MathUtil.IsFinite(z)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Make a vector with no non finite conponents.
+        /// </summary>
+        public Vector3d Finite
+        {
+            get
+            {
+                var v = new Vector3d(x, y, z);
+                if (!MathUtil.IsFinite(v.x)) v.x = 0;
+                if (!MathUtil.IsFinite(v.y)) v.y = 0;
+                if (!MathUtil.IsFinite(v.z)) v.z = 0;
+                return v;
             }
         }
 

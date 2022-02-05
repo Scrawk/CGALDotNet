@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNet.Polygons;
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Meshing
 {

@@ -95,6 +95,35 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
+        /// Are all the components of vector finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (!MathUtil.IsFinite(x)) return false;
+                if (!MathUtil.IsFinite(y)) return false;
+                if (!MathUtil.IsFinite(w)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Make a point with no non finite conponents.
+        /// </summary>
+        public HPoint2d Finite
+        {
+            get
+            {
+                var p = new HPoint2d(x, y, w);
+                if (!MathUtil.IsFinite(p.x)) p.x = 0;
+                if (!MathUtil.IsFinite(p.y)) p.y = 0;
+                if (!MathUtil.IsFinite(p.w)) p.w = 0;
+                return p;
+            }
+        }
+
+        /// <summary>
         /// Convert from homogenous to cartesian space.
         /// </summary>
         public Point2d Cartesian

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet.Geometry;
-using CGALDotNet.Polygons;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Triangulations
 {
@@ -398,7 +398,7 @@ namespace CGALDotNet.Triangulations
                         {
                             min = sqdist;
 
-                            int neighboutIndex = CGALGlobal.Wrap(i - 1, 3);
+                            int neighboutIndex = MathUtil.Wrap(i - 1, 3);
                             closest = new TriEdge2(face.Index, neighboutIndex);
                             closest.Segment = new Segment2d(p1, p2);
                         }

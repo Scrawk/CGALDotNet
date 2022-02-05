@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Triangulations
 {

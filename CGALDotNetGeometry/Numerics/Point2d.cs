@@ -117,14 +117,48 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
-        /// Point as a vector.
+        /// Are all the components ofpoint finite.
         /// </summary>
-        public Vector2d Vector2d
+        public bool IsFinite
         {
             get
             {
-                return new Vector2d(x, y);
+                if(!MathUtil.IsFinite(x)) return false;
+                if (!MathUtil.IsFinite(y)) return false;
+                return true;
             }
+        }
+
+        /// <summary>
+        /// Make a point with no non finite conponents.
+        /// </summary>
+        public Point2d Finite
+        {
+            get
+            {
+                var p = new Point2d(x, y);
+                if (!MathUtil.IsFinite(p.x)) p.x = 0;
+                if (!MathUtil.IsFinite(p.y)) p.y = 0;
+                return p;
+            }
+        }
+
+        /// <summary>
+        /// Point as a vector.
+        /// </summary>
+        public Vector2d Vector2d => new Vector2d(x, y);
+
+        /// <summary>
+        /// Point as a homogenous point.
+        /// </summary>
+        public HPoint2d Homogenous => new HPoint2d(x, y, 1);
+
+        /// <summary>
+        /// Point as a homogenous point.
+        /// </summary>
+        public HPoint2d ToHomogenous(REAL w)
+        {
+            return new HPoint2d(x, y, w);
         }
 
         /// <summary>

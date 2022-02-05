@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using CGALDotNet.Polygons;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Geometry
 {
@@ -92,7 +94,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// If result type was ray get the ray geometry.
         /// </summary>
-        public Ray2d Ray => new Ray2d(this[0], (Vector2d)this[1]);
+        public Ray2d Ray => new Ray2d(this[0], this[1].Vector2d);
 
         /// <summary>
         /// If result type was segment get the segment geometry.
@@ -141,39 +143,10 @@ namespace CGALDotNet.Geometry
         {
             return new Polygon2<K>(PolygonPoints);
         }
-
-        /// <summary>
-        /// Get the intersection geometry.
-        /// </summary>
-        public IGeometry2d Geometry
-        {
-            get
-            {
-                if (IsPolygon)
-                    throw new Exception("Intersection is a polygon not a geometry.");
-
-                switch (Type)
-                {
-                    case INTERSECTION_RESULT_2D.POINT2:
-                        return Point;
-                    case INTERSECTION_RESULT_2D.LINE2:
-                        return Line;
-                    case INTERSECTION_RESULT_2D.RAY2:
-                        return Ray;
-                    case INTERSECTION_RESULT_2D.SEGMENT2:
-                        return Segment;
-                    case INTERSECTION_RESULT_2D.BOX2:
-                        return Box;
-                    case INTERSECTION_RESULT_2D.TRIANGLE2:
-                        return Triangle;
-                }
-
-                return null;
-            }
-        }
-
+        
     }
 
+    
     /// <summary>
     /// The static intersection class.
     /// </summary>
@@ -182,189 +155,6 @@ namespace CGALDotNet.Geometry
         private const string DLL_NAME = "CGALWrapper.dll";
 
         private const CallingConvention CDECL = CallingConvention.Cdecl;
-
-        /// <summary>
-        /// Determines if the two geometries intersect using the interface.
-        /// This function is for convenience, not performance.
-        /// </summary>
-        /// <param name="geo1">The first shape geometry.</param>
-        /// <param name="geo2">The second shape geometry.</param>
-        /// <returns>True if the two geometries intersect.</returns>
-        public static bool DoIntersect(IGeometry2d geo1, IGeometry2d geo2)
-        {
-            if(geo1 is Point2d point1)
-            {
-                if (geo2 is Line2d line2)
-                    return DoIntersect(point1, line2);
-                else if (geo2 is Segment2d segment2)
-                    return DoIntersect(point1, segment2);
-                else if (geo2 is Ray2d ray2)
-                    return DoIntersect(point1, ray2);
-                else if (geo2 is Triangle2d tri2)
-                    return DoIntersect(point1, tri2);
-                else if (geo2 is Box2d box2)
-                    return DoIntersect(point1, box2);
-            }
-            else if (geo1 is Line2d line1)
-            {
-                if (geo2 is Line2d line3)
-                    return DoIntersect(line1, line3);
-                else if (geo2 is Segment2d segment3)
-                    return DoIntersect(line1, segment3);
-                else if (geo2 is Ray2d ray3)
-                    return DoIntersect(line1, ray3);
-                else if (geo2 is Triangle2d tri3)
-                    return DoIntersect(line1, tri3);
-                else if (geo2 is Box2d box3)
-                    return DoIntersect(line1, box3);
-            }
-            else if (geo1 is Segment2d segment1)
-            {
-                if (geo2 is Line2d line4)
-                    return DoIntersect(segment1, line4);
-                else if (geo2 is Segment2d segment4)
-                    return DoIntersect(segment1, segment4);
-                else if (geo2 is Ray2d ray4)
-                    return DoIntersect(segment1, ray4);
-                else if (geo2 is Triangle2d tri4)
-                    return DoIntersect(segment1, tri4);
-                else if (geo2 is Box2d box4)
-                    return DoIntersect(segment1, box4);
-            }
-            else if (geo1 is Ray2d ray1)
-            {
-                if (geo2 is Line2d line5)
-                    return DoIntersect(ray1, line5);
-                else if (geo2 is Segment2d segment5)
-                    return DoIntersect(ray1, segment5);
-                else if (geo2 is Ray2d ray5)
-                    return DoIntersect(ray1, ray5);
-                else if (geo2 is Triangle2d tri5)
-                    return DoIntersect(ray1, tri5);
-                else if (geo2 is Box2d box5)
-                    return DoIntersect(ray1, box5);
-            }
-            else if (geo1 is Triangle2d tri1)
-            {
-                if (geo2 is Line2d line6)
-                    return DoIntersect(tri1, line6);
-                else if (geo2 is Segment2d segment6)
-                    return DoIntersect(tri1, segment6);
-                else if (geo2 is Ray2d ray6)
-                    return DoIntersect(tri1, ray6);
-                else if (geo2 is Triangle2d tri6)
-                    return DoIntersect(tri1, tri6);
-                else if (geo2 is Box2d box6)
-                    return DoIntersect(tri1, box6);
-            }
-            else if (geo1 is Box2d box1)
-            {
-                if (geo2 is Line2d line7)
-                    return DoIntersect(box1, line7);
-                else if (geo2 is Segment2d segment7)
-                    return DoIntersect(box1, segment7);
-                else if (geo2 is Ray2d ray7)
-                    return DoIntersect(box1, ray7);
-                else if (geo2 is Triangle2d tri7)
-                    return DoIntersect(box1, tri7);
-                else if (geo2 is Box2d box7)
-                    return DoIntersect(box1, box7);
-            }
-    
-            return false;
-        }
-
-        /// <summary>
-        /// Determines if the two geometries intersect using the interface 
-        /// and return the interection geometry.
-        /// This function is for convenience, not performance.
-        /// </summary>
-        /// <param name="geo1">The first shape geometry.</param>
-        /// <param name="geo2">The second shape geometry.</param>
-        /// <returns>The intersection result.</returns>
-        public static IntersectionResult2d Intersection(IGeometry2d geo1, IGeometry2d geo2)
-        {
-            if (geo1 is Point2d point1)
-            {
-                if (geo2 is Line2d line2)
-                    return Intersection(point1, line2);
-                else if (geo2 is Segment2d segment2)
-                    return Intersection(point1, segment2);
-                else if (geo2 is Ray2d ray2)
-                    return Intersection(point1, ray2);
-                else if (geo2 is Triangle2d tri2)
-                    return Intersection(point1, tri2);
-                else if (geo2 is Box2d box2)
-                    return Intersection(point1, box2);
-            }
-            else if (geo1 is Line2d line1)
-            {
-                if (geo2 is Line2d line3)
-                    return Intersection(line1, line3);
-                else if (geo2 is Segment2d segment3)
-                    return Intersection(line1, segment3);
-                else if (geo2 is Ray2d ray3)
-                    return Intersection(line1, ray3);
-                else if (geo2 is Triangle2d tri3)
-                    return Intersection(line1, tri3);
-                else if (geo2 is Box2d box3)
-                    return Intersection(line1, box3);
-            }
-            else if (geo1 is Segment2d segment1)
-            {
-                if (geo2 is Line2d line4)
-                    return Intersection(segment1, line4);
-                else if (geo2 is Segment2d segment4)
-                    return Intersection(segment1, segment4);
-                else if (geo2 is Ray2d ray4)
-                    return Intersection(segment1, ray4);
-                else if (geo2 is Triangle2d tri4)
-                    return Intersection(segment1, tri4);
-                else if (geo2 is Box2d box4)
-                    return Intersection(segment1, box4);
-            }
-            else if (geo1 is Ray2d ray1)
-            {
-                if (geo2 is Line2d line5)
-                    return Intersection(ray1, line5);
-                else if (geo2 is Segment2d segment5)
-                    return Intersection(ray1, segment5);
-                else if (geo2 is Ray2d ray5)
-                    return Intersection(ray1, ray5);
-                else if (geo2 is Triangle2d tri5)
-                    return Intersection(ray1, tri5);
-                else if (geo2 is Box2d box5)
-                    return Intersection(ray1, box5);
-            }
-            else if (geo1 is Triangle2d tri1)
-            {
-                if (geo2 is Line2d line6)
-                    return Intersection(tri1, line6);
-                else if (geo2 is Segment2d segment6)
-                    return Intersection(tri1, segment6);
-                else if (geo2 is Ray2d ray6)
-                    return Intersection(tri1, ray6);
-                else if (geo2 is Triangle2d tri6)
-                    return Intersection(tri1, tri6);
-                else if (geo2 is Box2d box6)
-                    return Intersection(tri1, box6);
-            }
-            else if (geo1 is Box2d box1)
-            {
-                if (geo2 is Line2d line7)
-                    return Intersection(box1, line7);
-                else if (geo2 is Segment2d segment7)
-                    return Intersection(box1, segment7);
-                else if (geo2 is Ray2d ray7)
-                    return Intersection(box1, ray7);
-                else if (geo2 is Triangle2d tri7)
-                    return Intersection(box1, tri7);
-                else if (geo2 is Box2d box7)
-                    return Intersection(box1, box7);
-            }
-
-            return new IntersectionResult2d();
-        }
 
         /// <summary>--------------------------------------------------------
         /// 

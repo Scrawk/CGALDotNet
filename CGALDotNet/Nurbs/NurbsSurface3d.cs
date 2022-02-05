@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Nurbs
 {
@@ -181,7 +181,7 @@ namespace CGALDotNet.Nurbs
 			double last = KnotsU.Last();
 
 			for (int i = 0; i < KnotsU.Length; i++)
-				KnotsU[i] = CGALGlobal.Normalize(KnotsU[i], fisrt, last);
+				KnotsU[i] = MathUtil.Normalize(KnotsU[i], fisrt, last);
 		}
 
 		/// <summary>
@@ -194,7 +194,7 @@ namespace CGALDotNet.Nurbs
 			double last = KnotsV.Last();
 
 			for (int i = 0; i < KnotsV.Length; i++)
-				KnotsV[i] = CGALGlobal.Normalize(KnotsV[i], fisrt, last);
+				KnotsV[i] = MathUtil.Normalize(KnotsV[i], fisrt, last);
 		}
 
 		/// <summary>
@@ -363,9 +363,9 @@ namespace CGALDotNet.Nurbs
 		/// <param name="scale">The amount to scale.</param>
 		public override void Transform(Point3d translation, Quaternion3d quat, Point3d scale)
 		{
-			Matrix4x4d T = Matrix4x4d.Translate(translation.Vector3d);
+			Matrix4x4d T = Matrix4x4d.Translate(translation);
 			Matrix4x4d R = quat.ToMatrix4x4d();
-			Matrix4x4d S = Matrix4x4d.Scale(scale.Vector3d);
+			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
 			var M = T * R * S;
 
@@ -573,9 +573,9 @@ namespace CGALDotNet.Nurbs
 		/// <param name="scale">The amount to scale.</param>
 		public override void Transform(Point3d translation, Quaternion3d quat, Point3d scale)
 		{
-			Matrix4x4d T = Matrix4x4d.Translate(translation.Vector3d);
+			Matrix4x4d T = Matrix4x4d.Translate(translation);
 			Matrix4x4d R = quat.ToMatrix4x4d();
-			Matrix4x4d S = Matrix4x4d.Scale(scale.Vector3d);
+			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
 			var M = T * R * S;
 

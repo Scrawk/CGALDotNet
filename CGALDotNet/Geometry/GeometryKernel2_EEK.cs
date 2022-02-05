@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
+
 namespace CGALDotNet.Geometry
 {
     internal class GeometryKernel2_EEK : GeometryKernel2

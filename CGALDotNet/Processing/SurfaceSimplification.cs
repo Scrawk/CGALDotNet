@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using CGALDotNet.Polyhedra;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Processing
 {
@@ -70,7 +71,7 @@ namespace CGALDotNet.Processing
         /// <param name="stop_ratio">A percentage 0-1 of edges to remove.</param>
         public void Simplify(Polyhedron3 mesh, double stop_ratio)
         {
-            stop_ratio = CGALGlobal.Clamp01(stop_ratio);
+            stop_ratio = MathUtil.Clamp01(stop_ratio);
             if (stop_ratio == 0) return;
 
             CheckIsValidTriangleException(mesh);
@@ -85,7 +86,7 @@ namespace CGALDotNet.Processing
         /// <param name="stop_ratio">A percentage 0-1 of edges to remove.</param>
         public void Simplify(SurfaceMesh3 mesh, double stop_ratio)
         {
-            stop_ratio = CGALGlobal.Clamp01(stop_ratio);
+            stop_ratio = MathUtil.Clamp01(stop_ratio);
             if (stop_ratio == 0) return;
 
             CheckIsValidTriangleException(mesh);

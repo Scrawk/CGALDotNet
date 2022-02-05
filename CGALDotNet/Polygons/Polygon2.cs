@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 using CGALDotNet.Triangulations;
 using CGALDotNet.Meshing;
 using CGALDotNet.Polyhedra;
@@ -533,7 +534,7 @@ namespace CGALDotNet.Polygons
         /// <returns>The point at the index.</returns>
         public Point2d GetPointWrapped(int index)
         {
-            index = CGALGlobal.Wrap(index, Count);
+            index = MathUtil.Wrap(index, Count);
             return Kernel.GetPoint(Ptr, index);
         }
 
@@ -545,7 +546,7 @@ namespace CGALDotNet.Polygons
         /// <returns>The point at the index.</returns>
         public Point2d GetPointClamped(int index)
         {
-            index = CGALGlobal.Clamp(index, 0, Count - 1);
+            index = MathUtil.Clamp(index, 0, Count - 1);
             return Kernel.GetPoint(Ptr, index);
         }
 

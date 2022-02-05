@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Nurbs
 {

@@ -70,6 +70,11 @@ namespace CGALDotNetGeometry.Numerics
         public Point2f xz => new Point2f(x, z);
 
         /// <summary>
+        /// 3D point to 2D point.
+        /// </summary>
+        public Point2f zy => new Point2f(z, y);
+
+        /// <summary>
         /// 3D point to 4D point with w as 0.
         /// </summary>
         public Point4f xyz0 => new Point4f(x, y, z, 0);
@@ -121,6 +126,35 @@ namespace CGALDotNetGeometry.Numerics
                     throw new IndexOutOfRangeException("Point3f index out of range.");
 
                 fixed (REAL* array = &x) { array[i] = value; }
+            }
+        }
+
+        /// <summary>
+        /// Are all the components ofpoint finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (!MathUtil.IsFinite(x)) return false;
+                if (!MathUtil.IsFinite(y)) return false;
+                if (!MathUtil.IsFinite(z)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Make a point with no non finite conponents.
+        /// </summary>
+        public Point3f Finite
+        {
+            get
+            {
+                var p = new Point3f(x, y, z);
+                if (!MathUtil.IsFinite(p.x)) p.x = 0;
+                if (!MathUtil.IsFinite(p.y)) p.y = 0;
+                if (!MathUtil.IsFinite(p.z)) p.z = 0;
+                return p;
             }
         }
 

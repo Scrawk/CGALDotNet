@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
+
 namespace CGALDotNet.Geometry
 {
     /// <summary>

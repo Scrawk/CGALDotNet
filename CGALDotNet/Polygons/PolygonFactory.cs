@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet.Circular;
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Polygons
 {
@@ -88,7 +88,8 @@ namespace CGALDotNet.Polygons
         /// <returns>The created polygon.</returns>
         public static Polygon2<K> CreateBox(Box2d box, bool ccw = true)
         {
-            var points = box.GetCorners();
+            var points = new Point2d[4];
+            box.GetCorners(points);
             var poly = new Polygon2<K>(points);
 
             if (!ccw) poly.Reverse();
@@ -195,7 +196,7 @@ namespace CGALDotNet.Polygons
 
         private static double Rotation(int segments)
         {
-            return (((segments - 2) * 180) / segments) * CGALGlobal.DEG_TO_RAD * 0.5;
+            return (((segments - 2) * 180) / segments) * MathUtil.DEG_TO_RAD_64 * 0.5;
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 
 /// <summary>
@@ -191,7 +191,7 @@ namespace CGALDotNet.Nurbs
 			double last = Knots.Last();
 
 			for (int i = 0; i < Knots.Length; i++)
-				Knots[i] = CGALGlobal.Normalize(Knots[i], fisrt, last);
+				Knots[i] = MathUtil.Normalize(Knots[i], fisrt, last);
 		}
 
 	}
@@ -323,14 +323,14 @@ namespace CGALDotNet.Nurbs
 		/// <param name="scale">The amount to scale.</param>
 		public override void Transform(Point2d translation, Radian radian, double scale)
 		{
-			Matrix4x4d T = Matrix4x4d.Translate(translation.Vector2d.xy0);
+			Matrix4x4d T = Matrix4x4d.Translate(translation.xy0);
 			Matrix4x4d R = Matrix3x3d.RotateZ(radian).ToMatrix4x4d();
 			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
 			var M = T * R * S;
 
 			for (int i = 0; i < Count; i++)
-				CartesianControlPoints[i] = M * CartesianControlPoints[i];
+				CartesianControlPoints[i] = (M * CartesianControlPoints[i].xy01).xy;
 		}
 
 		/// <summary>
@@ -494,7 +494,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="scale">The amount to scale.</param>
 		public override void Transform(Point2d translation, Radian radian, double scale)
 		{
-			Matrix4x4d T = Matrix4x4d.Translate(translation.Vector2d.xy0);
+			Matrix4x4d T = Matrix4x4d.Translate(translation.xy0);
 			Matrix4x4d R = Matrix3x3d.RotateZ(radian).ToMatrix4x4d();
 			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
@@ -503,7 +503,7 @@ namespace CGALDotNet.Nurbs
 			for (int i = 0; i < Count; i++)
             {
 				var pointw = HomogeneousControlPoints[i];
-				var point = M * pointw.Cartesian;
+				var point = (M * pointw.Cartesian.xy01).xy;
 				HomogeneousControlPoints[i] = point.ToHomogenous(pointw.w);
 			}
 				

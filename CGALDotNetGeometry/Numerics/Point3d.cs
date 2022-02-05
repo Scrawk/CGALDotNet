@@ -70,6 +70,11 @@ namespace CGALDotNetGeometry.Numerics
         public Point2d xz => new Point2d(x, z);
 
         /// <summary>
+        /// 3D point to 2D point.
+        /// </summary>
+        public Point2d zy => new Point2d(z, y);
+
+        /// <summary>
         /// 3D point to 4D point with w as 0.
         /// </summary>
         public Point4d xyz0 => new Point4d(x, y, z, 0);
@@ -125,6 +130,35 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
+        /// Are all the components ofpoint finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (!MathUtil.IsFinite(x)) return false;
+                if (!MathUtil.IsFinite(y)) return false;
+                if (!MathUtil.IsFinite(z)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Make a point with no non finite conponents.
+        /// </summary>
+        public Point3d Finite
+        {
+            get
+            {
+                var p = new Point3d(x, y, z);
+                if (!MathUtil.IsFinite(p.x)) p.x = 0;
+                if (!MathUtil.IsFinite(p.y)) p.y = 0;
+                if (!MathUtil.IsFinite(p.z)) p.z = 0;
+                return p;
+            }
+        }
+
+        /// <summary>
         /// Point as vector.
         /// </summary>
         public Vector3d Vector3d => new Vector3d(x, y, z);
@@ -133,6 +167,19 @@ namespace CGALDotNetGeometry.Numerics
         /// Point as vector.
         /// </summary>
         public Vector4d Vector4d => new Vector4d(x, y, z, 1);
+
+        /// <summary>
+        /// Point as a homogenous point.
+        /// </summary>
+        public HPoint3d Homogenous => new HPoint3d(x, y, z, 1);
+
+        /// <summary>
+        /// Point as a homogenous point.
+        /// </summary>
+        public HPoint3d ToHomogenous(REAL w)
+        {
+            return new HPoint3d(x, y, z, w);
+        }
 
         /// <summary>
         /// The sum of the points components.

@@ -164,6 +164,22 @@ namespace CGALDotNetGeometry.Shapes
         }
 
         /// <summary>
+        /// The points distance from the segment.
+        /// </summary>
+        public REAL Distance(POINT2 point)
+        {
+            return MathUtil.Sqrt(SqrDistance(point));
+        }
+
+        /// <summary>
+        /// The points sqr distance from the segment.
+        /// </summary>
+        public REAL SqrDistance(POINT2 point)
+        {
+            return POINT2.SqrDistance(Closest(point), point);
+        }
+
+        /// <summary>
         /// Does the point line on the segemnts.
         /// </summary>
         /// <param name="p"></param>

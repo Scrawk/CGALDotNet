@@ -133,6 +133,33 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
+        /// Are all the components of vector finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (!MathUtil.IsFinite(x)) return false;
+                if (!MathUtil.IsFinite(y)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Make a vector with no non finite conponents.
+        /// </summary>
+        public Vector2f Finite
+        {
+            get
+            {
+                var v = new Vector2f(x, y);
+                if (!MathUtil.IsFinite(v.x)) v.x = 0;
+                if (!MathUtil.IsFinite(v.y)) v.y = 0;
+                return v;
+            }
+        }
+
+        /// <summary>
         /// Convert the vector to a point.
         /// </summary>
         public Point2f Point2f

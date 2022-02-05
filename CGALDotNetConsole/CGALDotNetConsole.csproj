@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CGALDotNetGeometry\CGALDotNetGeometry.csproj" />
     <ProjectReference Include="..\CGALDotNet\CGALDotNet.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Extensions
 {
@@ -24,10 +24,7 @@ namespace CGALDotNet.Extensions
         public static void MakeFinite(this IList<Point2d> array)
         {
             for (int i = 0; i < array.Count; i++)
-            {
-                if (!array[i].IsFinite)
                     array[i] = array[i].Finite;
-            }
         }
 
         public static bool IsFinite(this IList<Point3d> array)
@@ -44,10 +41,7 @@ namespace CGALDotNet.Extensions
         public static void MakeFinite(this IList<Point3d> array)
         {
             for (int i = 0; i < array.Count; i++)
-            {
-                if (!array[i].IsFinite)
                     array[i] = array[i].Finite;
-            }
         }
 
         public static bool HasNullIndex(this IList<int> array)

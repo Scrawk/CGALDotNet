@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNetGeometry.Numerics;
+
 namespace CGALDotNet.Geometry
 {
     internal abstract class GeometryKernel2 : CGALObjectKernel

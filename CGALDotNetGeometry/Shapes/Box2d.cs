@@ -276,6 +276,16 @@ namespace CGALDotNetGeometry.Shapes
             return max.Magnitude + Math.Min(Math.Max(d.x, d.y), 0.0);
         }
 
+        /// <summary>
+        /// Round the boxes components.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            Min.Round(digits);
+            Max.Round(digits);
+        }
+
         public static Box2d CalculateBounds(IList<POINT2> vertices)
         {
             POINT2 min = POINT2.PositiveInfinity;

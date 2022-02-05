@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 using CGALDotNet.Polyhedra;
 
 namespace CGALDotNet.Processing
@@ -136,7 +136,7 @@ namespace CGALDotNet.Processing
         /// <param name="density_control_factor">a factor to control density of the output mesh, 
         /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
         /// <returns>The number of new vertices added.</returns>
-        public int Refine(Polyhedron3<K> mesh, double density_control_factor = CGALGlobal.SQRT2)
+        public int Refine(Polyhedron3<K> mesh, double density_control_factor = MathUtil.SQRT2_64)
         {
             if (density_control_factor <= 0)
                 return 0;
@@ -159,7 +159,7 @@ namespace CGALDotNet.Processing
         /// <param name="density_control_factor">a factor to control density of the output mesh, 
         /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
         /// <returns>The number of new vertices added.</returns>
-        public int Refine(SurfaceMesh3<K> mesh, double density_control_factor = CGALGlobal.SQRT2)
+        public int Refine(SurfaceMesh3<K> mesh, double density_control_factor = MathUtil.SQRT2_64)
         {
             if (density_control_factor <= 0)
                 return 0;

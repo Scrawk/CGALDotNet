@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CGALDotNet;
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 using CGALDotNet.Polygons;
 
 namespace CGALDotNetTest.Polygons

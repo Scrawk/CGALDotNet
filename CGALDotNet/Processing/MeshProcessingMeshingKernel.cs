@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Processing
 {

@@ -3,7 +3,8 @@ using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CGALDotNet;
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNetTest
 {

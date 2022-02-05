@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Nurbs
 {
@@ -23,7 +23,7 @@ namespace CGALDotNet.Nurbs
 			for (int i = index; i < knots.Count; ++i)
 			{
 				int idx = index + 1;
-				if (CGALGlobal.IsZero(u - knots[idx]))
+				if (MathUtil.IsZero(u - knots[idx]))
 				{
 					++mult;
 				}
@@ -169,7 +169,7 @@ namespace CGALDotNet.Nurbs
 			for (int i = 0; i < crv.Degree - 1; ++i)
 			{
 				int j = crv.Knots.Length - crv.Degree + i;
-				if (!CGALGlobal.IsZero((crv.Knots[i + 1] - crv.Knots[i]) - (crv.Knots[j + 1] - crv.Knots[j])))
+				if (!MathUtil.IsZero((crv.Knots[i + 1] - crv.Knots[i]) - (crv.Knots[j + 1] - crv.Knots[j])))
 					return false;
 			}
 			return true;
@@ -185,7 +185,7 @@ namespace CGALDotNet.Nurbs
 			for (int i = 0; i < srv.DegreeU - 1; ++i)
 			{
 				int j = srv.KnotsU.Length - srv.DegreeU + i;
-				if (!CGALGlobal.IsZero((srv.KnotsU[i + 1] - srv.KnotsU[i]) - (srv.KnotsU[j + 1] - srv.KnotsU[j])))
+				if (!MathUtil.IsZero((srv.KnotsU[i + 1] - srv.KnotsU[i]) - (srv.KnotsU[j + 1] - srv.KnotsU[j])))
 					return false;
 			}
 			return true;
@@ -201,7 +201,7 @@ namespace CGALDotNet.Nurbs
 			for (int i = 0; i < srv.DegreeV - 1; ++i)
 			{
 				int j = srv.KnotsV.Length - srv.DegreeV + i;
-				if (!CGALGlobal.IsZero((srv.KnotsV[i + 1] - srv.KnotsV[i]) - (srv.KnotsV[j + 1] - srv.KnotsV[j])))
+				if (!MathUtil.IsZero((srv.KnotsV[i + 1] - srv.KnotsV[i]) - (srv.KnotsV[j + 1] - srv.KnotsV[j])))
 					return false;
 			}
 			return true;
@@ -222,11 +222,11 @@ namespace CGALDotNet.Nurbs
 				var pj = crv.GetCartesianControlPoint(j);
 
 				//check the weights
-				if (!CGALGlobal.IsZero(crv.GetHomogeneousControlPoint(i).w - crv.GetHomogeneousControlPoint(j).w))
+				if (!MathUtil.IsZero(crv.GetHomogeneousControlPoint(i).w - crv.GetHomogeneousControlPoint(j).w))
 					return false;
 
 				//check the control points
-				if (!CGALGlobal.IsZero((pi - pj).Magnitude))
+				if (!MathUtil.IsZero((pi - pj).Magnitude))
 					return false;
 			}
 			return true;
@@ -249,11 +249,11 @@ namespace CGALDotNet.Nurbs
 					var pkj = srv.GetCartesianControlPoint(k, j);
 
 					//Check the weights
-					if (!CGALGlobal.IsZero(srv.GetHomogeneousControlPoint(i, j).w - srv.GetHomogeneousControlPoint(k, j).w))
+					if (!MathUtil.IsZero(srv.GetHomogeneousControlPoint(i, j).w - srv.GetHomogeneousControlPoint(k, j).w))
 						return false;
 
 					//Check the control points
-					if (!CGALGlobal.IsZero((pij - pkj).Magnitude))
+					if (!MathUtil.IsZero((pij - pkj).Magnitude))
 						return false;
 				}
 			}
@@ -277,10 +277,10 @@ namespace CGALDotNet.Nurbs
 					var pik = srv.GetCartesianControlPoint(k, j);
 
 					//Check the weights
-					if (!CGALGlobal.IsZero(srv.GetHomogeneousControlPoint(i, j).w - srv.GetHomogeneousControlPoint(i, k).w))
+					if (!MathUtil.IsZero(srv.GetHomogeneousControlPoint(i, j).w - srv.GetHomogeneousControlPoint(i, k).w))
 						return false;
 
-					if (!CGALGlobal.IsZero((pij - pik).Magnitude))
+					if (!MathUtil.IsZero((pij - pik).Magnitude))
 						return false;
 				}
 			}

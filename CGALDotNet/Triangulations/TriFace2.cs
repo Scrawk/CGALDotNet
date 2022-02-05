@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
+using CGALDotNetGeometry.Numerics;
+
 namespace CGALDotNet.Triangulations
 {
     /// <summary>
@@ -40,7 +42,7 @@ namespace CGALDotNet.Triangulations
         /// <returns>The vertices index in the triangulation.</returns>
         public int GetVertexIndex(int i)
         {
-            i = CGALGlobal.Wrap(i, 3);
+            i = MathUtil.Wrap(i, 3);
             return VertexIndex[i];
         }
 

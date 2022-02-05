@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Nurbs
 {
@@ -340,7 +340,7 @@ namespace CGALDotNet.Nurbs
 			var div = daa * dbb - dab * dab;
 
 			//parallel case
-			if (CGALGlobal.IsZero(div))
+			if (MathUtil.IsZero(div))
 				return false;
 
 			var num = dab * (dab0 - daa0) - daa * (dbb0 - dba0);

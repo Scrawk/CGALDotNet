@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 using CGALDotNet.Processing;
 using CGALDotNet.Polygons;
 using CGALDotNet.Extensions;
@@ -102,7 +103,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="density_control_factor">a factor to control density of the output mesh, 
         /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
         /// <returns>The number of new vertices.</returns>
-        public override int Refine(double density_control_factor = CGALGlobal.SQRT2)
+        public override int Refine(double density_control_factor = MathUtil.SQRT2_64)
         {
             try
             {
@@ -1191,7 +1192,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="density_control_factor">a factor to control density of the output mesh, 
         /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
         /// <returns>The number of new vertices.</returns>
-        public abstract int Refine(double density_control_factor = CGALGlobal.SQRT2);
+        public abstract int Refine(double density_control_factor = MathUtil.SQRT2_64);
 
         /// <summary>
         /// Remeshes a triangulated region of a polygon mesh.

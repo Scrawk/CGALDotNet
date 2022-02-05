@@ -1,6 +1,8 @@
-﻿using CGALDotNet.Geometry;
+﻿using CGALDotNetGeometry.Numerics;
 using System;
 using System.Runtime.InteropServices;
+
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Polygons
 {

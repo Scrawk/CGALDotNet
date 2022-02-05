@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 [assembly: InternalsVisibleTo("CGALDotNetConsole")]
 [assembly: InternalsVisibleTo("CGALDotNetTest")]
@@ -22,26 +23,6 @@ namespace CGALDotNet
         private const CallingConvention CDECL = CallingConvention.Cdecl;
 
         /// <summary>
-        /// Default eps value used.
-        /// </summary>
-        public const double EPS = 1e-6;
-
-        /// <summary>
-        /// Default eps value used.
-        /// </summary>
-        public const double SQRT2 = 1.41421356237;
-
-        /// <summary>
-        /// Convert radians to degrees.
-        /// </summary>
-        public const double RAD_TO_DEG = 180.0 / Math.PI;
-
-        /// <summary>
-        /// Convert degrees to radians.
-        /// </summary>
-        public const double DEG_TO_RAD = Math.PI / 180.0;
-
-        /// <summary>
         /// Get the version of CGAL in use.
         /// </summary>
         public static string Version
@@ -57,172 +38,6 @@ namespace CGALDotNet
 
                 return string.Format("{0}.{1}.{2}.{3}", MAJOR, MINOR, PATCH, BUILD);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <param name="d"></param>
-        /// <param name="eps"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SafeDiv(double n, double d, double eps = 1e-6)
-        {
-            if (Math.Abs(d) < eps) return 0.0;
-            return n / d;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="v"></param>
-        /// <param name="eps"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsZero(double v, double eps = 1e-6)
-        {
-            return Math.Abs(v) < eps;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="v"></param>
-        /// <param name="eps"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsOne(double v, double eps = 1e-6)
-        {
-            return Math.Abs(1.0 - v) < eps;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="eps"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AlmostEqual(double v0, double v1, double eps = 1e-6)
-        {
-            return Math.Abs(v0 - v1) < eps;
-        }
-
-        /// <summary>
-        /// Clamp v to min and max.
-        /// </summary>
-        /// <param name="v">The value v.</param>
-        /// <param name="min">The min value.</param>
-        /// <param name="max">The max value.</param>
-        /// <returns>The clamped value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Clamp(int v, int min, int max)
-        {
-            if (v < min) v = min;
-            if (v > max) v = max;
-            return v;
-        }
-
-        /// <summary>
-        /// Clamp v to min and max.
-        /// </summary>
-        /// <param name="v">The value v.</param>
-        /// <param name="min">The min value.</param>
-        /// <param name="max">The max value.</param>
-        /// <returns>The clamped value.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Clamp(double v, double min, double max)
-        {
-            if (v < min) v = min;
-            if (v > max) v = max;
-            return v;
-        }
-
-        /// <summary>
-        /// Clamp v to 0 and 1.
-        /// </summary>
-        /// <param name="v">The value v.</param>
-        /// <returns>The clamped value</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Clamp01(double v)
-        {
-            if (v < 0.0) v = 0.0;
-            if (v > 1.0) v = 1.0;
-            return v;
-
-        }
-
-        /// <summary>
-        /// Rescale value to be between min and max.
-        /// </summary>
-        /// <param name="value">Value to rescale</param>
-        /// <param name="min">Min value.</param>
-        /// <param name="max">Max value.</param>
-        /// <returns></returns>
-        public static double Normalize(double value, double min, double max)
-        {
-            double len = max - min;
-            if (len <= 0) return 0;
-            return (value - min) / len;
-        }
-
-        /// <summary>
-        /// Wrap a value between 0 and count-1 (inclusive).
-        /// </summary>
-        /// <param name="v">The value v</param>
-        /// <param name="count">The value to wrap at.</param>
-        /// <returns>The value between 0 and count-1 (inclusive).</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Wrap(int v, int count)
-        {
-            int r = v % count;
-            return r < 0 ? r + count : r;
-        }
-
-        /// <summary>
-        /// Convert radians to degrees.
-        /// </summary>
-        /// <param name="degrees">The angle in degrees.</param>
-        /// <returns>The angle in radians.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToRadians(double degrees)
-        {
-            return degrees * DEG_TO_RAD;
-        }
-
-        /// <summary>
-        /// Sin func using radians.
-        /// </summary>
-        /// <param name="radian">The input in radians.</param>
-        /// <returns>The output in radians.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Radian Sin(Radian radian)
-        {
-            return new Radian(Math.Sin(radian.angle));
-        }
-
-        /// <summary>
-        /// Cos func using radians.
-        /// </summary>
-        /// <param name="radian">The input in radians.</param>
-        /// <returns>The output in radians.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Radian Cos(Radian radian)
-        {
-            return new Radian(Math.Cos(radian.angle));
-        }
-
-        /// <summary>
-        /// Tan func using radians.
-        /// </summary>
-        /// <param name="radian">The input in radians.</param>
-        /// <returns>The output in radians.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Radian Tan(Radian radian)
-        {
-            return new Radian(Math.Tan(radian.angle));
         }
 
         /// <summary>

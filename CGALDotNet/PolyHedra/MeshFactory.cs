@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using CGALDotNet.Geometry;
-using CGALDotNet.Processing;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Polyhedra
 {
@@ -332,7 +332,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal static void CreateCube(IndexList list, Box3d box)
 		{
-			var corners = box.GetCorners();
+			Point3d[] corners = new Point3d[8];
+			box.GetCorners(corners);
 
 			//corners[0] = new Point3d(Min.x, Min.y, Min.z);
 			//corners[1] = new Point3d(Max.x, Min.y, Min.z);
@@ -518,7 +519,7 @@ namespace CGALDotNet.Polyhedra
 						Point3d i3 = new Point3d(i, i, i);
 						Point3d p = origin + step3 * (i3 * right + j3 * up);
 
-						list.points.Add(p.Vector3d.Normalized * scale);
+						list.points.Add(p.Vector3d.Normalized.Point3d * scale);
 					}
 				}
 			}
@@ -605,18 +606,18 @@ namespace CGALDotNet.Polyhedra
 			double t = (1.0 + Math.Sqrt(5.0)) / 2.0;
 
 			// Vertices
-			list.points.Add(new Vector3d(-1.0, t, 0.0).Normalized * scale);
-			list.points.Add(new Vector3d(1.0, t, 0.0).Normalized * scale);
-			list.points.Add(new Vector3d(-1.0, -t, 0.0).Normalized * scale);
-			list.points.Add(new Vector3d(1.0, -t, 0.0).Normalized * scale);
-			list.points.Add(new Vector3d(0.0, -1.0, t).Normalized * scale);
-			list.points.Add(new Vector3d(0.0, 1.0, t).Normalized * scale);
-			list.points.Add(new Vector3d(0.0, -1.0, -t).Normalized * scale);
-			list.points.Add(new Vector3d(0.0, 1.0, -t).Normalized * scale);
-			list.points.Add(new Vector3d(t, 0.0, -1.0).Normalized * scale);
-			list.points.Add(new Vector3d(t, 0.0, 1.0).Normalized * scale);
-			list.points.Add(new Vector3d(-t, 0.0, -1.0).Normalized * scale);
-			list.points.Add(new Vector3d(-t, 0.0, 1.0).Normalized * scale);
+			list.points.Add(new Vector3d(-1.0, t, 0.0).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(1.0, t, 0.0).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(-1.0, -t, 0.0).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(1.0, -t, 0.0).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(0.0, -1.0, t).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(0.0, 1.0, t).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(0.0, -1.0, -t).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(0.0, 1.0, -t).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(t, 0.0, -1.0).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(t, 0.0, 1.0).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(-t, 0.0, -1.0).Normalized.Point3d * scale);
+			list.points.Add(new Vector3d(-t, 0.0, 1.0).Normalized.Point3d * scale);
 
 			// Faces
 			list.triangles.AddTriangle(0, 11, 5);
@@ -647,26 +648,26 @@ namespace CGALDotNet.Polyhedra
 			double t = (1 + Math.Sqrt(5)) / 2;
 			double r = 1 / t;
 
-			list.points.Add(new Vector3d(-1, -1, -1).Normalized * scale);//0
-			list.points.Add(new Vector3d(-1, -1, 1).Normalized * scale); //1
-			list.points.Add(new Vector3d(-1, 1, -1).Normalized * scale); //2
-			list.points.Add(new Vector3d(-1, 1, 1).Normalized  * scale);  //3
-			list.points.Add(new Vector3d(1, -1, -1).Normalized * scale); //4
-			list.points.Add(new Vector3d(1, -1, 1).Normalized * scale);  //5
-			list.points.Add(new Vector3d(1, 1, -1).Normalized * scale);  //6
-			list.points.Add(new Vector3d(1, 1, 1).Normalized * scale);   //7 
-			list.points.Add(new Vector3d(0, -r, -t).Normalized * scale); //8
-			list.points.Add(new Vector3d(0, -r, t).Normalized * scale);  //9 
-			list.points.Add(new Vector3d(0, r, -t).Normalized * scale);  //10
-			list.points.Add(new Vector3d(0, r, t).Normalized * scale );   //11
-			list.points.Add(new Vector3d(-r, -t, 0).Normalized * scale); //12
-			list.points.Add(new Vector3d(-r, t, 0).Normalized * scale );  //13
-			list.points.Add(new Vector3d(r, -t, 0).Normalized * scale);  //14
-			list.points.Add(new Vector3d(r, t, 0).Normalized * scale);   //15
-			list.points.Add(new Vector3d(-t, 0, -r).Normalized * scale); //16
-			list.points.Add(new Vector3d(t, 0, -r).Normalized * scale);  //17
-			list.points.Add(new Vector3d(-t, 0, r).Normalized * scale);  //18
-			list.points.Add(new Vector3d(t, 0, r).Normalized * scale);   //19
+			list.points.Add(new Vector3d(-1, -1, -1).Normalized.Point3d * scale);//0
+			list.points.Add(new Vector3d(-1, -1, 1).Normalized.Point3d * scale); //1
+			list.points.Add(new Vector3d(-1, 1, -1).Normalized.Point3d * scale); //2
+			list.points.Add(new Vector3d(-1, 1, 1).Normalized.Point3d * scale);  //3
+			list.points.Add(new Vector3d(1, -1, -1).Normalized.Point3d * scale); //4
+			list.points.Add(new Vector3d(1, -1, 1).Normalized.Point3d * scale);  //5
+			list.points.Add(new Vector3d(1, 1, -1).Normalized.Point3d * scale);  //6
+			list.points.Add(new Vector3d(1, 1, 1).Normalized.Point3d * scale);   //7 
+			list.points.Add(new Vector3d(0, -r, -t).Normalized.Point3d * scale); //8
+			list.points.Add(new Vector3d(0, -r, t).Normalized.Point3d * scale);  //9 
+			list.points.Add(new Vector3d(0, r, -t).Normalized.Point3d * scale);  //10
+			list.points.Add(new Vector3d(0, r, t).Normalized.Point3d * scale );   //11
+			list.points.Add(new Vector3d(-r, -t, 0).Normalized.Point3d * scale); //12
+			list.points.Add(new Vector3d(-r, t, 0).Normalized.Point3d * scale );  //13
+			list.points.Add(new Vector3d(r, -t, 0).Normalized.Point3d * scale);  //14
+			list.points.Add(new Vector3d(r, t, 0).Normalized.Point3d * scale);   //15
+			list.points.Add(new Vector3d(-t, 0, -r).Normalized.Point3d * scale); //16
+			list.points.Add(new Vector3d(t, 0, -r).Normalized.Point3d * scale);  //17
+			list.points.Add(new Vector3d(-t, 0, r).Normalized.Point3d * scale);  //18
+			list.points.Add(new Vector3d(t, 0, r).Normalized.Point3d * scale);   //19
 
 			if (list.pentagons != null)
 			{

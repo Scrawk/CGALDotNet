@@ -4,7 +4,8 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CGALDotNet;
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 using CGALDotNet.Polyhedra;
 using CGALDotNet.Processing;
 using CGALDotNet.Extensions;

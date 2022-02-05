@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Nurbs
 {
@@ -97,7 +97,7 @@ namespace CGALDotNet.Nurbs
 			int m = knots.Count - 1;
 
 			// Special case
-			if ((i == 0 && CGALGlobal.AlmostEqual(u, knots[0])) || (i == m - deg - 1 && CGALGlobal.AlmostEqual(u, knots[m])))
+			if ((i == 0 && MathUtil.AlmostEqual(u, knots[0])) || (i == m - deg - 1 && MathUtil.AlmostEqual(u, knots[m])))
 				return 1.0;
 
 			// Local property ensures that basis function is zero outside span
@@ -113,12 +113,12 @@ namespace CGALDotNet.Nurbs
 			// Compute triangular table
 			for (int k = 1; k <= deg; k++)
 			{
-				var saved = CGALGlobal.IsZero(N[0]) ? 0.0 : ((u - knots[i]) * N[0]) / (knots[i + k] - knots[i]);
+				var saved = MathUtil.IsZero(N[0]) ? 0.0 : ((u - knots[i]) * N[0]) / (knots[i + k] - knots[i]);
 				for (int j = 0; j < deg - k + 1; j++)
 				{
 					var Uleft = knots[i + j + 1];
 					var Uright = knots[i + j + k + 1];
-					if (CGALGlobal.IsZero(N[j + 1]))
+					if (MathUtil.IsZero(N[j + 1]))
 					{
 						N[j] = saved;
 						saved = 0.0;

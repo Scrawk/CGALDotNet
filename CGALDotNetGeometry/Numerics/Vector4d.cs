@@ -163,6 +163,37 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
+        /// Are all the components of vector finite.
+        /// </summary>
+        public bool IsFinite
+        {
+            get
+            {
+                if (!MathUtil.IsFinite(x)) return false;
+                if (!MathUtil.IsFinite(y)) return false;
+                if (!MathUtil.IsFinite(z)) return false;
+                if (!MathUtil.IsFinite(w)) return false;
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Make a vector with no non finite conponents.
+        /// </summary>
+        public Vector4d Finite
+        {
+            get
+            {
+                var v = new Vector4d(x, y, z, w);
+                if (!MathUtil.IsFinite(v.x)) v.x = 0;
+                if (!MathUtil.IsFinite(v.y)) v.y = 0;
+                if (!MathUtil.IsFinite(v.z)) v.z = 0;
+                if (!MathUtil.IsFinite(v.w)) v.w = 0;
+                return v;
+            }
+        }
+
+        /// <summary>
         /// Convert the vector to a point.
         /// </summary>
         public Point4d Point4d
