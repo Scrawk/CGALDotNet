@@ -1,7 +1,7 @@
 # CGALDotNet
 C# wrapper for [CGAL](https://www.cgal.org/)
 
-Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a seperate license.
+Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
 Work in progress. Only 64 bit windows binarys provided.
 
