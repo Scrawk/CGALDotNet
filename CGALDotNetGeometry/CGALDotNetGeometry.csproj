@@ -3,10 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>F:\Projects\Visual Studio Projects\CGALDotNet\CGALDotNetGeometry\CGALDotNetGeometry.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Colors\" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\CGALDotNetGeometry.dll&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)bin\$(ConfigurationName)\netcoreapp3.1\CGALDotNetGeometry.pdb&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;xcopy &quot;$(ProjectDir)CGALDotNetGeometry.xml&quot; &quot;F:\Projects\Unity Projects\CGALDotNetUnity\Assets\CGALDotNet\Plugins&quot; /y&#xD;&#xA;" />
+  </Target>
 
 </Project>

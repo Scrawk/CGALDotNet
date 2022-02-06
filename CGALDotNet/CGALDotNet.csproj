@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>F:\Projects\Visual Studio Projects\CGALDotNet\CGALDotNet\CGALDotNet.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
