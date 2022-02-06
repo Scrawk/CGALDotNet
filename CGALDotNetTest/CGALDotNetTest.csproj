@@ -14,8 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CGALDotNetGeometry\CGALDotNetGeometry.csproj" />
     <ProjectReference Include="..\CGALDotNet\CGALDotNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CGALDotNetGeometry">
+      <HintPath>..\..\CGALDotNetGeometry\CGALDotNetGeometry\bin\Release\netcoreapp3.1\CGALDotNetGeometry.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -26,11 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CGALDotNetGeometry\CGALDotNetGeometry.csproj" />
+    <Folder Include="Circular\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Circular\" />
+    <Reference Include="CGALDotNetGeometry">
+      <HintPath>..\..\CGALDotNetGeometry\CGALDotNetGeometry\bin\Release\netcoreapp3.1\CGALDotNetGeometry.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
