@@ -410,10 +410,10 @@ namespace CGALDotNetGeometry.Numerics
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ x.GetHashCode();
-                hash = (hash * 16777619) ^ y.GetHashCode();
-                hash = (hash * 16777619) ^ z.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ x.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ y.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ z.GetHashCode();
                 return hash;
             }
         }
@@ -563,7 +563,7 @@ namespace CGALDotNetGeometry.Numerics
         /// <param name="digits">The number of digits to round to.</param>
         /// <returns>The rounded point</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point3f Rounded(int digits = 0)
+        public Point3f Rounded(int digits)
         {
             REAL x = MathUtil.Round(this.x, digits);
             REAL y = MathUtil.Round(this.y, digits);
@@ -576,7 +576,7 @@ namespace CGALDotNetGeometry.Numerics
         /// </summary>
         /// <param name="digits">The number of digits to round to.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Round(int digits = 0)
+        public void Round(int digits)
         {
             x = MathUtil.Round(x, digits);
             y = MathUtil.Round(y, digits);

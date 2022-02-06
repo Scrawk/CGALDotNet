@@ -216,6 +216,7 @@ namespace CGALDotNet.Polyhedra
 	/// <summary>
 	/// https://github.com/caosdoar/spheres/blob/master/src/spheres.cpp
 	/// https://github.com/mrdoob/three.js/tree/dev/src/geometries
+	/// https://github.com/vorg/primitive-capsule/blob/master/index.js
 	/// </summary>
 	internal static class MeshFactory
     {

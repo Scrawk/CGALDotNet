@@ -154,11 +154,6 @@ namespace CGALDotNetGeometry.Shapes
             }
         }
 
-        public static explicit operator Line2f(Line2d line)
-        {
-            return new Line2f((REAL)line.A, (REAL)line.B, (REAL)line.C);
-        }
-
         public static bool operator ==(Line2f i1, Line2f i2)
         {
             return i1.A == i2.A && i1.B == i2.B && i1.C == i2.C;
@@ -169,6 +164,11 @@ namespace CGALDotNetGeometry.Shapes
             return i1.A != i2.A || i1.B != i2.B || i1.C != i2.C;
         }
 
+        /// <summary>
+        /// Is the line equal to the other object.
+        /// </summary>
+        /// <param name="obj">The other object.</param>
+        /// <returns>Is the line equal to the other object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Line2f)) return false;
@@ -176,23 +176,36 @@ namespace CGALDotNetGeometry.Shapes
             return this == line;
         }
 
+        /// <summary>
+        /// Is the line equal to the other line.
+        /// </summary>
+        /// <param name="obj">The other line.</param>
+        /// <returns>Is the line equal to the other line.</returns>
         public bool Equals(Line2f line)
         {
             return this == line;
         }
 
+        /// <summary>
+        /// The lines hash code.
+        /// </summary>
+        /// <returns>The lines hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
-                hash = (hash * 16777619) ^ C.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ C.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Line2f: A={0}, B={1}, C={2}]", A, B, C);
@@ -269,7 +282,7 @@ namespace CGALDotNetGeometry.Shapes
             }
             else
             {
-                return !line.IsVertical && 
+                return !line.IsVertical &&
                        MathUtil.AlmostEqual(Y(0), line.Y(0)) &&
                        MathUtil.AlmostEqual(Slope, line.Slope);
             }

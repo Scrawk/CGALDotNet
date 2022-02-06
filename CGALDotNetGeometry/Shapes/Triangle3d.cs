@@ -3,10 +3,15 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Double;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3d;
+using VECTOR3 = CGALDotNetGeometry.Numerics.Vector3d;
+using BOX3 = CGALDotNetGeometry.Shapes.Box3d;
+
 namespace CGALDotNetGeometry.Shapes
 {
     /// <summary>
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry.h file.
+    /// A 3D triangle.
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
@@ -15,17 +20,17 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// The triangles first point.
         /// </summary>
-        public Point3d A;
+        public POINT3 A;
 
         /// <summary>
         /// The triangles second point.
         /// </summary>
-        public Point3d B;
+        public POINT3 B;
 
         /// <summary>
         /// The triangles third point.
         /// </summary>
-        public Point3d C;
+        public POINT3 C;
 
         /// <summary>
         /// Create a new triangle.
@@ -33,7 +38,7 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="a">The first point.</param>
         /// <param name="b">The second point.</param>
         /// <param name="c">The third point.</param>
-        public Triangle3d(Point3d a, Point3d b, Point3d c)
+        public Triangle3d(POINT3 a, POINT3 b, POINT3 c)
         {
             A = a;
             B = b;
@@ -52,11 +57,11 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="cx">The third points x value.</param>
         /// <param name="cy">The third points y value.</param>
         /// <param name="cz">The third points z value.</param>
-        public Triangle3d(double ax, double ay, double az, double bx, double by, double bz, double cx, double cy, double cz)
+        public Triangle3d(REAL ax, REAL ay, REAL az, REAL bx, REAL by, REAL bz, REAL cx, REAL cy, REAL cz)
         {
-            A = new Point3d(ax, ay, az);
-            B = new Point3d(bx, by, bz);
-            C = new Point3d(cx, cy, cz);
+            A = new POINT3(ax, ay, az);
+            B = new POINT3(bx, by, bz);
+            C = new POINT3(cx, cy, cz);
         }
 
         /// <summary>
@@ -65,50 +70,50 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="i">The index of the point to access (0-2)</param>
         /// <returns>The point at index i.</returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        unsafe public Point3d this[int i]
+        unsafe public POINT3 this[int i]
         {
             get
             {
                 if ((uint)i >= 3)
                     throw new IndexOutOfRangeException("Triangle3d index out of range.");
 
-                fixed (Triangle3d* array = &this) { return ((Point3d*)array)[i]; }
+                fixed (Triangle3d* array = &this) { return ((POINT3*)array)[i]; }
             }
             set
             {
                 if ((uint)i >= 3)
                     throw new IndexOutOfRangeException("Triangle3d index out of range.");
 
-                fixed (Point3d* array = &A) { array[i] = value; }
+                fixed (POINT3* array = &A) { array[i] = value; }
             }
         }
 
-        public static Triangle3d operator +(Triangle3d tri, double s)
+        public static Triangle3d operator +(Triangle3d tri, REAL s)
         {
             return new Triangle3d(tri.A + s, tri.B + s, tri.C + s);
         }
 
-        public static Triangle3d operator +(Triangle3d tri, Point3d v)
+        public static Triangle3d operator +(Triangle3d tri, POINT3 v)
         {
             return new Triangle3d(tri.A + v, tri.B + v, tri.C + v);
         }
 
-        public static Triangle3d operator -(Triangle3d tri, double s)
+        public static Triangle3d operator -(Triangle3d tri, REAL s)
         {
             return new Triangle3d(tri.A - s, tri.B - s, tri.C - s);
         }
 
-        public static Triangle3d operator -(Triangle3d tri, Point3d v)
+        public static Triangle3d operator -(Triangle3d tri, POINT3 v)
         {
             return new Triangle3d(tri.A - v, tri.B - v, tri.C - v);
         }
 
-        public static Triangle3d operator *(Triangle3d tri, double s)
+        public static Triangle3d operator *(Triangle3d tri, REAL s)
         {
             return new Triangle3d(tri.A * s, tri.B * s, tri.C * s);
         }
 
-        public static Triangle3d operator /(Triangle3d tri, double s)
+        public static Triangle3d operator /(Triangle3d tri, REAL s)
         {
             return new Triangle3d(tri.A / s, tri.B / s, tri.C / s);
         }
@@ -153,10 +158,10 @@ namespace CGALDotNetGeometry.Shapes
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
-                hash = (hash * 16777619) ^ C.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ C.GetHashCode();
                 return hash;
             }
         }

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
-using REAL = System.Single;
-using POINT3 = CGALDotNetGeometry.Numerics.Point3f;
-using VECTOR4 = CGALDotNetGeometry.Numerics.Vector4f;
-using MATRIX4 = CGALDotNetGeometry.Numerics.Matrix4x4f;
-using BOX3 = CGALDotNetGeometry.Shapes.Box3f;
+using REAL = System.Double;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3d;
+using VECTOR4 = CGALDotNetGeometry.Numerics.Vector4d;
+using MATRIX4 = CGALDotNetGeometry.Numerics.Matrix4x4d;
+using BOX3 = CGALDotNetGeometry.Shapes.Box3d;
 
 namespace CGALDotNetGeometry.Shapes
 {
@@ -17,7 +17,7 @@ namespace CGALDotNetGeometry.Shapes
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct Sphere3f : IEquatable<Sphere3f>
+    public struct Sphere3d : IEquatable<Sphere3d>
     {
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace CGALDotNetGeometry.Shapes
         /// </summary>
         /// <param name="center">The shperes center point.</param>
         /// <param name="radius">The spheres radius.</param>
-        public Sphere3f(POINT3 center, REAL radius)
+        public Sphere3d(POINT3 center, REAL radius)
         {
             Center = center;
             Radius = radius;
@@ -94,12 +94,12 @@ namespace CGALDotNetGeometry.Shapes
             }
         }
 
-        public static bool operator ==(Sphere3f s1, Sphere3f s2)
+        public static bool operator ==(Sphere3d s1, Sphere3d s2)
         {
             return s1.Center == s2.Center && s1.Radius == s2.Radius;
         }
 
-        public static bool operator !=(Sphere3f s1, Sphere3f s2)
+        public static bool operator !=(Sphere3d s1, Sphere3d s2)
         {
             return s1.Center != s2.Center || s1.Radius != s2.Radius;
         }
@@ -111,8 +111,8 @@ namespace CGALDotNetGeometry.Shapes
         /// <returns>Is this sphere equal to the other object.</returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is Sphere3f)) return false;
-            Sphere3f sphere = (Sphere3f)obj;
+            if (!(obj is Sphere3d)) return false;
+            Sphere3d sphere = (Sphere3d)obj;
             return this == sphere;
         }
 
@@ -121,7 +121,7 @@ namespace CGALDotNetGeometry.Shapes
         /// </summary>
         /// <param name="obj">The other sphere.</param>
         /// <returns>Is this sphere equal to the other sphere.</returns>
-        public bool Equals(Sphere3f sphere)
+        public bool Equals(Sphere3d sphere)
         {
             return this == sphere;
         }
@@ -147,7 +147,7 @@ namespace CGALDotNetGeometry.Shapes
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[Sphere3f: Center={0}, Radius={1}]", Center, Radius);
+            return string.Format("[Sphere3d: Center={0}, Radius={1}]", Center, Radius);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace CGALDotNetGeometry.Shapes
         {
             POINT3 d = Center - p;
             if (d.SqrMagnitude <= Radius2) return p;
-            return Center + Radius * d.Vector3f.Normalized;
+            return Center + Radius * d.Vector3d.Normalized;
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace CGALDotNetGeometry.Shapes
         /// </summary>
         /// <param name="sphere">The other sphere</param>
         /// <returns>True if the spheres intersect</returns>
-        public bool Intersects(Sphere3f sphere)
+        public bool Intersects(Sphere3d sphere)
         {
             REAL r = Radius + sphere.Radius;
             return POINT3.SqrDistance(Center, sphere.Center) <= r * r;
@@ -250,11 +250,11 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// Creates a sphere that has both points on its surface.
         /// </summary>
-        public static Sphere3f CircumSphere(POINT3 p0, POINT3 p1)
+        public static Sphere3d CircumSphere(POINT3 p0, POINT3 p1)
         {
             var centre = (p0 + p1) * 0.5f;
             var radius = POINT3.Distance(p0, p1) * 0.5f;
-            var bounds = new Sphere3f(centre, radius);
+            var bounds = new Sphere3d(centre, radius);
             return bounds;
         }
 
@@ -263,15 +263,15 @@ namespace CGALDotNetGeometry.Shapes
         /// From MathWorld: http://mathworld.wolfram.com/Circumsphere.html.
         /// Fails if the points are colinear.
         /// </summary>
-        public static Sphere3f CircumSphere(POINT3 p0, POINT3 p1, POINT3 p2, POINT3 p3)
+        public static Sphere3d CircumSphere(POINT3 p0, POINT3 p1, POINT3 p2, POINT3 p3)
         {
             var m = new MATRIX4();
 
             // x, y, z, 1
-            m.SetRow(0, new VECTOR4(p0.Vector3f, 1));
-            m.SetRow(1, new VECTOR4(p1.Vector3f, 1));
-            m.SetRow(2, new VECTOR4(p2.Vector3f, 1));
-            m.SetRow(3, new VECTOR4(p3.Vector3f, 1));
+            m.SetRow(0, new VECTOR4(p0.Vector3d, 1));
+            m.SetRow(1, new VECTOR4(p1.Vector3d, 1));
+            m.SetRow(2, new VECTOR4(p2.Vector3d, 1));
+            m.SetRow(3, new VECTOR4(p3.Vector3d, 1));
             REAL a = m.Determinant;
 
             // size, y, z, 1
@@ -295,13 +295,13 @@ namespace CGALDotNetGeometry.Shapes
             var circumCenter = new POINT3(s * dx, s * dy, s * dz);
             REAL radius = Math.Abs(s) * MathUtil.Sqrt(dx * dx + dy * dy + dz * dz - 4.0f * a * c);
 
-            return new Sphere3f(circumCenter, radius);
+            return new Sphere3d(circumCenter, radius);
         }
 
         /// <summary>
         /// Creates a sphere that contains all three points.
         /// </summary>
-        public static Sphere3f CalculateBounds(POINT3 p0, POINT3 p1, POINT3 p2)
+        public static Sphere3d CalculateBounds(POINT3 p0, POINT3 p1, POINT3 p2)
         {
             var bounds = CircumSphere(p0, p1);
             bounds.Enlarge(p2);
@@ -312,7 +312,7 @@ namespace CGALDotNetGeometry.Shapes
         /// Calculate the minimum bounding sphere that contains 
         /// all the points in the list.
         /// </summary>
-        public static Sphere3f CalculateBounds(IList<POINT3> points)
+        public static Sphere3d CalculateBounds(IList<POINT3> points)
         {
             var idx = ExtremePoints(points);
 

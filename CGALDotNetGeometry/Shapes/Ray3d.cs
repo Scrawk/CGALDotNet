@@ -3,11 +3,14 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Double;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3d;
+using VECTOR3 = CGALDotNetGeometry.Numerics.Vector3d;
+
 namespace CGALDotNetGeometry.Shapes
 {
     /// <summary>
-    /// A 2D ray struct represented by a position and a direction.
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry2.h file.
+    /// A 3D ray struct represented by a position and a direction.
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
@@ -16,20 +19,20 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// The rays position.
         /// </summary>
-        public Point3d Position;
+        public POINT3 Position;
 
         /// <summary>
         /// The rays direction.
         /// Might not be normalized.
         /// </summary>
-        public Vector3d Direction;
+        public VECTOR3 Direction;
 
         /// <summary>
         /// Construct a ray from a point and the direction.
         /// </summary>
         /// <param name="position">The rays position.</param>
         /// <param name="direction">The rays direction (will be normalized)</param>
-        public Ray3d(Point3d position, Vector3d direction)
+        public Ray3d(POINT3 position, VECTOR3 direction)
         {
             Position = position;
             Direction = direction.Normalized;
@@ -87,9 +90,9 @@ namespace CGALDotNetGeometry.Shapes
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ Position.GetHashCode();
-                hash = (hash * 16777619) ^ Direction.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Position.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Direction.GetHashCode();
                 return hash;
             }
         }
@@ -106,19 +109,19 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// The rays directions magnidute.
         /// </summary>
-        public double Magnitude => Direction.Magnitude;
+        public REAL Magnitude => Direction.Magnitude;
 
         /// <summary>
         /// The rays directions square magnidute.
         /// </summary>
-        public double SqrMagnitude => Direction.SqrMagnitude;
+        public REAL SqrMagnitude => Direction.SqrMagnitude;
 
         /// <summary>
         /// Get the position offset along the ray at t.
         /// </summary>
         /// <param name="t">The amount to offset.</param>
         /// <returns>The position at t.</returns>
-        public Point3d GetPosition(double t)
+        public POINT3 GetPosition(REAL t)
         {
             return Position + (t * Direction);
         }

@@ -4,97 +4,153 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Int32;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3i;
+using POINT4 = CGALDotNetGeometry.Numerics.Point4d;
+
 namespace CGALDotNetGeometry.Shapes
 {
+    /// <summary>
+    /// A 3D box represented by its min and max values.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Box3i : IEquatable<Box3i>
     {
-        public Point3i Min;
 
-        public Point3i Max;
+        /// <summary>
+        /// The boxes min point.
+        /// </summary>
+        public POINT3 Min;
 
-        public Box3i(int min, int max)
+        /// <summary>
+        /// The boxes max point.
+        /// </summary>
+        public POINT3 Max;
+
+        /// <summary>
+        /// Construct a new box.
+        /// </summary>
+        /// <param name="min">The boxes min point.</param>
+        /// <param name="max">The boxes max point.</param>
+        public Box3i(REAL min, REAL max)
         {
-            Min = new Point3i(min);
-            Max = new Point3i(max);
+            Min = new POINT3(min);
+            Max = new POINT3(max);
         }
 
-        public Box3i(int minX, int maxX, int minY, int maxY, int minZ, int maxZ)
-        {
-            Min = new Point3i(minX, minY, minZ);
-            Max = new Point3i(maxX, maxY, maxZ);
-        }
+        /// <summary>
+        /// Construct a new box.
+        /// </summary>
+        /// <param name="minX">The boxes min x value.</param>
+        /// <param name="minY">The boxes min y value.</param>
+        /// <param name="minZ">The boxes min z value.</param>
+        /// <param name="maxX">The boxes max x value.</param>
+        /// <param name="maxY">The boxes max y value.</param>
+        /// <param name="maxZ">The boxes max z value.</param>
+        //public Box3i(REAL minX, REAL minY, REAL minZ, REAL maxX, REAL maxY, REAL maxZ)
+        //{
+        //    Min = new POINT3(minX, minY, minZ);
+        //    Max = new POINT3(maxX, maxY, maxZ);
+        //}
 
-        public Box3i(Point3i min, Point3i max)
+        /// <summary>
+        /// Construct a new box.
+        /// </summary>
+        /// <param name="min">The boxes min point.</param>
+        /// <param name="max">The boxes max point.</param>
+        public Box3i(POINT3 min, POINT3 max)
         {
             Min = min;
             Max = max;
         }
 
-        public Point3i Size 
-        { 
-            get { return new Point3i(Width, Height, Depth); } 
+        /// <summary>
+        /// The center of the box.
+        /// </summary>
+        public Point3d Center
+        {
+            get { return (Min + Max).Point3d * 0.5; }
         }
 
-        public int Width 
-        { 
-            get { return Max.x - Min.x; } 
+        /// <summary>
+        /// The size of the boxes sides.
+        /// </summary>
+        public POINT3 Size
+        {
+            get { return new POINT3(Width, Height, Depth); }
         }
 
-        public int Height 
-        { 
-            get { return Max.y - Min.y; } 
+        /// <summary>
+        /// The size of the box on the x axis.
+        /// </summary>
+        public REAL Width
+        {
+            get { return Max.x - Min.x; }
         }
 
-        public int Depth 
-        { 
-            get { return Max.z - Min.z; } 
+        /// <summary>
+        /// The size of the box on the y axis.
+        /// </summary>
+        public REAL Height
+        {
+            get { return Max.y - Min.y; }
         }
 
-        public int Area
+        /// <summary>
+        /// The size of the box on the z axis.
+        /// </summary>
+        public REAL Depth
+        {
+            get { return Max.z - Min.z; }
+        }
+
+        /// <summary>
+        /// The volume of the box.
+        /// </summary>
+        public REAL Volume
+        {
+            get { return (Max.x - Min.x) * (Max.y - Min.y) * (Max.z - Min.z); }
+        }
+
+        /// <summary>
+        /// THe boxes surface area.
+        /// </summary>
+        public double SurfaceArea
         {
             get
             {
-                return (Max.x - Min.x) * (Max.y - Min.y) * (Max.z - Min.z);
+                POINT3 d = Max - Min;
+                return 2.0 * (d.x * d.y + d.x * d.z + d.y * d.z);
             }
         }
 
-        public int SurfaceArea
-        {
-            get
-            {
-                Point3i d = Max - Min;
-                return 2 * (d.x * d.y + d.x * d.z + d.y * d.z);
-            }
-        }
-
-        public static Box3i operator +(Box3i box, int s)
+        public static Box3i operator +(Box3i box, REAL s)
         {
             return new Box3i(box.Min + s, box.Max + s);
         }
 
-        public static Box3i operator +(Box3i box, Point3i v)
+        public static Box3i operator +(Box3i box, POINT3 v)
         {
             return new Box3i(box.Min + v, box.Max + v);
         }
 
-        public static Box3i operator -(Box3i box, int s)
+        public static Box3i operator -(Box3i box, REAL s)
         {
             return new Box3i(box.Min - s, box.Max - s);
         }
 
-        public static Box3i operator -(Box3i box, Point3i v)
+        public static Box3i operator -(Box3i box, POINT3 v)
         {
             return new Box3i(box.Min - v, box.Max - v);
         }
 
-        public static Box3i operator *(Box3i box, int s)
+        public static Box3i operator *(Box3i box, REAL s)
         {
             return new Box3i(box.Min * s, box.Max * s);
         }
 
-        public static Box3i operator /(Box3i box, int s)
+        public static Box3i operator /(Box3i box, REAL s)
         {
             return new Box3i(box.Min / s, box.Max / s);
         }
@@ -109,6 +165,11 @@ namespace CGALDotNetGeometry.Shapes
             return b1.Min != b2.Min || b1.Max != b2.Max;
         }
 
+        /// <summary>
+        /// Is the box equal to this obj.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>Is the box equal to this obj.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Box3i)) return false;
@@ -116,57 +177,97 @@ namespace CGALDotNetGeometry.Shapes
             return this == box;
         }
 
+        /// <summary>
+        /// Is the box equal to the other box.
+        /// </summary>
+        /// <param name="box">The other box.</param>
+        /// <returns>Is the box equal to the other box.</returns>
         public bool Equals(Box3i box)
         {
             return this == box;
         }
 
+        /// <summary>
+        /// The boxes hash code.
+        /// </summary>
+        /// <returns>The boxes hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ Min.GetHashCode();
-                hash = (hash * 16777619) ^ Max.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Min.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Max.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Box3i: Min={0}, Max={1}, Width={2}, Height={3}, Depth={4}]", Min, Max, Width, Height, Depth);
         }
 
-        public void GetCorners(IList<Point3i> corners)
+        /// <summary>
+        /// Get the boxes corner points as a array.
+        /// </summary>
+        /// <returns>The boxes corner points as a array</returns>
+        public POINT3[] GetCorners()
         {
-            corners[0] = new Point3i(Min.x, Min.y, Min.z);
-            corners[1] = new Point3i(Max.x, Min.y, Min.z);
-            corners[2] = new Point3i(Max.x, Min.y, Max.z);
-            corners[3] = new Point3i(Min.x, Min.y, Max.z);
+            var corners = new POINT3[8];
+            corners[0] = new POINT3(Min.x, Min.y, Min.z);
+            corners[1] = new POINT3(Max.x, Min.y, Min.z);
+            corners[2] = new POINT3(Max.x, Min.y, Max.z);
+            corners[3] = new POINT3(Min.x, Min.y, Max.z);
 
-            corners[4] = new Point3i(Min.x, Max.y, Min.z);
-            corners[5] = new Point3i(Max.x, Max.y, Min.z);
-            corners[6] = new Point3i(Max.x, Max.y, Max.z);
-            corners[7] = new Point3i(Min.x, Max.y, Max.z);
+            corners[4] = new POINT3(Min.x, Max.y, Min.z);
+            corners[5] = new POINT3(Max.x, Max.y, Min.z);
+            corners[6] = new POINT3(Max.x, Max.y, Max.z);
+            corners[7] = new POINT3(Min.x, Max.y, Max.z);
+            return corners;
         }
 
-        public void GetCorners(IList<Point4f> corners)
+        /// <summary>
+        /// Copy the boxes corner points in the array.
+        /// </summary>
+        /// <param name="corners">A array that has a size of at least 8.</param>
+        public void GetCorners(IList<POINT3> corners)
         {
-            corners[0] = new Point4f(Min.x, Min.y, Min.z, 1);
-            corners[1] = new Point4f(Max.x, Min.y, Min.z, 1);
-            corners[2] = new Point4f(Max.x, Min.y, Max.z, 1);
-            corners[3] = new Point4f(Min.x, Min.y, Max.z, 1);
+            corners[0] = new POINT3(Min.x, Min.y, Min.z);
+            corners[1] = new POINT3(Max.x, Min.y, Min.z);
+            corners[2] = new POINT3(Max.x, Min.y, Max.z);
+            corners[3] = new POINT3(Min.x, Min.y, Max.z);
 
-            corners[4] = new Point4f(Min.x, Max.y, Min.z, 1);
-            corners[5] = new Point4f(Max.x, Max.y, Min.z, 1);
-            corners[6] = new Point4f(Max.x, Max.y, Max.z, 1);
-            corners[7] = new Point4f(Min.x, Max.y, Max.z, 1);
+            corners[4] = new POINT3(Min.x, Max.y, Min.z);
+            corners[5] = new POINT3(Max.x, Max.y, Min.z);
+            corners[6] = new POINT3(Max.x, Max.y, Max.z);
+            corners[7] = new POINT3(Min.x, Max.y, Max.z);
+        }
+
+        /// <summary>
+        /// Copy the boxes corner points in the array.
+        /// </summary>
+        /// <param name="corners">A array that has a size of at least 8.</param>
+        public void GetCorners(IList<POINT4> corners)
+        {
+            corners[0] = new POINT4(Min.x, Min.y, Min.z, 1);
+            corners[1] = new POINT4(Max.x, Min.y, Min.z, 1);
+            corners[2] = new POINT4(Max.x, Min.y, Max.z, 1);
+            corners[3] = new POINT4(Min.x, Min.y, Max.z, 1);
+
+            corners[4] = new POINT4(Min.x, Max.y, Min.z, 1);
+            corners[5] = new POINT4(Max.x, Max.y, Min.z, 1);
+            corners[6] = new POINT4(Max.x, Max.y, Max.z, 1);
+            corners[7] = new POINT4(Min.x, Max.y, Max.z, 1);
         }
 
         /// <summary>
         /// Returns the bounding box containing this box and the given point.
         /// </summary>
-        public static Box3i Enlarge(Box3i box, Point3i p)
+        public static Box3i Enlarge(Box3i box, POINT3 p)
         {
             var b = new Box3i();
             b.Min.x = Math.Min(box.Min.x, p.x);
@@ -199,7 +300,7 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="box">The box to expand.</param>
         /// <param name="amount">The amount to expand.</param>
         /// <returns>The expanded box.</returns>
-        public static Box3i Expand(Box3i box, int amount)
+        public static Box3i Expand(Box3i box, REAL amount)
         {
             return new Box3i(box.Min - amount, box.Max + amount);
         }
@@ -229,7 +330,7 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// Returns true if this bounding box contains the given point.
         /// </summary>
-        public bool Contains(Point3i p)
+        public bool Contains(POINT3 p)
         {
             if (p.x > Max.x || p.x < Min.x) return false;
             if (p.y > Max.y || p.y < Min.y) return false;
@@ -241,9 +342,9 @@ namespace CGALDotNetGeometry.Shapes
         /// Find the closest point to the box.
         /// If point inside box return point.
         /// </summary>
-        public Point3i Closest(Point3i p)
+        public POINT3 Closest(POINT3 p)
         {
-            Point3i c;
+            POINT3 c;
 
             if (p.x < Min.x)
                 c.x = Min.x;
@@ -269,15 +370,20 @@ namespace CGALDotNetGeometry.Shapes
             return c;
         }
 
-        public static Box3i CalculateBounds(IList<Point3i> vertices)
+        /// <summary>
+        /// Caculate the bounding box of the points.
+        /// </summary>
+        /// <param name="points">The points.</param>
+        /// <returns>The bounding box.</returns>
+        public static Box3i CalculateBounds(IList<POINT3> points)
         {
-            Point3i min = Point3i.MaxValue;
-            Point3i max = Point3i.MinValue;
+            POINT3 min = POINT3.MaxValue;
+            POINT3 max = POINT3.MinValue;
 
-            int count = vertices.Count;
+            int count = points.Count;
             for (int i = 0; i < count; i++)
             {
-                var v = vertices[i];
+                var v = points[i];
                 if (v.x < min.x) min.x = v.x;
                 if (v.y < min.y) min.y = v.y;
                 if (v.z < min.z) min.z = v.z;
@@ -290,16 +396,25 @@ namespace CGALDotNetGeometry.Shapes
             return new Box3i(min, max);
         }
 
-        public static Box3i CalculateBounds(Point3i a, Point3i b)
+        /// <summary>
+        /// Calculate the bounds of 2 points.
+        /// </summary>
+        /// <param name="a">The first point.</param>
+        /// <param name="b">The second point</param>
+        /// <returns>The bounding box.</returns>
+        public static Box3i CalculateBounds(POINT3 a, POINT3 b)
         {
-            int xmin = Math.Min(a.x, b.x);
-            int xmax = Math.Max(a.x, b.x);
-            int ymin = Math.Min(a.y, b.y);
-            int ymax = Math.Max(a.y, b.y);
-            int zmin = Math.Min(a.z, b.z);
-            int zmax = Math.Max(a.z, b.z);
+            REAL xmin = Math.Min(a.x, b.x);
+            REAL xmax = Math.Max(a.x, b.x);
+            REAL ymin = Math.Min(a.y, b.y);
+            REAL ymax = Math.Max(a.y, b.y);
+            REAL zmin = Math.Min(a.z, b.z);
+            REAL zmax = Math.Max(a.z, b.z);
 
-            return new Box3i(xmin, xmax, ymin, ymax, zmin, zmax);
+            var min = new POINT3(xmin, ymin, zmin);
+            var max = new POINT3(xmax, ymax, zmax);
+
+            return new Box3i(min, max);
         }
 
     }

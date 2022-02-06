@@ -120,14 +120,24 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
-        /// Point as vector.
+        /// Convert to float vector.
+        /// </summary>
+        public Vector3f Vector3f => new Vector3f(x, y, z);
+
+        /// <summary>
+        /// Convert to double vector.
         /// </summary>
         public Vector3d Vector3d => new Vector3d(x, y, z);
 
         /// <summary>
-        /// Point as vector.
+        /// Convert to float point.
         /// </summary>
-        public Vector4d Vector4d => new Vector4d(x, y, z, 1);
+        public Point3f Point3f => new Point3f(x, y, z);
+
+        /// <summary>
+        /// Convert to double point.
+        /// </summary>
+        public Point3d Point3d => new Point3d(x, y, z);
 
         /// <summary>
         /// The sum of the points components.
@@ -341,10 +351,10 @@ namespace CGALDotNetGeometry.Numerics
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ x.GetHashCode();
-                hash = (hash * 16777619) ^ y.GetHashCode();
-                hash = (hash * 16777619) ^ z.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ x.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ y.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ z.GetHashCode();
                 return hash;
             }
         }

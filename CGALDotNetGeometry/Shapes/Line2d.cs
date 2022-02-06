@@ -147,16 +147,11 @@ namespace CGALDotNetGeometry.Shapes
             {
                 if (IsVertical) return MathUtil.PI_64 / 2.0;
 
-                REAL atan = Math.Atan(-A / B);
+                REAL atan = MathUtil.Atan(-A / B);
                 if (atan < 0) atan += MathUtil.PI_64;
 
                 return atan;
             }
-        }
-
-        public static implicit operator Line2d(Line2f line)
-        {
-            return new Line2d(line.A, line.B, line.C);
         }
 
         public static bool operator ==(Line2d i1, Line2d i2)
@@ -169,6 +164,11 @@ namespace CGALDotNetGeometry.Shapes
             return i1.A != i2.A || i1.B != i2.B || i1.C != i2.C;
         }
 
+        /// <summary>
+        /// Is the line equal to the other object.
+        /// </summary>
+        /// <param name="obj">The other object.</param>
+        /// <returns>Is the line equal to the other object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Line2d)) return false;
@@ -176,23 +176,36 @@ namespace CGALDotNetGeometry.Shapes
             return this == line;
         }
 
+        /// <summary>
+        /// Is the line equal to the other line.
+        /// </summary>
+        /// <param name="obj">The other line.</param>
+        /// <returns>Is the line equal to the other line.</returns>
         public bool Equals(Line2d line)
         {
             return this == line;
         }
 
+        /// <summary>
+        /// The lines hash code.
+        /// </summary>
+        /// <returns>The lines hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
-                hash = (hash * 16777619) ^ C.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ C.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Line2d: A={0}, B={1}, C={2}]", A, B, C);

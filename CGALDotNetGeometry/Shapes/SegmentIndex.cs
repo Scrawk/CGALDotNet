@@ -7,23 +7,43 @@ using CGALDotNetGeometry.Numerics;
 namespace CGALDotNetGeometry.Shapes
 {
     /// <summary>
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry2.h file.
+    /// A segment represented by indices instead of points.
+    /// The indices represent a index into a array of points.
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct SegmentIndex : IEquatable<SegmentIndex>
     {
-        public int A, B;
+        /// <summary>
+        /// The segments first point index.
+        /// </summary>
+        public int A;
 
-        public bool HasNullIndex => A == -1 || B == -1;
+        /// <summary>
+        /// The segments seconds point index.
+        /// </summary
+        public int B;
 
-        public SegmentIndex Reversed => new SegmentIndex(B, A);
-
+        /// <summary>
+        /// Consturct a new segment.
+        /// </summary>
+        /// <param name="a">The segments first point index.</param>
+        /// <param name="b">The segments second point index.</param>
         public SegmentIndex(int a, int b)
         {
             A = a;
             B = b;
         }
+
+        /// <summary>
+        /// Does the segment have a null index.
+        /// </summary>
+        public bool HasNullIndex => A == MathUtil.NULL_INDEX || B == MathUtil.NULL_INDEX;
+
+        /// <summary>
+        /// The segment reverse where a is now b and b is now a.
+        /// </summary>
+        public SegmentIndex Reversed => new SegmentIndex(B, A);
 
         public static bool operator ==(SegmentIndex t1, SegmentIndex t2)
         {
@@ -65,9 +85,9 @@ namespace CGALDotNetGeometry.Shapes
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
                 return hash;
             }
         }

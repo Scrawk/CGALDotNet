@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 
 using REAL = System.Single;
 using VECTOR2 = CGALDotNetGeometry.Numerics.Vector2f;
+using POINT2 = CGALDotNetGeometry.Numerics.Point2f;
 
 namespace CGALDotNetGeometry.Numerics
 {
@@ -201,9 +202,9 @@ namespace CGALDotNetGeometry.Numerics
         /// <summary>
         /// Multiply a point by a matrix.
         /// </summary>
-        public static Point2f operator *(Matrix2x2f m, Point2f v)
+        public static POINT2 operator *(Matrix2x2f m, POINT2 v)
         {
-            Point2f kProd = new Point2f();
+            POINT2 kProd = new POINT2();
 
             kProd.x = m.m00 * v.x + m.m01 * v.y;
             kProd.y = m.m10 * v.x + m.m11 * v.y;
@@ -307,11 +308,9 @@ namespace CGALDotNetGeometry.Numerics
 		{
             unchecked
             {
-                int hash = (int)2166136261;
-
+                int hash = (int)MathUtil.HASH_PRIME_1;
                 for (int i = 0; i < 4; i++)
-                    hash = (hash * 16777619) ^ this[i].GetHashCode();
-
+                    hash = (hash * MathUtil.HASH_PRIME_2) ^ this[i].GetHashCode();
                 return hash;
             }
         }

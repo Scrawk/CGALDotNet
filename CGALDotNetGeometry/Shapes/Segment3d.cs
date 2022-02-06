@@ -3,10 +3,13 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Double;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3d;
+
 namespace CGALDotNetGeometry.Shapes
 {
     /// <summary>
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry.h file.
+    /// A 3D segment.
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
@@ -15,19 +18,19 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// The segments first (aka source) point.
         /// </summary>
-        public Point3d A;
+        public POINT3 A;
 
         /// <summary>
         /// The segments second (aka target) point.
         /// </summary>
-        public Point3d B;
+        public POINT3 B;
 
         /// <summary>
         /// Create a new segment.
         /// </summary>
         /// <param name="a">The first point.</param>
         /// <param name="b">The second point.</param>
-        public Segment3d(Point3d a, Point3d b)
+        public Segment3d(POINT3 a, POINT3 b)
         {
             A = a;
             B = b;
@@ -42,21 +45,26 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="bx">The second points x value.</param>
         /// <param name="by">The second points y value.</param>
         /// <param name="bz">The second points z value.</param>
-        public Segment3d(double ax, double ay, double az, double bx, double by, double bz)
+        public Segment3d(REAL ax, REAL ay, REAL az, REAL bx, REAL by, REAL bz)
         {
-            A = new Point3d(ax, ay, az);
-            B = new Point3d(bx, by, bz);
+            A = new POINT3(ax, ay, az);
+            B = new POINT3(bx, by, bz);
         }
 
         /// <summary>
         /// The length of the segment.
         /// </summary>
-        public double Length => Point3d.Distance(A, B);
+        public REAL Length => POINT3.Distance(A, B);
 
         /// <summary>
         /// The square length of the segment.
         /// </summary>
-        public double SqrLength => Point3d.SqrDistance(A, B);
+        public REAL SqrLength => POINT3.SqrDistance(A, B);
+
+        /// <summary>
+        /// The segment flipped, a is now b, b is now a.
+        /// </summary>
+        public Segment3d Reversed => new Segment3d(B, A);
 
         /// <summary>
         /// Array acess to the segments points.
@@ -64,51 +72,51 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="i">The index of the point to access (0-2)</param>
         /// <returns>The point at index i.</returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        unsafe public Point3d this[int i]
+        unsafe public POINT3 this[int i]
         {
             get
             {
                 if ((uint)i >= 3)
                     throw new IndexOutOfRangeException("Segment3d index out of range.");
 
-                fixed (Segment3d* array = &this) { return ((Point3d*)array)[i]; }
+                fixed (Segment3d* array = &this) { return ((POINT3*)array)[i]; }
             }
             set
             {
                 if ((uint)i >= 3)
                     throw new IndexOutOfRangeException("Segment3d index out of range.");
 
-                fixed (Point3d* array = &A) { array[i] = value; }
+                fixed (POINT3* array = &A) { array[i] = value; }
             }
         }
 
 
-        public static Segment3d operator +(Segment3d seg, double s)
+        public static Segment3d operator +(Segment3d seg, REAL s)
         {
             return new Segment3d(seg.A + s, seg.B + s);
         }
 
-        public static Segment3d operator +(Segment3d seg, Point3d v)
+        public static Segment3d operator +(Segment3d seg, POINT3 v)
         {
             return new Segment3d(seg.A + v, seg.B + v);
         }
 
-        public static Segment3d operator -(Segment3d seg, double s)
+        public static Segment3d operator -(Segment3d seg, REAL s)
         {
             return new Segment3d(seg.A - s, seg.B - s);
         }
 
-        public static Segment3d operator -(Segment3d seg, Point3d v)
+        public static Segment3d operator -(Segment3d seg, POINT3 v)
         {
             return new Segment3d(seg.A - v, seg.B - v);
         }
 
-        public static Segment3d operator *(Segment3d seg, double s)
+        public static Segment3d operator *(Segment3d seg, REAL s)
         {
             return new Segment3d(seg.A * s, seg.B * s);
         }
 
-        public static Segment3d operator /(Segment3d seg, double s)
+        public static Segment3d operator /(Segment3d seg, REAL s)
         {
             return new Segment3d(seg.A / s, seg.B / s);
         }
@@ -153,9 +161,9 @@ namespace CGALDotNetGeometry.Shapes
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
                 return hash;
             }
         }

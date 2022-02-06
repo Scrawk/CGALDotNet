@@ -3,33 +3,68 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Single;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3f;
+using VECTOR3 = CGALDotNetGeometry.Numerics.Vector3f;
+
 namespace CGALDotNetGeometry.Shapes
 {
+    /// <summary>
+    /// A 3D ray struct represented by a position and a direction.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Ray3f : IEquatable<Ray3f>
     {
+        /// <summary>
+        /// The rays position.
+        /// </summary>
+        public POINT3 Position;
 
-        public Point3f Position;
+        /// <summary>
+        /// The rays direction.
+        /// Might not be normalized.
+        /// </summary>
+        public VECTOR3 Direction;
 
-        public Vector3f Direction;
-
-        public Ray3f(Point3f position, Vector3f direction)
+        /// <summary>
+        /// Construct a ray from a point and the direction.
+        /// </summary>
+        /// <param name="position">The rays position.</param>
+        /// <param name="direction">The rays direction (will be normalized)</param>
+        public Ray3f(POINT3 position, VECTOR3 direction)
         {
             Position = position;
-            Direction = direction;
+            Direction = direction.Normalized;
         }
 
+        /// <summary>
+        /// Check if the two rays are equal.
+        /// </summary>
+        /// <param name="r1">The first ray.</param>
+        /// <param name="r2">The second ray.</param>
+        /// <returns>True if the two rays are equal.</returns>
         public static bool operator ==(Ray3f r1, Ray3f r2)
         {
             return r1.Position == r2.Position && r1.Direction == r2.Direction;
         }
 
+        /// <summary>
+        /// Check if the two rays are not equal.
+        /// </summary>
+        /// <param name="r1">The first ray.</param>
+        /// <param name="r2">The second ray.</param>
+        /// <returns>True if the two rays are not equal.</returns>
         public static bool operator !=(Ray3f r1, Ray3f r2)
         {
             return r1.Position != r2.Position || r1.Direction != r2.Direction;
         }
 
+        /// <summary>
+        /// Is the ray equal to this object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>Is the ray equal to this object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Ray3f)) return false;
@@ -37,52 +72,78 @@ namespace CGALDotNetGeometry.Shapes
             return this == ray;
         }
 
+        /// <summary>
+        /// Is the ray equal to the other ray.
+        /// </summary>
+        /// <param name="ray">The over ray.</param>
+        /// <returns>Is the ray equal to the other ray.</returns>
         public bool Equals(Ray3f ray)
         {
             return this == ray;
         }
 
+        /// <summary>
+        /// The rays hashcode.
+        /// </summary>
+        /// <returns>The rays hashcode.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ Position.GetHashCode();
-                hash = (hash * 16777619) ^ Direction.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Position.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Direction.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// The rays as a string.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Ray3f: Position={0}, Direction={1}]", Position, Direction);
         }
 
         /// <summary>
-        /// Intersection between ray and sphere.
+        /// The rays directions magnidute.
         /// </summary>
-        /// <param name="sphere">the sphere</param>
-        /// <param name="t">Intersection point = Position + t * Direction</param>
-        /// <returns>If rays intersect</returns>
-        public bool Intersects(Sphere3f sphere, out float t)
+        public REAL Magnitude => Direction.Magnitude;
+
+        /// <summary>
+        /// The rays directions square magnidute.
+        /// </summary>
+        public REAL SqrMagnitude => Direction.SqrMagnitude;
+
+        /// <summary>
+        /// Get the position offset along the ray at t.
+        /// </summary>
+        /// <param name="t">The amount to offset.</param>
+        /// <returns>The position at t.</returns>
+        public POINT3 GetPosition(REAL t)
         {
-            t = 0;
-            Vector3f m = (Position - sphere.Center).Vector3f;
-
-            float b = Vector3f.Dot(m, Direction);
-            float c = Vector3f.Dot(m, m) - sphere.Radius2;
-
-            if (c > 0.0 && b > 0.0) return false;
-
-            float discr = b * b - c;
-            if (discr < 0.0) return false;
-
-            t = -b - MathUtil.Sqrt(discr);
-
-            if (t < 0) t = 0;
-            return true;
+            return Position + (t * Direction);
         }
 
+        /// <summary>
+        /// Normalize the lines direction.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Normalize()
+        {
+            Direction.Normalize();
+        }
+
+        /// <summary>
+        /// Round the rays position and direction.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            Position = Position.Rounded(digits);
+            Direction = Direction.Rounded(digits);
+        }
     }
 }
 

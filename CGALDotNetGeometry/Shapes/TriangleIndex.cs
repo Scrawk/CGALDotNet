@@ -2,27 +2,55 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
+using CGALDotNetGeometry.Numerics;
+
 namespace CGALDotNetGeometry.Shapes
 {
     /// <summary>
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry2.h file.
+    /// A triangle represented by indices instead of points.
+    /// The indices represent a index into a array of points.
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct TriangleIndex : IEquatable<TriangleIndex>
     {
-        public int A, B, C;
+        /// <summary>
+        /// The triangles first point index.
+        /// </summary>
+        public int A;
 
-        public bool HasNullIndex => A == -1 || B == -1 || C == -1;
+        /// <summary>
+        /// The triangles second point index.
+        /// </summary>
+        public int B;
 
-        public TriangleIndex Reversed => new TriangleIndex(C, B, A);
+        /// <summary>
+        /// The triangles third point index.
+        /// </summary>
+        public int C;
 
+        /// <summary>
+        /// Consturct a new triangle.
+        /// </summary>
+        /// <param name="a">The triangles first point index.</param>
+        /// <param name="b">The triangles second point index.</param>
+        /// <param name="c">The triangles third point index.</param>
         public TriangleIndex(int a, int b, int c)
         {
             A = a; 
             B = b; 
             C = c; 
         }
+
+        /// <summary>
+        /// Does the triangle have a null index.
+        /// </summary>
+        public bool HasNullIndex => A == MathUtil.NULL_INDEX || B == MathUtil.NULL_INDEX || C == MathUtil.NULL_INDEX;
+
+        /// <summary>
+        /// The triangle reversed.
+        /// </summary>
+        public TriangleIndex Reversed => new TriangleIndex(C, B, A);
 
         public static bool operator ==(TriangleIndex t1, TriangleIndex t2)
         {
@@ -64,10 +92,10 @@ namespace CGALDotNetGeometry.Shapes
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
-                hash = (hash * 16777619) ^ C.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ C.GetHashCode();
                 return hash;
             }
         }

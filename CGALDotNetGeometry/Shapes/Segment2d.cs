@@ -11,53 +11,100 @@ using MATRIX2 = CGALDotNetGeometry.Numerics.Matrix2x2d;
 
 namespace CGALDotNetGeometry.Shapes
 {
+    /// <summary>
+    /// A 2D segment.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Segment2d : IEquatable<Segment2d>
     {
-
+        /// <summary>
+        /// The segments first point.
+        /// </summary>
         public POINT2 A;
 
+        /// <summary>
+        /// The segments second point.
+        /// </summary>
         public POINT2 B;
 
         /// <summary>
-        /// Alternative names for a and b to make
-        /// it more clear when comparing two segments 
-        /// named ab and cd.
+        /// Construct a new segment.
         /// </summary>
-        public POINT2 C => A;
-        public POINT2 D => B;
-
+        /// <param name="a">The segments first point.</param>
+        /// <param name="b">The segments second point.</param>
         public Segment2d(POINT2 a, POINT2 b)
         {
             A = a;
             B = b;
         }
 
+        /// <summary>
+        /// Construct a new segment.
+        /// </summary>
+        /// <param name="ax">The segments first points x value.</param>
+        /// <param name="ay">The segments first points y value.</param>
+        /// <param name="bx">The segments second points x value.</param>
+        /// <param name="by">The segments second points y value.param>
         public Segment2d(REAL ax, REAL ay, REAL bx, REAL by)
         {
             A = new POINT2(ax, ay);
             B = new POINT2(bx, by);
         }
 
-        public POINT2 Center => (A + B) * 0.5f;
+        /// <summary>
+        /// The segments center.
+        /// </summary>
+        public POINT2 Center => (A + B) * 0.5;
 
+        /// <summary>
+        /// The segments length.
+        /// </summary>
         public REAL Length => POINT2.Distance(A, B);
 
+        /// <summary>
+        /// The segments square length.
+        /// </summary>
         public REAL SqrLength => POINT2.SqrDistance(A, B);
 
-        public VECTOR2 Normal => POINT2.Direction(A, B).PerpendicularCW;
+        /// <summary>
+        /// The segments tangent vector.
+        /// </summary>
+        public VECTOR2 Tangent => POINT2.Direction(A, B);
 
+        /// <summary>
+        /// The segments normal vector.
+        /// </summary>
+        public VECTOR2 Normal => Tangent.PerpendicularCW;
+
+        /// <summary>
+        /// The left most point of the segment.
+        /// </summary>
         public REAL LeftMost => Math.Min(A.x, B.x);
 
+        /// <summary>
+        /// The right most point of the segment.
+        /// </summary>
         public REAL RightMost => Math.Max(A.x, B.x);
 
+        /// <summary>
+        /// The bottom most point of the segment.
+        /// </summary>
         public REAL BottomMost => Math.Min(A.y, B.y);
 
+        /// <summary>
+        /// The top most point of the segment.
+        /// </summary>
         public REAL TopMost => Math.Max(A.y, B.y);
 
-        public Segment2d Flipped => new Segment2d(B, A);
+        /// <summary>
+        /// THe segment flipped, a is now b, b is now a.
+        /// </summary>
+        public Segment2d Reversed => new Segment2d(B, A);
 
+        /// <summary>
+        /// The segments bounding box.
+        /// </summary>
         public BOX2 Bounds
         {
             get
@@ -67,7 +114,7 @@ namespace CGALDotNetGeometry.Shapes
                 REAL ymin = Math.Min(A.y, B.y);
                 REAL ymax = Math.Max(A.y, B.y);
 
-                return new BOX2(xmin, xmax, ymin, ymax);
+                return new BOX2(new POINT2(xmin, ymin), new POINT2(xmax, ymax));
             }
         }
 
@@ -135,6 +182,11 @@ namespace CGALDotNetGeometry.Shapes
             return s1.A != s2.A || s1.B != s2.B;
         }
 
+        /// <summary>
+        /// Is the segment equal to the other object.
+        /// </summary>
+        /// <param name="obj">The other object.</param>
+        /// <returns>Is the segment equal to the other object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Segment2d)) return false;
@@ -142,22 +194,35 @@ namespace CGALDotNetGeometry.Shapes
             return this == seg;
         }
 
+        /// <summary>
+        /// Is the segment equal to the other segment.
+        /// </summary>
+        /// <param name="obj">The other segment.</param>
+        /// <returns>Is the segment equal to the other segment.</returns>
         public bool Equals(Segment2d seg)
         {
             return this == seg;
         }
 
+        /// <summary>
+        /// The segments hashcode.
+        /// </summary>
+        /// <returns>The segments hashcode.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Segment2d: A={0}, B={1}]", A, B);
@@ -177,6 +242,16 @@ namespace CGALDotNetGeometry.Shapes
         public REAL SqrDistance(POINT2 point)
         {
             return POINT2.SqrDistance(Closest(point), point);
+        }
+
+        /// <summary>
+        /// Round the segments points.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            A.Round(digits);
+            B.Round(digits);
         }
 
         /// <summary>

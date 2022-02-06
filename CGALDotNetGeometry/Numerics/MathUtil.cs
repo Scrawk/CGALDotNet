@@ -7,6 +7,12 @@ namespace CGALDotNetGeometry.Numerics
 {
     public static class MathUtil
     {
+        public const int NULL_INDEX = -1;
+
+        public const uint HASH_PRIME_1 = 2166136261;
+
+        public const int HASH_PRIME_2 = 16777619;
+
         public const int PRECISION = 9;
 
         public const double EPS_64 = 1e-9;

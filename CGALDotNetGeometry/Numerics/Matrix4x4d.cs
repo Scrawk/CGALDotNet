@@ -3,8 +3,10 @@ using System.Collections;
 using System.Runtime.InteropServices;
 
 using REAL = System.Double;
+using VECTOR2 = CGALDotNetGeometry.Numerics.Vector2d;
 using VECTOR3 = CGALDotNetGeometry.Numerics.Vector3d;
 using VECTOR4 = CGALDotNetGeometry.Numerics.Vector4d;
+using POINT2 = CGALDotNetGeometry.Numerics.Point2d;
 using POINT3 = CGALDotNetGeometry.Numerics.Point3d;
 using POINT4 = CGALDotNetGeometry.Numerics.Point4d;
 
@@ -297,34 +299,60 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
-        /// Multiply  a vector by a matrix.
+        /// Multiply a vector by a matrix.
+        /// Acts like z is 0, and w is 0.
+        /// </summary>
+        public static VECTOR2 operator *(Matrix4x4d m, VECTOR2 v)
+        {
+            VECTOR2 kProd = new VECTOR2();
+
+            kProd.x = m.m00 * v.x + m.m01 * v.y;
+            kProd.y = m.m10 * v.x + m.m11 * v.y;
+    
+            return kProd;
+        }
+
+        /// <summary>
+        /// Multiply a vector by a matrix.
+        /// Acts like w is 0.
         /// </summary>
         public static VECTOR3 operator *(Matrix4x4d m, VECTOR3 v)
         {
             VECTOR3 kProd = new VECTOR3();
 
-            REAL invW = MathUtil.SafeInv(m.m30 * v.x + m.m31 * v.y + m.m32 * v.z + m.m33);
-
-            kProd.x = (m.m00 * v.x + m.m01 * v.y + m.m02 * v.z + m.m03) * invW;
-            kProd.y = (m.m10 * v.x + m.m11 * v.y + m.m12 * v.z + m.m13) * invW;
-            kProd.z = (m.m20 * v.x + m.m21 * v.y + m.m22 * v.z + m.m23) * invW;
+            kProd.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z;
+            kProd.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z;
+            kProd.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z;
 
             return kProd;
         }
 
         /// <summary>
         /// Multiply a point by a matrix.
+        /// Acts like z is 0, and w is 1.
+        /// </summary>
+        public static POINT2 operator *(Matrix4x4d m, POINT2 v)
+        {
+            POINT2 kProd = new POINT2();
+
+            kProd.x = m.m00 * v.x + m.m01 * v.y + m.m03;
+            kProd.y = m.m10 * v.x + m.m11 * v.y + m.m13;
+
+            return kProd;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// Acts like w is 1.
         /// </summary>
         public static POINT3 operator *(Matrix4x4d m, POINT3 v)
         {
             POINT3 kProd = new POINT3();
 
-            REAL invW = MathUtil.SafeInv(m.m30 * v.x + m.m31 * v.y + m.m32 * v.z + m.m33);
-
-            kProd.x = (m.m00 * v.x + m.m01 * v.y + m.m02 * v.z + m.m03) * invW;
-            kProd.y = (m.m10 * v.x + m.m11 * v.y + m.m12 * v.z + m.m13) * invW;
-            kProd.z = (m.m20 * v.x + m.m21 * v.y + m.m22 * v.z + m.m23) * invW;
-
+            kProd.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z + m.m03;
+            kProd.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z + m.m13;
+            kProd.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z + m.m23;
+  
             return kProd;
         }
 
@@ -525,11 +553,9 @@ namespace CGALDotNetGeometry.Numerics
         {
             unchecked
             {
-                int hash = (int)2166136261;
-
+                int hash = (int)MathUtil.HASH_PRIME_1;
                 for (int i = 0; i < 16; i++)
-                    hash = (hash * 16777619) ^ this[i].GetHashCode();
-
+                    hash = (hash * MathUtil.HASH_PRIME_2) ^ this[i].GetHashCode();
                 return hash;
             }
         }

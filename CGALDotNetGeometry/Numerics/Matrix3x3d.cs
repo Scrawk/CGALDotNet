@@ -232,6 +232,19 @@ namespace CGALDotNetGeometry.Numerics
         }
 
         /// <summary>
+        /// Multiply a vector by a matrix.
+        /// </summary>
+        public static VECTOR2 operator *(Matrix3x3d m, VECTOR2 v)
+        {
+            VECTOR2 kProd = new VECTOR2();
+
+            kProd.x = m.m00 * v.x + m.m01 * v.y;
+            kProd.y = m.m10 * v.x + m.m11 * v.y;
+
+            return kProd;
+        }
+
+        /// <summary>
         /// Multiply  a vector by a matrix.
         /// </summary>
         public static VECTOR3 operator *(Matrix3x3d m, VECTOR3 v)
@@ -241,6 +254,19 @@ namespace CGALDotNetGeometry.Numerics
             kProd.x = m.m00 * v.x + m.m01 * v.y + m.m02 * v.z;
             kProd.y = m.m10 * v.x + m.m11 * v.y + m.m12 * v.z;
             kProd.z = m.m20 * v.x + m.m21 * v.y + m.m22 * v.z;
+
+            return kProd;
+        }
+
+        /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        public static POINT2 operator *(Matrix3x3d m, POINT2 v)
+        {
+            POINT2 kProd = new POINT2();
+
+            kProd.x = m.m00 * v.x + m.m01 * v.y + m.m02;
+            kProd.y = m.m10 * v.x + m.m11 * v.y + m.m12;
 
             return kProd;
         }
@@ -389,11 +415,9 @@ namespace CGALDotNetGeometry.Numerics
         {
             unchecked
             {
-                int hash = (int)2166136261;
-
+                int hash = (int)MathUtil.HASH_PRIME_1;
                 for (int i = 0; i < 9; i++)
-                    hash = (hash * 16777619) ^ this[i].GetHashCode();
-
+                    hash = (hash * MathUtil.HASH_PRIME_2) ^ this[i].GetHashCode();
                 return hash;
             }
         }

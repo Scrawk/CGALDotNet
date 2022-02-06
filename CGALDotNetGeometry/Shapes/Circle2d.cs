@@ -77,7 +77,7 @@ namespace CGALDotNetGeometry.Shapes
                 REAL ymin = Center.y - Radius;
                 REAL ymax = Center.y + Radius;
 
-                return new BOX2(xmin, xmax, ymin, ymax);
+                return new BOX2(new POINT2(xmin, ymin), new POINT2(xmax, ymax));
             }
         }
 
@@ -103,20 +103,28 @@ namespace CGALDotNetGeometry.Shapes
             return this == cir;
         }
 
+        /// <summary>
+        /// The circles hashcode.
+        /// </summary>
+        /// <returns>The circles hashcode.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ Radius.GetHashCode();
-                hash = (hash * 16777619) ^ Center.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Center.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Radius.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[Circle2d: Center={0}, Radius={1}]", Center, Radius);
+            return string.Format("[Circle2f: Center={0}, Radius={1}]", Center, Radius);
         }
 
         /// <summary>

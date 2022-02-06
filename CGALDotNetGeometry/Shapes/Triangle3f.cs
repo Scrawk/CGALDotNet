@@ -3,108 +3,119 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Single;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3f;
+using VECTOR3 = CGALDotNetGeometry.Numerics.Vector3f;
+using BOX3 = CGALDotNetGeometry.Shapes.Box3f;
+
 namespace CGALDotNetGeometry.Shapes
 {
+    /// <summary>
+    /// A 3D triangle.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Triangle3f : IEquatable<Triangle3f>
     {
+        /// <summary>
+        /// The triangles first point.
+        /// </summary>
+        public POINT3 A;
 
-        public Point3f A;
+        /// <summary>
+        /// The triangles second point.
+        /// </summary>
+        public POINT3 B;
 
-        public Point3f B;
+        /// <summary>
+        /// The triangles third point.
+        /// </summary>
+        public POINT3 C;
 
-        public Point3f C;
-
-        public Triangle3f(Point3f a, Point3f b, Point3f c)
+        /// <summary>
+        /// Create a new triangle.
+        /// </summary>
+        /// <param name="a">The first point.</param>
+        /// <param name="b">The second point.</param>
+        /// <param name="c">The third point.</param>
+        public Triangle3f(POINT3 a, POINT3 b, POINT3 c)
         {
             A = a;
             B = b;
             C = c;
         }
 
-        public Triangle3f(float ax, float ay, float az, float bx, float by, float bz, float cx, float cy, float cz)
+        /// <summary>
+        /// Create a new triangle.
+        /// </summary>
+        /// <param name="ax">The first points x value.</param>
+        /// <param name="ay">The first points y value.</param>
+        /// <param name="az">The first points z value.</param>
+        /// <param name="bx">The second points x value.</param>
+        /// <param name="by">The second points y value.</param>
+        /// <param name="bz">The second points z value.</param>
+        /// <param name="cx">The third points x value.</param>
+        /// <param name="cy">The third points y value.</param>
+        /// <param name="cz">The third points z value.</param>
+        public Triangle3f(REAL ax, REAL ay, REAL az, REAL bx, REAL by, REAL bz, REAL cx, REAL cy, REAL cz)
         {
-            A = new Point3f(ax, ay, az);
-            B = new Point3f(bx, by, bz);
-            C = new Point3f(cx, cy, cz);
+            A = new POINT3(ax, ay, az);
+            B = new POINT3(bx, by, bz);
+            C = new POINT3(cx, cy, cz);
         }
-
-        public Point3f Center
-        {
-            get { return (A + B + C) / 3.0f; }
-        }
-
 
         /// <summary>
-        /// Calculate the bounding box.
+        /// Array acess to the triangles points.
         /// </summary>
-        public Box3f Bounds
-        {
-            get
-            {
-                var xmin = MathUtil.Min(A.x, B.x, C.x);
-                var xmax = MathUtil.Max(A.x, B.x, C.x);
-                var ymin = MathUtil.Min(A.y, B.y, C.y);
-                var ymax = MathUtil.Max(A.y, B.y, C.y);
-                var zmin = MathUtil.Min(A.z, B.y, C.y);
-                var zmax = MathUtil.Max(A.z, B.z, C.z);
-
-                return new Box3f(xmin, xmax, ymin, ymax, zmin, zmax);
-            }
-        }
-
-        unsafe public Point3f this[int i]
+        /// <param name="i">The index of the point to access (0-2)</param>
+        /// <returns>The point at index i.</returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        unsafe public POINT3 this[int i]
         {
             get
             {
                 if ((uint)i >= 3)
                     throw new IndexOutOfRangeException("Triangle3f index out of range.");
 
-                fixed (Triangle3f* array = &this) { return ((Point3f*)array)[i]; }
+                fixed (Triangle3f* array = &this) { return ((POINT3*)array)[i]; }
             }
             set
             {
                 if ((uint)i >= 3)
                     throw new IndexOutOfRangeException("Triangle3f index out of range.");
 
-                fixed (Point3f* array = &A) { array[i] = value; }
+                fixed (POINT3* array = &A) { array[i] = value; }
             }
         }
 
-        public static Triangle3f operator +(Triangle3f tri, float s)
+        public static Triangle3f operator +(Triangle3f tri, REAL s)
         {
             return new Triangle3f(tri.A + s, tri.B + s, tri.C + s);
         }
 
-        public static Triangle3f operator +(Triangle3f tri, Point3f v)
+        public static Triangle3f operator +(Triangle3f tri, POINT3 v)
         {
             return new Triangle3f(tri.A + v, tri.B + v, tri.C + v);
         }
 
-        public static Triangle3f operator -(Triangle3f tri, float s)
+        public static Triangle3f operator -(Triangle3f tri, REAL s)
         {
             return new Triangle3f(tri.A - s, tri.B - s, tri.C - s);
         }
 
-        public static Triangle3f operator *(Triangle3f tri, float s)
+        public static Triangle3f operator -(Triangle3f tri, POINT3 v)
+        {
+            return new Triangle3f(tri.A - v, tri.B - v, tri.C - v);
+        }
+
+        public static Triangle3f operator *(Triangle3f tri, REAL s)
         {
             return new Triangle3f(tri.A * s, tri.B * s, tri.C * s);
         }
 
-        public static Triangle3f operator /(Triangle3f tri, float s)
+        public static Triangle3f operator /(Triangle3f tri, REAL s)
         {
             return new Triangle3f(tri.A / s, tri.B / s, tri.C / s);
-        }
-
-        public static Triangle3f operator /(Triangle3f tri, Point3f v)
-        {
-            return new Triangle3f(tri.A / v, tri.B / v, tri.C / v);
-        }
-
-        public static Triangle3f operator *(Triangle3f tri, Matrix3x3f m)
-        {
-            return new Triangle3f(m * tri.A, m * tri.B, m * tri.C);
         }
 
         public static bool operator ==(Triangle3f t1, Triangle3f t2)
@@ -117,6 +128,11 @@ namespace CGALDotNetGeometry.Shapes
             return t1.A != t2.A || t1.B != t2.B || t1.C != t2.C;
         }
 
+        /// <summary>
+        /// Is the triangle equal to this object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>Is the triangle equal to this object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Triangle3f)) return false;
@@ -124,26 +140,50 @@ namespace CGALDotNetGeometry.Shapes
             return this == tri;
         }
 
+        /// <summary>
+        /// Is the triangle equal to the other triangle.
+        /// </summary>
+        /// <param name="tri">The other triangle.</param>
+        /// <returns>Is the triangle equal to the other triangle.</returns>
         public bool Equals(Triangle3f tri)
         {
             return this == tri;
         }
 
+        /// <summary>
+        /// The triangles hash code.
+        /// </summary>
+        /// <returns>The triangles hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
-                hash = (hash * 16777619) ^ C.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ C.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// The triangle as a string.
+        /// </summary>
+        /// <returns>The triangle as a string.</returns>
         public override string ToString()
         {
             return string.Format("[Triangle3f: A={0}, B={1}, C={2}]", A, B, C);
+        }
+
+        /// <summary>
+        /// Round the triangles points.
+        /// </summary>
+        /// <param name="digits">number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            A = A.Rounded(digits);
+            B = B.Rounded(digits);
+            C = C.Rounded(digits);
         }
 
     }

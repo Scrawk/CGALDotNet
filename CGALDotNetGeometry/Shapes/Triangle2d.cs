@@ -13,17 +13,35 @@ using MATRIX2 = CGALDotNetGeometry.Numerics.Matrix2x2d;
 
 namespace CGALDotNetGeometry.Shapes
 {
+    /// <summary>
+    /// A 2D triangle.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Triangle2d : IEquatable<Triangle2d>
     {
 
+        /// <summary>
+        /// The triangles first point.
+        /// </summary>
         public POINT2 A;
 
+        /// <summary>
+        /// The triangles second point.
+        /// </summary>
         public POINT2 B;
 
+        /// <summary>
+        /// The triangles third point.
+        /// </summary>
         public POINT2 C;
 
+        /// <summary>
+        /// Construct a new triangle.
+        /// </summary>
+        /// <param name="a">The triangles first point.</param>
+        /// <param name="b">The triangles second point.</param>
+        /// <param name="c">The triangles third point.</param>
         public Triangle2d(POINT2 a, POINT2 b, POINT2 c)
         {
             A = a;
@@ -31,6 +49,15 @@ namespace CGALDotNetGeometry.Shapes
             C = c;
         }
 
+        /// <summary>
+        /// Construct a new triangle.
+        /// </summary>
+        /// <param name="ax">The triangles first points x value.</param>
+        /// <param name="ay">The triangles first points y value.</param>
+        /// <param name="bx">The triangles second points x value.</param>
+        /// <param name="by">The triangles second points y value.</param>
+        /// <param name="cx">The triangles third points x value.</param>
+        /// <param name="cy">The triangles third points y value.</param>
         public Triangle2d(REAL ax, REAL ay, REAL bx, REAL by, REAL cx, REAL cy)
         {
             A = new POINT2(ax, ay);
@@ -100,7 +127,7 @@ namespace CGALDotNetGeometry.Shapes
         /// The semiperimeter is given as
         /// s = (a + b + c) / 2
         /// </summary>
-        public REAL SemiPerimeter => SideLengths.Vector3d.Sum / 2;
+        public REAL SemiPerimeter => SideLengths.Sum / 2.0;
 
         /// <summary>
         /// The inradius is given as
@@ -115,7 +142,7 @@ namespace CGALDotNetGeometry.Shapes
         /// The circumradius is given as
         ///   R = a * b * c / (4 * D)
         /// </summary>
-        public REAL CircumRadius => SideLengths.Vector3d.Product / (4 * Area);
+        public REAL CircumRadius => SideLengths.Product / (4.0 * Area);
 
         /// <summary>
         /// The circum circle formed by the 
@@ -159,7 +186,7 @@ namespace CGALDotNetGeometry.Shapes
                 var ymin = MathUtil.Min(A.y, B.y, C.y);
                 var ymax = MathUtil.Max(A.y, B.y, C.y);
 
-                return new BOX2(xmin, xmax, ymin, ymax);
+                return new BOX2(new POINT2(xmin, ymin), new POINT2(xmax, ymax));
             }
         }
 
@@ -226,6 +253,11 @@ namespace CGALDotNetGeometry.Shapes
             return t1.A != t2.A || t1.B != t2.B || t1.C != t2.C;
         }
 
+        /// <summary>
+        /// Is the triangle equal to the other object.
+        /// </summary>
+        /// <param name="obj">The  other object.</param>
+        /// <returns>Is the triangle equal to the other object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Triangle2d)) return false;
@@ -233,26 +265,50 @@ namespace CGALDotNetGeometry.Shapes
             return this == tri;
         }
 
+        /// <summary>
+        /// Is the triangle equal to the other riangle.
+        /// </summary>
+        /// <param name="tri">The  other riangle.</param>
+        /// <returns>Is the triangle equal to the other riangle.</returns>
         public bool Equals(Triangle2d tri)
         {
             return this == tri;
         }
 
+        /// <summary>
+        /// The triangles hashcode.
+        /// </summary>
+        /// <returns>The triangles hashcode.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ A.GetHashCode();
-                hash = (hash * 16777619) ^ B.GetHashCode();
-                hash = (hash * 16777619) ^ C.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ A.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ B.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ C.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Triangle2d: A={0}, B={1}, C={2}]", A, B, C);
+        }
+
+        /// <summary>
+        /// Round the triangles components.
+        /// </summary>
+        /// <param name="digits">The digits to round to.</param>
+        public void Round(int digits)
+        {
+            A.Round(digits);
+            B.Round(digits);
+            C.Round(digits);
         }
 
         /// <summary>

@@ -242,10 +242,11 @@ namespace CGALDotNetGeometry.Numerics
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ x.GetHashCode();
-                hash = (hash * 16777619) ^ y.GetHashCode();
-                hash = (hash * 16777619) ^ z.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ x.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ y.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ z.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ w.GetHashCode();
                 return hash;
             }
         }

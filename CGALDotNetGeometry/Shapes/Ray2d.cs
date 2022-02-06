@@ -12,15 +12,28 @@ using BOX2 = CGALDotNetGeometry.Shapes.Box2d;
 
 namespace CGALDotNetGeometry.Shapes
 {
+    /// <summary>
+    /// A 2D ray.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Ray2d : IEquatable<Ray2d>
     {
-
+        /// <summary>
+        /// The rays position.
+        /// </summary>
         public POINT2 Position;
 
+        /// <summary>
+        /// The rays direction.
+        /// </summary>
         public VECTOR2 Direction;
 
+        /// <summary>
+        /// Construct a new ray.
+        /// </summary>
+        /// <param name="position">The rays position.</param>
+        /// <param name="direction">The rays directio</param>
         public Ray2d(POINT2 position, VECTOR2 direction)
         {
             Position = position;
@@ -37,6 +50,11 @@ namespace CGALDotNetGeometry.Shapes
             return r1.Position != r2.Position || r1.Direction != r2.Direction;
         }
 
+        /// <summary>
+        /// Is the ray equal to the other object.
+        /// </summary>
+        /// <param name="obj">The other object.</param>
+        /// <returns>Is the ray equal to the other object.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Ray2d)) return false;
@@ -44,25 +62,48 @@ namespace CGALDotNetGeometry.Shapes
             return this == ray;
         }
 
+        /// <summary>
+        /// Is the ray equal to the other ray.
+        /// </summary>
+        /// <param name="obj">The other ray.</param>
+        /// <returns>Is the ray equal to the other ray.</returns>
         public bool Equals(Ray2d ray)
         {
             return this == ray;
         }
 
+        /// <summary>
+        /// The rays hashcode.
+        /// </summary>
+        /// <returns>The rays hashcode.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ Position.GetHashCode();
-                hash = (hash * 16777619) ^ Direction.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Position.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Direction.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Ray2d: Position={0}, Direction={1}]", Position, Direction);
+        }
+
+        /// <summary>
+        /// Round the rays components.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            Position.Round(digits);
+            Direction.Round(digits);
         }
 
         /// <summary>

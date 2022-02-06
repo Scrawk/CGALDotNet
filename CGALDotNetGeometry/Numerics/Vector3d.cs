@@ -439,10 +439,10 @@ namespace CGALDotNetGeometry.Numerics
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ x.GetHashCode();
-                hash = (hash * 16777619) ^ y.GetHashCode();
-                hash = (hash * 16777619) ^ z.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ x.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ y.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ z.GetHashCode();
                 return hash;
             }
         }
@@ -747,6 +747,18 @@ namespace CGALDotNetGeometry.Numerics
             REAL y = MathUtil.Round(this.y, digits);
             REAL z = MathUtil.Round(this.z, digits);
             return new Vector3d(x, y, z);
+        }
+
+        /// <summary>
+        /// Round the vector.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Round(int digits)
+        {
+            x = MathUtil.Round(x, digits);
+            y = MathUtil.Round(y, digits);
+            z = MathUtil.Round(z, digits);
         }
 
     }

@@ -4,101 +4,197 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Int32;
+using POINT2 = CGALDotNetGeometry.Numerics.Point2i;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3i;
+
 namespace CGALDotNetGeometry.Shapes
 {
+
+    /// <summary>
+    /// A 2D box represented by its min and max values.
+    /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct Box2i : IEquatable<Box2i>
     {
+        /// <summary>
+        /// The boxes min point.
+        /// </summary>
+        public POINT2 Min;
 
-        public Point2i Min;
+        /// <summary>
+        /// The boxes max point.
+        /// </summary>
+        public POINT2 Max;
 
-        public Point2i Max;
-
-        public Box2i(int min, int max)
+        /// <summary>
+        /// Construct a new box.
+        /// </summary>
+        /// <param name="min">The boxes min point.</param>
+        /// <param name="max">The boxes max point.</param>
+        public Box2i(REAL min, REAL max)
         {
-            Min = new Point2i(min);
-            Max = new Point2i(max);
+            Min = new POINT2(min);
+            Max = new POINT2(max);
         }
 
-        public Box2i(int minX, int maxX, int minY, int maxY)
-        {
-            Min = new Point2i(minX, minY);
-            Max = new Point2i(maxX, maxY);
-        }
+        /// <summary>
+        /// Construct a new box.
+        /// </summary>
+        /// <param name="minX">The boxes min x point.</param>
+        /// <param name="minY">The boxes max x point.</param>
+        /// <param name="maxX">The boxes min y point.</param>
+        /// <param name="maxY">The boxes max y point.</param>
+        //public Box2i(REAL minX, REAL minY, REAL maxX, REAL maxY)
+        //{
+        //    Min = new POINT2(minX, minY);
+        //    Max = new POINT2(maxX, maxY);
+        //}
 
-        public Box2i(Point2i min, Point2i max)
+        /// <summary>
+        /// Construct a new box.
+        /// </summary>
+        /// <param name="min">The boxes min point.</param>
+        /// <param name="max">The boxes max point.</param>
+        public Box2i(POINT2 min, POINT2 max)
         {
             Min = min;
             Max = max;
         }
 
-        public Point2i Corner00
+        /// <summary>
+        /// The boxes lower left corner.
+        /// </summary>
+        public POINT2 Corner00
         {
             get { return Min; }
         }
 
-        public Point2i Corner10
+        /// <summary>
+        /// The boxes lower right corner.
+        /// </summary>
+        public POINT2 Corner10
         {
-            get { return new Point2i(Max.x, Min.y); }
+            get { return new POINT2(Max.x, Min.y); }
         }
 
-        public Point2i Corner11
+        /// <summary>
+        /// The boxes upper right corner.
+        /// </summary>
+        public POINT2 Corner11
         {
             get { return Max; }
         }
 
-        public Point2i Corner01
+        /// <summary>
+        /// The boxes upper left corner.
+        /// </summary>
+        public POINT2 Corner01
         {
-            get { return new Point2i(Min.x, Max.y); }
+            get { return new POINT2(Min.x, Max.y); }
         }
 
-        public Point2i Size 
-        { 
-            get { return new Point2i(Width, Height); } 
+        /// <summary>
+        /// The center of the box.
+        /// </summary>
+        public Point2d Center
+        {
+            get { return (Min + Max).Point2d * 0.5; }
         }
 
-        public int Width 
-        { 
-            get { return Max.x - Min.x; } 
+        /// <summary>
+        /// The size of the boxes sides.
+        /// </summary>
+        public POINT2 Size
+        {
+            get { return new POINT2(Width, Height); }
         }
 
-        public int Height 
-        { 
-            get { return Max.y - Min.y; } 
+        /// <summary>
+        /// The size of the box on the x axis.
+        /// </summary>
+        public REAL Width
+        {
+            get { return Max.x - Min.x; }
         }
 
-        public int Area 
-        { 
-            get { return (Max.x - Min.x) * (Max.y - Min.y); } 
+        /// <summary>
+        /// The size of the box on the y axis.
+        /// </summary>
+        public REAL Height
+        {
+            get { return Max.y - Min.y; }
         }
 
-        public static Box2i operator +(Box2i box, int s)
+        /// <summary>
+        /// The area of the box.
+        /// </summary>
+        public REAL Area
+        {
+            get { return (Max.x - Min.x) * (Max.y - Min.y); }
+        }
+
+        /// <summary>
+        /// Enumerate each point on the boxes perimeter.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<POINT2> EnumeratePerimeter()
+        {
+            for (int x = Min.x; x < Max.x; x++)
+                yield return new POINT2(x, Min.y);
+
+            for (int y = Min.y; y < Max.y; y++)
+                yield return new POINT2(Max.x, y);
+
+            for (int x = Max.x; x > Min.x; x--)
+                yield return new POINT2(x, Max.y);
+
+            for (int y = Max.y; y > Min.y; y--)
+                yield return new POINT2(Min.x, y);
+        }
+
+        /// <summary>
+        /// Enumerate each point in the box.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<POINT2> EnumerateBounds()
+        {
+            for (int y = Min.y; y < Max.y; y++)
+            {
+                for (int x = Min.x; x < Max.x; x++)
+                {
+                    yield return new POINT2(x, y);
+                }
+            }
+        }
+
+        public static Box2i operator +(Box2i box, REAL s)
         {
             return new Box2i(box.Min + s, box.Max + s);
         }
 
-        public static Box2i operator +(Box2i box, Point2i v)
+        public static Box2i operator +(Box2i box, POINT2 v)
         {
             return new Box2i(box.Min + v, box.Max + v);
         }
 
-        public static Box2i operator -(Box2i box, int s)
+        public static Box2i operator -(Box2i box, REAL s)
         {
             return new Box2i(box.Min - s, box.Max - s);
         }
 
-        public static Box2i operator -(Box2i box, Point2i v)
+        public static Box2i operator -(Box2i box, POINT2 v)
         {
             return new Box2i(box.Min - v, box.Max - v);
         }
 
-        public static Box2i operator *(Box2i box, int s)
+        public static Box2i operator *(Box2i box, REAL s)
         {
             return new Box2i(box.Min * s, box.Max * s);
         }
 
-        public static Box2i operator /(Box2i box, int s)
+        public static Box2i operator /(Box2i box, REAL s)
         {
             return new Box2i(box.Min / s, box.Max / s);
         }
@@ -113,32 +209,11 @@ namespace CGALDotNetGeometry.Shapes
             return b1.Min != b2.Min || b1.Max != b2.Max;
         }
 
-        public IEnumerable<Point2i> EnumeratePerimeter()
-        {
-            for(int x = Min.x; x < Max.x; x++)
-                yield return new Point2i(x, Min.y);
-
-            for (int y = Min.y; y < Max.y; y++)
-                yield return new Point2i(Max.x, y);
-
-            for (int x = Max.x; x > Min.x; x--)
-                yield return new Point2i(x, Max.y);
-
-            for (int y = Max.y; y > Min.y; y--)
-                yield return new Point2i(Min.x, y);
-        }
-
-        public IEnumerable<Point2i> EnumerateBounds()
-        {
-            for (int y = Min.y; y < Max.y; y++)
-            {
-                for (int x = Min.x; x < Max.x; x++)
-                {
-                    yield return new Point2i(x, y);
-                }
-            }
-        }
-
+        /// <summary>
+        /// Is the box equal to this obj.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>Is the box equal to this obj.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is Box2i)) return false;
@@ -146,47 +221,85 @@ namespace CGALDotNetGeometry.Shapes
             return this == box;
         }
 
+        /// <summary>
+        /// Is the box equal to the other box.
+        /// </summary>
+        /// <param name="box">The other box.</param>
+        /// <returns>Is the box equal to the other box.</returns>
         public bool Equals(Box2i box)
         {
             return this == box;
         }
 
+        /// <summary>
+        /// The boxes hash code.
+        /// </summary>
+        /// <returns>The boxes hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ Min.GetHashCode();
-                hash = (hash * 16777619) ^ Max.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Min.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Max.GetHashCode();
                 return hash;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Box2i: Min={0}, Max={1}, Width={2}, Height={3}]", Min, Max, Width, Height);
         }
 
-        public void GetCorners(IList<Point2i> corners)
+        /// <summary>
+        /// Get the boxes corner points as a array.
+        /// </summary>
+        /// <returns>The boxes corner points as a array</returns>
+        public POINT2[] GetCorners()
         {
-            corners[0] = new Point2i(Min.x, Min.y);
-            corners[1] = new Point2i(Max.x, Min.y);
-            corners[2] = new Point2i(Max.x, Max.y);
-            corners[3] = new Point2i(Min.x, Max.y);
+            var corners = new POINT2[4];
+            corners[0] = new POINT2(Min.x, Min.y);
+            corners[1] = new POINT2(Max.x, Min.y);
+            corners[2] = new POINT2(Max.x, Max.y);
+            corners[3] = new POINT2(Min.x, Max.y);
+            return corners;
         }
 
-        public void GetCornersXZ(IList<Point3f> corners, int y = 0)
+        /// <summary>
+        /// Copy the boxes corner points in the array.
+        /// </summary>
+        /// <param name="corners">A array that has a size of at least 4.</param>
+        public void GetCorners(IList<POINT2> corners)
         {
-            corners[0] = new Point3f(Min.x, y, Min.y);
-            corners[1] = new Point3f(Max.x, y, Min.y);
-            corners[2] = new Point3f(Max.x, y, Max.y);
-            corners[3] = new Point3f(Min.x, y, Max.y);
+            corners[0] = new POINT2(Min.x, Min.y);
+            corners[1] = new POINT2(Max.x, Min.y);
+            corners[2] = new POINT2(Max.x, Max.y);
+            corners[3] = new POINT2(Min.x, Max.y);
+        }
+
+        /// <summary>
+        /// Copy the boxes corner points in the array.
+        /// Convert the 2i points into 3i points with the
+        /// y component now as the z component.
+        /// </summary>
+        /// <param name="corners">A array that has a size of at least 4.</param>
+        /// <param name="y">The 3i points y value.</param>
+        public void GetCornersXZ(IList<POINT3> corners, REAL y = 0)
+        {
+            corners[0] = new POINT3(Min.x, y, Min.y);
+            corners[1] = new POINT3(Max.x, y, Min.y);
+            corners[2] = new POINT3(Max.x, y, Max.y);
+            corners[3] = new POINT3(Min.x, y, Max.y);
         }
 
         /// <summary>
         /// Returns the bounding box containing this box and the given point.
         /// </summary>
-        public static Box2i Enlarge(Box2i box, Point2i p)
+        public static Box2i Enlarge(Box2i box, POINT2 p)
         {
             var b = new Box2i();
             b.Min.x = Math.Min(box.Min.x, p.x);
@@ -215,7 +328,7 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="box">The box to expand.</param>
         /// <param name="amount">The amount to expand.</param>
         /// <returns>The expanded box.</returns>
-        public static Box2i Expand(Box2i box, int amount)
+        public static Box2i Expand(Box2i box, REAL amount)
         {
             return new Box2i(box.Min - amount, box.Max + amount);
         }
@@ -243,7 +356,7 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// Does the box contain the point.
         /// </summary>
-        public bool Contains(Point2i p)
+        public bool Contains(POINT2 p)
         {
             if (p.x > Max.x || p.x < Min.x) return false;
             if (p.y > Max.y || p.y < Min.y) return false;
@@ -254,9 +367,9 @@ namespace CGALDotNetGeometry.Shapes
         /// Find the closest point to the box.
         /// If point inside box return point.
         /// </summary>
-        public Point2i Closest(Point2i p)
+        public POINT2 Closest(POINT2 p)
         {
-            Point2i c;
+            POINT2 c;
 
             if (p.x < Min.x)
                 c.x = Min.x;
@@ -275,15 +388,20 @@ namespace CGALDotNetGeometry.Shapes
             return c;
         }
 
-        public static Box2i CalculateBounds(IList<Point2i> vertices)
+        /// <summary>
+        /// Caculate the bounding box of the points.
+        /// </summary>
+        /// <param name="points">The points.</param>
+        /// <returns>The bounding box.</returns>
+        public static Box2i CalculateBounds(IList<POINT2> points)
         {
-            Point2i min = Point2i.MaxValue;
-            Point2i max = Point2i.MinValue;
+            POINT2 min = POINT2.MaxValue;
+            POINT2 max = POINT2.MinValue;
 
-            int count = vertices.Count;
+            int count = points.Count;
             for (int i = 0; i < count; i++)
             {
-                var v = vertices[i];
+                var v = points[i];
                 if (v.x < min.x) min.x = v.x;
                 if (v.y < min.y) min.y = v.y;
 
@@ -294,14 +412,20 @@ namespace CGALDotNetGeometry.Shapes
             return new Box2i(min, max);
         }
 
-        public static Box2i CalculateBounds(Point2i a, Point2i b)
+        /// <summary>
+        /// Calculate the bounds of 2 points.
+        /// </summary>
+        /// <param name="a">The first point.</param>
+        /// <param name="b">The second point</param>
+        /// <returns>The bounding box.</returns>
+        public static Box2i CalculateBounds(POINT2 a, POINT2 b)
         {
-            int xmin = Math.Min(a.x, b.x);
-            int xmax = Math.Max(a.x, b.x);
-            int ymin = Math.Min(a.y, b.y);
-            int ymax = Math.Max(a.y, b.y);
+            REAL xmin = Math.Min(a.x, b.x);
+            REAL xmax = Math.Max(a.x, b.x);
+            REAL ymin = Math.Min(a.y, b.y);
+            REAL ymax = Math.Max(a.y, b.y);
 
-            return new Box2i(xmin, xmax, ymin, ymax);
+            return new Box2i(new POINT2(xmin, ymin), new POINT2(xmax, ymax));
         }
 
     }

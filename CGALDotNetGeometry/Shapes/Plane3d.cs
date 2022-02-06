@@ -4,11 +4,14 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 
+using REAL = System.Double;
+using POINT3 = CGALDotNetGeometry.Numerics.Point3d;
+using VECTOR3 = CGALDotNetGeometry.Numerics.Vector3d;
+
 namespace CGALDotNetGeometry.Shapes
 {
     /// <summary>
     /// Plane struct defined by a position and direction.
-    /// WARNING - Must match layout of unmanaged c++ CGAL struct in Geometry3.h file.
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
@@ -17,36 +20,36 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// A plane facing the x axis.
         /// </summary>
-        public readonly static Plane3d UnitX = new Plane3d(Vector3d.UnitX);
+        public readonly static Plane3d UnitX = new Plane3d(VECTOR3.UnitX);
 
         /// <summary>
         /// A plane facing the y axis.
         /// </summary>
-        public readonly static Plane3d UnitY = new Plane3d(Vector3d.UnitY);
+        public readonly static Plane3d UnitY = new Plane3d(VECTOR3.UnitY);
 
         /// <summary>
         /// A plane facing the z axis.
         /// </summary>
-        public readonly static Plane3d UnitZ = new Plane3d(Vector3d.UnitZ);
+        public readonly static Plane3d UnitZ = new Plane3d(VECTOR3.UnitZ);
 
         /// <summary>
         /// The planes position.
         /// </summary>
-        public Point3d Position;
+        public POINT3 Position;
 
         /// <summary>
         /// The planes direction.
         /// </summary>
-        public Vector3d Normal;
+        public VECTOR3 Normal;
 
         /// <summary>
         /// Create a new plane.
         /// </summary>
         /// <param name="normal">The planes direction.</param>
-        public Plane3d(Vector3d normal)
+        public Plane3d(VECTOR3 normal)
         {
             Normal = normal;
-            Position = Point3d.Zero;
+            Position = POINT3.Zero;
         }
 
         /// <summary>
@@ -54,7 +57,7 @@ namespace CGALDotNetGeometry.Shapes
         /// </summary>
         /// <param name="position">The planes position.</param>
         /// <param name="normal">The planes direction.</param>
-        public Plane3d(Point3d position, Vector3d normal)
+        public Plane3d(POINT3 position, VECTOR3 normal)
         {
             Normal = normal;
             Position = position;
@@ -65,10 +68,10 @@ namespace CGALDotNetGeometry.Shapes
         /// </summary>
         /// <param name="normal">The planes direction.</param>
         /// <param name="distance">The planes distance from the origin.</param>
-        public Plane3d(Vector3d normal, double distance)
+        public Plane3d(VECTOR3 normal, REAL distance)
         {
             Normal = normal;
-            Position = (Normal * distance).Point3d;
+            Position = POINT3.Zero + Normal * distance;
         }
 
         /// <summary>
@@ -77,17 +80,17 @@ namespace CGALDotNetGeometry.Shapes
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
-        public Plane3d(Point3d a, Point3d b, Point3d c)
+        public Plane3d(POINT3 a, POINT3 b, POINT3 c)
         {
-            Normal = Vector3d.Cross(b - a, c - a);
+            Normal = VECTOR3.Cross(b - a, c - a);
             Normal.Normalize();
-            Position = (Normal * Vector3d.Dot(Normal, a)).Point3d;
+            Position = POINT3.Zero + Normal * VECTOR3.Dot(Normal, a);
         }
 
         /// <summary>
         /// The planes distance from the origin.
         /// </summary>
-        public double Distance
+        public REAL Distance
         {
             get { return Position.Magnitude; }
         }
@@ -95,7 +98,7 @@ namespace CGALDotNetGeometry.Shapes
         /// <summary>
         /// The planes square distance from the origin.
         /// </summary>
-        public double SqrDistance
+        public REAL SqrDistance
         {
             get { return Position.SqrMagnitude; }
         }
@@ -152,9 +155,9 @@ namespace CGALDotNetGeometry.Shapes
         {
             unchecked
             {
-                int hash = (int)2166136261;
-                hash = (hash * 16777619) ^ Position.GetHashCode();
-                hash = (hash * 16777619) ^ Normal.GetHashCode();
+                int hash = (int)MathUtil.HASH_PRIME_1;
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Position.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Normal.GetHashCode();
                 return hash;
             }
         }
@@ -173,9 +176,9 @@ namespace CGALDotNetGeometry.Shapes
         /// </summary>
         /// <param name="p">The point.</param>
         /// <returns>The closest point on the plane.</returns>
-        public Point3d Closest(Point3d p)
+        public POINT3 Closest(POINT3 p)
         {
-            double t = Vector3d.Dot(Normal, p) - Distance;
+            REAL t = VECTOR3.Dot(Normal, p) - Distance;
             return p - t * Normal;
         }
     }
