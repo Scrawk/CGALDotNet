@@ -11,9 +11,5 @@ namespace CGALDotNet.Extensions
             return b ? BOOL_OR_UNDETERMINED.TRUE : BOOL_OR_UNDETERMINED.FALSE;
         }
 
-        internal static bool IsNullIndex(this int i)
-        {
-            return i == CGALGlobal.NULL_INDEX;
-        }
     }
 }

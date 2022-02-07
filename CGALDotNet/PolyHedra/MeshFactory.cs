@@ -146,7 +146,7 @@ namespace CGALDotNet.Polyhedra
 	public struct CapsuleParams
 	{
 		public double radius;
-		public double height;
+		public double scale;
 		public int radialDivisions;
 		public int heightDivisions;
 
@@ -155,8 +155,8 @@ namespace CGALDotNet.Polyhedra
 			get
 			{
 				var param = new CapsuleParams();
-				param.radius = 0.5;
-				param.height = 1;
+				param.radius = 0.25;
+				param.scale = 1;
 				param.radialDivisions = 12;
 				param.heightDivisions = 12;
 				return param;
@@ -513,7 +513,7 @@ namespace CGALDotNet.Polyhedra
 
 				for (int j = 0; j < param.divisions + 1; ++j)
 				{
-					Point3d j3= new Point3d(j, j, j);
+					Point3d j3 = new Point3d(j, j, j);
 
 					for (int i = 0; i < param.divisions + 1; ++i)
 					{
@@ -962,8 +962,8 @@ namespace CGALDotNet.Polyhedra
 				var x = -Math.Cos((Math.PI * 2) * s * segIncr) * r;
 				var z = Math.Sin((Math.PI * 2) * s * segIncr) * r;
 
-				var point = new Point3d(radius * x, radius * y + height * dy, radius * z);
-				list.points.Add(point);
+				var point = new Point3d(radius * x, radius * y + height * dy, radius * z) * param.scale;
+				list.points.Add(point.Rounded(12));
 			}
 		}
 

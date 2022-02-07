@@ -231,7 +231,7 @@ namespace CGALDotNet.Polyhedra
             GetCentroids(points, faceCount);
 
             var indices = GetDualPolygonalIndices();
-   
+
             var dual = new Polyhedron3<K>();
             dual.CreatePolygonalMesh(points, points.Length, indices);
 
@@ -718,7 +718,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>The indices</returns>
         public PolygonalIndices GetDualPolygonalIndices()
         {
-            var count = GetPolygonalCount();
+            var count = GetDualPolygonalCount();
             var indices = count.Indices();
 
             Kernel.GetDualPolygonalIndices(Ptr,

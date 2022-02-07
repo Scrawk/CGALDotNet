@@ -22,6 +22,7 @@ namespace CGALDotNet.Polyhedra
 			meshes.Add("Torus", CreateTorus(allowPolygons));
 			meshes.Add("Cone", CreateCone(allowPolygons));
 			meshes.Add("Cylinder", CreateCylinder(allowPolygons));
+			meshes.Add("Capsule", CreateCapsule(allowPolygons));
 			meshes.Add("UVSphere", CreateUVSphere(allowPolygons));
 			meshes.Add("NormalizedCube", CreateNormalizedCube(allowPolygons));
 			meshes.Add("Icosahedron", CreateIcosahedron());
@@ -170,6 +171,11 @@ namespace CGALDotNet.Polyhedra
 
 			return mesh;
 		}
+
+		public static Polyhedron3<K> CreateCapsule(bool allowPolygons = false)
+        {
+			return CreateCapsule(CapsuleParams.Default, allowPolygons);
+        }
 
 		public static Polyhedron3<K> CreateCapsule(CapsuleParams param, bool allowPolygons = false)
 		{
