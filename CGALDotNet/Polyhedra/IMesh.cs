@@ -172,7 +172,7 @@ namespace CGALDotNet.Polyhedra
         /// A dual mesh is were faces become vertices and vertices become faces.
         /// </summary>
         /// <param name="indices">The faces indices</param>
-        PolygonalIndices GetDualPolygonalIndices();
+        //PolygonalIndices GetDualPolygonalIndices();
 
         /// <summary>
         /// Array accessor for the polygon.

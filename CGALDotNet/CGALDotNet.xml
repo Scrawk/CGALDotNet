@@ -5626,13 +5626,6 @@
             </summary>
             <returns>The indices.</returns>
         </member>
-        <member name="M:CGALDotNet.Polyhedra.IMesh.GetDualPolygonalIndices">
-            <summary>
-            Get the dual meshes triangles, quads, pentagons and hexagons.
-            A dual mesh is were faces become vertices and vertices become faces.
-            </summary>
-            <param name="indices">The faces indices</param>
-        </member>
         <member name="P:CGALDotNet.Polyhedra.IMesh.Item(System.Int32)">
             <summary>
             Array accessor for the polygon.
@@ -6922,15 +6915,6 @@
             <param name="xz">Should the y coord of the points be used for the z coord.</param>
             <exception cref="T:System.InvalidOperationException">Thrown if the polygon is not simple.</exception>
         </member>
-        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.CreateDualMesh">
-            <summary>
-            Create the dual mesh where each face becomes a vertex
-            and each vertex becomes a face.
-            Must be a valid closed mesh to create the dual.
-            </summary>
-            <returns>The duel mesh.</returns>
-            <exception cref="T:System.InvalidOperationException">Is thrown if the mesh is not a valid closed mesh.</exception>
-        </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.ToPolyhedronMesh">
             <summary>
             Convert to a polyhedron mesh.
@@ -7527,13 +7511,6 @@
             Get the meshes triangles, quads, pentagons and hexagons.
             </summary>
             <returns>The indices.</returns>
-        </member>
-        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetDualPolygonalIndices">
-            <summary>
-            Get the dual meshes triangles, quads, pentagons and hexagons.
-            A dual mesh is were faces become vertices and vertices become faces.
-            </summary>
-            <returns>The indices</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.IsVertexBorder(System.Int32,System.Boolean)">
             <summary>

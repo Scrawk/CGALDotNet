@@ -227,6 +227,7 @@ namespace CGALDotNet.Polyhedra
             CreatePolygonMesh(points, points.Length, xz);
         }
 
+        /*
         /// <summary>
         /// Create the dual mesh where each face becomes a vertex
         /// and each vertex becomes a face.
@@ -250,6 +251,7 @@ namespace CGALDotNet.Polyhedra
 
             return dual;
         }
+        */
 
         /// <summary>
         /// Convert to a polyhedron mesh.
@@ -1211,7 +1213,7 @@ namespace CGALDotNet.Polyhedra
             return indices;
         }
 
-
+        /*
         /// <summary>
         /// Get the dual meshes triangles, quads, pentagons and hexagons.
         /// A dual mesh is were faces become vertices and vertices become faces.
@@ -1230,6 +1232,7 @@ namespace CGALDotNet.Polyhedra
 
             return indices;
         }
+        */
 
         /// <summary>
         /// Whether v is a border vertex.

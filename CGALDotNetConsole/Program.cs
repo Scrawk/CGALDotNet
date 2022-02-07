@@ -24,14 +24,6 @@ namespace CGALDotNetConsole
         {
 
 
-            var ico = PolyhedronFactory<EEK>.CreateIcosahedron();
-            ico.Subdivide(2);
-            ico.Print();
-
-            var dual = ico.CreateDualMesh();
-            dual.Print();
-
-
         }
 
     }
