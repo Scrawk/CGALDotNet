@@ -144,6 +144,11 @@ namespace CGALDotNet.Polyhedra
 			Polyhedron3_EEK_SetPoints(ptr, points, count);
         }
 
+		internal override bool GetSegment(IntPtr ptr, int index, out Segment3d segment)
+        {
+			return Polyhedron3_EEK_GetSegment(ptr, index, out segment);
+        }
+
 		internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
 		{
 			Polyhedron3_EEK_Transform(ptr, matrix);
@@ -382,6 +387,9 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_SetPoints(IntPtr ptr, Point3d[] points, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_GetSegment(IntPtr ptr, int index, [Out] out Segment3d segment);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);

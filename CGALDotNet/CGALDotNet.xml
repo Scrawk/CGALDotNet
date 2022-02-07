@@ -271,6 +271,7 @@
             Locate the closest vertex in the hit face
             </summary>
             <param name="point">The point</param>
+            <param name="radius">The radius te closest vertex has to be within.</param>
             <param name="vertex">The closest vertex.</param>
             <returns>True if point hit a face and found a vertex.</returns>
         </member>
@@ -1224,9 +1225,11 @@
         </member>
         <member name="M:CGALDotNet.Geometry.IsoRectangle2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.CGALKernel)">
             <summary>
-            Construct with a new kernel.
+            
             </summary>
-            <param name="kernel">The geometry kernel.</param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="kernel"></param>
         </member>
         <member name="M:CGALDotNet.Geometry.IsoRectangle2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
             <summary>
@@ -6088,7 +6091,14 @@
             </summary>
             <param name="polygon">The polygon to check.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:CGALDotNet.Polyhedra.Polyhedron3`1" -->
+        <member name="T:CGALDotNet.Polyhedra.Polyhedron3`1">
+            <summary>
+            A polyhedral surface consists of vertices, edges, 
+            facets and an incidence relation on them.
+             Each edge is represented by two halfedges with opposite orientations.
+            </summary>
+            <typeparam name="K">The kernel type.</typeparam>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3`1.#ctor">
             <summary>
             Default constructor.
@@ -6338,7 +6348,13 @@
             <param name="faces">True to clear the face index map.</param>
             <param name="edges">True to clear the edges index map.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CGALDotNet.Polyhedra.Polyhedron3.ClearNormalMaps(System.Boolean,System.Boolean)" -->
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.ClearNormalMaps(System.Boolean,System.Boolean)">
+            <summary>
+            Clear the normal maps.
+            </summary>
+            <param name="vertices">True to clear the vertex normal map.</param>
+            <param name="faces">True to clear the face normal map</param>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.BuildIndices(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Builds the vertex and/or face index maps if needed.
@@ -6608,7 +6624,15 @@
             </summary>
             <returns>True/Fasle if a valid triangle polyhedra,or UNDETERMINED if not.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CGALDotNet.Polyhedra.Polyhedron3.FindIfValid(System.Int32)" -->
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.FindIfValid(System.Int32)">
+            <summary>
+            returns true if the polyhedral surface is combinatorially consistent.
+            For level == 1 the normalization of the border edges is checked too.
+            This method checks that each face is at least a triangle and that the
+            two incident facets of a non-border edge are distinct.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.FindBoundingBox">
             <summary>
             Computes the bounding box.

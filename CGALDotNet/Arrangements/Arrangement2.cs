@@ -396,6 +396,7 @@ namespace CGALDotNet.Arrangements
         /// Locate the closest vertex in the hit face
         /// </summary>
         /// <param name="point">The point</param>
+        /// <param name="radius">The radius te closest vertex has to be within.</param>
         /// <param name="vertex">The closest vertex.</param>
         /// <returns>True if point hit a face and found a vertex.</returns>
         public bool LocateVertex(Point2d point, double radius, out ArrVertex2 vertex)

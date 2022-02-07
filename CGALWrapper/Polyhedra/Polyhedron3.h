@@ -437,6 +437,26 @@ public:
 		//}
 	}
 
+	static BOOL GetSegment(void* ptr, int index, Segment3d& segment)
+	{
+		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
+
+		auto edge = poly->FindHalfedgeDes(index);
+		if (edge != nullptr)
+		{
+			auto a = (*edge)->vertex()->point();
+			auto b = (*edge)->opposite()->vertex()->point();
+
+			segment.a = Point3d::FromCGAL<K>(a);
+			segment.b = Point3d::FromCGAL<K>(b);
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 	static void Transform(void* ptr, const Matrix4x4d& matrix)
 	{
 		auto poly = CastToPolyhedron(ptr);

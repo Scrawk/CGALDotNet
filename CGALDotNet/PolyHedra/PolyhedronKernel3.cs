@@ -62,6 +62,8 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract void SetPoints(IntPtr ptr, Point3d[] points, int count);
 
+		internal abstract bool GetSegment(IntPtr ptr, int index, out Segment3d segment);
+
 		internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
 
 		internal abstract void InsideOut(IntPtr ptr);

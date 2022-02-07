@@ -132,6 +132,11 @@ void Polyhedron3_EEK_SetPoints(void* ptr, Point3d* points, int count)
 	Polyhedron3<EEK>::SetPoints(ptr, points, count);
 }
 
+BOOL Polyhedron3_EEK_GetSegment(void* ptr, int index, Segment3d& segment)
+{
+	return Polyhedron3<EEK>::GetSegment(ptr, index, segment);
+}
+
 void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix)
 {
 	Polyhedron3<EEK>::Transform(ptr, matrix);
@@ -292,6 +297,8 @@ void Polyhedron3_EEK_GetDualPolygonalIndices(void* ptr,
 		pentagons, pentagonCount,
 		hexagons, hexagonCount);
 }
+
+
 
 
 

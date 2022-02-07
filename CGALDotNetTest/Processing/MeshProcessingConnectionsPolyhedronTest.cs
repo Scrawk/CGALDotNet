@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CGALDotNet;
 using CGALDotNetGeometry.Numerics;
 using CGALDotNetGeometry.Shapes;
+using CGALDotNetGeometry.Extensions;
 using CGALDotNet.Polyhedra;
 using CGALDotNet.Processing;
 using CGALDotNet.Extensions;

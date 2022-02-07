@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CGALDotNet;
 using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Extensions;
 using CGALDotNet.Polyhedra;
 using CGALDotNet.Processing;
-using CGALDotNet.Extensions;
 
 namespace CGALDotNetTest.Processing
 {
@@ -83,8 +83,6 @@ namespace CGALDotNetTest.Processing
             mesh.Scale(new Point3d(2, 0.5, 1));
 
             var minmax = Processor.FaceAreaMinMaxAvg(mesh);
-
-            Console.WriteLine(minmax);
 
             Assert.AreEqual(0.25, minmax.Min);
             Assert.AreEqual(1, minmax.Max);

@@ -56,9 +56,11 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Construct with a new kernel.
+        /// 
         /// </summary>
-        /// <param name="kernel">The geometry kernel.</param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="kernel"></param>
         internal IsoRectangle2(Point2d min, Point2d max, CGALKernel kernel)
         {
             Kernel = kernel.GeometryKernel2;

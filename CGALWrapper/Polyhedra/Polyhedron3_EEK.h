@@ -64,6 +64,8 @@ extern "C"
 
 	CGALWRAPPER_API void Polyhedron3_EEK_SetPoints(void* ptr, Point3d* points, int count);
 
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_GetSegment(void* ptr, int index, Segment3d& segment);
+
 	CGALWRAPPER_API void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_InsideOut(void* ptr);

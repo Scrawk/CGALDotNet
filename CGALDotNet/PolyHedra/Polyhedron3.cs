@@ -15,7 +15,7 @@ namespace CGALDotNet.Polyhedra
     /// <summary>
     /// A polyhedral surface consists of vertices, edges, 
     /// facets and an incidence relation on them.
-    //  Each edge is represented by two halfedges with opposite orientations.
+    ///  Each edge is represented by two halfedges with opposite orientations.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class Polyhedron3<K> : Polyhedron3 where K : CGALKernel, new()
@@ -489,7 +489,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Clear the normal maps.
         /// </summary>
-        /// <param name="vertices">True to clear the vertex normal map./param>
+        /// <param name="vertices">True to clear the vertex normal map.</param>
         /// <param name="faces">True to clear the face normal map</param>
         public void ClearNormalMaps(bool vertices, bool faces)
         {
@@ -794,6 +794,11 @@ namespace CGALDotNet.Polyhedra
             Kernel.SetPoints(Ptr, points, count);
         }
 
+        public bool GetSegment(int index, out Segment3d segmet)
+        {
+            return Kernel.GetSegment(Ptr, index, out segmet);
+        }
+
         /// <summary>
         /// Count the number of triangles, quads and polygons in the mesh.
         /// </summary>
@@ -997,9 +1002,9 @@ namespace CGALDotNet.Polyhedra
 
         /// <summary>
         /// returns true if the polyhedral surface is combinatorially consistent.
-        // For level == 1 the normalization of the border edges is checked too.
-        // This method checks that each face is at least a triangle and that the
-        // two incident facets of a non-border edge are distinct.
+        /// For level == 1 the normalization of the border edges is checked too.
+        /// This method checks that each face is at least a triangle and that the
+        /// two incident facets of a non-border edge are distinct.
         /// </summary>
         /// <returns></returns>
         public bool FindIfValid(int level = 0)
