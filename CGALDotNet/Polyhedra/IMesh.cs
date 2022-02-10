@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Polyhedra
 {
@@ -18,6 +19,11 @@ namespace CGALDotNet.Polyhedra
         /// Number of faces.
         /// </summary>
         int FaceCount { get; }
+
+        /// <summary>
+        /// Number of halfedges.
+        /// </summary>
+        int HalfedgeCount { get; }
 
         /// <summary>
         /// Number of border edges.
@@ -211,6 +217,26 @@ namespace CGALDotNet.Polyhedra
         /// <param name="points">The point array.</param>
         /// <param name="count">The point arrays length.</param>
         void SetPoints(Point3d[] points, int count);
+
+        bool GetSegment(int index, out Segment3d segment);
+
+        void GetSegments(Segment3d[] segments, int count);
+
+        bool GetTriangle(int index, out Triangle3d triangle);
+
+        void GetTriangles(Triangle3d[] triangles, int count);
+
+        bool GetVertex(int index, out MeshVertex3 vertex);
+
+        void GetVertices(MeshVertex3[] vertices, int count);
+
+        bool GetFace(int index, out MeshFace3 face);
+
+        void GetFaces(MeshFace3[] faces, int count);
+
+        bool GetHalfedge(int index, out MeshHalfedge3 halfedge);
+
+        void GetHalfedges(MeshHalfedge3[] halfedges, int count);
 
         /// <summary>
         /// Count the number of triangles, quads and polygons in the mesh.

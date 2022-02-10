@@ -246,7 +246,7 @@ namespace CGALDotNet.Polyhedra
 
         internal override bool RemoveVertex(IntPtr ptr, int index)
         {
-            return SurfaceMesh3_EEK_RemoveVertex(ptr, index);  
+            return SurfaceMesh3_EEK_RemoveVertex(ptr, index);
         }
 
         internal override bool RemoveEdge(IntPtr ptr, int index)
@@ -291,12 +291,62 @@ namespace CGALDotNet.Polyhedra
 
         internal override void SetPoint(IntPtr ptr, int index, Point3d point)
         {
-            SurfaceMesh3_EEK_SetPoint(ptr, index, point);    
+            SurfaceMesh3_EEK_SetPoint(ptr, index, point);
         }
 
         internal override void SetPoints(IntPtr ptr, Point3d[] points, int count)
         {
-            SurfaceMesh3_EEK_SetPoints(ptr, points, count); 
+            SurfaceMesh3_EEK_SetPoints(ptr, points, count);
+        }
+
+        internal override bool GetSegment(IntPtr ptr, int index, out Segment3d segment)
+        {
+            return SurfaceMesh3_EEK_GetSegment(ptr, index, out segment);
+        }
+
+        internal override void GetSegments(IntPtr ptr, Segment3d[] segments, int count)
+        {
+            SurfaceMesh3_EEK_GetSegments(ptr, segments, count);
+        }
+
+        internal override bool GetTriangle(IntPtr ptr, int index, out Triangle3d tri)
+        {
+            return SurfaceMesh3_EEK_GetTriangle(ptr, index, out tri);
+        }
+
+        internal override void GetTriangles(IntPtr ptr, Triangle3d[] triangles, int count)
+        {
+            SurfaceMesh3_EEK_GetTriangles(ptr, triangles, count);
+        }
+
+        internal override bool GetVertex(IntPtr ptr, int index, out MeshVertex3 vert)
+        {
+            return SurfaceMesh3_EEK_GetVertex(ptr,index, out vert);
+        }
+
+        internal override void GetVertices(IntPtr ptr, MeshVertex3[] vertexArray, int count)
+        {
+            SurfaceMesh3_EEK_GetVertices(ptr, vertexArray, count);
+        }
+
+        internal override bool GetFace(IntPtr ptr, int index, out MeshFace3 face)
+        {
+            return SurfaceMesh3_EEK_GetFace(ptr, index, out face);
+        }
+
+        internal override void GetFaces(IntPtr ptr, MeshFace3[] faceArray, int count)
+        {
+            SurfaceMesh3_EEK_GetFaces(ptr, faceArray, count);
+        }
+
+        internal override bool GetHalfedge(IntPtr ptr, int index, out MeshHalfedge3 edge)
+        {
+            return SurfaceMesh3_EEK_GetHalfedge(ptr, index, out edge);
+        }
+
+        internal override void GetHalfedges(IntPtr ptr, MeshHalfedge3[] edgeArray, int count)
+        {
+            SurfaceMesh3_EEK_GetHalfedges(ptr, edgeArray, count);
         }
 
         internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
@@ -678,7 +728,37 @@ namespace CGALDotNet.Polyhedra
         private static extern void SurfaceMesh3_EEK_SetPoint(IntPtr ptr, int index, Point3d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void SurfaceMesh3_EEK_SetPoints(IntPtr ptr, Point3d[] points, int count);
+        private static extern void SurfaceMesh3_EEK_SetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_GetSegment(IntPtr ptr, int index, [Out] out Segment3d segment);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetSegments(IntPtr ptr, [Out] Segment3d[] segments, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_GetTriangle(IntPtr ptr, int index, [Out] out Triangle3d tri);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetTriangles(IntPtr ptr, [Out] Triangle3d[] triangles, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_GetVertex(IntPtr ptr, int index, [Out] out MeshVertex3 vert);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetVertices(IntPtr ptr, [Out] MeshVertex3[] vertexArray, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_GetFace(IntPtr ptr, int index, [Out] out MeshFace3 face);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetFaces(IntPtr ptr, [Out] MeshFace3[] faceArray, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool SurfaceMesh3_EEK_GetHalfedge(IntPtr ptr, int index, [Out] out MeshHalfedge3 edge);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void SurfaceMesh3_EEK_GetHalfedges(IntPtr ptr, [Out] MeshHalfedge3[] edgeArray, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void SurfaceMesh3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);

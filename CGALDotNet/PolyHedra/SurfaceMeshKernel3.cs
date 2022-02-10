@@ -130,6 +130,26 @@ namespace CGALDotNet.Polyhedra
 
         internal abstract void SetPoints(IntPtr ptr, Point3d[] points, int count);
 
+        internal abstract bool GetSegment(IntPtr ptr, int index, out Segment3d segment);
+
+        internal abstract void GetSegments(IntPtr ptr, Segment3d[] segments, int count);
+
+        internal abstract bool GetTriangle(IntPtr ptr, int index, out Triangle3d tri);
+
+        internal abstract void GetTriangles(IntPtr ptr, Triangle3d[] triangles, int count);
+
+        internal abstract bool GetVertex(IntPtr ptr, int index, out MeshVertex3 vert);
+
+        internal abstract void GetVertices(IntPtr ptr, MeshVertex3[] vertexArray, int count);
+
+        internal abstract bool GetFace(IntPtr ptr, int index, out MeshFace3 face);
+
+        internal abstract void GetFaces(IntPtr ptr, MeshFace3[] faceArray, int count);
+
+        internal abstract bool GetHalfedge(IntPtr ptr, int index, out MeshHalfedge3 edge);
+
+        internal abstract void GetHalfedges(IntPtr ptr, MeshHalfedge3[] edgeArray, int count);
+
         internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
 
         internal abstract bool IsVertexBorder(IntPtr ptr, int index, bool check_all_incident_halfedges);

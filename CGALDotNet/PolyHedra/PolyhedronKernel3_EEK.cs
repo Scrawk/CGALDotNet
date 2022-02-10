@@ -149,6 +149,51 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_GetSegment(ptr, index, out segment);
         }
 
+		internal override bool GetTriangle(IntPtr ptr, int index, out Triangle3d tri)
+        {
+			return Polyhedron3_EEK_GetTriangle(ptr, index, out tri);
+        }
+
+		internal override bool GetVertex(IntPtr ptr, int index, out MeshVertex3 vert)
+        {
+			return Polyhedron3_EEK_GetVertex(ptr, index, out vert);
+        }
+
+		internal override bool GetFace(IntPtr ptr, int index, out MeshFace3 face)
+        {
+			return Polyhedron3_EEK_GetFace(ptr, index, out face);
+		}
+
+		internal override bool GetHalfedge(IntPtr ptr, int index, out MeshHalfedge3 edge)
+        {
+			return Polyhedron3_EEK_GetHalfedge(ptr, index, out edge);
+		}
+
+		internal override void GetSegments(IntPtr ptr, Segment3d[] segments, int count)
+        {
+			Polyhedron3_EEK_GetSegments(ptr, segments, count);
+        }
+
+		internal override void GetTriangles(IntPtr ptr, Triangle3d[] triangles, int count)
+        {
+			Polyhedron3_EEK_GetTriangles(ptr, triangles, count);
+        }
+
+		internal override void GetVertices(IntPtr ptr, MeshVertex3[] vertices, int count)
+        {
+			Polyhedron3_EEK_GetVertices(ptr, vertices, count);
+		}
+
+		internal override void GetFaces(IntPtr ptr, MeshFace3[] faces, int count)
+        {
+			Polyhedron3_EEK_GetFaces(ptr, faces, count);
+		}
+
+		internal override void GetHalfedges(IntPtr ptr, MeshHalfedge3[] edges, int count)
+        {
+			Polyhedron3_EEK_GetHalfedges(ptr, edges, count);
+		}
+
 		internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
 		{
 			Polyhedron3_EEK_Transform(ptr, matrix);
@@ -390,6 +435,33 @@ namespace CGALDotNet.Polyhedra
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool Polyhedron3_EEK_GetSegment(IntPtr ptr, int index, [Out] out Segment3d segment);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_GetTriangle(IntPtr ptr, int index, [Out] out Triangle3d tri);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_GetVertex(IntPtr ptr, int index, [Out] out MeshVertex3 vert);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_GetFace(IntPtr ptr, int index, [Out] out MeshFace3 face);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_GetHalfedge(IntPtr ptr, int index, [Out] out MeshHalfedge3 edge);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetSegments(IntPtr ptr, [Out] Segment3d[] segments, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetTriangles(IntPtr ptr, [Out] Triangle3d[] triangles, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetVertices(IntPtr ptr, [Out] MeshVertex3[] vertices, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetFaces(IntPtr ptr, [Out] MeshFace3[] faces, int count);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern void Polyhedron3_EEK_GetHalfedges(IntPtr ptr, [Out] MeshHalfedge3[] edges, int count);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern void Polyhedron3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);

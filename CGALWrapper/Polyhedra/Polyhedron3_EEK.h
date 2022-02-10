@@ -6,6 +6,9 @@
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
 #include "PolygonalCount.h"
+#include "MeshVertex3.h"
+#include "MeshFace3.h"
+#include "MeshHalfedge3.h"
 
 #include <CGAL/enum.h>
 
@@ -65,6 +68,26 @@ extern "C"
 	CGALWRAPPER_API void Polyhedron3_EEK_SetPoints(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API BOOL Polyhedron3_EEK_GetSegment(void* ptr, int index, Segment3d& segment);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_GetTriangle(void* ptr, int index, Triangle3d& tri);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_GetVertex(void* ptr, int index, MeshVertex3& vert);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_GetFace(void* ptr, int index, MeshFace3& face);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_GetHalfedge(void* ptr, int index, MeshHalfedge3& edge);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetSegments(void* ptr, Segment3d* segments, int count);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EEK_GetTriangle(void* ptr, int index, Triangle3d& tri);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetTriangles(void* ptr, Triangle3d* triangles, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetVertices(void* ptr, MeshVertex3* vertices, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetFaces(void* ptr, MeshFace3* faces, int count);
+
+	CGALWRAPPER_API void Polyhedron3_EEK_GetHalfedges(void* ptr, MeshHalfedge3* edges, int count);
 
 	CGALWRAPPER_API void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix);
 

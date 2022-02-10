@@ -26,13 +26,13 @@ namespace CGALDotNet.Arrangements
                 Index, HalfEdgeIndex, IsFictitious, IsUnbounded, HasOuterEdges, HoleCount);
         }
 
-        public IEnumerable<ArrHalfEdge2> EnumerateEdges(Arrangement2 arr)
+        public IEnumerable<ArrHalfedge2> EnumerateEdges(Arrangement2 arr)
         {
             int count = arr.HalfEdgeCount;
 
             if (HalfEdgeIndex >= 0 && HalfEdgeIndex < count)
             {
-                ArrHalfEdge2 edge;
+                ArrHalfedge2 edge;
                 arr.GetHalfEdge(HalfEdgeIndex, out edge);
 
                 foreach (var e in edge.EnumerateEdges(arr))
@@ -50,7 +50,7 @@ namespace CGALDotNet.Arrangements
 
             if (HalfEdgeIndex >= 0 && HalfEdgeIndex < count)
             {
-                ArrHalfEdge2 edge;
+                ArrHalfedge2 edge;
                 arr.GetHalfEdge(HalfEdgeIndex, out edge);
 
                 foreach (var e in edge.EnumerateVertices(arr))

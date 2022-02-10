@@ -8,6 +8,9 @@
 #include "../Utility/ArrayUtil.h"
 #include "PolygonalCount.h"
 #include "SurfaceMeshMap.h"
+#include "MeshVertex3.h"
+#include "MeshFace3.h"
+#include "MeshHalfedge3.h"
 
 #include <limits>
 #include <fstream>
@@ -796,7 +799,7 @@ public:
 
 	static void SetPoints(void* ptr, Point3d* points, int count)
 	{
-		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(ptr);
+		auto mesh = CastToSurfaceMesh(ptr);
 
 		mesh->map.BuildVertexMaps(mesh->model);
 		int num_vertices = mesh->map.VertexCount();
@@ -814,6 +817,222 @@ public:
 		}
 
 		mesh->OnModelChanged();
+	}
+
+	static BOOL GetSegment(void* ptr, int index, Segment3d& segment)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto edge = mesh->FindHalfedge(index);
+		if (edge != NullHalfedge())
+		{
+			auto a = mesh->model.point(mesh->model.source(edge));
+			auto b = mesh->model.point(mesh->model.target(edge));
+
+			segment.a = Point3d::FromCGAL<K>(a);
+			segment.b = Point3d::FromCGAL<K>(b);
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	static void GetSegments(void* ptr, Segment3d* segments, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int i = 0;
+		for (auto edge : halfedges(mesh->model))
+		{
+			auto a = mesh->model.point(mesh->model.source(edge));
+			auto b = mesh->model.point(mesh->model.target(edge));
+
+			Segment3d seg;
+			seg.a = Point3d::FromCGAL<K>(a);
+			seg.b = Point3d::FromCGAL<K>(b);
+
+			segments[i++] = seg;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetTriangle(void* ptr, int index, Triangle3d& tri)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto face = mesh->FindFace(index);
+		if (face != NullFace())
+		{
+			auto edge = mesh->model.halfedge(face);
+			auto prev = mesh->model.prev(edge);
+			auto next = mesh->model.next(edge);
+
+			auto a = mesh->model.point(mesh->model.source(prev));
+			auto b = mesh->model.point(mesh->model.source(edge));
+			auto c = mesh->model.point(mesh->model.source(next));
+
+			tri.a = Point3d::FromCGAL<K>(a);
+			tri.b = Point3d::FromCGAL<K>(b);
+			tri.c = Point3d::FromCGAL<K>(c);
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	static void GetTriangles(void* ptr, Triangle3d* triangles, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int i = 0;
+		for (auto face : faces(mesh->model))
+		{
+			auto edge = mesh->model.halfedge(face);
+			auto prev = mesh->model.prev(edge);
+			auto next = mesh->model.next(edge);
+
+			auto a = mesh->model.point(mesh->model.source(prev));
+			auto b = mesh->model.point(mesh->model.source(edge));
+			auto c = mesh->model.point(mesh->model.source(next));
+
+			Triangle3d tri;
+			tri.a = Point3d::FromCGAL<K>(a);
+			tri.b = Point3d::FromCGAL<K>(b);
+			tri.c = Point3d::FromCGAL<K>(c);
+
+			triangles[i++] = tri;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetVertex(void* ptr, int index, MeshVertex3& vert)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto v = mesh->FindVertex(index);
+		if (v != NullVertex())
+		{
+			MeshVertex3 vert;
+			vert.Index = v;
+			vert.Point = Point3d::FromCGAL<K>(mesh->model.point(v));
+			vert.Halfedge = mesh->model.halfedge(v);
+			vert.Degree = mesh->model.degree(v);
+			return TRUE;
+		}
+		else
+		{
+			vert = MeshVertex3::NullVertex();
+			return FALSE;
+		}
+	}
+
+	static void GetVertices(void* ptr, MeshVertex3* vertexArray, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int i = 0;
+		for (auto v : vertices(mesh->model))
+		{
+			MeshVertex3 vert;
+			vert.Index = v;
+			vert.Point = Point3d::FromCGAL<K>(mesh->model.point(v));
+			vert.Halfedge = mesh->model.halfedge(v);
+			vert.Degree = mesh->model.degree(v);
+
+			vertexArray[i++] = vert;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetFace(void* ptr, int index, MeshFace3& face)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto f = mesh->FindFace(index);
+		if (f != SurfaceMesh3<K>::NullFace())
+		{
+			MeshFace3 face;
+			face.Index = index;
+			face.Halfedge = mesh->model.halfedge(f);
+
+			return TRUE;
+		}
+		else
+		{
+			face = MeshFace3::NullFace();
+			return FALSE;
+		}
+
+	}
+
+	static void GetFaces(void* ptr, MeshFace3* faceArray, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int i = 0;
+		for (auto f : faces(mesh->model))
+		{
+			MeshFace3 face;
+			face.Index = i;
+			face.Halfedge = mesh->model.halfedge(f);
+
+			faceArray[i++] = face;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetHalfedge(void* ptr, int index, MeshHalfedge3& edge)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		auto e = mesh->FindHalfedge(index);
+		if (e != NullHalfedge())
+		{
+			MeshHalfedge3 edge;
+			edge.Index = index;
+			edge.Vertex = mesh->model.source(e);
+			edge.Opposite = mesh->model.opposite(e);
+			edge.Next = mesh->model.next(e);
+			edge.Previous = mesh->model.prev(e);
+			edge.IsBorder = mesh->model.is_border(e);
+
+			return TRUE;
+		}
+		else
+		{
+			edge = MeshHalfedge3::NullHalfedge();
+			return FALSE;
+		}
+
+	}
+
+	static void GetHalfedges(void* ptr, MeshHalfedge3* edgeArray, int count)
+	{
+		auto mesh = CastToSurfaceMesh(ptr);
+
+		int i = 0;
+		for (auto e : halfedges(mesh->model))
+		{
+			MeshHalfedge3 edge;
+			edge.Index = i;
+			edge.Vertex = mesh->model.source(e);
+			edge.Opposite = mesh->model.opposite(e);
+			edge.Next = mesh->model.next(e);
+			edge.Previous = mesh->model.prev(e);
+			edge.IsBorder = mesh->model.is_border(e);
+
+			edgeArray[i++] = edge;
+
+			if (i >= count) return;
+		}
 	}
 
 	static void Transform(void* ptr, const Matrix4x4d& matrix)

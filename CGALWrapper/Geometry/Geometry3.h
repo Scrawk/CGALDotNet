@@ -6,6 +6,7 @@
 #include <CGAL/Plane_3.h>
 #include <CGAL/Bbox_3.h>
 #include <CGAL/Ray_3.h>
+#include <CGAL/Triangle_3.h>
 #include <iostream>
 
 /*
@@ -340,6 +341,38 @@ struct  Ray3d
     {
         return { Point3d::FromCGAL(pos), Vector3d::FromCGAL(dir) };
     }
+};
+
+struct Triangle3d
+{
+    Point3d a;
+    Point3d b;
+    Point3d c;
+
+    template<class K, class TRI>
+    TRI ToCGAL() const
+    {
+        return { a.ToCGAL<K>(), b.ToCGAL<K>(), c.ToCGAL<K>() };
+    }
+
+    template<class K>
+    static Triangle3d FromCGAL(CGAL::Point_3<K> a, CGAL::Point_3<K> b, CGAL::Point_3<K> c)
+    {
+        auto A = Point3d::FromCGAL<K>(a);
+        auto B = Point3d::FromCGAL<K>(b);
+        auto C = Point3d::FromCGAL<K>(c);
+        return { A, B, C };
+    }
+
+    template<class K>
+    static Triangle3d FromCGAL(CGAL::Triangle_3<K> tri)
+    {
+        auto A = Point3d::FromCGAL<K>(tri[0]);
+        auto B = Point3d::FromCGAL<K>(tri[1]);
+        auto C = Point3d::FromCGAL<K>(tri[2]);
+        return { A, B, C };
+    }
+
 };
 
 

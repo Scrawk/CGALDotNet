@@ -191,14 +191,14 @@
             <param name="vertex">The vertex.</param>
             <returns>True if the vertex was found.</returns>
         </member>
-        <member name="M:CGALDotNet.Arrangements.Arrangement2.GetHalfEdges(CGALDotNet.Arrangements.ArrHalfEdge2[],System.Int32)">
+        <member name="M:CGALDotNet.Arrangements.Arrangement2.GetHalfEdges(CGALDotNet.Arrangements.ArrHalfedge2[],System.Int32)">
             <summary>
             Get a copy of all the half edges in the arrangement.
             </summary>
             <param name="edges">A half edge array that is the length of the half edge count.</param>
             <param name="count">The ararys length.</param>
         </member>
-        <member name="M:CGALDotNet.Arrangements.Arrangement2.GetHalfEdge(System.Int32,CGALDotNet.Arrangements.ArrHalfEdge2@)">
+        <member name="M:CGALDotNet.Arrangements.Arrangement2.GetHalfEdge(System.Int32,CGALDotNet.Arrangements.ArrHalfedge2@)">
             <summary>
             Get the half edge from the arrangement.
             </summary>
@@ -275,7 +275,7 @@
             <param name="vertex">The closest vertex.</param>
             <returns>True if point hit a face and found a vertex.</returns>
         </member>
-        <member name="M:CGALDotNet.Arrangements.Arrangement2.LocateEdge(CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.Arrangements.ArrHalfEdge2@)">
+        <member name="M:CGALDotNet.Arrangements.Arrangement2.LocateEdge(CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.Arrangements.ArrHalfedge2@)">
             <summary>
             Locate the edge at this point.
             </summary>
@@ -283,7 +283,7 @@
             <param name="edge">The edge.</param>
             <returns>True if a edge was located.</returns>
         </member>
-        <member name="M:CGALDotNet.Arrangements.Arrangement2.LocateEdge(CGALDotNetGeometry.Numerics.Point2d,System.Double,CGALDotNet.Arrangements.ArrHalfEdge2@)">
+        <member name="M:CGALDotNet.Arrangements.Arrangement2.LocateEdge(CGALDotNetGeometry.Numerics.Point2d,System.Double,CGALDotNet.Arrangements.ArrHalfedge2@)">
             <summary>
             Locate the closest edge in the hit face.
             </summary>
@@ -5485,6 +5485,11 @@
         <member name="P:CGALDotNet.Polyhedra.IMesh.FaceCount">
             <summary>
             Number of faces.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polyhedra.IMesh.HalfedgeCount">
+            <summary>
+            Number of halfedges.
             </summary>
         </member>
         <member name="P:CGALDotNet.Polyhedra.IMesh.BorderEdgeCount">

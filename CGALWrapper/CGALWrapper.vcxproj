@@ -170,7 +170,10 @@
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
     <ClInclude Include="Geometry\Index.h" />
+    <ClInclude Include="Polyhedra\MeshFace3.h" />
+    <ClInclude Include="Polyhedra\MeshHalfedge3.h" />
     <ClInclude Include="Polyhedra\MeshHitResult.h" />
+    <ClInclude Include="Polyhedra\MeshVertex3.h" />
     <ClInclude Include="Processing\MeshProcessingLocate_EEK.h" />
     <ClInclude Include="Polyhedra\PolyhedronMap.h" />
     <ClInclude Include="Processing\MeshProcessingFeatures_EEK.h" />

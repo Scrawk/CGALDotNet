@@ -109,12 +109,12 @@ namespace CGALDotNet.Arrangements
             return Arrangement2_EEK_GetVertex(ptr, index, out arrVertex);
         }
 
-        internal override void GetHalfEdges(IntPtr ptr, ArrHalfEdge2[] edges, int count)
+        internal override void GetHalfEdges(IntPtr ptr, ArrHalfedge2[] edges, int count)
         {
             Arrangement2_EEK_GetHalfEdges(ptr, edges, count);
         }
 
-        internal override bool GetHalfEdge(IntPtr ptr, int index, out ArrHalfEdge2 arrEdge)
+        internal override bool GetHalfEdge(IntPtr ptr, int index, out ArrHalfedge2 arrEdge)
         {
             return Arrangement2_EEK_GetHalfEdge(ptr, index, out arrEdge);
         }
@@ -272,10 +272,10 @@ namespace CGALDotNet.Arrangements
         private static extern bool Arrangement2_EEK_GetVertex(IntPtr ptr, int index, [Out] out ArrVertex2 arrVertex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Arrangement2_EEK_GetHalfEdges(IntPtr ptr, [Out] ArrHalfEdge2[] edges, int count);
+        private static extern void Arrangement2_EEK_GetHalfEdges(IntPtr ptr, [Out] ArrHalfedge2[] edges, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool Arrangement2_EEK_GetHalfEdge(IntPtr ptr, int index, [Out] out ArrHalfEdge2 arrEdge);
+        private static extern bool Arrangement2_EEK_GetHalfEdge(IntPtr ptr, int index, [Out] out ArrHalfedge2 arrEdge);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Arrangement2_EEK_GetFaces(IntPtr ptr, [Out] ArrFace2[] faces, int count);

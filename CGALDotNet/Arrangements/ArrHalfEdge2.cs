@@ -6,7 +6,7 @@ using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Arrangements
 {
-    public struct ArrHalfEdge2
+    public struct ArrHalfedge2
     {
         public bool IsFictitious;
 
@@ -30,7 +30,7 @@ namespace CGALDotNet.Arrangements
                 Index, FaceIndex, IsFictitious);
         }
 
-        public IEnumerable<ArrHalfEdge2> EnumerateEdges(Arrangement2 arr)
+        public IEnumerable<ArrHalfedge2> EnumerateEdges(Arrangement2 arr)
         {
             var start = this;
             var e = start;

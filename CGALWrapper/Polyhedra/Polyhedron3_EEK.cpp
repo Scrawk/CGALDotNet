@@ -137,6 +137,52 @@ BOOL Polyhedron3_EEK_GetSegment(void* ptr, int index, Segment3d& segment)
 	return Polyhedron3<EEK>::GetSegment(ptr, index, segment);
 }
 
+BOOL Polyhedron3_EEK_GetTriangle(void* ptr, int index, Triangle3d& tri)
+{
+	return Polyhedron3<EEK>::GetTriangle(ptr, index, tri);
+}
+
+BOOL Polyhedron3_EEK_GetVertex(void* ptr, int index, MeshVertex3& vert)
+{
+	return Polyhedron3<EEK>::GetVertex(ptr, index, vert);
+}
+
+BOOL Polyhedron3_EEK_GetFace(void* ptr, int index, MeshFace3& face)
+{
+	return Polyhedron3<EEK>::GetFace(ptr, index, face);
+}
+
+BOOL Polyhedron3_EEK_GetHalfedge(void* ptr, int index, MeshHalfedge3& edge)
+{
+	return Polyhedron3<EEK>::GetHalfedge(ptr, index, edge);
+}
+
+
+void Polyhedron3_EEK_GetSegments(void* ptr, Segment3d* segments, int count)
+{
+	Polyhedron3<EEK>::GetSegments(ptr, segments, count);
+}
+
+void Polyhedron3_EEK_GetTriangles(void* ptr, Triangle3d* triangles, int count)
+{
+	Polyhedron3<EEK>::GetTriangles(ptr, triangles, count);
+}
+
+void Polyhedron3_EEK_GetVertices(void* ptr, MeshVertex3* vertices, int count)
+{
+	Polyhedron3<EEK>::GetVertices(ptr, vertices, count);
+}
+
+void Polyhedron3_EEK_GetFaces(void* ptr, MeshFace3* faces, int count)
+{
+	Polyhedron3<EEK>::GetFaces(ptr, faces, count);
+}
+
+void Polyhedron3_EEK_GetHalfedges(void* ptr, MeshHalfedge3* edges, int count)
+{
+	Polyhedron3<EEK>::GetHalfedges(ptr, edges, count);
+}
+
 void Polyhedron3_EEK_Transform(void* ptr, Matrix4x4d matrix)
 {
 	Polyhedron3<EEK>::Transform(ptr, matrix);
@@ -297,6 +343,9 @@ void Polyhedron3_EEK_GetDualPolygonalIndices(void* ptr,
 		pentagons, pentagonCount,
 		hexagons, hexagonCount);
 }
+
+
+
 
 
 

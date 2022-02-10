@@ -571,14 +571,14 @@ namespace CGALDotNet.Polyhedra
         /// <param name="pointCount">The point arrays length.</param>
         /// <param name="indices">The meshes trinagles as a index array.</param>
         /// <param name="indexCount">The indices array length.</param>
-        public void CreateQuadMesh(Point3d[] points, int pointsCount, int[] indices, int indexCount)
+        public void CreateQuadMesh(Point3d[] points, int pointCount, int[] indices, int indexCount)
         {
-            ErrorUtil.CheckArray(points, pointsCount);
+            ErrorUtil.CheckArray(points, pointCount);
             ErrorUtil.CheckArray(indices, indexCount);
 
             Clear();
             IsUpdated = false;
-            Kernel.CreatePolygonalMesh(Ptr, points, pointsCount, null, 0, indices, indexCount, null, 0, null, 0);
+            Kernel.CreatePolygonalMesh(Ptr, points, pointCount, null, 0, indices, indexCount, null, 0, null, 0);
         }
 
         /// <summary>
@@ -794,9 +794,59 @@ namespace CGALDotNet.Polyhedra
             Kernel.SetPoints(Ptr, points, count);
         }
 
-        public bool GetSegment(int index, out Segment3d segmet)
+        public bool GetSegment(int index, out Segment3d segment)
         {
-            return Kernel.GetSegment(Ptr, index, out segmet);
+            return Kernel.GetSegment(Ptr, index, out segment);
+        }
+
+        public void GetSegments(Segment3d[] segments, int count)
+        {
+            ErrorUtil.CheckArray(segments, count);
+            Kernel.GetSegments(Ptr, segments, count);
+        }
+
+        public bool GetTriangle(int index, out Triangle3d triangle)
+        {
+            return Kernel.GetTriangle(Ptr, index, out triangle);
+        }
+
+        public void GetTriangles(Triangle3d[] triangles, int count)
+        {
+            ErrorUtil.CheckArray(triangles, count);
+            Kernel.GetTriangles(Ptr, triangles, count);
+        }
+
+        public bool GetVertex(int index, out MeshVertex3 vertex)
+        {
+            return Kernel.GetVertex(Ptr, index, out vertex);
+        }
+
+        public void GetVertices(MeshVertex3[] vertices, int count)
+        {
+            ErrorUtil.CheckArray(vertices, count);
+            Kernel.GetVertices(Ptr, vertices, count);
+        }
+
+        public bool GetFace(int index, out MeshFace3 face)
+        {
+            return Kernel.GetFace(Ptr, index, out face);
+        }
+
+        public void GetFaces(MeshFace3[] faces, int count)
+        {
+            ErrorUtil.CheckArray(faces, count);
+            Kernel.GetFaces(Ptr, faces, count);
+        }
+
+        public bool GetHalfedge(int index, out MeshHalfedge3 halfedge)
+        {
+            return Kernel.GetHalfedge(Ptr, index, out halfedge);
+        }
+
+        public void GetHalfedges(MeshHalfedge3[] halfedges, int count)
+        {
+            ErrorUtil.CheckArray(halfedges, count);
+            Kernel.GetHalfedges(Ptr, halfedges, count);
         }
 
         /// <summary>

@@ -31,12 +31,11 @@ namespace CGALDotNet.Arrangements
                 Point, Index, FaceIndex, Degree, IsIsolated);
         }
 
-        public IEnumerable<ArrHalfEdge2> EnumerateIncidentEdges(Arrangement2 arr)
+        public IEnumerable<ArrHalfedge2> EnumerateHalfedges(Arrangement2 arr)
         {
-
-            ArrHalfEdge2 start;
+            ArrHalfedge2 start;
             arr.GetHalfEdge(HalfEdgeIndex, out start);
-            ArrHalfEdge2 e = start;
+            ArrHalfedge2 e = start;
 
             int count = arr.HalfEdgeCount;
 
@@ -44,7 +43,7 @@ namespace CGALDotNet.Arrangements
             {
                 yield return e;
 
-                ArrHalfEdge2 twin, next;
+                ArrHalfedge2 twin, next;
 
                 if (e.TwinIndex >= 0 && e.TwinIndex < count)
                     arr.GetHalfEdge(e.TwinIndex, out twin);
@@ -60,5 +59,6 @@ namespace CGALDotNet.Arrangements
             }
             while (e.Index != start.Index);
         }
+
     }
 }

@@ -8,6 +8,9 @@
 #include "PolygonalCount.h"
 #include "MeshBuilders.h"
 #include "PolyhedronMap.h"
+#include "MeshVertex3.h"
+#include "MeshFace3.h"
+#include "MeshHalfedge3.h"
 
 #include <limits>
 #include <map>
@@ -439,7 +442,7 @@ public:
 
 	static BOOL GetSegment(void* ptr, int index, Segment3d& segment)
 	{
-		auto poly = Polyhedron3<K>::CastToPolyhedron(ptr);
+		auto poly = CastToPolyhedron(ptr);
 
 		auto edge = poly->FindHalfedgeDes(index);
 		if (edge != nullptr)
@@ -455,6 +458,206 @@ public:
 		{
 			return FALSE;
 		}
+	}
+
+	static void GetSegments(void* ptr, Segment3d* segments, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int i = 0;
+		for (auto edge = poly->model.halfedges_begin(); edge != poly->model.halfedges_end(); ++edge)
+		{
+			auto a = edge->vertex()->point();
+			auto b = edge->opposite()->vertex()->point();
+
+			Segment3d seg;
+			seg.a = Point3d::FromCGAL<K>(a);
+			seg.b = Point3d::FromCGAL<K>(b);
+
+			segments[i++] = seg;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetTriangle(void* ptr, int index, Triangle3d& tri)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto face = poly->FindFaceDes(index);
+		if (face != nullptr)
+		{
+			auto a = (*face)->halfedge()->prev()->vertex()->point();
+			auto b = (*face)->halfedge()->vertex()->point();
+			auto c = (*face)->halfedge()->next()->vertex()->point();
+
+			tri.a = Point3d::FromCGAL<K>(a);
+			tri.b = Point3d::FromCGAL<K>(b);
+			tri.c = Point3d::FromCGAL<K>(c);
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	static void GetTriangles(void* ptr, Triangle3d* triangles, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int i = 0;
+		for (auto face = poly->model.facets_begin(); face != poly->model.facets_end(); ++face)
+		{
+			if (face->halfedge() == nullptr) continue;
+
+			auto a = face->halfedge()->prev()->vertex()->point();
+			auto b = face->halfedge()->vertex()->point();
+			auto c = face->halfedge()->next()->vertex()->point();
+
+			Triangle3d tri;
+			tri.a = Point3d::FromCGAL<K>(a);
+			tri.b = Point3d::FromCGAL<K>(b);
+			tri.c = Point3d::FromCGAL<K>(c);
+
+			triangles[i++] = tri;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetVertex(void* ptr, int index, MeshVertex3& vert)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		auto v = poly->FindVertexDes(index);
+		if (v != nullptr)
+		{
+			MeshVertex3 vert;
+			vert.Index = index;
+			vert.Halfedge = poly->FindHalfedgeIndex((*v)->halfedge());
+			vert.Point = Point3d::FromCGAL<K>((*v)->point());
+			vert.Degree = (int)(*v)->degree();
+
+			return TRUE;
+		}
+		else
+		{
+			vert = MeshVertex3::NullVertex();
+			return FALSE;
+		}
+
+	}
+
+	static void GetVertices(void* ptr, MeshVertex3* vertices, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int i = 0;
+		for (auto v = poly->model.vertices_begin(); v != poly->model.vertices_end(); ++v)
+		{
+			MeshVertex3 vert;
+			vert.Index = i;
+			vert.Halfedge = poly->FindHalfedgeIndex(v->halfedge());
+			vert.Point = Point3d::FromCGAL<K>(v->point());
+			vert.Degree = (int)v->degree();
+
+			vertices[i++] = vert;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetFace(void* ptr, int index, MeshFace3& face)
+	{
+		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+
+		auto f = poly->FindFaceDes(index);
+		if (f != nullptr)
+		{
+			MeshFace3 face;
+			face.Index = index;
+			face.Halfedge = poly->FindHalfedgeIndex((*f)->halfedge());
+
+			return TRUE;
+		}
+		else
+		{
+			face = MeshFace3::NullFace();
+			return FALSE;
+		}
+
+	}
+
+	static void GetFaces(void* ptr, MeshFace3* faces, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int i = 0;
+		for (auto f = poly->model.facets_begin(); f != poly->model.facets_end(); ++f)
+		{
+			MeshFace3 face;
+			if (f->halfedge() == nullptr)
+			{
+				face = MeshFace3::NullFace();
+			}
+			else
+			{
+				MeshFace3 face;
+				face.Index = i;
+				face.Halfedge = poly->FindHalfedgeIndex(f->halfedge());
+			}
+
+			faces[i++] = face;
+
+			if (i >= count) return;
+		}
+	}
+
+	static BOOL GetHalfedge(void* ptr, int index, MeshHalfedge3& edge)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto e = poly->FindHalfedgeDes(index);
+		if (e != nullptr)
+		{
+			MeshHalfedge3 edge;
+			edge.Index = index;
+			edge.Vertex = poly->FindVertexIndex((*e)->vertex());
+			edge.Opposite = poly->FindHalfedgeIndex((*e)->opposite());
+			edge.Next = poly->FindHalfedgeIndex((*e)->next());
+			edge.Previous = poly->FindHalfedgeIndex((*e)->prev());
+			edge.IsBorder = (*e)->is_border();
+
+			return TRUE;
+		}
+		else
+		{
+			edge = MeshHalfedge3::NullHalfedge();
+			return FALSE;
+		}
+
+	}
+
+	static void GetHalfedges(void* ptr, MeshHalfedge3* edges, int count)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		int i = 0;
+		for (auto e = poly->model.halfedges_begin(); e != poly->model.halfedges_end(); ++e)
+		{
+			MeshHalfedge3 edge;
+			edge.Index = i;
+			edge.Vertex = poly->FindVertexIndex(e->vertex());
+			edge.Opposite = poly->FindHalfedgeIndex(e->opposite());
+			edge.Next = poly->FindHalfedgeIndex(e->next());
+			edge.Previous = poly->FindHalfedgeIndex(e->prev());
+			edge.IsBorder = e->is_border();
+
+			edges[i++] = edge;
+
+			if (i >= count) return;
+		}
+		
 	}
 
 	static void Transform(void* ptr, const Matrix4x4d& matrix)

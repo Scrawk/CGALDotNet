@@ -417,6 +417,15 @@
     <ClInclude Include="Polyhedra\MeshHitResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polyhedra\MeshVertex3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Polyhedra\MeshFace3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Polyhedra\MeshHalfedge3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

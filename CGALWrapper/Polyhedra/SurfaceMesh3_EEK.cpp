@@ -308,6 +308,56 @@ void SurfaceMesh3_EEK_SetPoints(void* ptr, Point3d* points, int count)
 	SurfaceMesh3<EEK>::SetPoints(ptr, points, count);
 }
 
+BOOL SurfaceMesh3_EEK_GetSegment(void* ptr, int index, Segment3d& segment)
+{
+	return SurfaceMesh3<EEK>::GetSegment(ptr,index, segment);
+}
+
+void SurfaceMesh3_EEK_GetSegments(void* ptr, Segment3d* segments, int count)
+{
+	SurfaceMesh3<EEK>::GetSegments(ptr, segments, count);
+}
+
+BOOL SurfaceMesh3_EEK_GetTriangle(void* ptr, int index, Triangle3d& tri)
+{
+	return SurfaceMesh3<EEK>::GetTriangle(ptr, index, tri);
+}
+
+void SurfaceMesh3_EEK_GetTriangles(void* ptr, Triangle3d* triangles, int count)
+{
+	SurfaceMesh3<EEK>::GetTriangles(ptr, triangles, count);
+}
+
+BOOL SurfaceMesh3_EEK_GetVertex(void* ptr, int index, MeshVertex3& vert)
+{
+	return SurfaceMesh3<EEK>::GetVertex(ptr, index, vert);
+}
+
+void SurfaceMesh3_EEK_GetVertices(void* ptr, MeshVertex3* vertexArray, int count)
+{
+	SurfaceMesh3<EEK>::GetVertices(ptr, vertexArray, count);
+}
+
+BOOL SurfaceMesh3_EEK_GetFace(void* ptr, int index, MeshFace3& face)
+{
+	return SurfaceMesh3<EEK>::GetFace(ptr, index, face);
+}
+
+void SurfaceMesh3_EEK_GetFaces(void* ptr, MeshFace3* faceArray, int count)
+{
+	SurfaceMesh3<EEK>::GetFaces(ptr, faceArray, count);
+}
+
+BOOL SurfaceMesh3_EEK_GetHalfedge(void* ptr, int index, MeshHalfedge3& edge)
+{
+	return SurfaceMesh3<EEK>::GetHalfedge(ptr, index, edge);
+}
+
+void SurfaceMesh3_EEK_GetHalfedges(void* ptr, MeshHalfedge3* edgeArray, int count)
+{
+	SurfaceMesh3<EEK>::GetHalfedges(ptr, edgeArray, count);
+}
+
 void SurfaceMesh3_EEK_Transform(void* ptr, const Matrix4x4d& matrix)
 {
 	SurfaceMesh3<EEK>::Transform(ptr, matrix);
@@ -498,6 +548,7 @@ void SurfaceMesh3_EEK_GetDualPolygonalIndices(void* ptr,
 		pentagons, pentagonCount,
 		hexagons, hexagonCount);
 }
+
 
 
 

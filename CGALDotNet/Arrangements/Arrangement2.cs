@@ -263,7 +263,7 @@ namespace CGALDotNet.Arrangements
         /// </summary>
         /// <param name="edges">A half edge array that is the length of the half edge count.</param>
         /// <param name="count">The ararys length.</param>
-        public void GetHalfEdges(ArrHalfEdge2[] edges, int count)
+        public void GetHalfEdges(ArrHalfedge2[] edges, int count)
         {
             ErrorUtil.CheckArray(edges, count);
             Kernel.GetHalfEdges(Ptr, edges, count);
@@ -275,7 +275,7 @@ namespace CGALDotNet.Arrangements
         /// <param name="index">The index of the half edge.</param>
         /// <param name="edge">The half edge.</param>
         /// <returns>True if the half edge was found.</returns>
-        public bool GetHalfEdge(int index, out ArrHalfEdge2 edge)
+        public bool GetHalfEdge(int index, out ArrHalfedge2 edge)
         {
             return Kernel.GetHalfEdge(Ptr, index, out edge);
         }
@@ -440,9 +440,9 @@ namespace CGALDotNet.Arrangements
         /// <param name="point">The point to locate edge at.</param>
         /// <param name="edge">The edge.</param>
         /// <returns>True if a edge was located.</returns>
-        public bool LocateEdge(Point2d point, out ArrHalfEdge2 edge)
+        public bool LocateEdge(Point2d point, out ArrHalfedge2 edge)
         {
-            edge = new ArrHalfEdge2();
+            edge = new ArrHalfedge2();
             if (Kernel.PointQuery(Ptr, point, out ArrQuery result))
             {
                 if (result.Element == ARR_ELEMENT_HIT.HALF_EDGE)
@@ -467,15 +467,15 @@ namespace CGALDotNet.Arrangements
         /// <param name="point">The point</param>
         /// <param name="edge">The closest edge.</param>
         /// <returns>True if the point hit a face and found a edge.</returns>
-        public bool LocateEdge(Point2d point, double radius, out ArrHalfEdge2 edge)
+        public bool LocateEdge(Point2d point, double radius, out ArrHalfedge2 edge)
         {
             //Locate the face the point hit.
-            edge = new ArrHalfEdge2();
+            edge = new ArrHalfedge2();
             if (LocateFace(point, out ArrFace2 face))
             {
                 //Find the closest edge to the point in the face.
                 double min = double.PositiveInfinity;
-                var closest = new ArrHalfEdge2();
+                var closest = new ArrHalfedge2();
 
                 foreach (var e in face.EnumerateEdges(this))
                 {
@@ -714,7 +714,7 @@ namespace CGALDotNet.Arrangements
         {
             builder.AppendLine("Arrangement Half Edges.\n");
 
-            var edges = new ArrHalfEdge2[HalfEdgeCount];
+            var edges = new ArrHalfedge2[HalfEdgeCount];
             GetHalfEdges(edges, edges.Length);
 
             foreach (var e in edges)

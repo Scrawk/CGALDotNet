@@ -6,6 +6,9 @@
 #include "../Geometry/Matrices.h"
 #include "../Geometry/MinMax.h"
 #include "PolygonalCount.h"
+#include "MeshVertex3.h"
+#include "MeshFace3.h"
+#include "MeshHalfedge3.h"
 
 extern "C"
 {
@@ -130,6 +133,26 @@ extern "C"
 	CGALWRAPPER_API void SurfaceMesh3_EEK_SetPoint(void* ptr, int index, const Point3d& point);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_SetPoints(void* ptr, Point3d* points, int count);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_GetSegment(void* ptr, int index, Segment3d& segment);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetSegments(void* ptr, Segment3d* segments, int count);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_GetTriangle(void* ptr, int index, Triangle3d& tri);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetTriangles(void* ptr, Triangle3d* triangles, int count);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_GetVertex(void* ptr, int index, MeshVertex3& vert);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetVertices(void* ptr, MeshVertex3* vertexArray, int count);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_GetFace(void* ptr, int index, MeshFace3& face);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetFaces(void* ptr, MeshFace3* faceArray, int count);
+
+	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_GetHalfedge(void* ptr, int index, MeshHalfedge3& edge);
+
+	CGALWRAPPER_API void SurfaceMesh3_EEK_GetHalfedges(void* ptr, MeshHalfedge3* edgeArray, int count);
 
 	CGALWRAPPER_API void SurfaceMesh3_EEK_Transform(void* ptr, const Matrix4x4d& matrix);
 
