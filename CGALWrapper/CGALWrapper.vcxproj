@@ -171,6 +171,8 @@
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
     <ClInclude Include="Geometry\Index.h" />
+    <ClInclude Include="Geometry\Point2_EEK.h" />
+    <ClInclude Include="Geometry\Line2_EEK.h" />
     <ClInclude Include="Polyhedra\MeshFace3.h" />
     <ClInclude Include="Polyhedra\MeshHalfedge3.h" />
     <ClInclude Include="Polyhedra\MeshHitResult.h" />
@@ -188,6 +190,9 @@
     <ClInclude Include="Processing\MeshProcessingSlicer.h" />
     <ClInclude Include="Processing\SurfaceSimplification_EIK.h" />
     <ClInclude Include="Polyhedra\SurfaceMeshMap.h" />
+    <ClInclude Include="Geometry\Ray2_EEK.h" />
+    <ClInclude Include="Geometry\Segment2_EEK.h" />
+    <ClInclude Include="Geometry\Triangle2_EEK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h" />
     <ClInclude Include="Geometry\MinMax.h" />
     <ClInclude Include="Processing\MeshProcessingConnections_EEK.h" />
@@ -262,7 +267,7 @@
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EEK.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Collections\IndexMap.h" />
-    <ClInclude Include="Geometry\Intersections_EEK.h" />
+    <ClInclude Include="Geometry\Intersections_EIK.h" />
     <ClInclude Include="Geometry\IsoRectangle2_EEK.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Geometry\Geometry2.h" />
@@ -289,11 +294,16 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Geometry\Point2_EEK.cpp" />
+    <ClCompile Include="Geometry\Line2_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingLocate_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingFeatures_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingSlicer_EEK.cpp" />
     <ClCompile Include="Polylines\Polyline3_EEK.cpp" />
     <ClCompile Include="Polylines\Polyline2_EEK.cpp" />
+    <ClCompile Include="Geometry\Ray2_EEK.cpp" />
+    <ClCompile Include="Geometry\Segment2_EEK.cpp" />
+    <ClCompile Include="Geometry\Triangle2_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingConnections_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingBoolean_EEK.cpp" />
@@ -331,7 +341,7 @@
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp" />
-    <ClCompile Include="Geometry\Intersections_EEK.cpp" />
+    <ClCompile Include="Geometry\Intersections_EIK.cpp" />
     <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

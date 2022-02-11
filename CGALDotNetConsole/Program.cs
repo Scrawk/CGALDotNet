@@ -24,19 +24,13 @@ namespace CGALDotNetConsole
         {
 
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
- 
-            var sphere = PolyhedronFactory<EEK>.CreateUVSphere();
+            //var smesh = SurfaceMeshFactory<EEK>.CreateUVSphere();
 
-            var capsule = PolyhedronFactory<EEK>.CreateCapsule();
+            PrintFace(pmesh, 0);
 
-            capsule.Print();
+            PrintEdge(pmesh, 4);
 
-            //PrintFace(smesh, 0);
-
-            //PrintEdge(smesh, 4);
-
-            //PrintFaceEdges(smesh, 0);
-
+            PrintFaceEdges(pmesh, 0);
 
         }
 

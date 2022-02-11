@@ -64,7 +64,7 @@ namespace CGALDotNet.Geometry
         internal IsoRectangle2(Point2d min, Point2d max, CGALKernel kernel)
         {
             Kernel = kernel.GeometryKernel2;
-            Ptr = Kernel.IsoRectangle_Create(min, max);
+            Ptr = Kernel.IsoRectangle2_Create(min, max);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Point2d Min
         {
-            get { return Kernel.IsoRectangle_GetMin(Ptr);  }
+            get { return Kernel.IsoRectangle2_GetMin(Ptr);  }
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Point2d Max
         {
-            get { return Kernel.IsoRectangle_GetMax(Ptr); }
+            get { return Kernel.IsoRectangle2_GetMax(Ptr); }
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public double Area
         {
-            get { return Kernel.IsoRectangle_Area(Ptr); }
+            get { return Kernel.IsoRectangle2_Area(Ptr); }
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace CGALDotNet.Geometry
         /// <returns>If the point is iside, outside or on boundary.</returns>
         public BOUNDED_SIDE BoundedSide(Point2d point)
         {
-            return Kernel.IsoRectangle_BoundedSide(Ptr, point);
+            return Kernel.IsoRectangle2_BoundedSide(Ptr, point);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace CGALDotNet.Geometry
         /// <returns>Does the rectangle contain the point</returns>
         public bool ContainsPoint(Point2d point, bool includeBoundary)
         {
-            return Kernel.IsoRectangle_ContainsPoint(Ptr, point, includeBoundary);
+            return Kernel.IsoRectangle2_ContainsPoint(Ptr, point, includeBoundary);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace CGALDotNet.Geometry
         /// </summary>
         protected override void ReleasePtr()
         {
-            Kernel.IsoRectangle_Release(Ptr);
+            Kernel.IsoRectangle2_Release(Ptr);
         }
     }
  }

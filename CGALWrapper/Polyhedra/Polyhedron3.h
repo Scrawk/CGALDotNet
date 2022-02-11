@@ -529,6 +529,8 @@ public:
 	static BOOL GetVertex(void* ptr, int index, MeshVertex3& vert)
 	{
 		auto poly = CastToPolyhedron(ptr);
+		vert = MeshVertex3::NullVertex();
+
 		auto v = poly->FindVertexDes(index);
 		if (v != nullptr)
 		{
@@ -541,7 +543,6 @@ public:
 		}
 		else
 		{
-			vert = MeshVertex3::NullVertex();
 			return FALSE;
 		}
 
@@ -554,7 +555,7 @@ public:
 		int i = 0;
 		for (auto v = poly->model.vertices_begin(); v != poly->model.vertices_end(); ++v)
 		{
-			MeshVertex3 vert;
+			MeshVertex3 vert = MeshVertex3::NullVertex();
 			vert.Index = i;
 			vert.Halfedge = poly->FindHalfedgeIndex(v->halfedge());
 			vert.Point = Point3d::FromCGAL<K>(v->point());
@@ -569,6 +570,7 @@ public:
 	static BOOL GetFace(void* ptr, int index, MeshFace3& face)
 	{
 		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		face = MeshFace3::NullFace();
 
 		auto f = poly->FindFaceDes(index);
 		if (f != nullptr)
@@ -580,7 +582,6 @@ public:
 		}
 		else
 		{
-			face = MeshFace3::NullFace();
 			return FALSE;
 		}
 
@@ -600,7 +601,7 @@ public:
 			}
 			else
 			{
-				MeshFace3 face;
+				MeshFace3 face = MeshFace3::NullFace();
 				face.Index = i;
 				face.Halfedge = poly->FindHalfedgeIndex(f->halfedge());
 			}
@@ -614,6 +615,7 @@ public:
 	static BOOL GetHalfedge(void* ptr, int index, MeshHalfedge3& edge)
 	{
 		auto poly = CastToPolyhedron(ptr);
+		edge = MeshHalfedge3::NullHalfedge();
 
 		auto e = poly->FindHalfedgeDes(index);
 		if (e != nullptr)
@@ -624,13 +626,13 @@ public:
 			edge.Opposite = poly->FindHalfedgeIndex((*e)->opposite());
 			edge.Next = poly->FindHalfedgeIndex((*e)->next());
 			edge.Previous = poly->FindHalfedgeIndex((*e)->prev());
+			edge.Face = poly->FindFaceIndex((*e)->face());
 			edge.IsBorder = (*e)->is_border();
 
 			return TRUE;
 		}
 		else
 		{
-			edge = MeshHalfedge3::NullHalfedge();
 			return FALSE;
 		}
 
@@ -643,13 +645,14 @@ public:
 		int i = 0;
 		for (auto e = poly->model.halfedges_begin(); e != poly->model.halfedges_end(); ++e)
 		{
-			MeshHalfedge3 edge;
+			MeshHalfedge3 edge = MeshHalfedge3::NullHalfedge();
 			edge.Index = i;
 			edge.Source = poly->FindVertexIndex(e->vertex());
 			edge.Target = poly->FindVertexIndex(e->opposite()->vertex());
 			edge.Opposite = poly->FindHalfedgeIndex(e->opposite());
 			edge.Next = poly->FindHalfedgeIndex(e->next());
 			edge.Previous = poly->FindHalfedgeIndex(e->prev());
+			edge.Face = poly->FindFaceIndex(e->face());
 			edge.IsBorder = e->is_border();
 
 			edges[i++] = edge;

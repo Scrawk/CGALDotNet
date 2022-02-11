@@ -1,0 +1,43 @@
+#include "Point2_EEK.h"
+#include <CGAL/Point_2.h>
+
+typedef CGAL::Point_2<EEK> Point2;
+
+void* Point2_EEK_Create()
+{
+	return new Point2();
+}
+
+void* Point2_EEK_CreateFromPoint(const Point2d& point)
+{
+	auto p = point.ToCGAL<EEK>();
+	return new Point2(p.x(), p.y());
+}
+
+void Point2_EEK_Release(void* ptr)
+{
+	auto obj = static_cast<Point2*>(ptr);
+	if (obj != nullptr)
+	{
+		delete obj;
+		obj = nullptr;
+	}
+}
+
+Point2* CastToPoint2(void* ptr)
+{
+	return static_cast<Point2*>(ptr);
+}
+
+Point2d Point2_EEK_GetPoint(void* ptr)
+{
+	auto p = CastToPoint2(ptr);
+	return Point2d::FromCGAL<EEK>(*p);
+}
+
+void Point2_EEK_SetPoint(void* ptr, const Point2d& point)
+{
+	auto p = CastToPoint2(ptr);
+	(*p)[0] = point.x;
+	(*p)[1] = point.y;
+}

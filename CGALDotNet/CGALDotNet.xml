@@ -923,6 +923,179 @@
             Check if the object is still valid.
             </summary>
         </member>
+        <member name="T:CGALDotNet.Geometry.CGALIntersections">
+            <summary>
+            The static intersection class.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Point DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Line DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Box DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Point Intersection functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Line Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Box Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_DoIntersect_PointLine(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Point DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_DoIntersect_LinePoint(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Linet DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_DoIntersect_RayPoint(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_DoIntersect_SegmentPoint(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_DoIntersect_TrianglePoint(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_DoIntersect_BoxPoint(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Box DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_Intersection_PointLine(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Point Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_Intersection_LinePoint(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Line Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_Intersection_RayPoint(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_Intersection_SegmentPoint(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_Intersection_TrianglePoint(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_Intersection_BoxPoint(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Box Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
         <member name="T:CGALDotNet.Geometry.INTERSECTION_RESULT_2D">
             <summary>
             Enum for the type of intersection geomerty.
@@ -1016,179 +1189,6 @@
             </summary>
             <typeparam name="K">The polygons kernel.</typeparam>
             <returns>The polygon.</returns>
-        </member>
-        <member name="T:CGALDotNet.Geometry.CGALIntersections">
-            <summary>
-            The static intersection class.
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Point DoIntersect functions
-            
-            </summary>--------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Line DoIntersect functions
-            
-            </summary>--------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Ray DoIntersect functions
-            
-            </summary>--------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Segment DoIntersect functions
-            
-            </summary>--------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Triangle DoIntersect functions
-            
-            </summary>--------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Box DoIntersect functions
-            
-            </summary>--------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Point Intersection functions
-            
-            </summary>--------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Line Intersection functions
-            
-            </summary>-----------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Ray Intersection functions
-            
-            </summary>-----------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Segment Intersection functions
-            
-            </summary>-----------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Triangle Intersection functions
-            
-            </summary>-----------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Box Intersection functions
-            
-            </summary>-----------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_DoIntersect_PointLine(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Point DoIntersect extern functions
-            
-            </summary>------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_DoIntersect_LinePoint(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Linet DoIntersect extern functions
-            
-            </summary>------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_DoIntersect_RayPoint(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Ray DoIntersect extern functions
-            
-            </summary>------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_DoIntersect_SegmentPoint(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Segment DoIntersect extern functions
-            
-            </summary>------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_DoIntersect_TrianglePoint(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Triangle DoIntersect extern functions
-            
-            </summary>------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_DoIntersect_BoxPoint(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Box DoIntersect extern functions
-            
-            </summary>------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_Intersection_PointLine(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Point Intersection extern functions
-            
-            </summary>-------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_Intersection_LinePoint(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Line Intersection extern functions
-            
-            </summary>-------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_Intersection_RayPoint(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Ray Intersection extern functions
-            
-            </summary>-------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_Intersection_SegmentPoint(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Segment Intersection extern functions
-            
-            </summary>-------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_Intersection_TrianglePoint(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Triangle Intersection extern functions
-            
-            </summary>-------------------------------------------------------
-        </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EEK_Intersection_BoxPoint(CGALDotNetGeometry.Shapes.Box2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>--------------------------------------------------------
-            
-                            The Box Intersection extern functions
-            
-            </summary>-------------------------------------------------------
         </member>
         <member name="T:CGALDotNet.Geometry.IsoRectangle2`1">
             <summary>

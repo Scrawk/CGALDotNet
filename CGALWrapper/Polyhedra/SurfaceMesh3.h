@@ -914,6 +914,7 @@ public:
 	static BOOL GetVertex(void* ptr, int index, MeshVertex3& vert)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		vert = MeshVertex3::NullVertex();
 
 		auto v = mesh->FindVertex(index);
 		if (v != NullVertex())
@@ -926,7 +927,6 @@ public:
 		}
 		else
 		{
-			vert = MeshVertex3::NullVertex();
 			return FALSE;
 		}
 	}
@@ -938,7 +938,7 @@ public:
 		int i = 0;
 		for (auto v : vertices(mesh->model))
 		{
-			MeshVertex3 vert;
+			MeshVertex3 vert = MeshVertex3::NullVertex();
 			vert.Index = v;
 			vert.Point = Point3d::FromCGAL<K>(mesh->model.point(v));
 			vert.Halfedge = mesh->FindHalfedgeIndex(mesh->model.halfedge(v));
@@ -953,6 +953,7 @@ public:
 	static BOOL GetFace(void* ptr, int index, MeshFace3& face)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		face = MeshFace3::NullFace();
 
 		auto f = mesh->FindFace(index);
 		if (f != SurfaceMesh3<K>::NullFace())
@@ -964,7 +965,6 @@ public:
 		}
 		else
 		{
-			face = MeshFace3::NullFace();
 			return FALSE;
 		}
 
@@ -977,7 +977,7 @@ public:
 		int i = 0;
 		for (auto f : faces(mesh->model))
 		{
-			MeshFace3 face;
+			MeshFace3 face = MeshFace3::NullFace();
 			face.Index = i;
 			face.Halfedge = mesh->FindHalfedgeIndex(mesh->model.halfedge(f));
 
@@ -990,6 +990,7 @@ public:
 	static BOOL GetHalfedge(void* ptr, int index, MeshHalfedge3& edge)
 	{
 		auto mesh = CastToSurfaceMesh(ptr);
+		edge = MeshHalfedge3::NullHalfedge();
 
 		auto e = mesh->FindHalfedge(index);
 		if (e != NullHalfedge())
@@ -1007,7 +1008,6 @@ public:
 		}
 		else
 		{
-			edge = MeshHalfedge3::NullHalfedge();
 			return FALSE;
 		}
 
@@ -1020,7 +1020,7 @@ public:
 		int i = 0;
 		for (auto e : halfedges(mesh->model))
 		{
-			MeshHalfedge3 edge;
+			MeshHalfedge3 edge = MeshHalfedge3::NullHalfedge();
 			edge.Index = i;
 			edge.Source = mesh->FindVertexIndex(mesh->model.source(e));
 			edge.Target = mesh->FindVertexIndex(mesh->model.target(e));

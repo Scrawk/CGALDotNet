@@ -144,7 +144,7 @@
     <ClInclude Include="Geometry\Intersections.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry\Intersections_EEK.h">
+    <ClInclude Include="Geometry\Intersections_EIK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Hull\ConvexHull2.h">
@@ -426,6 +426,21 @@
     <ClInclude Include="Polyhedra\MeshHalfedge3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Geometry\Point2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Line2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Ray2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Segment2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Triangle2_EEK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -455,7 +470,7 @@
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp">
       <Filter>Source Files\Triangulations</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry\Intersections_EEK.cpp">
+    <ClCompile Include="Geometry\Intersections_EIK.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp">
@@ -591,6 +606,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\MeshProcessingLocate_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Point2_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Line2_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Ray2_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Segment2_EEK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Triangle2_EEK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

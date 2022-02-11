@@ -7,7 +7,7 @@
 
 extern "C"
 {
-	CGALWRAPPER_API void* IsoRectangle2_EEK_Create(Point2d min, Point2d max);
+	CGALWRAPPER_API void* IsoRectangle2_EEK_Create(const Point2d& min, const Point2d& max);
 
 	CGALWRAPPER_API void IsoRectangle2_EEK_Release(void* ptr);
 
@@ -17,7 +17,7 @@ extern "C"
 
 	CGALWRAPPER_API double IsoRectangle2_EEK_Area(void* ptr);
 
-	CGALWRAPPER_API CGAL::Bounded_side IsoRectangle2_EEK_BoundedSide(void* ptr, Point2d point);
+	CGALWRAPPER_API CGAL::Bounded_side IsoRectangle2_EEK_BoundedSide(void* ptr, const Point2d& point);
 
-	CGALWRAPPER_API BOOL IsoRectangle2_EEK_ContainsPoint(void* ptr, Point2d point, BOOL inculdeBoundary);
+	CGALWRAPPER_API BOOL IsoRectangle2_EEK_ContainsPoint(void* ptr, const Point2d& point, BOOL inculdeBoundary);
 }
