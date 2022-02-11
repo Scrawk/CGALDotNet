@@ -135,7 +135,7 @@ namespace CGALDotNet.Hulls
         /// <summary>
         /// Check if the points in the mesh are convex.
         /// </summary>
-        /// <param name="poly">The mesh.</param>
+        /// <param name="mesh">The mesh.</param>
         /// <returns>True if the mesh is convex.</returns>
         public bool IsStronglyConvex(SurfaceMesh3 mesh)
         {

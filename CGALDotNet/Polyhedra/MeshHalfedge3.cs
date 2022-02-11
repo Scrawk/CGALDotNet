@@ -9,7 +9,9 @@ namespace CGALDotNet.Polyhedra
 
 		public int Index;
 
-		public int Vertex;
+		public int Source;
+
+		public int Target;
 
 		public int Opposite;
 
@@ -17,10 +19,12 @@ namespace CGALDotNet.Polyhedra
 
 		public int Previous;
 
+		public int Face;
+
 		public override string ToString()
 		{
-			return string.Format("[MeshHalfedge3: Index={0}, Opposite={1}, Next={2}, Previous={3}, IsBorder={4}]",
-				Index, Opposite, Next, Previous, IsBorder);
+			return string.Format("[MeshHalfedge3: Index={0}, Source={1}, Target={2}, Opposite={3}, Next={4}, Previous={5}, Face={6}, IsBorder={7}]",
+				Index, Source, Target, Opposite, Next, Previous, Face,  IsBorder);
 		}
 
 		public IEnumerable<MeshHalfedge3> EnumerateHalfedges(IMesh mesh)
@@ -53,10 +57,10 @@ namespace CGALDotNet.Polyhedra
 
 			do
 			{
-				if (e.Vertex >= 0 && e.Vertex < vertCount)
+				if (e.Source >= 0 && e.Source < vertCount)
 				{
 					MeshVertex3 vert;
-					mesh.GetVertex(e.Vertex, out vert);
+					mesh.GetVertex(e.Source, out vert);
 					yield return vert;
 				}
 

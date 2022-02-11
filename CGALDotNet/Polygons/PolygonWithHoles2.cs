@@ -414,7 +414,7 @@ namespace CGALDotNet.Polygons
 
         /// <summary>
         /// Is the polygon degenerate.
-        /// Polygons with < 3 points are degenerate.
+        /// Polygons with less than 3 points are degenerate.
         /// </summary>
         public bool IsDegenerate => Count < 3 || Orientation == ORIENTATION.ZERO;
 
@@ -756,7 +756,6 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="element">The element type.</param>
         /// <param name="index">If element type is a hole this is the holes index.</param>
-        /// </summary>
         /// <returns>The signed area is positive if polygon is ccw 
         /// and negation if cw.</returns>
         public double FindSignedArea(POLYGON_ELEMENT element, int index = 0)

@@ -81,8 +81,8 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Clear the normal maps.
         /// </summary>
-        /// <param name="vertices">True to clear the vertex normal map./param>
-        /// <param name="faces">True to clear the face normal map</param>
+        /// <param name="vertices">True to clear the vertex normal map.</param>
+        /// <param name="faces">True to clear the face normal map. </param>
         void ClearNormalMaps(bool vertices, bool faces);
 
         /// <summary>

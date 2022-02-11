@@ -62,9 +62,9 @@ public:
 
 	AABBTree* tree = nullptr;
 
-private:
-
 	SurfaceMeshMap<K> map;
+
+private:
 
 	bool vertexNormalsComputed = false;
 
@@ -918,10 +918,9 @@ public:
 		auto v = mesh->FindVertex(index);
 		if (v != NullVertex())
 		{
-			MeshVertex3 vert;
 			vert.Index = v;
 			vert.Point = Point3d::FromCGAL<K>(mesh->model.point(v));
-			vert.Halfedge = mesh->model.halfedge(v);
+			vert.Halfedge = mesh->FindHalfedgeIndex(mesh->model.halfedge(v));
 			vert.Degree = mesh->model.degree(v);
 			return TRUE;
 		}
@@ -942,7 +941,7 @@ public:
 			MeshVertex3 vert;
 			vert.Index = v;
 			vert.Point = Point3d::FromCGAL<K>(mesh->model.point(v));
-			vert.Halfedge = mesh->model.halfedge(v);
+			vert.Halfedge = mesh->FindHalfedgeIndex(mesh->model.halfedge(v));
 			vert.Degree = mesh->model.degree(v);
 
 			vertexArray[i++] = vert;
@@ -958,9 +957,8 @@ public:
 		auto f = mesh->FindFace(index);
 		if (f != SurfaceMesh3<K>::NullFace())
 		{
-			MeshFace3 face;
 			face.Index = index;
-			face.Halfedge = mesh->model.halfedge(f);
+			face.Halfedge = mesh->FindHalfedgeIndex(mesh->model.halfedge(f));
 
 			return TRUE;
 		}
@@ -981,7 +979,7 @@ public:
 		{
 			MeshFace3 face;
 			face.Index = i;
-			face.Halfedge = mesh->model.halfedge(f);
+			face.Halfedge = mesh->FindHalfedgeIndex(mesh->model.halfedge(f));
 
 			faceArray[i++] = face;
 
@@ -996,12 +994,13 @@ public:
 		auto e = mesh->FindHalfedge(index);
 		if (e != NullHalfedge())
 		{
-			MeshHalfedge3 edge;
 			edge.Index = index;
-			edge.Vertex = mesh->model.source(e);
-			edge.Opposite = mesh->model.opposite(e);
-			edge.Next = mesh->model.next(e);
-			edge.Previous = mesh->model.prev(e);
+			edge.Source = mesh->FindVertexIndex(mesh->model.source(e));
+			edge.Target = mesh->FindVertexIndex(mesh->model.target(e));
+			edge.Opposite = mesh->FindHalfedgeIndex(mesh->model.opposite(e));
+			edge.Next = mesh->FindHalfedgeIndex(mesh->model.next(e));
+			edge.Previous = mesh->FindHalfedgeIndex(mesh->model.prev(e));
+			edge.Face = mesh->FindFaceIndex(mesh->model.face(e));
 			edge.IsBorder = mesh->model.is_border(e);
 
 			return TRUE;
@@ -1023,10 +1022,12 @@ public:
 		{
 			MeshHalfedge3 edge;
 			edge.Index = i;
-			edge.Vertex = mesh->model.source(e);
-			edge.Opposite = mesh->model.opposite(e);
-			edge.Next = mesh->model.next(e);
-			edge.Previous = mesh->model.prev(e);
+			edge.Source = mesh->FindVertexIndex(mesh->model.source(e));
+			edge.Target = mesh->FindVertexIndex(mesh->model.target(e));
+			edge.Opposite = mesh->FindHalfedgeIndex(mesh->model.opposite(e));
+			edge.Next = mesh->FindHalfedgeIndex(mesh->model.next(e));
+			edge.Previous = mesh->FindHalfedgeIndex(mesh->model.prev(e));
+			edge.Face = mesh->FindFaceIndex(mesh->model.face(e));
 			edge.IsBorder = mesh->model.is_border(e);
 
 			edgeArray[i++] = edge;

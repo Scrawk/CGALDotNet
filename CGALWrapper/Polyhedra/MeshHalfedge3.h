@@ -8,7 +8,9 @@ struct MeshHalfedge3
 
 	int Index;
 
-	int Vertex;
+	int Source;
+
+	int Target;
 
 	int Opposite;
 
@@ -16,29 +18,19 @@ struct MeshHalfedge3
 
 	int Previous;
 
+	int Face;
+
 	static MeshHalfedge3 NullHalfedge()
 	{
 		MeshHalfedge3 e;
 		e.Index = NULL_INDEX;
-		e.Vertex = NULL_INDEX;
+		e.Source = NULL_INDEX;
+		e.Target = NULL_INDEX;
 		e.Opposite = NULL_INDEX;
 		e.Next = NULL_INDEX;
 		e.Previous = NULL_INDEX;
+		e.Face = NULL_INDEX;
 		return e;
 	}
 
-	template<class K, class EDGE>
-	static MeshHalfedge3 FromHalfedge(EDGE edge)
-	{
-		MeshHalfedge3 e;
-
-		e.Index = NULL_INDEX;
-		e.Vertex = NULL_INDEX;
-		e.Opposite = NULL_INDEX;
-		e.Next = NULL_INDEX;
-		e.Previous = NULL_INDEX;
-		e.IsBorder = edge->is_border();
-
-		return e;
-	}
 };

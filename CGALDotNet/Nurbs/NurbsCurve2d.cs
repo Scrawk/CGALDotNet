@@ -321,10 +321,10 @@ namespace CGALDotNet.Nurbs
 		/// <param name="translation">The amount to translate.</param>
 		/// <param name="rotation">The amount to rotate.</param>
 		/// <param name="scale">The amount to scale.</param>
-		public override void Transform(Point2d translation, Radian radian, double scale)
+		public override void Transform(Point2d translation, Radian rotation, double scale)
 		{
 			Matrix4x4d T = Matrix4x4d.Translate(translation.xy0);
-			Matrix4x4d R = Matrix3x3d.RotateZ(radian).ToMatrix4x4d();
+			Matrix4x4d R = Matrix3x3d.RotateZ(rotation).ToMatrix4x4d();
 			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
 			var M = T * R * S;

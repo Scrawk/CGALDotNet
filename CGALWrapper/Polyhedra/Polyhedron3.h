@@ -532,7 +532,6 @@ public:
 		auto v = poly->FindVertexDes(index);
 		if (v != nullptr)
 		{
-			MeshVertex3 vert;
 			vert.Index = index;
 			vert.Halfedge = poly->FindHalfedgeIndex((*v)->halfedge());
 			vert.Point = Point3d::FromCGAL<K>((*v)->point());
@@ -574,7 +573,6 @@ public:
 		auto f = poly->FindFaceDes(index);
 		if (f != nullptr)
 		{
-			MeshFace3 face;
 			face.Index = index;
 			face.Halfedge = poly->FindHalfedgeIndex((*f)->halfedge());
 
@@ -620,9 +618,9 @@ public:
 		auto e = poly->FindHalfedgeDes(index);
 		if (e != nullptr)
 		{
-			MeshHalfedge3 edge;
 			edge.Index = index;
-			edge.Vertex = poly->FindVertexIndex((*e)->vertex());
+			edge.Source = poly->FindVertexIndex((*e)->vertex());
+			edge.Target = poly->FindVertexIndex((*e)->opposite()->vertex());
 			edge.Opposite = poly->FindHalfedgeIndex((*e)->opposite());
 			edge.Next = poly->FindHalfedgeIndex((*e)->next());
 			edge.Previous = poly->FindHalfedgeIndex((*e)->prev());
@@ -647,7 +645,8 @@ public:
 		{
 			MeshHalfedge3 edge;
 			edge.Index = i;
-			edge.Vertex = poly->FindVertexIndex(e->vertex());
+			edge.Source = poly->FindVertexIndex(e->vertex());
+			edge.Target = poly->FindVertexIndex(e->opposite()->vertex());
 			edge.Opposite = poly->FindHalfedgeIndex(e->opposite());
 			edge.Next = poly->FindHalfedgeIndex(e->next());
 			edge.Previous = poly->FindHalfedgeIndex(e->prev());

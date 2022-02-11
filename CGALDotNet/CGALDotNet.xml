@@ -338,8 +338,8 @@
             <summary>
             Insert a array of segments into the arrangement.
             </summary>
-            <param name="segments"></param>
-            <param name="b">The segments end point.</param>
+            <param name="segments">The segment array</param>
+            <param name="count">The segment arrays length.</param>
             <param name="nonIntersecting">True if the segments are known not to 
             hit anything currently in the arrangement.</param>
         </member>
@@ -1451,7 +1451,7 @@
             <summary>
             Check if the points in the mesh are convex.
             </summary>
-            <param name="poly">The mesh.</param>
+            <param name="mesh">The mesh.</param>
             <returns>True if the mesh is convex.</returns>
         </member>
         <member name="M:CGALDotNet.Hulls.ConvexHull3.CheckCount(System.Int32)">
@@ -2644,6 +2644,7 @@
             </summary>
             <param name="num_ders">Number of times to derivate.</param>
             <param name="u">Parameter to evaluate the derivatives at.</param>
+            <param name="crv"></param>
             <returns>Derivatives of the curve at u.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsEval.CartesianSurfacePoint(CGALDotNet.Nurbs.BaseNurbsSurface3d,System.Double,System.Double)">
@@ -2661,6 +2662,7 @@
             </summary>
             <param name="u">Parameter to evaluate the surface at.</param>
             <param name="v">Parameter to evaluate the surface at.</param>
+            <param name="srf">The surface.</param>
             <returns>Resulting point on the surface at (u, v).</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsEval.SurfaceTangent(CGALDotNet.Nurbs.BaseNurbsSurface3d,System.Double,System.Double,CGALDotNetGeometry.Numerics.Vector3d@,CGALDotNetGeometry.Numerics.Vector3d@)">
@@ -2670,6 +2672,8 @@
             <param name="srf">Surface object</param>
             <param name="u">Parameter in the u-direction</param>
             <param name="v">Parameter in the v-direction</param>
+            <param name="du"></param>
+            <param name="dv"></param>
             <returns>Tuple with unit tangents along u- and v-directions</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsEval.SurfaceNormal(CGALDotNet.Nurbs.BaseNurbsSurface3d,System.Double,System.Double)">
@@ -2695,6 +2699,7 @@
             <summary>
             Evaluate derivatives on a non-rational NURBS surface
             </summary>
+            <param name="srf">The surface.</param>
             <param name="num_ders">Number of times to differentiate.</param>
             <param name="u">Parameter to evaluate the surface at.</param>
             <param name="v">Parameter to evaluate the surface at.</param>
@@ -3534,7 +3539,12 @@
             The orientation expressed as the clock direction.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Polygons.Polygon2.IsDegenerate" -->
+        <member name="P:CGALDotNet.Polygons.Polygon2.IsDegenerate">
+            <summary>
+            Is the polygon degenerate.
+            Polygons with less than 3 points are degenerate.
+            </summary>
+        </member>
         <member name="P:CGALDotNet.Polygons.Polygon2.IsClockWise">
             <summary>
             Is the polygon cw orientated.
@@ -5196,7 +5206,12 @@
             The orientation expressed as the clock direction.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Polygons.PolygonWithHoles2.IsDegenerate" -->
+        <member name="P:CGALDotNet.Polygons.PolygonWithHoles2.IsDegenerate">
+            <summary>
+            Is the polygon degenerate.
+            Polygons with less than 3 points are degenerate.
+            </summary>
+        </member>
         <member name="P:CGALDotNet.Polygons.PolygonWithHoles2.IsClockWise">
             <summary>
             Is the polygon cw orientated.
@@ -5375,7 +5390,15 @@
             <param name="index">If element type is a hole this is the holes index.</param>
             <returns>The orientated side of point compared to the polygon.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CGALDotNet.Polygons.PolygonWithHoles2.FindSignedArea(CGALDotNet.Polygons.POLYGON_ELEMENT,System.Int32)" -->
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.FindSignedArea(CGALDotNet.Polygons.POLYGON_ELEMENT,System.Int32)">
+            <summary>
+            The signed area of the polygon.
+            </summary>
+            <param name="element">The element type.</param>
+            <param name="index">If element type is a hole this is the holes index.</param>
+            <returns>The signed area is positive if polygon is ccw 
+            and negation if cw.</returns>
+        </member>
         <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.FindArea(CGALDotNet.Polygons.POLYGON_ELEMENT,System.Int32)">
             <summary>
             The area of the polygon.
@@ -5545,7 +5568,13 @@
             Clear the mesh.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CGALDotNet.Polyhedra.IMesh.ClearNormalMaps(System.Boolean,System.Boolean)" -->
+        <member name="M:CGALDotNet.Polyhedra.IMesh.ClearNormalMaps(System.Boolean,System.Boolean)">
+            <summary>
+            Clear the normal maps.
+            </summary>
+            <param name="vertices">True to clear the vertex normal map.</param>
+            <param name="faces">True to clear the face normal map. </param>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.IMesh.CreateMesh(CGALDotNetGeometry.Numerics.Point3d[],System.Int32[],System.Int32[])">
             <summary>
             Create a mesh from the points and indices.
@@ -5774,7 +5803,6 @@
             <summary>
             https://github.com/caosdoar/spheres/blob/master/src/spheres.cpp
             https://github.com/mrdoob/three.js/tree/dev/src/geometries
-            https://github.com/vorg/primitive-capsule/blob/master/index.js
             </summary>
         </member>
         <member name="T:CGALDotNet.Polyhedra.NefPolyhedron3`1">
@@ -7116,7 +7144,13 @@
             <param name="edges">True to clear the edges index map.</param>
             <param name="halfedges">True to clear the halfedges index map.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CGALDotNet.Polyhedra.SurfaceMesh3.ClearNormalMaps(System.Boolean,System.Boolean)" -->
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.ClearNormalMaps(System.Boolean,System.Boolean)">
+            <summary>
+            Clear the normal maps.
+            </summary>
+            <param name="vertices">True to clear the vertex normal map.</param>
+            <param name="faces">True to clear the face normal map</param>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.ClearProperyMaps">
             <summary>
             Clear the property maps.
@@ -10142,12 +10176,41 @@
             Returns the number of finite vertices.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Triangulations.BaseTriangulation3.TetrahedronCount" -->
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Triangulations.BaseTriangulation3.FiniteTetrahedronCount" -->
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Triangulations.BaseTriangulation3.EdgeCount" -->
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Triangulations.BaseTriangulation3.FiniteEdgeCount" -->
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Triangulations.BaseTriangulation3.TriangleCount" -->
-        <!-- Badly formed XML comment ignored for member "P:CGALDotNet.Triangulations.BaseTriangulation3.FiniteTriangleCount" -->
+        <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.TetrahedronCount">
+            <summary>
+            Returns the number of cells or 0 if Dimension less than 3.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.FiniteTetrahedronCount">
+            <summary>
+            The number of finite cells.
+            Returns 0 if Dimension less than 3.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.EdgeCount">
+            <summary>
+            The number of edges.
+            Returns 0 if Dimension less than 1.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.FiniteEdgeCount">
+            <summary>
+            The number of finite edges.
+            Returns 0 if Dimension less than 1.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.TriangleCount">
+            <summary>
+            The number of facets.
+            Returns 0 if Dimension less than 2.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.FiniteTriangleCount">
+            <summary>
+            The number of facets.
+            Returns 0 if Dimension less than 2.
+            </summary>
+        </member>
         <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.TetrahdronIndiceCount">
             <summary>
             

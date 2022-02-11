@@ -94,6 +94,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="num_ders">Number of times to derivate.</param>
 		/// <param name="u">Parameter to evaluate the derivatives at.</param>
+		/// <param name="crv"></param>
 		/// <returns>Derivatives of the curve at u.</returns>
 		private static Vector3d[] HomogeneousCurveDerivatives(BaseNurbsCurve2d crv, int num_ders, double u)
 		{
@@ -150,6 +151,7 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="u">Parameter to evaluate the surface at.</param>
 		/// <param name="v">Parameter to evaluate the surface at.</param>
+		/// <param name="srf">The surface.</param>
 		/// <returns>Resulting point on the surface at (u, v).</returns>
 		private static HPoint3d HomogeneousSurfacePoint(BaseNurbsSurface3d srf, double u, double v)
 		{
@@ -204,6 +206,8 @@ namespace CGALDotNet.Nurbs
 		/// <param name="srf">Surface object</param>
 		/// <param name="u">Parameter in the u-direction</param>
 		/// <param name="v">Parameter in the v-direction</param>
+		/// <param name="du"></param>
+		/// <param name="dv"></param>
 		/// <returns>Tuple with unit tangents along u- and v-directions</returns>
 		internal static void SurfaceTangent(BaseNurbsSurface3d srf, double u, double v, out Vector3d du, out Vector3d dv)
 		{
@@ -296,6 +300,7 @@ namespace CGALDotNet.Nurbs
 		/// <summary>
 		/// Evaluate derivatives on a non-rational NURBS surface
 		/// </summary>
+		/// <param name="srf">The surface.</param>
 		/// <param name="num_ders">Number of times to differentiate.</param>
 		/// <param name="u">Parameter to evaluate the surface at.</param>
 		/// <param name="v">Parameter to evaluate the surface at.</param>

@@ -11,7 +11,7 @@ namespace CGALDotNet.Polyhedra
     {
 		public int meridians;
 		public int parallels;
-		public double scale;
+		public double radius;
 
 		public static UVSphereParams Default
         {
@@ -20,7 +20,7 @@ namespace CGALDotNet.Polyhedra
 				var param = new UVSphereParams();
 				param.parallels = 32;
 				param.meridians = 32;
-				param.scale = 1;
+				param.radius = 0.5;
 				return param;
             }
         }
@@ -30,7 +30,7 @@ namespace CGALDotNet.Polyhedra
 	{
 
 		public int divisions;
-		public double scale;
+		public double radius;
 
 		public static NormalizedCubeParams Default
 		{
@@ -38,7 +38,7 @@ namespace CGALDotNet.Polyhedra
 			{
 				var param = new NormalizedCubeParams();
 				param.divisions = 16;
-				param.scale = 1;
+				param.radius = 0.5;
 				return param;
 			}
 		}
@@ -145,20 +145,22 @@ namespace CGALDotNet.Polyhedra
 
 	public struct CapsuleParams
 	{
+		public int meridians;
+		public int parallels;
+		public double height;
+		public double capHeight;
 		public double radius;
-		public double scale;
-		public int radialDivisions;
-		public int heightDivisions;
 
 		public static CapsuleParams Default
 		{
 			get
 			{
 				var param = new CapsuleParams();
-				param.radius = 0.25;
-				param.scale = 1;
-				param.radialDivisions = 12;
-				param.heightDivisions = 12;
+				param.parallels = 32;
+				param.meridians = 32;
+				param.radius = 0.5;
+				param.height = 1;
+				param.capHeight = 0.5;
 				return param;
 			}
 		}
@@ -216,7 +218,6 @@ namespace CGALDotNet.Polyhedra
 	/// <summary>
 	/// https://github.com/caosdoar/spheres/blob/master/src/spheres.cpp
 	/// https://github.com/mrdoob/three.js/tree/dev/src/geometries
-	/// https://github.com/vorg/primitive-capsule/blob/master/index.js
 	/// </summary>
 	internal static class MeshFactory
     {
@@ -336,15 +337,6 @@ namespace CGALDotNet.Polyhedra
 			Point3d[] corners = new Point3d[8];
 			box.GetCorners(corners);
 
-			//corners[0] = new Point3d(Min.x, Min.y, Min.z);
-			//corners[1] = new Point3d(Max.x, Min.y, Min.z);
-			//corners[2] = new Point3d(Max.x, Min.y, Max.z);
-			//corners[3] = new Point3d(Min.x, Min.y, Max.z);
-			//corners[4] = new Point3d(Min.x, Max.y, Min.z);
-			//corners[5] = new Point3d(Max.x, Max.y, Min.z);
-			//corners[6] = new Point3d(Max.x, Max.y, Max.z);
-			//corners[7] = new Point3d(Min.x, Max.y, Max.z);
-
 			list.points.Add(corners[0]); //0
 			list.points.Add(corners[1]); //1
 			list.points.Add(corners[5]); //2
@@ -432,9 +424,9 @@ namespace CGALDotNet.Polyhedra
 
 		internal static void CreateUVSphere(IndexList list, UVSphereParams param)
 		{
-			double scale = param.scale * 0.5;
+			double radius = param.radius;
 
-			list.points.Add(new Point3d(0.0, 1.0, 0.0) * scale);
+			list.points.Add(new Point3d(0.0, 1.0, 0.0) * radius);
 
 			for (int j = 0; j < param.parallels - 1; ++j)
 			{
@@ -451,11 +443,11 @@ namespace CGALDotNet.Polyhedra
 					double y = cp;
 					double z = sp * sa;
 
-					list.points.Add(new Point3d(x, y, z) * scale);
+					list.points.Add(new Point3d(x, y, z) * radius);
 				}
 			}
 
-			list.points.Add(new Point3d(0.0, -1.0, 0.0) * scale);
+			list.points.Add(new Point3d(0.0, -1.0, 0.0) * radius);
 
 			for (int i = 0; i < param.meridians; ++i)
 			{
@@ -500,7 +492,7 @@ namespace CGALDotNet.Polyhedra
 
 		internal static void CreateNormalizedCube(IndexList list, NormalizedCubeParams param)
 		{
-			double scale = param.scale * 0.5;
+			double radius = param.radius;
 
 			double step = 1.0 / param.divisions;
 			Point3d step3 = new Point3d(step, step, step);
@@ -520,7 +512,7 @@ namespace CGALDotNet.Polyhedra
 						Point3d i3 = new Point3d(i, i, i);
 						Point3d p = origin + step3 * (i3 * right + j3 * up);
 
-						list.points.Add(p.Vector3d.Normalized.Point3d * scale);
+						list.points.Add(p.Vector3d.Normalized.Point3d * radius);
 					}
 				}
 			}
@@ -896,191 +888,188 @@ namespace CGALDotNet.Polyhedra
 
 		internal static void CreateCapsule(IndexList list, CapsuleParams param)
 		{
-			int heightDivisions = param.heightDivisions;
-			int numSegments = param.radialDivisions;
+			double scale = param.radius * 0.5;
 
-			double ringsBody = param.heightDivisions + 1;
-			double ringsTotal = param.heightDivisions + ringsBody;
+			list.points.Add(new Point3d(0.0, 1.0, 0.0) * scale);
 
-			double bodyIncr = 1.0 / (ringsBody - 1.0);
-			double ringIncr = 1.0 / (heightDivisions - 1.0);
-
-			for (var x = 0; x < heightDivisions / 2; x++)
+			for (int j = 0; j < param.parallels - 1; ++j)
 			{
-				double r = Math.Sin(Math.PI * x * ringIncr);
-				double y = Math.Sin(Math.PI * (x * ringIncr - 0.5));
-				double dy = -0.5;
+				double polar = Math.PI * (j + 1) / (double)param.parallels;
+				double sp = Math.Sin(polar);
+				double cp = Math.Cos(polar);
 
-				CalculateRing(list, param, numSegments, r, y, dy);
-			}
-
-			for (var x = 0; x < ringsBody; x++)
-			{
-				double r = 1;
-				double y = 0;
-				double dy = x * bodyIncr - 0.5;
-
-				CalculateRing(list, param, numSegments, r, y, dy);
-			}
-
-			for (var x = heightDivisions / 2; x < param.heightDivisions; x++)
-			{
-				double r = Math.Sin(Math.PI * x * ringIncr);
-				double y = Math.Sin(Math.PI * (x * ringIncr - 0.5));
-				double dy = 0.5;
-
-				CalculateRing(list, param, numSegments, r, y, dy);
-			}
-
-			for (var r = 0; r < ringsTotal - 1; r++)
-			{
-				for (var s = 0; s < numSegments - 1; s++)
+				for (int i = 0; i < param.meridians; ++i)
 				{
-					int i0 = r * numSegments + (s + 1);
-					int i1 = r * numSegments + (s + 0);
-					int i2 = (r + 1) * numSegments + (s + 1);
+					double azimuth = 2.0 * Math.PI * i / (double)param.meridians;
+					double sa = Math.Sin(azimuth);
+					double ca = Math.Cos(azimuth);
+					double x = sp * ca;
+					double y = cp;
+					double z = sp * sa;
 
-					int i3 = (r + 1) * numSegments + (s + 0);
-					int i4 = (r + 1) * numSegments + (s + 1);
-					int i5 = r * numSegments + s;
-
-					list.triangles.AddTriangle(i2, i1, i0);
-					list.triangles.AddTriangle(i5, i4, i3);
+					list.points.Add(new Point3d(x, y, z) * scale);
 				}
 			}
-			
-		}
 
-		private static void CalculateRing(IndexList list, CapsuleParams param, int segments, double r, double y, double dy)
-		{
-			double radius = param.radius;
-			double height = radius * 2;
-			double segIncr = 1.0 / (segments - 1.0);
+			list.points.Add(new Point3d(0.0, -1.0, 0.0) * scale);
 
-			for (var s = 0; s < segments; s++)
+			for (int i = 0; i < param.meridians; ++i)
 			{
-				var x = -Math.Cos((Math.PI * 2) * s * segIncr) * r;
-				var z = Math.Sin((Math.PI * 2) * s * segIncr) * r;
+				int a = i + 1;
+				int b = (i + 1) % param.meridians + 1;
 
-				var point = new Point3d(radius * x, radius * y + height * dy, radius * z) * param.scale;
-				list.points.Add(point.Rounded(12));
+				list.triangles.AddTriangle(0, b, a);
 			}
-		}
 
-	/*
-	private static void RemapIndices(List<Point3d> points, 
-		List<int> indices, 
-		Dictionary<int, List<Point3d>> indexTable, 
-		Dictionary<Point3d, int> pointTable)
-	{
-		if (indices == null) return;
+			return;
 
-		for (int k = 0; k < indices.Count; k++)
-		{
-			int i = indices[k];
-
-			if (indexTable.ContainsKey(i))
+			for (int j = 0; j < param.parallels - 2; ++j)
 			{
-				var point = indexTable[i].First();
-				i = pointTable[point];
-				indices[k] = i;
-			}
-			else
-			{
-				var point = points[i];
+				int aStart = j * param.meridians + 1;
+				int bStart = (j + 1) * param.meridians + 1;
 
-				if (!pointTable.ContainsKey(point))
-					pointTable.Add(point, i);
-			}
-		}
-	}
-
-	private static void RemapIndices(List<Point3d> points, List<int> indices, List<Point3d> newPoints)
-	{
-		if (indices == null) return;
-
-		for (int k = 0; k < indices.Count; k++)
-		{
-			int i = indices[k];
-			var point = points[i];
-			indices[k] = newPoints.IndexOf(point);
-		}
-	}
-
-
-	/// <summary>
-	/// Welds duplicate vertices given some threshold.
-	/// This is not optimized and will be slow for large point sets.
-	/// </summary>
-	/// <param name="list"></param>
-	private static void WeldVertices(IndexList list)
-	{
-
-		double sqthreshold = WELD_EPS * WELD_EPS;
-
-		//Find the points that are to close and put them in a list together.
-		//That set then goes in a dictionary with any one of the indices as the key.
-		var indexTable = new Dictionary<int, List<Point3d>>();
-		for (int i = 0; i < list.points.Count; i++)
-		{
-			for (int j = 0; j < list.points.Count; j++)
-			{
-				if (i == j) continue;
-
-				double sqdist = Point3d.SqrDistance(list.points[i], list.points[j]);
-				if (sqdist <= sqthreshold)
+				for (int i = 0; i < param.meridians; ++i)
 				{
-					if(indexTable.ContainsKey(i))
+					int a = aStart + i;
+					int a1 = aStart + (i + 1) % param.meridians;
+					int b = bStart + i;
+					int b1 = bStart + (i + 1) % param.meridians;
+
+					if (list.quads != null)
 					{
-						indexTable[i].Add(list.points[i]);
-						indexTable[i].Add(list.points[j]);
-					}
-					else if (indexTable.ContainsKey(j))
-					{
-						indexTable[j].Add(list.points[i]);
-						indexTable[j].Add(list.points[j]);
+						list.quads.AddQuad(a, a1, b1, b);
 					}
 					else
 					{
-						var set = new HashSet<Point3d>();
-						set.Add(list.points[i]);
-						set.Add(list.points[j]);
+						list.triangles.AddTriangle(a, a1, b1);
+						list.triangles.AddTriangle(a, b1, b);
 					}
+				}
+			}
+
+			for (int i = 0; i < param.meridians; ++i)
+			{
+				int a = i + param.meridians * (param.parallels - 2) + 1;
+				int b = (i + 1) % param.meridians + param.meridians * (param.parallels - 2) + 1;
+
+				list.triangles.AddTriangle(list.points.Count - 1, a, b);
+			}
+		}
+
+		/*
+		private static void RemapIndices(List<Point3d> points, 
+			List<int> indices, 
+			Dictionary<int, List<Point3d>> indexTable, 
+			Dictionary<Point3d, int> pointTable)
+		{
+			if (indices == null) return;
+
+			for (int k = 0; k < indices.Count; k++)
+			{
+				int i = indices[k];
+
+				if (indexTable.ContainsKey(i))
+				{
+					var point = indexTable[i].First();
+					i = pointTable[point];
+					indices[k] = i;
+				}
+				else
+				{
+					var point = points[i];
+
+					if (!pointTable.ContainsKey(point))
+						pointTable.Add(point, i);
 				}
 			}
 		}
 
-		//Take the first point in the index table
-		//and make a point table where the point is
-		//the key and any of the points indices is the value.
-		var pointTable = new Dictionary<Point3d, int>();
-		foreach (var kvp in indexTable)
+		private static void RemapIndices(List<Point3d> points, List<int> indices, List<Point3d> newPoints)
 		{
-			int index = kvp.Key;
-			var set = kvp.Value;
-			pointTable.Add(set.First(), index);
+			if (indices == null) return;
+
+			for (int k = 0; k < indices.Count; k++)
+			{
+				int i = indices[k];
+				var point = points[i];
+				indices[k] = newPoints.IndexOf(point);
+			}
 		}
 
-		//Remap the indies so the same index points to the same point.
-		RemapIndices(list.points, list.triangles, indexTable, pointTable);
-		RemapIndices(list.points, list.quads, indexTable, pointTable);
 
-		//create a new point list containing only the points in used.
-		var newPoints = new List<Point3d>();
-		foreach(var kvp in indexTable)
-			newPoints.Add(kvp.Value.First());
+		/// <summary>
+		/// Welds duplicate vertices given some threshold.
+		/// This is not optimized and will be slow for large point sets.
+		/// </summary>
+		/// <param name="list"></param>
+		private static void WeldVertices(IndexList list)
+		{
 
-		//Remap the indices so point to the same point in the new point table
-		//that has had all the duplicate points removed.
-		RemapIndices(list.points, list.triangles, newPoints);
-		RemapIndices(list.points, list.quads, newPoints);
+			double sqthreshold = WELD_EPS * WELD_EPS;
 
-		//copy back into point list.
-		list.points.Clear();
-		list.points.AddRange(newPoints);
+			//Find the points that are to close and put them in a list together.
+			//That set then goes in a dictionary with any one of the indices as the key.
+			var indexTable = new Dictionary<int, List<Point3d>>();
+			for (int i = 0; i < list.points.Count; i++)
+			{
+				for (int j = 0; j < list.points.Count; j++)
+				{
+					if (i == j) continue;
+
+					double sqdist = Point3d.SqrDistance(list.points[i], list.points[j]);
+					if (sqdist <= sqthreshold)
+					{
+						if(indexTable.ContainsKey(i))
+						{
+							indexTable[i].Add(list.points[i]);
+							indexTable[i].Add(list.points[j]);
+						}
+						else if (indexTable.ContainsKey(j))
+						{
+							indexTable[j].Add(list.points[i]);
+							indexTable[j].Add(list.points[j]);
+						}
+						else
+						{
+							var set = new HashSet<Point3d>();
+							set.Add(list.points[i]);
+							set.Add(list.points[j]);
+						}
+					}
+				}
+			}
+
+			//Take the first point in the index table
+			//and make a point table where the point is
+			//the key and any of the points indices is the value.
+			var pointTable = new Dictionary<Point3d, int>();
+			foreach (var kvp in indexTable)
+			{
+				int index = kvp.Key;
+				var set = kvp.Value;
+				pointTable.Add(set.First(), index);
+			}
+
+			//Remap the indies so the same index points to the same point.
+			RemapIndices(list.points, list.triangles, indexTable, pointTable);
+			RemapIndices(list.points, list.quads, indexTable, pointTable);
+
+			//create a new point list containing only the points in used.
+			var newPoints = new List<Point3d>();
+			foreach(var kvp in indexTable)
+				newPoints.Add(kvp.Value.First());
+
+			//Remap the indices so point to the same point in the new point table
+			//that has had all the duplicate points removed.
+			RemapIndices(list.points, list.triangles, newPoints);
+			RemapIndices(list.points, list.quads, newPoints);
+
+			//copy back into point list.
+			list.points.Clear();
+			list.points.AddRange(newPoints);
+
+		}
+		*/
 
 	}
-	*/
-
-}
 }

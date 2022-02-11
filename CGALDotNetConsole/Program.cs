@@ -24,52 +24,91 @@ namespace CGALDotNetConsole
         {
 
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
-            pmesh.Print();
-
+ 
             var smesh = SurfaceMeshFactory<EEK>.CreateCube();
-            smesh.Print();
 
-            //MeshHalfedge3 edge;
-            //pmesh.GetHalfedge(2, out edge);
 
-            //foreach(var e in edge.EnumerateVertices(pmesh))
-            //    Console.WriteLine(e);
+            PrintFace(smesh, 0);
 
-            //MeshFace3 face;
-            //mesh.GetFace(0, out face);
+            PrintEdge(smesh, 4);
 
-            //foreach (var f in face.EnumerateHalfedges(mesh))
-            //    Console.WriteLine(f);
+            PrintFaceEdges(smesh, 0);
+           
 
-            //MeshVertex3 vert;
-            //smesh.GetVertex(0, out vert);
+        }
 
-            //foreach (var v in vert.EnumerateHalfedges(smesh))
-            //    Console.WriteLine(v)
+        private static void PrintVertex(IMesh mesh, int index)
+        {
+            Console.WriteLine("Vertex " + index);
+            MeshVertex3 vert;
+            mesh.GetVertex(index, out vert);
+            Console.WriteLine(vert);
+        }
 
-            
-            var vertices = new MeshVertex3[smesh.VertexCount];
-            smesh.GetVertices(vertices, vertices.Length);
+        private static void PrintFace(IMesh mesh, int index)
+        {
+            Console.WriteLine("Face " + index);
+            MeshFace3 face;
+            mesh.GetFace(index, out face);
+            Console.WriteLine(face);
+        }
+
+        private static void PrintFaceVertices(IMesh mesh, int index)
+        {
+            Console.WriteLine("Face " + index);
+            MeshFace3 face;
+            mesh.GetFace(index, out face);
+
+            foreach(var v in face.EnumerateVertices(mesh))
+                Console.WriteLine(v);
+        }
+
+        private static void PrintFaceEdges(IMesh mesh, int index)
+        {
+            Console.WriteLine("Face " + index);
+            MeshFace3 face;
+            mesh.GetFace(index, out face);
+
+            foreach (var e in face.EnumerateHalfedges(mesh))
+                Console.WriteLine(e);
+        }
+
+        private static void PrintEdge(IMesh mesh, int index)
+        {
+            Console.WriteLine("Edge " + index);
+            MeshHalfedge3 edge;
+            mesh.GetHalfedge(index, out edge);
+            Console.WriteLine(edge);
+        }
+
+        private static void PrintVertices(IMesh mesh)
+        {
+            var vertices = new MeshVertex3[mesh.VertexCount];
+            mesh.GetVertices(vertices, vertices.Length);
 
             Console.WriteLine("Vertices");
-            foreach(var v in vertices)
+            foreach (var v in vertices)
                 Console.WriteLine(v);
+        }
 
-            //var faces = new MeshFace3[mesh.FaceCount];
-            //mesh.GetFaces(faces, faces.Length);
+        private static void PrintFaces(IMesh mesh)
+        {
+            var faces = new MeshFace3[mesh.FaceCount];
+            mesh.GetFaces(faces, faces.Length);
 
-            //Console.WriteLine("Faces");
-            //foreach (var f in faces)
-            //    Console.WriteLine(f);
+            Console.WriteLine("Faces");
+            foreach (var f in faces)
+                Console.WriteLine(f);
+        }
 
-            //var edges = new MeshHalfedge3[mesh.HalfedgeCount];
-            //mesh.GetHalfedges(edges, edges.Length);
+        private static void PrintEdges(IMesh mesh)
+        {
+            var edges = new MeshHalfedge3[mesh.HalfedgeCount];
+            mesh.GetHalfedges(edges, edges.Length);
 
-            //Console.WriteLine("Edges");
-            //foreach (var e in edges)
-            //    Console.WriteLine(e);
-            
-
+            Console.WriteLine("Edges");
+            foreach (var e in edges)
+                Console.WriteLine(e);
         }
 
     }

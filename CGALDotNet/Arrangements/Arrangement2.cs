@@ -583,14 +583,14 @@ namespace CGALDotNet.Arrangements
         /// <summary>
         /// Insert a array of segments into the arrangement.
         /// </summary>
-        /// <param name="segments"></param>
-        /// <param name="b">The segments end point.</param>
+        /// <param name="segments">The segment array</param>
+        /// <param name="count">The segment arrays length.</param>
         /// <param name="nonIntersecting">True if the segments are known not to 
         /// hit anything currently in the arrangement.</param>
-        public void InsertSegments(Segment2d[] segments, int count, bool nonItersecting)
+        public void InsertSegments(Segment2d[] segments, int count, bool nonIntersecting)
         {
             ErrorUtil.CheckArray(segments, count);
-            Kernel.InsertSegments(Ptr, segments, count, nonItersecting);
+            Kernel.InsertSegments(Ptr, segments, count, nonIntersecting);
         }
 
         /// <summary>

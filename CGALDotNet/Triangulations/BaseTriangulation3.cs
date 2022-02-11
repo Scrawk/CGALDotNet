@@ -76,37 +76,37 @@ namespace CGALDotNet.Triangulations
         public int VertexCount => Kernel.VertexCount(Ptr);
 
         /// <summary>
-        /// Returns the number of cells or 0 if Dimension < 3.
+        /// Returns the number of cells or 0 if Dimension less than 3.
         /// </summary>
         public int TetrahedronCount => Kernel.CellCount(Ptr);
 
         /// <summary>
         /// The number of finite cells.
-        /// Returns 0 if Dimension < 3.
+        /// Returns 0 if Dimension less than 3.
         /// </summary>
         public int FiniteTetrahedronCount => Kernel.FiniteCellCount(Ptr);
 
         /// <summary>
         /// The number of edges.
-        /// Returns 0 if Dimension < 1.
+        /// Returns 0 if Dimension less than 1.
         /// </summary>
         public int EdgeCount => Kernel.EdgeCount(Ptr);
 
         /// <summary>
         /// The number of finite edges.
-        /// Returns 0 if Dimension < 1.
+        /// Returns 0 if Dimension less than 1.
         /// </summary>
         public int FiniteEdgeCount => Kernel.FiniteEdgeCount(Ptr);
 
         /// <summary>
         /// The number of facets.
-        /// Returns 0 if Dimension < 2.
+        /// Returns 0 if Dimension less than 2.
         /// </summary>
         public int TriangleCount => Kernel.FacetCount(Ptr);
 
         /// <summary>
         /// The number of facets.
-        /// Returns 0 if Dimension < 2.
+        /// Returns 0 if Dimension less than 2.
         /// </summary>
         public int FiniteTriangleCount =>  Kernel.FiniteFacetCount(Ptr);
 

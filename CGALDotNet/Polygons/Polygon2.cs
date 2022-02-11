@@ -346,7 +346,7 @@ namespace CGALDotNet.Polygons
 
         /// <summary>
         /// Is the polygon degenerate.
-        /// Polygons with < 3 points are degenerate.
+        /// Polygons with less than 3 points are degenerate.
         /// </summary>
         public bool IsDegenerate => Count < 3 || Orientation == ORIENTATION.ZERO;
 
