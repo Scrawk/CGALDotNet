@@ -568,7 +568,8 @@ namespace CGALDotNet.Polyhedra
         /// <param name="vertices"></param>
         /// <param name="faces"></param>
         /// <param name="edges"></param>
-        /// <param name="build"></param>
+        /// <param name="halfedges"></param>
+        /// <param name="force"></param>
         internal void PrintIndices(bool vertices, bool faces, bool edges, bool halfedges, bool force = false)
         {
             Kernel.PrintIndices(Ptr, vertices, faces, edges, halfedges, force);

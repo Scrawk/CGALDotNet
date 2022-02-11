@@ -214,6 +214,7 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// https://rosettacode.org/wiki/Koch_curve#C.2B.2B
         /// </summary>
+        /// <param name="center">The stars center.</param>
         /// <param name="size">The size of the polygon.</param>
         /// <param name="iterations">The number of times to sub divide.</param>
         /// <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>

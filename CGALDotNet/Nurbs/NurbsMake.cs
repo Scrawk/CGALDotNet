@@ -325,6 +325,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="a">direction of ray 1, assumed normalized</param>
 		/// <param name="b0">origin for ray 2</param>
 		/// <param name="b">direction of ray 2, assumed normalized</param>
+		/// <param name="result">The intersection result.</param>
 		/// <returns></returns>
 		private static bool IntersectRays(Point2d a0, Vector2d a, Point2d b0, Vector2d b, out CurveCurveIntersection result)
 		{

@@ -81,7 +81,7 @@ namespace CGALDotNet.Triangulations
         /// Insert the points of the polygon into the triagulation.
         /// May no have the same edges as polygon.
         /// </summary>
-        /// <param name="polygon">The polygon to insert/</param>
+        /// <param name="pwh">The polygon to insert/</param>
         public void InsertPolygon(PolygonWithHoles2<K> pwh)
         {
             if (pwh == null)

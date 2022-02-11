@@ -20,11 +20,10 @@ namespace CGALDotNet.Nurbs
 			return HomogeneousCurvePoint(crv, u).Cartesian;
 		}
 
+		/// <summary>
 		/// Evaluate point on a nonrational NURBS curve
 		/// </summary>
-		/// <param name="degree">Degree of the given curve.</param>
-		/// <param name="knots">Knot vector of the curve.</param>
-		/// <param name="control_points">Control points of the curve in homogenous space.</param>
+		/// <param name="crv">The nurbs curve.</param>
 		/// <param name="u">Parameter to evaluate the curve at.</param>
 		/// <returns>Resulting point on the curve at parameter u.</returns>
 		private static HPoint2d HomogeneousCurvePoint(BaseNurbsCurve2d crv, double u)
@@ -46,6 +45,7 @@ namespace CGALDotNet.Nurbs
 		/// Evaluate the tangent of a B-spline curve
 		/// </summary>
 		/// <param name="crv">Curve object</param>
+		/// <param name="u"></param>
 		/// <returns>Unit tangent of the curve at u.</returns>
 		internal static Vector2d CurveTangent(BaseNurbsCurve2d crv, double u)
 		{

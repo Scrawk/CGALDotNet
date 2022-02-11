@@ -466,6 +466,7 @@ namespace CGALDotNet.Arrangements
         /// </summary>
         /// <param name="point">The point</param>
         /// <param name="edge">The closest edge.</param>
+        /// <param name="radius">The radius from the point a edge counts as being clicked on.</param>
         /// <returns>True if the point hit a face and found a edge.</returns>
         public bool LocateEdge(Point2d point, double radius, out ArrHalfedge2 edge)
         {
@@ -569,10 +570,9 @@ namespace CGALDotNet.Arrangements
         }
 
         /// <summary>
-        /// 
+        /// Insert a segment into the arrangement.
         /// </summary>
         /// <param name="segment"></param>
-        /// <param name="b">The segments end point.</param>
         /// <param name="nonIntersecting">True if the segment is know not to 
         /// hit anything currently in the arrangement.</param>
         public void InsertSegment(Segment2d segment, bool nonIntersecting)

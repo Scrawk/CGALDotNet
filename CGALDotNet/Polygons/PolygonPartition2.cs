@@ -248,7 +248,7 @@ namespace CGALDotNet.Polygons
         /// and the clear the buffer.
         /// </summary>
         /// <param name="count">The number of polygons in buffer.</param>
-        // <param name="results">The resulting polygons.</param>
+        /// <param name="results">The resulting polygons.</param>
         private void CopyBufferAndClear(int count, List<Polygon2<K>> results)
         {
             for (int i = 0; i < count; i++)

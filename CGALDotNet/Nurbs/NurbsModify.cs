@@ -30,6 +30,8 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="crv">Curve object</param>
 		/// <param name="u">Parameter to split at</param>
+		/// <param name="leftParam"></param>
+		/// <param name="rightParam"></param>
 		/// <returns>Tuple with first half and second half of the curve</returns>
 		internal static void CurveSplit(BaseNurbsCurve2d crv, double u, out NurbsCurveParams2d leftParam, out NurbsCurveParams2d rightParam)
 		{
@@ -245,14 +247,15 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Insert knots in the surface along one direction
+		/// Insert knots in the surface along one direction.
 		/// </summary>
-		/// <param name="knot">Knot value to insert</param>
-		/// <param name="r">Number of times to insert</param>
-		/// <param name="along_u">Whether inserting along u-direction</param>
-		/// <param name="new_knots">Updated knot vector</param>
-		/// <param name="new_cp">Updated control points</param>
-		/// <returns></returns>
+		/// <param name="srf"></param>
+		/// <param name="knot"></param>
+		/// <param name="r"></param>
+		/// <param name="along_u"></param>
+		/// <param name="new_knots"></param>
+		/// <param name="new_cp"></param>
+		/// <exception cref="Exception"></exception>
 		internal static void SurfaceKnotInsert(BaseNurbsSurface3d srf, double knot, int r, bool along_u,
 			out List<double> new_knots, out HPoint3d[,] new_cp)
 		{

@@ -165,7 +165,8 @@ namespace CGALDotNet.Nurbs
 		/// Get the tangent at parameter u.
 		/// </summary>
 		/// <param name="u">The parameter.</param>
-		/// <returns>The tangent at u.</returns>
+		/// <param name="ccw">The normal direction.</param>
+		/// <returns>The normal at u.</returns>
 		public Vector2d Normal(double u, bool ccw = false)
 		{
 			return NurbsEval.CurveNormal(this, u, ccw);

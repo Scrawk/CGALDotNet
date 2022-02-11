@@ -61,6 +61,7 @@ namespace CGALDotNet.Nurbs
         /// <param name="end">end parameter for sampling</param>
         /// <param name="numSamples">integer number of samples</param>
         /// <param name="normals">The list of sampled points.</param>
+        /// <param name="ccw"></param>
         internal static void GetNormals(BaseNurbsCurve2d curve, List<Vector2d> normals, double start, double end, int numSamples, bool ccw = true)
         {
             if (numSamples < 2)

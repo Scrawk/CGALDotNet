@@ -216,7 +216,7 @@ namespace CGALDotNet.Polylines
         /// Remove the point at the index from the array.
         /// </summary>
         /// <param name="index">The points index.</param>
-        /// <param name="pointx">The point to insert.</param>
+        /// <param name="point">The point to insert.</param>
         public void Insert(int index, Point3d point)
         {
             if (index < 0 || index >= Count)

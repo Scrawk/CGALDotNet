@@ -472,7 +472,7 @@ namespace CGALDotNet.Polygons
         /// Remove the point at the index from the array.
         /// </summary>
         /// <param name="index">The points index.</param>
-        /// <param name="pointx">The point to insert.</param>
+        /// <param name="point">The point to insert.</param>
         public void Insert(int index, Point2d point)
         {
             if (index < 0 || index >= Count)
@@ -487,8 +487,9 @@ namespace CGALDotNet.Polygons
         /// Remove a range of points from the array.
         /// </summary>
         /// <param name="start">The starting index</param>
-        /// <param name="count">The number of points to remove.</param>
-        public void Insert(int start, int count, Point2d[] points)
+        /// <param name="points">The points to insert.</param>
+        /// <param name="count">The number of points to insert.</param>
+        public void Insert(int start, Point2d[] points, int count)
         {
             if (start < 0 || start >= Count)
                 throw new IndexOutOfRangeException("Index out of range.");

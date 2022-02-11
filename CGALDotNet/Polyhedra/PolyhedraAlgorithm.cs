@@ -33,7 +33,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is valid.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The polygon to check.</param>
         protected void CheckIsValidException(IMesh mesh)
         {
             if (mesh == null)

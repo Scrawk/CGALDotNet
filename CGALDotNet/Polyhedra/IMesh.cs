@@ -134,6 +134,7 @@ namespace CGALDotNet.Polyhedra
         /// Create a mesh consisting of one polygon face.
         /// </summary>
         /// <param name="points">The faces points</param>
+        /// <param name="count">The length of the point array.</param>
         /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
         void CreatePolygonMesh(Point2d[] points, int count, bool xz);
 

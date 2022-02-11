@@ -52,6 +52,7 @@ namespace CGALDotNet.Nurbs
 		/// Compute all non-zero B-spline basis functions
 		/// </summary>
 		/// <param name="deg">Degree of the basis function.</param>
+		/// <param name="span"></param>
 		/// <param name="knots">Knot vector corresponding to the basis functions.</param>
 		/// <param name="u">Parameter to evaluate the basis functions at.</param>
 		/// <returns>N Values of (deg+1) non-zero basis functions.</returns>

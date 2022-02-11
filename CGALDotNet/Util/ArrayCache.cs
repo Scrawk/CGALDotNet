@@ -45,6 +45,7 @@ namespace CGALDotNet
         /// Returns a array of Point2d objects that is at least the size of count.
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
+        /// <param name="clear">Should the array be cleared first.</param>
         /// <returns>Returns a array of Point2d objects that is at least the size of count.</returns>
         public static Point2d[] Point2dArray(int count, bool clear = false)
         {
@@ -61,6 +62,7 @@ namespace CGALDotNet
         /// Returns a array of Segment2d objects that is at least the size of count.
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
+        /// <param name="clear">Should the array be cleared first.</param>
         /// <returns>Returns a array of Segment2d objects that is at least the size of count.</returns>
         public static Segment2d[] Segment2dArray(int count, bool clear = false)
         {
@@ -77,6 +79,7 @@ namespace CGALDotNet
         /// Returns a array of Point3d objects that is at least the size of count.
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
+        /// <param name="clear">Should the array be cleared first.</param>
         /// <returns>Returns a array of Point3d objects that is at least the size of count.</returns>
         public static Point3d[] Point3dArray(int count, bool clear = false)
         {
@@ -93,6 +96,7 @@ namespace CGALDotNet
         /// Returns a array of HPoint3d objects that is at least the size of count.
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
+        /// <param name="clear">Should the array be cleared first.</param>
         /// <returns>Returns a array of HPoint3d objects that is at least the size of count.</returns>
         public static HPoint3d[] HPoint3dArray(int count, bool clear = false)
         {
@@ -109,6 +113,7 @@ namespace CGALDotNet
         /// Returns a array of ints that is at least the size of count.
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
+        /// <param name="clear">Should the array be cleared first.</param>
         /// <returns>Returns a array of ints that is at least the size of count.</returns>
         public static int[] IntArray1(int count, bool clear = false)
         {
@@ -125,6 +130,7 @@ namespace CGALDotNet
         /// Returns a array of ints that is at least the size of count.
         /// </summary>
         /// <param name="count">The minimum size of the array.</param>
+        /// <param name="clear">Should the array be cleared first.</param>
         /// <returns>Returns a array of ints that is at least the size of count.</returns>
         public static int[] IntArray2(int count, bool clear = false)
         {

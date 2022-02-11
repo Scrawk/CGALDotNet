@@ -227,6 +227,7 @@ namespace CGALDotNet.Triangulations
         /// Add a list of segments as constraint to the triangulation.
         /// </summary>
         /// <param name="segments">The segment array.</param>
+        /// <param name="count">The length of the segment array.</param>
         public void InsertConstraints(Segment2d[] segments, int count)
         {
             ErrorUtil.CheckArray(segments, count);

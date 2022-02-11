@@ -289,6 +289,7 @@
             </summary>
             <param name="point">The point</param>
             <param name="edge">The closest edge.</param>
+            <param name="radius">The radius from the point a edge counts as being clicked on.</param>
             <returns>True if the point hit a face and found a edge.</returns>
         </member>
         <member name="M:CGALDotNet.Arrangements.Arrangement2.LocateFace(CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.Arrangements.ArrFace2@)">
@@ -327,10 +328,9 @@
         </member>
         <member name="M:CGALDotNet.Arrangements.Arrangement2.InsertSegment(CGALDotNetGeometry.Shapes.Segment2d,System.Boolean)">
             <summary>
-            
+            Insert a segment into the arrangement.
             </summary>
             <param name="segment"></param>
-            <param name="b">The segments end point.</param>
             <param name="nonIntersecting">True if the segment is know not to 
             hit anything currently in the arrangement.</param>
         </member>
@@ -2105,6 +2105,7 @@
             Compute all non-zero B-spline basis functions
             </summary>
             <param name="deg">Degree of the basis function.</param>
+            <param name="span"></param>
             <param name="knots">Knot vector corresponding to the basis functions.</param>
             <param name="u">Parameter to evaluate the basis functions at.</param>
             <returns>N Values of (deg+1) non-zero basis functions.</returns>
@@ -2379,7 +2380,8 @@
             Get the tangent at parameter u.
             </summary>
             <param name="u">The parameter.</param>
-            <returns>The tangent at u.</returns>
+            <param name="ccw">The normal direction.</param>
+            <returns>The normal at u.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsCurve2d.GetNormals(System.Collections.Generic.List{CGALDotNetGeometry.Numerics.Vector2d},System.Int32,System.Boolean)">
             <summary>
@@ -2612,12 +2614,22 @@
             <param name="u">Parameter to evaluate the curve at.</param>
             <returns>Resulting point on the curve at parameter u.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CGALDotNet.Nurbs.NurbsEval.HomogeneousCurvePoint(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double)" -->
+        <member name="M:CGALDotNet.Nurbs.NurbsEval.HomogeneousCurvePoint(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double)">
+            <summary>
+            Evaluate point on a nonrational NURBS curve
+            </summary>
+            <param name="degree">Degree of the given curve.</param>
+            <param name="knots">Knot vector of the curve.</param>
+            <param name="control_points">Control points of the curve in homogenous space.</param>
+            <param name="u">Parameter to evaluate the curve at.</param>
+            <returns>Resulting point on the curve at parameter u.</returns>
+        </member>
         <member name="M:CGALDotNet.Nurbs.NurbsEval.CurveTangent(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double)">
             <summary>
             Evaluate the tangent of a B-spline curve
             </summary>
             <param name="crv">Curve object</param>
+            <param name="u"></param>
             <returns>Unit tangent of the curve at u.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsEval.CurveNormal(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double,System.Boolean)">
@@ -2787,6 +2799,7 @@
             <param name="a">direction of ray 1, assumed normalized</param>
             <param name="b0">origin for ray 2</param>
             <param name="b">direction of ray 2, assumed normalized</param>
+            <param name="result">The intersection result.</param>
             <returns></returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsModify.CurveKnotInsert(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double,System.Int32)">
@@ -2804,6 +2817,8 @@
             </summary>
             <param name="crv">Curve object</param>
             <param name="u">Parameter to split at</param>
+            <param name="leftParam"></param>
+            <param name="rightParam"></param>
             <returns>Tuple with first half and second half of the curve</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsModify.CurveKnotInsert(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double,System.Int32,System.Collections.Generic.List{System.Double}@,System.Collections.Generic.List{CGALDotNetGeometry.Numerics.HPoint2d}@)">
@@ -2963,6 +2978,8 @@
             Get the tangent at parameter u,v.
             </summary>
             <param name="u">The parameter.</param>
+            <param name="tu"></param>
+            <param name="tv"></param>
             <returns>The tanget at u,v.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsSurface3d.Normal(System.Double,System.Double)">
@@ -3268,6 +3285,7 @@
             <param name="end">end parameter for sampling</param>
             <param name="numSamples">integer number of samples</param>
             <param name="normals">The list of sampled points.</param>
+            <param name="ccw"></param>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsTess.EstimateLength(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double,System.Double,System.Int32)">
             <summary>
@@ -3626,14 +3644,15 @@
             Remove the point at the index from the array.
             </summary>
             <param name="index">The points index.</param>
-            <param name="pointx">The point to insert.</param>
+            <param name="point">The point to insert.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.Polygon2.Insert(System.Int32,System.Int32,CGALDotNetGeometry.Numerics.Point2d[])">
+        <member name="M:CGALDotNet.Polygons.Polygon2.Insert(System.Int32,CGALDotNetGeometry.Numerics.Point2d[],System.Int32)">
             <summary>
             Remove a range of points from the array.
             </summary>
             <param name="start">The starting index</param>
-            <param name="count">The number of points to remove.</param>
+            <param name="points">The points to insert.</param>
+            <param name="count">The number of points to insert.</param>
         </member>
         <member name="M:CGALDotNet.Polygons.Polygon2.ShrinkCapacityToFitCount">
             <summary>
@@ -4254,6 +4273,7 @@
             <summary>
             https://rosettacode.org/wiki/Koch_curve#C.2B.2B
             </summary>
+            <param name="center">The stars center.</param>
             <param name="size">The size of the polygon.</param>
             <param name="iterations">The number of times to sub divide.</param>
             <param name="ccw">True for a counter clock wise polygon, false for a clock wise polygon</param>
@@ -4468,7 +4488,7 @@
             <param name="offset">The offset type</param>
             <param name="polygon">The polygon to offset.</param>
             <param name="amount">The offset amount</param>
-            <param name="result">The offset polygon</param>
+            <param name="results">The offset polygon</param>
         </member>
         <member name="M:CGALDotNet.Polygons.PolygonOffset2`1.CreateInteriorOffset(CGALDotNet.Polygons.Polygon2{`0},System.Double,System.Collections.Generic.List{CGALDotNet.Polygons.Polygon2{`0}})">
             <summary>
@@ -4737,6 +4757,7 @@
             and the clear the buffer.
             </summary>
             <param name="count">The number of polygons in buffer.</param>
+            <param name="results">The resulting polygons.</param>
         </member>
         <member name="T:CGALDotNet.Polygons.PolygonPartition2">
             <summary>
@@ -5625,6 +5646,7 @@
             Create a mesh consisting of one polygon face.
             </summary>
             <param name="points">The faces points</param>
+            <param name="count">The length of the point array.</param>
             <param name="xz">Should the y coord of the points be used for the z coord.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.IMesh.GetIndices(System.Int32[],System.Int32[])">
@@ -6080,7 +6102,7 @@
             <summary>
             Check if the mesh is valid.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The polygon to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValid(CGALDotNet.Polyhedra.IMesh)">
             <summary>
@@ -7177,7 +7199,8 @@
             <param name="vertices"></param>
             <param name="faces"></param>
             <param name="edges"></param>
-            <param name="build"></param>
+            <param name="halfedges"></param>
+            <param name="force"></param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.AddVertex(CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
@@ -8015,7 +8038,7 @@
             Remove the point at the index from the array.
             </summary>
             <param name="index">The points index.</param>
-            <param name="pointx">The point to insert.</param>
+            <param name="point">The point to insert.</param>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline2.Insert(System.Int32,System.Int32,CGALDotNetGeometry.Numerics.Point2d[])">
             <summary>
@@ -8316,7 +8339,7 @@
             Remove the point at the index from the array.
             </summary>
             <param name="index">The points index.</param>
-            <param name="pointx">The point to insert.</param>
+            <param name="point">The point to insert.</param>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline3.Insert(System.Int32,System.Int32,CGALDotNetGeometry.Numerics.Point3d[])">
             <summary>
@@ -9058,7 +9081,23 @@
             <param name="dir">The direction vector.</param>
             <returns>The extuded mesh.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CGALDotNet.Processing.MeshProcessingMeshing`1.Fair(CGALDotNet.Polyhedra.Polyhedron3{`0},System.Int32,System.Int32)" -->
+        <member name="M:CGALDotNet.Processing.MeshProcessingMeshing`1.Fair(CGALDotNet.Polyhedra.Polyhedron3{`0},System.Int32,System.Int32)">
+            <summary>
+            Fairs a region on a triangle mesh based on a ring of k vertices from the index vertex.
+            The points of the selected vertices are relocated to yield an as-smooth-as-possible surface patch,
+            based on solving a linear bi-Laplacian system with boundary constraints
+            The region described by vertices might contain multiple disconnected components.
+            Note that the mesh connectivity is not altered in any way, only vertex locations get updated.
+            Fairing might fail if fixed vertices, which are used as boundary conditions, 
+            do not suffice to solve constructed linear system.
+            Note that if the vertex range to which fairing is applied contains all the vertices of the triangle mesh, 
+            fairing does not fail, but the mesh gets shrinked to the origin.
+            </summary>
+            <param name="mesh">A valid triangle mesh.</param>
+            <param name="index">The vertex index in the mesh to start hthe k ring region from.</param>
+            <param name="k_ring">The number of vertics to expand the region to.</param>
+            <returns>If the fairing was successfully run.</returns>
+        </member>
         <member name="M:CGALDotNet.Processing.MeshProcessingMeshing`1.Refine(CGALDotNet.Polyhedra.Polyhedron3{`0},System.Double)">
             <summary>
             Refines a triangle mesh
@@ -9950,7 +9989,7 @@
             If point is strictly outside the convex hull, p is linked to all visible points on the 
             convex hull to form the new triangulation.
              </summary>
-             <param name="point">The point to insert.</param>
+             <param name="points">The points to insert.</param>
              <param name="count">The ararys length.</param>
         </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetPoints(CGALDotNetGeometry.Numerics.Point2d[],System.Int32)">
@@ -10471,6 +10510,7 @@
             Add a list of segments as constraint to the triangulation.
             </summary>
             <param name="segments">The segment array.</param>
+            <param name="count">The length of the segment array.</param>
         </member>
         <member name="M:CGALDotNet.Triangulations.ConstrainedDelaunayTriangulation2.GetConstraints(CGALDotNet.Triangulations.TriEdge2[],System.Int32)">
             <summary>
@@ -10671,6 +10711,7 @@
             Add a list of segments as constraint to the triangulation.
             </summary>
             <param name="segments">The segment array.</param>
+            <param name="count">The length of the segment array.</param>
         </member>
         <member name="M:CGALDotNet.Triangulations.ConstrainedTriangulation2.GetConstraints(CGALDotNet.Triangulations.TriEdge2[],System.Int32)">
             <summary>
@@ -10992,7 +11033,7 @@
             Insert the points of the polygon into the triagulation.
             May no have the same edges as polygon.
             </summary>
-            <param name="polygon">The polygon to insert/</param>
+            <param name="pwh">The polygon to insert/</param>
         </member>
         <member name="M:CGALDotNet.Triangulations.Triangulation2`1.ComputeHull">
             <summary>
@@ -11236,6 +11277,7 @@
             Returns a array of Point2d objects that is at least the size of count.
             </summary>
             <param name="count">The minimum size of the array.</param>
+            <param name="clear">Should the array be cleared first.</param>
             <returns>Returns a array of Point2d objects that is at least the size of count.</returns>
         </member>
         <member name="M:CGALDotNet.ArrayCache.Segment2dArray(System.Int32,System.Boolean)">
@@ -11243,6 +11285,7 @@
             Returns a array of Segment2d objects that is at least the size of count.
             </summary>
             <param name="count">The minimum size of the array.</param>
+            <param name="clear">Should the array be cleared first.</param>
             <returns>Returns a array of Segment2d objects that is at least the size of count.</returns>
         </member>
         <member name="M:CGALDotNet.ArrayCache.Point3dArray(System.Int32,System.Boolean)">
@@ -11250,6 +11293,7 @@
             Returns a array of Point3d objects that is at least the size of count.
             </summary>
             <param name="count">The minimum size of the array.</param>
+            <param name="clear">Should the array be cleared first.</param>
             <returns>Returns a array of Point3d objects that is at least the size of count.</returns>
         </member>
         <member name="M:CGALDotNet.ArrayCache.HPoint3dArray(System.Int32,System.Boolean)">
@@ -11257,6 +11301,7 @@
             Returns a array of HPoint3d objects that is at least the size of count.
             </summary>
             <param name="count">The minimum size of the array.</param>
+            <param name="clear">Should the array be cleared first.</param>
             <returns>Returns a array of HPoint3d objects that is at least the size of count.</returns>
         </member>
         <member name="M:CGALDotNet.ArrayCache.IntArray1(System.Int32,System.Boolean)">
@@ -11264,6 +11309,7 @@
             Returns a array of ints that is at least the size of count.
             </summary>
             <param name="count">The minimum size of the array.</param>
+            <param name="clear">Should the array be cleared first.</param>
             <returns>Returns a array of ints that is at least the size of count.</returns>
         </member>
         <member name="M:CGALDotNet.ArrayCache.IntArray2(System.Int32,System.Boolean)">
@@ -11271,6 +11317,7 @@
             Returns a array of ints that is at least the size of count.
             </summary>
             <param name="count">The minimum size of the array.</param>
+            <param name="clear">Should the array be cleared first.</param>
             <returns>Returns a array of ints that is at least the size of count.</returns>
         </member>
         <member name="M:CGALDotNet.ArrayCache.MakeNewArray(System.Array,System.Int32)">

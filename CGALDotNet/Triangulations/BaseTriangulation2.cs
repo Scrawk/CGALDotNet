@@ -137,7 +137,7 @@ namespace CGALDotNet.Triangulations
         ///If point is strictly outside the convex hull, p is linked to all visible points on the 
         ///convex hull to form the new triangulation.
         /// </summary>
-        /// <param name="point">The point to insert.</param>
+        /// <param name="points">The points to insert.</param>
         /// <param name="count">The ararys length.</param>
         public void Insert(Point2d[] points, int count)
         {

@@ -84,7 +84,7 @@ namespace CGALDotNet.Processing
         /// do not suffice to solve constructed linear system.
         /// Note that if the vertex range to which fairing is applied contains all the vertices of the triangle mesh, 
         /// fairing does not fail, but the mesh gets shrinked to the origin.
-        /// <summary>
+        /// </summary>
         /// <param name="mesh">A valid triangle mesh.</param>
         /// <param name="index">The vertex index in the mesh to start hthe k ring region from.</param>
         /// <param name="k_ring">The number of vertics to expand the region to.</param>
@@ -111,7 +111,7 @@ namespace CGALDotNet.Processing
         /// do not suffice to solve constructed linear system.
         /// Note that if the vertex range to which fairing is applied contains all the vertices of the triangle mesh, 
         /// fairing does not fail, but the mesh gets shrinked to the origin.
-        /// <summary>
+        /// </summary>
         /// <param name="mesh">A valid triangle mesh.</param>
         /// <param name="index">The vertex index in the mesh to start hthe k ring region from.</param>
         /// <param name="k_ring">The number of vertics to expand the region to.</param>

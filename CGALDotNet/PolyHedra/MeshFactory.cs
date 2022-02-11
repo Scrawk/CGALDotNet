@@ -18,8 +18,8 @@ namespace CGALDotNet.Polyhedra
 			get
             {
 				var param = new UVSphereParams();
-				param.parallels = 32;
-				param.meridians = 32;
+				param.parallels = 16;
+				param.meridians = 16;
 				param.radius = 0.5;
 				return param;
             }
@@ -37,7 +37,7 @@ namespace CGALDotNet.Polyhedra
 			get
 			{
 				var param = new NormalizedCubeParams();
-				param.divisions = 16;
+				param.divisions = 8;
 				param.radius = 0.5;
 				return param;
 			}
@@ -156,8 +156,8 @@ namespace CGALDotNet.Polyhedra
 			get
 			{
 				var param = new CapsuleParams();
-				param.parallels = 32;
-				param.meridians = 32;
+				param.parallels = 16;
+				param.meridians = 16;
 				param.radius = 0.5;
 				param.height = 1;
 				param.capHeight = 0.5;
@@ -920,8 +920,6 @@ namespace CGALDotNet.Polyhedra
 
 				list.triangles.AddTriangle(0, b, a);
 			}
-
-			return;
 
 			for (int j = 0; j < param.parallels - 2; ++j)
 			{

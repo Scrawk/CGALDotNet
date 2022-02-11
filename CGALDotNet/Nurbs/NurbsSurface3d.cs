@@ -110,6 +110,8 @@ namespace CGALDotNet.Nurbs
 		/// Get the tangent at parameter u,v.
 		/// </summary>
 		/// <param name="u">The parameter.</param>
+		/// <param name="tu"></param>
+		/// <param name="tv"></param>
 		/// <returns>The tanget at u,v.</returns>
 		public void Tangent(double u, double v,  out Vector3d tu, out Vector3d tv)
 		{
