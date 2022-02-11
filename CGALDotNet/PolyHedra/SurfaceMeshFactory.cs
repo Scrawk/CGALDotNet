@@ -22,6 +22,7 @@ namespace CGALDotNet.Polyhedra
 			meshes.Add("Torus", CreateTorus(allowPolygons));
 			meshes.Add("Cone", CreateCone(allowPolygons));
 			meshes.Add("Cylinder", CreateCylinder(allowPolygons));
+			meshes.Add("Capsule", CreateCapsule(allowPolygons));
 			meshes.Add("UVSphere", CreateUVSphere(allowPolygons));
 			meshes.Add("NormalizedCube", CreateNormalizedCube(allowPolygons));
 			meshes.Add("Icosahedron", CreateIcosahedron());
@@ -171,6 +172,35 @@ namespace CGALDotNet.Polyhedra
 			return mesh;
 		}
 
+		public static SurfaceMesh3<K> CreateCapsule(bool allowPolygons = false)
+		{
+			return CreateCapsule(CapsuleParams.Default, allowPolygons);
+		}
+
+		public static SurfaceMesh3<K> CreateCapsule(CapsuleParams param, bool allowPolygons = false)
+		{
+			var mesh = new SurfaceMesh3<K>();
+
+			if (allowPolygons)
+			{
+				polygonList.Clear();
+				MeshFactory.CreateCapsule(polygonList, param);
+				var indices = polygonList.ToIndices();
+				var points = polygonList.points.ToArray();
+				mesh.CreatePolygonalMesh(points, points.Length, indices);
+			}
+			else
+			{
+				triangleList.Clear();
+				MeshFactory.CreateCapsule(triangleList, param);
+				mesh.CreateMesh(triangleList.points.ToArray(), triangleList.triangles.ToArray());
+			}
+
+			WeldVertices(mesh);
+
+			return mesh;
+		}
+
 		public static SurfaceMesh3<K> CreateUVSphere(bool allowPolygons = false)
 		{
 			return CreateUVSphere(UVSphereParams.Default, allowPolygons);
@@ -285,7 +315,7 @@ namespace CGALDotNet.Polyhedra
 		private static void WeldVertices(SurfaceMesh3<K> mesh)
 		{
 			var repair = MeshProcessingRepair<K>.Instance;
-			//repair.RepairPolygonSoup(mesh);
+			repair.RepairPolygonSoup(mesh);
 		}
 	}
 }

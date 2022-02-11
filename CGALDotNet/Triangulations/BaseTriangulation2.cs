@@ -258,7 +258,7 @@ namespace CGALDotNet.Triangulations
         /// <summary>
         /// Get a array of all the triangles.
         /// </summary>
-        /// <param name="triangules">A array of triangules.</param>
+        /// <param name="triangles">A array of triangules.</param>
         /// <param name="count">The ararys length.</param>
         public void GetTriangles(Triangle2d[] triangles, int count)
         {
@@ -319,6 +319,7 @@ namespace CGALDotNet.Triangulations
         /// Locate the closest vertex to point.
         /// </summary>
         /// <param name="point">The point</param>
+        /// <param name="radius">The distance the point must be within to count as hitting the vertex.</param>
         /// <param name="vertex">The closest vertex.</param>
         /// <returns>True if point hit a face and found a vertex.</returns>
         public bool LocateVertex(Point2d point, double radius, out TriVertex2 vertex)
@@ -366,6 +367,7 @@ namespace CGALDotNet.Triangulations
         /// Locate the closest  edge and segment to point.
         /// </summary>
         /// <param name="point">The point</param>
+        /// <param name="radius">The distance the point must be within to count as hitting the edge.</param>
         /// <param name="edge">The closest edge.</param>
         /// <returns>True if the point hit a face and found a edge.</returns>
         public bool LocateEdge(Point2d point, double radius, out TriEdge2 edge)

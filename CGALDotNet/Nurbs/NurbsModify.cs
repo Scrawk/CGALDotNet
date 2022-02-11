@@ -205,6 +205,8 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="srf">Surface object</param>
 		/// <param name="u">Parameter along u-direction to split the surface</param>
+		/// <param name="leftParam"></param>
+		/// <param name="rightParam"></param>
 		/// <returns>Tuple with first and second half of the surfaces</returns>
 		internal static void SurfaceSplitU(BaseNurbsSurface3d srf, double u, out NurbsSurfaceParams3d leftParam, out NurbsSurfaceParams3d rightParam)
 		{
@@ -228,6 +230,8 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="srf">Surface object</param>
 		/// <param name="v">Parameter along v-direction to split the surface</param>
+		/// <param name="leftParam"></param>
+		/// <param name="rightParam"></param>
 		/// <returns>Tuple with first and second half of the surfaces</returns>
 		internal static void SurfaceSplitV(BaseNurbsSurface3d srf, double v, out NurbsSurfaceParams3d leftParam, out NurbsSurfaceParams3d rightParam)
 		{
@@ -398,6 +402,7 @@ namespace CGALDotNet.Nurbs
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="srf">The surface.</param>
 		/// <param name="u">Parameter to split curve</param>
 		/// <param name="along_u">Whether the direction to split along is the u-direction</param>
 		/// <param name="left_knots">Knots of the left part of the curve</param>

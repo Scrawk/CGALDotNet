@@ -109,7 +109,7 @@ namespace CGALDotNet.Polyhedra
         /// <param name="pointCount">The point arrays length.</param>
         /// <param name="indices">The meshes trinagles as a index array.</param>
         /// <param name="indexCount">The indices array length.</param>
-        void CreateQuadMesh(Point3d[] points, int pointsCount, int[] indices, int indexCount);
+        void CreateQuadMesh(Point3d[] points, int pointCount, int[] indices, int indexCount);
 
         /// <summary>
         /// Create a mesh with quads and triangles.
@@ -174,12 +174,14 @@ namespace CGALDotNet.Polyhedra
         /// <returns>The indices.</returns>
         PolygonalIndices GetPolygonalIndices();
 
+        /*
         /// <summary>
         /// Get the dual meshes triangles, quads, pentagons and hexagons.
         /// A dual mesh is were faces become vertices and vertices become faces.
         /// </summary>
         /// <param name="indices">The faces indices</param>
-        //PolygonalIndices GetDualPolygonalIndices();
+        PolygonalIndices GetDualPolygonalIndices();
+        */
 
         /// <summary>
         /// Array accessor for the polygon.

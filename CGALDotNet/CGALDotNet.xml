@@ -2254,9 +2254,16 @@
             </summary>
             <returns>Whether closed along v-direction</returns>
         </member>
+        <member name="T:CGALDotNet.Nurbs.NurbsCurveParams2d">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:CGALDotNet.Nurbs.BaseNurbsCurve2d">
             <summary>
             Class for holding a polynomial B-spline curve
+            Not part of CGAL.
+            Implementation found https://github.com/pboyer/verb and https://github.com/pradeep-pyro/tinynurbs
             </summary>
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsCurve2d.#ctor">
@@ -2385,10 +2392,11 @@
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsCurve2d.GetNormals(System.Collections.Generic.List{CGALDotNetGeometry.Numerics.Vector2d},System.Int32,System.Boolean)">
             <summary>
-            Sample a curves tangents in a range of equally spaced parametric intervals.
+            Sample a curves normals in a range of equally spaced parametric intervals.
             </summary>
             <param name="samples">The numbers times to sample the curve.</param>
             <param name="normals">The list of sampled points.</param>
+            <param name="ccw">The normals direction.</param>
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsCurve2d.NormalizeKnots">
             <summary>
@@ -2499,6 +2507,8 @@
             </summary>
             <param name="crv">The curve to split.</param>
             <param name="u">The parameter to split the curve at</param>
+            <param name="left">The left side of the split curve.</param>
+            <param name="right">The right side of the split curve.</param>
             <returns>The two new curves.</returns>
         </member>
         <member name="T:CGALDotNet.Nurbs.RationalNurbsCurve2d">
@@ -2518,6 +2528,7 @@
             <param name="degree">The curves degree.</param>
             <param name="knots">The curves knots.</param>
             <param name="control_points">The curves control points.</param>
+            <param name="weights">The curves weights.</param>
         </member>
         <member name="M:CGALDotNet.Nurbs.RationalNurbsCurve2d.#ctor(System.Int32,System.Collections.Generic.IList{System.Double},System.Collections.Generic.IList{CGALDotNetGeometry.Numerics.HPoint2d})">
             <summary>
@@ -2603,7 +2614,9 @@
             Split the curve a the parameter and return the two new curves.
             </summary>
             <param name="crv">The curve to split.</param>
-            <param name="u">The parameter to split the curve at</param>
+            <param name="u">The parameter to split the curve at.</param>
+            <param name="left">The left side of split curve.</param>
+            <param name="right">The right side of the split curve.</param>
             <returns>The two new curves.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsEval.CartesianCurvePoint(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Double)">
@@ -2618,9 +2631,7 @@
             <summary>
             Evaluate point on a nonrational NURBS curve
             </summary>
-            <param name="degree">Degree of the given curve.</param>
-            <param name="knots">Knot vector of the curve.</param>
-            <param name="control_points">Control points of the curve in homogenous space.</param>
+            <param name="crv">The nurbs curve.</param>
             <param name="u">Parameter to evaluate the curve at.</param>
             <returns>Resulting point on the curve at parameter u.</returns>
         </member>
@@ -2637,6 +2648,7 @@
             Evaluate the tangent of a B-spline curve
             </summary>
             <param name="crv">Curve object</param>
+            <param name="u"></param>
             <param name="ccw">Shouuld the normal be counter clock-wise to the tangent or clock-wise</param>
             <returns>Unit tangent of the curve at u.</returns>
         </member>
@@ -2866,6 +2878,8 @@
             </summary>
             <param name="srf">Surface object</param>
             <param name="u">Parameter along u-direction to split the surface</param>
+            <param name="leftParam"></param>
+            <param name="rightParam"></param>
             <returns>Tuple with first and second half of the surfaces</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsModify.SurfaceSplitV(CGALDotNet.Nurbs.BaseNurbsSurface3d,System.Double,CGALDotNet.Nurbs.NurbsSurfaceParams3d@,CGALDotNet.Nurbs.NurbsSurfaceParams3d@)">
@@ -2874,23 +2888,27 @@
             </summary>
             <param name="srf">Surface object</param>
             <param name="v">Parameter along v-direction to split the surface</param>
+            <param name="leftParam"></param>
+            <param name="rightParam"></param>
             <returns>Tuple with first and second half of the surfaces</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsModify.SurfaceKnotInsert(CGALDotNet.Nurbs.BaseNurbsSurface3d,System.Double,System.Int32,System.Boolean,System.Collections.Generic.List{System.Double}@,CGALDotNetGeometry.Numerics.HPoint3d[0:,0:]@)">
             <summary>
-            Insert knots in the surface along one direction
+            Insert knots in the surface along one direction.
             </summary>
-            <param name="knot">Knot value to insert</param>
-            <param name="r">Number of times to insert</param>
-            <param name="along_u">Whether inserting along u-direction</param>
-            <param name="new_knots">Updated knot vector</param>
-            <param name="new_cp">Updated control points</param>
-            <returns></returns>
+            <param name="srf"></param>
+            <param name="knot"></param>
+            <param name="r"></param>
+            <param name="along_u"></param>
+            <param name="new_knots"></param>
+            <param name="new_cp"></param>
+            <exception cref="T:System.Exception"></exception>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsModify.SurfaceSplit(CGALDotNet.Nurbs.BaseNurbsSurface3d,System.Double,System.Boolean,System.Collections.Generic.List{System.Double}@,CGALDotNetGeometry.Numerics.HPoint3d[0:,0:]@,System.Collections.Generic.List{System.Double}@,CGALDotNetGeometry.Numerics.HPoint3d[0:,0:]@)">
             <summary>
             
             </summary>
+            <param name="srf">The surface.</param>
             <param name="u">Parameter to split curve</param>
             <param name="along_u">Whether the direction to split along is the u-direction</param>
             <param name="left_knots">Knots of the left part of the curve</param>
@@ -2962,7 +2980,8 @@
             <summary>
             Get the point at parameter u,v.
             </summary>
-            <param name="u">The parameter.</param>
+            <param name="u">The u parameter.</param>
+            <param name="v">The v parameter.</param>
             <returns>The point at u,v.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsSurface3d.GetCartesianPoints(System.Int32,CGALDotNetGeometry.Numerics.Point3d[0:,0:])">
@@ -2977,16 +2996,18 @@
             <summary>
             Get the tangent at parameter u,v.
             </summary>
-            <param name="u">The parameter.</param>
-            <param name="tu"></param>
-            <param name="tv"></param>
+            <param name="u">The v parameter.</param>
+            <param name="v">The v parameter.</param>
+            <param name="tu">The u parameters tangent.</param>
+            <param name="tv">The v parameters tangent.</param>
             <returns>The tanget at u,v.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsSurface3d.Normal(System.Double,System.Double)">
             <summary>
             Get the normal at parameter u,v.
             </summary>
-            <param name="u">The parameter.</param>
+            <param name="u">The u parameter.</param>
+            <param name="v">The v parameter.</param>
             <returns>The normal at u,v.</returns>
         </member>
         <member name="M:CGALDotNet.Nurbs.BaseNurbsSurface3d.GetNormals(System.Int32,CGALDotNetGeometry.Numerics.Vector3d[0:,0:])">
@@ -3137,17 +3158,21 @@
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsSurface3d.SplitU(CGALDotNet.Nurbs.NurbsSurface3d,System.Double,CGALDotNet.Nurbs.NurbsSurface3d@,CGALDotNet.Nurbs.NurbsSurface3d@)">
             <summary>
-            Split the surface a the parameter and return the two new surfaces.
+            
             </summary>
-            <param name="srf">The surface to split.</param>
-            <param name="u">The parameter to split the surface at</param>
+            <param name="srf"></param>
+            <param name="u"></param>
+            <param name="left"></param>
+            <param name="right"></param>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsSurface3d.SplitV(CGALDotNet.Nurbs.NurbsSurface3d,System.Double,CGALDotNet.Nurbs.NurbsSurface3d@,CGALDotNet.Nurbs.NurbsSurface3d@)">
             <summary>
-            Split the surface a the parameter and return the two new surfaces.
+            
             </summary>
-            <param name="srf">The surface to split.</param>
-            <param name="v">The parameter to split the surface at</param>
+            <param name="srf"></param>
+            <param name="v"></param>
+            <param name="left"></param>
+            <param name="right"></param>
         </member>
         <member name="T:CGALDotNet.Nurbs.RationalNurbsSurface3d">
             <summary>
@@ -3171,13 +3196,14 @@
         </member>
         <member name="M:CGALDotNet.Nurbs.RationalNurbsSurface3d.#ctor(System.Int32,System.Int32,System.Collections.Generic.IList{System.Double},System.Collections.Generic.IList{System.Double},CGALDotNetGeometry.Numerics.Point3d[0:,0:],System.Double[0:,0:])">
             <summary>
-            Create a new surface.
+            
             </summary>
-            <param name="degree_u">The degree on the first dimension.</param>
-            <param name="degree_v">The degree on the second dimension.</param>
-            <param name="knots_u">The knots on the first dimension.</param>
-            <param name="knots_v">The knots on the second dimension.</param>
-            <param name="control_points">The control points in cartesion coordinates.</param>
+            <param name="degree_u"></param>
+            <param name="degree_v"></param>
+            <param name="knots_u"></param>
+            <param name="knots_v"></param>
+            <param name="control_points"></param>
+            <param name="weights"></param>
         </member>
         <member name="M:CGALDotNet.Nurbs.RationalNurbsSurface3d.#ctor(System.Int32,System.Int32,System.Collections.Generic.IList{System.Double},System.Collections.Generic.IList{System.Double},CGALDotNetGeometry.Numerics.HPoint3d[0:,0:])">
             <summary>
@@ -3244,17 +3270,21 @@
         </member>
         <member name="M:CGALDotNet.Nurbs.RationalNurbsSurface3d.SplitU(CGALDotNet.Nurbs.RationalNurbsSurface3d,System.Double,CGALDotNet.Nurbs.RationalNurbsSurface3d@,CGALDotNet.Nurbs.RationalNurbsSurface3d@)">
             <summary>
-            Split the surface a the parameter and return the two new surfaces.
+            
             </summary>
-            <param name="srf">The surface to split.</param>
-            <param name="u">The parameter to split the surface at</param>
+            <param name="srf"></param>
+            <param name="u"></param>
+            <param name="left"></param>
+            <param name="right"></param>
         </member>
         <member name="M:CGALDotNet.Nurbs.RationalNurbsSurface3d.SplitV(CGALDotNet.Nurbs.RationalNurbsSurface3d,System.Double,CGALDotNet.Nurbs.RationalNurbsSurface3d@,CGALDotNet.Nurbs.RationalNurbsSurface3d@)">
             <summary>
-            Split the surface a the parameter and return the two new surfaces.
+            
             </summary>
-            <param name="srf">The surface to split.</param>
-            <param name="v">The parameter to split the surface at</param>
+            <param name="srf"></param>
+            <param name="v"></param>
+            <param name="left"></param>
+            <param name="right"></param>
         </member>
         <member name="M:CGALDotNet.Nurbs.NurbsTess.GetCartesianPoints(CGALDotNet.Nurbs.BaseNurbsCurve2d,System.Collections.Generic.List{CGALDotNetGeometry.Numerics.Point2d},System.Double,System.Double,System.Int32)">
             <summary>
@@ -4479,7 +4509,7 @@
             <param name="offset">The offset type</param>
             <param name="polygon">The polygon to offset.</param>
             <param name="amount">The offset amount</param>
-            <param name="result">The offset polygon</param>
+            <param name="results">The offset polygon</param>
         </member>
         <member name="M:CGALDotNet.Polygons.PolygonOffset2`1.CreateOffset(CGALDotNet.Polygons.OFFSET,CGALDotNet.Polygons.PolygonWithHoles2{`0},System.Double,System.Collections.Generic.List{CGALDotNet.Polygons.Polygon2{`0}})">
             <summary>
@@ -4496,7 +4526,7 @@
             </summary>
             <param name="polygon">The polygon to offset.</param>
             <param name="offset">The offset amount</param>
-            <param name="result">The offset polygon</param>
+            <param name="results">The offset polygon</param>
         </member>
         <member name="M:CGALDotNet.Polygons.PolygonOffset2`1.CreateInteriorOffset(CGALDotNet.Polygons.PolygonWithHoles2{`0},System.Double,System.Collections.Generic.List{CGALDotNet.Polygons.Polygon2{`0}})">
             <summary>
@@ -4512,7 +4542,7 @@
             </summary>
             <param name="polygon">The polygon to offset.</param>
             <param name="offset">The offset amount</param>
-            <param name="result">The offset polygon</param>
+            <param name="results">The offset polygon</param>
         </member>
         <member name="M:CGALDotNet.Polygons.PolygonOffset2`1.CreateExteriorOffset(CGALDotNet.Polygons.PolygonWithHoles2{`0},System.Double,System.Collections.Generic.List{CGALDotNet.Polygons.Polygon2{`0}})">
             <summary>
@@ -6102,49 +6132,49 @@
             <summary>
             Check if the mesh is valid.
             </summary>
-            <param name="mesh">The polygon to check.</param>
+            <param name="mesh">The mesh to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValid(CGALDotNet.Polyhedra.IMesh)">
             <summary>
             Check if the mesh is valid.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The mesh to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValidTriangleException(CGALDotNet.Polyhedra.IMesh)">
             <summary>
             Check if the mesh is a valid triangle mesh.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The mesh to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValidTriangle(CGALDotNet.Polyhedra.IMesh)">
             <summary>
             Check if the mesh is a valid triangle mesh.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The mesh to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValidClosedException(CGALDotNet.Polyhedra.IMesh)">
             <summary>
             Check if the mesh is a valid closed mesh.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The mesh to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValidClosed(CGALDotNet.Polyhedra.IMesh)">
             <summary>
             Check if the mesh is a valid closed mesh.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The polygon to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValidClosedTriangleException(CGALDotNet.Polyhedra.IMesh)">
             <summary>
             Check if the mesh is a valid triangle mesh.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The mesh to check.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.PolyhedraAlgorithm.CheckIsValidClosedTriangle(CGALDotNet.Polyhedra.IMesh)">
             <summary>
             Check if the mesh is a valid triangle mesh.
             </summary>
-            <param name="polygon">The polygon to check.</param>
+            <param name="mesh">The mesh to check.</param>
         </member>
         <member name="T:CGALDotNet.Polyhedra.Polyhedron3`1">
             <summary>
@@ -6481,6 +6511,7 @@
             Create a mesh consisting of one polygon face.
             </summary>
             <param name="points">The faces points</param>
+            <param name="count">The point array length.</param>
             <param name="xz">Should the y coord of the points be used for the z coord.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetIndices(System.Int32[],System.Int32[])">
@@ -7560,6 +7591,7 @@
             Create a mesh consisting of one polygon face.
             </summary>
             <param name="points">The faces points</param>
+            <param name="count">The paoint array length.</param>
             <param name="xz">Should the y coord of the points be used for the z coord.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetIndices(System.Int32[],System.Int32[])">
@@ -8040,12 +8072,13 @@
             <param name="index">The points index.</param>
             <param name="point">The point to insert.</param>
         </member>
-        <member name="M:CGALDotNet.Polylines.Polyline2.Insert(System.Int32,System.Int32,CGALDotNetGeometry.Numerics.Point2d[])">
+        <member name="M:CGALDotNet.Polylines.Polyline2.Insert(CGALDotNetGeometry.Numerics.Point2d[],System.Int32,System.Int32)">
             <summary>
             Remove a range of points from the array.
             </summary>
-            <param name="start">The starting index</param>
-            <param name="count">The number of points to remove.</param>
+            <param name="points">The points to insert.</param>
+            <param name="start">The starting index.</param>
+            <param name="count">The number of points to insert.</param>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline2.Add(CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
@@ -8341,12 +8374,13 @@
             <param name="index">The points index.</param>
             <param name="point">The point to insert.</param>
         </member>
-        <member name="M:CGALDotNet.Polylines.Polyline3.Insert(System.Int32,System.Int32,CGALDotNetGeometry.Numerics.Point3d[])">
+        <member name="M:CGALDotNet.Polylines.Polyline3.Insert(CGALDotNetGeometry.Numerics.Point3d[],System.Int32,System.Int32)">
             <summary>
             Remove a range of points from the array.
             </summary>
-            <param name="start">The starting index</param>
-            <param name="count">The number of points to remove.</param>
+            <param name="points">The points to insert.</param>
+            <param name="start">The starting index.</param>
+            <param name="count">The number of points to insert.</param>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline3.Add(CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
@@ -10065,7 +10099,7 @@
             <summary>
             Get a array of all the triangles.
             </summary>
-            <param name="triangules">A array of triangules.</param>
+            <param name="triangles">A array of triangules.</param>
             <param name="count">The ararys length.</param>
         </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetCircumcenter(System.Int32,CGALDotNetGeometry.Numerics.Point2d@)">
@@ -10106,6 +10140,7 @@
             Locate the closest vertex to point.
             </summary>
             <param name="point">The point</param>
+            <param name="radius">The distance the point must be within to count as hitting the vertex.</param>
             <param name="vertex">The closest vertex.</param>
             <returns>True if point hit a face and found a vertex.</returns>
         </member>
@@ -10114,6 +10149,7 @@
             Locate the closest  edge and segment to point.
             </summary>
             <param name="point">The point</param>
+            <param name="radius">The distance the point must be within to count as hitting the edge.</param>
             <param name="edge">The closest edge.</param>
             <returns>True if the point hit a face and found a edge.</returns>
         </member>

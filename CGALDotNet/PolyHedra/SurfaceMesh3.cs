@@ -1129,14 +1129,14 @@ namespace CGALDotNet.Polyhedra
         /// <param name="pointCount">The point arrays length.</param>
         /// <param name="indices">The meshes trinagles as a index array.</param>
         /// <param name="indexCount">The indices array length.</param>
-        public void CreateQuadMesh(Point3d[] points, int pointsCount, int[] indices, int indexCount)
+        public void CreateQuadMesh(Point3d[] points, int pointCount, int[] indices, int indexCount)
         {
-            ErrorUtil.CheckArray(points, pointsCount);
+            ErrorUtil.CheckArray(points, pointCount);
             ErrorUtil.CheckArray(indices, indexCount);
 
             Clear();
             IsUpdated = false;
-            Kernel.CreatePolygonalMesh(Ptr, points, pointsCount, null, 0, indices, indexCount, null, 0, null, 0);
+            Kernel.CreatePolygonalMesh(Ptr, points, pointCount, null, 0, indices, indexCount, null, 0, null, 0);
         }
 
         /// <summary>
@@ -1186,6 +1186,7 @@ namespace CGALDotNet.Polyhedra
         /// Create a mesh consisting of one polygon face.
         /// </summary>
         /// <param name="points">The faces points</param>
+        /// <param name="count">The paoint array length.</param>
         /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
         public void CreatePolygonMesh(Point2d[] points, int count, bool xz)
         {

@@ -65,33 +65,37 @@ namespace CGALDotNet.Hulls
             return new SurfaceMesh3<K>(ptr);
         }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
         /// <param name="planes"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        //public Polyhedron3<K> CreateHullAsPolyhedron(Plane3d[] planes, int count)
-        //{
-        //    CheckCount(count);
-        //    ErrorUtil.CheckArray(planes, count);
-        //    var ptr = Kernel.CreateHullAsPolyhedronFromPlanes(planes, count);
-        //     return new Polyhedron3<K>(ptr);
-        //}
+        public Polyhedron3<K> CreateHullAsPolyhedron(Plane3d[] planes, int count)
+        {
+            CheckCount(count);
+            ErrorUtil.CheckArray(planes, count);
+            var ptr = Kernel.CreateHullAsPolyhedronFromPlanes(planes, count);
+             return new Polyhedron3<K>(ptr);
+        }
+        */
 
+        /*
         /// <summary>
         /// 
         /// </summary>
         /// <param name="planes"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        //public SurfaceMesh3<K> CreateHullAsSurfaceMesh(Plane3d[] planes, int count)
-        //{
-        //   CheckCount(count);
-        //   ErrorUtil.CheckArray(planes, count);
-        //    var ptr = Kernel.CreateHullAsSurfaceMeshFromPlanes(planes, count);
-        //    return new SurfaceMesh3<K>(ptr);
-        //}
+        public SurfaceMesh3<K> CreateHullAsSurfaceMesh(Plane3d[] planes, int count)
+        {
+           CheckCount(count);
+           ErrorUtil.CheckArray(planes, count);
+            var ptr = Kernel.CreateHullAsSurfaceMeshFromPlanes(planes, count);
+            return new SurfaceMesh3<K>(ptr);
+        }
+        */
     }
 
     /// <summary>

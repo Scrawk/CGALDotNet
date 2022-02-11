@@ -628,6 +628,7 @@ namespace CGALDotNet.Polyhedra
         /// Create a mesh consisting of one polygon face.
         /// </summary>
         /// <param name="points">The faces points</param>
+        /// <param name="count">The point array length.</param>
         /// <param name="xz">Should the y coord of the points be used for the z coord.</param>
         public void CreatePolygonMesh(Point2d[] points, int count, bool xz)
         {
@@ -1341,19 +1342,23 @@ namespace CGALDotNet.Polyhedra
             return points;
         }
 
+        /*
+
         /// <summary>
         /// Return all the points in the mesh in a list.
         /// </summary>
         /// <returns>The list.</returns>
-        //public List<Point3d> ToList()
-        //{
-        //    int count = VertexCount;
-        //    var points = new List<Point3d>(count);
-        //    for (int i = 0; i < count.; i++)
-        //        points.Add(GetPoint(i));
-        //
-        //    return points;
-        //}
+        public List<Point3d> ToList()
+        {
+            int count = VertexCount;
+            var points = new List<Point3d>(count);
+           for (int i = 0; i < count.; i++)
+                points.Add(GetPoint(i));
+        
+            return points;
+        }
+
+        */
 
         /// <summary>
         /// Update the mesh if needed.

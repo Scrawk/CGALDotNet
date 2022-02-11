@@ -88,7 +88,8 @@ namespace CGALDotNet.Nurbs
 		/// <summary>
 		/// Get the point at parameter u,v.
 		/// </summary>
-		/// <param name="u">The parameter.</param>
+		/// <param name="u">The u parameter.</param>
+		/// <param name="v">The v parameter.</param>
 		/// <returns>The point at u,v.</returns>
 		public Point3d CartesianPoint(double u, double v)
 		{
@@ -109,11 +110,12 @@ namespace CGALDotNet.Nurbs
 		/// <summary>
 		/// Get the tangent at parameter u,v.
 		/// </summary>
-		/// <param name="u">The parameter.</param>
-		/// <param name="tu"></param>
-		/// <param name="tv"></param>
+		/// <param name="u">The v parameter.</param>
+		/// <param name="v">The v parameter.</param>
+		/// <param name="tu">The u parameters tangent.</param>
+		/// <param name="tv">The v parameters tangent.</param>
 		/// <returns>The tanget at u,v.</returns>
-		public void Tangent(double u, double v,  out Vector3d tu, out Vector3d tv)
+		public void Tangent(double u, double v, out Vector3d tu, out Vector3d tv)
 		{
 			NurbsEval.SurfaceTangent(this, u, v, out tu, out tv);
 		}
@@ -121,7 +123,8 @@ namespace CGALDotNet.Nurbs
 		/// <summary>
 		/// Get the normal at parameter u,v.
 		/// </summary>
-		/// <param name="u">The parameter.</param>
+		/// <param name="u">The u parameter.</param>
+		/// <param name="v">The v parameter.</param>
 		/// <returns>The normal at u,v.</returns>
 		public Vector3d Normal(double u, double v)
 		{
@@ -363,10 +366,10 @@ namespace CGALDotNet.Nurbs
 		/// <param name="translation">The amount to translate.</param>
 		/// <param name="rotation">The amount to rotate.</param>
 		/// <param name="scale">The amount to scale.</param>
-		public override void Transform(Point3d translation, Quaternion3d quat, Point3d scale)
+		public override void Transform(Point3d translation, Quaternion3d rotation, Point3d scale)
 		{
 			Matrix4x4d T = Matrix4x4d.Translate(translation);
-			Matrix4x4d R = quat.ToMatrix4x4d();
+			Matrix4x4d R = rotation.ToMatrix4x4d();
 			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
 			var M = T * R * S;
@@ -377,10 +380,12 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Split the surface a the parameter and return the two new surfaces.
+		/// 
 		/// </summary>
-		/// <param name="srf">The surface to split.</param>
-		/// <param name="u">The parameter to split the surface at</param>
+		/// <param name="srf"></param>
+		/// <param name="u"></param>
+		/// <param name="left"></param>
+		/// <param name="right"></param>
 		public static void SplitU(NurbsSurface3d srf, double u, out NurbsSurface3d left, out NurbsSurface3d right)
 		{
 			NurbsSurfaceParams3d leftParam, rightParam;
@@ -394,10 +399,12 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Split the surface a the parameter and return the two new surfaces.
+		/// 
 		/// </summary>
-		/// <param name="srf">The surface to split.</param>
-		/// <param name="v">The parameter to split the surface at</param>
+		/// <param name="srf"></param>
+		/// <param name="v"></param>
+		/// <param name="left"></param>
+		/// <param name="right"></param>
 		public static void SplitV(NurbsSurface3d srf, double v, out NurbsSurface3d left, out NurbsSurface3d right)
 		{
 			NurbsSurfaceParams3d leftParam, rightParam;
@@ -453,13 +460,14 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Create a new surface.
+		/// 
 		/// </summary>
-		/// <param name="degree_u">The degree on the first dimension.</param>
-		/// <param name="degree_v">The degree on the second dimension.</param>
-		/// <param name="knots_u">The knots on the first dimension.</param>
-		/// <param name="knots_v">The knots on the second dimension.</param>
-		/// <param name="control_points">The control points in cartesion coordinates.</param>
+		/// <param name="degree_u"></param>
+		/// <param name="degree_v"></param>
+		/// <param name="knots_u"></param>
+		/// <param name="knots_v"></param>
+		/// <param name="control_points"></param>
+		/// <param name="weights"></param>
 		public RationalNurbsSurface3d(int degree_u, int degree_v, IList<double> knots_u, IList<double> knots_v, Point3d[,] control_points, double[,] weights)
 		{
 			m_degreeU = degree_u;
@@ -573,10 +581,10 @@ namespace CGALDotNet.Nurbs
 		/// <param name="translation">The amount to translate.</param>
 		/// <param name="rotation">The amount to rotate.</param>
 		/// <param name="scale">The amount to scale.</param>
-		public override void Transform(Point3d translation, Quaternion3d quat, Point3d scale)
+		public override void Transform(Point3d translation, Quaternion3d rotation, Point3d scale)
 		{
 			Matrix4x4d T = Matrix4x4d.Translate(translation);
-			Matrix4x4d R = quat.ToMatrix4x4d();
+			Matrix4x4d R = rotation.ToMatrix4x4d();
 			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
 			var M = T * R * S;
@@ -593,10 +601,12 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Split the surface a the parameter and return the two new surfaces.
+		/// 
 		/// </summary>
-		/// <param name="srf">The surface to split.</param>
-		/// <param name="u">The parameter to split the surface at</param>
+		/// <param name="srf"></param>
+		/// <param name="u"></param>
+		/// <param name="left"></param>
+		/// <param name="right"></param>
 		public static void SplitU(RationalNurbsSurface3d srf, double u, out RationalNurbsSurface3d left, out RationalNurbsSurface3d right)
 		{
 			NurbsSurfaceParams3d leftParam, rightParam;
@@ -610,10 +620,12 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Split the surface a the parameter and return the two new surfaces.
+		/// 
 		/// </summary>
-		/// <param name="srf">The surface to split.</param>
-		/// <param name="v">The parameter to split the surface at</param>
+		/// <param name="srf"></param>
+		/// <param name="v"></param>
+		/// <param name="left"></param>
+		/// <param name="right"></param>
 		public static void SplitV(RationalNurbsSurface3d srf, double v, out RationalNurbsSurface3d left, out RationalNurbsSurface3d right)
 		{
 			NurbsSurfaceParams3d leftParam, rightParam;

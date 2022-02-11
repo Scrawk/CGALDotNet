@@ -43,16 +43,18 @@ namespace CGALDotNet.Processing
             return string.Format("[MeshProcessingConnections<{0}>: ]", Kernel.KernelName);
         }
 
+        /*
         /// <summary>
         /// Returns the number of unconnect components in the mesh.
         /// </summary>
         /// <param name="mesh">A valid mesh.</param>
         /// <returns>Returns the number of unconnect components in the mesh.</returns>
-        //public int UnconnectedComponents(Polyhedron3<K> mesh)
-        //{
-        //    CheckIsValidException(mesh);
-        //    return Kernel.ConnectedComponents_PH(mesh.Ptr);
-        //}
+        public int UnconnectedComponents(Polyhedron3<K> mesh)
+        {
+            CheckIsValidException(mesh);
+            return Kernel.ConnectedComponents_PH(mesh.Ptr);
+        }
+        */
 
         /// <summary>
         /// Returns the number of unconnect components in the mesh.

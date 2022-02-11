@@ -158,9 +158,9 @@ namespace CGALDotNet.Polyhedra
 				var param = new CapsuleParams();
 				param.parallels = 16;
 				param.meridians = 16;
-				param.radius = 0.5;
-				param.height = 1;
-				param.capHeight = 0.5;
+				param.radius = 0.25;
+				param.height = 0.5;
+				param.capHeight = 0.25;
 				return param;
 			}
 		}
@@ -888,13 +888,16 @@ namespace CGALDotNet.Polyhedra
 
 		internal static void CreateCapsule(IndexList list, CapsuleParams param)
 		{
-			double scale = param.radius * 0.5;
+			double radius = param.radius;
+			int halfParallels = param.parallels / 2;
+			double hafHeight = param.height * 0.5;
+			double capHeight = param.capHeight;
 
-			list.points.Add(new Point3d(0.0, 1.0, 0.0) * scale);
+			list.points.Add(new Point3d(0.0, (capHeight + hafHeight), 0.0));
 
-			for (int j = 0; j < param.parallels - 1; ++j)
+			for (int j = 0; j < halfParallels - 1; ++j)
 			{
-				double polar = Math.PI * (j + 1) / (double)param.parallels;
+				double polar = Math.PI * j / (double)param.parallels;
 				double sp = Math.Sin(polar);
 				double cp = Math.Cos(polar);
 
@@ -903,21 +906,39 @@ namespace CGALDotNet.Polyhedra
 					double azimuth = 2.0 * Math.PI * i / (double)param.meridians;
 					double sa = Math.Sin(azimuth);
 					double ca = Math.Cos(azimuth);
-					double x = sp * ca;
-					double y = cp;
-					double z = sp * sa;
+					double x = sp * ca * radius;
+					double y = (cp * capHeight) + hafHeight;
+					double z = sp * sa * radius;
 
-					list.points.Add(new Point3d(x, y, z) * scale);
+					list.points.Add(new Point3d(x, y, z));
 				}
 			}
 
-			list.points.Add(new Point3d(0.0, -1.0, 0.0) * scale);
+			for (int j = halfParallels - 1; j < param.parallels - 1; ++j)
+			{
+				double polar = Math.PI * (j + 2) / (double)param.parallels;
+				double sp = Math.Sin(polar);
+				double cp = Math.Cos(polar);
+
+				for (int i = 0; i < param.meridians; ++i)
+				{
+					double azimuth = 2.0 * Math.PI * i / (double)param.meridians;
+					double sa = Math.Sin(azimuth);
+					double ca = Math.Cos(azimuth);
+					double x = sp * ca * radius;
+					double y = (cp * capHeight) - hafHeight;
+					double z = sp * sa * radius;
+
+					list.points.Add(new Point3d(x, y, z));
+				}
+			}
+
+			list.points.Add(new Point3d(0.0, -(capHeight + hafHeight), 0.0));
 
 			for (int i = 0; i < param.meridians; ++i)
 			{
 				int a = i + 1;
 				int b = (i + 1) % param.meridians + 1;
-
 				list.triangles.AddTriangle(0, b, a);
 			}
 
@@ -949,7 +970,6 @@ namespace CGALDotNet.Polyhedra
 			{
 				int a = i + param.meridians * (param.parallels - 2) + 1;
 				int b = (i + 1) % param.meridians + param.meridians * (param.parallels - 2) + 1;
-
 				list.triangles.AddTriangle(list.points.Count - 1, a, b);
 			}
 		}

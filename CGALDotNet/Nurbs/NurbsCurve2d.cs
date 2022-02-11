@@ -4,13 +4,12 @@ using System.Linq;
 
 using CGALDotNetGeometry.Numerics;
 
-
-/// <summary>
-/// Not part of CGAL.
-/// Implementation found https://github.com/pboyer/verb and https://github.com/pradeep-pyro/tinynurbs
-/// </summary>
 namespace CGALDotNet.Nurbs
 {
+
+	/// <summary>
+	/// 
+	/// </summary>
 	internal struct NurbsCurveParams2d
 	{
 		public int degree;
@@ -20,6 +19,8 @@ namespace CGALDotNet.Nurbs
 
 	/// <summary>
 	/// Class for holding a polynomial B-spline curve
+	/// Not part of CGAL.
+	/// Implementation found https://github.com/pboyer/verb and https://github.com/pradeep-pyro/tinynurbs
 	/// </summary>
 	public abstract class BaseNurbsCurve2d
 	{
@@ -173,10 +174,11 @@ namespace CGALDotNet.Nurbs
 		}
 
 		/// <summary>
-		/// Sample a curves tangents in a range of equally spaced parametric intervals.
+		/// Sample a curves normals in a range of equally spaced parametric intervals.
 		/// </summary>
 		/// <param name="samples">The numbers times to sample the curve.</param>
 		/// <param name="normals">The list of sampled points.</param>
+		/// <param name="ccw">The normals direction.</param>
 		public void GetNormals(List<Vector2d> normals, int samples, bool ccw = false)
 		{
 			NurbsTess.GetNormals(this, normals, 0, 1, samples, ccw);
@@ -352,6 +354,8 @@ namespace CGALDotNet.Nurbs
 		/// </summary>
 		/// <param name="crv">The curve to split.</param>
 		/// <param name="u">The parameter to split the curve at</param>
+		/// <param name="left">The left side of the split curve.</param>
+		/// <param name="right">The right side of the split curve.</param>
 		/// <returns>The two new curves.</returns>
 		public static void Split(NurbsCurve2d crv, double u, out NurbsCurve2d left, out NurbsCurve2d right)
 		{
@@ -389,6 +393,7 @@ namespace CGALDotNet.Nurbs
 		/// <param name="degree">The curves degree.</param>
 		/// <param name="knots">The curves knots.</param>
 		/// <param name="control_points">The curves control points.</param>
+		/// <param name="weights">The curves weights.</param>
 		public RationalNurbsCurve2d(int degree, IList<double> knots, IList<Point2d> control_points, IList<double> weights)
 		{
 			m_degree = degree;
@@ -493,10 +498,10 @@ namespace CGALDotNet.Nurbs
 		/// <param name="translation">The amount to translate.</param>
 		/// <param name="rotation">The amount to rotate.</param>
 		/// <param name="scale">The amount to scale.</param>
-		public override void Transform(Point2d translation, Radian radian, double scale)
+		public override void Transform(Point2d translation, Radian rotation, double scale)
 		{
 			Matrix4x4d T = Matrix4x4d.Translate(translation.xy0);
-			Matrix4x4d R = Matrix3x3d.RotateZ(radian).ToMatrix4x4d();
+			Matrix4x4d R = Matrix3x3d.RotateZ(rotation).ToMatrix4x4d();
 			Matrix4x4d S = Matrix4x4d.Scale(scale);
 
 			var M = T * R * S;
@@ -527,7 +532,9 @@ namespace CGALDotNet.Nurbs
 		/// Split the curve a the parameter and return the two new curves.
 		/// </summary>
 		/// <param name="crv">The curve to split.</param>
-		/// <param name="u">The parameter to split the curve at</param>
+		/// <param name="u">The parameter to split the curve at.</param>
+		/// <param name="left">The left side of split curve.</param>
+		/// <param name="right">The right side of the split curve.</param>
 		/// <returns>The two new curves.</returns>
 		public static void Split(RationalNurbsCurve2d crv, double u, out RationalNurbsCurve2d left, out RationalNurbsCurve2d right)
 		{

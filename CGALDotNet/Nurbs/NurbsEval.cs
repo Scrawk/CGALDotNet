@@ -57,6 +57,7 @@ namespace CGALDotNet.Nurbs
 		/// Evaluate the tangent of a B-spline curve
 		/// </summary>
 		/// <param name="crv">Curve object</param>
+		/// <param name="u"></param>
 		/// <param name="ccw">Shouuld the normal be counter clock-wise to the tangent or clock-wise</param>
 		/// <returns>Unit tangent of the curve at u.</returns>
 		internal static Vector2d CurveNormal(BaseNurbsCurve2d crv, double u, bool ccw)

@@ -33,7 +33,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is valid.
         /// </summary>
-        /// <param name="mesh">The polygon to check.</param>
+        /// <param name="mesh">The mesh to check.</param>
         protected void CheckIsValidException(IMesh mesh)
         {
             if (mesh == null)
@@ -48,7 +48,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is valid.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The mesh to check.</param>
         protected bool CheckIsValid(IMesh mesh)
         {
             if (mesh == null)
@@ -61,7 +61,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is a valid triangle mesh.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The mesh to check.</param>
         protected void CheckIsValidTriangleException(IMesh mesh)
         {
             if (mesh == null)
@@ -79,7 +79,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is a valid triangle mesh.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The mesh to check.</param>
         protected bool CheckIsValidTriangle(IMesh mesh)
         {
             if (mesh == null)
@@ -92,7 +92,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is a valid closed mesh.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The mesh to check.</param>
         protected void CheckIsValidClosedException(IMesh mesh)
         {
             if (mesh == null)
@@ -110,7 +110,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is a valid closed mesh.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The polygon to check.</param>
         protected bool CheckIsValidClosed(IMesh mesh)
         {
             if (mesh == null)
@@ -123,7 +123,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is a valid triangle mesh.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The mesh to check.</param>
         protected void CheckIsValidClosedTriangleException(IMesh mesh)
         {
             if (mesh == null)
@@ -144,7 +144,7 @@ namespace CGALDotNet.Polyhedra
         /// <summary>
         /// Check if the mesh is a valid triangle mesh.
         /// </summary>
-        /// <param name="polygon">The polygon to check.</param>
+        /// <param name="mesh">The mesh to check.</param>
         protected bool CheckIsValidClosedTriangle(IMesh mesh)
         {
             if (mesh == null)

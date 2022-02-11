@@ -48,7 +48,7 @@ namespace CGALDotNet.Polygons
         /// <param name="offset">The offset type</param>
         /// <param name="polygon">The polygon to offset.</param>
         /// <param name="amount">The offset amount</param>
-        /// <param name="result">The offset polygon</param>
+        /// <param name="results">The offset polygon</param>
         public void CreateOffset(OFFSET offset, Polygon2<K> polygon, double amount, List<Polygon2<K>> results)
         {
             if (offset == OFFSET.INTERIOR)
@@ -77,7 +77,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="polygon">The polygon to offset.</param>
         /// <param name="offset">The offset amount</param>
-        /// <param name="result">The offset polygon</param>
+        /// <param name="results">The offset polygon</param>
         public void CreateInteriorOffset(Polygon2<K> polygon, double offset, List<Polygon2<K>> results)
         {
             CheckPolygon(polygon);
@@ -121,7 +121,7 @@ namespace CGALDotNet.Polygons
         /// </summary>
         /// <param name="polygon">The polygon to offset.</param>
         /// <param name="offset">The offset amount</param>
-        /// <param name="result">The offset polygon</param>
+        /// <param name="results">The offset polygon</param>
         public void CreateExteriorOffset(Polygon2<K> polygon, double offset, List<Polygon2<K>> results)
         {
             CheckPolygon(polygon);

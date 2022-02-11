@@ -229,9 +229,10 @@ namespace CGALDotNet.Polylines
         /// <summary>
         /// Remove a range of points from the array.
         /// </summary>
-        /// <param name="start">The starting index</param>
-        /// <param name="count">The number of points to remove.</param>
-        public void Insert(int start, int count, Point3d[] points)
+        /// <param name="points">The points to insert.</param>
+        /// <param name="start">The starting index.</param>
+        /// <param name="count">The number of points to insert.</param>
+        public void Insert(Point3d[] points, int start, int count)
         {
             if (start < 0 || start >= Count)
                 throw new IndexOutOfRangeException("Index out of range.");

@@ -43,15 +43,17 @@ namespace CGALDotNet.Processing
             return string.Format("[MeshProcessingRepair<{0}>: ]", Kernel.KernelName);
         }
 
+        /*
         /// <summary>
         /// Find the number of degenerate edges in the mesh.
         /// </summary>
         /// <param name="mesh">The polygon mesh.</param>
         /// <returns>The number of degenerate edges in the mesh.</returns>
-        //public int DegenerateEdgeCount(Polyhedron3<K> mesh)
-        //{
-        //    return Kernel.DegenerateEdgeCount_PM(mesh.Ptr);
-        //}
+        public int DegenerateEdgeCount(Polyhedron3<K> mesh)
+        {
+            return Kernel.DegenerateEdgeCount_PM(mesh.Ptr);
+        }
+        */
 
         /// <summary>
         /// Find the number of degenerate edges in the mesh.
