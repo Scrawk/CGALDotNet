@@ -255,7 +255,7 @@
     <ClInclude Include="Collections\UnmanagedList.h" />
     <ClInclude Include="Utility\ArrayUtil.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
-    <ClInclude Include="Utility\CGALGlobal_EEK.h" />
+    <ClInclude Include="Utility\CGALGlobal_EIK.h" />
     <ClInclude Include="Hull\ConvexHull2.h" />
     <ClInclude Include="Hull\ConvexHull2_EEK.h" />
     <ClInclude Include="Geometry\Geometry3.h" />
@@ -337,7 +337,7 @@
     <ClCompile Include="Meshing\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
     <ClCompile Include="Collections\UnmanagedList.cpp" />
-    <ClCompile Include="Utility\CGALGlobal_EEK.cpp" />
+    <ClCompile Include="Utility\CGALGlobal_EiK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp" />

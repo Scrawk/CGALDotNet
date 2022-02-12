@@ -52,7 +52,7 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="mesh">The mesh.</param>
         /// <returns>A random point on mesh surface.</returns>
-        public Point3d RandomLocationOnMesh(Polyhedron3<EEK> mesh)
+        public Point3d RandomLocationOnMesh(Polyhedron3<K> mesh)
         {
             return Kernel.RandomLocationOnMesh_PH(mesh.Ptr);
         }
@@ -62,7 +62,7 @@ namespace CGALDotNet.Processing
         /// </summary>
         /// <param name="mesh">The mesh.</param>
         /// <returns>A random point on mesh surface.</returns>
-        public Point3d RandomLocationOnMesh(SurfaceMesh3<EEK> mesh)
+        public Point3d RandomLocationOnMesh(SurfaceMesh3<K> mesh)
         {
             return Kernel.RandomLocationOnMesh_SM(mesh.Ptr);
         }
@@ -73,7 +73,7 @@ namespace CGALDotNet.Processing
         /// <param name="mesh">The mesh.</param>
         /// <param name="ray">Th ray.</param>
         /// <returns>The hit result with theface index, hit point and the barycentric coords.</returns>
-        public MeshHitResult LocateFace(Polyhedron3<EEK> mesh, Ray3d ray)
+        public MeshHitResult LocateFace(Polyhedron3<K> mesh, Ray3d ray)
         {
             return Kernel.LocateFaceRay_PH(mesh.Ptr, ray);
         }
@@ -84,7 +84,7 @@ namespace CGALDotNet.Processing
         /// <param name="mesh">The mesh.</param>
         /// <param name="ray">Th ray.</param>
         /// <returns>The hit result with theface index, hit point and the barycentric coords.</returns>
-        public MeshHitResult LocateFace(SurfaceMesh3<EEK> mesh, Ray3d ray)
+        public MeshHitResult LocateFace(SurfaceMesh3<K> mesh, Ray3d ray)
         {
             return Kernel.LocateFaceRay_SM(mesh.Ptr, ray);
         }
@@ -95,7 +95,7 @@ namespace CGALDotNet.Processing
         /// <param name="mesh">The mesh.</param>
         /// <param name="point">Th point.</param>
         /// <returns>The hit result with the face index, closest point and the barycentric coords.</returns>
-        public MeshHitResult ClosestFace(Polyhedron3<EEK> mesh, Point3d point)
+        public MeshHitResult ClosestFace(Polyhedron3<K> mesh, Point3d point)
         {
             return Kernel.LocateFacePoint_PH(mesh.Ptr, point);
         }
@@ -106,7 +106,7 @@ namespace CGALDotNet.Processing
         /// <param name="mesh">The mesh.</param>
         /// <param name="point">Th point.</param>
         /// <returns>The hit result with the face index, closest point and the barycentric coords.</returns>
-        public MeshHitResult ClosestFace(SurfaceMesh3<EEK> mesh, Point3d point)
+        public MeshHitResult ClosestFace(SurfaceMesh3<K> mesh, Point3d point)
         {
             return Kernel.LocateFacePoint_SM(mesh.Ptr, point);
         }

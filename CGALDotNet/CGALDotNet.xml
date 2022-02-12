@@ -562,6 +562,11 @@
             Get the version of CGAL in use.
             </summary>
         </member>
+        <member name="P:CGALDotNet.CGALGlobal.EigenVersion">
+            <summary>
+            Get the version of eigen being used.
+            </summary>
+        </member>
         <member name="M:CGALDotNet.CGALGlobal.Angle(CGALDotNetGeometry.Numerics.Vector2d,CGALDotNetGeometry.Numerics.Vector2d)">
             <summary>
             Returns CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
@@ -5753,6 +5758,83 @@
             <param name="points">The point array.</param>
             <param name="count">The point arrays length.</param>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetSegment(System.Int32,CGALDotNetGeometry.Shapes.Segment3d@)">
+            <summary>
+            Get a halfedges segment.
+            </summary>
+            <param name="index">The halfedges index.</param>
+            <param name="segment">The segment.</param>
+            <returns>True if halfedge found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetSegments(CGALDotNetGeometry.Shapes.Segment3d[],System.Int32)">
+            <summary>
+            Get a segment for  each halfedge in the mesh.
+            </summary>
+            <param name="segments">The segment array.</param>
+            <param name="count">The segment array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetTriangle(System.Int32,CGALDotNetGeometry.Shapes.Triangle3d@)">
+            <summary>
+            Get the faces triangle. 
+            Presumes face is a triangle with no checks.
+            </summary>
+            <param name="index">The faces index.</param>
+            <param name="triangle">The faces triangle</param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetTriangles(CGALDotNetGeometry.Shapes.Triangle3d[],System.Int32)">
+            <summary>
+            Get a triangle for each face in the mesh.
+            Presumes all faces are triangles with no checks.
+            </summary>
+            <param name="triangles">The trainagle array.</param>
+            <param name="count">The traingle  arrays length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetVertex(System.Int32,CGALDotNet.Polyhedra.MeshVertex3@)">
+            <summary>
+            Get the mesh vertex.
+            </summary>
+            <param name="index">The vertices index.</param>
+            <param name="vertex">The vertex.</param>
+            <returns>True if the vertex was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetVertices(CGALDotNet.Polyhedra.MeshVertex3[],System.Int32)">
+            <summary>
+            Get the vertices in the mesh.
+            </summary>
+            <param name="vertices">The vertex array.</param>
+            <param name="count">The vertex array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetFace(System.Int32,CGALDotNet.Polyhedra.MeshFace3@)">
+            <summary>
+            Get the mesh face.
+            </summary>
+            <param name="index">The faces index.</param>
+            <param name="face">The face.</param>
+            <returns>True if the face was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetFaces(CGALDotNet.Polyhedra.MeshFace3[],System.Int32)">
+            <summary>
+            Get the faces in the mesh.
+            </summary>
+            <param name="faces">The face array.</param>
+            <param name="count">The face array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetHalfedge(System.Int32,CGALDotNet.Polyhedra.MeshHalfedge3@)">
+            <summary>
+            Get the mesh halfedge.
+            </summary>
+            <param name="index">The halfedges index.</param>
+            <param name="halfedge">The halfedge.</param>
+            <returns>True if the halfedge was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.GetHalfedges(CGALDotNet.Polyhedra.MeshHalfedge3[],System.Int32)">
+            <summary>
+            Get the halfedges in the mesh.
+            </summary>
+            <param name="halfedges">The halfedge array.</param>
+            <param name="count">The halfedge array length.</param>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.IMesh.GetPolygonalCount">
             <summary>
             Count the number of triangles, quads and polygons in the mesh.
@@ -5850,6 +5932,63 @@
             <summary>
             Reverses the orientation of the vertices in each face.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.BoundedSide(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Find what side of the mesh the lies in.
+            </summary>
+            <param name="point">The point to check.</param>
+            <returns>ON_BOUNDED_SIDE if point inside mesh, 
+            ON_UNBOUNDED_SIDE if point not inside, 
+            ON_BOUNDARY if point is on the surface.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.ContainsPoint(CGALDotNetGeometry.Numerics.Point3d,System.Boolean)">
+            <summary>
+            Does the mesh contain the point.
+            </summary>
+            <param name="point">The point.</param>
+            <param name="includeBoundary">If point is on the boundary does it count a being contained.</param>
+            <returns>True if the poly contains the point</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.LocateFace(CGALDotNetGeometry.Shapes.Ray3d)">
+            <summary>
+            Locate the face the rays hits.
+            </summary>
+            <param name="ray">The ray.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.ClosestFace(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Find the face closest to the point.
+            </summary>
+            <param name="point">The point.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.LocateFace(CGALDotNetGeometry.Shapes.Ray3d,CGALDotNet.Polyhedra.MeshFace3@)">
+            <summary>
+            Locate the face hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="face">The hit face.</param>
+            <returns>True if the ray hit a face.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.LocateVertex(CGALDotNetGeometry.Shapes.Ray3d,System.Double,CGALDotNet.Polyhedra.MeshVertex3@)">
+            <summary>
+            Locate the vertex hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="radius">The distance the vertex has to be within hit point.</param>
+            <param name="vertex">The hit vertex.</param>
+            <returns>True if the ray hit a vertex.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.IMesh.LocateHalfedge(CGALDotNetGeometry.Shapes.Ray3d,System.Double,CGALDotNet.Polyhedra.MeshHalfedge3@)">
+            <summary>
+            Locate the edge hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="radius">The distance the edge has to be within hit point.</param>
+            <param name="edge">The hit edge.</param>
+            <returns>True if the ray hit a edge.</returns>
         </member>
         <member name="T:CGALDotNet.Polyhedra.MeshFactory">
             <summary>
@@ -6305,6 +6444,20 @@
             </summary>
             <returns>The min, max and average face areas in the mesh.</returns>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3`1.LocateFace(CGALDotNetGeometry.Shapes.Ray3d)">
+            <summary>
+            Locate the face the rays hits.
+            </summary>
+            <param name="ray">The ray.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3`1.ClosestFace(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Find the face closest to the point.
+            </summary>
+            <param name="point">The point.</param>
+            <returns>The hit result.</returns>
+        </member>
         <member name="T:CGALDotNet.Polyhedra.Polyhedron3">
             <summary>
             The abstract polyhedra definition.
@@ -6595,6 +6748,83 @@
             <param name="points">The point array.</param>
             <param name="count">The point arrays length.</param>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetSegment(System.Int32,CGALDotNetGeometry.Shapes.Segment3d@)">
+            <summary>
+            Get a halfedges segment.
+            </summary>
+            <param name="index">The halfedges index.</param>
+            <param name="segment">The segment.</param>
+            <returns>True if halfedge found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetSegments(CGALDotNetGeometry.Shapes.Segment3d[],System.Int32)">
+            <summary>
+            Get a segment for  each halfedge in the mesh.
+            </summary>
+            <param name="segments">The segment array.</param>
+            <param name="count">The segment array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetTriangle(System.Int32,CGALDotNetGeometry.Shapes.Triangle3d@)">
+            <summary>
+            Get the faces triangle. 
+            Presumes face is a triangle with no checks.
+            </summary>
+            <param name="index">The faces index.</param>
+            <param name="triangle">The faces triangle</param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetTriangles(CGALDotNetGeometry.Shapes.Triangle3d[],System.Int32)">
+            <summary>
+            Get a triangle for each face in the mesh.
+            Presumes all faces are triangles with no checks.
+            </summary>
+            <param name="triangles">The trainagle array.</param>
+            <param name="count">The traingle  arrays length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetVertex(System.Int32,CGALDotNet.Polyhedra.MeshVertex3@)">
+            <summary>
+            Get the mesh vertex.
+            </summary>
+            <param name="index">The vertices index.</param>
+            <param name="vertex">The vertex.</param>
+            <returns>True if the vertex was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetVertices(CGALDotNet.Polyhedra.MeshVertex3[],System.Int32)">
+            <summary>
+            Get the vertices in the mesh.
+            </summary>
+            <param name="vertices">The vertex array.</param>
+            <param name="count">The vertex array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetFace(System.Int32,CGALDotNet.Polyhedra.MeshFace3@)">
+            <summary>
+            Get the mesh face.
+            </summary>
+            <param name="index">The faces index.</param>
+            <param name="face">The face.</param>
+            <returns>True if the face was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetFaces(CGALDotNet.Polyhedra.MeshFace3[],System.Int32)">
+            <summary>
+            Get the faces in the mesh.
+            </summary>
+            <param name="faces">The face array.</param>
+            <param name="count">The face array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetHalfedge(System.Int32,CGALDotNet.Polyhedra.MeshHalfedge3@)">
+            <summary>
+            Get the mesh halfedge.
+            </summary>
+            <param name="index">The halfedges index.</param>
+            <param name="halfedge">The halfedge.</param>
+            <returns>True if the halfedge was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetHalfedges(CGALDotNet.Polyhedra.MeshHalfedge3[],System.Int32)">
+            <summary>
+            Get the halfedges in the mesh.
+            </summary>
+            <param name="halfedges">The halfedge array.</param>
+            <param name="count">The halfedge array length.</param>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetPolygonalCount">
             <summary>
             Count the number of triangles, quads and polygons in the mesh.
@@ -6702,6 +6932,46 @@
             <param name="point">The point.</param>
             <param name="includeBoundary">If point is on the boundary does it count a being contained.</param>
             <returns>True if the poly contains the point</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.LocateFace(CGALDotNetGeometry.Shapes.Ray3d)">
+            <summary>
+            Locate the face the rays hits.
+            </summary>
+            <param name="ray">The ray.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.ClosestFace(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Find the face closest to the point.
+            </summary>
+            <param name="point">The point.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.LocateFace(CGALDotNetGeometry.Shapes.Ray3d,CGALDotNet.Polyhedra.MeshFace3@)">
+            <summary>
+            Locate the face hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="face">The hit face.</param>
+            <returns>True if the ray hit a face.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.LocateVertex(CGALDotNetGeometry.Shapes.Ray3d,System.Double,CGALDotNet.Polyhedra.MeshVertex3@)">
+            <summary>
+            Locate the vertex hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="radius">The distance the vertex has to be within hit point.</param>
+            <param name="vertex">The hit vertex.</param>
+            <returns>True if the ray hit a vertex.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.LocateHalfedge(CGALDotNetGeometry.Shapes.Ray3d,System.Double,CGALDotNet.Polyhedra.MeshHalfedge3@)">
+            <summary>
+            Locate the edge hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="radius">The distance the edge has to be within hit point.</param>
+            <param name="edge">The hit edge.</param>
+            <returns>True if the ray hit a edge.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.DoesSelfIntersect">
             <summary>
@@ -7043,6 +7313,20 @@
             </summary>
             <returns>The min, max and average face areas in the mesh.</returns>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.LocateFace(CGALDotNetGeometry.Shapes.Ray3d)">
+            <summary>
+            Locate the face the rays hits.
+            </summary>
+            <param name="ray">The ray.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.ClosestFace(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Find the face closest to the point.
+            </summary>
+            <param name="point">The point.</param>
+            <returns>The hit result.</returns>
+        </member>
         <member name="T:CGALDotNet.Polyhedra.SurfaceMesh3">
             <summary>
             The surface mesh abstract base class.
@@ -7358,6 +7642,83 @@
             </summary>
             <param name="points">The point array.</param>
             <param name="count">The point arrays length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetSegment(System.Int32,CGALDotNetGeometry.Shapes.Segment3d@)">
+            <summary>
+            Get a halfedges segment.
+            </summary>
+            <param name="index">The halfedges index.</param>
+            <param name="segment">The segment.</param>
+            <returns>True if halfedge found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetSegments(CGALDotNetGeometry.Shapes.Segment3d[],System.Int32)">
+            <summary>
+            Get a segment for  each halfedge in the mesh.
+            </summary>
+            <param name="segments">The segment array.</param>
+            <param name="count">The segment array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetTriangle(System.Int32,CGALDotNetGeometry.Shapes.Triangle3d@)">
+            <summary>
+            Get the faces triangle. 
+            Presumes face is a triangle with no checks.
+            </summary>
+            <param name="index">The faces index.</param>
+            <param name="triangle">The faces triangle</param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetTriangles(CGALDotNetGeometry.Shapes.Triangle3d[],System.Int32)">
+            <summary>
+            Get a triangle for each face in the mesh.
+            Presumes all faces are triangles with no checks.
+            </summary>
+            <param name="triangles">The trainagle array.</param>
+            <param name="count">The traingle  arrays length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetVertex(System.Int32,CGALDotNet.Polyhedra.MeshVertex3@)">
+            <summary>
+            Get the mesh vertex.
+            </summary>
+            <param name="index">The vertices index.</param>
+            <param name="vertex">The vertex.</param>
+            <returns>True if the vertex was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetVertices(CGALDotNet.Polyhedra.MeshVertex3[],System.Int32)">
+            <summary>
+            Get the vertices in the mesh.
+            </summary>
+            <param name="vertices">The vertex array.</param>
+            <param name="count">The vertex array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetFace(System.Int32,CGALDotNet.Polyhedra.MeshFace3@)">
+            <summary>
+            Get the mesh face.
+            </summary>
+            <param name="index">The faces index.</param>
+            <param name="face">The face.</param>
+            <returns>True if the face was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetFaces(CGALDotNet.Polyhedra.MeshFace3[],System.Int32)">
+            <summary>
+            Get the faces in the mesh.
+            </summary>
+            <param name="faces">The face array.</param>
+            <param name="count">The face array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetHalfedge(System.Int32,CGALDotNet.Polyhedra.MeshHalfedge3@)">
+            <summary>
+            Get the mesh halfedge.
+            </summary>
+            <param name="index">The halfedges index.</param>
+            <param name="halfedge">The halfedge.</param>
+            <returns>True if the halfedge was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetHalfedges(CGALDotNet.Polyhedra.MeshHalfedge3[],System.Int32)">
+            <summary>
+            Get the halfedges in the mesh.
+            </summary>
+            <param name="halfedges">The halfedge array.</param>
+            <param name="count">The halfedge array length.</param>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.VertexDegree(System.Int32)">
             <summary>
@@ -7776,6 +8137,46 @@
             <param name="point">The point.</param>
             <param name="includeBoundary">If point is on the boundary does it count a being contained.</param>
             <returns>True if the poly contains the point</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.LocateFace(CGALDotNetGeometry.Shapes.Ray3d)">
+            <summary>
+            Locate the face the rays hits.
+            </summary>
+            <param name="ray">The ray.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.ClosestFace(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Find the face closest to the point.
+            </summary>
+            <param name="point">The point.</param>
+            <returns>The hit result.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.LocateFace(CGALDotNetGeometry.Shapes.Ray3d,CGALDotNet.Polyhedra.MeshFace3@)">
+            <summary>
+            Locate the face hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="face">The hit face.</param>
+            <returns>True if the ray hit a face.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.LocateVertex(CGALDotNetGeometry.Shapes.Ray3d,System.Double,CGALDotNet.Polyhedra.MeshVertex3@)">
+            <summary>
+            Locate the vertex hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="radius">The distance the vertex has to be within hit point.</param>
+            <param name="vertex">The hit vertex.</param>
+            <returns>True if the ray hit a vertex.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.LocateHalfedge(CGALDotNetGeometry.Shapes.Ray3d,System.Double,CGALDotNet.Polyhedra.MeshHalfedge3@)">
+            <summary>
+            Locate the edge hit by the ray.
+            </summary>
+            <param name="ray">The ray.</param>
+            <param name="radius">The distance the edge has to be within hit point.</param>
+            <param name="edge">The hit edge.</param>
+            <returns>True if the ray hit a edge.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.DoIntersect(CGALDotNet.Polyhedra.SurfaceMesh3,System.Boolean)">
             <summary>
@@ -8990,21 +9391,21 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.RandomLocationOnMesh(CGALDotNet.Polyhedra.Polyhedron3{CGALDotNet.EEK})">
+        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.RandomLocationOnMesh(CGALDotNet.Polyhedra.Polyhedron3{`0})">
             <summary>
             Find a random point on mesh surface.
             </summary>
             <param name="mesh">The mesh.</param>
             <returns>A random point on mesh surface.</returns>
         </member>
-        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.RandomLocationOnMesh(CGALDotNet.Polyhedra.SurfaceMesh3{CGALDotNet.EEK})">
+        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.RandomLocationOnMesh(CGALDotNet.Polyhedra.SurfaceMesh3{`0})">
             <summary>
             Find a random point on mesh surface.
             </summary>
             <param name="mesh">The mesh.</param>
             <returns>A random point on mesh surface.</returns>
         </member>
-        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.LocateFace(CGALDotNet.Polyhedra.Polyhedron3{CGALDotNet.EEK},CGALDotNetGeometry.Shapes.Ray3d)">
+        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.LocateFace(CGALDotNet.Polyhedra.Polyhedron3{`0},CGALDotNetGeometry.Shapes.Ray3d)">
             <summary>
             Find the face the ray intersects with.
             </summary>
@@ -9012,7 +9413,7 @@
             <param name="ray">Th ray.</param>
             <returns>The hit result with theface index, hit point and the barycentric coords.</returns>
         </member>
-        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.LocateFace(CGALDotNet.Polyhedra.SurfaceMesh3{CGALDotNet.EEK},CGALDotNetGeometry.Shapes.Ray3d)">
+        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.LocateFace(CGALDotNet.Polyhedra.SurfaceMesh3{`0},CGALDotNetGeometry.Shapes.Ray3d)">
             <summary>
             Find the face the ray intersects with.
             </summary>
@@ -9020,7 +9421,7 @@
             <param name="ray">Th ray.</param>
             <returns>The hit result with theface index, hit point and the barycentric coords.</returns>
         </member>
-        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.ClosestFace(CGALDotNet.Polyhedra.Polyhedron3{CGALDotNet.EEK},CGALDotNetGeometry.Numerics.Point3d)">
+        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.ClosestFace(CGALDotNet.Polyhedra.Polyhedron3{`0},CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
             Find the closest face to the point.
             </summary>
@@ -9028,7 +9429,7 @@
             <param name="point">Th point.</param>
             <returns>The hit result with the face index, closest point and the barycentric coords.</returns>
         </member>
-        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.ClosestFace(CGALDotNet.Polyhedra.SurfaceMesh3{CGALDotNet.EEK},CGALDotNetGeometry.Numerics.Point3d)">
+        <member name="M:CGALDotNet.Processing.MeshProcessingLocate`1.ClosestFace(CGALDotNet.Polyhedra.SurfaceMesh3{`0},CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
             Find the closest face to the point.
             </summary>

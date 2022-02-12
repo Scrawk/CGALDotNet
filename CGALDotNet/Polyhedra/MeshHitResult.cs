@@ -21,5 +21,16 @@ namespace CGALDotNet.Polyhedra
             return String.Format("[MeshHitResult: Hit={0}, Face={1}, Point={2}, Coord={3}]",
                 Hit, Face, Point, Coord);    
         }
+
+        public static MeshHitResult NoHitResult
+        {
+            get
+            {
+                var result = new MeshHitResult();
+                result.Face = CGALGlobal.NULL_INDEX;
+                return result;
+            }
+
+        }
     }
 }

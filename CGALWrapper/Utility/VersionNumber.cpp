@@ -1,4 +1,5 @@
 #include "VersionNumber.h"
+#include "Eigen\src\Core\util\Macros.h"
 
 int CGALGlobal_VersionNumber()
 {
@@ -11,4 +12,9 @@ int CGALGlobal_VersionNumber()
 
 	//CGAL_VERSION_NUMBER(M, m, b)
 	//CGAL_VERSION_NUMBER(x, y, z) (1000001 + 10000 * x + 100 * y + 10 * z) * 1000
+}
+
+Index3 CGALGlobal_EigenVersionNumber()
+{
+	return { EIGEN_WORLD_VERSION, EIGEN_MAJOR_VERSION , EIGEN_MINOR_VERSION };
 }

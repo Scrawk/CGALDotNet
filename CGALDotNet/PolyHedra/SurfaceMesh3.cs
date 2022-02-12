@@ -304,6 +304,42 @@ namespace CGALDotNet.Polyhedra
             return new MinMaxAvg();
         }
 
+        /// <summary>
+        /// Locate the face the rays hits.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <returns>The hit result.</returns>
+        public override MeshHitResult LocateFace(Ray3d ray)
+        {
+            try
+            {
+                var locate = MeshProcessingLocate<K>.Instance;
+                return locate.LocateFace(this, ray);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return MeshHitResult.NoHitResult;
+        }
+
+        /// <summary>
+        /// Find the face closest to the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>The hit result.</returns>
+        public override MeshHitResult ClosestFace(Point3d point)
+        {
+            try
+            {
+                var locate = MeshProcessingLocate<K>.Instance;
+                return locate.ClosestFace(this, point);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { };
+
+            return MeshHitResult.NoHitResult;
+        }
+
     }
 
     /// <summary>
@@ -763,55 +799,112 @@ namespace CGALDotNet.Polyhedra
             IsUpdated = false;
             Kernel.SetPoints(Ptr, points, count);
         }
+        /// <summary>
+        /// Get a halfedges segment.
+        /// </summary>
+        /// <param name="index">The halfedges index.</param>
+        /// <param name="segment">The segment.</param>
+        /// <returns>True if halfedge found.</returns>
         public bool GetSegment(int index, out Segment3d segment)
         {
             return Kernel.GetSegment(Ptr, index, out segment);
         }
 
+        /// <summary>
+        /// Get a segment for  each halfedge in the mesh.
+        /// </summary>
+        /// <param name="segments">The segment array.</param>
+        /// <param name="count">The segment array length.</param>
         public void GetSegments(Segment3d[] segments, int count)
         {
             ErrorUtil.CheckArray(segments, count);
             Kernel.GetSegments(Ptr, segments, count);
         }
 
+        /// <summary>
+        /// Get the faces triangle. 
+        /// Presumes face is a triangle with no checks.
+        /// </summary>
+        /// <param name="index">The faces index.</param>
+        /// <param name="triangle">The faces triangle</param>
+        /// <returns></returns>
         public bool GetTriangle(int index, out Triangle3d triangle)
         {
             return Kernel.GetTriangle(Ptr, index, out triangle);
         }
 
+        /// <summary>
+        /// Get a triangle for each face in the mesh.
+        /// Presumes all faces are triangles with no checks.
+        /// </summary>
+        /// <param name="triangles">The trainagle array.</param>
+        /// <param name="count">The traingle  arrays length.</param>
         public void GetTriangles(Triangle3d[] triangles, int count)
         {
             ErrorUtil.CheckArray(triangles, count);
             Kernel.GetTriangles(Ptr, triangles, count);
         }
 
+        /// <summary>
+        /// Get the mesh vertex.
+        /// </summary>
+        /// <param name="index">The vertices index.</param>
+        /// <param name="vertex">The vertex.</param>
+        /// <returns>True if the vertex was found.</returns>
         public bool GetVertex(int index, out MeshVertex3 vertex)
         {
             return Kernel.GetVertex(Ptr, index, out vertex);
         }
 
+        /// <summary>
+        /// Get the vertices in the mesh.
+        /// </summary>
+        /// <param name="vertices">The vertex array.</param>
+        /// <param name="count">The vertex array length.</param>
         public void GetVertices(MeshVertex3[] vertices, int count)
         {
             ErrorUtil.CheckArray(vertices, count);
             Kernel.GetVertices(Ptr, vertices, count);
         }
 
+        /// <summary>
+        /// Get the mesh face.
+        /// </summary>
+        /// <param name="index">The faces index.</param>
+        /// <param name="face">The face.</param>
+        /// <returns>True if the face was found.</returns>
         public bool GetFace(int index, out MeshFace3 face)
         {
             return Kernel.GetFace(Ptr, index, out face);
         }
 
+        /// <summary>
+        /// Get the faces in the mesh.
+        /// </summary>
+        /// <param name="faces">The face array.</param>
+        /// <param name="count">The face array length.</param>
         public void GetFaces(MeshFace3[] faces, int count)
         {
             ErrorUtil.CheckArray(faces, count);
             Kernel.GetFaces(Ptr, faces, count);
         }
 
+        /// <summary>
+        /// Get the mesh halfedge.
+        /// </summary>
+        /// <param name="index">The halfedges index.</param>
+        /// <param name="halfedge">The halfedge.</param>
+        /// <returns>True if the halfedge was found.</returns>
         public bool GetHalfedge(int index, out MeshHalfedge3 halfedge)
         {
             return Kernel.GetHalfedge(Ptr, index, out halfedge);
         }
 
+        /// <summary>
+        /// Get the halfedges in the mesh.
+        /// </summary>
+        /// <param name="halfedges">The halfedge array.</param>
+        /// <param name="count">The halfedge array length.</param>
         public void GetHalfedges(MeshHalfedge3[] halfedges, int count)
         {
             ErrorUtil.CheckArray(halfedges, count);
@@ -1546,6 +1639,136 @@ namespace CGALDotNet.Polyhedra
                 return true;
 
             return false;
+        }
+
+        /// <summary>
+        /// Locate the face the rays hits.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <returns>The hit result.</returns>
+        public abstract MeshHitResult LocateFace(Ray3d ray);
+
+        /// <summary>
+        /// Find the face closest to the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>The hit result.</returns>
+        public abstract MeshHitResult ClosestFace(Point3d point);
+
+        /// <summary>
+        /// Locate the face hit by the ray.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <param name="face">The hit face.</param>
+        /// <returns>True if the ray hit a face.</returns>
+        public bool LocateFace(Ray3d ray, out MeshFace3 face)
+        {
+            var result = LocateFace(ray);
+            if (result.Hit && GetFace(result.Face, out face))
+            {
+                return true;
+            }
+            else
+            {
+                face = MeshFace3.NullFace;
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// Locate the vertex hit by the ray.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <param name="radius">The distance the vertex has to be within hit point.</param>
+        /// <param name="vertex">The hit vertex.</param>
+        /// <returns>True if the ray hit a vertex.</returns>
+        public bool LocateVertex(Ray3d ray, double radius, out MeshVertex3 vertex)
+        {
+            var result = LocateFace(ray);
+            if (result.Hit && GetFace(result.Face, out MeshFace3 face))
+            {
+                double minSqDist = double.PositiveInfinity;
+                var closest = MeshVertex3.NullVertex;
+
+                foreach (var v in face.EnumerateVertices(this))
+                {
+                    var sqdist = Point3d.SqrDistance(result.Point, v.Point);
+                    if (sqdist < minSqDist)
+                    {
+                        minSqDist = sqdist;
+                        closest = v;
+                    }
+                }
+
+                if (closest.Index != CGALGlobal.NULL_INDEX && minSqDist < radius * radius)
+                {
+                    vertex = closest;
+                    return true;
+                }
+                else
+                {
+                    vertex = MeshVertex3.NullVertex;
+                    return false;
+                }
+            }
+            else
+            {
+                vertex = MeshVertex3.NullVertex;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Locate the edge hit by the ray.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <param name="radius">The distance the edge has to be within hit point.</param>
+        /// <param name="edge">The hit edge.</param>
+        /// <returns>True if the ray hit a edge.</returns>
+        public bool LocateHalfedge(Ray3d ray, double radius, out MeshHalfedge3 edge)
+        {
+            var result = LocateFace(ray);
+            if (result.Hit && GetFace(result.Face, out MeshFace3 face))
+            {
+                double minSqDist = double.PositiveInfinity;
+                var closest = MeshHalfedge3.NullHalfedge;
+                MeshVertex3 source, target;
+                Segment3d seg;
+
+                foreach (var e in face.EnumerateHalfedges(this))
+                {
+                    if (!GetVertex(e.Source, out source)) continue;
+                    if (!GetVertex(e.Target, out target)) continue;
+
+                    seg.A = source.Point;
+                    seg.B = target.Point;
+                    var p = seg.Closest(result.Point);
+
+                    var sqdist = Point3d.SqrDistance(result.Point, p);
+                    if (sqdist < minSqDist)
+                    {
+                        minSqDist = sqdist;
+                        closest = e;
+                    }
+                }
+
+                if (closest.Index != CGALGlobal.NULL_INDEX && minSqDist < radius * radius)
+                {
+                    edge = closest;
+                    return true;
+                }
+                else
+                {
+                    edge = MeshHalfedge3.NullHalfedge;
+                    return false;
+                }
+            }
+            else
+            {
+                edge = MeshHalfedge3.NullHalfedge;
+                return false;
+            }
         }
 
         /// <summary>

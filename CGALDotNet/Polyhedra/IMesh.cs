@@ -221,24 +221,81 @@ namespace CGALDotNet.Polyhedra
         /// <param name="count">The point arrays length.</param>
         void SetPoints(Point3d[] points, int count);
 
+        /// <summary>
+        /// Get a halfedges segment.
+        /// </summary>
+        /// <param name="index">The halfedges index.</param>
+        /// <param name="segment">The segment.</param>
+        /// <returns>True if halfedge found.</returns>
         bool GetSegment(int index, out Segment3d segment);
 
+        /// <summary>
+        /// Get a segment for  each halfedge in the mesh.
+        /// </summary>
+        /// <param name="segments">The segment array.</param>
+        /// <param name="count">The segment array length.</param>
         void GetSegments(Segment3d[] segments, int count);
 
+        /// <summary>
+        /// Get the faces triangle. 
+        /// Presumes face is a triangle with no checks.
+        /// </summary>
+        /// <param name="index">The faces index.</param>
+        /// <param name="triangle">The faces triangle</param>
+        /// <returns></returns>
         bool GetTriangle(int index, out Triangle3d triangle);
 
+        /// <summary>
+        /// Get a triangle for each face in the mesh.
+        /// Presumes all faces are triangles with no checks.
+        /// </summary>
+        /// <param name="triangles">The trainagle array.</param>
+        /// <param name="count">The traingle  arrays length.</param>
         void GetTriangles(Triangle3d[] triangles, int count);
 
+        /// <summary>
+        /// Get the mesh vertex.
+        /// </summary>
+        /// <param name="index">The vertices index.</param>
+        /// <param name="vertex">The vertex.</param>
+        /// <returns>True if the vertex was found.</returns>
         bool GetVertex(int index, out MeshVertex3 vertex);
 
+        /// <summary>
+        /// Get the vertices in the mesh.
+        /// </summary>
+        /// <param name="vertices">The vertex array.</param>
+        /// <param name="count">The vertex array length.</param>
         void GetVertices(MeshVertex3[] vertices, int count);
 
+        /// <summary>
+        /// Get the mesh face.
+        /// </summary>
+        /// <param name="index">The faces index.</param>
+        /// <param name="face">The face.</param>
+        /// <returns>True if the face was found.</returns>
         bool GetFace(int index, out MeshFace3 face);
-
+ 
+        /// <summary>
+        /// Get the faces in the mesh.
+        /// </summary>
+        /// <param name="faces">The face array.</param>
+        /// <param name="count">The face array length.</param>
         void GetFaces(MeshFace3[] faces, int count);
 
+        /// <summary>
+        /// Get the mesh halfedge.
+        /// </summary>
+        /// <param name="index">The halfedges index.</param>
+        /// <param name="halfedge">The halfedge.</param>
+        /// <returns>True if the halfedge was found.</returns>
         bool GetHalfedge(int index, out MeshHalfedge3 halfedge);
 
+        /// <summary>
+        /// Get the halfedges in the mesh.
+        /// </summary>
+        /// <param name="halfedges">The halfedge array.</param>
+        /// <param name="count">The halfedge array length.</param>
         void GetHalfedges(MeshHalfedge3[] halfedges, int count);
 
         /// <summary>
@@ -338,6 +395,63 @@ namespace CGALDotNet.Polyhedra
         /// Reverses the orientation of the vertices in each face.
         /// </summary>
         void ReverseFaceOrientation();
+
+        /// <summary>
+        /// Find what side of the mesh the lies in.
+        /// </summary>
+        /// <param name="point">The point to check.</param>
+        /// <returns>ON_BOUNDED_SIDE if point inside mesh, 
+        /// ON_UNBOUNDED_SIDE if point not inside, 
+        /// ON_BOUNDARY if point is on the surface.</returns>
+        public BOUNDED_SIDE BoundedSide(Point3d point);
+
+        /// <summary>
+        /// Does the mesh contain the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="includeBoundary">If point is on the boundary does it count a being contained.</param>
+        /// <returns>True if the poly contains the point</returns>
+        bool ContainsPoint(Point3d point, bool includeBoundary = true);
+
+        /// <summary>
+        /// Locate the face the rays hits.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <returns>The hit result.</returns>
+        MeshHitResult LocateFace(Ray3d ray);
+
+        /// <summary>
+        /// Find the face closest to the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>The hit result.</returns>
+        MeshHitResult ClosestFace(Point3d point);
+
+        /// <summary>
+        /// Locate the face hit by the ray.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <param name="face">The hit face.</param>
+        /// <returns>True if the ray hit a face.</returns>
+        bool LocateFace(Ray3d ray, out MeshFace3 face);
+
+        /// <summary>
+        /// Locate the vertex hit by the ray.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <param name="radius">The distance the vertex has to be within hit point.</param>
+        /// <param name="vertex">The hit vertex.</param>
+        /// <returns>True if the ray hit a vertex.</returns>
+        bool LocateVertex(Ray3d ray, double radius, out MeshVertex3 vertex);
+
+        /// <summary>
+        /// Locate the edge hit by the ray.
+        /// </summary>
+        /// <param name="ray">The ray.</param>
+        /// <param name="radius">The distance the edge has to be within hit point.</param>
+        /// <param name="edge">The hit edge.</param>
+        /// <returns>True if the ray hit a edge.</returns>
+        bool LocateHalfedge(Ray3d ray, double radius, out MeshHalfedge3 edge);
 
     }
 }

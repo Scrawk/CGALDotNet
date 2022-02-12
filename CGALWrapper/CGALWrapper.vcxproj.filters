@@ -156,7 +156,7 @@
     <ClInclude Include="Utility\CGALGlobal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\CGALGlobal_EEK.h">
+    <ClInclude Include="Utility\CGALGlobal_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geometry\Geometry3.h">
@@ -476,7 +476,7 @@
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp">
       <Filter>Source Files\Hulls</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\CGALGlobal_EEK.cpp">
+    <ClCompile Include="Utility\CGALGlobal_EiK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Polygons\PolygonSimplification2_EEK.cpp">

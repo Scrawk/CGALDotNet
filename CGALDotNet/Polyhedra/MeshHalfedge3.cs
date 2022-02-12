@@ -21,6 +21,22 @@ namespace CGALDotNet.Polyhedra
 
 		public int Face;
 
+		public static MeshHalfedge3 NullHalfedge
+		{
+			get
+			{
+				var edge = new MeshHalfedge3();
+				edge.Index = CGALGlobal.NULL_INDEX;
+				edge.Source = CGALGlobal.NULL_INDEX;
+				edge.Target = CGALGlobal.NULL_INDEX;
+				edge.Opposite = CGALGlobal.NULL_INDEX;
+				edge.Next = CGALGlobal.NULL_INDEX;
+				edge.Previous = CGALGlobal.NULL_INDEX;
+				edge.Face = CGALGlobal.NULL_INDEX;
+				return edge;
+			}
+		}
+
 		public override string ToString()
 		{
 			return string.Format("[MeshHalfedge3: Index={0}, Source={1}, Target={2}, Opposite={3}, Next={4}, Previous={5}, Face={6}, IsBorder={7}]",

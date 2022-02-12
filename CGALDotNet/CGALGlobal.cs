@@ -41,6 +41,23 @@ namespace CGALDotNet
         }
 
         /// <summary>
+        /// Get the version of eigen being used.
+        /// </summary>
+        public static string EigenVersion
+        {
+            get
+            {
+                var v = CGALGlobal_EigenVersionNumber();
+
+                int WORLD = v.first;
+                int MAJOR = v.second;
+                int MINOR = v.third;
+
+                return string.Format("{0}.{1}.{2}", WORLD, MAJOR, MINOR);
+            }
+        }
+
+        /// <summary>
         /// Returns CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
         /// angle formed by the two vectors u and v.
         /// </summary>
@@ -50,7 +67,7 @@ namespace CGALDotNet
         /// angle formed by the two vectors u and v.</returns>
         public static ANGLE Angle(Vector2d u, Vector2d v)
         {
-            return CGALGlobal_EEK_Angle_Vector2(u, v);
+            return CGALGlobal_EIK_Angle_Vector2(u, v);
         }
 
         /// <summary>
@@ -63,7 +80,7 @@ namespace CGALDotNet
         /// angle formed by the two vectors u and v.</returns>
         public static ANGLE Angle(Vector3d u, Vector3d v)
         {
-            return CGALGlobal_EEK_Angle_Vector3(u, v);
+            return CGALGlobal_EIK_Angle_Vector3(u, v);
         }
 
         /// <summary>
@@ -74,7 +91,7 @@ namespace CGALDotNet
         /// <returns>The angle is given in degrees.</returns>
         public static Degree ApproxAngle(Vector3d u, Vector3d v)
         {
-            return new Degree(CGALGlobal_EEK_ApproxAngle_Vector3(u, v));
+            return new Degree(CGALGlobal_EIK_ApproxAngle_Vector3(u, v));
         }
 
         /// <summary>
@@ -91,7 +108,7 @@ namespace CGALDotNet
         /// The angle is given in degrees.</returns>
         public static Degree ApproxDihedralAngle(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            return new Degree(CGALGlobal_EEK_ApproxDihedralAngle_Point3(p, q, r, s));
+            return new Degree(CGALGlobal_EIK_ApproxDihedralAngle_Point3(p, q, r, s));
         }
 
         /// <summary>
@@ -106,7 +123,7 @@ namespace CGALDotNet
         /// collinear and q lies between p and r.</returns>
         public static bool AreOrderedAlongLine(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EEK_AreOrderedAlongLine_Point2(p, q, r);
+            return CGALGlobal_EIK_AreOrderedAlongLine_Point2(p, q, r);
         }
 
         /// <summary>
@@ -121,7 +138,7 @@ namespace CGALDotNet
         /// collinear and q lies between p and r.</returns>
         public static bool AreOrderedAlongLine(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EEK_AreOrderedAlongLine_Point3(p, q, r);
+            return CGALGlobal_EIK_AreOrderedAlongLine_Point3(p, q, r);
         }
 
         /// <summary>
@@ -136,7 +153,7 @@ namespace CGALDotNet
         /// collinear and q lies strictly between p and r.</returns>
         public static bool AreStrictlyOrderedAlongLine(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point2(p, q, r);
+            return CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(p, q, r);
         }
 
         /// <summary>
@@ -151,7 +168,7 @@ namespace CGALDotNet
         /// collinear and q lies strictly between p and r.</returns>
         public static bool AreStrictlyOrderedAlongLine(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point3(p, q, r);
+            return CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3(p, q, r);
         }
 
         /// <summary>
@@ -163,7 +180,7 @@ namespace CGALDotNet
         /// <returns>returns true, if p, q, and r are collinear</returns>
         public static bool Collinear(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EEK_Collinear_Point2(p, q, r);
+            return CGALGlobal_EIK_Collinear_Point2(p, q, r);
         }
 
         /// <summary>
@@ -175,7 +192,7 @@ namespace CGALDotNet
         /// <returns>Returns true, iff p, q, and r are collinear</returns>
         public static bool Collinear(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EEK_Collinear_Point3(p, q, r);
+            return CGALGlobal_EIK_Collinear_Point3(p, q, r);
         }
 
         /// <summary>
@@ -187,7 +204,7 @@ namespace CGALDotNet
         /// <returns>Constructs the bisector line of the two points p and q.</returns>
         public static Line2d Bisector(Point3d p, Point3d q)
         {
-            return CGALGlobal_EEK_Bisector_Point3(p, q);
+            return CGALGlobal_EIK_Bisector_Point3(p, q);
         }
 
         /// <summary>
@@ -209,7 +226,7 @@ namespace CGALDotNet
         /// <returns>Constructs the bisector of the two lines l1 and l2.</returns>
         public static Line2d Bisector(Line2d l1, Line2d l2)
         {
-            return CGALGlobal_EEK_Bisector_Line2(l1, l2);
+            return CGALGlobal_EIK_Bisector_Line2(l1, l2);
         }
 
         /// <summary>
@@ -222,7 +239,7 @@ namespace CGALDotNet
         /// <returns>Returns true, if p, q, r, and s are coplanar.</returns>
         public static bool Coplanar(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            return CGALGlobal_EEK_Coplanar_Point3(p, q, r, s);
+            return CGALGlobal_EIK_Coplanar_Point3(p, q, r, s);
         }
 
         /// <summary>
@@ -239,7 +256,7 @@ namespace CGALDotNet
         /// <returns>If p,q,r are collinear, then CGAL_COLLINEAR is returned.</returns>
         public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EEK_CoplanarOrientation_3Point3(p, q, r);
+            return CGALGlobal_EIK_CoplanarOrientation_3Point3(p, q, r);
         }
 
         /// <summary>
@@ -258,7 +275,7 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            return CGALGlobal_EEK_CoplanarOrientation_4Point3(p, q, r, s);
+            return CGALGlobal_EIK_CoplanarOrientation_4Point3(p, q, r, s);
         }
 
         /*
@@ -273,7 +290,7 @@ namespace CGALDotNet
         /// <returns>Constructs the line which is at the same distance from the three points p, q and r.</returns>
         public static Line3d EquidistantLine(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EEK_EquidistantLine_Line3(p, q, r);
+            return CGALGlobal_EIK_EquidistantLine_Line3(p, q, r);
         }
 
         */
@@ -287,7 +304,7 @@ namespace CGALDotNet
         /// <returns>Returns true if p, q, and r form a left turn.</returns>
         public static bool LeftTurn(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EEK_LeftTurn_Point2(p, q, r);
+            return CGALGlobal_EIK_LeftTurn_Point2(p, q, r);
         }
 
         /// <summary>
@@ -299,7 +316,7 @@ namespace CGALDotNet
         /// <returns>Returns true if p, q, and r form a right turn.</returns>
         public static bool RightTurn(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EEK_RightTurn_Point2(p, q, r);
+            return CGALGlobal_EIK_RightTurn_Point2(p, q, r);
         }
 
         /// <summary>
@@ -313,7 +330,7 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EEK_Orientation_Point2(p, q, r);
+            return CGALGlobal_EIK_Orientation_Point2(p, q, r);
         }
 
         /// <summary>
@@ -326,7 +343,7 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Vector2d u, Vector2d v)
         {
-            return CGALGlobal_EEK_Orientation_Vector2(u, v);
+            return CGALGlobal_EIK_Orientation_Vector2(u, v);
         }
 
         /// <summary>
@@ -342,7 +359,7 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            return CGALGlobal_EEK_Orientation_Point3(p, q, r, s);
+            return CGALGlobal_EIK_Orientation_Point3(p, q, r, s);
         }
 
         /// <summary>
@@ -356,7 +373,7 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Vector3d u, Vector3d v, Vector3d w)
         {
-            return CGALGlobal_EEK_Orientation_Vector3(u, v, w);
+            return CGALGlobal_EIK_Orientation_Vector3(u, v, w);
         }
 
         /// <summary>
@@ -369,7 +386,7 @@ namespace CGALDotNet
         /// <returns>computes an orthogonal vector of the plane</returns>
         public static Vector3d OrthogonalVector(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EEK_OrthogonalVector_Point3(p, q, r);
+            return CGALGlobal_EIK_OrthogonalVector_Point3(p, q, r);
         }
 
         /// <summary>
@@ -381,7 +398,7 @@ namespace CGALDotNet
         /// <returns>returns true, if l1 and l2 are parallel</returns>
         public static bool Parallel(Line2d l1, Line2d l2)
         {
-            return CGALGlobal_EEK_Parallel_Line2(l1, l2);
+            return CGALGlobal_EIK_Parallel_Line2(l1, l2);
         }
 
         /// <summary>
@@ -393,7 +410,7 @@ namespace CGALDotNet
         /// <returns>returns true, if r1 and r2 are parallel</returns>
         public static bool Parallel(Ray2d r1, Ray2d r2)
         {
-            return CGALGlobal_EEK_Parallel_Ray2(r1, r2);
+            return CGALGlobal_EIK_Parallel_Ray2(r1, r2);
         }
 
         /// <summary>
@@ -405,89 +422,94 @@ namespace CGALDotNet
         /// <returns>returns true, if s1 and s2 are parallel</returns>
         public static bool Parallel(Segment2d s1, Segment2d s2)
         {
-            return CGALGlobal_EEK_Parallel_Segment2(s1, s2);
+            return CGALGlobal_EIK_Parallel_Segment2(s1, s2);
         }
+
+
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int CGALGlobal_VersionNumber();
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ANGLE CGALGlobal_EEK_Angle_Vector2(Vector2d u, Vector2d v);
+        private static extern Index3 CGALGlobal_EigenVersionNumber();
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ANGLE CGALGlobal_EEK_Angle_Vector3(Vector3d u, Vector3d v);
+        private static extern ANGLE CGALGlobal_EIK_Angle_Vector2(Vector2d u, Vector2d v);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern double CGALGlobal_EEK_ApproxAngle_Vector3(Vector3d u, Vector3d v);
+        private static extern ANGLE CGALGlobal_EIK_Angle_Vector3(Vector3d u, Vector3d v);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern double CGALGlobal_EEK_ApproxDihedralAngle_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern double CGALGlobal_EIK_ApproxAngle_Vector3(Vector3d u, Vector3d v);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_AreOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern double CGALGlobal_EIK_ApproxDihedralAngle_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_AreOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EIK_AreOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern bool CGALGlobal_EIK_AreOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_Collinear_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_Collinear_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EIK_Collinear_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Line2d CGALGlobal_EEK_Bisector_Point3(Point3d p, Point3d q);
+        private static extern bool CGALGlobal_EIK_Collinear_Point3(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Line2d CGALGlobal_EEK_Bisector_Line2(Line2d p, Line2d q);
+        private static extern Line2d CGALGlobal_EIK_Bisector_Point3(Point3d p, Point3d q);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_Coplanar_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern Line2d CGALGlobal_EIK_Bisector_Line2(Line2d p, Line2d q);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EEK_CoplanarOrientation_3Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EIK_Coplanar_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EEK_CoplanarOrientation_4Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern ORIENTATION CGALGlobal_EIK_CoplanarOrientation_3Point3(Point3d p, Point3d q, Point3d r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EIK_CoplanarOrientation_4Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
         //[DllImport(DLL_NAME, CallingConvention = CDECL)]
-        //private static extern Line3d CGALGlobal_EEK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r);
+        //private static extern Line3d CGALGlobal_EIK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_LeftTurn_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern bool CGALGlobal_EIK_LeftTurn_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_RightTurn_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern bool CGALGlobal_EIK_RightTurn_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Point2(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Vector2(Vector2d u, Vector2d v);
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Vector2(Vector2d u, Vector2d v);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Vector3(Vector3d u, Vector3d v, Vector3d w);
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Vector3(Vector3d u, Vector3d v, Vector3d w);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Vector3d CGALGlobal_EEK_OrthogonalVector_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern Vector3d CGALGlobal_EIK_OrthogonalVector_Point3(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_Parallel_Line2(Line2d l1, Line2d l2);
+        private static extern bool CGALGlobal_EIK_Parallel_Line2(Line2d l1, Line2d l2);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_Parallel_Ray2(Ray2d r1, Ray2d r2);
+        private static extern bool CGALGlobal_EIK_Parallel_Ray2(Ray2d r1, Ray2d r2);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EEK_Parallel_Segment2(Segment2d s1, Segment2d s2);
+        private static extern bool CGALGlobal_EIK_Parallel_Segment2(Segment2d s1, Segment2d s2);
 
     }
 }

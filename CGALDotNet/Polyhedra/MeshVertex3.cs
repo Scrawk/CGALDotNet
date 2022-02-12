@@ -15,6 +15,17 @@ namespace CGALDotNet.Polyhedra
 
         public int Halfedge;
 
+        public static MeshVertex3 NullVertex
+        {
+            get
+            {
+                var vertex = new MeshVertex3();
+                vertex.Index = -CGALGlobal.NULL_INDEX;
+                vertex.Halfedge = -CGALGlobal.NULL_INDEX;
+                return vertex;
+            }
+        }
+
         public static bool operator ==(MeshVertex3 v1, MeshVertex3 v2)
         {
             return v1.Index == v2.Index && v1.Halfedge == v2.Halfedge 

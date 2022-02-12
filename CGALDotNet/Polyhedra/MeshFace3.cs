@@ -9,6 +9,17 @@ namespace CGALDotNet.Polyhedra
 
         public int Halfedge;
 
+        public static MeshFace3 NullFace
+        {
+            get
+            {
+                var face = new MeshFace3();
+                face.Index = CGALGlobal.NULL_INDEX;
+                face.Halfedge = CGALGlobal.NULL_INDEX;
+                return face;
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("[MeshFace3: Index={0}, Halfedge={1}]",

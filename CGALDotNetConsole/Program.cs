@@ -22,6 +22,8 @@ namespace CGALDotNetConsole
         
         public static void Main(string[] args)
         {
+            //Console.WriteLine("CGAL: " + CGALGlobal.Version);
+            //Console.WriteLine("Eigen: " + CGALGlobal.EigenVersion);
 
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
             //var smesh = SurfaceMeshFactory<EEK>.CreateUVSphere();
