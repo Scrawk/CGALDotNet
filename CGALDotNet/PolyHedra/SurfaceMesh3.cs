@@ -120,29 +120,6 @@ namespace CGALDotNet.Polyhedra
 
             return 0;
         }
-        /// <summary>
-        /// Remeshes a triangulated region of a polygon mesh.
-        /// This operation sequentially performs edge splits, edge collapses, edge flips, 
-        /// tangential relaxation and projection to the initial surface to generate 
-        /// a smooth mesh with a prescribed edge length.
-        /// </summary>
-        /// <param name="iterations">The number of times to perform the remeshing.</param>
-        /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
-        /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-        /// <returns>The number of new vertices added.</returns>
-        public override int IsotropicRemeshing(double target_edge_length, int iterations = 1)
-        {
-            try
-            {
-                IsUpdated = false;
-                var meshing = MeshProcessingMeshing<K>.Instance;
-                return meshing.IsotropicRemeshing(this, target_edge_length, iterations);
-            }
-            catch (NotImplementedException) { }
-            catch (NotSupportedException) { };
-
-            return 0;
-        }
 
         /// <summary>
         /// Orient the faces in the mesh.
@@ -1829,18 +1806,6 @@ namespace CGALDotNet.Polyhedra
         /// where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
         /// <returns>The number of new vertices.</returns>
         public abstract int Refine(double density_control_factor = MathUtil.SQRT2_64);
-
-        /// <summary>
-        /// Remeshes a triangulated region of a polygon mesh.
-        /// This operation sequentially performs edge splits, edge collapses, edge flips, 
-        /// tangential relaxation and projection to the initial surface to generate 
-        /// a smooth mesh with a prescribed edge length.
-        /// </summary>
-        /// <param name="iterations">The number of times to perform the remeshing.</param>
-        /// <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
-        /// If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-        /// <returns>The number of new vertices added.</returns>
-        public abstract int IsotropicRemeshing(double target_edge_length, int iterations = 1);
 
         /// <summary>
         /// Orient the faces in the mesh.

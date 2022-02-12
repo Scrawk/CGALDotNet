@@ -6372,18 +6372,6 @@
             where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
             <returns>The number of new vertices.</returns>
         </member>
-        <member name="M:CGALDotNet.Polyhedra.Polyhedron3`1.IsotropicRemeshing(System.Double,System.Int32)">
-            <summary>
-            Remeshes a triangulated region of a polygon mesh.
-            This operation sequentially performs edge splits, edge collapses, edge flips, 
-            tangential relaxation and projection to the initial surface to generate 
-            a smooth mesh with a prescribed edge length.
-            </summary>
-            <param name="iterations">The number of times to perform the remeshing.</param>
-            <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
-            If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-            <returns>The number of new vertices added.</returns>
-        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3`1.Orient(CGALDotNet.Processing.ORIENTATE)">
             <summary>
             Orient the faces in the mesh.
@@ -7097,18 +7085,6 @@
             where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
             <returns>The number of new vertices.</returns>
         </member>
-        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.IsotropicRemeshing(System.Double,System.Int32)">
-            <summary>
-            Remeshes a triangulated region of a polygon mesh.
-            This operation sequentially performs edge splits, edge collapses, edge flips, 
-            tangential relaxation and projection to the initial surface to generate 
-            a smooth mesh with a prescribed edge length.
-            </summary>
-            <param name="iterations">The number of times to perform the remeshing.</param>
-            <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
-            If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-            <returns>The number of new vertices added.</returns>
-        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.Orient(CGALDotNet.Processing.ORIENTATE)">
             <summary>
             Orient the faces in the mesh.
@@ -7243,18 +7219,6 @@
             <param name="density_control_factor">a factor to control density of the output mesh, 
             where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
             <returns>The number of new vertices.</returns>
-        </member>
-        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.IsotropicRemeshing(System.Double,System.Int32)">
-            <summary>
-            Remeshes a triangulated region of a polygon mesh.
-            This operation sequentially performs edge splits, edge collapses, edge flips, 
-            tangential relaxation and projection to the initial surface to generate 
-            a smooth mesh with a prescribed edge length.
-            </summary>
-            <param name="iterations">The number of times to perform the remeshing.</param>
-            <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
-            If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-            <returns>The number of new vertices added.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.Orient(CGALDotNet.Processing.ORIENTATE)">
             <summary>
@@ -8221,18 +8185,6 @@
             <param name="density_control_factor">a factor to control density of the output mesh, 
             where larger values lead to denser refinements. Defalus to sqrt of 2.</param>
             <returns>The number of new vertices.</returns>
-        </member>
-        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.IsotropicRemeshing(System.Double,System.Int32)">
-            <summary>
-            Remeshes a triangulated region of a polygon mesh.
-            This operation sequentially performs edge splits, edge collapses, edge flips, 
-            tangential relaxation and projection to the initial surface to generate 
-            a smooth mesh with a prescribed edge length.
-            </summary>
-            <param name="iterations">The number of times to perform the remeshing.</param>
-            <param name="target_edge_length">the edge length that is targeted in the remeshed patch. 
-            If 0 is passed then only the edge-flip, tangential relaxation, and projection steps will be done.</param>
-            <returns>The number of new vertices added.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.Orient(CGALDotNet.Processing.ORIENTATE)">
             <summary>

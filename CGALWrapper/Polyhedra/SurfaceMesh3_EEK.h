@@ -116,9 +116,9 @@ extern "C"
 
 	CGALWRAPPER_API int SurfaceMesh3_EEK_PreviousAroundTarget(void* ptr, int index);
 
-	CGALWRAPPER_API int SurfaceMesh3_EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex);
+	CGALWRAPPER_API int SurfaceMesh3_EEK_EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex);
 
-	CGALWRAPPER_API int SurfaceMesh3_HalfedgesEdge(void* ptr, int index);
+	CGALWRAPPER_API int SurfaceMesh3_EEK_HalfedgesEdge(void* ptr, int index);
 
 	CGALWRAPPER_API BOOL SurfaceMesh3_EEK_RemoveVertex(void* ptr, int index);
 

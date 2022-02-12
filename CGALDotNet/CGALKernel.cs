@@ -140,11 +140,11 @@ namespace CGALDotNet
 
         internal override ConvexHullKernel3 ConvexHullKernel3 => throw new NotImplementedException();
 
-        internal override PolyhedronKernel3 PolyhedronKernel3 => throw new NotImplementedException();
+        internal override PolyhedronKernel3 PolyhedronKernel3 => PolyhedronKernel3_EIK.Instance;
 
         internal override NefPolyhedronKernel3 NefPolyhedronKernel3 => NefPolyhedronKernel3_EIK.Instance;
 
-        internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => throw new NotImplementedException();
+        internal override SurfaceMeshKernel3 SurfaceMeshKernel3 => SurfaceMeshKernel3_EIK.Instance;
 
         internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => throw new NotImplementedException();
 

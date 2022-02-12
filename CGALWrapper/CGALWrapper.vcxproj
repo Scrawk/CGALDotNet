@@ -148,7 +148,7 @@
       <AdditionalIncludeDirectories>C:\dev\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>26495;26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>26495;26451;26812;6387;6031;6385;6812;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -173,10 +173,21 @@
     <ClInclude Include="Geometry\Index.h" />
     <ClInclude Include="Geometry\Point2_EEK.h" />
     <ClInclude Include="Geometry\Line2_EEK.h" />
+    <ClInclude Include="Polylines\Polyline2_EIK.h" />
+    <ClInclude Include="Polylines\Polyline3_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingBoolean_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingConnections_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingFeatures_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingLocate_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingMeshing_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingOrientation_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingRepair_EIK.h" />
+    <ClInclude Include="Processing\MeshProcessingSlicer_EIK.h" />
     <ClInclude Include="Polyhedra\MeshFace3.h" />
     <ClInclude Include="Polyhedra\MeshHalfedge3.h" />
     <ClInclude Include="Polyhedra\MeshHitResult.h" />
     <ClInclude Include="Polyhedra\MeshVertex3.h" />
+    <ClInclude Include="Polyhedra\Polyhedron3_EIK.h" />
     <ClInclude Include="Processing\MeshProcessingLocate_EEK.h" />
     <ClInclude Include="Polyhedra\PolyhedronMap.h" />
     <ClInclude Include="Processing\MeshProcessingFeatures_EEK.h" />
@@ -193,6 +204,8 @@
     <ClInclude Include="Geometry\Ray2_EEK.h" />
     <ClInclude Include="Geometry\Segment2_EEK.h" />
     <ClInclude Include="Geometry\Triangle2_EEK.h" />
+    <ClInclude Include="Polyhedra\SurfaceMesh3_EIK.h" />
+    <ClInclude Include="Processing\SurfaceSubdivision_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h" />
     <ClInclude Include="Geometry\MinMax.h" />
     <ClInclude Include="Processing\MeshProcessingConnections_EEK.h" />
@@ -296,6 +309,17 @@
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
     <ClCompile Include="Geometry\Point2_EEK.cpp" />
     <ClCompile Include="Geometry\Line2_EEK.cpp" />
+    <ClCompile Include="Polylines\Polyline2_EIK.cpp" />
+    <ClCompile Include="Polylines\Polyline3_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingBoolean_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingConnections_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingFeatures_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingLocate_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingMeshing_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingOrientation_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingRepair_EIK.cpp" />
+    <ClCompile Include="Processing\MeshProcessingSlicer_EIK.cpp" />
+    <ClCompile Include="Polyhedra\Polyhedron3_EIK.cpp" />
     <ClCompile Include="Processing\MeshProcessingLocate_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingFeatures_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingSlicer_EEK.cpp" />
@@ -304,6 +328,8 @@
     <ClCompile Include="Geometry\Ray2_EEK.cpp" />
     <ClCompile Include="Geometry\Segment2_EEK.cpp" />
     <ClCompile Include="Geometry\Triangle2_EEK.cpp" />
+    <ClCompile Include="Polyhedra\SurfaceMesh3_EIK.cpp" />
+    <ClCompile Include="Processing\SurfaceSubdivision_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingConnections_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingBoolean_EEK.cpp" />

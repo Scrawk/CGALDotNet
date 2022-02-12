@@ -569,7 +569,7 @@ public:
 
 	static BOOL GetFace(void* ptr, int index, MeshFace3& face)
 	{
-		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		auto poly = CastToPolyhedron(ptr);
 		face = MeshFace3::NullFace();
 
 		auto f = poly->FindFaceDes(index);
@@ -775,7 +775,7 @@ public:
 
 	static void GetCentroids(void* ptr, Point3d* points, int count)
 	{
-		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		auto poly = CastToPolyhedron(ptr);
 		int numFaces = (int)poly->model.size_of_facets();
 
 		int index = 0;
@@ -783,7 +783,8 @@ public:
 		{
 			if (face->halfedge() == nullptr) continue;
 
-			points[index] = Point3d::FromCGAL<K>(ComputeCentroid(*face));
+			auto c = ComputeCentroid(*face);
+			points[index] = Point3d::FromCGAL<K>(c);
 
 			index++;
 
@@ -1144,7 +1145,7 @@ public:
 		int* pentagons, int pentagonCount,
 		int* hexagons, int hexagonCount)
 	{
-		auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+		auto poly = CastToPolyhedron(ptr);
 		poly->map.BuildFaceMaps(poly->model);
 
 		int triangleIndex = 0;

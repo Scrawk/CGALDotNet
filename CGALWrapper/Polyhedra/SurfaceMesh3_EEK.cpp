@@ -243,12 +243,12 @@ int SurfaceMesh3_EEK_PreviousAroundTarget(void* ptr, int index)
 	return SurfaceMesh3<EEK>::PreviousAroundTarget(ptr, index);
 }
 
-int SurfaceMesh3_EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex)
+int SurfaceMesh3_EEK_EdgesHalfedge(void* ptr, int edgeIndex, int halfedgeIndex)
 {
 	return SurfaceMesh3<EEK>::EdgesHalfedge(ptr, edgeIndex, halfedgeIndex);
 }
 
-int SurfaceMesh3_HalfedgesEdge(void* ptr, int index)
+int SurfaceMesh3_EEK_HalfedgesEdge(void* ptr, int index)
 {
 	return SurfaceMesh3<EEK>::HalfedgesEdge(ptr, index);
 }

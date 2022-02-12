@@ -22,17 +22,11 @@ namespace CGALDotNetConsole
         
         public static void Main(string[] args)
         {
-            //Console.WriteLine("CGAL: " + CGALGlobal.Version);
-            //Console.WriteLine("Eigen: " + CGALGlobal.EigenVersion);
-
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
-            //var smesh = SurfaceMeshFactory<EEK>.CreateUVSphere();
+            var smesh = SurfaceMeshFactory<EEK>.CreateCube();
 
-            PrintFace(pmesh, 0);
-
-            PrintEdge(pmesh, 4);
-
-            PrintFaceEdges(pmesh, 0);
+            var minmax = smesh.FindMinMaxAvgEdgeLength();
+            Console.WriteLine(minmax);
 
         }
 
