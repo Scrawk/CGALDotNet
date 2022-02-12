@@ -16,7 +16,15 @@ namespace CGALDotNet.Geometry
 
 	    internal abstract void Point2_Release(IntPtr ptr);
 
+        internal abstract double Point2_GetX(IntPtr ptr);
+
+        internal abstract double Point2_GetY(IntPtr ptr);
+
         internal abstract Point2d Point2_GetPoint(IntPtr ptr);
+
+        internal abstract void Point2_SetX(IntPtr ptr, double x);
+
+        internal abstract void Point2_SetY(IntPtr ptr, double y);
 
         internal abstract void Point2_SetPoint(IntPtr ptr, Point2d point);
 

@@ -14,6 +14,7 @@ using CGALDotNet.Meshing;
 using CGALDotNet.Hulls;
 using CGALDotNet.Processing;
 using CGALDotNet.Extensions;
+using CGALDotNet.Collections;
 
 namespace CGALDotNetConsole
 {
@@ -25,8 +26,13 @@ namespace CGALDotNetConsole
             var pmesh = PolyhedronFactory<EEK>.CreateCube();
             var smesh = SurfaceMeshFactory<EEK>.CreateCube();
 
-            var minmax = smesh.FindMinMaxAvgEdgeLength();
-            Console.WriteLine(minmax);
+            var list = new NativeList<Point2<EEK>>(10);
+
+            list.Add(new Point2<EEK>(1, 1));
+            list.Add(new Point2<EEK>(2, 2));
+            list.Add(new Point2<EEK>(3, 3));
+
+            Console.WriteLine(list);
 
         }
 

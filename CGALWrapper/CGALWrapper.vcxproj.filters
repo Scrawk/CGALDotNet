@@ -396,7 +396,7 @@
     <ClInclude Include="Utility\VersionNumber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Collections\UnmanagedList.h">
+    <ClInclude Include="Collections\NativeList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utility\ArrayUtil.h">
@@ -493,6 +493,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Triangulations\Triangulation2_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\EigenMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -656,7 +659,7 @@
     <ClCompile Include="Utility\VersionNumber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Collections\UnmanagedList.cpp">
+    <ClCompile Include="Collections\NativeList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processing\MeshProcessingLocate_EEK.cpp">
@@ -729,6 +732,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Triangulations\Triangulation2_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eigen\EigenMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -23,7 +23,7 @@ namespace CGALDotNet
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public CGALObject()
+        internal CGALObject()
         {
             m_ptr = IntPtr.Zero;
         }
@@ -123,12 +123,14 @@ namespace CGALDotNet
         /// The old ptr will be released first.
         /// </summary>
         /// <param name="ptr">The new ptr. The old ptr will be released first.</param>
-        protected void Swap(IntPtr ptr)
+        internal void Swap(IntPtr ptr)
         {
             if(IsDisposed)
                 throw new CGALUnmanagedResourcesReleasedExeception("Can not swap when object has beed disposed.");
 
-            ReleasePtr(Ptr);
+            if (m_ptr != IntPtr.Zero)
+                ReleasePtr(Ptr);
+
             Ptr = ptr;
         }
 

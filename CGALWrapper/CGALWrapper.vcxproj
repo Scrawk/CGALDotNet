@@ -170,6 +170,7 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Eigen\EigenMatrix.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
@@ -270,7 +271,7 @@
     <ClInclude Include="Polygons\PolygonOffset2_EEK.h" />
     <ClInclude Include="Triangulations\Triangulation3.h" />
     <ClInclude Include="Triangulations\TriEdge2.h" />
-    <ClInclude Include="Collections\UnmanagedList.h" />
+    <ClInclude Include="Collections\NativeList.h" />
     <ClInclude Include="Utility\ArrayUtil.h" />
     <ClInclude Include="Utility\CGALGlobal.h" />
     <ClInclude Include="Utility\CGALGlobal_EIK.h" />
@@ -312,6 +313,7 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Eigen\EigenMatrix.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />
@@ -372,7 +374,7 @@
     <ClCompile Include="Polyhedra\SurfaceMesh3_EEK.cpp" />
     <ClCompile Include="Meshing\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
-    <ClCompile Include="Collections\UnmanagedList.cpp" />
+    <ClCompile Include="Collections\NativeList.cpp" />
     <ClCompile Include="Utility\CGALGlobal_EiK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />

@@ -21,7 +21,7 @@ namespace CGALDotNet.Geometry
 
         internal override IntPtr Point2_CreateFromPoint(Point2d point)
         {
-            return Point2_CreateFromPoint(point);
+            return Point2_EEK_CreateFromPoint(point);
         }
 
         internal override void Point2_Release(IntPtr ptr)
@@ -29,9 +29,29 @@ namespace CGALDotNet.Geometry
             Point2_EEK_Release(ptr);
         }
 
+        internal override double Point2_GetX(IntPtr ptr)
+        {
+            return Point2_EEK_GetX(ptr);
+        }
+
+        internal override double Point2_GetY(IntPtr ptr)
+        {
+            return Point2_EEK_GetY(ptr);
+        }
+
         internal override Point2d Point2_GetPoint(IntPtr ptr)
         {
             return Point2_EEK_GetPoint(ptr);
+        }
+
+        internal override void Point2_SetX(IntPtr ptr, double x)
+        {
+            Point2_EEK_SetX(ptr, x);
+        }
+
+        internal override void Point2_SetY(IntPtr ptr, double y)
+        {
+            Point2_EEK_SetY(ptr, y);
         }
 
         internal override void Point2_SetPoint(IntPtr ptr, Point2d point)
@@ -129,7 +149,19 @@ namespace CGALDotNet.Geometry
         private static extern void Point2_EEK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Point2_EEK_GetX(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Point2_EEK_GetY(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d Point2_EEK_GetPoint(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Point2_EEK_SetX(IntPtr ptr, double x);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Point2_EEK_SetY(IntPtr ptr, double y);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Point2_EEK_SetPoint(IntPtr ptr, Point2d point);

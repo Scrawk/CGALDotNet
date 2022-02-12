@@ -29,10 +29,34 @@ Point2* CastToPoint2(void* ptr)
 	return static_cast<Point2*>(ptr);
 }
 
+double Point2_EEK_GetX(void* ptr)
+{
+	auto p = CastToPoint2(ptr);
+	return CGAL::to_double(p->x());
+}
+
+double Point2_EEK_GetY(void* ptr)
+{
+	auto p = CastToPoint2(ptr);
+	return CGAL::to_double(p->y());
+}
+
 Point2d Point2_EEK_GetPoint(void* ptr)
 {
 	auto p = CastToPoint2(ptr);
 	return Point2d::FromCGAL<EEK>(*p);
+}
+
+void Point2_EEK_SetX(void* ptr, double x)
+{
+	auto p = CastToPoint2(ptr);
+	(*p)[0] = x;
+}
+
+void Point2_EEK_SetY(void* ptr, double y)
+{
+	auto p = CastToPoint2(ptr);
+	(*p)[1] = y;
 }
 
 void Point2_EEK_SetPoint(void* ptr, const Point2d& point)

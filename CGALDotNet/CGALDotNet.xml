@@ -928,6 +928,178 @@
             Check if the object is still valid.
             </summary>
         </member>
+        <member name="T:CGALDotNet.Collections.NativeList`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="count"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Collections.NativeList`1.Item(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Add(`0)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Copy">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="array"></param>
+            <param name="startIndex"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Contains(`0)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.IndexOf(`0)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Insert(System.Int32,`0)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Remove(`0)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Get(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Set(System.Int32,`0)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
+        <member name="T:CGALDotNet.Collections.NativeList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="count"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Collections.NativeList.Capacity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Collections.NativeList.Count">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Collections.NativeList.IsReadOnly">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.RemoveAt(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.Reverse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.TrimExcess">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:CGALDotNet.Geometry.CGALIntersections">
             <summary>
             The static intersection class.

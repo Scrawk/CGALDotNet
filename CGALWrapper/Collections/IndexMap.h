@@ -2,11 +2,6 @@
 
 #include <map>
 
-/// <summary>
-/// Helper class that wraps a map where a int is the key
-/// and keeps track of the next that should be used.
-/// </summary>
-/// <typeparam name="T">The type of object that is the value.</typeparam>
 template<class T>
 class IndexMap
 {
