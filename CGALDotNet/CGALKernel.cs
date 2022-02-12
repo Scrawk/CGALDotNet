@@ -98,9 +98,9 @@ namespace CGALDotNet
 
         internal override GeometryKernel2 GeometryKernel2 => throw new NotImplementedException();
 
-        internal override PolylineKernel2 PolylineKernel2 => throw new NotImplementedException();
+        internal override PolylineKernel2 PolylineKernel2 => PolylineKernel2_EIK.Instance;
 
-        internal override PolylineKernel3 PolylineKernel3 => throw new NotImplementedException();
+        internal override PolylineKernel3 PolylineKernel3 => PolylineKernel3_EIK.Instance;
 
         internal override PolygonKernel2 PolygonKernel2 => PolygonKernel2_EIK.Instance;
 
@@ -138,7 +138,7 @@ namespace CGALDotNet
 
         internal override ConvexHullKernel2 ConvexHullKernel2 => ConvexHullKernel2_EIK.Instance;
 
-        internal override ConvexHullKernel3 ConvexHullKernel3 => throw new NotImplementedException();
+        internal override ConvexHullKernel3 ConvexHullKernel3 => ConvexHullKernel3_EIK.Instance;
 
         internal override PolyhedronKernel3 PolyhedronKernel3 => PolyhedronKernel3_EIK.Instance;
 
@@ -148,27 +148,27 @@ namespace CGALDotNet
 
         internal override TetrahedralRemeshingKernel TetrahedralRemeshingKernel => throw new NotImplementedException();
 
-        internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => throw new NotImplementedException();
+        internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => SurfaceSubdivisionKernel_EIK.Instance;
 
         internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => SurfaceSimplificationKernel_EIK.Instance;
 
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => throw new NotImplementedException();
 
-        internal override MeshProcessingMeshingKernel MeshProcessingMeshingKernel => throw new NotImplementedException();
+        internal override MeshProcessingMeshingKernel MeshProcessingMeshingKernel => MeshProcessingMeshingKernel_EIK.Instance;
 
-        internal override MeshProcessingRepairKernel MeshProcessingRepairKernel => throw new NotImplementedException();
+        internal override MeshProcessingRepairKernel MeshProcessingRepairKernel => MeshProcessingRepairKernel_EIK.Instance;
 
-        internal override MeshProcessingOrientationKernel MeshProcessingOrientationKernel => throw new NotImplementedException();
+        internal override MeshProcessingOrientationKernel MeshProcessingOrientationKernel => MeshProcessingOrientationKernel_EIK.Instance;
 
-        internal override MeshProcessingBooleanKernel MeshProcessingBooleanKernel => throw new NotImplementedException();
+        internal override MeshProcessingBooleanKernel MeshProcessingBooleanKernel => MeshProcessingBooleanKernel_EIK.Instance;
 
-        internal override MeshProcessingConnectionsKernel MeshProcessingConnectionsKernel => throw new NotImplementedException();
+        internal override MeshProcessingConnectionsKernel MeshProcessingConnectionsKernel => MeshProcessingConnectionsKernel_EIK.Instance;
 
-        internal override MeshProcessingSlicerKernel MeshProcessingSlicerKernel => throw new NotImplementedException();
+        internal override MeshProcessingSlicerKernel MeshProcessingSlicerKernel => MeshProcessingSlicerKernel_EIK.Instance;
 
-        internal override MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel => throw new NotImplementedException();
+        internal override MeshProcessingFeaturesKernel MeshProcessingFeaturesKernel => MeshProcessingFeaturesKernel_EIK.Instance;
 
-        internal override MeshProcessingLocateKernel MeshProcessingLocateKernel => throw new NotImplementedException();
+        internal override MeshProcessingLocateKernel MeshProcessingLocateKernel => MeshProcessingLocateKernel_EIK.Instance;
     }
 
     public class EEK : CGALKernel
@@ -229,7 +229,7 @@ namespace CGALDotNet
 
         internal override SurfaceSubdivisionKernel SurfaceSubdivisionKernel => SurfaceSubdivisionKernel_EEK.Instance;
 
-        internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => throw new NotImplementedException();
+        internal override SurfaceSimplificationKernel SurfaceSimplificationKernel => throw new NotSupportedException();
 
         internal override SkinSurfaceMeshingKernel SkinSurfaceMeshingKernel => SkinSurfaceMeshingKernel_EEK.Instance;
 

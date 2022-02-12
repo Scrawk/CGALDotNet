@@ -170,6 +170,10 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
+    <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
+    <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
+    <ClInclude Include="Hull\ConvexHull3_EIK.h" />
     <ClInclude Include="Geometry\Index.h" />
     <ClInclude Include="Geometry\Point2_EEK.h" />
     <ClInclude Include="Geometry\Line2_EEK.h" />
@@ -206,6 +210,7 @@
     <ClInclude Include="Geometry\Triangle2_EEK.h" />
     <ClInclude Include="Polyhedra\SurfaceMesh3_EIK.h" />
     <ClInclude Include="Processing\SurfaceSubdivision_EIK.h" />
+    <ClInclude Include="Triangulations\Triangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.h" />
     <ClInclude Include="Geometry\MinMax.h" />
     <ClInclude Include="Processing\MeshProcessingConnections_EEK.h" />
@@ -307,6 +312,10 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
+    <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />
+    <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />
+    <ClCompile Include="Hull\ConvexHull3_EIK.cpp" />
     <ClCompile Include="Geometry\Point2_EEK.cpp" />
     <ClCompile Include="Geometry\Line2_EEK.cpp" />
     <ClCompile Include="Polylines\Polyline2_EIK.cpp" />
@@ -330,6 +339,7 @@
     <ClCompile Include="Geometry\Triangle2_EEK.cpp" />
     <ClCompile Include="Polyhedra\SurfaceMesh3_EIK.cpp" />
     <ClCompile Include="Processing\SurfaceSubdivision_EIK.cpp" />
+    <ClCompile Include="Triangulations\Triangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingConnections_EEK.cpp" />
     <ClCompile Include="Processing\MeshProcessingBoolean_EEK.cpp" />

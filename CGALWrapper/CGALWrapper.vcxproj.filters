@@ -480,6 +480,21 @@
     <ClInclude Include="Polylines\Polyline3_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Hull\ConvexHull3_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangulations\Triangulation2_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -699,6 +714,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Polylines\Polyline3_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hull\ConvexHull3_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangulations\Triangulation2_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
