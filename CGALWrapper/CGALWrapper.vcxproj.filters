@@ -498,6 +498,12 @@
     <ClInclude Include="Eigen\EigenMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Eigen\EigenColumnVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\EigenRowVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -735,6 +741,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Eigen\EigenMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eigen\EigenColumnVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eigen\EigenRowVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

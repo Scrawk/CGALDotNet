@@ -25,6 +25,7 @@ class MeshProcessingRepair
 
 public:
 
+	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point;
 
 	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
@@ -33,9 +34,8 @@ public:
 	typedef typename CGAL::Surface_mesh<Point> SurfaceMesh;
 	typedef typename boost::graph_traits<SurfaceMesh>::face_descriptor SFace_Des;
 
-	typedef std::vector<std::size_t> PolygonIndex;
+	typedef typename std::vector<std::size_t> PolygonIndex;
 
-	
 
 	inline static MeshProcessingRepair* NewMeshProcessingRepair()
 	{
@@ -309,22 +309,3 @@ public:
 	}
 
 };
-
-/*
-PMP::merge_duplicate_points_in_polygon_soup()
-PMP::merge_duplicate_polygons_in_polygon_soup()
-PMP::remove_isolated_points_in_polygon_soup()
-PMP::repair_polygon_soup()
-PMP::stitch_boundary_cycle()
-PMP::stitch_boundary_cycles()
-PMP::stitch_borders()
-PMP::is_polygon_soup_a_polygon_mesh()
-PMP::polygon_soup_to_polygon_mesh()
-PMP::polygon_mesh_to_polygon_soup()
-PMP::remove_isolated_vertices()
-PMP::is_non_manifold_vertex()
-PMP::duplicate_non_manifold_vertices()
-PMP::merge_duplicated_vertices_in_boundary_cycle()
-PMP::merge_duplicated_vertices_in_boundary_cycles()
-PMP::remove_connected_components_of_negligible_size()
-*/

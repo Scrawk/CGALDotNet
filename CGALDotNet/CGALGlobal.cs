@@ -377,6 +377,20 @@ namespace CGALDotNet
         }
 
         /// <summary>
+        /// returns CGAL::NEGATIVE if u, v and w are negatively oriented, 
+        /// CGAL::POSITIVE if u, v and w are positively oriented,
+        /// and CGAL::COPLANAR if u, v and w are coplanar.
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
+        /// <returns></returns>
+        public static ORIENTATION Orientation(Point3d u, Point3d v, Point3d w)
+        {
+            return CGALGlobal_EIK_Orientation_Vector3(u.Vector3d, v.Vector3d, w.Vector3d);
+        }
+
+        /// <summary>
         /// computes an orthogonal vector of the plane defined by p, q
         /// and r, which is directed to the positive side of this plane.
         /// </summary>

@@ -170,6 +170,8 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Eigen\EigenRowVector.h" />
+    <ClInclude Include="Eigen\EigenColumnVector.h" />
     <ClInclude Include="Eigen\EigenMatrix.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
@@ -313,6 +315,8 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Eigen\EigenRowVector.cpp" />
+    <ClCompile Include="Eigen\EigenColumnVector.cpp" />
     <ClCompile Include="Eigen\EigenMatrix.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />

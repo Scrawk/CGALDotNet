@@ -806,6 +806,17 @@
             <param name="w"></param>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            returns CGAL::NEGATIVE if u, v and w are negatively oriented, 
+            CGAL::POSITIVE if u, v and w are positively oriented,
+            and CGAL::COPLANAR if u, v and w are coplanar.
+            </summary>
+            <param name="u"></param>
+            <param name="v"></param>
+            <param name="w"></param>
+            <returns></returns>
+        </member>
         <member name="M:CGALDotNet.CGALGlobal.OrthogonalVector(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
             computes an orthogonal vector of the plane defined by p, q

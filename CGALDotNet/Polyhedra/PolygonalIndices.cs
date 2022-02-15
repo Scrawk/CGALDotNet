@@ -11,12 +11,12 @@ namespace CGALDotNet.Polyhedra
         public int[] pentagons;
         public int[] hexagons;
 
-        public PolygonalIndices(PolygonalCount fvc)
+        public PolygonalIndices(PolygonalCount count)
         {
-            triangles = fvc.triangles > 0 ? new int[fvc.triangles * 3] : null;
-            quads = fvc.quads > 0 ? new int[fvc.quads * 4] : null;
-            pentagons = fvc.pentagons > 0 ? new int[fvc.pentagons * 5] : null;
-            hexagons = fvc.hexagons > 0 ? new int[fvc.hexagons * 6] : null;
+            triangles = count.triangles > 0 ? new int[count.triangles * 3] : null;
+            quads = count.quads > 0 ? new int[count.quads * 4] : null;
+            pentagons = count.pentagons > 0 ? new int[count.pentagons * 5] : null;
+            hexagons = count.hexagons > 0 ? new int[count.hexagons * 6] : null;
         }
 
         public override string ToString()
