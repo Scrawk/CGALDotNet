@@ -16,6 +16,37 @@ namespace CGALDotNet.Eigen
             Ptr = EigenRowVector_CreateVector(dimension);
         }
 
+        public EigenRowVector(double x, double y)
+        {
+            Ptr = EigenRowVector_CreateVector(2);
+            this[0] = x;
+            this[1] = y;
+        }
+
+        public EigenRowVector(double x, double y, double z)
+        {
+            Ptr = EigenRowVector_CreateVector(3);
+            this[0] = x;
+            this[1] = y;
+            this[2] = z;
+        }
+
+        public EigenRowVector(double x, double y, double z, double w)
+        {
+            Ptr = EigenRowVector_CreateVector(4);
+            this[0] = x;
+            this[1] = y;
+            this[2] = z;
+            this[3] = w;
+        }
+
+        public EigenRowVector(IList<double> list)
+        {
+            Ptr = EigenRowVector_CreateVector(list.Count);
+            for(int i = 0; i < list.Count; i++)    
+                this[i] = list[i];
+        }
+
         internal EigenRowVector(IntPtr ptr) : base(ptr)
         {
 

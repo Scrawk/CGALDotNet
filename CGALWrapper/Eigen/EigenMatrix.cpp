@@ -301,6 +301,16 @@ void* EigenMatrix_LLT(void* ptr1, void* ptr2)
 	return x;
 }
 
+void* EigenMatrix_LDLT(void* ptr1, void* ptr2)
+{
+	auto m1 = CastToMatrix(ptr1);
+	auto m2 = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m1->ldlt().solve(*m2);
+	return x;
+}
+
 void* EigenMatrix_BdcSvd(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
@@ -363,5 +373,6 @@ void* EigenMatrix_Eigenvectors(void* ptr)
 		return x;
 	}
 }
+
 
 

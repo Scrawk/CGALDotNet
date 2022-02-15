@@ -74,6 +74,8 @@ extern "C"
 
 	CGALWRAPPER_API void* EigenMatrix_LLT(void* ptr1, void* ptr2);
 
+	CGALWRAPPER_API void* EigenMatrix_LDLT(void* ptr1, void* ptr2);
+
 	CGALWRAPPER_API void* EigenMatrix_BdcSvd(void* ptr1, void* ptr2);
 
 	CGALWRAPPER_API void* EigenMatrix_JacobiSvd(void* ptr1, void* ptr2);

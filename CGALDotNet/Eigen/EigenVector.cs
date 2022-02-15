@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Text;
 
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
+
 namespace CGALDotNet.Eigen
 {
     public abstract class EigenVector : CGALObject
@@ -26,7 +29,78 @@ namespace CGALDotNet.Eigen
 
         public abstract void Resize(int dimension);
 
-        public void Round(int digits)
+		public bool IsZero(double eps = MathUtil.DEG_TO_RAD_64)
+		{
+			for (int x = 0; x < Dimension; x++)
+			{
+				if (!MathUtil.IsZero(this[x], eps))
+					return false;
+			}
+
+			return true;
+		}
+
+		public bool IsPositive
+		{
+			get
+			{
+				for (int x = 0; x < Dimension; x++)
+				{
+					if (this[x] < 0)
+						return false;
+				}
+
+				return true;
+			}
+		}
+
+		public bool HasNAN
+		{
+			get
+			{
+				for (int x = 0; x < Dimension; x++)
+				{
+					if (double.IsNaN(this[x]))
+						return true;
+				}
+				return false;
+			}
+		}
+
+		public void NoNAN()
+		{
+			for (int x = 0; x < Dimension; x++)
+			{
+				if (double.IsNaN(this[x]))
+					this[x] = 0;
+			}
+		}
+
+		public bool IsFinite
+		{
+			get
+			{
+				for (int x = 0; x < Dimension; x++)
+				{
+					if (!MathUtil.IsFinite(this[x]))
+						return false;
+				}
+
+				return true;
+			}
+
+		}
+
+		public void MakeFinite()
+		{
+			for (int x = 0; x < Dimension; x++)
+			{
+				if (!MathUtil.IsFinite(this[x]))
+					this[x] = 0;
+			}
+		}
+
+		public void Round(int digits)
         {
             for (int i = 0; i < Dimension; i++)
                 this[i] = Math.Round(this[i], digits);

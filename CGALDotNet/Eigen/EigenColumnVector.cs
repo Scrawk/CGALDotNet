@@ -16,6 +16,37 @@ namespace CGALDotNet.Eigen
             Ptr = EigenColumnVector_CreateVector(dimension);
         }
 
+        public EigenColumnVector(double x, double y)
+        {
+            Ptr = EigenColumnVector_CreateVector(2);
+            this[0] = x;
+            this[1] = y;
+        }
+
+        public EigenColumnVector(double x, double y, double z)
+        {
+            Ptr = EigenColumnVector_CreateVector(3);
+            this[0] = x;
+            this[1] = y;
+            this[2] = z;
+        }
+
+        public EigenColumnVector(double x, double y, double z, double w)
+        {
+            Ptr = EigenColumnVector_CreateVector(4);
+            this[0] = x;
+            this[1] = y;
+            this[2] = z;
+            this[3] = w;
+        }
+
+        public EigenColumnVector(IList<double> list)
+        {
+            Ptr = EigenColumnVector_CreateVector(list.Count);
+            for (int i = 0; i < list.Count; i++)
+                this[i] = list[i];
+        }
+
         internal EigenColumnVector(IntPtr ptr) : base(ptr)
         {
 
