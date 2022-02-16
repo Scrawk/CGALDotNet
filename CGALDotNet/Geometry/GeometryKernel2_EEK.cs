@@ -70,6 +70,81 @@ namespace CGALDotNet.Geometry
             Line2_EEK_Release(ptr);
         }
 
+        internal override double Line2_GetA(IntPtr ptr)
+        {
+            return Line2_EEK_GetA(ptr);
+        }
+
+        internal override double Line2_GetB(IntPtr ptr)
+        {
+            return Line2_EEK_GetB(ptr);
+        }
+
+        internal override double Line2_GetC(IntPtr ptr)
+        {
+            return Line2_EEK_GetC(ptr);
+        }
+
+        internal override bool Line2_IsDegenerate(IntPtr ptr)
+        {
+            return Line2_EEK_IsDegenerate(ptr); 
+        }
+
+        internal override bool Line2_IsHorizontal(IntPtr ptr)
+        {
+            return Line2_EEK_IsHorizontal(ptr); 
+        }
+
+        internal override bool Line2_IsVertical(IntPtr ptr)
+        {
+            return Line2_EEK_IsVertical(ptr);
+        }
+
+        internal override bool Line2_HasOn(IntPtr linePtr, Point2d point)
+        {
+            return Line2_EEK_HasOn(linePtr, point);
+        }
+
+        internal override bool Line2_HasOnNegativeSide(IntPtr linePtr, Point2d point)
+        {
+            return Line2_EEK_HasOnNegativeSide(linePtr, point);
+        }
+
+        internal override bool Line2_HasOnPositiveSide(IntPtr linePtr, Point2d point)
+        {
+            return Line2_EEK_HasOnPositiveSide(linePtr, point);
+        }
+
+        internal override IntPtr Line2_Opposite(IntPtr ptr)
+        {
+            return Line2_EEK_Opposite(ptr); 
+        }
+
+        internal override IntPtr Line2_Perpendicular(IntPtr ptr, Point2d point)
+        {
+            return Line2_EEK_Perpendicular(ptr, point);
+        }
+
+        internal override double Line2_X_On_Y(IntPtr ptr, double y)
+        {
+            return Line2_EEK_X_On_Y(ptr, y);
+        }
+
+        internal override double Line2_Y_On_X(IntPtr ptr, double x)
+        {
+            return Line2_EEK_Y_On_X(ptr, x);
+        }
+
+        internal override Vector2d Line2_Vector(IntPtr ptr)
+        {
+            return Line2_EEK_Vector(ptr);
+        }
+
+        internal override IntPtr Line2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        {
+            return Line2_EEK_Transform(ptr, translation, rotation, scale);  
+        }
+
         //Ray2
         internal override IntPtr Ray2_Create(Point2d position, Vector2d direction)
         {
@@ -119,9 +194,19 @@ namespace CGALDotNet.Geometry
             return IsoRectangle2_EEK_GetMin(ptr);
         }
 
+        internal override void IsoRectangle2_SetMin(IntPtr ptr, Point2d point)
+        {
+            IsoRectangle2_EEK_SetMin(ptr, point);
+        }
+
         internal override Point2d IsoRectangle2_GetMax(IntPtr ptr)
         {
             return IsoRectangle2_EEK_GetMax(ptr);
+        }
+
+        internal override void IsoRectangle2_SetMax(IntPtr ptr, Point2d point)
+        {
+            IsoRectangle2_EEK_SetMax(ptr, point);
         }
 
         internal override double IsoRectangle2_Area(IntPtr ptr)
@@ -136,6 +221,16 @@ namespace CGALDotNet.Geometry
         internal override bool IsoRectangle2_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary)
         {
             return IsoRectangle2_EEK_ContainsPoint(ptr, point, inculdeBoundary);
+        }
+
+        internal override bool IsoRectangle2_IsDegenerate(IntPtr ptr)
+        {
+            return IsoRectangle2_EEK_IsDegenerate(ptr);
+        }
+
+        internal override IntPtr IsoRectangle2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        {
+            return IsoRectangle2_EEK_Transform(ptr, translation, rotation, scale);  
         }
 
         //Point2
@@ -173,6 +268,51 @@ namespace CGALDotNet.Geometry
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Line2_EEK_Release(IntPtr ptr);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Line2_EEK_GetA(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Line2_EEK_GetB(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Line2_EEK_GetC(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Line2_EEK_IsDegenerate(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Line2_EEK_IsHorizontal(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Line2_EEK_IsVertical(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Line2_EEK_HasOn(IntPtr linePtr, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Line2_EEK_HasOnNegativeSide(IntPtr linePtr, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool Line2_EEK_HasOnPositiveSide(IntPtr linePtr, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Line2_EEK_Opposite(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Line2_EEK_Perpendicular(IntPtr ptr, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Line2_EEK_X_On_Y(IntPtr ptr, double y);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Line2_EEK_Y_On_X(IntPtr ptr, double x);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern Vector2d Line2_EEK_Vector(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Line2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+
         //Ray2
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Ray2_EEK_Create(Point2d position, Vector2d direction);
@@ -205,7 +345,13 @@ namespace CGALDotNet.Geometry
         private static extern Point2d IsoRectangle2_EEK_GetMin(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void IsoRectangle2_EEK_SetMin(IntPtr ptr, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Point2d IsoRectangle2_EEK_GetMax(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void IsoRectangle2_EEK_SetMax(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern double IsoRectangle2_EEK_Area(IntPtr ptr);
@@ -215,5 +361,11 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool IsoRectangle2_EEK_ContainsPoint(IntPtr ptr, Point2d point,  bool inculdeBoundary);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool IsoRectangle2_EEK_IsDegenerate(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr IsoRectangle2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
     }
 }

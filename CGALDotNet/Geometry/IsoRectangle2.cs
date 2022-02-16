@@ -39,6 +39,19 @@ namespace CGALDotNet.Geometry
             return string.Format("[IsoRectangle2<{0}>: Min={1}, Max={2}]", 
                 Kernel.KernelName, Min, Max);
         }
+
+        /// <summary>
+        /// Transform the rectangle.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        /// <param name="rotation">The amount to rotate</param>
+        /// <param name="scale">The amount to scale.</param>
+        /// <returns>The transformed rectangle.</returns>
+        public IsoRectangle2<K> Transform(Point2d translation, double rotation, double scale)
+        {
+            var ptr = Kernel.Line2_Transform(Ptr, translation, rotation, scale);
+            return new IsoRectangle2<K>(ptr);
+        }
     }
 
     /// <summary>
@@ -89,6 +102,7 @@ namespace CGALDotNet.Geometry
         public Point2d Min
         {
             get { return Kernel.IsoRectangle2_GetMin(Ptr);  }
+            set {  Kernel.IsoRectangle2_SetMin(Ptr, value); }
         }
 
         /// <summary>
@@ -97,6 +111,7 @@ namespace CGALDotNet.Geometry
         public Point2d Max
         {
             get { return Kernel.IsoRectangle2_GetMax(Ptr); }
+            set { Kernel.IsoRectangle2_SetMax(Ptr, value); }
         }
 
         /// <summary>
@@ -106,6 +121,11 @@ namespace CGALDotNet.Geometry
         {
             get { return Kernel.IsoRectangle2_Area(Ptr); }
         }
+
+        /// <summary>
+        /// Is the rectangle degenerate.
+        /// </summary>
+        public bool IsDegenerate => Kernel.IsoRectangle2_IsDegenerate(Ptr);
 
         /// <summary>
         /// The side the rectangle the point is on.

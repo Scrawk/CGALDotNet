@@ -33,6 +33,36 @@ namespace CGALDotNet.Geometry
 
         internal abstract void Line2_Release(IntPtr ptr);
 
+        internal abstract double Line2_GetA(IntPtr ptr);
+
+        internal abstract double Line2_GetB(IntPtr ptr);
+
+        internal abstract double Line2_GetC(IntPtr ptr);
+
+        internal abstract bool Line2_IsDegenerate(IntPtr ptr);
+
+        internal abstract bool Line2_IsHorizontal(IntPtr ptr);
+
+        internal abstract bool Line2_IsVertical(IntPtr ptr);
+
+        internal abstract bool Line2_HasOn(IntPtr linePtr, Point2d point);
+
+        internal abstract bool Line2_HasOnNegativeSide(IntPtr linePtr, Point2d point);
+
+        internal abstract bool Line2_HasOnPositiveSide(IntPtr linePtr, Point2d point);
+
+        internal abstract IntPtr Line2_Opposite(IntPtr ptr);
+
+        internal abstract IntPtr Line2_Perpendicular(IntPtr ptr, Point2d point);
+
+        internal abstract double Line2_X_On_Y(IntPtr ptr, double y);
+
+        internal abstract double Line2_Y_On_X(IntPtr ptr, double x);
+
+        internal abstract Vector2d Line2_Vector(IntPtr ptr);
+
+        internal abstract IntPtr Line2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+
         //Ray2
         internal abstract IntPtr Ray2_Create(Point2d position, Vector2d direction);
 
@@ -55,13 +85,21 @@ namespace CGALDotNet.Geometry
 
         internal abstract Point2d IsoRectangle2_GetMin(IntPtr ptr);
 
+        internal abstract void IsoRectangle2_SetMin(IntPtr ptr, Point2d point);
+
         internal abstract Point2d IsoRectangle2_GetMax(IntPtr ptr);
+
+        internal abstract void IsoRectangle2_SetMax(IntPtr ptr, Point2d point);
 
         internal abstract double IsoRectangle2_Area(IntPtr ptr);
 
         internal abstract BOUNDED_SIDE IsoRectangle2_BoundedSide(IntPtr ptr, Point2d point);
 
         internal abstract bool IsoRectangle2_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary);
+
+        internal abstract bool IsoRectangle2_IsDegenerate(IntPtr ptr);
+
+        internal abstract IntPtr IsoRectangle2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
     }
 }
