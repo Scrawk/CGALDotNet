@@ -34,6 +34,10 @@ extern "C"
 
 	CGALWRAPPER_API void* EigenMatrix_Inverse(void* ptr);
 
+	CGALWRAPPER_API BOOL EigenMatrix_IsInvertible(void* ptr);
+
+	CGALWRAPPER_API void* EigenMatrix_TryInverse(void* ptr);
+
 	CGALWRAPPER_API double EigenMatrix_Determinant(void* ptr);
 
 	CGALWRAPPER_API double EigenMatrix_Trace(void* ptr);
@@ -64,23 +68,49 @@ extern "C"
 
 	CGALWRAPPER_API void* EigenMatrix_Reshaped(void* ptr, int rows, int cols);
 
-	CGALWRAPPER_API void* EigenMatrix_ColPivHouseholderQr(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_ColPivHouseholderQr_Vec(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_PartialPivLu(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_ColPivHouseholderQr_Mat(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_FullPivLu(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_PartialPivLu_Vec(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_HouseholderQr(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_PartialPivLu_Mat(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_LLT(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_FullPivLu_Vec(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_LDLT(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_FullPivLu_Mat(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_BdcSvd(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_HouseholderQr_Vec(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_JacobiSvd(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_HouseholderQr_Mat(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API double EigenMatrix_RelativeError(void* ptr1, void* ptr2, void* ptr3);
+	CGALWRAPPER_API void* EigenMatrix_LLT_Vec(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_LLT_Mat(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_LDLT_Vec(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_LDLT_Mat(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_BdcSvd_Vec(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_BdcSvd_Mat(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_JacobiSvd_Vec(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_JacobiSvd_Mat(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_FullPivHouseholderQr_Vec(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_FullPivHouseholderQr_Mat(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_CompleteOrthogonalDecomposition_Vec(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API void* EigenMatrix_CompleteOrthogonalDecomposition_Mat(void* ptr1, void* ptr2);
+
+	CGALWRAPPER_API double EigenMatrix_RelativeError_Vec(void* ptr1, void* ptr2, void* ptr3);
+
+	CGALWRAPPER_API double EigenMatrix_RelativeError_Mat(void* ptr1, void* ptr2, void* ptr3);
 
 	CGALWRAPPER_API void* EigenMatrix_Eigenvalues(void* ptr);
 

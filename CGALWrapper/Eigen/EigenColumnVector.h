@@ -8,7 +8,7 @@
 extern "C"
 {
 
-	CGALWRAPPER_API void* EigenColumnVector_CreateVector(int columns);
+	CGALWRAPPER_API void* EigenColumnVector_CreateVector(int rows);
 
 	CGALWRAPPER_API void EigenColumnVector_Release(void* ptr);
 

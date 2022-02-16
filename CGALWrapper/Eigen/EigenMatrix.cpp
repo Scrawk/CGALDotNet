@@ -1,18 +1,20 @@
 
+#include <iostream>
 #include "EigenMatrix.h"
 #include <Eigen/Dense>
+#include <Eigen/LU>
 
-typedef Eigen::Matrix<double, 1, Eigen::Dynamic> ColumnVector;
-typedef Eigen::Matrix<double, Eigen::Dynamic, 1> RowVector;
+typedef Eigen::Matrix<double, Eigen::Dynamic, 1> ColumnVector;
+typedef Eigen::Matrix<double, 1, Eigen::Dynamic> RowVector;
 typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Matrix;
 
-ColumnVector* CastColumnVector(void* ptr);
+ColumnVector* CastToColumnVector(void* ptr);
 
 ColumnVector* NewColumnVector();
 
 ColumnVector* NewColumnVector(const ColumnVector& v);
 
-RowVector* CastRowVector(void* ptr);
+RowVector* CastToRowVector(void* ptr);
 
 RowVector* NewRowVector();
 
@@ -138,6 +140,31 @@ void* EigenMatrix_Inverse(void* ptr)
 	return m2;
 }
 
+BOOL EigenMatrix_IsInvertible(void* ptr)
+{
+	auto m = CastToMatrix(ptr);
+	Eigen::FullPivLU<Matrix> lu(*m);
+
+	return lu.isInvertible();
+}
+
+void* EigenMatrix_TryInverse(void* ptr)
+{
+	auto m = CastToMatrix(ptr);
+	Eigen::FullPivLU<Matrix> lu(*m);
+
+	if (lu.isInvertible())
+	{
+		auto inv = NewMatrix();
+		(*inv) = lu.inverse();
+		return inv;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
 double EigenMatrix_Determinant(void* ptr)
 {
 	auto m = CastToMatrix(ptr);
@@ -220,7 +247,7 @@ void* EigenMatrix_SubMatrix(void* ptr1, void* ptr2)
 void* EigenMatrix_MulColumnVector(void* ptr1, void* ptr2)
 {
 	auto m1 = CastToMatrix(ptr1);
-	auto v2 = CastColumnVector(ptr2);
+	auto v2 = CastToColumnVector(ptr2);
 	auto v = NewColumnVector(*v2);
 	(*v) = (*m1) * (*v2);
 	return v;
@@ -229,7 +256,7 @@ void* EigenMatrix_MulColumnVector(void* ptr1, void* ptr2)
 void* EigenMatrix_MulRowVector(void* ptr1, void* ptr2)
 {
 	auto m1 = CastToMatrix(ptr1);
-	auto v2 = CastRowVector(ptr2);
+	auto v2 = CastToRowVector(ptr2);
 	auto v = NewRowVector(*v2);
 	(*v) = (*m1) * (*v2);
 	return v;
@@ -251,91 +278,220 @@ void* EigenMatrix_Reshaped(void* ptr, int rows, int cols)
 	return m2;
 }
 
-void* EigenMatrix_ColPivHouseholderQr(void* ptr1, void* ptr2)
+void* EigenMatrix_ColPivHouseholderQr_Vec(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
-	auto v = CastColumnVector(ptr2);
-	auto x = NewColumnVector(*v);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
 
 	(*x) = m->colPivHouseholderQr().solve(*v);
 	return x;
 }
 
-void* EigenMatrix_PartialPivLu(void* ptr1, void* ptr2)
+void* EigenMatrix_ColPivHouseholderQr_Mat(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
-	auto v = CastColumnVector(ptr2);
-	auto x = NewColumnVector(*v);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m->colPivHouseholderQr().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_PartialPivLu_Vec(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
 
 	(*x) = m->partialPivLu().solve(*v);
 	return x;
 }
 
-void* EigenMatrix_FullPivLu(void* ptr1, void* ptr2)
+void* EigenMatrix_PartialPivLu_Mat(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
-	auto v = CastColumnVector(ptr2);
-	auto x = NewColumnVector(*v);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m->partialPivLu().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_FullPivLu_Vec(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
 
 	(*x) = m->fullPivLu().solve(*v);
 	return x;
 }
 
-void* EigenMatrix_HouseholderQr(void* ptr1, void* ptr2)
+void* EigenMatrix_FullPivLu_Mat(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
-	auto v = CastColumnVector(ptr2);
-	auto x = NewColumnVector(*v);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m->fullPivLu().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_HouseholderQr_Vec(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
 
 	(*x) = m->householderQr().solve(*v);
 	return x;
 }
 
-void* EigenMatrix_LLT(void* ptr1, void* ptr2)
+void* EigenMatrix_HouseholderQr_Mat(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
-	auto v = CastColumnVector(ptr2);
-	auto x = NewColumnVector(*v);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m->householderQr().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_LLT_Vec(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
 
 	(*x) = m->llt().solve(*v);
 	return x;
 }
 
-void* EigenMatrix_LDLT(void* ptr1, void* ptr2)
+void* EigenMatrix_LLT_Mat(void* ptr1, void* ptr2)
 {
-	auto m1 = CastToMatrix(ptr1);
-	auto m2 = CastToMatrix(ptr2);
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToMatrix(ptr2);
 	auto x = NewMatrix();
 
-	(*x) = m1->ldlt().solve(*m2);
+	(*x) = m->llt().solve(*v);
 	return x;
 }
 
-void* EigenMatrix_BdcSvd(void* ptr1, void* ptr2)
+void* EigenMatrix_LDLT_Vec(void* ptr1, void* ptr2)
+{
+	auto m1 = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
+
+	(*x) = m1->ldlt().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_LDLT_Mat(void* ptr1, void* ptr2)
+{
+	auto m1 = CastToMatrix(ptr1);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m1->ldlt().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_BdcSvd_Vec(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
-	auto v = CastColumnVector(ptr2);
-	auto x = NewColumnVector(*v);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
 
-	(*x) = m->bdcSvd().solve(*v);
+	(*x) = m->bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
 	return x;
 }
 
-void* EigenMatrix_JacobiSvd(void* ptr1, void* ptr2)
+void* EigenMatrix_BdcSvd_Mat(void* ptr1, void* ptr2)
 {
 	auto m = CastToMatrix(ptr1);
-	auto v = CastColumnVector(ptr2);
-	auto x = NewColumnVector(*v);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
 
-	(*x) = m->jacobiSvd().solve(*v);
+	(*x) = m->bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
 	return x;
 }
 
-double EigenMatrix_RelativeError(void* ptr1, void* ptr2, void* ptr3)
+void* EigenMatrix_JacobiSvd_Vec(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
+
+	(*x) = m->jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
+	return x;
+}
+
+void* EigenMatrix_JacobiSvd_Mat(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m->jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
+	return x;
+}
+
+void* EigenMatrix_FullPivHouseholderQr_Vec(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
+
+	(*x) = m->fullPivHouseholderQr().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_FullPivHouseholderQr_Mat(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m->fullPivHouseholderQr().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_CompleteOrthogonalDecomposition_Vec(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToColumnVector(ptr2);
+	auto x = NewColumnVector();
+
+	(*x) = m->completeOrthogonalDecomposition().solve(*v);
+	return x;
+}
+
+void* EigenMatrix_CompleteOrthogonalDecomposition_Mat(void* ptr1, void* ptr2)
+{
+	auto m = CastToMatrix(ptr1);
+	auto v = CastToMatrix(ptr2);
+	auto x = NewMatrix();
+
+	(*x) = m->completeOrthogonalDecomposition().solve(*v);
+	return x;
+}
+
+double EigenMatrix_RelativeError_Vec(void* ptr1, void* ptr2, void* ptr3)
 {
 	auto A = CastToMatrix(ptr1);
-	auto b = CastColumnVector(ptr2);
-	auto x = CastColumnVector(ptr3);
+	auto b = CastToColumnVector(ptr2);
+	auto x = CastToColumnVector(ptr3);
+
+	return ((*A) * (*x) - (*b)).norm() / b->norm();
+}
+
+double EigenMatrix_RelativeError_Mat(void* ptr1, void* ptr2, void* ptr3)
+{
+	auto A = CastToMatrix(ptr1);
+	auto b = CastToMatrix(ptr2);
+	auto x = CastToMatrix(ptr3);
 
 	return ((*A) * (*x) - (*b)).norm() / b->norm();
 }

@@ -1111,6 +1111,329 @@
             
             </summary>
         </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Create a new matrix filled with zeros.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number of columns.</param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.Double[0:,0:])">
+            <summary>
+            Create a new matrix fill with the array contents.
+            </summary>
+            <param name="array">The array.</param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.Collections.Generic.IList{CGALDotNet.Eigen.EigenColumnVector})">
+            <summary>
+            Create a new matrix filled with the contents of the column vectors.
+            All column vectors must have the same dimension.
+            </summary>
+            <param name="columns"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.IntPtr)">
+            <summary>
+            Create a new matrix from a pointer.
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Identity(System.Int32)">
+            <summary>
+            Create a identity matrix.
+            </summary>
+            <param name="size">The number of rows and columns of the matrix. Must be square.</param>
+            <returns>The identity matrix.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Random(System.Int32,System.Int32,System.Double,System.Double,System.Int32)">
+            <summary>
+            Create a new matrix fill with random numbers.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number columns.</param>
+            <param name="min">The minimum random number generated.</param>
+            <param name="max">The maximum random number generated.</param>
+            <param name="seed">The random generators seed.</param>
+            <returns>The matrix.</returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Rows">
+            <summary>
+            The number of rows in the matrix.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Columns">
+            <summary>
+            The number of columns in the matrix.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Length">
+            <summary>
+            The total size of the matrix which is 
+            the rows times the number of columns.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Item(System.Int32)">
+            <summary>
+            The single dimension array accessor.
+            </summary>
+            <param name="i">The array index.</param>
+            <returns>The value at the index i.</returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Item(System.Int32,System.Int32)">
+            <summary>
+            The double dimension array accessor.
+            </summary>
+            <param name="i">The row index.</param>
+            <param name="j">The column index.</param>
+            <returns>The value at the index i,j.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.ToString">
+            <summary>
+            The matrix string info.
+            </summary>
+            <returns>The matrix string info.</returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Transpose">
+            <summary>
+            The matrix transposed.
+            Flips a matrix over its diagonal that is, 
+            it switches the row and column indices of the matrix.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Conjugate">
+            <summary>
+            The matrices conjugate.
+            The matrix obtained by replacing each element a(ij) with its complex conjugate, A^=(a^(ij)).
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Adjoint">
+            <summary>
+            The matrices adjoint.
+            The transpose of its cofactor matrix.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.IsInvertible">
+            <summary>
+            Is the matrix invertible.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Inverse">
+            <summary>
+            The inverse of a square matrix A, 
+            sometimes called a reciprocal matrix, 
+            is a matrix A^(-1) such that AA^(-1)=I.
+            DOes not check if the matrix is invertible.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Determinant">
+            <summary>
+            The determinant is a scalar value that is a 
+            function of the entries of a square matrix.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.Trace">
+            <summary>
+            The trace of a square matrix is defined to be the 
+            sum of elements on the main diagonal from the upper left to the lower right.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.IsSquare">
+            <summary>
+            A square matrix has the same number of rows and columns.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.IsDiagonal">
+            <summary>
+            A diagonal matrix is a matrix in which the entries 
+            outside the main diagonal are all zero.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.IsUpperTriangular">
+            <summary>
+            A square matrix is called upper triangular 
+            if all the entries below the main diagonal are zero.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenMatrix.IsLowerTriangular">
+            <summary>
+            A square matrix is called lower triangular 
+            if all the entries above the main diagonal are zero.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.op_Multiply(CGALDotNet.Eigen.EigenMatrix,System.Double)">
+            <summary>
+            Multiple each component in matrix by the scalar.
+            </summary>
+            <param name="m">The matrix.</param>
+            <param name="s">The scalar.</param>
+            <returns>The matrix with each component multiplied by the scalar.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.op_Division(CGALDotNet.Eigen.EigenMatrix,System.Double)">
+            <summary>
+            Divide each component in matrix by the scalar.
+            </summary>
+            <param name="m">The matrix.</param>
+            <param name="s">The scalar.</param>
+            <returns>The matrix with each component divided by the scalar.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.op_Multiply(CGALDotNet.Eigen.EigenMatrix,CGALDotNet.Eigen.EigenMatrix)">
+            <summary>
+            Multiple the two matrices.
+            The first matrices number of columns must 
+            the same as the second matrices number of rows.
+            </summary>
+            <param name="m1">The first matrix.</param>
+            <param name="m2">The second matrix.</param>
+            <returns>The product matrix.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.op_Addition(CGALDotNet.Eigen.EigenMatrix,CGALDotNet.Eigen.EigenMatrix)">
+            <summary>
+            Add two matrices.
+            The matrices must be the same size.
+            </summary>
+            <param name="m1">The first matrix.</param>
+            <param name="m2">The second matrix.</param>
+            <returns>A matrix where each compoent is the sum of the other two matrices.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.op_Subtraction(CGALDotNet.Eigen.EigenMatrix,CGALDotNet.Eigen.EigenMatrix)">
+            <summary>
+            Subtract two matrices.
+            The matrices must be the same size.
+            </summary>
+            <param name="m1">The first matrix.</param>
+            <param name="m2">The second matrix.</param>
+            <returns>A matrix where each compoent is the difference of the other two matrices.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.op_Multiply(CGALDotNet.Eigen.EigenMatrix,CGALDotNet.Eigen.EigenColumnVector)">
+            <summary>
+            Multiple a matrix and a column vector.
+            </summary>
+            <param name="m">The matrix.</param>
+            <param name="v">The column vector.</param>
+            <returns>The product column vector.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.IsIdentity(System.Double)">
+            <summary>
+            Is this matrix the identity matrix.
+            </summary>
+            <param name="eps">The threshold the values in the 
+            matrix can be to the expected value.</param>
+            <returns>Is this matrix the identity matrix.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.IsZero(System.Double)">
+            <summary>
+            Is this matrix filled with zeros.
+            </summary>
+            <param name="eps">The threshold the values in the 
+            matrix can be to the expected value.</param>
+            <returns>Is this matrix filled with zeros.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.IsPositive">
+            <summary>
+            Are all the values in this matrix positive.
+            </summary>
+            <returns>Are all the values in this matrix positive.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.HasNAN">
+            <summary>
+            Does the matrix have a component that is nan.
+            </summary>
+            <returns>Does the matrix have a component that is nan.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.NoNAN">
+            <summary>
+            Replaces all nan values in the matrix with 0.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.IsFinite">
+            <summary>
+            Are all the values in the matrix finite (non-infinite and non-nan).
+            </summary>
+            <returns>Are all the values in the matrix finite (non-infinite and non-nan).</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.MakeFinite">
+            <summary>
+            Replaces all infinite and nan values in matrix with 0.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.IsConst(System.Double)">
+            <summary>
+            Are all the values in the matrix the same.
+            </summary>
+            <param name="eps">The threshold the values in the 
+            matrix can be to the expected value.</param>
+            <returns>Are all the values in the matrix the same.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SubMatrix(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a sub matrix from this matrix.
+            </summary>
+            <param name="startRow">The row to start at.</param>
+            <param name="startCol">THe column to start at.</param>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+            <returns>A sub matrix from this matrix.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SubMatrix(System.Int32,System.Int32)">
+            <summary>
+            Create a sub matrix from this matrix.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+            <returns>A sub matrix from this matrix.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Solve(CGALDotNet.Eigen.EigenColumnVector,CGALDotNet.Eigen.EIGEN_SOLVER)">
+            <summary>
+            Solve the linear system.
+            </summary>
+            <param name="v">The vector to solve.</param>
+            <param name="solver">The solver type.</param>
+            <returns>The solution vector.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Solve(CGALDotNet.Eigen.EigenMatrix,CGALDotNet.Eigen.EIGEN_SOLVER)">
+            <summary>
+            Solve the linear system.
+            </summary>
+            <param name="v">The vector to solve.</param>
+            <param name="solver">The solver type.</param>
+            <returns>The solution vector.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.RelativeError(CGALDotNet.Eigen.EigenColumnVector,CGALDotNet.Eigen.EigenColumnVector)">
+            <summary>
+            Find the relative error from the linear system.
+            </summary>
+            <param name="v">The vector that was solved.</param>
+            <param name="x">The vector that was the solution.</param>
+            <returns>The relative error.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.RelativeError(CGALDotNet.Eigen.EigenMatrix,CGALDotNet.Eigen.EigenMatrix)">
+            <summary>
+            Find the relative error from the linear system.
+            </summary>
+            <param name="v">The vector that was solved.</param>
+            <param name="x">The vector that was the solution.</param>
+            <returns>The relative error.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.EigenValues(CGALDotNet.Eigen.EigenColumnVector@)">
+            <summary>
+            Find the eigen values of the matrix.
+            </summary>
+            <param name="values">The eigen values if found, null otherwise.</param>
+            <returns>True if the values could be determined.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.EigenVectors(CGALDotNet.Eigen.EigenMatrix@)">
+            <summary>
+            Find the eigen vectors of the matrix.
+            </summary>
+            <param name="vectors">The eigen vectors if found, null otherwise.</param>
+            <returns>True if the vectors could be determined.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.TryInverse(CGALDotNet.Eigen.EigenMatrix@)">
+            <summary>
+            Try and find the inverse of the matrix.
+            </summary>
+            <param name="inverse">The inverse if found, null otherwise.</param>
+            <returns>True if the inverse was found.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.CGALIntersections">
             <summary>
             The static intersection class.
