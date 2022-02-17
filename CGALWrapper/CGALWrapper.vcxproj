@@ -310,6 +310,7 @@
     <ClInclude Include="Triangulations\TriUtil.h" />
     <ClInclude Include="Triangulations\TriVertex2.h" />
     <ClInclude Include="Utility\VersionNumber.h" />
+    <ClInclude Include="Geometry\Vector2_EEK.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
@@ -398,6 +399,7 @@
     <ClCompile Include="Polygons\PolygonWithHoles2_EEK.cpp" />
     <ClCompile Include="Triangulations\Triangulation2_EEK.cpp" />
     <ClCompile Include="Utility\VersionNumber.cpp" />
+    <ClCompile Include="Geometry\Vector2_EEK.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CGALWrapper.rc" />

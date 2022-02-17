@@ -1,8 +1,12 @@
 
 #include "Ray2_EEK.h"
 #include <CGAL/Ray_2.h>
+#include <CGAL/Aff_transformation_2.h>
 
 typedef CGAL::Ray_2<EEK> Ray2;
+typedef CGAL::Line_2<EEK> Line2;
+typedef CGAL::Point_2<EEK> Point2;
+typedef CGAL::Aff_transformation_2<EEK> Transformation2;
 
 void* Ray2_EEK_Create(const Point2d& position, const Vector2d& direction)
 {
@@ -25,4 +29,77 @@ void Ray2_EEK_Release(void* ptr)
 Ray2* CastToRay2(void* ptr)
 {
 	return static_cast<Ray2*>(ptr);
+}
+
+Ray2* NewRay2()
+{
+	return new Ray2();
+}
+
+BOOL Ray2_EEK_IsDegenerate(void* ptr)
+{
+	auto ray = CastToRay2(ptr);
+	return ray->is_degenerate();
+}
+
+BOOL Ray2_EEK_IsHorizontal(void* ptr)
+{
+	auto ray = CastToRay2(ptr);
+	return ray->is_horizontal();
+}
+
+BOOL Ray2_EEK_IsVertical(void* ptr)
+{
+	auto ray = CastToRay2(ptr);
+	return ray->is_vertical();
+}
+
+BOOL Ray2_EEK_HasOn(void* rayPtr, const Point2d& point)
+{
+	auto ray = CastToRay2(rayPtr);
+	return ray->has_on(point.ToCGAL<EEK>());
+}
+
+Point2d Ray2_EEK_Source(void* ptr)
+{
+	auto ray = CastToRay2(ptr);
+	auto p = ray->source();
+	return Point2d::FromCGAL<EEK>(p);
+}
+
+Vector2d Ray2_EEK_Vector(void* ptr)
+{
+	auto ray = CastToRay2(ptr);
+	auto v = ray->to_vector();
+	return Vector2d::FromCGAL<EEK>(v);
+}
+
+void* Ray2_EEK_Opposite(void* ptr)
+{
+	auto ray = CastToRay2(ptr);
+	auto nray = NewRay2();
+	(*nray) = ray->opposite();
+	return nray;
+}
+
+void* Ray2_EEK_Line(void* ptr)
+{
+	auto ray = CastToRay2(ptr);
+	auto line = new Line2();
+	(*line) = ray->supporting_line();
+	return line;
+}
+
+void* Ray2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
+{
+	auto ray = CastToRay2(ptr);
+
+	Transformation2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+	Transformation2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+	Transformation2 S(CGAL::SCALING, scale);
+
+	auto nray = NewRay2();
+	(*nray) = ray->transform(T * R * S);
+
+	return nray;
 }

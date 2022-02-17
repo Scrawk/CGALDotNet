@@ -1724,6 +1724,15 @@
             </summary>
             <returns>The iso rectangle as a string.</returns>
         </member>
+        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,System.Double,System.Double)">
+            <summary>
+            Transform the rectangle.
+            </summary>
+            <param name="translation">The amount to translate.</param>
+            <param name="rotation">The amount to rotate</param>
+            <param name="scale">The amount to scale.</param>
+            <returns>The transformed rectangle.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.IsoRectangle2">
             <summary>
             The abstract iso rectangle definition.
@@ -1768,6 +1777,11 @@
         <member name="P:CGALDotNet.Geometry.IsoRectangle2.Area">
             <summary>
             The rectangles area.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.IsoRectangle2.IsDegenerate">
+            <summary>
+            Is the rectangle degenerate.
             </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.IsoRectangle2.BoundedSide(CGALDotNetGeometry.Numerics.Point2d)">

@@ -1,8 +1,12 @@
 
 #include "Segment2_EEK.h"
 #include <CGAL/Segment_2.h>
+#include <CGAL/Aff_transformation_2.h>
 
 typedef CGAL::Segment_2<EEK> Segment2;
+typedef CGAL::Line_2<EEK> Line2;
+typedef CGAL::Point_2<EEK> Point2;
+typedef CGAL::Aff_transformation_2<EEK> Transformation2;
 
 void* Segment2_EEK_Create(const Point2d& a, const Point2d& b)
 {
@@ -25,4 +29,94 @@ void Segment2_EEK_Release(void* ptr)
 Segment2* CastToSegment2(void* ptr)
 {
 	return static_cast<Segment2*>(ptr);
+}
+
+Segment2* NewSegment2()
+{
+	return new Segment2();
+}
+
+Point2d Segment2_EEK_GetVertex(void* ptr, int i)
+{
+	auto seg = CastToSegment2(ptr);
+	return Point2d::FromCGAL<EEK>(seg->vertex(i));
+}
+
+void Segment2_EEK_SetVertex(void* ptr, int i, const Point2d& point)
+{
+	if (i < 0 || i >= 2) return;
+
+	auto seg = CastToSegment2(ptr);
+	(*seg)[i] = point.ToCGAL<EEK>();
+}
+
+Point2d Segment2_EEK_Min(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	return Point2d::FromCGAL<EEK>(seg->min());
+}
+
+Point2d Segment2_EEK_Max(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	return Point2d::FromCGAL<EEK>(seg->max());
+}
+
+BOOL Segment2_EEK_IsDegenerate(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	return seg->is_degenerate();
+}
+
+BOOL Segment2_EEK_IsHorizontal(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	return seg->is_horizontal();
+}
+
+BOOL Segment2_EEK_IsVertical(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	return seg->is_vertical();
+}
+
+BOOL Segment2_EEK_HasOn(void* segPtr, const Point2d& point)
+{
+	auto seg = CastToSegment2(segPtr);
+	return seg->has_on(point.ToCGAL<EEK>());
+}
+
+Vector2d Segment2_EEK_Vector(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	auto v = seg->to_vector();
+	return Vector2d::FromCGAL<EEK>(v);
+}
+
+void* Segment2_EEK_Line(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	auto line = new Line2();
+	(*line) = seg->supporting_line();
+	return line;
+}
+
+double Segment2_EEK_SqrLength(void* ptr)
+{
+	auto seg = CastToSegment2(ptr);
+	return CGAL::to_double(seg->squared_length());
+}
+
+void* Segment2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
+{
+	auto seg = CastToSegment2(ptr);
+
+	Transformation2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+	Transformation2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
+	Transformation2 S(CGAL::SCALING, scale);
+
+	auto nseg = NewSegment2();
+	(*nseg) = seg->transform(T * R * S);
+
+	return nseg;
 }
