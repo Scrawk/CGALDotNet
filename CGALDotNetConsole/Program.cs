@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 
+using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
+
 using CGALDotNet;
 using CGALDotNet.Geometry;
 using CGALDotNet.Polygons;
@@ -24,7 +27,6 @@ namespace CGALDotNetConsole
         
         public static void Main(string[] args)
         {
-
 
         }
 

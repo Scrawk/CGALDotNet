@@ -13,7 +13,7 @@ namespace CGALDotNet.Geometry
     /// <summary>
     /// The static intersection class.
     /// </summary>
-    public static class CGALIntersections
+    public static partial class CGALIntersections
     {
         private const string DLL_NAME = "CGALWrapper.dll";
 
@@ -443,6 +443,156 @@ namespace CGALDotNet.Geometry
 
         /// <summary>--------------------------------------------------------
         /// 
+        ///              The Point SqrDistance functions
+        /// 
+        /// </summary>-----------------------------------------------------
+
+        public static double SqrDistance(Point2d point, Point2d point2)
+        {
+            return Intersections_EIK_SqrDistance_PointPoint(point, point2);
+        }
+
+        public static double SqrDistance(Point2d point, Line2d line)
+        {
+            return Intersections_EIK_SqrDistance_PointLine(point, line);
+        }
+
+        public static double SqrDistance(Point2d point, Ray2d ray)
+        {
+            return Intersections_EIK_SqrDistance_PointRay(point, ray);
+        }
+
+        public static double SqrDistance(Point2d point, Segment2d seg)
+        {
+            return Intersections_EIK_SqrDistance_PointSegment(point, seg);
+        }
+
+        public static double SqrDistance(Point2d point, Triangle2d tri)
+        {
+            return Intersections_EIK_SqrDistance_PointTriangle(point, tri);
+        }
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Line SqrDistance functions
+        /// 
+        /// </summary>--------------------------------------------------------
+
+        public static double SqrDistance(Line2d line, Point2d point)
+        {
+            return Intersections_EIK_SqrDistance_LinePoint(line, point);
+        }
+
+        public static double SqrDistance(Line2d line, Line2d line2)
+        {
+            return Intersections_EIK_SqrDistance_LineLine(line, line2);
+        }
+
+        public static double SqrDistance(Line2d line, Ray2d ray)
+        {
+            return Intersections_EIK_SqrDistance_LineRay(line, ray);
+        }
+
+        public static double SqrDistance(Line2d line, Segment2d segment)
+        {
+            return Intersections_EIK_SqrDistance_LineSegment(line, segment);
+        }
+
+        public static double SqrDistance(Line2d line, Triangle2d triangle)
+        {
+            return Intersections_EIK_SqrDistance_LineTriangle(line, triangle);
+        }
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Ray SqrDistance functions
+        /// 
+        /// </summary>--------------------------------------------------------
+
+        public static double SqrDistance(Ray2d ray, Line2d line)
+        {
+            return Intersections_EIK_SqrDistance_RayLine(ray, line);
+        }
+
+        public static double SqrDistance(Ray2d ray, Ray2d ray2)
+        {
+            return Intersections_EIK_SqrDistance_RayRay(ray, ray2);
+        }
+
+        public static double SqrDistance(Ray2d ray, Segment2d segment)
+        {
+            return Intersections_EIK_SqrDistance_RaySegment(ray, segment);
+        }
+
+        public static double SqrDistance(Ray2d ray, Triangle2d triangle)
+        {
+            return Intersections_EIK_SqrDistance_RayTriangle(ray, triangle);
+        }
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Segment SqrDistance functions
+        /// 
+        /// </summary>-----------------------------------------------------
+
+        public static double SqrDistance(Segment2d segment, Point2d point)
+        {
+            return Intersections_EIK_SqrDistance_SegmentPoint(segment, point);
+        }
+
+        public static double SqrDistance(Segment2d segment, Line2d line)
+        {
+            return Intersections_EIK_SqrDistance_SegmentLine(segment, line);
+        }
+
+        public static double SqrDistance(Segment2d segment, Ray2d ray)
+        {
+            return Intersections_EIK_SqrDistance_SegmentRay(segment, ray);
+        }
+
+        public static double SqrDistance(Segment2d segment, Segment2d segment2)
+        {
+            return Intersections_EIK_SqrDistance_SegmentSegment(segment, segment2);
+        }
+
+        public static double SqrDistance(Segment2d segment, Triangle2d triangle)
+        {
+            return Intersections_EIK_SqrDistance_SegmentTriangle(segment, triangle);
+        }
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Triangle SqrDistance functions
+        /// 
+        /// </summary>-----------------------------------------------------
+
+        public static double SqrDistance(Triangle2d triangle, Point2d point)
+        {
+            return Intersections_EIK_SqrDistance_TrianglePoint(triangle, point);
+        }
+
+        public static double SqrDistance(Triangle2d triangle, Line2d line)
+        {
+            return Intersections_EIK_SqrDistance_TriangleLine(triangle, line);
+        }
+
+        public static double SqrDistance(Triangle2d triangle, Ray2d ray)
+        {
+            return Intersections_EIK_SqrDistance_TriangleRay(triangle, ray);
+        }
+
+        public static double SqrDistance(Triangle2d triangle, Segment2d segment)
+        {
+            return Intersections_EIK_SqrDistance_TriangleSegment(triangle, segment);
+        }
+
+        public static double SqrDistance(Triangle2d triangle, Triangle2d triangle2)
+        {
+            return Intersections_EIK_SqrDistance_TriangleTriangle(triangle, triangle2);
+        }
+
+        /// <summary>--------------------------------------------------------
+        /// 
         ///                 The Point DoIntersect extern functions
         /// 
         /// </summary>------------------------------------------------------
@@ -722,5 +872,111 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntersectionResult2d Intersections_EIK_Intersection_BoxBox(Box2d box, Box2d box2);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///               The Point SqrDistance extern functions
+        /// 
+        /// </summary>-------------------------------------------------------
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_PointPoint(Point2d point, Point2d point2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_PointLine(Point2d point, Line2d line);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_PointRay(Point2d point, Ray2d ray);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_PointSegment(Point2d point, Segment2d seg);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_PointTriangle(Point2d point, Triangle2d tri);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Line SqrDistance extern functions
+        /// 
+        /// </summary>------------------------------------------------------
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_LinePoint(Line2d line, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_LineLine(Line2d line, Line2d line2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_LineRay(Line2d line, Ray2d ray);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_LineSegment(Line2d line, Segment2d segment);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_LineTriangle(Line2d line, Triangle2d triangle);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Ray SqrDistance extern functions
+        /// 
+        /// </summary>------------------------------------------------------
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_RayPoint(Ray2d ray, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_RayLine(Ray2d ray, Line2d line2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_RayRay(Ray2d ray, Ray2d ray2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_RaySegment(Ray2d ray, Segment2d segment);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_RayTriangle(Ray2d ray, Triangle2d triangle);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Segment SqrDistance extern functions
+        /// 
+        /// </summary>------------------------------------------------------
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_SegmentPoint(Segment2d segment, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_SegmentLine(Segment2d segment, Line2d line2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_SegmentRay(Segment2d segment, Ray2d ray);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_SegmentSegment(Segment2d segment, Segment2d segment2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_SegmentTriangle(Segment2d segment, Triangle2d triangle);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Triangle SqrDistance extern functions
+        /// 
+        /// </summary>------------------------------------------------------
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_TrianglePoint(Triangle2d triangle, Point2d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_TriangleLine(Triangle2d triangle, Line2d line2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_TriangleRay(Triangle2d triangle, Ray2d ray);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_TriangleSegment(Triangle2d triangle, Segment2d segment);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Intersections_EIK_SqrDistance_TriangleTriangle(Triangle2d triangle, Triangle2d triangle2);
+
     }
 }

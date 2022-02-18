@@ -1523,6 +1523,41 @@
             
             </summary>-----------------------------------------------------
         </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                         The Point SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Line SqrDistance functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Shapes.Line2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray SqrDistance functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
         <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_DoIntersect_PointLine(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Shapes.Line2d)">
             <summary>--------------------------------------------------------
             
@@ -1606,6 +1641,41 @@
                             The Box Intersection extern functions
             
             </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_SqrDistance_PointPoint(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                          The Point SqrDistance extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_SqrDistance_LinePoint(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Line SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_SqrDistance_RayPoint(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_SqrDistance_SegmentPoint(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_EIK_SqrDistance_TrianglePoint(CGALDotNetGeometry.Shapes.Triangle2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
         </member>
         <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Point2_EEK_Create">
             <summary>--------------------------------------------------------

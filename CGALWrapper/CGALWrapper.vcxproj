@@ -174,6 +174,9 @@
     <ClInclude Include="Eigen\EigenColumnVector.h" />
     <ClInclude Include="Eigen\EigenMatrix.h" />
     <ClInclude Include="Geometry\HPoint2_EEK.h" />
+    <ClInclude Include="Geometry\IntersectionResult.h" />
+    <ClInclude Include="Geometry\Intersections_geometry.h" />
+    <ClInclude Include="Geometry\Intersections_geometry_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
@@ -281,7 +284,7 @@
     <ClInclude Include="Hull\ConvexHull2.h" />
     <ClInclude Include="Hull\ConvexHull2_EEK.h" />
     <ClInclude Include="Geometry\Geometry3.h" />
-    <ClInclude Include="Geometry\Intersections.h" />
+    <ClInclude Include="Geometry\Intersections_shapes.h" />
     <ClInclude Include="CGALWrapper.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EEK.h" />
@@ -289,7 +292,7 @@
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EEK.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Collections\IndexMap.h" />
-    <ClInclude Include="Geometry\Intersections_EIK.h" />
+    <ClInclude Include="Geometry\Intersections_shapes_EIK.h" />
     <ClInclude Include="Geometry\IsoRectangle2_EEK.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Geometry\Geometry2.h" />
@@ -321,6 +324,7 @@
     <ClCompile Include="Eigen\EigenColumnVector.cpp" />
     <ClCompile Include="Eigen\EigenMatrix.cpp" />
     <ClCompile Include="Geometry\HPoint2_EEK.cpp" />
+    <ClCompile Include="Geometry\Intersections_geometry_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />
@@ -386,7 +390,7 @@
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp" />
-    <ClCompile Include="Geometry\Intersections_EIK.cpp" />
+    <ClCompile Include="Geometry\Intersections_shapes_EIK.cpp" />
     <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
