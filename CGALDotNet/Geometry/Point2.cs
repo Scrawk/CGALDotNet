@@ -43,16 +43,6 @@ namespace CGALDotNet.Geometry
             set { Kernel.Point2_SetY(Ptr, value); }
         }
 
-        public Point2d GetPoint()
-        {
-            return Kernel.Point2_GetPoint(Ptr);
-        }
-
-        public void SetPoint(Point2d point)
-        {
-            Kernel.Point2_SetPoint(Ptr, point);
-        }
-
         public override string ToString()
         {
             return string.Format("[Point2<{0}>: x={1}, y={2}]",

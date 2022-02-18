@@ -8,7 +8,7 @@ extern "C"
 
 	CGALWRAPPER_API void* Vector2_EEK_Create();
 
-	CGALWRAPPER_API void* Vector2_EEK_CreateFromVector(const Vector2d& point);
+	CGALWRAPPER_API void* Vector2_EEK_CreateFromVector(const Vector2d& vector);
 
 	CGALWRAPPER_API void Vector2_EEK_Release(void* ptr);
 
@@ -22,7 +22,7 @@ extern "C"
 
 	CGALWRAPPER_API void Vector2_EEK_SetY(void* ptr, double y);
 
-	CGALWRAPPER_API void Vector2_EEK_SetVector(void* ptr, const Vector2d& point);
+	CGALWRAPPER_API void Vector2_EEK_SetVector(void* ptr, const Vector2d& vector);
 
 	CGALWRAPPER_API double Vector2_EEK_SqrLength(void* ptr);
 

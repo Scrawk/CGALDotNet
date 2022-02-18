@@ -173,6 +173,7 @@
     <ClInclude Include="Eigen\EigenRowVector.h" />
     <ClInclude Include="Eigen\EigenColumnVector.h" />
     <ClInclude Include="Eigen\EigenMatrix.h" />
+    <ClInclude Include="Geometry\HPoint2_EEK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
@@ -319,6 +320,7 @@
     <ClCompile Include="Eigen\EigenRowVector.cpp" />
     <ClCompile Include="Eigen\EigenColumnVector.cpp" />
     <ClCompile Include="Eigen\EigenMatrix.cpp" />
+    <ClCompile Include="Geometry\HPoint2_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />

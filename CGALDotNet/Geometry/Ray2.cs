@@ -24,9 +24,20 @@ namespace CGALDotNet.Geometry
 
         public override string ToString()
         {
-            return string.Format("[Ray2<{0}>: ]",
-                Kernel.KernelName);
+            return string.Format("[Ray2<{0}>: Position={1}, Direction={2}]",
+                Kernel.KernelName, Position, Direction);
         }
+
+        public Ray2<K> Opposite => new Ray2<K>(Kernel.Ray2_Opposite(Ptr));
+
+        public Line2<K> Line => new Line2<K>(Kernel.Ray2_Line(Ptr));
+
+        public Ray2<K> Transform(Point2d translation, Degree rotation, double scale)
+        {
+            var ptr = Kernel.Ray2_Transform(Ptr, translation, rotation.radian, scale);
+            return new Ray2<K>(ptr);
+        }
+
     }
 
     public abstract class Ray2 : CGALObject
@@ -49,6 +60,21 @@ namespace CGALDotNet.Geometry
         }
 
         protected private GeometryKernel2 Kernel { get; private set; }
+
+        public bool IsDegenerate => Kernel.Ray2_IsDegenerate(Ptr);
+
+        public bool IsHorizontal => Kernel.Ray2_IsHorizontal(Ptr);
+
+        public bool IsVertical => Kernel.Ray2_IsVertical(Ptr);
+
+        public Point2d Position => Kernel.Ray2_Source(Ptr);
+
+        public Vector2d Direction => Kernel.Ray2_Vector(Ptr);
+
+        public bool HasOn(Point2d point)
+        {
+            return Kernel.Ray2_HasOn(Ptr, point);
+        }
 
         protected override void ReleasePtr()
         {

@@ -773,9 +773,9 @@ namespace CGALDotNet.Polygons
         /// Rotate the polygon.
         /// </summary>
         /// <param name="rotation">The amount to rotate in radians.</param>
-        public void Rotate(Radian rotation)
+        public void Rotate(Degree rotation)
         {
-            Kernel.Rotate(Ptr, rotation.angle);
+            Kernel.Rotate(Ptr, rotation.radian);
             IsUpdated = false;
         }
 
@@ -795,9 +795,9 @@ namespace CGALDotNet.Polygons
         /// <param name="translation">The amount to translate.</param>
         /// <param name="rotation">The amount to rotate.</param>
         /// <param name="scale">The amount to scale.</param>
-        public void Transform(Point2d translation, Radian rotation, double scale)
+        public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            Kernel.Transform(Ptr, translation, rotation.angle, scale);
+            Kernel.Transform(Ptr, translation, rotation.radian, scale);
             IsUpdated = false;
         }
 

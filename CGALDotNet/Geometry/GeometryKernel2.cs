@@ -28,6 +28,56 @@ namespace CGALDotNet.Geometry
 
         internal abstract void Point2_SetPoint(IntPtr ptr, Point2d point);
 
+        //Vector2
+
+        internal abstract IntPtr Vector2_Create();
+
+        internal abstract IntPtr Vector2_CreateFromVector( Vector2d vector);
+
+	    internal abstract void Vector2_Release(IntPtr ptr);
+
+        internal abstract double Vector2_GetX(IntPtr ptr);
+
+        internal abstract double Vector2_GetY(IntPtr ptr);
+
+        internal abstract Vector2d Vector2_GetVector(IntPtr ptr);
+
+        internal abstract void Vector2_SetX(IntPtr ptr, double x);
+
+        internal abstract void Vector2_SetY(IntPtr ptr, double y);
+
+        internal abstract void Vector2_SetVector(IntPtr ptr,  Vector2d vector);
+
+	    internal abstract double Vector2_SqrLength(IntPtr ptr);
+
+        internal abstract IntPtr Vector2_Perpendicular(IntPtr ptr, ORIENTATION orientation);
+
+        internal abstract void Vector2_Normalize(IntPtr ptr);
+
+        //HPoint2
+
+        internal abstract IntPtr HPoint2_Create();
+
+        internal abstract IntPtr HPoint2_CreateFromPoint( HPoint2d point);
+
+	    internal abstract void HPoint2_Release(IntPtr ptr);
+
+        internal abstract double HPoint2_GetX(IntPtr ptr);
+
+        internal abstract double HPoint2_GetY(IntPtr ptr);
+
+        internal abstract double HPoint2_GetW(IntPtr ptr);
+
+        internal abstract HPoint2d HPoint2_GetPoint(IntPtr ptr);
+
+        internal abstract void HPoint2_SetX(IntPtr ptr, double x);
+
+        internal abstract void HPoint2_SetY(IntPtr ptr, double y);
+
+        internal abstract void HPoint2_SetW(IntPtr ptr, double y);
+
+        internal abstract void HPoint2_SetPoint(IntPtr ptr,  HPoint2d point);
+
         //Line2
         internal abstract IntPtr Line2_Create(double a, double b, double c);
 
@@ -68,15 +118,73 @@ namespace CGALDotNet.Geometry
 
         internal abstract void Ray2_Release(IntPtr ptr);
 
+        internal abstract bool Ray2_IsDegenerate(IntPtr ptr);
+
+        internal abstract bool Ray2_IsHorizontal(IntPtr ptr);
+
+        internal abstract bool Ray2_IsVertical(IntPtr ptr);
+
+        internal abstract bool Ray2_HasOn(IntPtr rayPtr,  Point2d point);
+
+	    internal abstract Point2d Ray2_Source(IntPtr ptr);
+
+        internal abstract Vector2d Ray2_Vector(IntPtr ptr);
+
+        internal abstract IntPtr Ray2_Opposite(IntPtr ptr);
+
+        internal abstract IntPtr Ray2_Line(IntPtr ptr);
+
+        internal abstract IntPtr Ray2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
+
         //Segment2
         internal abstract IntPtr Segment2_Create(Point2d a, Point2d b);
 
         internal abstract void Segment2_Release(IntPtr ptr);
 
+        internal abstract Point2d Segment2_GetVertex(IntPtr ptr, int i);
+
+        internal abstract void Segment2_SetVertex(IntPtr ptr, int i,  Point2d point);
+
+	    internal abstract Point2d Segment2_Min(IntPtr ptr);
+
+        internal abstract Point2d Segment2_Max(IntPtr ptr);
+
+        internal abstract bool Segment2_IsDegenerate(IntPtr ptr);
+
+        internal abstract bool Segment2_IsHorizontal(IntPtr ptr);
+
+        internal abstract bool Segment2_IsVertical(IntPtr ptr);
+
+        internal abstract bool Segment2_HasOn(IntPtr segPtr,  Point2d point);
+
+	    internal abstract Vector2d Segment2_Vector(IntPtr ptr);
+
+        internal abstract IntPtr Segment2_Line(IntPtr ptr);
+
+        internal abstract double Segment2_SqrLength(IntPtr ptr);
+
+        internal abstract IntPtr Segment2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
+
         //Triangle2
         internal abstract IntPtr Triangle2_Create(Point2d a, Point2d b, Point2d c);
 
         internal abstract void Triangle2_Release(IntPtr ptr);
+
+        internal abstract Point2d Triangle2_GetVertex(IntPtr ptr, int i);
+
+        internal abstract void Triangle2_SetVertex(IntPtr ptr, int i,  Point2d point);
+
+	    internal abstract double Triangle2_Area(IntPtr ptr);
+
+        internal abstract BOUNDED_SIDE Triangle2_BoundedSide(IntPtr ptr,  Point2d point);
+
+	    internal abstract ORIENTED_SIDE Triangle2_OrientedSide(IntPtr ptr,  Point2d point);
+
+	    internal abstract ORIENTATION Triangle2_Orientation(IntPtr ptr);
+
+        internal abstract bool Triangle2_IsDegenerate(IntPtr ptr);
+
+        internal abstract IntPtr Triangle2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
 
         //IsoRectangle2
         internal abstract IntPtr IsoRectangle2_Create(Point2d min, Point2d max);

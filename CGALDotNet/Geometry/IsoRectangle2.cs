@@ -47,9 +47,9 @@ namespace CGALDotNet.Geometry
         /// <param name="rotation">The amount to rotate</param>
         /// <param name="scale">The amount to scale.</param>
         /// <returns>The transformed rectangle.</returns>
-        public IsoRectangle2<K> Transform(Point2d translation, double rotation, double scale)
+        public IsoRectangle2<K> Transform(Point2d translation, Degree rotation, double scale)
         {
-            var ptr = Kernel.Line2_Transform(Ptr, translation, rotation, scale);
+            var ptr = Kernel.Line2_Transform(Ptr, translation, rotation.radian, scale);
             return new IsoRectangle2<K>(ptr);
         }
     }
@@ -119,7 +119,13 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public double Area
         {
-            get { return Kernel.IsoRectangle2_Area(Ptr); }
+            get 
+            {
+                if (IsDegenerate)
+                    return 0;
+                else
+                    return Kernel.IsoRectangle2_Area(Ptr); 
+            }
         }
 
         /// <summary>
@@ -134,7 +140,10 @@ namespace CGALDotNet.Geometry
         /// <returns>If the point is iside, outside or on boundary.</returns>
         public BOUNDED_SIDE BoundedSide(Point2d point)
         {
-            return Kernel.IsoRectangle2_BoundedSide(Ptr, point);
+            if (IsDegenerate)
+                return BOUNDED_SIDE.UNDETERMINED;
+            else
+                return Kernel.IsoRectangle2_BoundedSide(Ptr, point);
         }
 
         /// <summary>
@@ -146,7 +155,10 @@ namespace CGALDotNet.Geometry
         /// <returns>Does the rectangle contain the point</returns>
         public bool ContainsPoint(Point2d point, bool includeBoundary)
         {
-            return Kernel.IsoRectangle2_ContainsPoint(Ptr, point, includeBoundary);
+            if (IsDegenerate)
+                return false;
+            else
+                return Kernel.IsoRectangle2_ContainsPoint(Ptr, point, includeBoundary);
         }
 
         /// <summary>

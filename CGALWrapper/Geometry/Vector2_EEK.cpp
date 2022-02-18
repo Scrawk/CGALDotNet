@@ -60,11 +60,11 @@ void Vector2_EEK_SetY(void* ptr, double y)
 	(*p)[1] = y;
 }
 
-void Vector2_EEK_SetVector(void* ptr, const Vector2d& point)
+void Vector2_EEK_SetVector(void* ptr, const Vector2d& vector)
 {
 	auto p = CastToVector2(ptr);
-	(*p)[0] = point.x;
-	(*p)[1] = point.y;
+	(*p)[0] = vector.x;
+	(*p)[1] = vector.y;
 }
 
 double Vector2_EEK_SqrLength(void* ptr)

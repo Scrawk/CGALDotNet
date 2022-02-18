@@ -116,30 +116,30 @@ struct Point3d
 //used to represent a weighted or homogenous point.
 struct HPoint3d
 {
-    double x;
-    double y;
-    double z;
-    double w;
+    double hx;
+    double hy;
+    double hz;
+    double hw;
 
     template<class K>
     CGAL::Weighted_point_3<K> ToCGALWeightedPoint() const
     {
-        return CGAL::Weighted_point_3<K>(CGAL::Point_3<K>(x, y, z), w);
+        return CGAL::Weighted_point_3<K>(CGAL::Point_3<K>(hx, hy, hz), hw);
     }
 
     template<class K>
     static HPoint3d FromCGAL(CGAL::Weighted_point_3<K> p)
     {
-        double x = CGAL::to_double(p.x());
-        double y = CGAL::to_double(p.y());
-        double z = CGAL::to_double(p.z());
-        double w = CGAL::to_double(p.weight());
-        return { x, y, z, w };
+        double hx = CGAL::to_double(p.hx());
+        double hy = CGAL::to_double(p.hy());
+        double hz = CGAL::to_double(p.hz());
+        double hw = CGAL::to_double(p.hw());
+        return { hx, hy, hz, hw };
     }
 
     bool operator==(const HPoint3d& rhs) const
     {
-        return x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w;
+        return hx == rhs.hx && hy == rhs.hy && hz == rhs.hz && hw == rhs.hw;
     }
 
     bool operator!=(const HPoint3d& rhs) const
@@ -149,26 +149,26 @@ struct HPoint3d
 
     HPoint3d operator+(const HPoint3d& rhs) const
     {
-        return { x + rhs.x , y + rhs.y, z + rhs.z, w + rhs.w };
+        return { hx + rhs.hx , hy + rhs.hy, hz + rhs.hz, hw + rhs.hw };
     }
 
     HPoint3d operator-(const HPoint3d& rhs) const
     {
-        return { x - rhs.x , y - rhs.y, z - rhs.z, w - rhs.w };
+        return { hx - rhs.hx , hy - rhs.hy, hz - rhs.hz, hw - rhs.hw };
     }
 
     HPoint3d operator/(double rhs) const
     {
-        return { x / rhs , y / rhs, z / rhs, w / rhs };
+        return { hx / rhs , hy / rhs, hz / rhs, hw / rhs };
     }
 
     HPoint3d operator*(double rhs) const
     {
-        return { x * rhs , y * rhs, z * rhs, w * rhs };
+        return { hx * rhs , hy * rhs, hz * rhs, hw * rhs };
     }
 
     friend std::ostream& operator<<(std::ostream& output, const HPoint3d& rhs) {
-        output << "(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w << ")";
+        output << "(" << rhs.hx << ", " << rhs.hy << ", " << rhs.hz << ", " << rhs.hw << ")";
         return output;
     }
 

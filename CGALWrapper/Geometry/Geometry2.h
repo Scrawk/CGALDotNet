@@ -107,6 +107,65 @@ struct Point2d
 
 };
 
+//used to represent a weighted or homogenous point.
+struct HPoint2d
+{
+    double hx;
+    double hy;
+    double hw;
+
+    template<class K>
+    CGAL::Weighted_point_2<K> ToCGALWeightedPoint() const
+    {
+        return CGAL::Weighted_point_2<K>(CGAL::Point_2<K>(hx, hy), hw);
+    }
+
+    template<class K>
+    static HPoint2d FromCGAL(CGAL::Weighted_point_2<K> p)
+    {
+        double x = CGAL::to_double(p.hx());
+        double y = CGAL::to_double(p.hy());
+        double w = CGAL::to_double(p.hw());
+        return { x, y, w };
+    }
+
+    bool operator==(const HPoint2d& rhs) const
+    {
+        return hx == rhs.hx && hy == rhs.hy && hw == rhs.hw;
+    }
+
+    bool operator!=(const HPoint2d& rhs) const
+    {
+        return !operator==(rhs);
+    }
+
+    HPoint2d operator+(const HPoint2d& rhs) const
+    {
+        return { hx + rhs.hx , hy + rhs.hy, hw + rhs.hw };
+    }
+
+    HPoint2d operator-(const HPoint2d& rhs) const
+    {
+        return { hx - rhs.hx , hy - rhs.hy, hw - rhs.hw };
+    }
+
+    HPoint2d operator/(double rhs) const
+    {
+        return { hx / rhs , hy / rhs, hw / rhs };
+    }
+
+    HPoint2d operator*(double rhs) const
+    {
+        return { hx * rhs , hy * rhs, hw * rhs };
+    }
+
+    friend std::ostream& operator<<(std::ostream& output, const HPoint2d& rhs) {
+        output << "(" << rhs.hx << ", " << rhs.hy << ", " << rhs.hw << ")";
+        return output;
+    }
+
+};
+
 struct Vector2d
 {
     double x;

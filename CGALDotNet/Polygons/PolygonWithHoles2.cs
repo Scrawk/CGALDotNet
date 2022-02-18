@@ -856,13 +856,13 @@ namespace CGALDotNet.Polygons
         /// Rotate the polygon.
         /// </summary>
         /// <param name="rotation">The amount to rotate in radians.</param>
-        public void Rotate(Radian rotation)
+        public void Rotate(Degree rotation)
         {
-            Kernel.Rotate(Ptr, BOUNDARY_INDEX, rotation.angle);
+            Kernel.Rotate(Ptr, BOUNDARY_INDEX, rotation.radian);
 
             int count = HoleCount;
             for (int i = 0; i < count; i++)
-                Kernel.Rotate(Ptr, i, rotation.angle);
+                Kernel.Rotate(Ptr, i, rotation.radian);
         }
 
         /// <summary>
@@ -871,12 +871,12 @@ namespace CGALDotNet.Polygons
         /// <param name="element">The element type.</param>
         /// <param name="rotation">The amount to rotate in radians.</param>
         /// <param name="index">If element type is a hole this is the holes index.</param>
-        public void Rotate(POLYGON_ELEMENT element, Radian rotation, int index = 0)
+        public void Rotate(POLYGON_ELEMENT element, Degree rotation, int index = 0)
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
-                Kernel.Rotate(Ptr, BOUNDARY_INDEX, rotation.angle);
+                Kernel.Rotate(Ptr, BOUNDARY_INDEX, rotation.radian);
             else
-                Kernel.Rotate(Ptr, index, rotation.angle);
+                Kernel.Rotate(Ptr, index, rotation.radian);
         }
 
         /// <summary>
@@ -912,13 +912,13 @@ namespace CGALDotNet.Polygons
         /// <param name="translation">The amount to translate.</param>
         /// <param name="rotation">The amount to rotate in radians.</param>
         /// <param name="scale">The amount to scale.</param>
-        public void Transform(Point2d translation, Radian rotation, double scale)
+        public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            Kernel.Transform(Ptr, BOUNDARY_INDEX, translation, rotation.angle, scale);
+            Kernel.Transform(Ptr, BOUNDARY_INDEX, translation, rotation.radian, scale);
 
             int count = HoleCount;
             for (int i = 0; i < count; i++)
-                Kernel.Transform(Ptr, i, translation, rotation.angle, scale);
+                Kernel.Transform(Ptr, i, translation, rotation.radian, scale);
         }
 
         /// <summary>
@@ -929,12 +929,12 @@ namespace CGALDotNet.Polygons
         /// <param name="rotation">The amount to rotate in radians.</param>
         /// <param name="scale">The amount to scale.</param>
         /// <param name="index">If element type is a hole this is the holes index.</param>
-        public void Transform(POLYGON_ELEMENT element, Point2d translation, Radian rotation, double scale, int index = 0)
+        public void Transform(POLYGON_ELEMENT element, Point2d translation, Degree rotation, double scale, int index = 0)
         {
             if (element == POLYGON_ELEMENT.BOUNDARY)
-                Kernel.Transform(Ptr, BOUNDARY_INDEX, translation, rotation.angle, scale);
+                Kernel.Transform(Ptr, BOUNDARY_INDEX, translation, rotation.radian, scale);
             else
-                Kernel.Transform(Ptr, index, translation, rotation.angle, scale);
+                Kernel.Transform(Ptr, index, translation, rotation.radian, scale);
         }
 
         /// <summary>

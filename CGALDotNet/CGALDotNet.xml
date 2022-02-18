@@ -1607,6 +1607,62 @@
             
             </summary>-------------------------------------------------------
         </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Point2_EEK_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Point2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Vector2_EEK_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Vector2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.HPoint2_EEK_Create">
+            <summary>--------------------------------------------------------
+            
+                            The HPoint2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Line2_EEK_Create(System.Double,System.Double,System.Double)">
+            <summary>--------------------------------------------------------
+            
+                            The Line2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Ray2_EEK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Segment2_EEK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Triangle2_EEK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.IsoRectangle2_EEK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The IsoRectangle2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
         <member name="T:CGALDotNet.Geometry.INTERSECTION_RESULT_2D">
             <summary>
             Enum for the type of intersection geomerty.
@@ -1724,7 +1780,7 @@
             </summary>
             <returns>The iso rectangle as a string.</returns>
         </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,System.Double,System.Double)">
+        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
             <summary>
             Transform the rectangle.
             </summary>
@@ -4377,7 +4433,7 @@
             </summary>
             <param name="translation">The amount to translate.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.Polygon2.Rotate(CGALDotNetGeometry.Numerics.Radian)">
+        <member name="M:CGALDotNet.Polygons.Polygon2.Rotate(CGALDotNetGeometry.Numerics.Degree)">
             <summary>
             Rotate the polygon.
             </summary>
@@ -4389,7 +4445,7 @@
             </summary>
             <param name="scale">The amount to scale.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.Polygon2.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Radian,System.Double)">
+        <member name="M:CGALDotNet.Polygons.Polygon2.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
             <summary>
             Transform the polygon with a TRS matrix.
             </summary>
@@ -6024,13 +6080,13 @@
             <param name="translation">The amount to translate.</param>
             <param name="index">If element type is a hole this is the holes index.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Rotate(CGALDotNetGeometry.Numerics.Radian)">
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Rotate(CGALDotNetGeometry.Numerics.Degree)">
             <summary>
             Rotate the polygon.
             </summary>
             <param name="rotation">The amount to rotate in radians.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Rotate(CGALDotNet.Polygons.POLYGON_ELEMENT,CGALDotNetGeometry.Numerics.Radian,System.Int32)">
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Rotate(CGALDotNet.Polygons.POLYGON_ELEMENT,CGALDotNetGeometry.Numerics.Degree,System.Int32)">
             <summary>
             Rotate the polygon.
             </summary>
@@ -6052,7 +6108,7 @@
             <param name="scale">The amount to scale.</param>
             <param name="index">If element type is a hole this is the holes index.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Radian,System.Double)">
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
             <summary>
             Transform the polygon.
             </summary>
@@ -6060,7 +6116,7 @@
             <param name="rotation">The amount to rotate in radians.</param>
             <param name="scale">The amount to scale.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Transform(CGALDotNet.Polygons.POLYGON_ELEMENT,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Radian,System.Double,System.Int32)">
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Transform(CGALDotNet.Polygons.POLYGON_ELEMENT,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double,System.Int32)">
             <summary>
             Transform the polygon.
             </summary>
