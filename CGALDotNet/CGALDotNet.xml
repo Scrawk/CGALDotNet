@@ -1441,6 +1441,247 @@
             <summary>
             The static intersection class.
             </summary>
+            <summary>
+            The static intersection class.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Line2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Point DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Line2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Line DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Ray2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Ray DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Segment2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Segment DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Triangle2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Box DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Line2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Point Intersection functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Line2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Line Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Ray2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Ray Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Segment2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Triangle2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Box Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                         The Point SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Line2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Line SqrDistance functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Ray2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Ray SqrDistance functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Segment2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Segment SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Triangle2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_DoIntersect_PointLine(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Point DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_DoIntersect_LinePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Linet DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_DoIntersect_RayPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_DoIntersect_SegmentPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_DoIntersect_TrianglePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_DoIntersect_BoxPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Box DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_Intersection_PointLine(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Point Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_Intersection_LinePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Line Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_Intersection_RayPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_Intersection_SegmentPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_Intersection_TrianglePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_Intersection_BoxPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Box Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_SqrDistance_PointPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                          The Point SqrDistance extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_SqrDistance_LinePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Line SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_SqrDistance_RayPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_SqrDistance_SegmentPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EEK_SqrDistance_TrianglePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
         </member>
         <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Line2{CGALDotNet.EIK})">
             <summary>--------------------------------------------------------
@@ -1449,10 +1690,234 @@
             
             </summary>--------------------------------------------------------
         </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Line2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Line DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Ray2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Ray DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Segment2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Segment DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Triangle2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Box DoIntersect functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Line2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Point Intersection functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Line2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Line Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Ray2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Ray Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Segment2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Triangle2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Box Intersection functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                         The Point SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Line2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Line SqrDistance functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Ray2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Ray SqrDistance functions
+            
+            </summary>--------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Segment2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Segment SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.SqrDistance(CGALDotNet.Geometry.Triangle2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle SqrDistance functions
+            
+            </summary>-----------------------------------------------------
+        </member>
         <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_DoIntersect_PointLine(System.IntPtr,System.IntPtr)">
             <summary>--------------------------------------------------------
             
                             The Point DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_DoIntersect_LinePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Linet DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_DoIntersect_RayPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_DoIntersect_SegmentPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_DoIntersect_TrianglePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_DoIntersect_BoxPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Box DoIntersect extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_Intersection_PointLine(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Point Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_Intersection_LinePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Line Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_Intersection_RayPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_Intersection_SegmentPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_Intersection_TrianglePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_Intersection_BoxPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Box Intersection extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_SqrDistance_PointPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                          The Point SqrDistance extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_SqrDistance_LinePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Line SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_SqrDistance_RayPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_SqrDistance_SegmentPoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment SqrDistance extern functions
+            
+            </summary>------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersections_Geometry_EIK_SqrDistance_TrianglePoint(System.IntPtr,System.IntPtr)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle SqrDistance extern functions
             
             </summary>------------------------------------------------------
         </member>
@@ -1694,6 +2159,62 @@
             
             </summary>------------------------------------------------------
         </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Point2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Point2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Vector2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Vector2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.HPoint2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The HPoint2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Line2_Create(System.Double,System.Double,System.Double)">
+            <summary>--------------------------------------------------------
+            
+                            The Line2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Ray2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Segment2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Triangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.IsoRectangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The IsoRectancle2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
         <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Point2_EEK_Create">
             <summary>--------------------------------------------------------
             
@@ -1744,6 +2265,118 @@
             </summary>-------------------------------------------------------
         </member>
         <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.IsoRectangle2_EEK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The IsoRectangle2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Point2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Point2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Vector2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Vector2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.HPoint2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The HPoint2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Line2_Create(System.Double,System.Double,System.Double)">
+            <summary>--------------------------------------------------------
+            
+                            The Line2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Ray2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Segment2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Triangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.IsoRectangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The IsoRectancle2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Point2_EIK_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Point2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Vector2_EIK_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Vector2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.HPoint2_EIK_Create">
+            <summary>--------------------------------------------------------
+            
+                            The HPoint2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Line2_EIK_Create(System.Double,System.Double,System.Double)">
+            <summary>--------------------------------------------------------
+            
+                            The Line2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Ray2_EIK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Segment2_EIK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Triangle2_EIK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle2 extern functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.IsoRectangle2_EIK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>--------------------------------------------------------
             
                             The IsoRectangle2 extern functions

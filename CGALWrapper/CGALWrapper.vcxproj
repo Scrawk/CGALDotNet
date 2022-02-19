@@ -177,6 +177,7 @@
     <ClInclude Include="Geometry\IntersectionResult.h" />
     <ClInclude Include="Geometry\Intersections_geometry.h" />
     <ClInclude Include="Geometry\Intersections_geometry_EIK.h" />
+    <ClInclude Include="Geometry\Intersections_geometry_EEK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
@@ -325,6 +326,7 @@
     <ClCompile Include="Eigen\EigenMatrix.cpp" />
     <ClCompile Include="Geometry\HPoint2_EEK.cpp" />
     <ClCompile Include="Geometry\Intersections_geometry_EIK.cpp" />
+    <ClCompile Include="Geometry\Intersections_geometry_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />

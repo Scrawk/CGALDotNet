@@ -32,9 +32,7 @@ namespace CGALDotNetConsole
 
             var line = Line2<EEK>.UnitX;
 
-
-            //CGALIntersections.DoIntersect(point, line);
-
+            Console.WriteLine("Intersect = " + CGALIntersections.DoIntersect(point, line));
 
         }
 
