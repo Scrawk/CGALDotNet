@@ -34,32 +34,32 @@ public:
     *                                                    *
     ******************************************************/
 
-    static Point2* CastToPoint2(void* ptr)
+    inline static Point2* CastToPoint2(void* ptr)
     {
         return static_cast<Point2*>(ptr);
     }
 
-    static Line2* CastToLine2(void* ptr)
+    inline static Line2* CastToLine2(void* ptr)
     {
         return static_cast<Line2*>(ptr);
     }
 
-    static Ray2* CastToRay2(void* ptr)
+    inline static Ray2* CastToRay2(void* ptr)
     {
         return static_cast<Ray2*>(ptr);
     }
 
-    static Segment2* CastToSegment2(void* ptr)
+    inline static Segment2* CastToSegment2(void* ptr)
     {
         return static_cast<Segment2*>(ptr);
     }
 
-    static Triangle2* CastToTriangle2(void* ptr)
+    inline static Triangle2* CastToTriangle2(void* ptr)
     {
         return static_cast<Triangle2*>(ptr);
     }
 
-    static Box2* CastToBox2(void* ptr)
+    inline static Box2* CastToBox2(void* ptr)
     {
         return static_cast<Box2*>(ptr);
     }
@@ -70,39 +70,767 @@ public:
     *                                                    *
     ******************************************************/
 
-    static BOOL DoIntersect_PointLine(void* pointPtr, void* linePtr)
+    static BOOL DoIntersect_PointLine(void* point, void* line)
     {
-        auto p = CastToPoint2(pointPtr);
-        auto l = CastToLine2(linePtr);
+        auto p = CastToPoint2(point);
+        auto l = CastToLine2(line);
         return CGAL::do_intersect(*p, *l);
     }
 
-    static BOOL DoIntersect_PointRay(void* pointPtr, void* rayPtr)
+    static BOOL DoIntersect_PointRay(void* point, void* ray)
     {
-        auto p = CastToPoint2(pointPtr);
-        auto r = CastToRay2(rayPtr);
+        auto p = CastToPoint2(point);
+        auto r = CastToRay2(ray);
         return CGAL::do_intersect(*p, *r);
     }
 
-    static BOOL DoIntersect_PointSegment(void* pointPtr, void* segPtr)
+    static BOOL DoIntersect_PointSegment(void* point, void* seg)
     {
         auto p = CastToPoint2(pointPtr);
         auto s = CastToSegment2(segPtr);
         return CGAL::do_intersect(*p, *s);
     }
 
-    static BOOL DoIntersect_PointTriangle(void* pointPtr, void* triPtr)
+    static BOOL DoIntersect_PointTriangle(void* point, void* tri)
     {
-        auto p = CastToPoint2(pointPtr);
-        auto t = CastToTriangle2(triPtr);
+        auto p = CastToPoint2(point);
+        auto t = CastToTriangle2(tri);
         return CGAL::do_intersect(*p, *t);
     }
 
-    static BOOL DoIntersect_PointBox(void* pointPtr, void* boxPtr)
+    static BOOL DoIntersect_PointBox(void* point, void* box)
     {
-        auto p = CastToPoint2(pointPtr);
-        auto b = CastToBox2(boxPtr);
+        auto p = CastToPoint2(point);
+        auto b = CastToBox2(box);
         return CGAL::do_intersect(*p, *b);
     }
+
+    /*****************************************************
+    *                                                    *
+    *            Line2 DoIntersect Functions             *
+    *                                                    *
+    ******************************************************/
+
+    static BOOL DoIntersect(void* line, void* point)
+    {
+        auto p = CastToPoint2(point);
+        auto l = CastToLine2(line);
+        return CGAL::do_intersect(*p, *l);
+    }
+
+    static BOOL DoIntersect(void* line, void* line2)
+    {
+        auto l = CastToLine2(line);
+        auto l2 = CastToLine2(line2);
+        return CGAL::do_intersect(*l, *l2);
+    }
+
+    static BOOL DoIntersect(void* line, void* ray)
+    {
+        auto l = CastToLine2(line);
+        auto r = CastToRay2(ray);
+        return CGAL::do_intersect(*l, *r);
+    }
+
+    static BOOL DoIntersect(void* line, void* segment)
+    {
+        auto l = CastToLine2(line);
+        auto s = CastToSegment2(segment);
+        return CGAL::do_intersect(*l, *s);
+    }
+
+    static BOOL DoIntersect(void* line, void* triangle)
+    {
+        auto l = CastToLine2(line);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::do_intersect(*l, *t);
+    }
+
+    static BOOL DoIntersect(void* line, void* box)
+    {
+        auto l = CastToLine2(line);
+        auto b = CastToBox2(box);
+        return CGAL::do_intersect(*l, *b);
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Ray2 DoIntersect Functions              *
+    *                                                    *
+    ******************************************************/
+
+    static BOOL DoIntersect(void* ray, void* point)
+    {
+        auto r = CastToRay2(ray);
+        auto p = CastToPoint2(point);
+        return CGAL::do_intersect(*r, p*);
+    }
+
+    static BOOL DoIntersect(void* ray, void* line)
+    {
+        auto r = CastToRay2(ray);
+        auto l = CastToLine2(line);
+        return CGAL::do_intersect(*r, *l);
+    }
+
+    static BOOL DoIntersect(void* ray, void* ray2)
+    {
+        auto r = CastToRay2(ray);
+        auto r2 = CastToRay2(ray2);
+        return CGAL::do_intersect(*r, *r2);
+    }
+
+    static BOOL DoIntersect(void* ray, void* segment)
+    {
+        auto r = CastToRay2(ray);
+        auto s = CastToSegment2(segment);
+        return CGAL::do_intersect(*r, *s);
+    }
+
+    static BOOL DoIntersect(void* ray, void* triangle)
+    {
+        auto r = CastToRay2(ray);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::do_intersect(*r, *t);
+    }
+
+    static BOOL DoIntersect(void* ray, void* box)
+    {
+        auto r = CastToRay2(ray);
+        auto b = CastToBox2(box);
+        return CGAL::do_intersect(*r, *b);
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Segment2  DoIntersect Functions         *
+    *                                                    *
+    ******************************************************/
+
+    static BOOL DoIntersect(void* segment, void* point)
+    {
+        auto s = CastToSegment2(segment);
+        auto p = CastToPoint2(point);
+        return CGAL::do_intersect(*s, *p);
+    }
+
+    static BOOL DoIntersect(void* segment, void* line)
+    {
+        auto s = CastToSegment2(segment);
+        auto l = CastToLine2(line);
+        return CGAL::do_intersect(*s, *l);
+    }
+
+    static BOOL DoIntersect(void* segment, void* ray)
+    {
+        auto s = CastToSegment2(segment);
+        auto r = CastToRay2(ray);
+        return CGAL::do_intersect(*s, *r);
+    }
+
+    static BOOL DoIntersect(void* segment, void* segment2)
+    {
+        auto s = CastToSegment2(segment);
+        auto s2 = CastToSegment2(segment2);
+        return CGAL::do_intersect(*s, *s2);
+    }
+
+    static BOOL DoIntersect(void* segment, void* triangle)
+    {
+        auto s = CastToSegment2(segment);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::do_intersect(*s, *t);
+    }
+
+    static BOOL DoIntersect(void* segment, void* box)
+    {
+        auto s = CastToSegment2(segment);
+        auto b = CastToBox2(box);
+        return CGAL::do_intersect(*s, *b);
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Triangle2  DoIntersect Functions        *
+    *                                                    *
+    ******************************************************/
+
+    static BOOL DoIntersect(void* triangle, void* point)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto p = CastToPoint2(point);
+        return CGAL::do_intersect(t, p);
+    }
+
+    static BOOL DoIntersect(void* triangle, void* line)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto l = CastToLine2(line);
+        return CGAL::do_intersect(*t, *l);
+    }
+
+    static BOOL DoIntersect(void* triangle, void* ray)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto r = CastToRay2(ray);
+        return CGAL::do_intersect(*t, *r);
+    }
+
+    static BOOL DoIntersect(void* triangle, void* segment)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto s = CastToSegment2(segment);
+        return CGAL::do_intersect(*t, *s);
+    }
+
+    static BOOL DoIntersect(void* triangle, void* triangle2)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto t2 = CastToTriangle2(triangle2);
+        return CGAL::do_intersect(*t, *t2);
+    }
+
+    static BOOL DoIntersect(void* triangle, void* box)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto b = CastToBox2(box);
+        return CGAL::do_intersect(*t, *b);
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Box2  DoIntersect Functions             *
+    *                                                    *
+    ******************************************************/
+
+    static BOOL DoIntersect(void* box, void* point)
+    {
+        auto b = CastToBox2(box);
+        auto p = CastToPoint2(point);
+        return CGAL::do_intersect(b, p);
+    }
+
+    static BOOL DoIntersect(void* box, void* line)
+    {
+        auto b = CastToBox2(box);
+        auto l = CastToLine2(line);
+        return CGAL::do_intersect(*b, *l);
+    }
+
+    static BOOL DoIntersect(void* box, void* ray)
+    {
+        auto b = CastToBox2(box);
+        auto r = CastToRay2(ray);
+        return CGAL::do_intersect(*b, *r);
+    }
+
+    static BOOL DoIntersect(void* box, void* segment)
+    {
+        auto b = CastToBox2(box);
+        auto s = CastToSegment2(segment);
+        return CGAL::do_intersect(*b, *s);
+    }
+
+    static BOOL DoIntersect(void* box, void* triangle)
+    {
+        auto b = CastToBox2(box);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::do_intersect(*b, *t);
+    }
+
+    static BOOL DoIntersect(void* box, void* box2)
+    {
+        auto b = CastToBox2(box);
+        auto b2 = CastToBox2(box2);
+        return CGAL::do_intersect(*b, *b2);
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Point2 Intersection Functions          *
+    *                                                    *
+    ******************************************************/
+
+    static IntersectionResult2d Intersection(void* point, void* line)
+    {
+        auto p = CastToPoint2(point);
+        auto l = CastToLine2(line);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*p, *l));
+    }
+
+    static IntersectionResult2d Intersection(void* point, void* ray)
+    {
+        auto p = CastToPoint2(point);
+        auto r = CastToRay2(ray);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*p, *r));
+    }
+
+    static IntersectionResult2d Intersection(void* point, void* segment)
+    {
+        auto p = CastToPoint2(point);
+        auto s = CastToSegment2(segment);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*p, *s));
+    }
+
+    static IntersectionResult2d Intersection(void* point, void* triangle)
+    {
+        auto p = CastToPoint2(point);
+        auto t = CastToTriangle2(triangle);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*p, *t));
+    }
+
+    static IntersectionResult2d Intersection(void* point, void* box)
+    {
+        auto p = CastToPoint2(point);
+        auto b = CastToBox2(box);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*p, *b));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Line2 Intersection Functions           *
+    *                                                    *
+    ******************************************************/
+
+    static IntersectionResult2d Intersection(void* line, void* point)
+    {
+        auto p = CastToPoint2(point);
+        auto l = CastToLine2(line);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*p, *l));
+    }
+
+    static IntersectionResult2d Intersection(void* line, void* line2)
+    {
+        auto l = CastToLine2(line);
+        auto l2 = CastToLine2(line2);
+        return IntersectionResult<K>::ToPointOrLine(CGAL::intersection(*l, *l2));
+    }
+
+    static IntersectionResult2d Intersection(void* line, void* ray)
+    {
+        auto l = CastToLine2(line);
+        auto r = CastToRay2(ray);
+        return IntersectionResult<K>::ToPointOrRay(CGAL::intersection(*l, *r));
+    }
+
+    static IntersectionResult2d Intersection(void* line, void* segment)
+    {
+        auto l = CastToLine2(line);
+        auto s = CastToSegment2(segment);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*l, *s));
+    }
+
+    static IntersectionResult2d Intersection(void* line, void* triangle)
+    {
+        auto l = CastToLine2(line);
+        auto t = CastToTriangle2(triangle);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*l, *t));
+    }
+
+    static IntersectionResult2d Intersection(void* line, void* box)
+    {
+        auto l = CastToLine2(line);
+        auto b = CastToBox2(box);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*l, *b));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Ray2 Intersection Functions             *
+    *                                                    *
+    ******************************************************/
+
+    static IntersectionResult2d Intersection(void* ray, void* point)
+    {
+        auto r = CastToRay2(ray);
+        auto p = CastToPoint2(point);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*r, *p));
+    }
+
+    static IntersectionResult2d Intersection(void* ray, void* line)
+    {
+        auto r = CastToRay2(ray);
+        auto l = CastToLine2(line);
+        return IntersectionResult<K>::ToPointOrRay(CGAL::intersection(*r, *l));
+    }
+
+    static IntersectionResult2d Intersection(void* ray, void* ray2)
+    {
+        auto r = CastToRay2(ray);
+        auto r2 = CastToRay2(ray2);
+        return IntersectionResult<K>::ToPointSegmentOrRay(CGAL::intersection(*r, *r2));
+    }
+
+    static IntersectionResult2d Intersection(void* ray, void* segment)
+    {
+        auto r = CastToRay2(ray);
+        auto s = CastToSegment2(segment);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*r, *s));
+    }
+
+    static IntersectionResult2d Intersection(void* ray, void* triangle)
+    {
+        auto r = CastToRay2(ray);
+        auto t = CastToTriangle2(triangle);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*r, *t));
+    }
+
+    static IntersectionResult2d Intersection(void* ray, void* box)
+    {
+        auto r = CastToRay2(ray);
+        auto b = CastToBox2(box);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*r, *b));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Segment2 Intersection Functions         *
+    *                                                    *
+    ******************************************************/
+
+    static IntersectionResult2d Intersection(void* segment, void* point)
+    {
+        auto s = CastToSegment2(segment);
+        auto p = CastToPoint2(point);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*s, *p));
+    }
+
+    static IntersectionResult2d Intersection(void* segment, void* line)
+    {
+        auto s = CastToSegment2(segment);
+        auto l = CastToLine2(line);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*s, *l));
+    }
+
+    static IntersectionResult2d Intersection(void* segment, void* ray)
+    {
+        auto s = CastToSegment2(segment);
+        auto r = CastToRay2(ray);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*s, *r));
+    }
+
+    static IntersectionResult2d Intersection(void* segment, void* segment2)
+    {
+        auto s = CastToSegment2(segment);
+        auto s2 = CastToSegment2(segment2);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*s, *s2));
+    }
+
+    static IntersectionResult2d Intersection(void* segment, void* triangle)
+    {
+        auto s = CastToSegment2(segment);
+        auto t = CastToTriangle2(triangle);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*s, *t));
+    }
+
+    static IntersectionResult2d Intersection(void* segment, void* box)
+    {
+        auto s = CastToSegment2(segment);
+        auto b = CastToBox2(box);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*s, *b));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Triangle2 Intersection Functions        *
+    *                                                    *
+    ******************************************************/
+
+    static IntersectionResult2d Intersection(void* triangle, void* point)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto p = CastToPoint2(point);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*t, *p));
+    }
+
+    static IntersectionResult2d Intersection(void* triangle, void* line)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto l = CastToLine2(line);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*t, *l));
+    }
+
+    static IntersectionResult2d Intersection(void* triangle, void* ray)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto r = CastToRay2(ray);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*t, *r));
+    }
+
+    static IntersectionResult2d Intersection(void* triangle, void* segment)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto s = CastToSegment2(segment);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*t, *s));
+    }
+
+    static IntersectionResult2d Intersection(void* triangle, void* triangle2)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto t2 = CastToTriangle2(triangle2);
+        return IntersectionResult<K>::ToPointSegmentTriangleOrPolygon(CGAL::intersection(*t, *t2));
+    }
+
+    static IntersectionResult2d Intersection(void* triangle, void* box)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto b = CastToBox2(box);
+        return IntersectionResult<K>::ToPointSegmentTriangleOrPolygon(CGAL::intersection(*t, *b));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Box2 Intersection Functions             *
+    *                                                    *
+    ******************************************************/
+
+    static IntersectionResult2d Intersection(void* box, void* point)
+    {
+        auto b = CastToBox2(box);
+        auto p = CastToPoint2(point);
+        return IntersectionResult<K>::ToPoint(CGAL::intersection(*b, *p));
+    }
+
+    static IntersectionResult2d Intersection(void* box, void* line)
+    {
+        auto b = CastToBox2(box);;
+        auto l = CastToLine2(line);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*b, *l));
+    }
+
+    static IntersectionResult2d Intersection(void* box, void* ray)
+    {
+        auto b = CastToBox2(box);
+        auto r = CastToRay2(ray);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*b, *r));
+    }
+
+    static IntersectionResult2d Intersection(void* box, void* segment)
+    {
+        auto b = CastToBox2(box);
+        auto s = CastToSegment2(segment);
+        return IntersectionResult<K>::ToPointOrSegment(CGAL::intersection(*b, *s));
+    }
+
+    static IntersectionResult2d Intersection(void* box, void* triangle)
+    {
+        auto b = CastToBox2(box);
+        auto t = CastToTriangle2(triangle);
+        return IntersectionResult<K>::ToPointSegmentTriangleOrPolygon(CGAL::intersection(*b, *t));
+    }
+
+    static IntersectionResult2d Intersection(void* box, void* box2)
+    {
+        auto b = CastToBox2(box);
+        auto b2 = CastToBox2(box2);
+        return IntersectionResult<K>::ToBox(CGAL::intersection(*b, *b2));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Point2 SqrDistance Functions            *
+    *                                                    *
+    ******************************************************/
+
+    static double SqrDistance(void* point, void* point2)
+    {
+        auto p = CastToPoint2(point);
+        auto p2 = CastToPoint2(point2);
+        return CGAL::to_double(CGAL::squared_distance(*p, *p2));
+    }
+
+    static double SqrDistance(void* point, void* line)
+    {
+        auto p = CastToPoint2(point);
+        auto l = CastToLine2(line);
+        return CGAL::to_double(CGAL::squared_distance(*p, *l));
+    }
+
+    static double SqrDistance(void* point, void* ray)
+    {
+        auto p = CastToPoint2(point);
+        auto r = CastToRay2(ray);
+        return CGAL::to_double(CGAL::squared_distance(*p, *r));
+    }
+
+    static double SqrDistance(void* point, void* segment)
+    {
+        auto p = CastToPoint2(point);
+        auto s = CastToSegment2(segment);
+        return CGAL::to_double(CGAL::squared_distance(*p, *s));
+    }
+
+    static double SqrDistance(void* point, void* triangle)
+    {
+        auto p = CastToPoint2(point);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::to_double(CGAL::squared_distance(*p, *t));
+    }
+
+
+    /*****************************************************
+    *                                                    *
+    *            Line2 SqrDistance Functions             *
+    *                                                    *
+    ******************************************************/
+
+    static double SqrDistance(void* line, void* point)
+    {
+        auto p = CastToPoint2(point);
+        auto l = CastToLine2(line);
+        return CGAL::to_double(CGAL::squared_distance(*p, *l));
+    }
+
+    static double SqrDistance(void* line, void* line2)
+    {
+        auto l = CastToLine2(line);
+        auto l2 = CastToLine2(line2);
+        return CGAL::to_double(CGAL::squared_distance(*l, *l2));
+    }
+
+    static double SqrDistance(void* line, void* ray)
+    {
+        auto l = CastToLine2(line);
+        auto r = CastToRay2(ray);
+        return CGAL::to_double(CGAL::squared_distance(*l, *r));
+    }
+
+    static double SqrDistance(void* line, void* segment)
+    {
+        auto l = CastToLine2(line);
+        auto s = CastToSegment2(segment);
+        return CGAL::to_double(CGAL::squared_distance(*l, *s));
+    }
+
+    static double SqrDistance(void* line, void* triangle)
+    {
+        auto l = CastToLine2(line);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::to_double(CGAL::squared_distance(*l, *t));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            void* SqrDistance Functions             *
+    *                                                    *
+    ******************************************************/
+
+    static double SqrDistance(void* ray, void* point)
+    {
+        auto r = CastToRay2(ray);
+        auto p = CastToPoint2(point);
+        return CGAL::to_double(CGAL::squared_distance(*r, *p));
+    }
+
+    static double SqrDistance(void* ray, void* line)
+    {
+        auto r = CastToRay2(ray);
+        auto l = CastToLine2(line);
+        return CGAL::to_double(CGAL::squared_distance(*r, *l));
+    }
+
+    static double SqrDistance(void* ray, void* ray2)
+    {
+        auto r = CastToRay2(ray);
+        auto r2 = CastToRay2(ray2);
+        return CGAL::to_double(CGAL::squared_distance(*r, *r2));
+    }
+
+    static double SqrDistance(void* ray, void* segment)
+    {
+        auto r = CastToRay2(ray);
+        auto s = CastToSegment2(segment);
+        return CGAL::to_double(CGAL::squared_distance(*r, *s));
+    }
+
+    static double SqrDistance(void* ray, void* triangle)
+    {
+        auto r = CastToRay2(ray);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::to_double(CGAL::squared_distance(*r, *t));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Segment2 SqrDistance Functions          *
+    *                                                    *
+    ******************************************************/
+
+    static double SqrDistance(void* segment, void* point)
+    {
+        auto s = CastToSegment2(segment);
+        auto p = CastToPoint2(point);
+        return CGAL::to_double(CGAL::squared_distance(*s, *p));
+    }
+
+    static double SqrDistance(void* segment, void* line)
+    {
+        auto s = CastToSegment2(segment);
+        auto l = CastToLine2(line);
+        return CGAL::to_double(CGAL::squared_distance(*s, *l));
+    }
+
+    static double SqrDistance(void* segment, void* ray)
+    {
+        auto s = CastToSegment2(segment);
+        auto r = CastToRay2(ray);
+        return CGAL::to_double(CGAL::squared_distance(*s, *r));
+    }
+
+    static double SqrDistance(void* segment, void* segment2)
+    {
+        auto s = CastToSegment2(segment);
+        auto s2 = CastToSegment2(segment2);
+        return CGAL::to_double(CGAL::squared_distance(*s, *s2));
+    }
+
+    static double SqrDistance(void* segment, void* triangle)
+    {
+        auto s = CastToSegment2(segment);
+        auto t = CastToTriangle2(triangle);
+        return CGAL::to_double(CGAL::squared_distance(*s, *t));
+    }
+
+    /*****************************************************
+    *                                                    *
+    *            Triangle2 SqrDistance Functions         *
+    *                                                    *
+    ******************************************************/
+
+    static double SqrDistance(void* triangle, void* point)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto p = CastToPoint2(point);
+        return CGAL::to_double(CGAL::squared_distance(*t, *p));
+    }
+
+    static double SqrDistance(void* triangle, void* line)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto l = CastToLine2(line);
+        return CGAL::to_double(CGAL::squared_distance(*t, *l));
+    }
+
+    static double SqrDistance(void* triangle, void* ray)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto r = CastToRay2(ray);
+        return CGAL::to_double(CGAL::squared_distance(*t, *r));
+    }
+
+    static double SqrDistance(void* triangle, void* segment)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto s = CastToSegment2(segment);
+        return CGAL::to_double(CGAL::squared_distance(*t, *s));
+    }
+
+    static double SqrDistance(void* triangle, void* triangle2)
+    {
+        auto t = CastToTriangle2(triangle);
+        auto t2 = CastToTriangle2(triangle2);
+        return CGAL::to_double(CGAL::squared_distance(*t, *t2));
+    }
+    
 
 };

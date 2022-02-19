@@ -184,6 +184,16 @@ namespace CGALDotNet.Geometry
             return Line2_EEK_Create(a, b, c);
         }
 
+        internal override IntPtr CreateFromPoints(Point2d p1, Point2d p2)
+        {
+            return Line2_EEK_CreateFromPoints(p1, p2);
+        }
+
+        internal override IntPtr CreateFromPointVector(Point2d p, Vector2d v)
+        {
+            return Line2_EEK_CreateFromPointVector(p, v);
+        }
+
         internal override void Line2_Release(IntPtr ptr)
         {
             Line2_EEK_Release(ptr);
@@ -619,6 +629,12 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Line2_EEK_Create(double a, double b, double c);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Line2_EEK_CreateFromPoints(Point2d p1, Point2d p2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Line2_EEK_CreateFromPointVector(Point2d p, Vector2d v);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Line2_EEK_Release(IntPtr ptr);

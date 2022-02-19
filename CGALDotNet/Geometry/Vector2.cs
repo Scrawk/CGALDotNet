@@ -11,6 +11,26 @@ namespace CGALDotNet.Geometry
     public sealed class Vector2<K> : Vector2 where K : CGALKernel, new()
     {
 
+        /// <summary>
+        /// The unit x vector.
+        /// </summary>
+        public readonly static Vector2<K> UnitX = new Vector2<K>(1, 0);
+
+        /// <summary>
+        /// The unit y vector.
+        /// </summary>
+	    public readonly static Vector2<K> UnitY = new Vector2<K>(0, 1);
+
+        /// <summary>
+        /// A vector of zeros.
+        /// </summary>
+	    public readonly static Vector2<K> Zero = new Vector2<K>(0);
+
+        /// <summary>
+        /// A vector of ones.
+        /// </summary>
+        public readonly static Vector2<K> One = new Vector2<K>(1);
+
         public Vector2() : base(new K())
         {
 

@@ -14,6 +14,16 @@ void* Line2_EEK_Create(double a, double b, double c)
 	return new Line2(a, b, c);
 }
 
+void* Line2_EEK_CreateFromPoints(const Point2d& p1, const Point2d& p2)
+{
+	return new Line2(p1.ToCGAL<EEK>(), p2.ToCGAL<EEK>());
+}
+
+void* Line2_EEK_CreateFromPointVector(const Point2d& p, const Vector2d& v)
+{
+	return new Line2(p.ToCGAL<EEK>(), v.ToCGAL<EEK>());
+}
+
 void Line2_EEK_Release(void* ptr)
 {
 	auto obj = static_cast<Line2*>(ptr);

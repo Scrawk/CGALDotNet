@@ -28,6 +28,14 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
+            var point = Point2<EEK>.Zero;
+
+            var line = Line2<EEK>.UnitX;
+
+
+            //CGALIntersections.DoIntersect(point, line);
+
+
         }
 
 

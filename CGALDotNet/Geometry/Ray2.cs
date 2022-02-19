@@ -10,6 +10,15 @@ namespace CGALDotNet.Geometry
 
     public sealed class Ray2<K> : Ray2 where K : CGALKernel, new()
     {
+        /// <summary>
+        /// The unit x ray.
+        /// </summary>
+        public readonly static Ray2<K> UnitX = new Ray2<K>(Point2d.Zero, Vector2d.UnitX);
+
+        /// <summary>
+        /// The unit y ray.
+        /// </summary>
+	    public readonly static Ray2<K> UnitY = new Ray2<K>(Point2d.Zero, Vector2d.UnitY);
 
         public Ray2(Point2d position, Vector2d direction) 
             : base(position, direction, new K())

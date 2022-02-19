@@ -9,6 +9,10 @@ extern "C"
 {
 	CGALWRAPPER_API void* Line2_EEK_Create(double a, double b, double c);
 
+	CGALWRAPPER_API void* Line2_EEK_CreateFromPoints(const Point2d& p1, const Point2d& p2);
+
+	CGALWRAPPER_API void* Line2_EEK_CreateFromPointVector(const Point2d& p, const Vector2d& v);
+
 	CGALWRAPPER_API void Line2_EEK_Release(void* ptr);
 
 	CGALWRAPPER_API double Line2_EEK_GetA(void* ptr);

@@ -56,7 +56,7 @@ public:
 
     static IntersectionResult2d ToPoint(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Point2 point;
@@ -75,7 +75,7 @@ public:
 
     static IntersectionResult2d ToBox(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Box2 box;
@@ -95,7 +95,7 @@ public:
 
     static IntersectionResult2d ToPointOrSegment(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Point2 point;
@@ -124,7 +124,7 @@ public:
 
     static IntersectionResult2d ToPointSegmentTriangleOrPolygon(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Point2 point;
@@ -176,7 +176,7 @@ public:
 
     static IntersectionResult2d ToPointOrRay(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Point2 point;
@@ -205,7 +205,7 @@ public:
 
     static IntersectionResult2d ToPointOrLine(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Point2 point;
@@ -235,7 +235,7 @@ public:
 
     static IntersectionResult2d ToPointSegmentOrRay(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Point2 point;
@@ -274,7 +274,7 @@ public:
 
     static IntersectionResult2d ToAny(CGAL::Object obj)
     {
-        if (obj.is_empty())
+        if (obj == nullptr || obj.is_empty())
             return {};
 
         Point2 point;

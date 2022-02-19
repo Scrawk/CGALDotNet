@@ -11,7 +11,27 @@ namespace CGALDotNet.Geometry
     public sealed class Line2<K> : Line2 where K : CGALKernel, new()
     {
 
+        /// <summary>
+        /// The unit x line.
+        /// </summary>
+        public readonly static Line2<K> UnitX = new Line2<K>(Point2d.Zero, Vector2d.UnitX);
+
+        /// <summary>
+        /// The unit y line.
+        /// </summary>
+	    public readonly static Line2<K> UnitY = new Line2<K>(Point2d.Zero, Vector2d.UnitY);
+
         public Line2(double a, double b, double c) : base(a, b, c, new K())
+        {
+
+        }
+
+        public Line2(Point2d p1, Point2d p2) : base(p1, p2, new K())
+        {
+
+        }
+
+        public Line2(Point2d p, Vector2d v) : base(p, v, new K())
         {
 
         }
@@ -53,6 +73,18 @@ namespace CGALDotNet.Geometry
         {
             Kernel = kernel.GeometryKernel2;
             Ptr = Kernel.Line2_Create(a, b, c);
+        }
+
+        internal Line2(Point2d p1, Point2d p2, CGALKernel kernel)
+        {
+            Kernel = kernel.GeometryKernel2;
+            Ptr = Kernel.CreateFromPoints(p1, p2);
+        }
+
+        internal Line2(Point2d p, Vector2d v, CGALKernel kernel)
+        {
+            Kernel = kernel.GeometryKernel2;
+            Ptr = Kernel.CreateFromPointVector(p, v);
         }
 
         internal Line2(CGALKernel kernel, IntPtr ptr) : base(ptr)

@@ -81,6 +81,10 @@ namespace CGALDotNet.Geometry
         //Line2
         internal abstract IntPtr Line2_Create(double a, double b, double c);
 
+        internal abstract IntPtr CreateFromPoints(Point2d p1, Point2d p2);
+
+	    internal abstract IntPtr CreateFromPointVector(Point2d p, Vector2d v);
+
         internal abstract void Line2_Release(IntPtr ptr);
 
         internal abstract double Line2_GetA(IntPtr ptr);
