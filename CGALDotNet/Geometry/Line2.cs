@@ -12,14 +12,14 @@ namespace CGALDotNet.Geometry
     {
 
         /// <summary>
-        /// The unit x line.
+        /// A horizontal line on the x axis.
         /// </summary>
-        public readonly static Line2<K> UnitX = new Line2<K>(Point2d.Zero, Vector2d.UnitX);
+        public readonly static Line2<K> Horizontal = new Line2<K>(Point2d.Zero, Point2d.UnitX);
 
         /// <summary>
-        /// The unit y line.
+        /// A vertical line on the y axis.
         /// </summary>
-	    public readonly static Line2<K> UnitY = new Line2<K>(Point2d.Zero, Vector2d.UnitY);
+	    public readonly static Line2<K> Vertical = new Line2<K>(Point2d.Zero, Point2d.UnitY);
 
         public Line2(double a, double b, double c) : base(a, b, c, new K())
         {

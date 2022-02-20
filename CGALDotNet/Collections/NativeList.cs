@@ -15,9 +15,14 @@ namespace CGALDotNet.Collections
 		/// <summary>
 		/// 
 		/// </summary>
+		private List<T> m_list;
+
+		/// <summary>
+		/// 
+		/// </summary>
         public NativeList() : base()
 		{
-
+			m_list = new List<T>();
 		}
 
 		/// <summary>
@@ -26,7 +31,7 @@ namespace CGALDotNet.Collections
 		/// <param name="count"></param>
 		public NativeList(int count) : base(count)
 		{
-
+			m_list = new List<T>(count);
 		}
 
 		/// <summary>
@@ -35,8 +40,19 @@ namespace CGALDotNet.Collections
 		/// <param name="ptr"></param>
 		internal NativeList(IntPtr ptr) : base(ptr)
 		{
-	
+			for(int i = 0; i < Count; i++)
+            {
+				var p = NativeList_Get(Ptr, i);
+				var item = new T();
+				item.Swap(p);
+				m_list.Add(item);
+			}
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsSync => Count == m_list.Count;
 
 		/// <summary>
 		/// 
@@ -44,7 +60,7 @@ namespace CGALDotNet.Collections
 		/// <returns></returns>
         public override string ToString()
         {
-            return String.Format("[NativeList: Count={0}, Capacity={1}]", Count, Capacity);
+            return String.Format("[NativeList: Count={0}, Capacity={1}, IsSync={2}]", Count, Capacity, IsSync);
         }
 
 		/// <summary>
@@ -54,7 +70,7 @@ namespace CGALDotNet.Collections
 		public IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < Count; i++)
-				yield return Get(i);
+				yield return m_list[i];
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
@@ -76,9 +92,19 @@ namespace CGALDotNet.Collections
 		/// <summary>
 		/// 
 		/// </summary>
+		public void Clear()
+		{
+			m_list.Clear();
+			NativeList_Clear(Ptr);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="item"></param>
 		public void Add(T item)
 		{
+			m_list.Add(item);
 			NativeList_Add(Ptr, item.Ptr);
 		}
 
@@ -89,7 +115,7 @@ namespace CGALDotNet.Collections
 		public void AddRange(IEnumerable<T> items)
 		{
 			foreach(var item in items)
-				NativeList_Add(Ptr, item.Ptr);
+				Add(item);
 		}
 
 		/// <summary>
@@ -120,7 +146,7 @@ namespace CGALDotNet.Collections
 		/// <returns></returns>
 		public bool Contains(T item)
 		{
-			return NativeList_Contains(Ptr, item.Ptr);
+			return m_list.Contains(item);
 		}
 
 		/// <summary>
@@ -130,7 +156,7 @@ namespace CGALDotNet.Collections
 		/// <returns></returns>
 		public int IndexOf(T item)
 		{
-			return NativeList_IndexOf(Ptr, item.Ptr);
+			return m_list.IndexOf(item);
 		}
 
 		/// <summary>
@@ -140,6 +166,7 @@ namespace CGALDotNet.Collections
 		/// <param name="item"></param>
 		public void Insert(int index, T item)
 		{
+			m_list.Insert(index, item);
 			NativeList_Insert(Ptr, item.Ptr, index);
 		}
 
@@ -150,7 +177,38 @@ namespace CGALDotNet.Collections
 		/// <returns></returns>
 		public bool Remove(T item)
 		{
-			return NativeList_Remove(Ptr, item.Ptr);
+			var b1 = m_list.Remove(item);
+			var b2 = NativeList_Remove(Ptr, item.Ptr);
+
+			return b1 && b2;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		public void RemoveAt(int index)
+		{
+			m_list.RemoveAt(index);
+			NativeList_RemoveAt(Ptr, index);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public void Reverse()
+		{
+			m_list.Reverse();
+			NativeList_Reverse(Ptr);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public void TrimExcess()
+		{
+			m_list.TrimExcess();
+			NativeList_TrimExcess(Ptr);
 		}
 
 		/// <summary>
@@ -160,10 +218,7 @@ namespace CGALDotNet.Collections
 		/// <returns></returns>
 		private T Get(int index)
 		{
-			var ptr = NativeList_Get(Ptr, index);
-			var item = new T();
-			item.Swap(ptr);
-			return item;
+			return m_list[index];
 		}
 
 		/// <summary>
@@ -173,6 +228,7 @@ namespace CGALDotNet.Collections
 		/// <param name="item"></param>
 		private void Set(int index, T item)
 		{
+			m_list[index] = item;
 			NativeList_Set(Ptr, index, item.Ptr);
 		}
     }
@@ -222,39 +278,6 @@ namespace CGALDotNet.Collections
 		/// 
 		/// </summary>
 		public bool IsReadOnly => false;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public void Clear()
-		{
-			NativeList_Clear(Ptr);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="index"></param>
-		public void RemoveAt(int index)
-		{
-			NativeList_RemoveAt(Ptr, index);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public void Reverse()
-		{
-			NativeList_Reverse(Ptr);
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public void TrimExcess()
-		{
-			NativeList_TrimExcess(Ptr);
-		}
 
 		/// <summary>
 		/// 

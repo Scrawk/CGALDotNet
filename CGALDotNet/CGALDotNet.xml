@@ -892,7 +892,7 @@
         </member>
         <member name="M:CGALDotNet.CGALObject.Dispose">
             <summary>
-            Dispose the CGAl object.
+            Dispose the CGAL object.
             </summary>
         </member>
         <member name="M:CGALDotNet.CGALObject.ToString">
@@ -962,6 +962,11 @@
             </summary>
             <param name="ptr"></param>
         </member>
+        <member name="P:CGALDotNet.Collections.NativeList`1.IsSync">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Collections.NativeList`1.ToString">
             <summary>
             
@@ -980,6 +985,11 @@
             </summary>
             <param name="i"></param>
             <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Clear">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:CGALDotNet.Collections.NativeList`1.Add(`0)">
             <summary>
@@ -1034,6 +1044,22 @@
             <param name="item"></param>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.RemoveAt(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.Reverse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Collections.NativeList`1.TrimExcess">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Collections.NativeList`1.Get(System.Int32)">
             <summary>
             
@@ -1081,27 +1107,6 @@
             </summary>
         </member>
         <member name="P:CGALDotNet.Collections.NativeList.IsReadOnly">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Collections.NativeList.Clear">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Collections.NativeList.RemoveAt(System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="index"></param>
-        </member>
-        <member name="M:CGALDotNet.Collections.NativeList.Reverse">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Collections.NativeList.TrimExcess">
             <summary>
             
             </summary>
@@ -2581,14 +2586,14 @@
             Release the unmanaged pointer.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Line2`1.UnitX">
+        <member name="F:CGALDotNet.Geometry.Line2`1.Horizontal">
             <summary>
-            The unit x line.
+            A horizontal line on the x axis.
             </summary>
         </member>
-        <member name="F:CGALDotNet.Geometry.Line2`1.UnitY">
+        <member name="F:CGALDotNet.Geometry.Line2`1.Vertical">
             <summary>
-            The unit y line.
+            A vertical line on the y axis.
             </summary>
         </member>
         <member name="F:CGALDotNet.Geometry.Point2`1.UnitX">
@@ -2624,6 +2629,16 @@
         <member name="F:CGALDotNet.Geometry.Ray2`1.UnitY">
             <summary>
             The unit y ray.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Segment2`1.Horizontal">
+            <summary>
+            A horizontal line on the x axis.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Geometry.Segment2`1.Vertical">
+            <summary>
+            A vertical line on the y axis.
             </summary>
         </member>
         <member name="F:CGALDotNet.Geometry.Vector2`1.UnitX">

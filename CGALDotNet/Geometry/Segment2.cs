@@ -11,6 +11,19 @@ namespace CGALDotNet.Geometry
     public sealed class Segment2<K> : Segment2 where K : CGALKernel, new()
     {
 
+        /// <summary>
+        /// A horizontal line on the x axis.
+        /// </summary>
+        public readonly static Segment2<K> Horizontal 
+            = new Segment2<K>(new Point2d(-1, 0), new Point2d(1, 0));
+
+        /// <summary>
+        /// A vertical line on the y axis.
+        /// </summary>
+	    public readonly static Segment2<K> Vertical 
+            = new Segment2<K>(new Point2d(0, -1), new Point2d(0, 1));
+
+
         public Segment2(Point2d a, Point2d b) : base(a, b, new K())
         {
 

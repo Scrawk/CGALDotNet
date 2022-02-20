@@ -67,7 +67,7 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// Dispose the CGAl object.
+        /// Dispose the CGAL object.
         /// </summary>
         public void Dispose()
         {
