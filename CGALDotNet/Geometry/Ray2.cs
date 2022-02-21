@@ -41,10 +41,14 @@ namespace CGALDotNet.Geometry
 
         public Line2<K> Line => new Line2<K>(Kernel.Ray2_Line(Ptr));
 
-        public Ray2<K> Transform(Point2d translation, Degree rotation, double scale)
+        public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            var ptr = Kernel.Ray2_Transform(Ptr, translation, rotation.radian, scale);
-            return new Ray2<K>(ptr);
+            Kernel.Ray2_Transform(Ptr, translation, rotation.radian, scale);
+        }
+
+        public Ray2<K> Copy()
+        {
+            return new Ray2<K>(Kernel.Ray2_Copy(Ptr));
         }
 
     }

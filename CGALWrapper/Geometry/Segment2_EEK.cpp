@@ -107,7 +107,7 @@ double Segment2_EEK_SqrLength(void* ptr)
 	return CGAL::to_double(seg->squared_length());
 }
 
-void* Segment2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
+void Segment2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
 {
 	auto seg = CastToSegment2(ptr);
 
@@ -115,8 +115,14 @@ void* Segment2_EEK_Transform(void* ptr, const Point2d& translation, double rotat
 	Transformation2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
 	Transformation2 S(CGAL::SCALING, scale);
 
-	auto nseg = NewSegment2();
-	(*nseg) = seg->transform(T * R * S);
+	(*seg) = seg->transform(T * R * S);
+}
 
-	return nseg;
+void* Segment2_EEK_Copy(void* ptr)
+{
+	auto s = CastToSegment2(ptr);
+	auto s2 = new Segment2();
+
+	(*s2) = *s;
+	return s2;
 }

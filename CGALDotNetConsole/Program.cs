@@ -28,20 +28,6 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var a = new Point2<EEK>(1, 0);
-            var b = new Point2<EEK>(2, 0);
-            var c = new Point2<EEK>(3, 0);
-
-            var list = new NativeList<Point2<EEK>>();
-
-            list.Add(a);
-            list.Add(b);
-            list.Add(c);
-
-            list.Remove(a); 
-
-            Console.WriteLine(list);
-
         }
 
 

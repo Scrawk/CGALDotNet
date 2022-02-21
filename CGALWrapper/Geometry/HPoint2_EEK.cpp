@@ -79,3 +79,12 @@ void HPoint2_EEK_SetPoint(void* ptr, const HPoint2d& point)
 	(*p)[1] = point.hy;
 	(*p)[2] = point.hw;
 }
+
+void* HPoint2_EEK_Copy(void* ptr)
+{
+	auto p = CastToHPoint2(ptr);
+	auto p2 = new HPoint2();
+
+	(*p2) = *p;
+	return p2;
+}

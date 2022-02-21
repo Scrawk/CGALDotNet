@@ -55,10 +55,9 @@ namespace CGALDotNet.Geometry
             return new Line2<K>(ptr);
         }
 
-        public Line2<K> Transform(Point2d translation, Degree rotation, double scale)
+        public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            var ptr = Kernel.Line2_Transform(Ptr, translation, rotation.radian, scale);    
-            return new Line2<K>(ptr);
+            Kernel.Line2_Transform(Ptr, translation, rotation.radian, scale);    
         }
     }
 

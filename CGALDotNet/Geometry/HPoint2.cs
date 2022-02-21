@@ -59,6 +59,11 @@ namespace CGALDotNet.Geometry
             return string.Format("[HPoint2<{0}>: x={1}, y={2}, w={3}]",
                 Kernel.KernelName, x, y, w);
         }
+
+        public HPoint2<K> Copy()
+        {
+            return new HPoint2<K>(Kernel.HPoint2_Copy(Ptr));
+        }
     }
 
     public abstract class HPoint2 : CGALObject

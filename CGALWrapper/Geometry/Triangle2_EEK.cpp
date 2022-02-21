@@ -82,7 +82,7 @@ BOOL Triangle2_EEK_IsDegenerate(void* ptr)
 	return tri->is_degenerate();
 }
 
-void* Triangle2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
+void Triangle2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
 {
 	auto tri = CastToTriangle2(ptr);
 
@@ -90,8 +90,14 @@ void* Triangle2_EEK_Transform(void* ptr, const Point2d& translation, double rota
 	Transformation2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
 	Transformation2 S(CGAL::SCALING, scale);
 
-	auto ntri = NewTriangle2();
-	(*ntri) = tri->transform(T * R * S);
+	(*tri) = tri->transform(T * R * S);
+}
 
-	return ntri;
+void* Triangle2_EEK_Copy(void* ptr)
+{
+	auto t = CastToTriangle2(ptr);
+	auto t2 = new Triangle2();
+
+	(*t2) = *t;
+	return t2;
 }

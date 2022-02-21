@@ -1,22 +1,22 @@
 
-#include "Ray2_EEK.h"
+#include "Ray2_EIK.h"
 #include <CGAL/Ray_2.h>
 #include <CGAL/Aff_transformation_2.h>
 
-typedef CGAL::Ray_2<EEK> Ray2;
-typedef CGAL::Line_2<EEK> Line2;
-typedef CGAL::Point_2<EEK> Point2;
-typedef CGAL::Aff_transformation_2<EEK> Transformation2;
+typedef CGAL::Ray_2<EIK> Ray2;
+typedef CGAL::Line_2<EIK> Line2;
+typedef CGAL::Point_2<EIK> Point2;
+typedef CGAL::Aff_transformation_2<EIK> Transformation2;
 
-void* Ray2_EEK_Create(const Point2d& position, const Vector2d& direction)
+void* Ray2_EIK_Create(const Point2d& position, const Vector2d& direction)
 {
-	auto p = position.ToCGAL<EEK>();
-	auto d = direction.ToCGAL<EEK>();
+	auto p = position.ToCGAL<EIK>();
+	auto d = direction.ToCGAL<EIK>();
 
 	return new Ray2(p, d);
 }
 
-void Ray2_EEK_Release(void* ptr)
+void Ray2_EIK_Release(void* ptr)
 {
 	auto obj = static_cast<Ray2*>(ptr);
 	if (obj != nullptr)
@@ -36,45 +36,45 @@ Ray2* NewRay2()
 	return new Ray2();
 }
 
-BOOL Ray2_EEK_IsDegenerate(void* ptr)
+BOOL Ray2_EIK_IsDegenerate(void* ptr)
 {
 	auto ray = CastToRay2(ptr);
 	return ray->is_degenerate();
 }
 
-BOOL Ray2_EEK_IsHorizontal(void* ptr)
+BOOL Ray2_EIK_IsHorizontal(void* ptr)
 {
 	auto ray = CastToRay2(ptr);
 	return ray->is_horizontal();
 }
 
-BOOL Ray2_EEK_IsVertical(void* ptr)
+BOOL Ray2_EIK_IsVertical(void* ptr)
 {
 	auto ray = CastToRay2(ptr);
 	return ray->is_vertical();
 }
 
-BOOL Ray2_EEK_HasOn(void* rayPtr, const Point2d& point)
+BOOL Ray2_EIK_HasOn(void* rayPtr, const Point2d& point)
 {
 	auto ray = CastToRay2(rayPtr);
-	return ray->has_on(point.ToCGAL<EEK>());
+	return ray->has_on(point.ToCGAL<EIK>());
 }
 
-Point2d Ray2_EEK_Source(void* ptr)
+Point2d Ray2_EIK_Source(void* ptr)
 {
 	auto ray = CastToRay2(ptr);
 	auto p = ray->source();
-	return Point2d::FromCGAL<EEK>(p);
+	return Point2d::FromCGAL<EIK>(p);
 }
 
-Vector2d Ray2_EEK_Vector(void* ptr)
+Vector2d Ray2_EIK_Vector(void* ptr)
 {
 	auto ray = CastToRay2(ptr);
 	auto v = ray->to_vector();
-	return Vector2d::FromCGAL<EEK>(v);
+	return Vector2d::FromCGAL<EIK>(v);
 }
 
-void* Ray2_EEK_Opposite(void* ptr)
+void* Ray2_EIK_Opposite(void* ptr)
 {
 	auto ray = CastToRay2(ptr);
 	auto nray = NewRay2();
@@ -82,7 +82,7 @@ void* Ray2_EEK_Opposite(void* ptr)
 	return nray;
 }
 
-void* Ray2_EEK_Line(void* ptr)
+void* Ray2_EIK_Line(void* ptr)
 {
 	auto ray = CastToRay2(ptr);
 	auto line = new Line2();
@@ -90,18 +90,18 @@ void* Ray2_EEK_Line(void* ptr)
 	return line;
 }
 
-void Ray2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
+void Ray2_EIK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
 {
 	auto ray = CastToRay2(ptr);
 
-	Transformation2 T(CGAL::TRANSLATION, translation.ToVector<EEK>());
+	Transformation2 T(CGAL::TRANSLATION, translation.ToVector<EIK>());
 	Transformation2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
 	Transformation2 S(CGAL::SCALING, scale);
 
 	(*ray) = ray->transform(T * R * S);
 }
 
-void* Ray2_EEK_Copy(void* ptr)
+void* Ray2_EIK_Copy(void* ptr)
 {
 	auto r = CastToRay2(ptr);
 	auto r2 = new Ray2();

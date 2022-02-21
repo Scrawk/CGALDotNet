@@ -43,6 +43,8 @@ extern "C"
 
 	CGALWRAPPER_API Vector2d Line2_EEK_Vector(void* ptr);
 
-	CGALWRAPPER_API void* Line2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
+	CGALWRAPPER_API void Line2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
+
+	CGALWRAPPER_API void* Line2_EEK_Copy(void* ptr);
 }
 

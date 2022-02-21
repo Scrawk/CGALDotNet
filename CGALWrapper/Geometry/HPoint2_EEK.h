@@ -28,5 +28,7 @@ extern "C"
 
 	CGALWRAPPER_API void HPoint2_EEK_SetPoint(void* ptr, const HPoint2d& point);
 
+	CGALWRAPPER_API void* HPoint2_EEK_Copy(void* ptr);
+
 }
 

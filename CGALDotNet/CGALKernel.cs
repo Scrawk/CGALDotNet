@@ -96,7 +96,7 @@ namespace CGALDotNet
     {
         public static readonly EIK Instance = new EIK();
 
-        internal override GeometryKernel2 GeometryKernel2 => throw new NotImplementedException();
+        internal override GeometryKernel2 GeometryKernel2 => GeometryKernel2_EIK.Instance;
 
         internal override PolylineKernel2 PolylineKernel2 => PolylineKernel2_EIK.Instance;
 

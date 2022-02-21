@@ -73,6 +73,11 @@ namespace CGALDotNet.Geometry
             return string.Format("[Point2<{0}>: x={1}, y={2}]",
                 Kernel.KernelName, x, y);
         }
+
+        public Point2<K> Copy()
+        {
+            return new Point2<K>(Kernel.Point2_Copy(Ptr));
+        }
     }
 
     public abstract class Point2 : CGALObject

@@ -945,6 +945,11 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="F:CGALDotNet.Collections.NativeList`1.m_list">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Collections.NativeList`1.#ctor">
             <summary>
             
@@ -2164,6 +2169,62 @@
             
             </summary>------------------------------------------------------
         </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.Point2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Point2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.Vector2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The Vector2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.HPoint2_Create">
+            <summary>--------------------------------------------------------
+            
+                            The HPoint2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.Line2_Create(System.Double,System.Double,System.Double)">
+            <summary>--------------------------------------------------------
+            
+                            The Line2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.Ray2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Ray2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.Segment2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Segment2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.Triangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The Triangle2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.IsoRectangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>--------------------------------------------------------
+            
+                            The IsoRectangle2 Class Functions
+            
+            </summary>-------------------------------------------------------
+        </member>
         <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Point2_Create">
             <summary>--------------------------------------------------------
             
@@ -2512,7 +2573,12 @@
             <param name="translation">The amount to translate.</param>
             <param name="rotation">The amount to rotate</param>
             <param name="scale">The amount to scale.</param>
-            <returns>The transformed rectangle.</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.Copy">
+            <summary>
+            Create a deep copy of the rectangle.
+            </summary>
+            <returns>The deep copy.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.IsoRectangle2">
             <summary>

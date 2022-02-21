@@ -178,6 +178,13 @@
     <ClInclude Include="Geometry\Intersections_geometry.h" />
     <ClInclude Include="Geometry\Intersections_geometry_EIK.h" />
     <ClInclude Include="Geometry\Intersections_geometry_EEK.h" />
+    <ClInclude Include="Geometry\HPoint2_EIK.h" />
+    <ClInclude Include="Geometry\IsoRectangle2_EIK.h" />
+    <ClInclude Include="Geometry\Line2_EIK.h" />
+    <ClInclude Include="Geometry\Point2_EIK.h" />
+    <ClInclude Include="Geometry\Ray2_EIK.h" />
+    <ClInclude Include="Geometry\Segment2_EIK.h" />
+    <ClInclude Include="Geometry\Triangle2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />
@@ -316,6 +323,7 @@
     <ClInclude Include="Triangulations\TriVertex2.h" />
     <ClInclude Include="Utility\VersionNumber.h" />
     <ClInclude Include="Geometry\Vector2_EEK.h" />
+    <ClInclude Include="Geometry\Vector2_EIK.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
@@ -327,6 +335,13 @@
     <ClCompile Include="Geometry\HPoint2_EEK.cpp" />
     <ClCompile Include="Geometry\Intersections_geometry_EIK.cpp" />
     <ClCompile Include="Geometry\Intersections_geometry_EEK.cpp" />
+    <ClCompile Include="Geometry\HPoint2_EIK.cpp" />
+    <ClCompile Include="Geometry\IsoRectangle2_EIK.cpp" />
+    <ClCompile Include="Geometry\Line2_EIK.cpp" />
+    <ClCompile Include="Geometry\Point2_EIK.cpp" />
+    <ClCompile Include="Geometry\Ray2_EIK.cpp" />
+    <ClCompile Include="Geometry\Segment2_EIK.cpp" />
+    <ClCompile Include="Geometry\Triangle2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EIK.cpp" />
@@ -408,6 +423,7 @@
     <ClCompile Include="Triangulations\Triangulation2_EEK.cpp" />
     <ClCompile Include="Utility\VersionNumber.cpp" />
     <ClCompile Include="Geometry\Vector2_EEK.cpp" />
+    <ClCompile Include="Geometry\Vector2_EIK.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CGALWrapper.rc" />

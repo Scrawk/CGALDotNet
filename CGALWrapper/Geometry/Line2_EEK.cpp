@@ -133,7 +133,7 @@ Vector2d Line2_EEK_Vector(void* ptr)
 	return Vector2d::FromCGAL<EEK>(v);
 }
 
-void* Line2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
+void Line2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale)
 {
 	auto line = CastToLine2(ptr);
 
@@ -141,8 +141,14 @@ void* Line2_EEK_Transform(void* ptr, const Point2d& translation, double rotation
 	Transformation2 R(CGAL::ROTATION, sin(rotation), cos(rotation));
 	Transformation2 S(CGAL::SCALING, scale);
 
-	auto nline = NewLine2();
-	(*nline) = line->transform(T * R * S);
+	(*line) = line->transform(T * R * S);
+}
 
-	return nline;
+void* Line2_EEK_Copy(void* ptr)
+{
+	auto l = CastToLine2(ptr);
+	auto l2 = new Line2();
+
+	(*l2) = *l;
+	return l2;
 }

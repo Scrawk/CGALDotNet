@@ -24,6 +24,8 @@ extern "C"
 
 	CGALWRAPPER_API BOOL Triangle2_EEK_IsDegenerate(void* ptr);
 
-	CGALWRAPPER_API void* Triangle2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
+	CGALWRAPPER_API void Triangle2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
+
+	CGALWRAPPER_API void* Triangle2_EEK_Copy(void* ptr);
 }
 

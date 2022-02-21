@@ -30,5 +30,7 @@ extern "C"
 
 	CGALWRAPPER_API void Vector2_EEK_Normalize(void* ptr);
 
+	CGALWRAPPER_API void* Vector2_EEK_Copy(void* ptr);
+
 }
 

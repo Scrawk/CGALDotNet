@@ -1,21 +1,21 @@
-#include "Vector2_EEK.h"
+#include "Vector2_EIK.h"
 #include <CGAL/Vector_2.h>
 
-typedef EEK::FT FT;
-typedef CGAL::Vector_2<EEK> Vector2;
+typedef EIK::FT FT;
+typedef CGAL::Vector_2<EIK> Vector2;
 
-void* Vector2_EEK_Create()
+void* Vector2_EIK_Create()
 {
 	return new Vector2();
 }
 
-void* Vector2_EEK_CreateFromVector(const Vector2d& point)
+void* Vector2_EIK_CreateFromVector(const Vector2d& point)
 {
-	auto p = point.ToCGAL<EEK>();
+	auto p = point.ToCGAL<EIK>();
 	return new Vector2(p.x(), p.y());
 }
 
-void Vector2_EEK_Release(void* ptr)
+void Vector2_EIK_Release(void* ptr)
 {
 	auto obj = static_cast<Vector2*>(ptr);
 	if (obj != nullptr)
@@ -30,50 +30,49 @@ Vector2* CastToVector2(void* ptr)
 	return static_cast<Vector2*>(ptr);
 }
 
-double Vector2_EEK_GetX(void* ptr)
+double Vector2_EIK_GetX(void* ptr)
 {
 	auto p = CastToVector2(ptr);
 	return CGAL::to_double(p->x());
 }
 
-double Vector2_EEK_GetY(void* ptr)
+double Vector2_EIK_GetY(void* ptr)
 {
 	auto p = CastToVector2(ptr);
 	return CGAL::to_double(p->y());
 }
 
-Vector2d Vector2_EEK_GetVector(void* ptr)
+Vector2d Vector2_EIK_GetVector(void* ptr)
 {
 	auto p = CastToVector2(ptr);
-	return Vector2d::FromCGAL<EEK>(*p);
+	return Vector2d::FromCGAL<EIK>(*p);
 }
 
-void Vector2_EEK_SetX(void* ptr, double x)
+void Vector2_EIK_SetX(void* ptr, double x)
 {
 	auto p = CastToVector2(ptr);
-	(*p)[0] = x;
+	(*p) = Vector2(x, p->y());
 }
 
-void Vector2_EEK_SetY(void* ptr, double y)
+void Vector2_EIK_SetY(void* ptr, double y)
 {
 	auto p = CastToVector2(ptr);
-	(*p)[1] = y;
+	(*p) = Vector2(p->x(), y);
 }
 
-void Vector2_EEK_SetVector(void* ptr, const Vector2d& vector)
+void Vector2_EIK_SetVector(void* ptr, const Vector2d& vector)
 {
 	auto p = CastToVector2(ptr);
-	(*p)[0] = vector.x;
-	(*p)[1] = vector.y;
+	(*p) = Vector2(vector.x, vector.y);
 }
 
-double Vector2_EEK_SqrLength(void* ptr)
+double Vector2_EIK_SqrLength(void* ptr)
 {
 	auto p = CastToVector2(ptr);
 	return CGAL::to_double(p->squared_length());
 }
 
-void* Vector2_EEK_Perpendicular(void* ptr, CGAL::Orientation orientation)
+void* Vector2_EIK_Perpendicular(void* ptr, CGAL::Orientation orientation)
 {
 	auto p = CastToVector2(ptr);
 	auto v = new Vector2();
@@ -81,7 +80,7 @@ void* Vector2_EEK_Perpendicular(void* ptr, CGAL::Orientation orientation)
 	return v;
 }
 
-void Vector2_EEK_Normalize(void* ptr)
+void Vector2_EIK_Normalize(void* ptr)
 {
 	auto p = CastToVector2(ptr);
 	auto sq_len = CGAL::to_double(p->squared_length());
@@ -89,11 +88,11 @@ void Vector2_EEK_Normalize(void* ptr)
 	if (sq_len == 0) return;
 
 	auto len = CGAL::sqrt(sq_len);
-	(*p)[0] = (*p)[0] / len;
-	(*p)[1] = (*p)[1] / len;
+
+	(*p) = Vector2(p->x() / len, p->y() / len);
 }
 
-void* Vector2_EEK_Copy(void* ptr)
+void* Vector2_EIK_Copy(void* ptr)
 {
 	auto v = CastToVector2(ptr);
 	auto v2 = new Vector2();

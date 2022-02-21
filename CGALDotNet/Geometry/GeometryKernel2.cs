@@ -9,7 +9,12 @@ namespace CGALDotNet.Geometry
     internal abstract class GeometryKernel2 : CGALObjectKernel
     {
 
-        //Point2
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Point2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
+        
         internal abstract IntPtr Point2_Create();
 
         internal abstract IntPtr Point2_CreateFromPoint(Point2d point);
@@ -28,7 +33,13 @@ namespace CGALDotNet.Geometry
 
         internal abstract void Point2_SetPoint(IntPtr ptr, Point2d point);
 
-        //Vector2
+        internal abstract IntPtr Point2_Copy(IntPtr ptr);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Vector2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
 
         internal abstract IntPtr Vector2_Create();
 
@@ -54,7 +65,13 @@ namespace CGALDotNet.Geometry
 
         internal abstract void Vector2_Normalize(IntPtr ptr);
 
-        //HPoint2
+        internal abstract IntPtr Vector2_Copy(IntPtr ptr);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The HPoint2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
 
         internal abstract IntPtr HPoint2_Create();
 
@@ -78,7 +95,14 @@ namespace CGALDotNet.Geometry
 
         internal abstract void HPoint2_SetPoint(IntPtr ptr,  HPoint2d point);
 
-        //Line2
+        internal abstract IntPtr HPoint2_Copy(IntPtr ptr);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Line2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
+        
         internal abstract IntPtr Line2_Create(double a, double b, double c);
 
         internal abstract IntPtr CreateFromPoints(Point2d p1, Point2d p2);
@@ -115,9 +139,16 @@ namespace CGALDotNet.Geometry
 
         internal abstract Vector2d Line2_Vector(IntPtr ptr);
 
-        internal abstract IntPtr Line2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+        internal abstract void Line2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
-        //Ray2
+        internal abstract IntPtr Line2_Copy(IntPtr ptr);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Ray2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
+
         internal abstract IntPtr Ray2_Create(Point2d position, Vector2d direction);
 
         internal abstract void Ray2_Release(IntPtr ptr);
@@ -138,9 +169,16 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Ray2_Line(IntPtr ptr);
 
-        internal abstract IntPtr Ray2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
+        internal abstract void Ray2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
 
-        //Segment2
+        internal abstract IntPtr Ray2_Copy(IntPtr ptr);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Segment2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
+
         internal abstract IntPtr Segment2_Create(Point2d a, Point2d b);
 
         internal abstract void Segment2_Release(IntPtr ptr);
@@ -167,9 +205,16 @@ namespace CGALDotNet.Geometry
 
         internal abstract double Segment2_SqrLength(IntPtr ptr);
 
-        internal abstract IntPtr Segment2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
+        internal abstract void Segment2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
 
-        //Triangle2
+        internal abstract IntPtr Segment2_Copy(IntPtr ptr);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The Triangle2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
+
         internal abstract IntPtr Triangle2_Create(Point2d a, Point2d b, Point2d c);
 
         internal abstract void Triangle2_Release(IntPtr ptr);
@@ -188,9 +233,16 @@ namespace CGALDotNet.Geometry
 
         internal abstract bool Triangle2_IsDegenerate(IntPtr ptr);
 
-        internal abstract IntPtr Triangle2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
+        internal abstract void Triangle2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
 
-        //IsoRectangle2
+        internal abstract IntPtr Triangle2_Copy(IntPtr ptr);
+
+        /// <summary>--------------------------------------------------------
+        /// 
+        ///                 The IsoRectangle2 Class Functions
+        /// 
+        /// </summary>-------------------------------------------------------
+
         internal abstract IntPtr IsoRectangle2_Create(Point2d min, Point2d max);
 
         internal abstract void IsoRectangle2_Release(IntPtr ptr);
@@ -211,7 +263,9 @@ namespace CGALDotNet.Geometry
 
         internal abstract bool IsoRectangle2_IsDegenerate(IntPtr ptr);
 
-        internal abstract IntPtr IsoRectangle2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+        internal abstract void IsoRectangle2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+
+        internal abstract IntPtr IsoRectangle2_Copy(IntPtr ptr);
 
     }
 }

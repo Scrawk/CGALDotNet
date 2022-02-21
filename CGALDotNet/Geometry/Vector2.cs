@@ -68,6 +68,11 @@ namespace CGALDotNet.Geometry
             return string.Format("[Vector2<{0}>: x={1}, y={2}]",
                 Kernel.KernelName, x, y);
         }
+
+        public Vector2<K> Copy()
+        {
+            return new Vector2<K>(Kernel.Vector2_Copy(Ptr));
+        }
     }
 
     public abstract class Vector2 : CGALObject

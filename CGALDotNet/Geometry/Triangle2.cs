@@ -27,10 +27,14 @@ namespace CGALDotNet.Geometry
                 Kernel.KernelName, A, B, C);
         }
 
-        public Triangle2<K> Transform(Point2d translation, Degree rotation, double scale)
+        public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            var ptr = Kernel.Triangle2_Transform(Ptr, translation, rotation.radian, scale);
-            return new Triangle2<K>(ptr);
+            Kernel.Triangle2_Transform(Ptr, translation, rotation.radian, scale);
+        }
+
+        public Triangle2<K> Copy()
+        {
+            return new Triangle2<K>(Kernel.Triangle2_Copy(Ptr));
         }
     }
 

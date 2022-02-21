@@ -42,10 +42,14 @@ namespace CGALDotNet.Geometry
 
         public Line2<K> Line => new Line2<K>(Kernel.Segment2_Line(Ptr));
 
-        public Segment2<K> Transform(Point2d translation, Degree rotation, double scale)
+        public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            var ptr = Kernel.Segment2_Transform(Ptr, translation, rotation.radian, scale);
-            return new Segment2<K>(ptr);
+            Kernel.Segment2_Transform(Ptr, translation, rotation.radian, scale);
+        }
+
+        public Segment2<K> Copy()
+        {
+            return new Segment2<K>(Kernel.Segment2_Copy(Ptr));
         }
     }
 

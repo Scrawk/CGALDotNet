@@ -46,11 +46,18 @@ namespace CGALDotNet.Geometry
         /// <param name="translation">The amount to translate.</param>
         /// <param name="rotation">The amount to rotate</param>
         /// <param name="scale">The amount to scale.</param>
-        /// <returns>The transformed rectangle.</returns>
-        public IsoRectangle2<K> Transform(Point2d translation, Degree rotation, double scale)
+        public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            var ptr = Kernel.Line2_Transform(Ptr, translation, rotation.radian, scale);
-            return new IsoRectangle2<K>(ptr);
+            Kernel.IsoRectangle2_Transform(Ptr, translation, rotation.radian, scale);
+        }
+
+        /// <summary>
+        /// Create a deep copy of the rectangle.
+        /// </summary>
+        /// <returns>The deep copy.</returns>
+        public IsoRectangle2<K> Copy()
+        {
+            return new IsoRectangle2<K>(Kernel.IsoRectangle2_Copy(Ptr));
         }
     }
 

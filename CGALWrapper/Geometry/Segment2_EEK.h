@@ -32,6 +32,8 @@ extern "C"
 
 	CGALWRAPPER_API double Segment2_EEK_SqrLength(void* ptr);
 
-	CGALWRAPPER_API void* Segment2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
+	CGALWRAPPER_API void Segment2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
+
+	CGALWRAPPER_API void* Segment2_EEK_Copy(void* ptr);
 }
 
