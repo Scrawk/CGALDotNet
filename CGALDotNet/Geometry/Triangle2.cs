@@ -7,78 +7,144 @@ using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Geometry
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="K"></typeparam>
     public sealed class Triangle2<K> : Triangle2 where K : CGALKernel, new()
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
         public Triangle2(Point2d a, Point2d b, Point2d c) : base(a, b, c, new K())
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ptr"></param>
         internal Triangle2(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Triangle2<{0}>: A={1}, B={2}, C={2}]",
                 Kernel.KernelName, A, B, C);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translation"></param>
+        /// <param name="rotation"></param>
+        /// <param name="scale"></param>
         public void Transform(Point2d translation, Degree rotation, double scale)
         {
             Kernel.Triangle2_Transform(Ptr, translation, rotation.radian, scale);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Triangle2<K> Copy()
         {
             return new Triangle2<K>(Kernel.Triangle2_Copy(Ptr));
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class Triangle2 : CGALObject
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         private Triangle2()
         {
        
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="kernel"></param>
         internal Triangle2(Point2d a, Point2d b, Point2d c, CGALKernel kernel)
         {
             Kernel = kernel.GeometryKernel2;
             Ptr = Kernel.Triangle2_Create(a, b, c);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kernel"></param>
+        /// <param name="ptr"></param>
         internal Triangle2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.GeometryKernel2;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected private GeometryKernel2 Kernel { get; private set; }
 
+        /// <summary>
+        /// Convert to shape struct.
+        /// </summary>
+        public Triangle2d Shape => new Triangle2d(A, B, C);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Point2d A
         {
             get { return Kernel.Segment2_GetVertex(Ptr, 0); }
             set { Kernel.Segment2_SetVertex(Ptr, 0, value); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point2d B
         {
             get { return Kernel.Segment2_GetVertex(Ptr, 1); }
             set { Kernel.Segment2_SetVertex(Ptr, 1, value); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point2d C
         {
             get { return Kernel.Segment2_GetVertex(Ptr, 2); }
             set { Kernel.Segment2_SetVertex(Ptr, 2, value); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsDegenerate => Kernel.Triangle2_IsDegenerate(Ptr);
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double Area
         {
             get
@@ -90,6 +156,9 @@ namespace CGALDotNet.Geometry
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ORIENTATION Orientation
         {
             get
@@ -101,6 +170,11 @@ namespace CGALDotNet.Geometry
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         public BOUNDED_SIDE BoundedSide(Point2d point)
         {
             if (IsDegenerate)
@@ -109,6 +183,11 @@ namespace CGALDotNet.Geometry
                 return Kernel.Triangle2_BoundedSide(Ptr, point);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         public ORIENTED_SIDE OrientedSide(Point2d point)
         {
             if (IsDegenerate)
@@ -117,6 +196,9 @@ namespace CGALDotNet.Geometry
                 return Kernel.Triangle2_OrientedSide(Ptr, point);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void ReleasePtr()
         {
             Kernel.Triangle2_Release(Ptr);

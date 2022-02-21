@@ -117,6 +117,12 @@ namespace CGALDotNet.Geometry
 
         internal abstract double Line2_GetC(IntPtr ptr);
 
+        internal abstract void Line2_SetA(IntPtr ptr, double a);
+
+        internal abstract void Line2_SetB(IntPtr ptr, double b);
+
+        internal abstract void Line2_SetC(IntPtr ptr, double c);
+
         internal abstract bool Line2_IsDegenerate(IntPtr ptr);
 
         internal abstract bool Line2_IsHorizontal(IntPtr ptr);

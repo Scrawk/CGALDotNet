@@ -21,6 +21,12 @@ extern "C"
 
 	CGALWRAPPER_API double Line2_EIK_GetC(void* ptr);
 
+	CGALWRAPPER_API void Line2_EIK_SetA(void* ptr, double a);
+
+	CGALWRAPPER_API void Line2_EIK_SetB(void* ptr, double b);
+
+	CGALWRAPPER_API void Line2_EIK_SetC(void* ptr, double c);
+
 	CGALWRAPPER_API BOOL Line2_EIK_IsDegenerate(void* ptr);
 
 	CGALWRAPPER_API BOOL Line2_EIK_IsHorizontal(void* ptr);

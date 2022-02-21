@@ -247,6 +247,21 @@ namespace CGALDotNet.Geometry
             return Line2_EEK_GetC(ptr);
         }
 
+        internal override void Line2_SetA(IntPtr ptr, double a)
+        {
+            Line2_EEK_SetA(ptr, a);
+        }
+
+        internal override void Line2_SetB(IntPtr ptr, double b)
+        {
+            Line2_EEK_SetB(ptr, b);
+        }
+
+        internal override void Line2_SetC(IntPtr ptr, double c)
+        {
+            Line2_EEK_SetC(ptr, c);
+        }
+
         internal override bool Line2_IsDegenerate(IntPtr ptr)
         {
             return Line2_EEK_IsDegenerate(ptr);
@@ -734,6 +749,15 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern double Line2_EEK_GetC(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Line2_EEK_SetA(IntPtr ptr, double a);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Line2_EEK_SetB(IntPtr ptr, double b);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Line2_EEK_SetC(IntPtr ptr, double c);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool Line2_EEK_IsDegenerate(IntPtr ptr);

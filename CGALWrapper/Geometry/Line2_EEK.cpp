@@ -62,6 +62,24 @@ double Line2_EEK_GetC(void* ptr)
 	return CGAL::to_double(line->c());
 }
 
+void Line2_EEK_SetA(void* ptr, double a)
+{
+	auto line = CastToLine2(ptr);
+	(*line) = Line2(a, line->b(), line->c());
+}
+
+void Line2_EEK_SetB(void* ptr, double b)
+{
+	auto line = CastToLine2(ptr);
+	(*line) = Line2(line->a(), b, line->c());
+}
+
+void Line2_EEK_SetC(void* ptr, double c)
+{
+	auto line = CastToLine2(ptr);
+	(*line) = Line2(line->a(), line->b(), c);
+}
+
 BOOL Line2_EEK_IsDegenerate(void* ptr)
 {
 	auto line = CastToLine2(ptr);

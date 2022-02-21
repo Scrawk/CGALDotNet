@@ -2611,6 +2611,11 @@
             Contains the functions to the unmanaged CGAL object.
             </summary>
         </member>
+        <member name="P:CGALDotNet.Geometry.IsoRectangle2.Shape">
+            <summary>
+            Convert to shape struct.
+            </summary>
+        </member>
         <member name="P:CGALDotNet.Geometry.IsoRectangle2.Min">
             <summary>
             The rectangles min point.
@@ -2652,6 +2657,12 @@
             Release the unmanaged pointer.
             </summary>
         </member>
+        <member name="T:CGALDotNet.Geometry.Line2`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="K"></typeparam>
+        </member>
         <member name="F:CGALDotNet.Geometry.Line2`1.Horizontal">
             <summary>
             A horizontal line on the x axis.
@@ -2660,6 +2671,180 @@
         <member name="F:CGALDotNet.Geometry.Line2`1.Vertical">
             <summary>
             A vertical line on the y axis.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>
+            
+            </summary>
+            <param name="p"></param>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2`1.Opposite">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.Perpendicular(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="translation"></param>
+            <param name="rotation"></param>
+            <param name="scale"></param>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Line2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.#ctor(System.Double,System.Double,System.Double,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="p"></param>
+            <param name="v"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.Kernel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.Shape">
+            <summary>
+            Convert to shape struct.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.A">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.B">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.C">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.IsDegenerate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.IsHorizontal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.IsVertical">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Line2.Vector">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.HasOn(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.HasOnNegativeSide(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.HasOnPositiveSide(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.X_On_Y(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.Y_On_X(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2.ReleasePtr">
+            <summary>
+            
             </summary>
         </member>
         <member name="F:CGALDotNet.Geometry.Point2`1.UnitX">
@@ -2687,6 +2872,12 @@
             A point of halfs.
             </summary>
         </member>
+        <member name="T:CGALDotNet.Geometry.Ray2`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="K"></typeparam>
+        </member>
         <member name="F:CGALDotNet.Geometry.Ray2`1.UnitX">
             <summary>
             The unit x ray.
@@ -2697,6 +2888,127 @@
             The unit y ray.
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>
+            
+            </summary>
+            <param name="position"></param>
+            <param name="direction"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2`1.Opposite">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2`1.Line">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="translation"></param>
+            <param name="rotation"></param>
+            <param name="scale"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.Copy">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Ray2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Vector2d,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="position"></param>
+            <param name="direction"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="kernel"></param>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2.Kernel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2.Shape">
+            <summary>
+            Convert to shape struct.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2.IsDegenerate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2.IsHorizontal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2.IsVertical">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2.Position">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Ray2.Direction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2.HasOn(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Segment2`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="K"></typeparam>
+        </member>
         <member name="F:CGALDotNet.Geometry.Segment2`1.Horizontal">
             <summary>
             A horizontal line on the x axis.
@@ -2706,6 +3018,267 @@
             <summary>
             A vertical line on the y axis.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2`1.Line">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="translation"></param>
+            <param name="rotation"></param>
+            <param name="scale"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.Copy">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Segment2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="kernel"></param>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.Kernel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.Shape">
+            <summary>
+            Convert to shape struct.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.A">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.B">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.Min">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.Max">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.IsDegenerate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.IsHorizontal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.IsVertical">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.Vector">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Segment2.SqrLength">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2.HasOn(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Triangle2`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="K"></typeparam>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="translation"></param>
+            <param name="rotation"></param>
+            <param name="scale"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.Copy">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Triangle2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="kernel"></param>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.Kernel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.Shape">
+            <summary>
+            Convert to shape struct.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.A">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.B">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.C">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.IsDegenerate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.Area">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Triangle2.Orientation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.BoundedSide(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.OrientedSide(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Vector2`1">
+            <summary>
+            A Vector2 object with kernel type K.
+            </summary>
+            <typeparam name="K">The type of kernel.</typeparam>
         </member>
         <member name="F:CGALDotNet.Geometry.Vector2`1.UnitX">
             <summary>
@@ -2726,6 +3299,94 @@
             <summary>
             A vector of ones.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.#ctor">
+            <summary>
+            Create a new Vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.#ctor(System.Double)">
+            <summary>
+            Create a new vector filled with the value.
+            </summary>
+            <param name="v">The value to fill.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.#ctor(System.Double,System.Double)">
+            <summary>
+            Create a new vector with the values x and y.
+            </summary>
+            <param name="x">The vectors x value.</param>
+            <param name="y">The vectors y value.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.#ctor(System.IntPtr)">
+            <summary>
+            Create a new vector from a existing pointer.
+            </summary>
+            <param name="ptr">The pointer object.</param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2`1.x">
+            <summary>
+            Access the x component.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2`1.y">
+            <summary>
+            Access the y component.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.ToString">
+            <summary>
+            Vector information.
+            </summary>
+            <returns>The vectors string information.</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.Copy">
+            <summary>
+            Create a deep copy of the vector.
+            </summary>
+            <returns>The deep copy.</returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Vector2">
+            <summary>
+            The vectors abstract bass class.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.#ctor(CGALDotNet.CGALKernel)">
+            <summary>
+            Create a new vector with the kernel.
+            </summary>
+            <param name="kernel">The vectors kernel.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.#ctor(System.Double,System.Double,CGALDotNet.CGALKernel)">
+            <summary>
+            Create a new vector from the x and y values.
+            </summary>
+            <param name="x">The vectors x value.</param>
+            <param name="y">The vectors y value.</param>
+            <param name="kernel">The vectors kernel.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            Create a new vector from a existing pointer.
+            </summary>
+            <param name="kernel">The vectors kernel.</param>
+            <param name="ptr">The existing pointer.</param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2.Kernel">
+            <summary>
+            The vectors kernel.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.ReleasePtr">
+            <summary>
+            Release the vectors pointer.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.ReleasePtr(System.IntPtr)">
+            <summary>
+            Release a pointer to a vector.
+            </summary>
+            <param name="ptr">The pointer to release.</param>
         </member>
         <member name="T:CGALDotNet.Hulls.HULL_METHOD">
             <summary>

@@ -104,6 +104,11 @@ namespace CGALDotNet.Geometry
         protected private GeometryKernel2 Kernel { get; private set; }
 
         /// <summary>
+        /// Convert to shape struct.
+        /// </summary>
+        public Box2d Shape => new Box2d(Min, Max);
+
+        /// <summary>
         /// The rectangles min point.
         /// </summary>
         public Point2d Min
