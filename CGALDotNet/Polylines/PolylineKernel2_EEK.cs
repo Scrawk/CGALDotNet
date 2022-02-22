@@ -11,7 +11,7 @@ namespace CGALDotNet.Polylines
 {
     internal class PolylineKernel2_EEK : PolylineKernel2
     {
-        internal override string KernelName => "EEK";
+        internal override string Name => "EEK";
 
         internal static readonly PolylineKernel2 Instance = new PolylineKernel2_EEK();
 

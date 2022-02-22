@@ -28,4 +28,6 @@ extern "C"
 	CGALWRAPPER_API BOOL IsoRectangle2_EIK_IsDegenerate(void* ptr);
 
 	CGALWRAPPER_API void IsoRectangle2_EIK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
+
+	CGALWRAPPER_API void* IsoRectangle2_EIK_Convert(void* ptr);
 }

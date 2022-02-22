@@ -10,7 +10,7 @@ namespace CGALDotNet.Arrangements
 {
     internal class SweepLineKernel_EIK : SweepLineKernel
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly SweepLineKernel Instance = new SweepLineKernel_EIK();
 

@@ -10,7 +10,7 @@ namespace CGALDotNet.Arrangements
 {
     internal class SweepLineKernel_EEK : SweepLineKernel
     {
-        internal override string KernelName => "EEK";
+        internal override string Name => "EEK";
 
         internal static readonly SweepLineKernel Instance = new SweepLineKernel_EEK();
 

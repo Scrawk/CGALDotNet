@@ -2,6 +2,7 @@
 #include "IsoRectangle2_EIK.h"
 #include <CGAL/Iso_rectangle_2.h>
 #include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 typedef CGAL::Iso_rectangle_2<EIK> IsoRectangle2;
 typedef CGAL::Aff_transformation_2<EIK> Transformation2;
@@ -106,5 +107,17 @@ void* IsoRectangle2_EIK_Copy(void* ptr)
 
 	(*nrec) = *rec;
 	return nrec;
+}
+
+void* IsoRectangle2_EIK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EIK, EEK> EIK_to_EEK;
+	EIK_to_EEK InexactToExact;
+
+	auto rec = CastToIsoRectangle2(ptr);
+	auto min = InexactToExact(rec->min());
+	auto max = InexactToExact(rec->max());
+
+	return new CGAL::Iso_rectangle_2<EEK>(min, max);
 }
 

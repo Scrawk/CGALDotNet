@@ -67,7 +67,7 @@ namespace CGALDotNet.Geometry
         public override string ToString()
         {
             return string.Format("[HPoint2<{0}>: x={1}, y={2}, w={3}]",
-                Kernel.KernelName, x, y, w);
+                Kernel.Name, x, y, w);
         }
 
         /// <summary>

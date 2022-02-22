@@ -12,7 +12,7 @@ namespace CGALDotNet
 
         protected const CallingConvention CDECL = CallingConvention.Cdecl;
 
-        internal abstract string KernelName { get; }
+        internal abstract string Name { get; }
 
     }
 }

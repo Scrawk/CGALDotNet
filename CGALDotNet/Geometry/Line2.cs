@@ -76,7 +76,7 @@ namespace CGALDotNet.Geometry
         public override string ToString()
         {
             return string.Format("[Line2<{0}>: A={1}, B={2}, C={3}]",
-                Kernel.KernelName, A, B, C);
+                Kernel.Name, A, B, C);
         }
 
         /// <summary>

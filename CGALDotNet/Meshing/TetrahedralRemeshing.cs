@@ -42,7 +42,7 @@ namespace CGALDotNet.Meshing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[TetrahedralRemeshing<{0}>: ]", Kernel.KernelName);
+            return string.Format("[TetrahedralRemeshing<{0}>: ]", Kernel.Name);
         }
     }
 

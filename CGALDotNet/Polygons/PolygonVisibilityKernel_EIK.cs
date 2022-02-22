@@ -9,7 +9,7 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonVisibilityKernel_EIK : PolygonVisibilityKernel
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly PolygonVisibilityKernel Instance = new PolygonVisibilityKernel_EIK();
 

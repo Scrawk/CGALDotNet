@@ -10,7 +10,7 @@ namespace CGALDotNet.Processing
 {
     internal class MeshProcessingBooleanKernel_EIK : MeshProcessingBooleanKernel
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly MeshProcessingBooleanKernel Instance = new MeshProcessingBooleanKernel_EIK();
 

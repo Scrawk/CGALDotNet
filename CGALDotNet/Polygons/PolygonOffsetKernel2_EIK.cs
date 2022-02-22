@@ -10,7 +10,7 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonOffsetKernel2_EIK : PolygonOffsetKernel2
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly PolygonOffsetKernel2 Instance = new PolygonOffsetKernel2_EIK();
 

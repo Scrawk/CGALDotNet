@@ -52,7 +52,7 @@ namespace CGALDotNet.Triangulations
         public override string ToString()
         {
             return string.Format("[Triangulation2<{0}>: VertexCount={1}, TriangleCount={2}]",
-                Kernel.KernelName, VertexCount, TriangleCount);
+                Kernel.Name, VertexCount, TriangleCount);
         }
 
         /// <summary>

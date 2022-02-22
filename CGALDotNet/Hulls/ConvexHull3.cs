@@ -34,7 +34,7 @@ namespace CGALDotNet.Hulls
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[ConvexHull3<{0}>: ]", Kernel.KernelName);
+            return string.Format("[ConvexHull3<{0}>: ]", Kernel.Name);
         }
 
         /// <summary>

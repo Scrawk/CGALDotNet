@@ -52,7 +52,7 @@ namespace CGALDotNet.Geometry
         public override string ToString()
         {
             return string.Format("[Segment2<{0}>: A={1}, B={2}]",
-                Kernel.KernelName, A, B);
+                Kernel.Name, A, B);
         }
 
         /// <summary>

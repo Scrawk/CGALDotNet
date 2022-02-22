@@ -31,7 +31,7 @@ namespace CGALDotNet.Processing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[SurfaceSimplification<{0}>: ]", Kernel.KernelName);
+            return string.Format("[SurfaceSimplification<{0}>: ]", Kernel.Name);
         }
 
     }

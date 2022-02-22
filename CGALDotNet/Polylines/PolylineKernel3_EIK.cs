@@ -11,7 +11,7 @@ namespace CGALDotNet.Polylines
 {
     internal class PolylineKernel3_EIK : PolylineKernel3
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly PolylineKernel3 Instance = new PolylineKernel3_EIK();
 

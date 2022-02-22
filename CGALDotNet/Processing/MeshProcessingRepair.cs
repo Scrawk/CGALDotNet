@@ -40,7 +40,7 @@ namespace CGALDotNet.Processing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[MeshProcessingRepair<{0}>: ]", Kernel.KernelName);
+            return string.Format("[MeshProcessingRepair<{0}>: ]", Kernel.Name);
         }
 
         /*

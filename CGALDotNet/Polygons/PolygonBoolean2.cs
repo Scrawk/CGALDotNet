@@ -39,7 +39,7 @@ namespace CGALDotNet.Polygons
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[PolygonBoolean2<{0}>: ]", Kernel.KernelName);
+            return string.Format("[PolygonBoolean2<{0}>: ]", Kernel.Name);
         }
 
         /// <summary>

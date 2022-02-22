@@ -48,7 +48,7 @@ namespace CGALDotNet.Polylines
         public override string ToString()
         {
             return string.Format("[Polyline3<{0}>: Count={1}]",
-                Kernel.KernelName, Count);
+                Kernel.Name, Count);
         }
 
         /// <summary>

@@ -53,7 +53,7 @@ namespace CGALDotNet.Triangulations
         public override string ToString()
         {
             return string.Format("[ConstrainedDelaunayTriangulation2<{0}>: VertexCount={1}, FaceCount={2}]",
-                Kernel.KernelName, VertexCount, TriangleCount);
+                Kernel.Name, VertexCount, TriangleCount);
         }
 
         /// <summary>

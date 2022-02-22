@@ -11,7 +11,7 @@ namespace CGALDotNet.Polygons
 
     internal class PolygonKernel2_EEK : PolygonKernel2
     {
-        internal override string KernelName => "EEK";
+        internal override string Name => "EEK";
 
         internal static readonly PolygonKernel2 Instance = new PolygonKernel2_EEK();
 

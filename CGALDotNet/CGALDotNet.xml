@@ -1508,6 +1508,12 @@
             </summary>
             <returns>The deep copy.</returns>
         </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Box2">
             <summary>
             The abstract iso rectangle definition.

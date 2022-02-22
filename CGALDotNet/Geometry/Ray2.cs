@@ -50,7 +50,7 @@ namespace CGALDotNet.Geometry
         public override string ToString()
         {
             return string.Format("[Ray2<{0}>: Position={1}, Direction={2}]",
-                Kernel.KernelName, Position, Direction);
+                Kernel.Name, Position, Direction);
         }
 
         /// <summary>

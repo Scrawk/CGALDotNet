@@ -42,7 +42,7 @@ namespace CGALDotNet.Meshing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[SkinMeshing<{0}>: ]", Kernel.KernelName);
+            return string.Format("[SkinMeshing<{0}>: ]", Kernel.Name);
         }
 
         /// <summary>

@@ -22,24 +22,12 @@
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/Quotient.h>
 #include <CGAL/MP_Float.h>
-#include <CGAL/Cartesian_converter.h>
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel EIK;
 typedef CGAL::Exact_predicates_exact_constructions_kernel EEK;
 typedef CGAL::Exact_predicates_exact_constructions_kernel_with_sqrt EEK_SQRT2;
 typedef CGAL::Exact_predicates_exact_constructions_kernel_with_kth_root EEK_KTH_ROOT;
 typedef CGAL::Exact_predicates_exact_constructions_kernel_with_root_of EEK_ROOT_OF;
-
-/*
-namespace Converters
-{
-    typedef CGAL::Cartesian_converter<EIK, EEK> EIK_to_EEK;
-    typedef CGAL::Cartesian_converter<EEK, EIK> EEK_to_EIK;
-
-    EIK_to_EEK InexactToExact;
-    EEK_to_EIK ExactToInexact;
-}
-*/
 
 enum class CGAL_KERNEL : int
 {

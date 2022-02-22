@@ -86,7 +86,7 @@ namespace CGALDotNet.Polyhedra
         public override string ToString()
         {
             return string.Format("[NefPolyhedra3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
-                Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount);
+                Kernel.Name, VertexCount, HalfEdgeCount, FaceCount);
         }
 
         /// <summary>

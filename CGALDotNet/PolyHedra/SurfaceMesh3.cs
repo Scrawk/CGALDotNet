@@ -55,7 +55,7 @@ namespace CGALDotNet.Polyhedra
         public override string ToString()
         {
             return string.Format("[SurfaceMesh3<{0}>: VertexCount={1}, HalfEdgeCount={2}, FaceCount={3}]",
-                Kernel.KernelName, VertexCount, HalfedgeCount, FaceCount);
+                Kernel.Name, VertexCount, HalfedgeCount, FaceCount);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace CGALDotNet.Processing
 {
     internal class MeshProcessingMeshingKernel_EEK : MeshProcessingMeshingKernel
     {
-        internal override string KernelName => "EEK";
+        internal override string Name => "EEK";
 
         internal static readonly MeshProcessingMeshingKernel Instance = new MeshProcessingMeshingKernel_EEK();
 

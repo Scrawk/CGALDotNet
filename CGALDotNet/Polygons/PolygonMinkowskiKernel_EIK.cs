@@ -6,7 +6,7 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonMinkowskiKernel_EIK : PolygonMinkowskiKernel
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly PolygonMinkowskiKernel Instance = new PolygonMinkowskiKernel_EIK();
 

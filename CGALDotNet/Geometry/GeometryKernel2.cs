@@ -273,5 +273,6 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr IsoRectangle2_Copy(IntPtr ptr);
 
+        internal abstract IntPtr IsoRectangle2_Convert(IntPtr ptr);
     }
 }

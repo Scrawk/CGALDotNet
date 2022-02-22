@@ -82,7 +82,7 @@ namespace CGALDotNet.Geometry
         public override string ToString()
         {
             return string.Format("[Point2<{0}>: x={1}, y={2}]",
-                Kernel.KernelName, x, y);
+                Kernel.Name, x, y);
         }
 
         /// <summary>

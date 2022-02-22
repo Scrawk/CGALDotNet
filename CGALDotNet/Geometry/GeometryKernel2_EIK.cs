@@ -9,7 +9,7 @@ namespace CGALDotNet.Geometry
 {
     internal class GeometryKernel2_EIK : GeometryKernel2
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly GeometryKernel2 Instance = new GeometryKernel2_EIK();
 
@@ -600,6 +600,11 @@ namespace CGALDotNet.Geometry
             return IsoRectangle2_EIK_Copy(ptr);
         }
 
+        internal override IntPtr IsoRectangle2_Convert(IntPtr ptr)
+        {
+            return IsoRectangle2_EIK_Convert(ptr);
+        }
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Point2 extern functions
@@ -971,5 +976,8 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr IsoRectangle2_EIK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr IsoRectangle2_EIK_Convert(IntPtr ptr);
     }
 }

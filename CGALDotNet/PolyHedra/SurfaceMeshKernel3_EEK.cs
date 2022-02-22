@@ -10,7 +10,7 @@ namespace CGALDotNet.Polyhedra
 {
     internal class SurfaceMeshKernel3_EEK : SurfaceMeshKernel3
     {
-        internal override string KernelName => "EEK";
+        internal override string Name => "EEK";
 
         internal static readonly SurfaceMeshKernel3 Instance = new SurfaceMeshKernel3_EEK();
 

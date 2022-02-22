@@ -9,7 +9,7 @@ namespace CGALDotNet.Polygons
 {
     internal class PolygonSimplificationKernel2_EEK : PolygonSimplificationKernel2
     {
-        internal override string KernelName => "EEK";
+        internal override string Name => "EEK";
 
         internal static readonly PolygonSimplificationKernel2 Instance = new PolygonSimplificationKernel2_EEK();
 

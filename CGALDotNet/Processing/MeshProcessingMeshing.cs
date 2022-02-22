@@ -41,7 +41,7 @@ namespace CGALDotNet.Processing
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[MeshProcessingMeshing<{0}>: ]", Kernel.KernelName);
+            return string.Format("[MeshProcessingMeshing<{0}>: ]", Kernel.Name);
         }
 
         /// <summary>

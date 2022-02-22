@@ -39,7 +39,7 @@ namespace CGALDotNet.Arrangements
         public override string ToString()
         {
             return string.Format("[Arrangement2<{0}>: Vertices={1}, HalfEdges={2}, Faces={3}, Locator={4}]",
-                Kernel.KernelName, VertexCount, HalfEdgeCount, FaceCount, Locator);
+                Kernel.Name, VertexCount, HalfEdgeCount, FaceCount, Locator);
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace CGALDotNet.Polygons
 {
     internal sealed class PolygonWithHolesKernel2_EIK : PolygonWithHolesKernel2
     {
-        internal override string KernelName => "EIK";
+        internal override string Name => "EIK";
 
         internal static readonly PolygonWithHolesKernel2_EIK Instance = new PolygonWithHolesKernel2_EIK();
 
