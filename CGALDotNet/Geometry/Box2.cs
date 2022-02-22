@@ -11,12 +11,12 @@ namespace CGALDotNet.Geometry
     /// The generic IsoRectangle wrapper for a CGAL object.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
-    public sealed class IsoRectangle2<K> : IsoRectangle2 where K : CGALKernel, new()
+    public sealed class Box2<K> : Box2 where K : CGALKernel, new()
     {
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public IsoRectangle2(Point2d min, Point2d max) : base(min, max, new K())
+        public Box2(Point2d min, Point2d max) : base(min, max, new K())
         {
 
         }
@@ -25,7 +25,7 @@ namespace CGALDotNet.Geometry
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The iso rectangle pointer.</param>
-        internal IsoRectangle2(IntPtr ptr) : base(new K(), ptr)
+        internal Box2(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
@@ -36,8 +36,35 @@ namespace CGALDotNet.Geometry
         /// <returns>The iso rectangle as a string.</returns>
         public override string ToString()
         {
-            return string.Format("[IsoRectangle2<{0}>: Min={1}, Max={2}]", 
+            return string.Format("[Box2<{0}>: Min={1}, Max={2}]", 
                 Kernel.KernelName, Min, Max);
+        }
+
+        /// <summary>
+        /// Translate the shape.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        public void Translate(Point2d translation)
+        {
+            Kernel.IsoRectangle2_Transform(Ptr, translation, 0, 1);
+        }
+
+        /// <summary>
+        /// Rotate the shape.
+        /// </summary>
+        /// <param name="rotation">The amount to rotate.</param>
+        public void Rotate(Degree rotation)
+        {
+            Kernel.IsoRectangle2_Transform(Ptr, Point2d.Zero, rotation.radian, 1);
+        }
+
+        /// <summary>
+        /// Scale the shape.
+        /// </summary>
+        /// <param name="scale">The amount to scale.</param>
+        public void Scale(double scale)
+        {
+            Kernel.IsoRectangle2_Transform(Ptr, Point2d.Zero, 0, scale);
         }
 
         /// <summary>
@@ -55,22 +82,22 @@ namespace CGALDotNet.Geometry
         /// Create a deep copy of the rectangle.
         /// </summary>
         /// <returns>The deep copy.</returns>
-        public IsoRectangle2<K> Copy()
+        public Box2<K> Copy()
         {
-            return new IsoRectangle2<K>(Kernel.IsoRectangle2_Copy(Ptr));
+            return new Box2<K>(Kernel.IsoRectangle2_Copy(Ptr));
         }
     }
 
     /// <summary>
     /// The abstract iso rectangle definition.
     /// </summary>
-    public abstract class IsoRectangle2 : CGALObject
+    public abstract class Box2 : CGALObject
     {
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        private IsoRectangle2()
+        private Box2()
         {
 
         }
@@ -81,7 +108,7 @@ namespace CGALDotNet.Geometry
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="kernel"></param>
-        internal IsoRectangle2(Point2d min, Point2d max, CGALKernel kernel)
+        internal Box2(Point2d min, Point2d max, CGALKernel kernel)
         {
             Kernel = kernel.GeometryKernel2;
             Ptr = Kernel.IsoRectangle2_Create(min, max);
@@ -92,7 +119,7 @@ namespace CGALDotNet.Geometry
         /// </summary>
         /// <param name="kernel">The geometry kernel.</param>
         /// <param name="ptr">The IsoRectangle pointer.</param>
-        internal IsoRectangle2(CGALKernel kernel, IntPtr ptr) : base(ptr)
+        internal Box2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.GeometryKernel2;
         }

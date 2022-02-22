@@ -91,6 +91,33 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// Translate the shape.
+        /// </summary>
+        /// <param name="translation">The amount to translate.</param>
+        public void Translate(Point2d translation)
+        {
+            Kernel.Line2_Transform(Ptr, translation, 0, 1);
+        }
+
+        /// <summary>
+        /// Rotate the shape.
+        /// </summary>
+        /// <param name="rotation">The amount to rotate.</param>
+        public void Rotate(Degree rotation)
+        {
+            Kernel.Line2_Transform(Ptr, Point2d.Zero, rotation.radian, 1);
+        }
+
+        /// <summary>
+        /// Scale the shape.
+        /// </summary>
+        /// <param name="scale">The amount to scale.</param>
+        public void Scale(double scale)
+        {
+            Kernel.Line2_Transform(Ptr, Point2d.Zero, 0, scale);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="translation"></param>

@@ -41,7 +41,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_DoIntersect_PointTriangle(point.Ptr, triangle.Ptr);
         }
 
-        public static bool DoIntersect(Point2<EEK> point, IsoRectangle2<EEK> box)
+        public static bool DoIntersect(Point2<EEK> point, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_DoIntersect_PointBox(point.Ptr, box.Ptr);
         }
@@ -77,7 +77,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_DoIntersect_LineTriangle(line.Ptr, triangle.Ptr);
         }
 
-        public static bool DoIntersect(Line2<EEK> line, IsoRectangle2<EEK> box)
+        public static bool DoIntersect(Line2<EEK> line, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_DoIntersect_LineBox(line.Ptr, box.Ptr);
         }
@@ -113,7 +113,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_DoIntersect_RayTriangle(ray.Ptr, triangle.Ptr);
         }
 
-        public static bool DoIntersect(Ray2<EEK> ray, IsoRectangle2<EEK> box)
+        public static bool DoIntersect(Ray2<EEK> ray, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_DoIntersect_RayBox(ray.Ptr, box.Ptr);
         }
@@ -149,7 +149,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_DoIntersect_SegmentTriangle(segment.Ptr, triangle.Ptr);
         }
 
-        public static bool DoIntersect(Segment2<EEK> segment, IsoRectangle2<EEK> box)
+        public static bool DoIntersect(Segment2<EEK> segment, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_DoIntersect_SegmentBox(segment.Ptr, box.Ptr);
         }
@@ -185,7 +185,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_DoIntersect_TriangleTriangle(triangle.Ptr, triangle2.Ptr);
         }
 
-        public static bool DoIntersect(Triangle2<EEK> triangle, IsoRectangle2<EEK> box)
+        public static bool DoIntersect(Triangle2<EEK> triangle, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_DoIntersect_TriangleBox(triangle.Ptr, box.Ptr);
         }
@@ -196,32 +196,32 @@ namespace CGALDotNet.Geometry
         /// 
         /// </summary>--------------------------------------------------------
 
-        public static bool DoIntersect(IsoRectangle2<EEK> box, Point2<EEK> point)
+        public static bool DoIntersect(Box2<EEK> box, Point2<EEK> point)
         {
             return Intersections_Geometry_EEK_DoIntersect_BoxPoint(box.Ptr, point.Ptr);
         }
 
-        public static bool DoIntersect(IsoRectangle2<EEK> box, Line2<EEK> line)
+        public static bool DoIntersect(Box2<EEK> box, Line2<EEK> line)
         {
             return Intersections_Geometry_EEK_DoIntersect_BoxLine(box.Ptr, line.Ptr);
         }
 
-        public static bool DoIntersect(IsoRectangle2<EEK> box, Ray2<EEK> ray)
+        public static bool DoIntersect(Box2<EEK> box, Ray2<EEK> ray)
         {
             return Intersections_Geometry_EEK_DoIntersect_BoxRay(box.Ptr, ray.Ptr);
         }
 
-        public static bool DoIntersect(IsoRectangle2<EEK> box, Segment2<EEK> segment)
+        public static bool DoIntersect(Box2<EEK> box, Segment2<EEK> segment)
         {
             return Intersections_Geometry_EEK_DoIntersect_BoxSegment(box.Ptr, segment.Ptr);
         }
 
-        public static bool DoIntersect(IsoRectangle2<EEK> box, Triangle2<EEK> triangle)
+        public static bool DoIntersect(Box2<EEK> box, Triangle2<EEK> triangle)
         {
             return Intersections_Geometry_EEK_DoIntersect_BoxTriangle(box.Ptr, triangle.Ptr);
         }
 
-        public static bool DoIntersect(IsoRectangle2<EEK> box, IsoRectangle2<EEK> box2)
+        public static bool DoIntersect(Box2<EEK> box, Box2<EEK> box2)
         {
             return Intersections_Geometry_EEK_DoIntersect_BoxBox(box.Ptr, box2.Ptr);
         }
@@ -252,7 +252,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_Intersection_PointTriangle(point.Ptr, triangle.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(Point2<EEK> point, IsoRectangle2<EEK> box)
+        public static IntersectionResult2d Intersection(Point2<EEK> point, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_Intersection_PointBox(point.Ptr, box.Ptr);
         }
@@ -288,7 +288,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_Intersection_LineTriangle(line.Ptr, triangle.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(Line2<EEK> line, IsoRectangle2<EEK> box)
+        public static IntersectionResult2d Intersection(Line2<EEK> line, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_Intersection_LineBox(line.Ptr, box.Ptr);
         }
@@ -324,7 +324,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_Intersection_RayTriangle(ray.Ptr, triangle.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(Ray2<EEK> ray, IsoRectangle2<EEK> box)
+        public static IntersectionResult2d Intersection(Ray2<EEK> ray, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_Intersection_RayBox(ray.Ptr, box.Ptr);
         }
@@ -360,7 +360,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_Intersection_SegmentTriangle(segment.Ptr, triangle.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(Segment2<EEK> segment, IsoRectangle2<EEK> box)
+        public static IntersectionResult2d Intersection(Segment2<EEK> segment, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_Intersection_SegmentBox(segment.Ptr, box.Ptr);
         }
@@ -396,7 +396,7 @@ namespace CGALDotNet.Geometry
             return Intersections_Geometry_EEK_Intersection_TriangleTriangle(triangle.Ptr, triangle2.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(Triangle2<EEK> triangle, IsoRectangle2<EEK> box)
+        public static IntersectionResult2d Intersection(Triangle2<EEK> triangle, Box2<EEK> box)
         {
             return Intersections_Geometry_EEK_Intersection_TriangleBox(triangle.Ptr, box.Ptr);
         }
@@ -407,32 +407,32 @@ namespace CGALDotNet.Geometry
         /// 
         /// </summary>-----------------------------------------------------
 
-        public static IntersectionResult2d Intersection(IsoRectangle2<EEK> box, Point2<EEK> point)
+        public static IntersectionResult2d Intersection(Box2<EEK> box, Point2<EEK> point)
         {
             return Intersections_Geometry_EEK_Intersection_BoxPoint(box.Ptr, point.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(IsoRectangle2<EEK> box, Line2<EEK> line)
+        public static IntersectionResult2d Intersection(Box2<EEK> box, Line2<EEK> line)
         {
             return Intersections_Geometry_EEK_Intersection_BoxLine(box.Ptr, line.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(IsoRectangle2<EEK> box, Ray2<EEK> ray)
+        public static IntersectionResult2d Intersection(Box2<EEK> box, Ray2<EEK> ray)
         {
             return Intersections_Geometry_EEK_Intersection_BoxRay(box.Ptr, ray.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(IsoRectangle2<EEK> box, Segment2<EEK> segment)
+        public static IntersectionResult2d Intersection(Box2<EEK> box, Segment2<EEK> segment)
         {
             return Intersections_Geometry_EEK_Intersection_BoxSegment(box.Ptr, segment.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(IsoRectangle2<EEK> box, Triangle2<EEK> triangle)
+        public static IntersectionResult2d Intersection(Box2<EEK> box, Triangle2<EEK> triangle)
         {
             return Intersections_Geometry_EEK_Intersection_BoxTriangle(box.Ptr, triangle.Ptr);
         }
 
-        public static IntersectionResult2d Intersection(IsoRectangle2<EEK> box, IsoRectangle2<EEK> box2)
+        public static IntersectionResult2d Intersection(Box2<EEK> box, Box2<EEK> box2)
         {
             return Intersections_Geometry_EEK_Intersection_BoxBox(box.Ptr, box2.Ptr);
         }

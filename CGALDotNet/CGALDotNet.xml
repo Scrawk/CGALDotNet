@@ -1444,6 +1444,138 @@
             <param name="inverse">The inverse if found, null otherwise.</param>
             <returns>True if the inverse was found.</returns>
         </member>
+        <member name="T:CGALDotNet.Geometry.Box2`1">
+            <summary>
+            The generic IsoRectangle wrapper for a CGAL object.
+            </summary>
+            <typeparam name="K">The kernel type.</typeparam>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.#ctor(System.IntPtr)">
+            <summary>
+            Create from a pointer.
+            </summary>
+            <param name="ptr">The iso rectangle pointer.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.ToString">
+            <summary>
+            The iso rectangle as a string.
+            </summary>
+            <returns>The iso rectangle as a string.</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.Translate(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Translate the shape.
+            </summary>
+            <param name="translation">The amount to translate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.Rotate(CGALDotNetGeometry.Numerics.Degree)">
+            <summary>
+            Rotate the shape.
+            </summary>
+            <param name="rotation">The amount to rotate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.Scale(System.Double)">
+            <summary>
+            Scale the shape.
+            </summary>
+            <param name="scale">The amount to scale.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
+            <summary>
+            Transform the rectangle.
+            </summary>
+            <param name="translation">The amount to translate.</param>
+            <param name="rotation">The amount to rotate</param>
+            <param name="scale">The amount to scale.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.Copy">
+            <summary>
+            Create a deep copy of the rectangle.
+            </summary>
+            <returns>The deep copy.</returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Box2">
+            <summary>
+            The abstract iso rectangle definition.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            Construct with a new kernel.
+            </summary>
+            <param name="kernel">The geometry kernel.</param>
+            <param name="ptr">The IsoRectangle pointer.</param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Box2.Kernel">
+            <summary>
+            The iso rectangle kernel.
+            Contains the functions to the unmanaged CGAL object.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Box2.Shape">
+            <summary>
+            Convert to shape struct.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Box2.Min">
+            <summary>
+            The rectangles min point.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Box2.Max">
+            <summary>
+            The rectangles max point.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Box2.Area">
+            <summary>
+            The rectangles area.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Box2.IsDegenerate">
+            <summary>
+            Is the rectangle degenerate.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2.BoundedSide(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            The side the rectangle the point is on.
+            </summary>
+            <param name="point">The point.</param>
+            <returns>If the point is iside, outside or on boundary.</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2.ContainsPoint(CGALDotNetGeometry.Numerics.Point2d,System.Boolean)">
+            <summary>
+            Does the rectangle contain the point.
+            </summary>
+            <param name="point">The point</param>
+            <param name="includeBoundary">Should a point on 
+            the boundary count as being inside.</param>
+            <returns>Does the rectangle contain the point</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2.ReleasePtr">
+            <summary>
+            Release the unmanaged pointer.
+            </summary>
+        </member>
         <member name="T:CGALDotNet.Geometry.CGALIntersections">
             <summary>
             The static intersection class.
@@ -1490,7 +1622,7 @@
             
             </summary>--------------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Box2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
             <summary>--------------------------------------------------------
             
                             The Box DoIntersect functions
@@ -1532,7 +1664,7 @@
             
             </summary>-----------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Box2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
             <summary>--------------------------------------------------------
             
                             The Box Intersection functions
@@ -1728,7 +1860,7 @@
             
             </summary>--------------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.DoIntersect(CGALDotNet.Geometry.Box2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
             <summary>--------------------------------------------------------
             
                             The Box DoIntersect functions
@@ -1770,7 +1902,7 @@
             
             </summary>-----------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.IsoRectangle2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+        <member name="M:CGALDotNet.Geometry.CGALIntersections.Intersection(CGALDotNet.Geometry.Box2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
             <summary>--------------------------------------------------------
             
                             The Box Intersection functions
@@ -2543,120 +2675,6 @@
             <typeparam name="K">The polygons kernel.</typeparam>
             <returns>The polygon.</returns>
         </member>
-        <member name="T:CGALDotNet.Geometry.IsoRectangle2`1">
-            <summary>
-            The generic IsoRectangle wrapper for a CGAL object.
-            </summary>
-            <typeparam name="K">The kernel type.</typeparam>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.#ctor(System.IntPtr)">
-            <summary>
-            Create from a pointer.
-            </summary>
-            <param name="ptr">The iso rectangle pointer.</param>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.ToString">
-            <summary>
-            The iso rectangle as a string.
-            </summary>
-            <returns>The iso rectangle as a string.</returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
-            <summary>
-            Transform the rectangle.
-            </summary>
-            <param name="translation">The amount to translate.</param>
-            <param name="rotation">The amount to rotate</param>
-            <param name="scale">The amount to scale.</param>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2`1.Copy">
-            <summary>
-            Create a deep copy of the rectangle.
-            </summary>
-            <returns>The deep copy.</returns>
-        </member>
-        <member name="T:CGALDotNet.Geometry.IsoRectangle2">
-            <summary>
-            The abstract iso rectangle definition.
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNet.CGALKernel)">
-            <summary>
-            
-            </summary>
-            <param name="min"></param>
-            <param name="max"></param>
-            <param name="kernel"></param>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
-            <summary>
-            Construct with a new kernel.
-            </summary>
-            <param name="kernel">The geometry kernel.</param>
-            <param name="ptr">The IsoRectangle pointer.</param>
-        </member>
-        <member name="P:CGALDotNet.Geometry.IsoRectangle2.Kernel">
-            <summary>
-            The iso rectangle kernel.
-            Contains the functions to the unmanaged CGAL object.
-            </summary>
-        </member>
-        <member name="P:CGALDotNet.Geometry.IsoRectangle2.Shape">
-            <summary>
-            Convert to shape struct.
-            </summary>
-        </member>
-        <member name="P:CGALDotNet.Geometry.IsoRectangle2.Min">
-            <summary>
-            The rectangles min point.
-            </summary>
-        </member>
-        <member name="P:CGALDotNet.Geometry.IsoRectangle2.Max">
-            <summary>
-            The rectangles max point.
-            </summary>
-        </member>
-        <member name="P:CGALDotNet.Geometry.IsoRectangle2.Area">
-            <summary>
-            The rectangles area.
-            </summary>
-        </member>
-        <member name="P:CGALDotNet.Geometry.IsoRectangle2.IsDegenerate">
-            <summary>
-            Is the rectangle degenerate.
-            </summary>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2.BoundedSide(CGALDotNetGeometry.Numerics.Point2d)">
-            <summary>
-            The side the rectangle the point is on.
-            </summary>
-            <param name="point">The point.</param>
-            <returns>If the point is iside, outside or on boundary.</returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2.ContainsPoint(CGALDotNetGeometry.Numerics.Point2d,System.Boolean)">
-            <summary>
-            Does the rectangle contain the point.
-            </summary>
-            <param name="point">The point</param>
-            <param name="includeBoundary">Should a point on 
-            the boundary count as being inside.</param>
-            <returns>Does the rectangle contain the point</returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.IsoRectangle2.ReleasePtr">
-            <summary>
-            Release the unmanaged pointer.
-            </summary>
-        </member>
         <member name="T:CGALDotNet.Geometry.Line2`1">
             <summary>
             
@@ -2718,6 +2736,24 @@
             </summary>
             <param name="point"></param>
             <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.Translate(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Translate the shape.
+            </summary>
+            <param name="translation">The amount to translate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.Rotate(CGALDotNetGeometry.Numerics.Degree)">
+            <summary>
+            Rotate the shape.
+            </summary>
+            <param name="rotation">The amount to rotate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.Scale(System.Double)">
+            <summary>
+            Scale the shape.
+            </summary>
+            <param name="scale">The amount to scale.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.Line2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
             <summary>
@@ -2917,6 +2953,24 @@
             
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.Translate(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Translate the shape.
+            </summary>
+            <param name="translation">The amount to translate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.Rotate(CGALDotNetGeometry.Numerics.Degree)">
+            <summary>
+            Rotate the shape.
+            </summary>
+            <param name="rotation">The amount to rotate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.Scale(System.Double)">
+            <summary>
+            Scale the shape.
+            </summary>
+            <param name="scale">The amount to scale.</param>
+        </member>
         <member name="M:CGALDotNet.Geometry.Ray2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
             <summary>
             
@@ -3042,6 +3096,24 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.Translate(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Translate the shape.
+            </summary>
+            <param name="translation">The amount to translate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.Rotate(CGALDotNetGeometry.Numerics.Degree)">
+            <summary>
+            Rotate the shape.
+            </summary>
+            <param name="rotation">The amount to rotate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.Scale(System.Double)">
+            <summary>
+            Scale the shape.
+            </summary>
+            <param name="scale">The amount to scale.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.Segment2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
             <summary>
@@ -3174,6 +3246,24 @@
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.Translate(CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Translate the shape.
+            </summary>
+            <param name="translation">The amount to translate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.Rotate(CGALDotNetGeometry.Numerics.Degree)">
+            <summary>
+            Rotate the shape.
+            </summary>
+            <param name="rotation">The amount to rotate.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.Scale(System.Double)">
+            <summary>
+            Scale the shape.
+            </summary>
+            <param name="scale">The amount to scale.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.Triangle2`1.Transform(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Degree,System.Double)">
             <summary>
