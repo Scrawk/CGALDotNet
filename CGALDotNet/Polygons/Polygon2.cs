@@ -796,6 +796,18 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Round each point it polygon to a number of digits.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            for(int i = 0; i < Count; i++)
+                this[i] = GetPoint(i).Rounded(digits);
+
+            IsUpdated = false;
+        }
+
+        /// <summary>
         /// Translate the polygon.
         /// </summary>
         /// <param name="translation">The amount to translate.</param>

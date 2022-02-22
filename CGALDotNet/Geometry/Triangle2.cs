@@ -230,5 +230,16 @@ namespace CGALDotNet.Geometry
         {
             Kernel.Triangle2_Release(Ptr);
         }
+
+        /// <summary>
+        /// Round the shape.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            A.Round(digits);
+            B.Round(digits);
+            C.Round(digits);
+        }
     }
 }

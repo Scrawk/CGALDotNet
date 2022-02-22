@@ -820,6 +820,35 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Round each point it polygon to a number of digits.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            int count = PointCount(POLYGON_ELEMENT.BOUNDARY);
+            var arr = new Point2d[count];
+            GetPoints(POLYGON_ELEMENT.BOUNDARY, arr, arr.Length);
+
+            for(int i = 0; i < count; i++)
+                arr[i] = arr[i].Rounded(digits);
+
+            SetPoints(POLYGON_ELEMENT.BOUNDARY, arr, arr.Length);
+
+            for (int i = 0; i < HoleCount; i++)
+            {
+                count = PointCount(POLYGON_ELEMENT.HOLE, i);
+                arr = new Point2d[count];
+                GetPoints(POLYGON_ELEMENT.HOLE, arr, arr.Length, i);
+
+                for (int j = 0; j < count; j++)
+                    arr[j] = arr[j].Rounded(digits);
+
+                SetPoints(POLYGON_ELEMENT.HOLE, arr, arr.Length, i);
+            }
+
+        }
+
+        /// <summary>
         /// Release the unmanaged resoures.
         /// </summary>
         protected override void ReleasePtr()

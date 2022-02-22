@@ -28,7 +28,38 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
+            var box = new Box2<EIK>(-2.5, 2.5);
+            var boxPoly = PolygonFactory<EIK>.CreateBox(box.Shape);
+            var polygon = PolygonFactory<EIK>.KochStar(new Point2d(-2, -2), 4, 1);
 
+            box.Translate(new Point2d(-10, 10));
+            polygon.Translate(new Point2d(-10, 10));
+
+            box.Round(2);
+            polygon.Round(2);
+
+
+            box.Print();
+            polygon.Print();
+
+            var results = new List<PolygonWithHoles2<EIK>>();
+            if (polygon.Intersection(boxPoly, results))
+            {
+                Console.WriteLine("Intersections : " + results.Count);
+
+                foreach (var poly in results)
+                {
+                    poly.Round(2);
+                    poly.Print();
+
+                    foreach (var p in poly)
+                        Console.WriteLine(p);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No intersections : " + results.Count);
+            }
         }
 
 

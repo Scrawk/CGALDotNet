@@ -199,5 +199,15 @@ namespace CGALDotNet.Geometry
         {
             Kernel.Ray2_Release(Ptr);
         }
+
+        /// <summary>
+        /// Round the shape.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            Position.Round(digits);
+            Direction.Round(digits);
+        }
     }
 }

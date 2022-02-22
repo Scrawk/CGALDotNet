@@ -1585,6 +1585,12 @@
             Release the unmanaged pointer.
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Box2.Round(System.Int32)">
+            <summary>
+            Round the shape.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
         <member name="T:CGALDotNet.Geometry.CGALIntersections">
             <summary>
             The static intersection class.
@@ -2590,6 +2596,132 @@
             
             </summary>-------------------------------------------------------
         </member>
+        <member name="T:CGALDotNet.Geometry.HPoint2`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="K"></typeparam>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="w"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.Copy">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.HPoint2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.#ctor(CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.#ctor(System.Double,System.Double,System.Double,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="w"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="kernel"></param>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.HPoint2.Kernel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.ReleasePtr(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.HPoint2.x">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.HPoint2.y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.HPoint2.w">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.Round(System.Int32)">
+            <summary>
+            Round the point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.Clamp(System.Double,System.Double)">
+            <summary>
+            Clamp the point.
+            </summary>
+            <param name="min">The points min value.</param>
+            <param name="max">The points max value.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.Clamp01">
+            <summary>
+            Clamp the point.
+            </summary>
+        </member>
         <member name="T:CGALDotNet.Geometry.INTERSECTION_RESULT_2D">
             <summary>
             Enum for the type of intersection geomerty.
@@ -2892,6 +3024,18 @@
             
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Line2.Round(System.Int32)">
+            <summary>
+            Round the shape.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Point2`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="K"></typeparam>
+        </member>
         <member name="F:CGALDotNet.Geometry.Point2`1.UnitX">
             <summary>
             The unit x point.
@@ -2915,6 +3059,112 @@
         <member name="F:CGALDotNet.Geometry.Point2`1.Half">
             <summary>
             A point of halfs.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2`1.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2`1.#ctor(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2`1.#ctor(System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2`1.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2`1.Copy">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CGALDotNet.Geometry.Point2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.#ctor(CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.#ctor(System.Double,System.Double,CGALDotNet.CGALKernel)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="kernel"></param>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point2.Kernel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.ReleasePtr(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point2.x">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point2.y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.Round(System.Int32)">
+            <summary>
+            Round the point.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.Clamp(System.Double,System.Double)">
+            <summary>
+            Clamp the point.
+            </summary>
+            <param name="min">The points min value.</param>
+            <param name="max">The points max value.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.Clamp01">
+            <summary>
+            Clamp the point.
             </summary>
         </member>
         <member name="T:CGALDotNet.Geometry.Ray2`1">
@@ -3065,6 +3315,12 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2.Round(System.Int32)">
+            <summary>
+            Round the shape.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
         </member>
         <member name="T:CGALDotNet.Geometry.Segment2`1">
             <summary>
@@ -3230,6 +3486,12 @@
             
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Segment2.Round(System.Int32)">
+            <summary>
+            Round the shape.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
         <member name="T:CGALDotNet.Geometry.Triangle2`1">
             <summary>
             
@@ -3373,6 +3635,12 @@
             
             </summary>
         </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.Round(System.Int32)">
+            <summary>
+            Round the shape.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
         <member name="T:CGALDotNet.Geometry.Vector2`1">
             <summary>
             A Vector2 object with kernel type K.
@@ -3423,16 +3691,6 @@
             </summary>
             <param name="ptr">The pointer object.</param>
         </member>
-        <member name="P:CGALDotNet.Geometry.Vector2`1.x">
-            <summary>
-            Access the x component.
-            </summary>
-        </member>
-        <member name="P:CGALDotNet.Geometry.Vector2`1.y">
-            <summary>
-            Access the y component.
-            </summary>
-        </member>
         <member name="M:CGALDotNet.Geometry.Vector2`1.ToString">
             <summary>
             Vector information.
@@ -3476,6 +3734,16 @@
             The vectors kernel.
             </summary>
         </member>
+        <member name="P:CGALDotNet.Geometry.Vector2.x">
+            <summary>
+            Access the x component.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2.y">
+            <summary>
+            Access the y component.
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Geometry.Vector2.ReleasePtr">
             <summary>
             Release the vectors pointer.
@@ -3486,6 +3754,29 @@
             Release a pointer to a vector.
             </summary>
             <param name="ptr">The pointer to release.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.Round(System.Int32)">
+            <summary>
+            Round the vector.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.Clamp(System.Double,System.Double)">
+            <summary>
+            Clamp the vector.
+            </summary>
+            <param name="min">The vectors min value.</param>
+            <param name="max">The vectors max value.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.Clamp01">
+            <summary>
+            Clamp the vector.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.Normalize">
+            <summary>
+            Normalize the vector.
+            </summary>
         </member>
         <member name="T:CGALDotNet.Hulls.HULL_METHOD">
             <summary>
@@ -6069,6 +6360,12 @@
             <param name="inculdeBoundary">Does the point on the boundary count</param>
             <returns>True if the point is inside the polygon.</returns>
         </member>
+        <member name="M:CGALDotNet.Polygons.Polygon2.Round(System.Int32)">
+            <summary>
+            Round each point it polygon to a number of digits.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
+        </member>
         <member name="M:CGALDotNet.Polygons.Polygon2.Translate(CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
             Translate the polygon.
@@ -7702,6 +7999,12 @@
             Get all the points in the polygon boundary and holes.
             </summary>
             <param name="points">The point array to copy into.</param>
+        </member>
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Round(System.Int32)">
+            <summary>
+            Round each point it polygon to a number of digits.
+            </summary>
+            <param name="digits">The number of digits to round to.</param>
         </member>
         <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.ReleasePtr">
             <summary>

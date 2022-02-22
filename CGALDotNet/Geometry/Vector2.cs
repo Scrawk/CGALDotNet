@@ -71,24 +71,6 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Access the x component.
-        /// </summary>
-        public double x
-        {
-            get { return Kernel.Vector2_GetX(Ptr); }
-            set { Kernel.Vector2_SetX(Ptr, value); }
-        }
-
-        /// <summary>
-        /// Access the y component.
-        /// </summary>
-        public double y
-        {
-            get { return Kernel.Vector2_GetY(Ptr); }
-            set { Kernel.Vector2_SetY(Ptr, value); }
-        }
-
-        /// <summary>
         /// Vector information.
         /// </summary>
         /// <returns>The vectors string information.</returns>
@@ -151,6 +133,24 @@ namespace CGALDotNet.Geometry
         protected private GeometryKernel2 Kernel { get; private set; }
 
         /// <summary>
+        /// Access the x component.
+        /// </summary>
+        public double x
+        {
+            get { return Kernel.Vector2_GetX(Ptr); }
+            set { Kernel.Vector2_SetX(Ptr, value); }
+        }
+
+        /// <summary>
+        /// Access the y component.
+        /// </summary>
+        public double y
+        {
+            get { return Kernel.Vector2_GetY(Ptr); }
+            set { Kernel.Vector2_SetY(Ptr, value); }
+        }
+
+        /// <summary>
         /// Release the vectors pointer.
         /// </summary>
         protected override void ReleasePtr()
@@ -165,6 +165,44 @@ namespace CGALDotNet.Geometry
         protected override void ReleasePtr(IntPtr ptr)
         {
             Kernel.Vector2_Release(ptr);
+        }
+
+        /// <summary>
+        /// Round the vector.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            this.x = Math.Round(x, digits);
+            this.y = Math.Round(y, digits);
+        }
+
+        /// <summary>
+        /// Clamp the vector.
+        /// </summary>
+        /// <param name="min">The vectors min value.</param>
+        /// <param name="max">The vectors max value.</param>
+        public void Clamp(double min, double max)
+        {
+            this.x = MathUtil.Clamp(x, min, max);
+            this.y = MathUtil.Clamp(y, min, max);
+        }
+
+        /// <summary>
+        /// Clamp the vector.
+        /// </summary>
+        public void Clamp01()
+        {
+            this.x = MathUtil.Clamp01(x);
+            this.y = MathUtil.Clamp01(y);
+        }
+
+        /// <summary>
+        /// Normalize the vector.
+        /// </summary>
+        public void Normalize()
+        {
+            Kernel.Vector2_Normalize(Ptr);
         }
     }
 }

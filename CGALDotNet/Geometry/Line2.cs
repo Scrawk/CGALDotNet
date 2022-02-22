@@ -298,5 +298,16 @@ namespace CGALDotNet.Geometry
         {
             Kernel.Line2_Release(Ptr);
         }
+
+        /// <summary>
+        /// Round the shape.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            this.A = Math.Round(A, digits);
+            this.B = Math.Round(B, digits);
+            this.C = Math.Round(C, digits);
+        }
     }
 }

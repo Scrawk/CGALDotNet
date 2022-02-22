@@ -222,5 +222,15 @@ namespace CGALDotNet.Geometry
         {
             Kernel.IsoRectangle2_Release(Ptr);
         }
+
+        /// <summary>
+        /// Round the shape.
+        /// </summary>
+        /// <param name="digits">The number of digits to round to.</param>
+        public void Round(int digits)
+        {
+            this.Min = Min.Rounded(digits);
+            this.Max = Max.Rounded(digits);
+        }
     }
  }
