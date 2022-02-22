@@ -13,10 +13,25 @@ namespace CGALDotNet.Geometry
     /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class Box2<K> : Box2 where K : CGALKernel, new()
     {
+
         /// <summary>
-        /// Default constructor.
+        /// Create box from min and max values.
         /// </summary>
-        public Box2(Point2d min, Point2d max) : base(min, max, new K())
+        /// <param name="min">The min x and y value.</param>
+        /// <param name="max">The max x and y value.</param>
+        public Box2(double min, double max) : 
+            base(new Point2d(min), new Point2d(max), new K())
+        {
+
+        }
+
+        /// <summary>
+        /// Create box from min and max points.
+        /// </summary>
+        /// <param name="min">The min point.</param>
+        /// <param name="max">The max point.</param>
+        public Box2(Point2d min, Point2d max) : 
+            base(min, max, new K())
         {
 
         }

@@ -1450,10 +1450,19 @@
             </summary>
             <typeparam name="K">The kernel type.</typeparam>
         </member>
+        <member name="M:CGALDotNet.Geometry.Box2`1.#ctor(System.Double,System.Double)">
+            <summary>
+            Create box from min and max values.
+            </summary>
+            <param name="min">The min x and y value.</param>
+            <param name="max">The max x and y value.</param>
+        </member>
         <member name="M:CGALDotNet.Geometry.Box2`1.#ctor(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
-            Default constructor.
+            Create box from min and max points.
             </summary>
+            <param name="min">The min point.</param>
+            <param name="max">The max point.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.Box2`1.#ctor(System.IntPtr)">
             <summary>
@@ -5663,6 +5672,22 @@
             <param name="polygon">The other polygon.</param>
             <returns>Do the polygons intersect.</returns>
         </member>
+        <member name="M:CGALDotNet.Polygons.Polygon2`1.Intersection(CGALDotNet.Polygons.Polygon2{`0},System.Collections.Generic.List{CGALDotNet.Polygons.PolygonWithHoles2{`0}})">
+            <summary>
+            Do the polygons intersect.
+            </summary>
+            <param name="polygon">The other polygon.</param>
+            <param name="results">The intersection results.</param>
+            <returns>Do the polygons intersect.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polygons.Polygon2`1.Intersection(CGALDotNet.Polygons.PolygonWithHoles2{`0},System.Collections.Generic.List{CGALDotNet.Polygons.PolygonWithHoles2{`0}})">
+            <summary>
+            Do the polygons intersect.
+            </summary>
+            <param name="polygon">The other polygon.</param>
+            <param name="results">The intersection results.</param>
+            <returns>Do the polygons intersect.</returns>
+        </member>
         <member name="M:CGALDotNet.Polygons.Polygon2`1.Refine(System.Double)">
             <summary>
             Refine the polygon to a triangulation.
@@ -6088,11 +6113,10 @@
             </summary>
             <returns>The array.</returns>
         </member>
-        <member name="M:CGALDotNet.Polygons.Polygon2.ToList">
+        <member name="M:CGALDotNet.Polygons.Polygon2.ToList(System.Collections.Generic.List{CGALDotNetGeometry.Numerics.Point2d})">
             <summary>
-            Return all the points in the polygon in a list.
+            Get all the points in the polygon into a list.
             </summary>
-            <returns>The list.</returns>
         </member>
         <member name="M:CGALDotNet.Polygons.Polygon2.Convert``1">
             <summary>
@@ -7554,12 +7578,6 @@
             <param name="count">The ararys length.</param>
             <param name="holeIndex">If element type is a hole this is the holes index.</param>
         </member>
-        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.GetAllPoints(System.Collections.Generic.List{CGALDotNetGeometry.Numerics.Point2d})">
-            <summary>
-            Get all the points in the polygon boundary and holes.
-            </summary>
-            <param name="points">The point array to copy into.</param>
-        </member>
         <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.SetPoint(CGALDotNet.Polygons.POLYGON_ELEMENT,System.Int32,CGALDotNetGeometry.Numerics.Point2d,System.Int32)">
             <summary>
             Set a polygons point.
@@ -7655,6 +7673,35 @@
             <param name="element">The element type.</param>
             <param name="index">If element type is a hole this is the holes index.</param>
             <returns>The polygons area.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.GetEnumerator">
+            <summary>
+            Enumerate all points in the polygon.
+            </summary>
+            <returns>Each point in polygon.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Enumerate all points in the polygon.
+            </summary>
+            <returns>Each point in polygon.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.ToArray">
+            <summary>
+            Return all the points in the polygon in a array.
+            </summary>
+            <returns>The array.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.ToList(System.Collections.Generic.List{CGALDotNetGeometry.Numerics.Point2d})">
+            <summary>
+            Get all the points in the polygons boundary into a list.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.GetAllPoints(System.Collections.Generic.List{CGALDotNetGeometry.Numerics.Point2d})">
+            <summary>
+            Get all the points in the polygon boundary and holes.
+            </summary>
+            <param name="points">The point array to copy into.</param>
         </member>
         <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.ReleasePtr">
             <summary>

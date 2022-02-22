@@ -43,7 +43,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Vector2_Create();
 
-        internal abstract IntPtr Vector2_CreateFromVector( Vector2d vector);
+        internal abstract IntPtr Vector2_CreateFromVector(Vector2d vector);
 
 	    internal abstract void Vector2_Release(IntPtr ptr);
 

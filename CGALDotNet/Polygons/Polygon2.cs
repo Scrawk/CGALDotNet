@@ -117,6 +117,42 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Do the polygons intersect.
+        /// </summary>
+        /// <param name="polygon">The other polygon.</param>
+        /// <param name="results">The intersection results.</param>
+        /// <returns>Do the polygons intersect.</returns>
+        public bool Intersection(Polygon2<K> polygon, List<PolygonWithHoles2<K>> results)
+        {
+            try
+            {
+                return PolygonBoolean2<K>.Instance.Intersect(this, polygon, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Do the polygons intersect.
+        /// </summary>
+        /// <param name="polygon">The other polygon.</param>
+        /// <param name="results">The intersection results.</param>
+        /// <returns>Do the polygons intersect.</returns>
+        public bool Intersection(PolygonWithHoles2<K> polygon, List<PolygonWithHoles2<K>> results)
+        {
+            try
+            {
+                return PolygonBoolean2<K>.Instance.Intersect(this, polygon, results);
+            }
+            catch (NotImplementedException) { }
+            catch (NotSupportedException) { }
+
+            return false;
+        }
+
+        /// <summary>
         /// Refine the polygon to a triangulation.
         /// Does not modify this polygon.
         /// </summary>
@@ -832,16 +868,12 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Return all the points in the polygon in a list.
+        /// Get all the points in the polygon into a list.
         /// </summary>
-        /// <returns>The list.</returns>
-        public List<Point2d> ToList()
+        public void ToList(List<Point2d> list)
         {
-            var points = new List<Point2d>(Count);
             for (int i = 0; i < Count; i++)
-                points.Add(GetPoint(i));
-
-            return points;
+                list.Add(GetPoint(i));
         }
 
         /// <summary>

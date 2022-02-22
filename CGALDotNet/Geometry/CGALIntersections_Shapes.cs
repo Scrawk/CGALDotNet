@@ -15,9 +15,9 @@ namespace CGALDotNet.Geometry
     /// </summary>
     public static partial class CGALIntersections
     {
-        private const string DLL_NAME = "CGALWrapper.dll";
+        public const string DLL_NAME = "CGALWrapper.dll";
 
-        private const CallingConvention CDECL = CallingConvention.Cdecl;
+        public const CallingConvention CDECL = CallingConvention.Cdecl;
 
         /// <summary>--------------------------------------------------------
         /// 

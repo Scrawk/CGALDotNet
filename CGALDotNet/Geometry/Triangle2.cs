@@ -142,8 +142,8 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Point2d A
         {
-            get { return Kernel.Segment2_GetVertex(Ptr, 0); }
-            set { Kernel.Segment2_SetVertex(Ptr, 0, value); }
+            get { return Kernel.Triangle2_GetVertex(Ptr, 0); }
+            set { Kernel.Triangle2_SetVertex(Ptr, 0, value); }
         }
 
         /// <summary>
@@ -151,8 +151,8 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Point2d B
         {
-            get { return Kernel.Segment2_GetVertex(Ptr, 1); }
-            set { Kernel.Segment2_SetVertex(Ptr, 1, value); }
+            get { return Kernel.Triangle2_GetVertex(Ptr, 1); }
+            set { Kernel.Triangle2_SetVertex(Ptr, 1, value); }
         }
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Point2d C
         {
-            get { return Kernel.Segment2_GetVertex(Ptr, 2); }
-            set { Kernel.Segment2_SetVertex(Ptr, 2, value); }
+            get { return Kernel.Triangle2_GetVertex(Ptr, 2); }
+            set { Kernel.Triangle2_SetVertex(Ptr, 2, value); }
         }
 
         /// <summary>

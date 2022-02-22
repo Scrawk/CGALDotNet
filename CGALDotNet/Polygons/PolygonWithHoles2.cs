@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -64,8 +65,8 @@ namespace CGALDotNet.Polygons
         /// <returns>The polygon as a string.</returns>
         public override string ToString()
         {
-            return string.Format("[PolygonWithHoles2<{0}>: IsUnbounded={1}, HoleCount={2}]", 
-                Kernel.KernelName, IsUnbounded, HoleCount);
+            return string.Format("[PolygonWithHoles2<{0}>: IsBounded={1}, PointCount={2}, HoleCount={3}]", 
+                Kernel.KernelName, IsBounded, Count, HoleCount);
         }
 
         /// <summary>
@@ -314,7 +315,7 @@ namespace CGALDotNet.Polygons
     /// <summary>
     /// The abstract polygon definition.
     /// </summary>
-    public abstract class PolygonWithHoles2 : CGALObject
+    public abstract class PolygonWithHoles2 : CGALObject, IEnumerable<Point2d>
     {
         protected const int BOUNDARY_INDEX = -1;
 
@@ -601,26 +602,6 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Get all the points in the polygon boundary and holes.
-        /// </summary>
-        /// <param name="points">The point array to copy into.</param>
-        public void GetAllPoints(List<Point2d> points)
-        {
-            int count = PointCount(POLYGON_ELEMENT.BOUNDARY);
-            var arr = new Point2d[count];
-            GetPoints(POLYGON_ELEMENT.BOUNDARY, arr, arr.Length);
-            points.AddRange(arr);
-
-            for(int i = 0; i < HoleCount; i++)
-            {
-                count = PointCount(POLYGON_ELEMENT.HOLE, i);
-                arr = new Point2d[count];
-                GetPoints(POLYGON_ELEMENT.HOLE, arr, arr.Length, i);
-                points.AddRange(arr);
-            }
-        }
-
-        /// <summary>
         /// Set a polygons point.
         /// </summary>
         /// <param name="element">The element type.</param>
@@ -775,6 +756,67 @@ namespace CGALDotNet.Polygons
         public double FindArea(POLYGON_ELEMENT element, int index = 0)
         {
             return Math.Abs(FindSignedArea(element, index));
+        }
+
+        /// <summary>
+        /// Enumerate all points in the polygon.
+        /// </summary>
+        /// <returns>Each point in polygon.</returns>
+        public IEnumerator<Point2d> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+                yield return GetPoint( POLYGON_ELEMENT.BOUNDARY, i);
+        }
+
+        /// <summary>
+        /// Enumerate all points in the polygon.
+        /// </summary>
+        /// <returns>Each point in polygon.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Return all the points in the polygon in a array.
+        /// </summary>
+        /// <returns>The array.</returns>
+        public Point2d[] ToArray()
+        {
+            var points = new Point2d[Count];
+            for (int i = 0; i < Count; i++)
+                points[i] = GetPoint(POLYGON_ELEMENT.BOUNDARY, i);
+
+            return points;
+        }
+
+        /// <summary>
+        /// Get all the points in the polygons boundary into a list.
+        /// </summary>
+        public void ToList(List<Point2d> points)
+        {
+            for (int i = 0; i < Count; i++)
+                points.Add(GetPoint(POLYGON_ELEMENT.BOUNDARY, i));
+        }
+
+        /// <summary>
+        /// Get all the points in the polygon boundary and holes.
+        /// </summary>
+        /// <param name="points">The point array to copy into.</param>
+        public void GetAllPoints(List<Point2d> points)
+        {
+            int count = PointCount(POLYGON_ELEMENT.BOUNDARY);
+            var arr = new Point2d[count];
+            GetPoints(POLYGON_ELEMENT.BOUNDARY, arr, arr.Length);
+            points.AddRange(arr);
+
+            for (int i = 0; i < HoleCount; i++)
+            {
+                count = PointCount(POLYGON_ELEMENT.HOLE, i);
+                arr = new Point2d[count];
+                GetPoints(POLYGON_ELEMENT.HOLE, arr, arr.Length, i);
+                points.AddRange(arr);
+            }
         }
 
         /// <summary>
