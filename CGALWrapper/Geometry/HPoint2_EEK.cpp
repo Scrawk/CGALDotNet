@@ -4,6 +4,7 @@
 #include <CGAL/Cartesian_converter.h>
 
 typedef CGAL::Weighted_point_2<EEK> HPoint2;
+typedef CGAL::Point_2<EEK> Point2;
 
 void* HPoint2_EEK_Create()
 {
@@ -49,36 +50,22 @@ double HPoint2_EEK_GetW(void* ptr)
 	return CGAL::to_double(p->hw());
 }
 
-HPoint2d HPoint2_EEK_GetPoint(void* ptr)
-{
-	auto p = CastToHPoint2(ptr);
-	return HPoint2d::FromCGAL<EEK>(*p);
-}
-
 void HPoint2_EEK_SetX(void* ptr, double x)
 {
 	auto p = CastToHPoint2(ptr);
-	(*p)[0] = x;
+	(*p) = HPoint2(Point2(x, p->y()), p->hw());
 }
 
 void HPoint2_EEK_SetY(void* ptr, double y)
 {
 	auto p = CastToHPoint2(ptr);
-	(*p)[1] = y;
+	(*p) = HPoint2(Point2(p->x(), y), p->hw());
 }
 
 void HPoint2_EEK_SetW(void* ptr, double w)
 {
 	auto p = CastToHPoint2(ptr);
-	(*p)[2] = w;
-}
-
-void HPoint2_EEK_SetPoint(void* ptr, const HPoint2d& point)
-{
-	auto p = CastToHPoint2(ptr);
-	(*p)[0] = point.hx;
-	(*p)[1] = point.hy;
-	(*p)[2] = point.hw;
+	(*p) = HPoint2(Point2(p->x(), p->y()), p->hw());
 }
 
 void* HPoint2_EEK_Copy(void* ptr)

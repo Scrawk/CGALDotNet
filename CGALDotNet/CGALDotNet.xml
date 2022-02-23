@@ -2654,14 +2654,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CGALDotNet.Geometry.HPoint2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
-        </member>
         <member name="T:CGALDotNet.Geometry.HPoint2">
             <summary>
             
@@ -2711,11 +2703,6 @@
             </summary>
         </member>
         <member name="P:CGALDotNet.Geometry.HPoint2.y">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:CGALDotNet.Geometry.HPoint2.w">
             <summary>
             
             </summary>
@@ -3764,11 +3751,6 @@
             Create a deep copy of the vector.
             </summary>
             <returns>The deep copy.</returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.Vector2`1.Perpendicular(CGALDotNet.ORIENTATION)">
-            <summary>
-            
-            </summary>
         </member>
         <member name="T:CGALDotNet.Geometry.Vector2">
             <summary>

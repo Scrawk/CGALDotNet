@@ -66,8 +66,8 @@ namespace CGALDotNet.Geometry
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("[HPoint2<{0}>: x={1}, y={2}, w={3}]",
-                Kernel.Name, x, y, w);
+            return string.Format("[HPoint2<{0}>: x={1}, y={2}]",
+                Kernel.Name, x, y);
         }
 
         /// <summary>
@@ -79,6 +79,7 @@ namespace CGALDotNet.Geometry
             return new HPoint2<K>(Kernel.HPoint2_Copy(Ptr));
         }
 
+        /*
         /// <summary>
         /// Convert to another kernel.
         /// Must provide a different kernel to convert to or
@@ -98,6 +99,7 @@ namespace CGALDotNet.Geometry
                 return new HPoint2<T>(ptr);
             }
         }
+        */
     }
 
     /// <summary>
@@ -179,14 +181,12 @@ namespace CGALDotNet.Geometry
             set { Kernel.HPoint2_SetY(Ptr, value); }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public double w
-        {
-            get { return Kernel.HPoint2_GetW(Ptr); }
-            set { Kernel.HPoint2_SetW(Ptr, value); }
-        }
+
+        //public double w
+        //{
+        //    get { return Kernel.HPoint2_GetW(Ptr); }
+        //    set { Kernel.HPoint2_SetW(Ptr, value); }
+        //}
 
         /// <summary>
         /// Round the point.
@@ -196,7 +196,7 @@ namespace CGALDotNet.Geometry
         {
             this.x = Math.Round(x, digits);
             this.y = Math.Round(y, digits);
-            this.w = Math.Round(w, digits);
+            //this.w = Math.Round(w, digits);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace CGALDotNet.Geometry
         {
             this.x = MathUtil.Clamp(x, min, max);
             this.y = MathUtil.Clamp(y, min, max);
-            this.w = MathUtil.Clamp(w, min, max);
+            //this.w = MathUtil.Clamp(w, min, max);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace CGALDotNet.Geometry
         {
             this.x = MathUtil.Clamp01(x);
             this.y = MathUtil.Clamp01(y);
-            this.w = MathUtil.Clamp01(y);
+            //this.w = MathUtil.Clamp01(w);
         }
     }
 }

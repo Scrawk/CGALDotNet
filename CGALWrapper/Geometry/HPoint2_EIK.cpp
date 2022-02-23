@@ -50,34 +50,22 @@ double HPoint2_EIK_GetW(void* ptr)
 	return CGAL::to_double(p->hw());
 }
 
-HPoint2d HPoint2_EIK_GetPoint(void* ptr)
-{
-	auto p = CastToHPoint2(ptr);
-	return HPoint2d::FromCGAL<EIK>(*p);
-}
-
 void HPoint2_EIK_SetX(void* ptr, double x)
 {
 	auto p = CastToHPoint2(ptr);
-	(*p) = HPoint2(Point2(x, p->y()), p->weight());
+	(*p) = HPoint2(Point2(x, p->y()), p->hw());
 }
 
 void HPoint2_EIK_SetY(void* ptr, double y)
 {
 	auto p = CastToHPoint2(ptr);
-	(*p) = HPoint2(Point2(p->x(), y), p->weight());
+	(*p) = HPoint2(Point2(p->x(), y), p->hw());
 }
 
 void HPoint2_EIK_SetW(void* ptr, double w)
 {
 	auto p = CastToHPoint2(ptr);
-	(*p) = HPoint2(Point2(p->y(), p->x()), w);
-}
-
-void HPoint2_EIK_SetPoint(void* ptr, const HPoint2d& point)
-{
-	auto p = CastToHPoint2(ptr);
-	HPoint2(Point2(point.hx, point.hy), point.hw);
+	(*p) = HPoint2(Point2(p->x(), p->y()), p->hw());
 }
 
 void* HPoint2_EIK_Copy(void* ptr)

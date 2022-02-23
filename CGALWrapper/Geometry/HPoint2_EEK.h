@@ -18,15 +18,11 @@ extern "C"
 
 	CGALWRAPPER_API double HPoint2_EEK_GetW(void* ptr);
 
-	CGALWRAPPER_API HPoint2d HPoint2_EEK_GetPoint(void* ptr);
-
 	CGALWRAPPER_API void HPoint2_EEK_SetX(void* ptr, double x);
 
 	CGALWRAPPER_API void HPoint2_EEK_SetY(void* ptr, double y);
 
 	CGALWRAPPER_API void HPoint2_EEK_SetW(void* ptr, double y);
-
-	CGALWRAPPER_API void HPoint2_EEK_SetPoint(void* ptr, const HPoint2d& point);
 
 	CGALWRAPPER_API void* HPoint2_EEK_Copy(void* ptr);
 
