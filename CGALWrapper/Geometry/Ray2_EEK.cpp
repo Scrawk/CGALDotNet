@@ -109,3 +109,15 @@ void* Ray2_EEK_Copy(void* ptr)
 	(*r2) = *r;
 	return r2;
 }
+
+void* Ray2_EEK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EEK, EIK> Converter;
+	Converter convert;
+
+	auto r = CastToRay2(ptr);
+	auto p = convert(r->source());
+	auto d = convert(r->direction());
+
+	return new CGAL::Ray_2<EIK>(p, d);
+}

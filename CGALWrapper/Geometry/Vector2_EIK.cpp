@@ -1,5 +1,6 @@
 #include "Vector2_EIK.h"
 #include <CGAL/Vector_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 typedef EIK::FT FT;
 typedef CGAL::Vector_2<EIK> Vector2;
@@ -92,6 +93,15 @@ void Vector2_EIK_Normalize(void* ptr)
 	(*p) = Vector2(p->x() / len, p->y() / len);
 }
 
+double Vector2_EEK_Magnitue(void* ptr)
+{
+	auto p = CastToVector2(ptr);
+	auto sq_len = CGAL::to_double(p->squared_length());
+
+	if (sq_len == 0) return 0;
+	return CGAL::sqrt(sq_len);
+}
+
 void* Vector2_EIK_Copy(void* ptr)
 {
 	auto v = CastToVector2(ptr);
@@ -99,4 +109,16 @@ void* Vector2_EIK_Copy(void* ptr)
 
 	(*v2) = *v;
 	return v2;
+}
+
+void* Vector2_EIK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EIK, EEK> Converter;
+	Converter convert;
+
+	auto p = CastToVector2(ptr);
+	auto x = convert(p->x());
+	auto y = convert(p->y());
+
+	return new CGAL::Vector_2<EEK>(x, y);
 }

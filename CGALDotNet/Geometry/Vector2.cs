@@ -88,6 +88,31 @@ namespace CGALDotNet.Geometry
         {
             return new Vector2<K>(Kernel.Vector2_Copy(Ptr));
         }
+
+        /*
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Vector2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            if (Kernel.Name == typeof(T).Name)
+            {
+                var ptr = Kernel.Vector2_Copy(Ptr);
+                return new Vector2<T>(ptr);
+            }
+            else
+            {
+                var ptr = Kernel.Vector2_Convert(Ptr);
+                return new Vector2<T>(ptr);
+            }
+        }
+
+        */
+
     }
 
     /// <summary>
@@ -131,6 +156,11 @@ namespace CGALDotNet.Geometry
         /// The vectors kernel.
         /// </summary>
         protected private GeometryKernel2 Kernel { get; private set; }
+
+        /// <summary>
+        /// The vectors sqr magnitude.
+        /// </summary>
+        public double Magnitude => Kernel.Vector2_SqrLength(Ptr);
 
         /// <summary>
         /// Access the x component.
@@ -204,5 +234,6 @@ namespace CGALDotNet.Geometry
         {
             Kernel.Vector2_Normalize(Ptr);
         }
+
     }
 }

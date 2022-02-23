@@ -2,6 +2,7 @@
 #include "Triangle2_EIK.h"
 #include <CGAL/Triangle_2.h>
 #include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 typedef CGAL::Triangle_2<EIK> Triangle2;
 typedef CGAL::Point_2<EIK> Point2;
@@ -114,4 +115,17 @@ void* Triangle2_EIK_Copy(void* ptr)
 
 	(*t2) = *t;
 	return t2;
+}
+
+void* Triangle2_EIK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EIK, EEK> Converter;
+	Converter convert;
+
+	auto t = CastToTriangle2(ptr);
+	auto a = convert(t->vertex(0));
+	auto b = convert(t->vertex(1));
+	auto c = convert(t->vertex(2));
+
+	return new CGAL::Triangle_2<EEK>(a, b, c);
 }

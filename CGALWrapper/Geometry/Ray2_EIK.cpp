@@ -2,6 +2,7 @@
 #include "Ray2_EIK.h"
 #include <CGAL/Ray_2.h>
 #include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 typedef CGAL::Ray_2<EIK> Ray2;
 typedef CGAL::Line_2<EIK> Line2;
@@ -108,4 +109,16 @@ void* Ray2_EIK_Copy(void* ptr)
 
 	(*r2) = *r;
 	return r2;
+}
+
+void* Ray2_EIK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EIK, EEK> Converter;
+	Converter convert;
+
+	auto r = CastToRay2(ptr);
+	auto p = convert(r->source());
+	auto d = convert(r->direction());
+
+	return new CGAL::Ray_2<EEK>(p, d);
 }

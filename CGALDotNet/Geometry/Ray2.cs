@@ -110,6 +110,26 @@ namespace CGALDotNet.Geometry
             return new Ray2<K>(Kernel.Ray2_Copy(Ptr));
         }
 
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Ray2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            if (Kernel.Name == typeof(T).Name)
+            {
+                var ptr = Kernel.Ray2_Copy(Ptr);
+                return new Ray2<T>(ptr);
+            }
+            else
+            {
+                var ptr = Kernel.Ray2_Convert(Ptr);
+                return new Ray2<T>(ptr);
+            }
+        }
+
     }
 
     /// <summary>

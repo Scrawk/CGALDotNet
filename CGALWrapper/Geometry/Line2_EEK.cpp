@@ -170,3 +170,16 @@ void* Line2_EEK_Copy(void* ptr)
 	(*l2) = *l;
 	return l2;
 }
+
+void* Line2_EEK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EEK, EIK> Converter;
+	Converter convert;
+
+	auto l = CastToLine2(ptr);
+	auto a = convert(l->a());
+	auto b = convert(l->b());
+	auto c = convert(l->c());
+
+	return new CGAL::Line_2<EIK>(a, b, c);
+}

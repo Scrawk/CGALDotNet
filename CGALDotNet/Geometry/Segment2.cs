@@ -106,6 +106,26 @@ namespace CGALDotNet.Geometry
         {
             return new Segment2<K>(Kernel.Segment2_Copy(Ptr));
         }
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Segment2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            if (Kernel.Name == typeof(T).Name)
+            {
+                var ptr = Kernel.Segment2_Copy(Ptr);
+                return new Segment2<T>(ptr);
+            }
+            else
+            {
+                var ptr = Kernel.Segment2_Convert(Ptr);
+                return new Segment2<T>(ptr);
+            }
+        }
     }
 
     /// <summary>

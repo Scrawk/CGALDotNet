@@ -27,5 +27,7 @@ extern "C"
 	CGALWRAPPER_API void Triangle2_EIK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
 
 	CGALWRAPPER_API void* Triangle2_EIK_Copy(void* ptr);
+
+	CGALWRAPPER_API void* Triangle2_EIK_Convert(void* ptr);
 }
 

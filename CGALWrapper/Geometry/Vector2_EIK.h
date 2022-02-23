@@ -30,7 +30,11 @@ extern "C"
 
 	CGALWRAPPER_API void Vector2_EIK_Normalize(void* ptr);
 
+	CGALWRAPPER_API double Vector2_EIK_Magnitue(void* ptr);
+
 	CGALWRAPPER_API void* Vector2_EIK_Copy(void* ptr);
+
+	CGALWRAPPER_API void* Vector2_EIK_Convert(void* ptr);
 
 }
 

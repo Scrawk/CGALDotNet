@@ -1,6 +1,7 @@
 #include "HPoint2_EIK.h"
 #include <CGAL/Point_2.h>
 #include <CGAL/Weighted_point_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 typedef CGAL::Weighted_point_2<EIK> HPoint2;
 typedef CGAL::Point_2<EIK> Point2;
@@ -86,4 +87,17 @@ void* HPoint2_EIK_Copy(void* ptr)
 
 	(*p2) = *p;
 	return p2;
+}
+
+void* HPoint2_EIK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EIK, EEK> EIK_to_EEK;
+	EIK_to_EEK convert;
+
+	auto p = CastToHPoint2(ptr);
+	auto hx = convert((*p)[0]);
+	auto hy = convert((*p)[1]);
+	auto hw = convert((*p)[2]);
+
+	return new CGAL::Weighted_point_2<EEK>(CGAL::Point_2<EEK>(hx, hy), hw);
 }

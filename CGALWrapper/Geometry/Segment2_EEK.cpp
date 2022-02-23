@@ -2,6 +2,7 @@
 #include "Segment2_EEK.h"
 #include <CGAL/Segment_2.h>
 #include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 typedef CGAL::Segment_2<EEK> Segment2;
 typedef CGAL::Line_2<EEK> Line2;
@@ -125,4 +126,16 @@ void* Segment2_EEK_Copy(void* ptr)
 
 	(*s2) = *s;
 	return s2;
+}
+
+void* Segment2_EEK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EEK, EIK> Converter;
+	Converter convert;
+
+	auto s = CastToSegment2(ptr);
+	auto a = convert(s->source());
+	auto b = convert(s->target());
+
+	return new CGAL::Segment_2<EIK>(a, b);
 }

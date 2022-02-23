@@ -69,6 +69,11 @@ namespace CGALDotNet.Geometry
             return Point2_EIK_Copy(ptr);
         }
 
+        internal override IntPtr Point2_Convert(IntPtr ptr)
+        {
+            return Point2_EIK_Convert(ptr);
+        }
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Vector2 Class Functions
@@ -140,6 +145,11 @@ namespace CGALDotNet.Geometry
             return Vector2_EIK_Copy(ptr);
         }
 
+        internal override IntPtr Vector2_Convert(IntPtr ptr)
+        {
+            return Vector2_EIK_Convert(ptr);
+        }
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The HPoint2 Class Functions
@@ -204,6 +214,11 @@ namespace CGALDotNet.Geometry
         internal override IntPtr HPoint2_Copy(IntPtr ptr)
         {
             return HPoint2_EIK_Copy(ptr);
+        }
+
+        internal override IntPtr HPoint2_Convert(IntPtr ptr)
+        {
+            return HPoint2_EIK_Convert(ptr);
         }
 
         /// <summary>--------------------------------------------------------
@@ -327,6 +342,11 @@ namespace CGALDotNet.Geometry
             return Line2_EIK_Copy(ptr);
         }
 
+        internal override IntPtr Line2_Convert(IntPtr ptr)
+        {
+            return Line2_EIK_Convert(ptr);
+        }
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Ray2 Class Functions
@@ -391,6 +411,11 @@ namespace CGALDotNet.Geometry
         internal override IntPtr Ray2_Copy(IntPtr ptr)
         {
             return Ray2_EIK_Copy(ptr);
+        }
+
+        internal override IntPtr Ray2_Convert(IntPtr ptr)
+        {
+            return Ray2_EIK_Convert(ptr);
         }
 
         /// <summary>--------------------------------------------------------
@@ -474,6 +499,11 @@ namespace CGALDotNet.Geometry
             return Segment2_EIK_Copy(ptr);
         }
 
+        internal override IntPtr Segment2_Convert(IntPtr ptr)
+        {
+            return Segment2_EIK_Convert(ptr);
+        }
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Triangle2 Class Functions
@@ -533,6 +563,11 @@ namespace CGALDotNet.Geometry
         internal override IntPtr Triangle2_Copy(IntPtr ptr)
         {
             return Triangle2_EIK_Copy(ptr);
+        }
+
+        internal override IntPtr Triangle2_Convert(IntPtr ptr)
+        {
+            return Triangle2_EIK_Convert(ptr);
         }
 
         /// <summary>--------------------------------------------------------
@@ -641,6 +676,9 @@ namespace CGALDotNet.Geometry
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Point2_EIK_Copy(IntPtr ptr);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Point2_EIK_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Vector2 extern functions
@@ -686,6 +724,9 @@ namespace CGALDotNet.Geometry
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Vector2_EIK_Copy(IntPtr ptr);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Vector2_EIK_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The HPoint2 extern functions
@@ -727,6 +768,9 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr HPoint2_EIK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr HPoint2_EIK_Convert(IntPtr ptr);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -803,6 +847,9 @@ namespace CGALDotNet.Geometry
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Line2_EIK_Copy(IntPtr ptr);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Line2_EIK_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Ray2 extern functions
@@ -844,6 +891,9 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Ray2_EIK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Ray2_EIK_Convert(IntPtr ptr);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -896,6 +946,9 @@ namespace CGALDotNet.Geometry
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Segment2_EIK_Copy(IntPtr ptr);
 
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Segment2_EIK_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Triangle2 extern functions
@@ -934,6 +987,9 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Triangle2_EIK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Triangle2_EIK_Convert(IntPtr ptr);
 
         /// <summary>--------------------------------------------------------
         /// 

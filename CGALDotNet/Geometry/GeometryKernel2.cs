@@ -35,6 +35,8 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Point2_Copy(IntPtr ptr);
 
+        internal abstract IntPtr Point2_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Vector2 Class Functions
@@ -67,6 +69,8 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Vector2_Copy(IntPtr ptr);
 
+        internal abstract IntPtr Vector2_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The HPoint2 Class Functions
@@ -97,12 +101,14 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr HPoint2_Copy(IntPtr ptr);
 
+        internal abstract IntPtr HPoint2_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Line2 Class Functions
         /// 
         /// </summary>-------------------------------------------------------
-        
+
         internal abstract IntPtr Line2_Create(double a, double b, double c);
 
         internal abstract IntPtr CreateFromPoints(Point2d p1, Point2d p2);
@@ -149,6 +155,8 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Line2_Copy(IntPtr ptr);
 
+        internal abstract IntPtr Line2_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Ray2 Class Functions
@@ -178,6 +186,8 @@ namespace CGALDotNet.Geometry
         internal abstract void Ray2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
 
         internal abstract IntPtr Ray2_Copy(IntPtr ptr);
+
+        internal abstract IntPtr Ray2_Convert(IntPtr ptr);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -215,6 +225,8 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Segment2_Copy(IntPtr ptr);
 
+        internal abstract IntPtr Segment2_Convert(IntPtr ptr);
+
         /// <summary>--------------------------------------------------------
         /// 
         ///                 The Triangle2 Class Functions
@@ -242,6 +254,8 @@ namespace CGALDotNet.Geometry
         internal abstract void Triangle2_Transform(IntPtr ptr,  Point2d translation, double rotation, double scale);
 
         internal abstract IntPtr Triangle2_Copy(IntPtr ptr);
+
+        internal abstract IntPtr Triangle2_Convert(IntPtr ptr);
 
         /// <summary>--------------------------------------------------------
         /// 

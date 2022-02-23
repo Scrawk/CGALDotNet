@@ -1,5 +1,6 @@
 #include "Vector2_EEK.h"
 #include <CGAL/Vector_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 typedef EEK::FT FT;
 typedef CGAL::Vector_2<EEK> Vector2;
@@ -100,4 +101,16 @@ void* Vector2_EEK_Copy(void* ptr)
 
 	(*v2) = *v;
 	return v2;
+}
+
+void* Vector2_EEK_Convert(void* ptr)
+{
+	typedef CGAL::Cartesian_converter<EEK, EIK> Converter;
+	Converter convert;
+
+	auto p = CastToVector2(ptr);
+	auto x = convert(p->x());
+	auto y = convert(p->y());
+
+	return new CGAL::Vector_2<EIK>(x, y);
 }

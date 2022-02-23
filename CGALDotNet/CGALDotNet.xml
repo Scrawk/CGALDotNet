@@ -1511,6 +1511,8 @@
         <member name="M:CGALDotNet.Geometry.Box2`1.Convert``1">
             <summary>
             Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
             </summary>
             <returns>The shape with another kernel type.</returns>
         </member>
@@ -2652,6 +2654,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.HPoint2">
             <summary>
             
@@ -2910,6 +2920,20 @@
             <param name="rotation"></param>
             <param name="scale"></param>
         </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.Copy">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Line2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Line2">
             <summary>
             
@@ -3103,6 +3127,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.Geometry.Point2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Point2">
             <summary>
             
@@ -3249,6 +3281,14 @@
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Ray2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Ray2">
             <summary>
@@ -3399,6 +3439,14 @@
             
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Segment2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Segment2">
             <summary>
@@ -3556,6 +3604,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Triangle2">
             <summary>
             
@@ -3709,6 +3765,11 @@
             </summary>
             <returns>The deep copy.</returns>
         </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.Perpendicular(CGALDotNet.ORIENTATION)">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:CGALDotNet.Geometry.Vector2">
             <summary>
             The vectors abstract bass class.
@@ -3738,6 +3799,11 @@
         <member name="P:CGALDotNet.Geometry.Vector2.Kernel">
             <summary>
             The vectors kernel.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2.Magnitude">
+            <summary>
+            The vectors sqr magnitude.
             </summary>
         </member>
         <member name="P:CGALDotNet.Geometry.Vector2.x">

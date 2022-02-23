@@ -30,5 +30,7 @@ extern "C"
 
 	CGALWRAPPER_API void* HPoint2_EIK_Copy(void* ptr);
 
+	CGALWRAPPER_API void* HPoint2_EIK_Convert(void* ptr);
+
 }
 
