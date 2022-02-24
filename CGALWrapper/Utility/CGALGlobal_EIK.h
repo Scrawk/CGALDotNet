@@ -9,21 +9,53 @@
 extern "C"
 {
 
-	CGALWRAPPER_API CGAL::Angle CGALGlobal_EIK_Angle_Vector2(Vector2d u, Vector2d v);
+    //---------------------------------------------------------------------------//
+    //                               Angle                                       //
+    //---------------------------------------------------------------------------//
 
-	CGALWRAPPER_API CGAL::Angle CGALGlobal_EIK_Angle_Vector3(Vector3d u, Vector3d v);
+	CGALWRAPPER_API CGAL::Angle CGALGlobal_EIK_Angle_Vector2d(Vector2d u, Vector2d v);
 
-	CGALWRAPPER_API double CGALGlobal_EIK_ApproxAngle_Vector3(Vector3d u, Vector3d v);
+    CGALWRAPPER_API CGAL::Angle CGALGlobal_EIK_Angle_Vector2(void* u, void* v);
+
+    CGALWRAPPER_API CGAL::Angle CGALGlobal_EEK_Angle_Vector2(void* u, void* v);
+
+	CGALWRAPPER_API CGAL::Angle CGALGlobal_EIK_Angle_Vector3d(Vector3d u, Vector3d v);
+
+    //---------------------------------------------------------------------------//
+    //                               ApproxAngle                                 //
+    //---------------------------------------------------------------------------//
+
+	CGALWRAPPER_API double CGALGlobal_EIK_ApproxAngle_Vector3d(Vector3d u, Vector3d v);
+
+    //---------------------------------------------------------------------------//
+    //                               ApproxDihedralAngle                         //
+    //---------------------------------------------------------------------------//
 
     CGALWRAPPER_API double CGALGlobal_EIK_ApproxDihedralAngle_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
-    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
+    //---------------------------------------------------------------------------//
+    //                               AreOrderedAlongLine                         //
+    //---------------------------------------------------------------------------//
 
-    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
+    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point2d(Point2d p, Point2d q, Point2d r);
 
-    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
+    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point2(void* p, void* q, void* r);
 
-    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
+    CGALWRAPPER_API BOOL CGALGlobal_EEK_AreOrderedAlongLine_Point2(void* p, void* q, void* r);
+
+    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point3d(Point3d p, Point3d q, Point3d r);
+
+    //---------------------------------------------------------------------------//
+    //                               AreStrictlyOrderedAlongLine                 //
+    //---------------------------------------------------------------------------//
+
+    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2d(Point2d p, Point2d q, Point2d r);
+
+    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(void* p, void* q, void* r);
+
+    CGALWRAPPER_API BOOL CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point2(void* p, void* q, void* r);
+
+    CGALWRAPPER_API BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3d(Point3d p, Point3d q, Point3d r);
 
     CGALWRAPPER_API BOOL CGALGlobal_EIK_Collinear_Point2(Point2d p, Point2d q, Point2d r);
 

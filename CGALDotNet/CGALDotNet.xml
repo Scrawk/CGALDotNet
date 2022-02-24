@@ -569,22 +569,42 @@
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Angle(CGALDotNetGeometry.Numerics.Vector2d,CGALDotNetGeometry.Numerics.Vector2d)">
             <summary>
-            Returns CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+            Returns OBTUSE, RIGHT or ACUTE depending on the 
             angle formed by the two vectors u and v.
             </summary>
             <param name="u">The first vector.</param>
             <param name="v">The second vector.</param>
-            <returns>CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+            <returns>OBTUSE, RIGHT or ACUTE depending on the 
+            angle formed by the two vectors u and v.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Angle(CGALDotNet.Geometry.Vector2{CGALDotNet.EIK},CGALDotNet.Geometry.Vector2{CGALDotNet.EIK})">
+            <summary>
+            Returns OBTUSE, RIGHT or ACUTE depending on the 
+            angle formed by the two vectors u and v.
+            </summary>
+            <param name="u">The first vector.</param>
+            <param name="v">The second vector.</param>
+            <returns>OBTUSE, RIGHT or ACUTE depending on the 
+            angle formed by the two vectors u and v.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Angle(CGALDotNet.Geometry.Vector2{CGALDotNet.EEK},CGALDotNet.Geometry.Vector2{CGALDotNet.EEK})">
+            <summary>
+            Returns OBTUSE, RIGHT or ACUTE depending on the 
+            angle formed by the two vectors u and v.
+            </summary>
+            <param name="u">The first vector.</param>
+            <param name="v">The second vector.</param>
+            <returns>OBTUSE, RIGHT or ACUTE depending on the 
             angle formed by the two vectors u and v.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Angle(CGALDotNetGeometry.Numerics.Vector3d,CGALDotNetGeometry.Numerics.Vector3d)">
             <summary>
-            returns CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+            returns OBTUSE, RIGHT or ACUTE depending on the 
             angle formed by the two vectors u and v.
             </summary>
             <param name="u">The first vector.</param>
             <param name="v">The second vector.</param>
-            <returns>CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+            <returns>OBTUSE, RIGHT or ACUTE depending on the 
             angle formed by the two vectors u and v.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.ApproxAngle(CGALDotNetGeometry.Numerics.Vector3d,CGALDotNetGeometry.Numerics.Vector3d)">
@@ -601,10 +621,10 @@
             in the tetrahedron pqrs of edge pq.
             p,q,r and p,q,s are not collinear.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
-            <param name="s"></param>
+            <param name="p">The first tetrahedrons point.</param>
+            <param name="q">The second tetrahedrons point.</param>
+            <param name="r">The third tetrahedrons point.</param>
+            <param name="s">The fourth tetrahedrons point.</param>
             <returns>The sign is negative if orientation(p,q,r,s) 
             is CGAL::NEGATIVE and positive otherwise.
             The angle is given in degrees.</returns>
@@ -615,9 +635,33 @@
             and q lies between p and r.
             Note that true is returned, if q==p or q==r.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Returns true, if the three points are 
+            collinear and q lies between p and r.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.AreOrderedAlongLine(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>
+            Returns true, if the three points are collinear 
+            and q lies between p and r.
+            Note that true is returned, if q==p or q==r.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Returns true, if the three points are 
+            collinear and q lies between p and r.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.AreOrderedAlongLine(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>
+            Returns true, if the three points are collinear 
+            and q lies between p and r.
+            Note that true is returned, if q==p or q==r.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>Returns true, if the three points are 
             collinear and q lies between p and r.</returns>
         </member>
@@ -627,9 +671,9 @@
             and q lies between p and r.
             Note that true is returned, if q==p or q==r.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>Returns true, if the three points are 
             collinear and q lies between p and r.</returns>
         </member>
@@ -639,9 +683,33 @@
             and q lies strictly between p and r.
             Note that false is returned, if q==p or q==r.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>returns true, iff the three points are 
+            collinear and q lies strictly between p and r.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.AreStrictlyOrderedAlongLine(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>
+            returns true, if the three points are collinear 
+            and q lies strictly between p and r.
+            Note that false is returned, if q==p or q==r.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>returns true, iff the three points are 
+            collinear and q lies strictly between p and r.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.AreStrictlyOrderedAlongLine(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>
+            returns true, if the three points are collinear 
+            and q lies strictly between p and r.
+            Note that false is returned, if q==p or q==r.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>returns true, iff the three points are 
             collinear and q lies strictly between p and r.</returns>
         </member>
@@ -651,9 +719,9 @@
             and q lies strictly between p and r.
             Note that false is returned, if q==p or q==r.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>returns true, iff the three points are 
             collinear and q lies strictly between p and r.</returns>
         </member>
@@ -661,18 +729,18 @@
             <summary>
             Returns true, if p, q, and r are collinear
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>returns true, if p, q, and r are collinear</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Collinear(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
             Returns true, if p, q, and r are collinear
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>Returns true, iff p, q, and r are collinear</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Bisector(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
@@ -680,8 +748,8 @@
             Constructs the bisector line of the two points p and q.
             The bisector is oriented in such a way that p lies on its positive side.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
             <returns>Constructs the bisector line of the two points p and q.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Bisector(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Shapes.Line2d)">
@@ -707,10 +775,10 @@
             <summary>
             Returns true, if p, q, r, and s are coplanar.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
-            <param name="s"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <param name="s">The fourth point</param>
             <returns>Returns true, if p, q, r, and s are coplanar.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.CoplanarOrientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
@@ -722,9 +790,9 @@
             this predicate over 3 points in p will return a coherent 
             orientation if considered a 2D orientation in p
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>If p,q,r are collinear, then CGAL_COLLINEAR is returned.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.CoplanarOrientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
@@ -737,46 +805,46 @@
             otherwise CGAL_NEGATIVE is returned.
             p, q, r, and s are coplanar and p, q, and r are not collinear.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
-            <param name="s"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <param name="s">The fourth point</param>
             <returns></returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.LeftTurn(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
             Returns true if p, q, and r form a left turn.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>Returns true if p, q, and r form a left turn.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.RightTurn(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
             Returns true if p, q, and r form a right turn.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>Returns true if p, q, and r form a right turn.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
-            returns CGAL::LEFT_TURN, if r lies to the left of the oriented 
-            line l defined by p and q, returns CGAL::RIGHT_TURN if r lies 
-            to the right of l, and returns CGAL::COLLINEAR if r lies on l.
+            Returns LEFT_TURN, if r lies to the left of the oriented 
+            line l defined by p and q, returns RIGHT_TURN if r lies 
+            to the right of l, and returns COLLINEAR if r lies on l.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns></returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Vector2d,CGALDotNetGeometry.Numerics.Vector2d)">
             <summary>
-            returns CGAL::LEFT_TURN if u and v form a left turn, returns 
-            CGAL::RIGHT_TURN if u and v form a right turn, and returns 
-            CGAL::COLLINEAR if u and v are collinear.
+            returns LEFT_TURN if u and v form a left turn, returns 
+            RIGHT_TURN if u and v form a right turn, and returns 
+            COLLINEAR if u and v are collinear.
             </summary>
             <param name="u"></param>
             <param name="v"></param>
@@ -784,22 +852,22 @@
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
-            returns CGAL::POSITIVE, if s lies on the positive side of the 
-            oriented plane h defined by p, q, and r, returns CGAL::NEGATIVE
-            if s lies on the negative side of h, and returns CGAL::COPLANAR 
+            returns POSITIVE, if s lies on the positive side of the 
+            oriented plane h defined by p, q, and r, returns NEGATIVE
+            if s lies on the negative side of h, and returns COPLANAR 
             if s lies on h.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
-            <param name="s"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <param name="s">The fourth point</param>
             <returns></returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Vector3d,CGALDotNetGeometry.Numerics.Vector3d,CGALDotNetGeometry.Numerics.Vector3d)">
             <summary>
-            returns CGAL::NEGATIVE if u, v and w are negatively oriented, 
-            CGAL::POSITIVE if u, v and w are positively oriented,
-            and CGAL::COPLANAR if u, v and w are coplanar.
+            returns NEGATIVE if u, v and w are negatively oriented, 
+            POSITIVE if u, v and w are positively oriented,
+            and COPLANAR if u, v and w are coplanar.
             </summary>
             <param name="u"></param>
             <param name="v"></param>
@@ -808,9 +876,9 @@
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
-            returns CGAL::NEGATIVE if u, v and w are negatively oriented, 
-            CGAL::POSITIVE if u, v and w are positively oriented,
-            and CGAL::COPLANAR if u, v and w are coplanar.
+            returns NEGATIVE if u, v and w are negatively oriented, 
+            POSITIVE if u, v and w are positively oriented,
+            and COPLANAR if u, v and w are coplanar.
             </summary>
             <param name="u"></param>
             <param name="v"></param>
@@ -822,9 +890,9 @@
             computes an orthogonal vector of the plane defined by p, q
             and r, which is directed to the positive side of this plane.
             </summary>
-            <param name="p"></param>
-            <param name="q"></param>
-            <param name="r"></param>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns>computes an orthogonal vector of the plane</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNetGeometry.Shapes.Line2d,CGALDotNetGeometry.Shapes.Line2d)">
@@ -897,9 +965,9 @@
         </member>
         <member name="M:CGALDotNet.CGALObject.ToString">
             <summary>
-            
+            Print some information about the object.
             </summary>
-            <returns></returns>
+            <returns>Print some information about the object.</returns>
         </member>
         <member name="M:CGALDotNet.CGALObject.Print">
             <summary>

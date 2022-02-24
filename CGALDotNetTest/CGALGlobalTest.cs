@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using CGALDotNet;
+using CGALDotNet.Geometry;
 using CGALDotNetGeometry.Numerics;
 using CGALDotNetGeometry.Shapes;
 
@@ -12,7 +13,7 @@ namespace CGALDotNetTest
     public class CGALGlobalTest
     {
         [TestMethod]
-        public void Angle()
+        public void Angle_Shape()
         {
             var t2 = new Vector2d(1, 1);
             var u2 = new Vector2d(1, 0);
@@ -38,7 +39,33 @@ namespace CGALDotNetTest
         }
 
         [TestMethod]
-        public void ApproxAngle()
+        public void Angle_EIK()
+        {
+            var t2 = new Vector2<EIK>(1, 1);
+            var u2 = new Vector2<EIK>(1, 0);
+            var v2 = new Vector2<EIK>(0, 1);
+            var w2 = new Vector2<EIK>(-1, 1);
+
+            Assert.AreEqual(CGALGlobal.Angle(t2, u2), ANGLE.ACUTE);
+            Assert.AreEqual(CGALGlobal.Angle(u2, v2), ANGLE.RIGHT);
+            Assert.AreEqual(CGALGlobal.Angle(w2, u2), ANGLE.OBTUSE);
+        }
+
+        [TestMethod]
+        public void Angle_EEK()
+        {
+            var t2 = new Vector2<EEK>(1, 1);
+            var u2 = new Vector2<EEK>(1, 0);
+            var v2 = new Vector2<EEK>(0, 1);
+            var w2 = new Vector2<EEK>(-1, 1);
+
+            Assert.AreEqual(CGALGlobal.Angle(t2, u2), ANGLE.ACUTE);
+            Assert.AreEqual(CGALGlobal.Angle(u2, v2), ANGLE.RIGHT);
+            Assert.AreEqual(CGALGlobal.Angle(w2, u2), ANGLE.OBTUSE);
+        }
+
+        [TestMethod]
+        public void ApproxAngle_Shape()
         {
             var t = new Vector3d(1, 1, 0);
             var u = new Vector3d(1, 0, 0);
@@ -55,24 +82,37 @@ namespace CGALDotNetTest
         }
 
         [TestMethod]
-        public void AreOrderedAlongLine()
+        public void AreOrderedAlongLine_Shape()
         {
             var p2 = new Point2d(1, 0);
             var q2 = new Point2d(2, 0);
             var r2 = new Point2d(3, 0);
 
             Assert.IsTrue(CGALGlobal.AreOrderedAlongLine(p2, q2, r2));
-
-            var p3 = new Point3d(1, 0, 0);
-            var q3 = new Point3d(2, 0, 0);
-            var r3 = new Point3d(3, 0, 0);
-
-            Assert.IsTrue(CGALGlobal.AreOrderedAlongLine(p3, q3, r3));
-            Assert.IsTrue(CGALGlobal.AreOrderedAlongLine(p3.xzy, q3.xzy, r3.xzy));
         }
 
         [TestMethod]
-        public void AreStrictlyOrderedAlongLine()
+        public void AreOrderedAlongLine_EIK()
+        {
+            var p2 = new Point2<EIK>(1, 0);
+            var q2 = new Point2<EIK>(2, 0);
+            var r2 = new Point2<EIK>(3, 0);
+
+            Assert.IsTrue(CGALGlobal.AreOrderedAlongLine(p2, q2, r2));
+        }
+
+        [TestMethod]
+        public void AreOrderedAlongLine_EEK()
+        {
+            var p2 = new Point2<EEK>(1, 0);
+            var q2 = new Point2<EEK>(2, 0);
+            var r2 = new Point2<EEK>(3, 0);
+
+            Assert.IsTrue(CGALGlobal.AreOrderedAlongLine(p2, q2, r2));
+        }
+
+        [TestMethod]
+        public void AreStrictlyOrderedAlongLine_Shape()
         {
             var p2 = new Point2d(1, 0);
             var q2 = new Point2d(2, 0);
@@ -80,14 +120,28 @@ namespace CGALDotNetTest
 
             Assert.IsTrue(CGALGlobal.AreStrictlyOrderedAlongLine(p2, q2, r2));
             Assert.IsFalse(CGALGlobal.AreStrictlyOrderedAlongLine(p2, r2, r2));
+        }
 
-            var p3 = new Point3d(1, 0, 0);
-            var q3 = new Point3d(2, 0, 0);
-            var r3 = new Point3d(3, 0, 0);
+        [TestMethod]
+        public void AreStrictlyOrderedAlongLine_EIK()
+        {
+            var p2 = new Point2<EIK>(1, 0);
+            var q2 = new Point2<EIK>(2, 0);
+            var r2 = new Point2<EIK>(3, 0);
 
-            Assert.IsTrue(CGALGlobal.AreStrictlyOrderedAlongLine(p3, q3, r3));
-            Assert.IsTrue(CGALGlobal.AreStrictlyOrderedAlongLine(p3.xzy, q3.xzy, r3.xzy));
-            Assert.IsFalse(CGALGlobal.AreStrictlyOrderedAlongLine(p3, q3, q3));
+            Assert.IsTrue(CGALGlobal.AreStrictlyOrderedAlongLine(p2, q2, r2));
+            Assert.IsFalse(CGALGlobal.AreStrictlyOrderedAlongLine(p2, r2, r2));
+        }
+
+        [TestMethod]
+        public void AreStrictlyOrderedAlongLine_EEK()
+        {
+            var p2 = new Point2<EEK>(1, 0);
+            var q2 = new Point2<EEK>(2, 0);
+            var r2 = new Point2<EEK>(3, 0);
+
+            Assert.IsTrue(CGALGlobal.AreStrictlyOrderedAlongLine(p2, q2, r2));
+            Assert.IsFalse(CGALGlobal.AreStrictlyOrderedAlongLine(p2, r2, r2));
         }
 
         [TestMethod]

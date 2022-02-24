@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
 using CGALDotNetGeometry.Shapes;
+using CGALDotNet.Geometry;
 
 [assembly: InternalsVisibleTo("CGALDotNetConsole")]
 [assembly: InternalsVisibleTo("CGALDotNetTest")]
@@ -71,6 +72,32 @@ namespace CGALDotNet
         }
 
         /// <summary>
+        /// Returns OBTUSE, RIGHT or ACUTE depending on the 
+        /// angle formed by the two vectors u and v.
+        /// </summary>
+        /// <param name="u">The first vector.</param>
+        /// <param name="v">The second vector.</param>
+        /// <returns>OBTUSE, RIGHT or ACUTE depending on the 
+        /// angle formed by the two vectors u and v.</returns>
+        public static ANGLE Angle(Vector2<EIK> u, Vector2<EIK> v)
+        {
+            return CGALGlobal_EIK_Angle_Vector2(u.Ptr, v.Ptr);
+        }
+
+        /// <summary>
+        /// Returns OBTUSE, RIGHT or ACUTE depending on the 
+        /// angle formed by the two vectors u and v.
+        /// </summary>
+        /// <param name="u">The first vector.</param>
+        /// <param name="v">The second vector.</param>
+        /// <returns>OBTUSE, RIGHT or ACUTE depending on the 
+        /// angle formed by the two vectors u and v.</returns>
+        public static ANGLE Angle(Vector2<EEK> u, Vector2<EEK> v)
+        {
+            return CGALGlobal_EEK_Angle_Vector2(u.Ptr, v.Ptr);
+        }
+
+        /// <summary>
         /// returns OBTUSE, RIGHT or ACUTE depending on the 
         /// angle formed by the two vectors u and v.
         /// </summary>
@@ -80,7 +107,7 @@ namespace CGALDotNet
         /// angle formed by the two vectors u and v.</returns>
         public static ANGLE Angle(Vector3d u, Vector3d v)
         {
-            return CGALGlobal_EIK_Angle_Vector3(u, v);
+            return CGALGlobal_EIK_Angle_Vector3d(u, v);
         }
 
         /// <summary>
@@ -91,7 +118,7 @@ namespace CGALDotNet
         /// <returns>The angle is given in degrees.</returns>
         public static Degree ApproxAngle(Vector3d u, Vector3d v)
         {
-            return new Degree(CGALGlobal_EIK_ApproxAngle_Vector3(u, v));
+            return new Degree(CGALGlobal_EIK_ApproxAngle_Vector3d(u, v));
         }
 
         /// <summary>
@@ -99,10 +126,10 @@ namespace CGALDotNet
         /// in the tetrahedron pqrs of edge pq.
         /// p,q,r and p,q,s are not collinear.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
+        /// <param name="p">The first tetrahedrons point.</param>
+        /// <param name="q">The second tetrahedrons point.</param>
+        /// <param name="r">The third tetrahedrons point.</param>
+        /// <param name="s">The fourth tetrahedrons point.</param>
         /// <returns>The sign is negative if orientation(p,q,r,s) 
         /// is CGAL::NEGATIVE and positive otherwise.
         /// The angle is given in degrees.</returns>
@@ -116,14 +143,14 @@ namespace CGALDotNet
         /// and q lies between p and r.
         /// Note that true is returned, if q==p or q==r.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>Returns true, if the three points are 
         /// collinear and q lies between p and r.</returns>
         public static bool AreOrderedAlongLine(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EIK_AreOrderedAlongLine_Point2(p, q, r);
+            return CGALGlobal_EIK_AreOrderedAlongLine_Point2d(p, q, r);
         }
 
         /// <summary>
@@ -131,14 +158,44 @@ namespace CGALDotNet
         /// and q lies between p and r.
         /// Note that true is returned, if q==p or q==r.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Returns true, if the three points are 
+        /// collinear and q lies between p and r.</returns>
+        public static bool AreOrderedAlongLine(Point2<EIK> p, Point2<EIK> q, Point2<EIK> r)
+        {
+            return CGALGlobal_EIK_AreOrderedAlongLine_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// Returns true, if the three points are collinear 
+        /// and q lies between p and r.
+        /// Note that true is returned, if q==p or q==r.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Returns true, if the three points are 
+        /// collinear and q lies between p and r.</returns>
+        public static bool AreOrderedAlongLine(Point2<EEK> p, Point2<EEK> q, Point2<EEK> r)
+        {
+            return CGALGlobal_EEK_AreOrderedAlongLine_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// Returns true, if the three points are collinear 
+        /// and q lies between p and r.
+        /// Note that true is returned, if q==p or q==r.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>Returns true, if the three points are 
         /// collinear and q lies between p and r.</returns>
         public static bool AreOrderedAlongLine(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EIK_AreOrderedAlongLine_Point3(p, q, r);
+            return CGALGlobal_EIK_AreOrderedAlongLine_Point3d(p, q, r);
         }
 
         /// <summary>
@@ -146,14 +203,14 @@ namespace CGALDotNet
         /// and q lies strictly between p and r.
         /// Note that false is returned, if q==p or q==r.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>returns true, iff the three points are 
         /// collinear and q lies strictly between p and r.</returns>
         public static bool AreStrictlyOrderedAlongLine(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(p, q, r);
+            return CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2d(p, q, r);
         }
 
         /// <summary>
@@ -161,22 +218,52 @@ namespace CGALDotNet
         /// and q lies strictly between p and r.
         /// Note that false is returned, if q==p or q==r.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>returns true, iff the three points are 
+        /// collinear and q lies strictly between p and r.</returns>
+        public static bool AreStrictlyOrderedAlongLine(Point2<EIK> p, Point2<EIK> q, Point2<EIK> r)
+        {
+            return CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// returns true, if the three points are collinear 
+        /// and q lies strictly between p and r.
+        /// Note that false is returned, if q==p or q==r.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>returns true, iff the three points are 
+        /// collinear and q lies strictly between p and r.</returns>
+        public static bool AreStrictlyOrderedAlongLine(Point2<EEK> p, Point2<EEK> q, Point2<EEK> r)
+        {
+            return CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// returns true, if the three points are collinear 
+        /// and q lies strictly between p and r.
+        /// Note that false is returned, if q==p or q==r.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>returns true, iff the three points are 
         /// collinear and q lies strictly between p and r.</returns>
         public static bool AreStrictlyOrderedAlongLine(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3(p, q, r);
+            return CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3d(p, q, r);
         }
 
         /// <summary>
         /// Returns true, if p, q, and r are collinear
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>returns true, if p, q, and r are collinear</returns>
         public static bool Collinear(Point2d p, Point2d q, Point2d r)
         {
@@ -186,9 +273,9 @@ namespace CGALDotNet
         /// <summary>
         /// Returns true, if p, q, and r are collinear
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>Returns true, iff p, q, and r are collinear</returns>
         public static bool Collinear(Point3d p, Point3d q, Point3d r)
         {
@@ -199,8 +286,8 @@ namespace CGALDotNet
         /// Constructs the bisector line of the two points p and q.
         /// The bisector is oriented in such a way that p lies on its positive side.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
         /// <returns>Constructs the bisector line of the two points p and q.</returns>
         public static Line2d Bisector(Point3d p, Point3d q)
         {
@@ -232,10 +319,10 @@ namespace CGALDotNet
         /// <summary>
         /// Returns true, if p, q, r, and s are coplanar.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <param name="s">The fourth point</param>
         /// <returns>Returns true, if p, q, r, and s are coplanar.</returns>
         public static bool Coplanar(Point3d p, Point3d q, Point3d r, Point3d s)
         {
@@ -250,9 +337,9 @@ namespace CGALDotNet
         /// this predicate over 3 points in p will return a coherent 
         /// orientation if considered a 2D orientation in p
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>If p,q,r are collinear, then CGAL_COLLINEAR is returned.</returns>
         public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r)
         {
@@ -268,10 +355,10 @@ namespace CGALDotNet
         /// otherwise CGAL_NEGATIVE is returned.
         /// p, q, r, and s are coplanar and p, q, and r are not collinear.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <param name="s">The fourth point</param>
         /// <returns></returns>
         public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
@@ -298,9 +385,9 @@ namespace CGALDotNet
         /// <summary>
         /// Returns true if p, q, and r form a left turn.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>Returns true if p, q, and r form a left turn.</returns>
         public static bool LeftTurn(Point2d p, Point2d q, Point2d r)
         {
@@ -310,9 +397,9 @@ namespace CGALDotNet
         /// <summary>
         /// Returns true if p, q, and r form a right turn.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>Returns true if p, q, and r form a right turn.</returns>
         public static bool RightTurn(Point2d p, Point2d q, Point2d r)
         {
@@ -324,9 +411,9 @@ namespace CGALDotNet
         /// line l defined by p and q, returns RIGHT_TURN if r lies 
         /// to the right of l, and returns COLLINEAR if r lies on l.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns></returns>
         public static ORIENTATION Orientation(Point2d p, Point2d q, Point2d r)
         {
@@ -352,10 +439,10 @@ namespace CGALDotNet
         /// if s lies on the negative side of h, and returns COPLANAR 
         /// if s lies on h.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <param name="s"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <param name="s">The fourth point</param>
         /// <returns></returns>
         public static ORIENTATION Orientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
@@ -394,9 +481,9 @@ namespace CGALDotNet
         /// computes an orthogonal vector of the plane defined by p, q
         /// and r, which is directed to the positive side of this plane.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
         /// <returns>computes an orthogonal vector of the plane</returns>
         public static Vector3d OrthogonalVector(Point3d p, Point3d q, Point3d r)
         {
@@ -439,7 +526,9 @@ namespace CGALDotNet
             return CGALGlobal_EIK_Parallel_Segment2(s1, s2);
         }
 
-
+        //---------------------------------------------------------------------------//
+        //                               Version                                     //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int CGALGlobal_VersionNumber();
@@ -447,29 +536,73 @@ namespace CGALDotNet
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Index3 CGALGlobal_EigenVersionNumber();
 
+        //---------------------------------------------------------------------------//
+        //                               Angle                                       //
+        //---------------------------------------------------------------------------//
+
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern ANGLE CGALGlobal_EIK_Angle_Vector2(Vector2d u, Vector2d v);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ANGLE CGALGlobal_EIK_Angle_Vector3(Vector3d u, Vector3d v);
+        private static extern ANGLE CGALGlobal_EIK_Angle_Vector2(IntPtr u, IntPtr v);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern double CGALGlobal_EIK_ApproxAngle_Vector3(Vector3d u, Vector3d v);
+        private static extern ANGLE CGALGlobal_EEK_Angle_Vector2(IntPtr u, IntPtr v);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ANGLE CGALGlobal_EIK_Angle_Vector3d(Vector3d u, Vector3d v);
+
+        //---------------------------------------------------------------------------//
+        //                               ApproxAngle                                 //
+        //---------------------------------------------------------------------------//
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double CGALGlobal_EIK_ApproxAngle_Vector3d(Vector3d u, Vector3d v);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double CGALGlobal_EIK_ApproxAngle_Vector2(IntPtr u, IntPtr v);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double CGALGlobal_EEK_ApproxAngle_Vector2(IntPtr u, IntPtr v);
+
+        //---------------------------------------------------------------------------//
+        //                               ApproxDihedralAngle                         //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern double CGALGlobal_EIK_ApproxDihedralAngle_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
 
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_AreOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
+        //---------------------------------------------------------------------------//
+        //                               AreOrderedAlongLine                         //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_AreOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EIK_AreOrderedAlongLine_Point2d(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern bool CGALGlobal_EIK_AreOrderedAlongLine_Point2(IntPtr p, IntPtr q, IntPtr r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EEK_AreOrderedAlongLine_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_AreOrderedAlongLine_Point3d(Point3d p, Point3d q, Point3d r);
+
+        //---------------------------------------------------------------------------//
+        //                               AreStrictlyOrderedAlongLine                 //
+        //---------------------------------------------------------------------------//
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2d(Point2d p, Point2d q, Point2d r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3d(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool CGALGlobal_EIK_Collinear_Point2(Point2d p, Point2d q, Point2d r);

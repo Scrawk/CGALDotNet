@@ -581,7 +581,7 @@
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp">
       <Filter>Source Files\Hulls</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\CGALGlobal_EiK.cpp">
+    <ClCompile Include="Utility\CGALGlobal_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Polygons\PolygonSimplification2_EEK.cpp">

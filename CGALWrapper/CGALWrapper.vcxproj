@@ -403,7 +403,7 @@
     <ClCompile Include="Meshing\ConformingTriangulation2_EEK.cpp" />
     <ClCompile Include="Polygons\PolygonOffset2_EEK.cpp" />
     <ClCompile Include="Collections\NativeList.cpp" />
-    <ClCompile Include="Utility\CGALGlobal_EiK.cpp" />
+    <ClCompile Include="Utility\CGALGlobal_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EEK.cpp" />
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp" />

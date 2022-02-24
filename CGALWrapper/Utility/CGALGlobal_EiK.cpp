@@ -6,44 +6,94 @@
 #include "../Geometry/Geometry2.h"
 #include "../Geometry/Geometry3.h"
 
-CGAL::Angle CGALGlobal_EIK_Angle_Vector2(Vector2d u, Vector2d v)
+//---------------------------------------------------------------------------//
+//                               Angle                                       //
+//---------------------------------------------------------------------------//
+
+CGAL::Angle CGALGlobal_EIK_Angle_Vector2d(Vector2d u, Vector2d v)
 {
-	return CGALGlobal<EIK>::Angle(u, v);
+	return CGALGlobal<EIK>::Angle_Vector2(u, v);
 }
 
-CGAL::Angle CGALGlobal_EIK_Angle_Vector3(Vector3d u, Vector3d v)
+CGAL::Angle CGALGlobal_EIK_Angle_Vector2(void* u, void* v)
 {
-	return CGALGlobal<EIK>::Angle(u, v);
+	return CGALGlobal<EIK>::Angle_EIK_Vector2(u, v);
 }
 
-double CGALGlobal_EIK_ApproxAngle_Vector3(Vector3d u, Vector3d v)
+CGAL::Angle CGALGlobal_EEK_Angle_Vector2(void* u, void* v)
 {
-	return CGALGlobal<EIK>::ApproxAngle(u, v);
+	return CGALGlobal<EEK>::Angle_EEK_Vector2(u, v);
 }
+
+CGAL::Angle CGALGlobal_EIK_Angle_Vector3d(Vector3d u, Vector3d v)
+{
+	return CGALGlobal<EIK>::Angle_Vector3(u, v);
+}
+
+//---------------------------------------------------------------------------//
+//                               ApproxAngle                                 //
+//---------------------------------------------------------------------------//
+
+double CGALGlobal_EIK_ApproxAngle_Vector3d(Vector3d u, Vector3d v)
+{
+	return CGALGlobal<EIK>::ApproxAngle_Vector3d(u, v);
+}
+
+//---------------------------------------------------------------------------//
+//                               ApproxDihedralAngle                         //
+//---------------------------------------------------------------------------//
 
 double CGALGlobal_EIK_ApproxDihedralAngle_Point3(Point3d p, Point3d q, Point3d r, Point3d s)
 {
 	return CGALGlobal<EIK>::ApproxDihedralAngle(p, q, r, s);
 }
 
-BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r)
+//---------------------------------------------------------------------------//
+//                               AreOrderedAlongLine                         //
+//---------------------------------------------------------------------------//
+
+BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point2d(Point2d p, Point2d q, Point2d r)
 {
-	return CGALGlobal<EIK>::AreOrderedAlongLine(p, q, r);
+	return CGALGlobal<EIK>::AreOrderedAlongLine_Point2d(p, q, r);
 }
 
-BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r)
+BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point2(void* p, void* q, void* r)
 {
-	return CGALGlobal<EIK>::AreOrderedAlongLine(p, q, r);
+	return CGALGlobal<EIK>::AreOrderedAlongLine_EIK_Point2(p, q, r);
 }
 
-BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(Point2d p, Point2d q, Point2d r)
+BOOL CGALGlobal_EEK_AreOrderedAlongLine_Point2(void* p, void* q, void* r)
 {
-	return CGALGlobal<EIK>::AreStrictlyOrderedAlongLine(p, q, r);
+	return CGALGlobal<EIK>::AreOrderedAlongLine_EEK_Point2(p, q, r);
 }
 
-BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3(Point3d p, Point3d q, Point3d r)
+BOOL CGALGlobal_EIK_AreOrderedAlongLine_Point3d(Point3d p, Point3d q, Point3d r)
 {
-	return CGALGlobal<EIK>::AreStrictlyOrderedAlongLine(p, q, r);
+	return CGALGlobal<EIK>::AreOrderedAlongLine_Point3d(p, q, r);
+}
+
+//---------------------------------------------------------------------------//
+//                               AreStrictlyOrderedAlongLine                 //
+//---------------------------------------------------------------------------//
+
+BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2d(Point2d p, Point2d q, Point2d r)
+{
+	return CGALGlobal<EIK>::AreStrictlyOrderedAlongLine_Point2d(p, q, r);
+}
+
+BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point2(void* p, void* q, void* r)
+{
+	return CGALGlobal<EIK>::AreStrictlyOrderedAlongLine_EIK_Point2(p, q, r);
+}
+
+BOOL CGALGlobal_EEK_AreStrictlyOrderedAlongLine_Point2(void* p, void* q, void* r)
+{
+	return CGALGlobal<EEK>::AreStrictlyOrderedAlongLine_EEK_Point2(p, q, r);
+}
+
+BOOL CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3d(Point3d p, Point3d q, Point3d r)
+{
+	return CGALGlobal<EIK>::AreStrictlyOrderedAlongLine_Point3d(p, q, r);
 }
 
 BOOL CGALGlobal_EIK_Collinear_Point2(Point2d p, Point2d q, Point2d r)
