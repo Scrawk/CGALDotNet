@@ -76,12 +76,12 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// 
+        /// Print some information about the object.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Print some information about the object.</returns>
         public override string ToString()
         {
-            return String.Format("[CGALObject: Ptr={0}]", Ptr.ToInt64());
+            return String.Format("[CGALObject: Ptr={0}, IsDiposed={1}]", Ptr.ToInt64(), IsDisposed);
         }
 
         /// <summary>

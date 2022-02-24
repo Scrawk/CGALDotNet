@@ -58,12 +58,12 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// Returns CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+        /// Returns OBTUSE, RIGHT or ACUTE depending on the 
         /// angle formed by the two vectors u and v.
         /// </summary>
         /// <param name="u">The first vector.</param>
         /// <param name="v">The second vector.</param>
-        /// <returns>CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+        /// <returns>OBTUSE, RIGHT or ACUTE depending on the 
         /// angle formed by the two vectors u and v.</returns>
         public static ANGLE Angle(Vector2d u, Vector2d v)
         {
@@ -71,12 +71,12 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// returns CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+        /// returns OBTUSE, RIGHT or ACUTE depending on the 
         /// angle formed by the two vectors u and v.
         /// </summary>
         /// <param name="u">The first vector.</param>
         /// <param name="v">The second vector.</param>
-        /// <returns>CGAL_OBTUSE, CGAL_RIGHT or CGAL_ACUTE depending on the 
+        /// <returns>OBTUSE, RIGHT or ACUTE depending on the 
         /// angle formed by the two vectors u and v.</returns>
         public static ANGLE Angle(Vector3d u, Vector3d v)
         {
@@ -320,9 +320,9 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// returns CGAL::LEFT_TURN, if r lies to the left of the oriented 
-        /// line l defined by p and q, returns CGAL::RIGHT_TURN if r lies 
-        /// to the right of l, and returns CGAL::COLLINEAR if r lies on l.
+        /// Returns LEFT_TURN, if r lies to the left of the oriented 
+        /// line l defined by p and q, returns RIGHT_TURN if r lies 
+        /// to the right of l, and returns COLLINEAR if r lies on l.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="q"></param>
@@ -334,9 +334,9 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// returns CGAL::LEFT_TURN if u and v form a left turn, returns 
-        /// CGAL::RIGHT_TURN if u and v form a right turn, and returns 
-        /// CGAL::COLLINEAR if u and v are collinear.
+        /// returns LEFT_TURN if u and v form a left turn, returns 
+        /// RIGHT_TURN if u and v form a right turn, and returns 
+        /// COLLINEAR if u and v are collinear.
         /// </summary>
         /// <param name="u"></param>
         /// <param name="v"></param>
@@ -347,9 +347,9 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// returns CGAL::POSITIVE, if s lies on the positive side of the 
-        /// oriented plane h defined by p, q, and r, returns CGAL::NEGATIVE
-        /// if s lies on the negative side of h, and returns CGAL::COPLANAR 
+        /// returns POSITIVE, if s lies on the positive side of the 
+        /// oriented plane h defined by p, q, and r, returns NEGATIVE
+        /// if s lies on the negative side of h, and returns COPLANAR 
         /// if s lies on h.
         /// </summary>
         /// <param name="p"></param>
@@ -363,9 +363,9 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// returns CGAL::NEGATIVE if u, v and w are negatively oriented, 
-        /// CGAL::POSITIVE if u, v and w are positively oriented,
-        /// and CGAL::COPLANAR if u, v and w are coplanar.
+        /// returns NEGATIVE if u, v and w are negatively oriented, 
+        /// POSITIVE if u, v and w are positively oriented,
+        /// and COPLANAR if u, v and w are coplanar.
         /// </summary>
         /// <param name="u"></param>
         /// <param name="v"></param>
@@ -377,9 +377,9 @@ namespace CGALDotNet
         }
 
         /// <summary>
-        /// returns CGAL::NEGATIVE if u, v and w are negatively oriented, 
-        /// CGAL::POSITIVE if u, v and w are positively oriented,
-        /// and CGAL::COPLANAR if u, v and w are coplanar.
+        /// returns NEGATIVE if u, v and w are negatively oriented, 
+        /// POSITIVE if u, v and w are positively oriented,
+        /// and COPLANAR if u, v and w are coplanar.
         /// </summary>
         /// <param name="u"></param>
         /// <param name="v"></param>
