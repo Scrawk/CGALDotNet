@@ -114,6 +114,18 @@ namespace CGALDotNetTest.Geometry
             //Assert.AreEqual(1, p2.w);
         }
 
+        [TestMethod]
+        public void Convert()
+        {
+            var p1 = new HPoint2<EIK>(1, 2);
+            var p2 = p1.Convert<EEK>();
+
+            Assert.AreNotEqual(p1.Ptr, p2.Ptr);
+            Assert.AreEqual(1, p2.x);
+            Assert.AreEqual(2, p2.y);
+            Assert.AreEqual("EEK", p2.KernelName);
+        }
+
     }
 
 }

@@ -71,13 +71,18 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// The type of kernel object uses.
+        /// </summary>
+        public string KernelName => Kernel.Name;
+
+        /// <summary>
         /// Vector information.
         /// </summary>
         /// <returns>The vectors string information.</returns>
         public override string ToString()
         {
             return string.Format("[Vector2<{0}>: x={1}, y={2}]",
-                Kernel.Name, x, y);
+                KernelName, x, y);
         }
 
         /// <summary>
@@ -89,8 +94,6 @@ namespace CGALDotNet.Geometry
             return new Vector2<K>(Kernel.Vector2_Copy(Ptr));
         }
 
-        /*
-
         /// <summary>
         /// Convert to another kernel.
         /// Must provide a different kernel to convert to or
@@ -99,7 +102,7 @@ namespace CGALDotNet.Geometry
         /// <returns>The shape with another kernel type.</returns>
         public Vector2<T> Convert<T>() where T : CGALKernel, new()
         {
-            if (Kernel.Name == typeof(T).Name)
+            if (KernelName == typeof(T).Name)
             {
                 var ptr = Kernel.Vector2_Copy(Ptr);
                 return new Vector2<T>(ptr);
@@ -110,8 +113,6 @@ namespace CGALDotNet.Geometry
                 return new Vector2<T>(ptr);
             }
         }
-
-        */
 
     }
 

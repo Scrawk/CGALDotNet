@@ -1446,7 +1446,7 @@
         </member>
         <member name="T:CGALDotNet.Geometry.Box2`1">
             <summary>
-            The generic IsoRectangle wrapper for a CGAL object.
+            The generic Box wrapper for a CGAL object.
             </summary>
             <typeparam name="K">The kernel type.</typeparam>
         </member>
@@ -1469,6 +1469,11 @@
             Create from a pointer.
             </summary>
             <param name="ptr">The iso rectangle pointer.</param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Box2`1.KernelName">
+            <summary>
+            The type of kernel object uses.
+            </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.Box2`1.ToString">
             <summary>
@@ -1539,7 +1544,7 @@
             Construct with a new kernel.
             </summary>
             <param name="kernel">The geometry kernel.</param>
-            <param name="ptr">The IsoRectangle pointer.</param>
+            <param name="ptr">The Box pointer.</param>
         </member>
         <member name="P:CGALDotNet.Geometry.Box2.Kernel">
             <summary>
@@ -2373,10 +2378,10 @@
             
             </summary>-------------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.GeometryKernel2.IsoRectangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2.Box2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>--------------------------------------------------------
             
-                            The IsoRectangle2 Class Functions
+                            The Box2 Class Functions
             
             </summary>-------------------------------------------------------
         </member>
@@ -2429,7 +2434,7 @@
             
             </summary>-------------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.IsoRectangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Box2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>--------------------------------------------------------
             
                             The IsoRectancle2 Class Functions
@@ -2485,10 +2490,10 @@
             
             </summary>-------------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.IsoRectangle2_EEK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EEK.Box2_EEK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>--------------------------------------------------------
             
-                            The IsoRectangle2 extern functions
+                            The Box2 extern functions
             
             </summary>-------------------------------------------------------
         </member>
@@ -2541,7 +2546,7 @@
             
             </summary>-------------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.IsoRectangle2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Box2_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>--------------------------------------------------------
             
                             The IsoRectancle2 Class Functions
@@ -2597,50 +2602,55 @@
             
             </summary>-------------------------------------------------------
         </member>
-        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.IsoRectangle2_EIK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+        <member name="M:CGALDotNet.Geometry.GeometryKernel2_EIK.Box2_EIK_Create(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>--------------------------------------------------------
             
-                            The IsoRectangle2 extern functions
+                            The Box2 extern functions
             
             </summary>-------------------------------------------------------
         </member>
         <member name="T:CGALDotNet.Geometry.HPoint2`1">
             <summary>
-            
+            Weighted point class
             </summary>
             <typeparam name="K"></typeparam>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor">
             <summary>
-            
+            Create a new weighted point.
             </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.Double)">
             <summary>
-            
+            Create a new weighted point from a value and weight as 1.
             </summary>
-            <param name="v"></param>
+            <param name="v">The points value.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.Double,System.Double)">
             <summary>
-            
+            Create a new weighted point from a x, y value and weight as 1.
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
+            <param name="x">The points x value.</param>
+            <param name="y">The points y value.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.Double,System.Double,System.Double)">
             <summary>
-            
+            Create a new weighted point from a x, y value and weight as the w value.
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <param name="w"></param>
+            <param name="x">The points x value.</param>
+            <param name="y">The points y value.</param>
+            <param name="w">The points weight value.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2`1.#ctor(System.IntPtr)">
             <summary>
-            
+            Create a new weighted point from a pointer.
             </summary>
-            <param name="ptr"></param>
+            <param name="ptr">The pointer.</param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.HPoint2`1.KernelName">
+            <summary>
+            The type of kernel object uses.
+            </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2`1.ToString">
             <summary>
@@ -2650,9 +2660,17 @@
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2`1.Copy">
             <summary>
-            
+            Create a deep copy of the point.
             </summary>
-            <returns></returns>
+            <returns>The deep copy.</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.HPoint2">
             <summary>
@@ -2661,50 +2679,50 @@
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2.#ctor(CGALDotNet.CGALKernel)">
             <summary>
-            
+            Create a new weighted point.
             </summary>
-            <param name="kernel"></param>
+            <param name="kernel">The points kernel.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2.#ctor(System.Double,System.Double,System.Double,CGALDotNet.CGALKernel)">
             <summary>
-            
+            Create a new weighted point from a x, y value and weight as the w value.
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <param name="w"></param>
-            <param name="kernel"></param>
+            <param name="x">The points x value.</param>
+            <param name="y">The points y value.</param>
+            <param name="w">The points weight value.</param>
+            <param name="kernel">The points kernel.</param>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
             <summary>
-            
+            Create a new weighted point from a existing ponter and kernel.
             </summary>
-            <param name="kernel"></param>
-            <param name="ptr"></param>
+            <param name="kernel">The points kernel.</param>
+            <param name="ptr">The points pointer</param>
         </member>
         <member name="P:CGALDotNet.Geometry.HPoint2.Kernel">
             <summary>
-            
+            The points kernel.
             </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2.ReleasePtr">
             <summary>
-            
+            Release the pointer.
             </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2.ReleasePtr(System.IntPtr)">
             <summary>
-            
+            Release the pointer.
             </summary>
-            <param name="ptr"></param>
+            <param name="ptr">The pointer to release.</param>
         </member>
         <member name="P:CGALDotNet.Geometry.HPoint2.x">
             <summary>
-            
+            Accessor or the points x value.
             </summary>
         </member>
         <member name="P:CGALDotNet.Geometry.HPoint2.y">
             <summary>
-            
+            ccessor or the points y value.
             </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.HPoint2.Round(System.Int32)">
@@ -3101,6 +3119,11 @@
             
             </summary>
             <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Point2`1.KernelName">
+            <summary>
+            The type of kernel object uses.
+            </summary>
         </member>
         <member name="M:CGALDotNet.Geometry.Point2`1.ToString">
             <summary>
@@ -3740,6 +3763,11 @@
             </summary>
             <param name="ptr">The pointer object.</param>
         </member>
+        <member name="P:CGALDotNet.Geometry.Vector2`1.KernelName">
+            <summary>
+            The type of kernel object uses.
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Geometry.Vector2`1.ToString">
             <summary>
             Vector information.
@@ -3751,6 +3779,14 @@
             Create a deep copy of the vector.
             </summary>
             <returns>The deep copy.</returns>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2`1.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Vector2">
             <summary>

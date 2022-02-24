@@ -170,6 +170,7 @@
     <ClInclude Include="Arrangments\ArrVertex2.h" />
     <ClInclude Include="Arrangments\SweepLine_EEK.h" />
     <ClInclude Include="Arrangments\SweepLine_EIK.h" />
+    <ClInclude Include="Geometry\Box2_EIK.h" />
     <ClInclude Include="Eigen\EigenRowVector.h" />
     <ClInclude Include="Eigen\EigenColumnVector.h" />
     <ClInclude Include="Eigen\EigenMatrix.h" />
@@ -179,7 +180,6 @@
     <ClInclude Include="Geometry\Intersections_geometry_EIK.h" />
     <ClInclude Include="Geometry\Intersections_geometry_EEK.h" />
     <ClInclude Include="Geometry\HPoint2_EIK.h" />
-    <ClInclude Include="Geometry\IsoRectangle2_EIK.h" />
     <ClInclude Include="Geometry\Line2_EIK.h" />
     <ClInclude Include="Geometry\Point2_EIK.h" />
     <ClInclude Include="Geometry\Ray2_EIK.h" />
@@ -301,7 +301,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Collections\IndexMap.h" />
     <ClInclude Include="Geometry\Intersections_shapes_EIK.h" />
-    <ClInclude Include="Geometry\IsoRectangle2_EEK.h" />
+    <ClInclude Include="Geometry\Box2_EEK.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Geometry\Geometry2.h" />
     <ClInclude Include="Polygons\Polygon2.h" />
@@ -329,6 +329,7 @@
     <ClCompile Include="Arrangments\Arrangement2_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EEK.cpp" />
     <ClCompile Include="Arrangments\SweepLine_EIK.cpp" />
+    <ClCompile Include="Geometry\Box2_EIK.cpp" />
     <ClCompile Include="Eigen\EigenRowVector.cpp" />
     <ClCompile Include="Eigen\EigenColumnVector.cpp" />
     <ClCompile Include="Eigen\EigenMatrix.cpp" />
@@ -336,7 +337,6 @@
     <ClCompile Include="Geometry\Intersections_geometry_EIK.cpp" />
     <ClCompile Include="Geometry\Intersections_geometry_EEK.cpp" />
     <ClCompile Include="Geometry\HPoint2_EIK.cpp" />
-    <ClCompile Include="Geometry\IsoRectangle2_EIK.cpp" />
     <ClCompile Include="Geometry\Line2_EIK.cpp" />
     <ClCompile Include="Geometry\Point2_EIK.cpp" />
     <ClCompile Include="Geometry\Ray2_EIK.cpp" />
@@ -408,7 +408,7 @@
     <ClCompile Include="Hull\ConvexHull2_EEK.cpp" />
     <ClCompile Include="Triangulations\DelaunayTriangulation2_EEK.cpp" />
     <ClCompile Include="Geometry\Intersections_shapes_EIK.cpp" />
-    <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp" />
+    <ClCompile Include="Geometry\Box2_EEK.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

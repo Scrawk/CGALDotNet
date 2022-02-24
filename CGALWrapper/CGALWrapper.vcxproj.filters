@@ -168,7 +168,7 @@
     <ClInclude Include="Polygons\PolygonSimplification2_EEK.h">
       <Filter>Header Files\Polygons</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry\IsoRectangle2_EEK.h">
+    <ClInclude Include="Geometry\Box2_EEK.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Circlar\Circle2.h">
@@ -525,9 +525,6 @@
     <ClInclude Include="Geometry\HPoint2_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry\IsoRectangle2_EIK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Geometry\Line2_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -544,6 +541,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geometry\Vector2_EIK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry\Box2_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -587,7 +587,7 @@
     <ClCompile Include="Polygons\PolygonSimplification2_EEK.cpp">
       <Filter>Source Files\Polygons</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry\IsoRectangle2_EEK.cpp">
+    <ClCompile Include="Geometry\Box2_EEK.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="Circlar\Circle2_EEK.cpp">
@@ -806,9 +806,6 @@
     <ClCompile Include="Geometry\HPoint2_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry\IsoRectangle2_EIK.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Geometry\Line2_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -825,6 +822,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Geometry\Vector2_EIK.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry\Box2_EIK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

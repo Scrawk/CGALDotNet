@@ -365,7 +365,7 @@ namespace CGALDotNet.Geometry
 
         internal override bool Ray2_IsDegenerate(IntPtr ptr)
         {
-            return IsoRectangle2_EEK_IsDegenerate(ptr);
+            return Box2_EEK_IsDegenerate(ptr);
         }
 
         internal override bool Ray2_IsHorizontal(IntPtr ptr)
@@ -576,68 +576,68 @@ namespace CGALDotNet.Geometry
         /// 
         /// </summary>-------------------------------------------------------
 
-        internal override IntPtr IsoRectangle2_Create(Point2d min, Point2d max)
+        internal override IntPtr Box2_Create(Point2d min, Point2d max)
         {
-            return IsoRectangle2_EEK_Create(min, max);
+            return Box2_EEK_Create(min, max);
         }
 
-        internal override void IsoRectangle2_Release(IntPtr ptr)
+        internal override void Box2_Release(IntPtr ptr)
         {
-            IsoRectangle2_EEK_Release(ptr);
+            Box2_EEK_Release(ptr);
         }
 
-        internal override Point2d IsoRectangle2_GetMin(IntPtr ptr)
+        internal override Point2d Box2_GetMin(IntPtr ptr)
         {
-            return IsoRectangle2_EEK_GetMin(ptr);
+            return Box2_EEK_GetMin(ptr);
         }
 
-        internal override void IsoRectangle2_SetMin(IntPtr ptr, Point2d point)
+        internal override void Box2_SetMin(IntPtr ptr, Point2d point)
         {
-            IsoRectangle2_EEK_SetMin(ptr, point);
+            Box2_EEK_SetMin(ptr, point);
         }
 
-        internal override Point2d IsoRectangle2_GetMax(IntPtr ptr)
+        internal override Point2d Box2_GetMax(IntPtr ptr)
         {
-            return IsoRectangle2_EEK_GetMax(ptr);
+            return Box2_EEK_GetMax(ptr);
         }
 
-        internal override void IsoRectangle2_SetMax(IntPtr ptr, Point2d point)
+        internal override void Box2_SetMax(IntPtr ptr, Point2d point)
         {
-            IsoRectangle2_EEK_SetMax(ptr, point);
+            Box2_EEK_SetMax(ptr, point);
         }
 
-        internal override double IsoRectangle2_Area(IntPtr ptr)
+        internal override double Box2_Area(IntPtr ptr)
         {
-            return IsoRectangle2_EEK_Area(ptr);
+            return Box2_EEK_Area(ptr);
         }
 
-        internal override BOUNDED_SIDE IsoRectangle2_BoundedSide(IntPtr ptr, Point2d point)
+        internal override BOUNDED_SIDE Box2_BoundedSide(IntPtr ptr, Point2d point)
         {
-            return IsoRectangle2_EEK_BoundedSide(ptr, point);
+            return Box2_EEK_BoundedSide(ptr, point);
         }
-        internal override bool IsoRectangle2_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary)
+        internal override bool Box2_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary)
         {
-            return IsoRectangle2_EEK_ContainsPoint(ptr, point, inculdeBoundary);
-        }
-
-        internal override bool IsoRectangle2_IsDegenerate(IntPtr ptr)
-        {
-            return IsoRectangle2_EEK_IsDegenerate(ptr);
+            return Box2_EEK_ContainsPoint(ptr, point, inculdeBoundary);
         }
 
-        internal override void IsoRectangle2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
+        internal override bool Box2_IsDegenerate(IntPtr ptr)
         {
-            IsoRectangle2_EEK_Transform(ptr, translation, rotation, scale);
+            return Box2_EEK_IsDegenerate(ptr);
         }
 
-        internal override IntPtr IsoRectangle2_Copy(IntPtr ptr)
+        internal override void Box2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
         {
-            return IsoRectangle2_EEK_Copy(ptr);
+            Box2_EEK_Transform(ptr, translation, rotation, scale);
         }
 
-        internal override IntPtr IsoRectangle2_Convert(IntPtr ptr)
+        internal override IntPtr Box2_Copy(IntPtr ptr)
         {
-            return IsoRectangle2_EEK_Convert(ptr);
+            return Box2_EEK_Copy(ptr);
+        }
+
+        internal override IntPtr Box2_Convert(IntPtr ptr)
+        {
+            return Box2_EEK_Convert(ptr);
         }
 
         /// <summary>--------------------------------------------------------
@@ -993,47 +993,47 @@ namespace CGALDotNet.Geometry
 
         /// <summary>--------------------------------------------------------
         /// 
-        ///                 The IsoRectangle2 extern functions
+        ///                 The Box2 extern functions
         /// 
         /// </summary>-------------------------------------------------------
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr IsoRectangle2_EEK_Create(Point2d min, Point2d max);
+        private static extern IntPtr Box2_EEK_Create(Point2d min, Point2d max);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void IsoRectangle2_EEK_Release(IntPtr ptr);
+        private static extern void Box2_EEK_Release(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d IsoRectangle2_EEK_GetMin(IntPtr ptr);
+        private static extern Point2d Box2_EEK_GetMin(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void IsoRectangle2_EEK_SetMin(IntPtr ptr, Point2d point);
+        private static extern void Box2_EEK_SetMin(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d IsoRectangle2_EEK_GetMax(IntPtr ptr);
+        private static extern Point2d Box2_EEK_GetMax(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void IsoRectangle2_EEK_SetMax(IntPtr ptr, Point2d point);
+        private static extern void Box2_EEK_SetMax(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern double IsoRectangle2_EEK_Area(IntPtr ptr);
+        private static extern double Box2_EEK_Area(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern BOUNDED_SIDE IsoRectangle2_EEK_BoundedSide(IntPtr ptr, Point2d point);
+        private static extern BOUNDED_SIDE Box2_EEK_BoundedSide(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool IsoRectangle2_EEK_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary);
+        private static extern bool Box2_EEK_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool IsoRectangle2_EEK_IsDegenerate(IntPtr ptr);
+        private static extern bool Box2_EEK_IsDegenerate(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void IsoRectangle2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+        private static extern void Box2_EEK_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr IsoRectangle2_EEK_Copy(IntPtr ptr);
+        private static extern IntPtr Box2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr IsoRectangle2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Box2_EEK_Convert(IntPtr ptr);
     }
 }

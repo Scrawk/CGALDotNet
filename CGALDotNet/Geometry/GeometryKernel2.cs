@@ -259,34 +259,34 @@ namespace CGALDotNet.Geometry
 
         /// <summary>--------------------------------------------------------
         /// 
-        ///                 The IsoRectangle2 Class Functions
+        ///                 The Box2 Class Functions
         /// 
         /// </summary>-------------------------------------------------------
 
-        internal abstract IntPtr IsoRectangle2_Create(Point2d min, Point2d max);
+        internal abstract IntPtr Box2_Create(Point2d min, Point2d max);
 
-        internal abstract void IsoRectangle2_Release(IntPtr ptr);
+        internal abstract void Box2_Release(IntPtr ptr);
 
-        internal abstract Point2d IsoRectangle2_GetMin(IntPtr ptr);
+        internal abstract Point2d Box2_GetMin(IntPtr ptr);
 
-        internal abstract void IsoRectangle2_SetMin(IntPtr ptr, Point2d point);
+        internal abstract void Box2_SetMin(IntPtr ptr, Point2d point);
 
-        internal abstract Point2d IsoRectangle2_GetMax(IntPtr ptr);
+        internal abstract Point2d Box2_GetMax(IntPtr ptr);
 
-        internal abstract void IsoRectangle2_SetMax(IntPtr ptr, Point2d point);
+        internal abstract void Box2_SetMax(IntPtr ptr, Point2d point);
 
-        internal abstract double IsoRectangle2_Area(IntPtr ptr);
+        internal abstract double Box2_Area(IntPtr ptr);
 
-        internal abstract BOUNDED_SIDE IsoRectangle2_BoundedSide(IntPtr ptr, Point2d point);
+        internal abstract BOUNDED_SIDE Box2_BoundedSide(IntPtr ptr, Point2d point);
 
-        internal abstract bool IsoRectangle2_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary);
+        internal abstract bool Box2_ContainsPoint(IntPtr ptr, Point2d point, bool inculdeBoundary);
 
-        internal abstract bool IsoRectangle2_IsDegenerate(IntPtr ptr);
+        internal abstract bool Box2_IsDegenerate(IntPtr ptr);
 
-        internal abstract void IsoRectangle2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
+        internal abstract void Box2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale);
 
-        internal abstract IntPtr IsoRectangle2_Copy(IntPtr ptr);
+        internal abstract IntPtr Box2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr IsoRectangle2_Convert(IntPtr ptr);
+        internal abstract IntPtr Box2_Convert(IntPtr ptr);
     }
 }

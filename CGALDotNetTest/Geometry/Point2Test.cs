@@ -88,13 +88,13 @@ namespace CGALDotNetTest.Geometry
             p8.Round(8);
 
             AssertX.AlmostEqual(0.1, p1.x);
-            AssertX.AlmostEqual(0.01, p2.y);
-            AssertX.AlmostEqual(0.001, p3.y);
-            AssertX.AlmostEqual(0.0001, p4.y);
-            AssertX.AlmostEqual(0.00001, p5.y);
-            AssertX.AlmostEqual(0.000001, p6.y);
-            AssertX.AlmostEqual(0.0000001, p7.y);
-            AssertX.AlmostEqual(0.00000001, p8.y);
+            AssertX.AlmostEqual(0.01, p2.x);
+            AssertX.AlmostEqual(0.001, p3.x);
+            AssertX.AlmostEqual(0.0001, p4.x);
+            AssertX.AlmostEqual(0.00001, p5.x);
+            AssertX.AlmostEqual(0.000001, p6.x);
+            AssertX.AlmostEqual(0.0000001, p7.x);
+            AssertX.AlmostEqual(0.00000001, p8.x);
         }
 
         [TestMethod]
@@ -111,9 +111,13 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Convert()
         {
-            var p = new Point2<EIK>(3, 4);
+            var p1 = new Point2<EIK>(1,2);
+            var p2 = p1.Convert<EEK>();
 
-            //var p2 = p.Convert<EIK>();
+            Assert.AreNotEqual(p1.Ptr, p2.Ptr);
+            Assert.AreEqual(1, p2.x);
+            Assert.AreEqual(2, p2.y);
+            Assert.AreEqual("EEK", p2.KernelName);
         }
 
     }

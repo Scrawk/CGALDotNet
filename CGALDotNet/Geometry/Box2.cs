@@ -8,7 +8,7 @@ using CGALDotNetGeometry.Shapes;
 namespace CGALDotNet.Geometry
 {
     /// <summary>
-    /// The generic IsoRectangle wrapper for a CGAL object.
+    /// The generic Box wrapper for a CGAL object.
     /// </summary>
     /// <typeparam name="K">The kernel type.</typeparam>
     public sealed class Box2<K> : Box2 where K : CGALKernel, new()
@@ -46,13 +46,18 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// The type of kernel object uses.
+        /// </summary>
+        public string KernelName => Kernel.Name;
+
+        /// <summary>
         /// The iso rectangle as a string.
         /// </summary>
         /// <returns>The iso rectangle as a string.</returns>
         public override string ToString()
         {
             return string.Format("[Box2<{0}>: Min={1}, Max={2}]", 
-                Kernel.Name, Min, Max);
+                KernelName, Min, Max);
         }
 
         /// <summary>
@@ -61,7 +66,7 @@ namespace CGALDotNet.Geometry
         /// <param name="translation">The amount to translate.</param>
         public void Translate(Point2d translation)
         {
-            Kernel.IsoRectangle2_Transform(Ptr, translation, 0, 1);
+            Kernel.Box2_Transform(Ptr, translation, 0, 1);
         }
 
         /// <summary>
@@ -70,7 +75,7 @@ namespace CGALDotNet.Geometry
         /// <param name="rotation">The amount to rotate.</param>
         public void Rotate(Degree rotation)
         {
-            Kernel.IsoRectangle2_Transform(Ptr, Point2d.Zero, rotation.radian, 1);
+            Kernel.Box2_Transform(Ptr, Point2d.Zero, rotation.radian, 1);
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace CGALDotNet.Geometry
         /// <param name="scale">The amount to scale.</param>
         public void Scale(double scale)
         {
-            Kernel.IsoRectangle2_Transform(Ptr, Point2d.Zero, 0, scale);
+            Kernel.Box2_Transform(Ptr, Point2d.Zero, 0, scale);
         }
 
         /// <summary>
@@ -90,7 +95,7 @@ namespace CGALDotNet.Geometry
         /// <param name="scale">The amount to scale.</param>
         public void Transform(Point2d translation, Degree rotation, double scale)
         {
-            Kernel.IsoRectangle2_Transform(Ptr, translation, rotation.radian, scale);
+            Kernel.Box2_Transform(Ptr, translation, rotation.radian, scale);
         }
 
         /// <summary>
@@ -99,7 +104,8 @@ namespace CGALDotNet.Geometry
         /// <returns>The deep copy.</returns>
         public Box2<K> Copy()
         {
-            return new Box2<K>(Kernel.IsoRectangle2_Copy(Ptr));
+            var ptr = Kernel.Box2_Copy(Ptr);
+            return new Box2<K>(ptr);
         }
 
         /// <summary>
@@ -112,12 +118,12 @@ namespace CGALDotNet.Geometry
         {
             if (Kernel.Name == typeof(T).Name)
             {
-                var ptr = Kernel.IsoRectangle2_Copy(Ptr);
+                var ptr = Kernel.Box2_Copy(Ptr);
                 return new Box2<T>(ptr);
             }
             else
             {
-                var ptr = Kernel.IsoRectangle2_Convert(Ptr);
+                var ptr = Kernel.Box2_Convert(Ptr);
                 return new Box2<T>(ptr);
             }
         }
@@ -147,14 +153,14 @@ namespace CGALDotNet.Geometry
         internal Box2(Point2d min, Point2d max, CGALKernel kernel)
         {
             Kernel = kernel.GeometryKernel2;
-            Ptr = Kernel.IsoRectangle2_Create(min, max);
+            Ptr = Kernel.Box2_Create(min, max);
         }
 
         /// <summary>
         /// Construct with a new kernel.
         /// </summary>
         /// <param name="kernel">The geometry kernel.</param>
-        /// <param name="ptr">The IsoRectangle pointer.</param>
+        /// <param name="ptr">The Box pointer.</param>
         internal Box2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.GeometryKernel2;
@@ -176,8 +182,8 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Point2d Min
         {
-            get { return Kernel.IsoRectangle2_GetMin(Ptr);  }
-            set {  Kernel.IsoRectangle2_SetMin(Ptr, value); }
+            get { return Kernel.Box2_GetMin(Ptr);  }
+            set {  Kernel.Box2_SetMin(Ptr, value); }
         }
 
         /// <summary>
@@ -185,8 +191,8 @@ namespace CGALDotNet.Geometry
         /// </summary>
         public Point2d Max
         {
-            get { return Kernel.IsoRectangle2_GetMax(Ptr); }
-            set { Kernel.IsoRectangle2_SetMax(Ptr, value); }
+            get { return Kernel.Box2_GetMax(Ptr); }
+            set { Kernel.Box2_SetMax(Ptr, value); }
         }
 
         /// <summary>
@@ -199,14 +205,14 @@ namespace CGALDotNet.Geometry
                 if (IsDegenerate)
                     return 0;
                 else
-                    return Kernel.IsoRectangle2_Area(Ptr); 
+                    return Kernel.Box2_Area(Ptr); 
             }
         }
 
         /// <summary>
         /// Is the rectangle degenerate.
         /// </summary>
-        public bool IsDegenerate => Kernel.IsoRectangle2_IsDegenerate(Ptr);
+        public bool IsDegenerate => Kernel.Box2_IsDegenerate(Ptr);
 
         /// <summary>
         /// The side the rectangle the point is on.
@@ -218,7 +224,7 @@ namespace CGALDotNet.Geometry
             if (IsDegenerate)
                 return BOUNDED_SIDE.UNDETERMINED;
             else
-                return Kernel.IsoRectangle2_BoundedSide(Ptr, point);
+                return Kernel.Box2_BoundedSide(Ptr, point);
         }
 
         /// <summary>
@@ -228,12 +234,12 @@ namespace CGALDotNet.Geometry
         /// <param name="includeBoundary">Should a point on 
         /// the boundary count as being inside.</param>
         /// <returns>Does the rectangle contain the point</returns>
-        public bool ContainsPoint(Point2d point, bool includeBoundary)
+        public bool ContainsPoint(Point2d point, bool includeBoundary = true)
         {
             if (IsDegenerate)
                 return false;
             else
-                return Kernel.IsoRectangle2_ContainsPoint(Ptr, point, includeBoundary);
+                return Kernel.Box2_ContainsPoint(Ptr, point, includeBoundary);
         }
 
         /// <summary>
@@ -241,7 +247,7 @@ namespace CGALDotNet.Geometry
         /// </summary>
         protected override void ReleasePtr()
         {
-            Kernel.IsoRectangle2_Release(Ptr);
+            Kernel.Box2_Release(Ptr);
         }
 
         /// <summary>

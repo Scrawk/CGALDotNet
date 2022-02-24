@@ -76,13 +76,18 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
+        /// The type of kernel object uses.
+        /// </summary>
+        public string KernelName => Kernel.Name;
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[Point2<{0}>: x={1}, y={2}]",
-                Kernel.Name, x, y);
+                KernelName, x, y);
         }
 
         /// <summary>
@@ -102,7 +107,7 @@ namespace CGALDotNet.Geometry
         /// <returns>The shape with another kernel type.</returns>
         public Point2<T> Convert<T>() where T : CGALKernel, new()
         {
-            if (Kernel.Name == typeof(T).Name)
+            if (KernelName == typeof(T).Name)
             {
                 var ptr = Kernel.Point2_Copy(Ptr);
                 return new Point2<T>(ptr);

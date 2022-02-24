@@ -8,13 +8,13 @@ using CGALDotNetGeometry.Shapes;
 namespace CGALDotNet.Geometry
 {
     /// <summary>
-    /// 
+    /// Weighted point class
     /// </summary>
     /// <typeparam name="K"></typeparam>
     public sealed class HPoint2<K> : HPoint2 where K : CGALKernel, new()
     {
         /// <summary>
-        /// 
+        /// Create a new weighted point.
         /// </summary>
         public HPoint2() : base(new K())
         {
@@ -22,43 +22,48 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Create a new weighted point from a value and weight as 1.
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="v">The points value.</param>
         public HPoint2(double v) : base(v, v, 1, new K())
         {
 
         }
 
         /// <summary>
-        /// 
+        /// Create a new weighted point from a x, y value and weight as 1.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The points x value.</param>
+        /// <param name="y">The points y value.</param>
         public HPoint2(double x, double y) : base(x, y, 1, new K())
         {
 
         }
 
         /// <summary>
-        /// 
+        /// Create a new weighted point from a x, y value and weight as the w value.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="w"></param>
+        /// <param name="x">The points x value.</param>
+        /// <param name="y">The points y value.</param>
+        /// <param name="w">The points weight value.</param>
         public HPoint2(double x, double y, double w) : base(x, y, w, new K())
         {
 
         }
 
         /// <summary>
-        /// 
+        /// Create a new weighted point from a pointer.
         /// </summary>
-        /// <param name="ptr"></param>
+        /// <param name="ptr">The pointer.</param>
         internal HPoint2(IntPtr ptr) : base(new K(), ptr)
         {
 
         }
+
+        /// <summary>
+        /// The type of kernel object uses.
+        /// </summary>
+        public string KernelName => Kernel.Name;
 
         /// <summary>
         /// 
@@ -67,19 +72,18 @@ namespace CGALDotNet.Geometry
         public override string ToString()
         {
             return string.Format("[HPoint2<{0}>: x={1}, y={2}]",
-                Kernel.Name, x, y);
+                KernelName, x, y);
         }
 
         /// <summary>
-        /// 
+        /// Create a deep copy of the point.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The deep copy.</returns>
         public HPoint2<K> Copy()
         {
             return new HPoint2<K>(Kernel.HPoint2_Copy(Ptr));
         }
 
-        /*
         /// <summary>
         /// Convert to another kernel.
         /// Must provide a different kernel to convert to or
@@ -88,7 +92,7 @@ namespace CGALDotNet.Geometry
         /// <returns>The shape with another kernel type.</returns>
         public HPoint2<T> Convert<T>() where T : CGALKernel, new()
         {
-            if (Kernel.Name == typeof(T).Name)
+            if (KernelName == typeof(T).Name)
             {
                 var ptr = Kernel.HPoint2_Copy(Ptr);
                 return new HPoint2<T>(ptr);
@@ -99,7 +103,7 @@ namespace CGALDotNet.Geometry
                 return new HPoint2<T>(ptr);
             }
         }
-        */
+
     }
 
     /// <summary>
@@ -109,9 +113,9 @@ namespace CGALDotNet.Geometry
     {
 
         /// <summary>
-        /// 
+        /// Create a new weighted point.
         /// </summary>
-        /// <param name="kernel"></param>
+        /// <param name="kernel">The points kernel.</param>
         internal HPoint2(CGALKernel kernel)
         {
             Kernel = kernel.GeometryKernel2;
@@ -119,12 +123,12 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Create a new weighted point from a x, y value and weight as the w value.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="w"></param>
-        /// <param name="kernel"></param>
+        /// <param name="x">The points x value.</param>
+        /// <param name="y">The points y value.</param>
+        /// <param name="w">The points weight value.</param>
+        /// <param name="kernel">The points kernel.</param>
         internal HPoint2(double x, double y, double w, CGALKernel kernel)
         {
             Kernel = kernel.GeometryKernel2;
@@ -132,22 +136,22 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Create a new weighted point from a existing ponter and kernel.
         /// </summary>
-        /// <param name="kernel"></param>
-        /// <param name="ptr"></param>
+        /// <param name="kernel">The points kernel.</param>
+        /// <param name="ptr">The points pointer</param>
         internal HPoint2(CGALKernel kernel, IntPtr ptr) : base(ptr)
         {
             Kernel = kernel.GeometryKernel2;
         }
 
         /// <summary>
-        /// 
+        /// The points kernel.
         /// </summary>
         protected private GeometryKernel2 Kernel { get; private set; }
 
         /// <summary>
-        /// 
+        /// Release the pointer.
         /// </summary>
         protected override void ReleasePtr()
         {
@@ -155,16 +159,16 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Release the pointer.
         /// </summary>
-        /// <param name="ptr"></param>
+        /// <param name="ptr">The pointer to release.</param>
         protected override void ReleasePtr(IntPtr ptr)
         {
             Kernel.HPoint2_Release(ptr);
         }
 
         /// <summary>
-        /// 
+        /// Accessor or the points x value.
         /// </summary>
         public double x
         {
@@ -173,7 +177,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// ccessor or the points y value.
         /// </summary>
         public double y
         {
