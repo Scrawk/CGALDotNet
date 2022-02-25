@@ -734,6 +734,24 @@
             <param name="r">The third point.</param>
             <returns>returns true, if p, q, and r are collinear</returns>
         </member>
+        <member name="M:CGALDotNet.CGALGlobal.Collinear(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>
+            Returns true, if p, q, and r are collinear
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>returns true, if p, q, and r are collinear</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Collinear(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>
+            Returns true, if p, q, and r are collinear
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>returns true, if p, q, and r are collinear</returns>
+        </member>
         <member name="M:CGALDotNet.CGALGlobal.Collinear(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
             Returns true, if p, q, and r are collinear
@@ -742,6 +760,46 @@
             <param name="q">The second point.</param>
             <param name="r">The third point.</param>
             <returns>Returns true, iff p, q, and r are collinear</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Barycenter(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Compute the barycenter of the points p1, p2 and p3 
+            with corresponding weights w1, w2 and w3 as 1.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Compute the barycenter of the points.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Barycenter(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>
+            Compute the barycenter of the points p1, p2 and p3 
+            with corresponding weights w1, w2 and w3 as 1.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Compute the barycenter of the points.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Barycenter(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>
+            Compute the barycenter of the points p1, p2 and p3 
+            with corresponding weights w1, w2 and w3 as 1.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Compute the barycenter of the points.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Barycenter(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Compute the barycenter of the points p1, p2 and p3 
+            with corresponding weights w1, w2 and w3 as 1.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Compute the barycenter of the points.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Bisector(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
@@ -767,8 +825,46 @@
             function, impacting the exactness of the result even 
             with an (exact) multiprecision number type.
             </summary>
-            <param name="l1"></param>
-            <param name="l2"></param>
+            <param name="l1">The first line.</param>
+            <param name="l2">The second line.</param>
+            <returns>Constructs the bisector of the two lines l1 and l2.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Bisector(CGALDotNet.Geometry.Line2{CGALDotNet.EIK},CGALDotNet.Geometry.Line2{CGALDotNet.EIK})">
+            <summary>
+            Constructs the bisector of the two lines l1 and l2.
+            
+            In the general case, the bisector has the direction of
+            the vector which is the sum of the normalized directions 
+            of the two lines, and which passes through the intersection 
+            of l1 and l2. If l1 and l2 are parallel, then the bisector 
+            is defined as the line which has the same direction as l1, 
+            and which is at the same distance from l1 and l2. 
+            If Kernel::FT is not a model of FieldWithSqrt an 
+            approximation of the square root will be used in this 
+            function, impacting the exactness of the result even 
+            with an (exact) multiprecision number type.
+            </summary>
+            <param name="l1">The first line.</param>
+            <param name="l2">The second line.</param>
+            <returns>Constructs the bisector of the two lines l1 and l2.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Bisector(CGALDotNet.Geometry.Line2{CGALDotNet.EEK},CGALDotNet.Geometry.Line2{CGALDotNet.EEK})">
+            <summary>
+            Constructs the bisector of the two lines l1 and l2.
+            
+            In the general case, the bisector has the direction of
+            the vector which is the sum of the normalized directions 
+            of the two lines, and which passes through the intersection 
+            of l1 and l2. If l1 and l2 are parallel, then the bisector 
+            is defined as the line which has the same direction as l1, 
+            and which is at the same distance from l1 and l2. 
+            If Kernel::FT is not a model of FieldWithSqrt an 
+            approximation of the square root will be used in this 
+            function, impacting the exactness of the result even 
+            with an (exact) multiprecision number type.
+            </summary>
+            <param name="l1">The first line.</param>
+            <param name="l2">The second line.</param>
             <returns>Constructs the bisector of the two lines l1 and l2.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Coplanar(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
@@ -811,6 +907,16 @@
             <param name="s">The fourth point</param>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.CGALGlobal.EquidistantLine(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Constructs the line which is at the same distance from the three points p, q and r.
+            p, q and r are not collinear.
+            </summary>
+            <param name="p"></param>
+            <param name="q"></param>
+            <param name="r"></param>
+            <returns>Constructs the line which is at the same distance from the three points p, q and r.</returns>
+        </member>
         <member name="M:CGALDotNet.CGALGlobal.LeftTurn(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
             Returns true if p, q, and r form a left turn.
@@ -820,7 +926,43 @@
             <param name="r">The third point.</param>
             <returns>Returns true if p, q, and r form a left turn.</returns>
         </member>
+        <member name="M:CGALDotNet.CGALGlobal.LeftTurn(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>
+            Returns true if p, q, and r form a left turn.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Returns true if p, q, and r form a left turn.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.LeftTurn(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>
+            Returns true if p, q, and r form a left turn.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Returns true if p, q, and r form a left turn.</returns>
+        </member>
         <member name="M:CGALDotNet.CGALGlobal.RightTurn(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Returns true if p, q, and r form a right turn.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Returns true if p, q, and r form a right turn.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.RightTurn(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>
+            Returns true if p, q, and r form a right turn.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns>Returns true if p, q, and r form a right turn.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.RightTurn(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
             <summary>
             Returns true if p, q, and r form a right turn.
             </summary>
@@ -840,6 +982,28 @@
             <param name="r">The third point.</param>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK},CGALDotNet.Geometry.Point2{CGALDotNet.EIK})">
+            <summary>
+            Returns LEFT_TURN, if r lies to the left of the oriented 
+            line l defined by p and q, returns RIGHT_TURN if r lies 
+            to the right of l, and returns COLLINEAR if r lies on l.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK},CGALDotNet.Geometry.Point2{CGALDotNet.EEK})">
+            <summary>
+            Returns LEFT_TURN, if r lies to the left of the oriented 
+            line l defined by p and q, returns RIGHT_TURN if r lies 
+            to the right of l, and returns COLLINEAR if r lies on l.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
+            <returns></returns>
+        </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Vector2d,CGALDotNetGeometry.Numerics.Vector2d)">
             <summary>
             returns LEFT_TURN if u and v form a left turn, returns 
@@ -848,6 +1012,27 @@
             </summary>
             <param name="u"></param>
             <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNet.Geometry.Vector2{CGALDotNet.EIK},CGALDotNet.Geometry.Vector2{CGALDotNet.EIK})">
+            <summary>
+            Returns LEFT_TURN, if r lies to the left of the oriented 
+            line l defined by p and q, returns RIGHT_TURN if r lies 
+            to the right of l, and returns COLLINEAR if r lies on l.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNet.Geometry.Vector2{CGALDotNet.EEK},CGALDotNet.Geometry.Vector2{CGALDotNet.EEK})">
+            <summary>
+            Returns LEFT_TURN, if r lies to the left of the oriented 
+            line l defined by p and q, returns RIGHT_TURN if r lies 
+            to the right of l, and returns COLLINEAR if r lies on l.
+            </summary>
+            <param name="p">The first point.</param>
+            <param name="q">The second point.</param>
+            <param name="r">The third point.</param>
             <returns></returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
@@ -874,17 +1059,6 @@
             <param name="w"></param>
             <returns></returns>
         </member>
-        <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
-            <summary>
-            returns NEGATIVE if u, v and w are negatively oriented, 
-            POSITIVE if u, v and w are positively oriented,
-            and COPLANAR if u, v and w are coplanar.
-            </summary>
-            <param name="u"></param>
-            <param name="v"></param>
-            <param name="w"></param>
-            <returns></returns>
-        </member>
         <member name="M:CGALDotNet.CGALGlobal.OrthogonalVector(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
             computes an orthogonal vector of the plane defined by p, q
@@ -900,8 +1074,26 @@
             returns true, if l1 and l2 are parallel or if one of those 
             (or both) is degenerate.
             </summary>
-            <param name="l1"></param>
-            <param name="l2"></param>
+            <param name="l1">The first line.</param>
+            <param name="l2">The seconed line.</param>
+            <returns>returns true, if l1 and l2 are parallel</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNet.Geometry.Line2{CGALDotNet.EIK},CGALDotNet.Geometry.Line2{CGALDotNet.EIK})">
+            <summary>
+            returns true, if l1 and l2 are parallel or if one of those 
+            (or both) is degenerate.
+            </summary>
+            <param name="l1">The first line.</param>
+            <param name="l2">The seconed line.</param>
+            <returns>returns true, if l1 and l2 are parallel</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNet.Geometry.Line2{CGALDotNet.EEK},CGALDotNet.Geometry.Line2{CGALDotNet.EEK})">
+            <summary>
+            returns true, if l1 and l2 are parallel or if one of those 
+            (or both) is degenerate.
+            </summary>
+            <param name="l1">The first line.</param>
+            <param name="l2">The seconed line.</param>
             <returns>returns true, if l1 and l2 are parallel</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNetGeometry.Shapes.Ray2d,CGALDotNetGeometry.Shapes.Ray2d)">
@@ -909,8 +1101,26 @@
             returns true, if r1 and r2 are parallel or if one of 
             those (or both) is degenerate.
             </summary>
-            <param name="r1"></param>
-            <param name="r2"></param>
+            <param name="r1">The first ray.</param>
+            <param name="r2">The second ray.</param>
+            <returns>returns true, if r1 and r2 are parallel</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNet.Geometry.Ray2{CGALDotNet.EIK},CGALDotNet.Geometry.Ray2{CGALDotNet.EIK})">
+            <summary>
+            returns true, if r1 and r2 are parallel or if one of 
+            those (or both) is degenerate.
+            </summary>
+            <param name="r1">The first ray.</param>
+            <param name="r2">The second ray.</param>
+            <returns>returns true, if r1 and r2 are parallel</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNet.Geometry.Ray2{CGALDotNet.EEK},CGALDotNet.Geometry.Ray2{CGALDotNet.EEK})">
+            <summary>
+            returns true, if r1 and r2 are parallel or if one of 
+            those (or both) is degenerate.
+            </summary>
+            <param name="r1">The first ray.</param>
+            <param name="r2">The second ray.</param>
             <returns>returns true, if r1 and r2 are parallel</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNetGeometry.Shapes.Segment2d,CGALDotNetGeometry.Shapes.Segment2d)">
@@ -918,8 +1128,26 @@
             returns true, if s1 and s2 are parallel or if one of 
             those (or both) is degenerate.
             </summary>
-            <param name="s1"></param>
-            <param name="s2"></param>
+            <param name="s1">The first segment.</param>
+            <param name="s2">The secong segment.</param>
+            <returns>returns true, if s1 and s2 are parallel</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNet.Geometry.Segment2{CGALDotNet.EIK},CGALDotNet.Geometry.Segment2{CGALDotNet.EIK})">
+            <summary>
+            returns true, if s1 and s2 are parallel or if one of 
+            those (or both) is degenerate.
+            </summary>
+            <param name="s1">The first segment.</param>
+            <param name="s2">The secong segment.</param>
+            <returns>returns true, if s1 and s2 are parallel</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.Parallel(CGALDotNet.Geometry.Segment2{CGALDotNet.EEK},CGALDotNet.Geometry.Segment2{CGALDotNet.EEK})">
+            <summary>
+            returns true, if s1 and s2 are parallel or if one of 
+            those (or both) is degenerate.
+            </summary>
+            <param name="s1">The first segment.</param>
+            <param name="s2">The secong segment.</param>
             <returns>returns true, if s1 and s2 are parallel</returns>
         </member>
         <member name="T:CGALDotNet.CGALObject">

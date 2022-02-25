@@ -1,15 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using CGALDotNet;
-using CGALDotNetGeometry.Numerics;
-using CGALDotNetGeometry.Shapes;
+﻿using CGALDotNet;
 using CGALDotNet.Geometry;
+using CGALDotNetGeometry.Numerics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CGALDotNetTest.Geometry
 {
-
     [TestClass]
     public class Box2Test
     {
@@ -100,14 +95,13 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void IsDegenerate()
         {
-            var box = new Box2<EIK>(0,0);
+            var box = new Box2<EIK>(0, 0);
             Assert.IsTrue(box.IsDegenerate);
         }
 
         [TestMethod]
         public void Transform()
         {
-
             var box = new Box2<EIK>(-1, 1);
             box.Translate(new Point2d(1, 1));
 
@@ -126,7 +120,6 @@ namespace CGALDotNetTest.Geometry
 
             Assert.AreEqual(new Point2d(-1, -1), box.Min);
             Assert.AreEqual(new Point2d(1, 1), box.Max);
-
         }
 
         [TestMethod]
@@ -200,8 +193,6 @@ namespace CGALDotNetTest.Geometry
             AssertX.AlmostEqual(0.000001, box6.Min.x);
             AssertX.AlmostEqual(0.0000001, box7.Min.x);
             AssertX.AlmostEqual(0.00000001, box8.Min.x);
-
         }
     }
-
 }

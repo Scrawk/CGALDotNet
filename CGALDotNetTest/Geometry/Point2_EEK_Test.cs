@@ -11,22 +11,22 @@ namespace CGALDotNetTest.Geometry
 {
 
     [TestClass]
-    public class Point2Test
+    public class Point2_EEK_Test
     {
 
         [TestMethod]
-        public void CreatePoint()
+        public void CreatePoint_EEK()
         {
-            var p = new Point2<EIK>(1, 2);
+            var p = new Point2<EEK>(1, 2);
 
             Assert.AreEqual(1, p.x);
             Assert.AreEqual(2, p.y);
         }
 
         [TestMethod]
-        public void SetXY()
+        public void SetXY_EEK()
         {
-            var p = new Point2<EIK>(1, 2);
+            var p = new Point2<EEK>(1, 2);
 
             p.x = 3;
             p.y = 4;
@@ -36,18 +36,18 @@ namespace CGALDotNetTest.Geometry
         }
 
         [TestMethod]
-        public void Release()
+        public void Release_EEK()
         {
-            var p = new Point2<EIK>(0, 0);
+            var p = new Point2<EEK>(0, 0);
             p.Dispose();
 
             Assert.IsTrue(p.IsDisposed);
         }
 
         [TestMethod]
-        public void Clamp()
+        public void Clamp_EEK()
         {
-            var p = new Point2<EIK>(-1, 4);
+            var p = new Point2<EEK>(-1, 4);
 
             p.Clamp(0, 3);
 
@@ -56,9 +56,9 @@ namespace CGALDotNetTest.Geometry
         }
 
         [TestMethod]
-        public void Clamp01()
+        public void Clamp01_EEK()
         {
-            var p = new Point2<EIK>(-0.1, 3.2);
+            var p = new Point2<EEK>(-0.1, 3.2);
 
             p.Clamp01();
 
@@ -67,16 +67,16 @@ namespace CGALDotNetTest.Geometry
         }
 
         [TestMethod]
-        public void Round()
+        public void Round_EEK()
         {
-            var p1 = new Point2<EIK>(0.1);
-            var p2 = new Point2<EIK>(0.01);
-            var p3 = new Point2<EIK>(0.001);
-            var p4 = new Point2<EIK>(0.0001);
-            var p5 = new Point2<EIK>(0.00001);
-            var p6 = new Point2<EIK>(0.000001);
-            var p7 = new Point2<EIK>(0.0000001);
-            var p8 = new Point2<EIK>(0.00000001);
+            var p1 = new Point2<EEK>(0.1);
+            var p2 = new Point2<EEK>(0.01);
+            var p3 = new Point2<EEK>(0.001);
+            var p4 = new Point2<EEK>(0.0001);
+            var p5 = new Point2<EEK>(0.00001);
+            var p6 = new Point2<EEK>(0.000001);
+            var p7 = new Point2<EEK>(0.0000001);
+            var p8 = new Point2<EEK>(0.00000001);
 
             p1.Round(1);
             p2.Round(2);
@@ -98,9 +98,9 @@ namespace CGALDotNetTest.Geometry
         }
 
         [TestMethod]
-        public void Copy()
+        public void Copy_EEK()
         {
-            var p = new Point2<EIK>(3, 4);
+            var p = new Point2<EEK>(3, 4);
             var p2 = p.Copy();
 
             Assert.AreNotEqual(p.Ptr, p2.Ptr);
@@ -109,9 +109,9 @@ namespace CGALDotNetTest.Geometry
         }
 
         [TestMethod]
-        public void Convert()
+        public void Convert_EEK()
         {
-            var p1 = new Point2<EIK>(1,2);
+            var p1 = new Point2<EEK>(1, 2);
             var p2 = p1.Convert<EEK>();
 
             Assert.AreNotEqual(p1.Ptr, p2.Ptr);

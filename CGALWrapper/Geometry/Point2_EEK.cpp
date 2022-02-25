@@ -42,29 +42,16 @@ double Point2_EEK_GetY(void* ptr)
 	return CGAL::to_double(p->y());
 }
 
-Point2d Point2_EEK_GetPoint(void* ptr)
-{
-	auto p = CastToPoint2(ptr);
-	return Point2d::FromCGAL<EEK>(*p);
-}
-
 void Point2_EEK_SetX(void* ptr, double x)
 {
 	auto p = CastToPoint2(ptr);
-	(*p)[0] = x;
+	(*p) = Point2(x, p->y());
 }
 
 void Point2_EEK_SetY(void* ptr, double y)
 {
 	auto p = CastToPoint2(ptr);
-	(*p)[1] = y;
-}
-
-void Point2_EEK_SetPoint(void* ptr, const Point2d& point)
-{
-	auto p = CastToPoint2(ptr);
-	(*p)[0] = point.x;
-	(*p)[1] = point.y;
+	(*p) = Point2(p->x(), y);
 }
 
 void* Point2_EEK_Copy(void* ptr)

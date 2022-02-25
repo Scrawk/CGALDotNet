@@ -203,8 +203,10 @@ namespace CGALDotNet.Geometry
         /// <param name="digits">The number of digits to round to.</param>
         public void Round(int digits)
         {
+            Console.WriteLine(this);
             this.x = Math.Round(x, digits);
             this.y = Math.Round(y, digits);
+            Console.WriteLine(this);
         }
 
         /// <summary>

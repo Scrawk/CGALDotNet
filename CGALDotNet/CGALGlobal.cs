@@ -267,7 +267,31 @@ namespace CGALDotNet
         /// <returns>returns true, if p, q, and r are collinear</returns>
         public static bool Collinear(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EIK_Collinear_Point2(p, q, r);
+            return CGALGlobal_EIK_Collinear_Point2d(p, q, r);
+        }
+
+        /// <summary>
+        /// Returns true, if p, q, and r are collinear
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>returns true, if p, q, and r are collinear</returns>
+        public static bool Collinear(Point2<EIK> p, Point2<EIK> q, Point2<EIK> r)
+        {
+            return CGALGlobal_EIK_Collinear_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// Returns true, if p, q, and r are collinear
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>returns true, if p, q, and r are collinear</returns>
+        public static bool Collinear(Point2<EEK> p, Point2<EEK> q, Point2<EEK> r)
+        {
+            return CGALGlobal_EEK_Collinear_Point2(p.Ptr, q.Ptr, r.Ptr);
         }
 
         /// <summary>
@@ -279,7 +303,61 @@ namespace CGALDotNet
         /// <returns>Returns true, iff p, q, and r are collinear</returns>
         public static bool Collinear(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EIK_Collinear_Point3(p, q, r);
+            return CGALGlobal_EIK_Collinear_Point3d(p, q, r);
+        }
+
+        /// <summary>
+        /// Compute the barycenter of the points p1, p2 and p3 
+        /// with corresponding weights w1, w2 and w3 as 1.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Compute the barycenter of the points.</returns>
+        public static Point2d Barycenter(Point2d p, Point2d q, Point2d r)
+        {
+            return CGALGlobal_EIK_Barycenter_Point2d(p, q, r);
+        }
+
+        /// <summary>
+        /// Compute the barycenter of the points p1, p2 and p3 
+        /// with corresponding weights w1, w2 and w3 as 1.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Compute the barycenter of the points.</returns>
+        public static Point2<EIK> Barycenter(Point2<EIK> p, Point2<EIK> q, Point2<EIK> r)
+        {
+            var ptr = CGALGlobal_EIK_Barycenter_Point2(p.Ptr, q.Ptr, r.Ptr);
+            return new Point2<EIK>(ptr);
+        }
+
+        /// <summary>
+        /// Compute the barycenter of the points p1, p2 and p3 
+        /// with corresponding weights w1, w2 and w3 as 1.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Compute the barycenter of the points.</returns>
+        public static Point2<EEK> Barycenter(Point2<EEK> p, Point2<EEK> q, Point2<EEK> r)
+        {
+            var ptr = CGALGlobal_EEK_Barycenter_Point2(p.Ptr, q.Ptr, r.Ptr);
+            return new Point2<EEK>(ptr);
+        }
+
+        /// <summary>
+        /// Compute the barycenter of the points p1, p2 and p3 
+        /// with corresponding weights w1, w2 and w3 as 1.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Compute the barycenter of the points.</returns>
+        public static Point3d Barycenter(Point3d p, Point3d q, Point3d r)
+        {
+            return CGALGlobal_EIK_Barycenter_Point3d(p, q, r);
         }
 
         /// <summary>
@@ -291,7 +369,7 @@ namespace CGALDotNet
         /// <returns>Constructs the bisector line of the two points p and q.</returns>
         public static Line2d Bisector(Point3d p, Point3d q)
         {
-            return CGALGlobal_EIK_Bisector_Point3(p, q);
+            return CGALGlobal_EIK_Bisector_Point3d(p, q);
         }
 
         /// <summary>
@@ -308,12 +386,58 @@ namespace CGALDotNet
         /// function, impacting the exactness of the result even 
         /// with an (exact) multiprecision number type.
         /// </summary>
-        /// <param name="l1"></param>
-        /// <param name="l2"></param>
+        /// <param name="l1">The first line.</param>
+        /// <param name="l2">The second line.</param>
         /// <returns>Constructs the bisector of the two lines l1 and l2.</returns>
         public static Line2d Bisector(Line2d l1, Line2d l2)
         {
-            return CGALGlobal_EIK_Bisector_Line2(l1, l2);
+            return CGALGlobal_EIK_Bisector_Line2d(l1, l2);
+        }
+
+        /// <summary>
+        /// Constructs the bisector of the two lines l1 and l2.
+        /// 
+        /// In the general case, the bisector has the direction of
+        /// the vector which is the sum of the normalized directions 
+        /// of the two lines, and which passes through the intersection 
+        /// of l1 and l2. If l1 and l2 are parallel, then the bisector 
+        /// is defined as the line which has the same direction as l1, 
+        /// and which is at the same distance from l1 and l2. 
+        /// If Kernel::FT is not a model of FieldWithSqrt an 
+        /// approximation of the square root will be used in this 
+        /// function, impacting the exactness of the result even 
+        /// with an (exact) multiprecision number type.
+        /// </summary>
+        /// <param name="l1">The first line.</param>
+        /// <param name="l2">The second line.</param>
+        /// <returns>Constructs the bisector of the two lines l1 and l2.</returns>
+        public static Line2<EIK> Bisector(Line2<EIK> l1, Line2<EIK> l2)
+        {
+            var ptr = CGALGlobal_EIK_Bisector_Line2(l1.Ptr, l2.Ptr);
+            return new Line2<EIK>(ptr);
+        }
+
+        /// <summary>
+        /// Constructs the bisector of the two lines l1 and l2.
+        /// 
+        /// In the general case, the bisector has the direction of
+        /// the vector which is the sum of the normalized directions 
+        /// of the two lines, and which passes through the intersection 
+        /// of l1 and l2. If l1 and l2 are parallel, then the bisector 
+        /// is defined as the line which has the same direction as l1, 
+        /// and which is at the same distance from l1 and l2. 
+        /// If Kernel::FT is not a model of FieldWithSqrt an 
+        /// approximation of the square root will be used in this 
+        /// function, impacting the exactness of the result even 
+        /// with an (exact) multiprecision number type.
+        /// </summary>
+        /// <param name="l1">The first line.</param>
+        /// <param name="l2">The second line.</param>
+        /// <returns>Constructs the bisector of the two lines l1 and l2.</returns>
+        public static Line2<EEK> Bisector(Line2<EEK> l1, Line2<EEK> l2)
+        {
+            var ptr = CGALGlobal_EEK_Bisector_Line2(l1.Ptr, l2.Ptr);
+            return new Line2<EEK>(ptr);
         }
 
         /// <summary>
@@ -326,7 +450,7 @@ namespace CGALDotNet
         /// <returns>Returns true, if p, q, r, and s are coplanar.</returns>
         public static bool Coplanar(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            return CGALGlobal_EIK_Coplanar_Point3(p, q, r, s);
+            return CGALGlobal_EIK_Coplanar_Point3d(p, q, r, s);
         }
 
         /// <summary>
@@ -343,7 +467,7 @@ namespace CGALDotNet
         /// <returns>If p,q,r are collinear, then CGAL_COLLINEAR is returned.</returns>
         public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EIK_CoplanarOrientation_3Point3(p, q, r);
+            return CGALGlobal_EIK_CoplanarOrientation_3Point3d(p, q, r);
         }
 
         /// <summary>
@@ -362,10 +486,8 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION CoplanarOrientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            return CGALGlobal_EIK_CoplanarOrientation_4Point3(p, q, r, s);
+            return CGALGlobal_EIK_CoplanarOrientation_4Point3d(p, q, r, s);
         }
-
-        /*
 
         /// <summary>
         /// Constructs the line which is at the same distance from the three points p, q and r.
@@ -377,10 +499,8 @@ namespace CGALDotNet
         /// <returns>Constructs the line which is at the same distance from the three points p, q and r.</returns>
         public static Line3d EquidistantLine(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EIK_EquidistantLine_Line3(p, q, r);
+            return CGALGlobal_EIK_EquidistantLine_Line3d(p, q, r);
         }
-
-        */
 
         /// <summary>
         /// Returns true if p, q, and r form a left turn.
@@ -391,7 +511,31 @@ namespace CGALDotNet
         /// <returns>Returns true if p, q, and r form a left turn.</returns>
         public static bool LeftTurn(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EIK_LeftTurn_Point2(p, q, r);
+            return CGALGlobal_EIK_LeftTurn_Point2d(p, q, r);
+        }
+
+        /// <summary>
+        /// Returns true if p, q, and r form a left turn.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Returns true if p, q, and r form a left turn.</returns>
+        public static bool LeftTurn(Point2<EIK> p, Point2<EIK> q, Point2<EIK> r)
+        {
+            return CGALGlobal_EIK_LeftTurn_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// Returns true if p, q, and r form a left turn.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Returns true if p, q, and r form a left turn.</returns>
+        public static bool LeftTurn(Point2<EEK> p, Point2<EEK> q, Point2<EEK> r)
+        {
+            return CGALGlobal_EEK_LeftTurn_Point2(p.Ptr, q.Ptr, r.Ptr);
         }
 
         /// <summary>
@@ -403,7 +547,31 @@ namespace CGALDotNet
         /// <returns>Returns true if p, q, and r form a right turn.</returns>
         public static bool RightTurn(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EIK_RightTurn_Point2(p, q, r);
+            return CGALGlobal_EIK_RightTurn_Point2d(p, q, r);
+        }
+
+        /// <summary>
+        /// Returns true if p, q, and r form a right turn.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Returns true if p, q, and r form a right turn.</returns>
+        public static bool RightTurn(Point2<EIK> p, Point2<EIK> q, Point2<EIK> r)
+        {
+            return CGALGlobal_EIK_RightTurn_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// Returns true if p, q, and r form a right turn.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns>Returns true if p, q, and r form a right turn.</returns>
+        public static bool RightTurn(Point2<EEK> p, Point2<EEK> q, Point2<EEK> r)
+        {
+            return CGALGlobal_EIK_RightTurn_Point2(p.Ptr, q.Ptr, r.Ptr);
         }
 
         /// <summary>
@@ -417,7 +585,35 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Point2d p, Point2d q, Point2d r)
         {
-            return CGALGlobal_EIK_Orientation_Point2(p, q, r);
+            return CGALGlobal_EIK_Orientation_Point2d(p, q, r);
+        }
+
+        /// <summary>
+        /// Returns LEFT_TURN, if r lies to the left of the oriented 
+        /// line l defined by p and q, returns RIGHT_TURN if r lies 
+        /// to the right of l, and returns COLLINEAR if r lies on l.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns></returns>
+        public static ORIENTATION Orientation(Point2<EIK> p, Point2<EIK> q, Point2<EIK> r)
+        {
+            return CGALGlobal_EIK_Orientation_Point2(p.Ptr, q.Ptr, r.Ptr);
+        }
+
+        /// <summary>
+        /// Returns LEFT_TURN, if r lies to the left of the oriented 
+        /// line l defined by p and q, returns RIGHT_TURN if r lies 
+        /// to the right of l, and returns COLLINEAR if r lies on l.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns></returns>
+        public static ORIENTATION Orientation(Point2<EEK> p, Point2<EEK> q, Point2<EEK> r)
+        {
+            return CGALGlobal_EEK_Orientation_Point2(p.Ptr, q.Ptr, r.Ptr);
         }
 
         /// <summary>
@@ -430,7 +626,34 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Vector2d u, Vector2d v)
         {
-            return CGALGlobal_EIK_Orientation_Vector2(u, v);
+            return CGALGlobal_EIK_Orientation_Vector2d(u, v);
+        }
+
+        /// <summary>
+        /// Returns LEFT_TURN, if r lies to the left of the oriented 
+        /// line l defined by p and q, returns RIGHT_TURN if r lies 
+        /// to the right of l, and returns COLLINEAR if r lies on l.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <returns></returns>
+        public static ORIENTATION Orientation(Vector2<EIK> p, Vector2<EIK> q)
+        {
+            return CGALGlobal_EIK_Orientation_Vector2(p.Ptr, q.Ptr);
+        }
+
+        /// <summary>
+        /// Returns LEFT_TURN, if r lies to the left of the oriented 
+        /// line l defined by p and q, returns RIGHT_TURN if r lies 
+        /// to the right of l, and returns COLLINEAR if r lies on l.
+        /// </summary>
+        /// <param name="p">The first point.</param>
+        /// <param name="q">The second point.</param>
+        /// <param name="r">The third point.</param>
+        /// <returns></returns>
+        public static ORIENTATION Orientation(Vector2<EEK> p, Vector2<EEK> q)
+        {
+            return CGALGlobal_EEK_Orientation_Vector2(p.Ptr, q.Ptr);
         }
 
         /// <summary>
@@ -446,7 +669,7 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Point3d p, Point3d q, Point3d r, Point3d s)
         {
-            return CGALGlobal_EIK_Orientation_Point3(p, q, r, s);
+            return CGALGlobal_EIK_Orientation_Point3d(p, q, r, s);
         }
 
         /// <summary>
@@ -460,21 +683,7 @@ namespace CGALDotNet
         /// <returns></returns>
         public static ORIENTATION Orientation(Vector3d u, Vector3d v, Vector3d w)
         {
-            return CGALGlobal_EIK_Orientation_Vector3(u, v, w);
-        }
-
-        /// <summary>
-        /// returns NEGATIVE if u, v and w are negatively oriented, 
-        /// POSITIVE if u, v and w are positively oriented,
-        /// and COPLANAR if u, v and w are coplanar.
-        /// </summary>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        /// <returns></returns>
-        public static ORIENTATION Orientation(Point3d u, Point3d v, Point3d w)
-        {
-            return CGALGlobal_EIK_Orientation_Vector3(u.Vector3d, v.Vector3d, w.Vector3d);
+            return CGALGlobal_EIK_Orientation_Vector3d(u, v, w);
         }
 
         /// <summary>
@@ -487,43 +696,115 @@ namespace CGALDotNet
         /// <returns>computes an orthogonal vector of the plane</returns>
         public static Vector3d OrthogonalVector(Point3d p, Point3d q, Point3d r)
         {
-            return CGALGlobal_EIK_OrthogonalVector_Point3(p, q, r);
+            return CGALGlobal_EIK_OrthogonalVector_Point3d(p, q, r);
         }
 
         /// <summary>
         /// returns true, if l1 and l2 are parallel or if one of those 
         /// (or both) is degenerate.
         /// </summary>
-        /// <param name="l1"></param>
-        /// <param name="l2"></param>
+        /// <param name="l1">The first line.</param>
+        /// <param name="l2">The seconed line.</param>
         /// <returns>returns true, if l1 and l2 are parallel</returns>
         public static bool Parallel(Line2d l1, Line2d l2)
         {
-            return CGALGlobal_EIK_Parallel_Line2(l1, l2);
+            return CGALGlobal_EIK_Parallel_Line2d(l1, l2);
+        }
+
+        /// <summary>
+        /// returns true, if l1 and l2 are parallel or if one of those 
+        /// (or both) is degenerate.
+        /// </summary>
+        /// <param name="l1">The first line.</param>
+        /// <param name="l2">The seconed line.</param>
+        /// <returns>returns true, if l1 and l2 are parallel</returns>
+        public static bool Parallel(Line2<EIK> l1, Line2<EIK> l2)
+        {
+            return CGALGlobal_EIK_Parallel_Line2(l1.Ptr, l2.Ptr);
+        }
+
+        /// <summary>
+        /// returns true, if l1 and l2 are parallel or if one of those 
+        /// (or both) is degenerate.
+        /// </summary>
+        /// <param name="l1">The first line.</param>
+        /// <param name="l2">The seconed line.</param>
+        /// <returns>returns true, if l1 and l2 are parallel</returns>
+        public static bool Parallel(Line2<EEK> l1, Line2<EEK> l2)
+        {
+            return CGALGlobal_EEK_Parallel_Line2(l1.Ptr, l2.Ptr);
         }
 
         /// <summary>
         /// returns true, if r1 and r2 are parallel or if one of 
         /// those (or both) is degenerate.
         /// </summary>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
+        /// <param name="r1">The first ray.</param>
+        /// <param name="r2">The second ray.</param>
         /// <returns>returns true, if r1 and r2 are parallel</returns>
         public static bool Parallel(Ray2d r1, Ray2d r2)
         {
-            return CGALGlobal_EIK_Parallel_Ray2(r1, r2);
+            return CGALGlobal_EIK_Parallel_Ray2d(r1, r2);
+        }
+
+        /// <summary>
+        /// returns true, if r1 and r2 are parallel or if one of 
+        /// those (or both) is degenerate.
+        /// </summary>
+        /// <param name="r1">The first ray.</param>
+        /// <param name="r2">The second ray.</param>
+        /// <returns>returns true, if r1 and r2 are parallel</returns>
+        public static bool Parallel(Ray2<EIK> r1, Ray2<EIK> r2)
+        {
+            return CGALGlobal_EIK_Parallel_Ray2(r1.Ptr, r2.Ptr);
+        }
+
+        /// <summary>
+        /// returns true, if r1 and r2 are parallel or if one of 
+        /// those (or both) is degenerate.
+        /// </summary>
+        /// <param name="r1">The first ray.</param>
+        /// <param name="r2">The second ray.</param>
+        /// <returns>returns true, if r1 and r2 are parallel</returns>
+        public static bool Parallel(Ray2<EEK> r1, Ray2<EEK> r2)
+        {
+            return CGALGlobal_EEK_Parallel_Ray2(r1.Ptr, r2.Ptr);
         }
 
         /// <summary>
         /// returns true, if s1 and s2 are parallel or if one of 
         /// those (or both) is degenerate.
         /// </summary>
-        /// <param name="s1"></param>
-        /// <param name="s2"></param>
+        /// <param name="s1">The first segment.</param>
+        /// <param name="s2">The secong segment.</param>
         /// <returns>returns true, if s1 and s2 are parallel</returns>
         public static bool Parallel(Segment2d s1, Segment2d s2)
         {
-            return CGALGlobal_EIK_Parallel_Segment2(s1, s2);
+            return CGALGlobal_EIK_Parallel_Segment2d(s1, s2);
+        }
+
+        /// <summary>
+        /// returns true, if s1 and s2 are parallel or if one of 
+        /// those (or both) is degenerate.
+        /// </summary>
+        /// <param name="s1">The first segment.</param>
+        /// <param name="s2">The secong segment.</param>
+        /// <returns>returns true, if s1 and s2 are parallel</returns>
+        public static bool Parallel(Segment2<EIK> s1, Segment2<EIK> s2)
+        {
+            return CGALGlobal_EIK_Parallel_Segment2(s1.Ptr, s2.Ptr);
+        }
+
+        /// <summary>
+        /// returns true, if s1 and s2 are parallel or if one of 
+        /// those (or both) is degenerate.
+        /// </summary>
+        /// <param name="s1">The first segment.</param>
+        /// <param name="s2">The secong segment.</param>
+        /// <returns>returns true, if s1 and s2 are parallel</returns>
+        public static bool Parallel(Segment2<EEK> s1, Segment2<EEK> s2)
+        {
+            return CGALGlobal_EEK_Parallel_Segment2(s1.Ptr, s2.Ptr);
         }
 
         //---------------------------------------------------------------------------//
@@ -604,59 +885,175 @@ namespace CGALDotNet
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern bool CGALGlobal_EIK_AreStrictlyOrderedAlongLine_Point3d(Point3d p, Point3d q, Point3d r);
 
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_Collinear_Point2(Point2d p, Point2d q, Point2d r);
+        //---------------------------------------------------------------------------//
+        //                                 Collinear                                 //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_Collinear_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EIK_Collinear_Point2d(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Line2d CGALGlobal_EIK_Bisector_Point3(Point3d p, Point3d q);
+        private static extern bool CGALGlobal_EIK_Collinear_Point2(IntPtr p, IntPtr q, IntPtr r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Line2d CGALGlobal_EIK_Bisector_Line2(Line2d p, Line2d q);
+        private static extern bool CGALGlobal_EEK_Collinear_Point2(IntPtr p, IntPtr q, IntPtr r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_Coplanar_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern bool CGALGlobal_EIK_Collinear_Point3d(Point3d p, Point3d q, Point3d r);
+
+        //---------------------------------------------------------------------------//
+        //                                  Barycenter                               //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EIK_CoplanarOrientation_3Point3(Point3d p, Point3d q, Point3d r);
+        private static extern Point2d CGALGlobal_EIK_Barycenter_Point2d(Point2d p, Point2d q, Point2d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EIK_CoplanarOrientation_4Point3(Point3d p, Point3d q, Point3d r, Point3d s);
-
-        //[DllImport(DLL_NAME, CallingConvention = CDECL)]
-        //private static extern Line3d CGALGlobal_EIK_EquidistantLine_Line3(Point3d p, Point3d q, Point3d r);
+        private static extern IntPtr CGALGlobal_EIK_Barycenter_Point2(IntPtr p, IntPtr q, IntPtr r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_LeftTurn_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern IntPtr CGALGlobal_EEK_Barycenter_Point2(IntPtr p, IntPtr q, IntPtr r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_RightTurn_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern Point3d CGALGlobal_EIK_Barycenter_Point3d(Point3d p, Point3d q, Point3d r);
+
+        //---------------------------------------------------------------------------//
+        //                               Bisector                                    //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Point2(Point2d p, Point2d q, Point2d r);
+        private static extern Line2d CGALGlobal_EIK_Bisector_Point3d(Point3d p, Point3d q);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Vector2(Vector2d u, Vector2d v);
+        private static extern Line2d CGALGlobal_EIK_Bisector_Line2d(Line2d p, Line2d q);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Point3(Point3d p, Point3d q, Point3d r, Point3d s);
+        private static extern IntPtr CGALGlobal_EIK_Bisector_Line2(IntPtr p, IntPtr q);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Vector3(Vector3d u, Vector3d v, Vector3d w);
+        private static extern IntPtr CGALGlobal_EEK_Bisector_Line2(IntPtr p, IntPtr q);
+
+        //---------------------------------------------------------------------------//
+        //                               Coplanar                                    //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Vector3d CGALGlobal_EIK_OrthogonalVector_Point3(Point3d p, Point3d q, Point3d r);
+        private static extern bool CGALGlobal_EIK_Coplanar_Point3d(Point3d p, Point3d q, Point3d r, Point3d s);
+
+        //---------------------------------------------------------------------------//
+        //                            CoplanarOrientation                            //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_Parallel_Line2(Line2d l1, Line2d l2);
+        private static extern ORIENTATION CGALGlobal_EIK_CoplanarOrientation_3Point3d(Point3d p, Point3d q, Point3d r);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_Parallel_Ray2(Ray2d r1, Ray2d r2);
+        private static extern ORIENTATION CGALGlobal_EIK_CoplanarOrientation_4Point3d(Point3d p, Point3d q, Point3d r, Point3d s);
+
+        //---------------------------------------------------------------------------//
+        //                             EquidistantLine                               //
+        //---------------------------------------------------------------------------//
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool CGALGlobal_EIK_Parallel_Segment2(Segment2d s1, Segment2d s2);
+        private static extern Line3d CGALGlobal_EIK_EquidistantLine_Line3d(Point3d p, Point3d q, Point3d r);
+
+        //---------------------------------------------------------------------------//
+        //                              LeftTurn                                     //
+        //---------------------------------------------------------------------------//
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_LeftTurn_Point2d(Point2d p, Point2d q, Point2d r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_LeftTurn_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EEK_LeftTurn_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        //---------------------------------------------------------------------------//
+        //                               RightTurn                                   //
+        //---------------------------------------------------------------------------//
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_RightTurn_Point2d(Point2d p, Point2d q, Point2d r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_RightTurn_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EEK_RightTurn_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        //---------------------------------------------------------------------------//
+        //                               Orientation                                 //
+        //---------------------------------------------------------------------------//
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Point2d(Point2d p, Point2d q, Point2d r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Point2(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Vector2d(Vector2d u, Vector2d v);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Vector2(IntPtr p, IntPtr q);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EEK_Orientation_Vector2(IntPtr p, IntPtr q);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Point3d(Point3d p, Point3d q, Point3d r, Point3d s);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern ORIENTATION CGALGlobal_EIK_Orientation_Vector3d(Vector3d u, Vector3d v, Vector3d w);
+
+        //---------------------------------------------------------------------------//
+        //                              OrthogonalVector                             //
+        //---------------------------------------------------------------------------//
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern Vector3d CGALGlobal_EIK_OrthogonalVector_Point3d(Point3d p, Point3d q, Point3d r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr CGALGlobal_EIK_OrthogonalVector_Point3(IntPtr p, IntPtr q, IntPtr r);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr CGALGlobal_EEK_OrthogonalVector_Point3(IntPtr p, IntPtr q, IntPtr r);
+
+        //---------------------------------------------------------------------------//
+        //                               Parallel                                    //
+        //---------------------------------------------------------------------------//
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_Parallel_Line2d(Line2d l1, Line2d l2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_Parallel_Line2(IntPtr l1, IntPtr l2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EEK_Parallel_Line2(IntPtr l1, IntPtr l2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_Parallel_Ray2d(Ray2d r1, Ray2d r2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_Parallel_Ray2(IntPtr l1, IntPtr l2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EEK_Parallel_Ray2(IntPtr l1, IntPtr l2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_Parallel_Segment2d(Segment2d s1, Segment2d s2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EIK_Parallel_Segment2(IntPtr l1, IntPtr l2);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool CGALGlobal_EEK_Parallel_Segment2(IntPtr l1, IntPtr l2);
 
     }
 }
