@@ -1,5 +1,5 @@
 
-# Welcome to the CGALDotNet.
+# Welcome to CGALDotNet.
 
 - [Introduction.](https://github.com/Scrawk/CGALDotNet/wiki/Introduction)
 
