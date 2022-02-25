@@ -10,7 +10,7 @@ using CGALDotNet.Geometry;
 namespace CGALDotNetTest.Geometry
 {
     [TestClass]
-    public class Ray2Test
+    public class Ray2_EIK_Test
     {
         [TestMethod]
         public void Create()

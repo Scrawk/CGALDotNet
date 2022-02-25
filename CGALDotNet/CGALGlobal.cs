@@ -649,7 +649,6 @@ namespace CGALDotNet
         /// </summary>
         /// <param name="p">The first point.</param>
         /// <param name="q">The second point.</param>
-        /// <param name="r">The third point.</param>
         /// <returns></returns>
         public static ORIENTATION Orientation(Vector2<EEK> p, Vector2<EEK> q)
         {

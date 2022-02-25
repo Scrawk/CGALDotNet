@@ -35,9 +35,6 @@ namespace CGALDotNetConsole
             boxPoly.Translate(new Point2d(-10, 10));
             polygon.Translate(new Point2d(-10, 10));
 
-            //boxPoly.Round(2);
-            //polygon.Round(2);
-
             boxPoly.Print();
             polygon.Print();
 
@@ -48,11 +45,8 @@ namespace CGALDotNetConsole
 
                 foreach (var poly in results)
                 {
-                    //poly.Round(2);
                     poly.Print();
 
-                    //foreach (var p in poly)
-                   //     Console.WriteLine(p);
                 }
             }
             else

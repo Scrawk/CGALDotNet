@@ -10,7 +10,7 @@ using CGALDotNet.Geometry;
 namespace CGALDotNetTest.Geometry
 {
     [TestClass]
-    public class Triangle2Test
+    public class Triangle2_EIK_Test
     {
         [TestMethod]
         public void Create()

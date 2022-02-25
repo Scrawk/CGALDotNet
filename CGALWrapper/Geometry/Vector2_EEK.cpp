@@ -43,29 +43,16 @@ double Vector2_EEK_GetY(void* ptr)
 	return CGAL::to_double(p->y());
 }
 
-Vector2d Vector2_EEK_GetVector(void* ptr)
-{
-	auto p = CastToVector2(ptr);
-	return Vector2d::FromCGAL<EEK>(*p);
-}
-
 void Vector2_EEK_SetX(void* ptr, double x)
 {
 	auto p = CastToVector2(ptr);
-	(*p)[0] = x;
+	(*p) = Vector2(x, p->y());
 }
 
 void Vector2_EEK_SetY(void* ptr, double y)
 {
 	auto p = CastToVector2(ptr);
-	(*p)[1] = y;
-}
-
-void Vector2_EEK_SetVector(void* ptr, const Vector2d& vector)
-{
-	auto p = CastToVector2(ptr);
-	(*p)[0] = vector.x;
-	(*p)[1] = vector.y;
+	(*p) = Vector2(p->x(), y);
 }
 
 double Vector2_EEK_SqrLength(void* ptr)
@@ -90,8 +77,16 @@ void Vector2_EEK_Normalize(void* ptr)
 	if (sq_len == 0) return;
 
 	auto len = CGAL::sqrt(sq_len);
-	(*p)[0] = (*p)[0] / len;
-	(*p)[1] = (*p)[1] / len;
+	(*p) = Vector2(p->x() / len, p->y() / len);
+}
+
+double Vector2_EEK_Magnitude(void* ptr)
+{
+	auto p = CastToVector2(ptr);
+	auto sq_len = CGAL::to_double(p->squared_length());
+
+	if (sq_len == 0) return 0;
+	return CGAL::sqrt(sq_len);
 }
 
 void* Vector2_EEK_Copy(void* ptr)

@@ -16,13 +16,9 @@ extern "C"
 
 	CGALWRAPPER_API double Vector2_EIK_GetY(void* ptr);
 
-	CGALWRAPPER_API Vector2d Vector2_EIK_GetVector(void* ptr);
-
 	CGALWRAPPER_API void Vector2_EIK_SetX(void* ptr, double x);
 
 	CGALWRAPPER_API void Vector2_EIK_SetY(void* ptr, double y);
-
-	CGALWRAPPER_API void Vector2_EIK_SetVector(void* ptr, const Vector2d& vector);
 
 	CGALWRAPPER_API double Vector2_EIK_SqrLength(void* ptr);
 
@@ -30,7 +26,7 @@ extern "C"
 
 	CGALWRAPPER_API void Vector2_EIK_Normalize(void* ptr);
 
-	CGALWRAPPER_API double Vector2_EIK_Magnitue(void* ptr);
+	CGALWRAPPER_API double Vector2_EIK_Magnitude(void* ptr);
 
 	CGALWRAPPER_API void* Vector2_EIK_Copy(void* ptr);
 

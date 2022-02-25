@@ -1032,7 +1032,6 @@
             </summary>
             <param name="p">The first point.</param>
             <param name="q">The second point.</param>
-            <param name="r">The third point.</param>
             <returns></returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.Orientation(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
@@ -4116,6 +4115,11 @@
             </summary>
         </member>
         <member name="P:CGALDotNet.Geometry.Vector2.Magnitude">
+            <summary>
+            The vectors sqr magnitude.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Geometry.Vector2.SqrMagnitude">
             <summary>
             The vectors sqr magnitude.
             </summary>

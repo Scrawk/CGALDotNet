@@ -11,13 +11,13 @@ namespace CGALDotNetTest.Geometry
 {
 
     [TestClass]
-    public class Vector2Test
+    public class Vector2_EEK_Test
     {
 
         [TestMethod]
         public void CreatePoint()
         {
-            var p = new Vector2<EIK>(1, 2);
+            var p = new Vector2<EEK>(1, 2);
 
             Assert.AreEqual(1, p.x);
             Assert.AreEqual(2, p.y);
@@ -26,7 +26,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void SetXY()
         {
-            var p = new Vector2<EIK>(1, 2);
+            var p = new Vector2<EEK>(1, 2);
 
             p.x = 3;
             p.y = 4;
@@ -38,7 +38,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Release()
         {
-            var p = new Vector2<EIK>(0, 0);
+            var p = new Vector2<EEK>(0, 0);
             p.Dispose();
 
             Assert.IsTrue(p.IsDisposed);
@@ -47,7 +47,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Clamp()
         {
-            var p = new Vector2<EIK>(-1, 4);
+            var p = new Vector2<EEK>(-1, 4);
 
             p.Clamp(0, 3);
 
@@ -58,7 +58,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Clamp01()
         {
-            var p = new Vector2<EIK>(-0.1, 3.2);
+            var p = new Vector2<EEK>(-0.1, 3.2);
 
             p.Clamp01();
 
@@ -69,14 +69,14 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Round()
         {
-            var p1 = new Vector2<EIK>(0.1);
-            var p2 = new Vector2<EIK>(0.01);
-            var p3 = new Vector2<EIK>(0.001);
-            var p4 = new Vector2<EIK>(0.0001);
-            var p5 = new Vector2<EIK>(0.00001);
-            var p6 = new Vector2<EIK>(0.000001);
-            var p7 = new Vector2<EIK>(0.0000001);
-            var p8 = new Vector2<EIK>(0.00000001);
+            var p1 = new Vector2<EEK>(0.1);
+            var p2 = new Vector2<EEK>(0.01);
+            var p3 = new Vector2<EEK>(0.001);
+            var p4 = new Vector2<EEK>(0.0001);
+            var p5 = new Vector2<EEK>(0.00001);
+            var p6 = new Vector2<EEK>(0.000001);
+            var p7 = new Vector2<EEK>(0.0000001);
+            var p8 = new Vector2<EEK>(0.00000001);
 
             p1.Round(1);
             p2.Round(2);
@@ -100,7 +100,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Copy()
         {
-            var p = new Vector2<EIK>(3, 4);
+            var p = new Vector2<EEK>(3, 4);
             var p2 = p.Copy();
 
             Assert.AreNotEqual(p.Ptr, p2.Ptr);
@@ -109,23 +109,36 @@ namespace CGALDotNetTest.Geometry
         }
 
         [TestMethod]
-        public void Magnitude()
+        public void SqrMagnitude()
         {
-            var p1 = new Vector2<EIK>(4, 0);
-            var p2 = new Vector2<EIK>(0, 2);
+            var p1 = new Vector2<EEK>(4, 0);
+            var p2 = new Vector2<EEK>(0, 2);
 
-            var sqlen1 = p1.Magnitude;
-            var sqlen2 = p2.Magnitude;
+            var sqlen1 = p1.SqrMagnitude;
+            var sqlen2 = p2.SqrMagnitude;
 
             AssertX.AlmostEqual(16, sqlen1);
             AssertX.AlmostEqual(4, sqlen2);
         }
 
         [TestMethod]
+        public void Magnitude()
+        {
+            var p1 = new Vector2<EEK>(4, 0);
+            var p2 = new Vector2<EEK>(0, 2);
+
+            var len1 = p1.Magnitude;
+            var len2 = p2.Magnitude;
+
+            AssertX.AlmostEqual(4, len1);
+            AssertX.AlmostEqual(2, len2);
+        }
+
+        [TestMethod]
         public void Normalize()
         {
-            var p1 = new Vector2<EIK>(4, 0);
-            var p2 = new Vector2<EIK>(0, 2);
+            var p1 = new Vector2<EEK>(4, 0);
+            var p2 = new Vector2<EEK>(0, 2);
 
             p1.Normalize();
             p2.Normalize();
@@ -137,13 +150,13 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Convert()
         {
-            var p1 = new Vector2<EIK>(1, 2);
-            var p2 = p1.Convert<EEK>();
+            var p1 = new Vector2<EEK>(1, 2);
+            var p2 = p1.Convert<EIK>();
 
             Assert.AreNotEqual(p1.Ptr, p2.Ptr);
             Assert.AreEqual(1, p2.x);
             Assert.AreEqual(2, p2.y);
-            Assert.AreEqual("EEK", p2.KernelName);
+            Assert.AreEqual("EIK", p2.KernelName);
         }
 
     }

@@ -25,13 +25,9 @@ namespace CGALDotNet.Geometry
 
         internal abstract double Point2_GetY(IntPtr ptr);
 
-        internal abstract Point2d Point2_GetPoint(IntPtr ptr);
-
         internal abstract void Point2_SetX(IntPtr ptr, double x);
 
         internal abstract void Point2_SetY(IntPtr ptr, double y);
-
-        internal abstract void Point2_SetPoint(IntPtr ptr, Point2d point);
 
         internal abstract IntPtr Point2_Copy(IntPtr ptr);
 
@@ -53,19 +49,17 @@ namespace CGALDotNet.Geometry
 
         internal abstract double Vector2_GetY(IntPtr ptr);
 
-        internal abstract Vector2d Vector2_GetVector(IntPtr ptr);
-
         internal abstract void Vector2_SetX(IntPtr ptr, double x);
 
         internal abstract void Vector2_SetY(IntPtr ptr, double y);
-
-        internal abstract void Vector2_SetVector(IntPtr ptr,  Vector2d vector);
 
 	    internal abstract double Vector2_SqrLength(IntPtr ptr);
 
         internal abstract IntPtr Vector2_Perpendicular(IntPtr ptr, ORIENTATION orientation);
 
         internal abstract void Vector2_Normalize(IntPtr ptr);
+
+        internal abstract double Vector2_Magnitude(IntPtr ptr);
 
         internal abstract IntPtr Vector2_Copy(IntPtr ptr);
 
@@ -89,15 +83,11 @@ namespace CGALDotNet.Geometry
 
         internal abstract double HPoint2_GetW(IntPtr ptr);
 
-        internal abstract HPoint2d HPoint2_GetPoint(IntPtr ptr);
-
         internal abstract void HPoint2_SetX(IntPtr ptr, double x);
 
         internal abstract void HPoint2_SetY(IntPtr ptr, double y);
 
         internal abstract void HPoint2_SetW(IntPtr ptr, double y);
-
-        internal abstract void HPoint2_SetPoint(IntPtr ptr,  HPoint2d point);
 
         internal abstract IntPtr HPoint2_Copy(IntPtr ptr);
 

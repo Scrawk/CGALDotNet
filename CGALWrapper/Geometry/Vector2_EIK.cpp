@@ -43,12 +43,6 @@ double Vector2_EIK_GetY(void* ptr)
 	return CGAL::to_double(p->y());
 }
 
-Vector2d Vector2_EIK_GetVector(void* ptr)
-{
-	auto p = CastToVector2(ptr);
-	return Vector2d::FromCGAL<EIK>(*p);
-}
-
 void Vector2_EIK_SetX(void* ptr, double x)
 {
 	auto p = CastToVector2(ptr);
@@ -59,12 +53,6 @@ void Vector2_EIK_SetY(void* ptr, double y)
 {
 	auto p = CastToVector2(ptr);
 	(*p) = Vector2(p->x(), y);
-}
-
-void Vector2_EIK_SetVector(void* ptr, const Vector2d& vector)
-{
-	auto p = CastToVector2(ptr);
-	(*p) = Vector2(vector.x, vector.y);
 }
 
 double Vector2_EIK_SqrLength(void* ptr)
@@ -93,7 +81,7 @@ void Vector2_EIK_Normalize(void* ptr)
 	(*p) = Vector2(p->x() / len, p->y() / len);
 }
 
-double Vector2_EEK_Magnitue(void* ptr)
+double Vector2_EIK_Magnitude(void* ptr)
 {
 	auto p = CastToVector2(ptr);
 	auto sq_len = CGAL::to_double(p->squared_length());

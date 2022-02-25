@@ -44,11 +44,6 @@ namespace CGALDotNet.Geometry
             return Point2_EEK_GetY(ptr);
         }
 
-        internal override Point2d Point2_GetPoint(IntPtr ptr)
-        {
-            return Point2_EEK_GetPoint(ptr);
-        }
-
         internal override void Point2_SetX(IntPtr ptr, double x)
         {
             Point2_EEK_SetX(ptr, x);
@@ -57,11 +52,6 @@ namespace CGALDotNet.Geometry
         internal override void Point2_SetY(IntPtr ptr, double y)
         {
             Point2_EEK_SetY(ptr, y);
-        }
-
-        internal override void Point2_SetPoint(IntPtr ptr, Point2d point)
-        {
-            Point2_EEK_SetPoint(ptr, point);
         }
 
         internal override IntPtr Point2_Copy(IntPtr ptr)
@@ -105,11 +95,6 @@ namespace CGALDotNet.Geometry
             return Vector2_EEK_GetY(ptr);
         }
 
-        internal override Vector2d Vector2_GetVector(IntPtr ptr)
-        {
-            return Vector2_EEK_GetVector(ptr);
-        }
-
         internal override void Vector2_SetX(IntPtr ptr, double x)
         {
             Vector2_EEK_SetX(ptr, x);
@@ -118,11 +103,6 @@ namespace CGALDotNet.Geometry
         internal override void Vector2_SetY(IntPtr ptr, double y)
         {
             Vector2_EEK_SetY(ptr, y);
-        }
-
-        internal override void Vector2_SetVector(IntPtr ptr, Vector2d vector)
-        {
-            Vector2_SetVector(ptr, vector);
         }
 
         internal override double Vector2_SqrLength(IntPtr ptr)
@@ -138,6 +118,11 @@ namespace CGALDotNet.Geometry
         internal override void Vector2_Normalize(IntPtr ptr)
         {
             Vector2_EEK_Normalize(ptr);
+        }
+
+        internal override double Vector2_Magnitude(IntPtr ptr)
+        {
+            return Vector2_EEK_Magnitude(ptr);
         }
 
         internal override IntPtr Vector2_Copy(IntPtr ptr)
@@ -186,11 +171,6 @@ namespace CGALDotNet.Geometry
             return HPoint2_EEK_GetW(ptr);
         }
 
-        internal override HPoint2d HPoint2_GetPoint(IntPtr ptr)
-        {
-            return HPoint2_GetPoint(ptr);
-        }
-
         internal override void HPoint2_SetX(IntPtr ptr, double x)
         {
             HPoint2_EEK_SetX(ptr, x);
@@ -204,11 +184,6 @@ namespace CGALDotNet.Geometry
         internal override void HPoint2_SetW(IntPtr ptr, double w)
         {
             HPoint2_EEK_SetW(ptr, w);
-        }
-
-        internal override void HPoint2_SetPoint(IntPtr ptr, HPoint2d point)
-        {
-            HPoint2_EEK_SetPoint(ptr, point);
         }
 
         internal override IntPtr HPoint2_Copy(IntPtr ptr)
@@ -662,16 +637,10 @@ namespace CGALDotNet.Geometry
         private static extern double Point2_EEK_GetY(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Point2d Point2_EEK_GetPoint(IntPtr ptr);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Point2_EEK_SetX(IntPtr ptr, double x);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Point2_EEK_SetY(IntPtr ptr, double y);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Point2_EEK_SetPoint(IntPtr ptr, Point2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Point2_EEK_Copy(IntPtr ptr);
@@ -701,16 +670,10 @@ namespace CGALDotNet.Geometry
         private static extern double Vector2_EEK_GetY(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern Vector2d Vector2_EEK_GetVector(IntPtr ptr);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Vector2_EEK_SetX(IntPtr ptr, double x);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Vector2_EEK_SetY(IntPtr ptr, double y);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void Vector2_EEK_SetVector(IntPtr ptr, Vector2d vector);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern double Vector2_EEK_SqrLength(IntPtr ptr);
@@ -720,6 +683,9 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Vector2_EEK_Normalize(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern double Vector2_EEK_Magnitude(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Vector2_EEK_Copy(IntPtr ptr);
@@ -752,9 +718,6 @@ namespace CGALDotNet.Geometry
         private static extern double HPoint2_EEK_GetW(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern HPoint2d HPoint2_EEK_GetPoint(IntPtr ptr);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void HPoint2_EEK_SetX(IntPtr ptr, double x);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -762,9 +725,6 @@ namespace CGALDotNet.Geometry
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void HPoint2_EEK_SetW(IntPtr ptr, double y);
-
-        [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern void HPoint2_EEK_SetPoint(IntPtr ptr, HPoint2d point);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr HPoint2_EEK_Copy(IntPtr ptr);

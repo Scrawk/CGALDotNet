@@ -161,7 +161,12 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// The vectors sqr magnitude.
         /// </summary>
-        public double Magnitude => Kernel.Vector2_SqrLength(Ptr);
+        public double Magnitude => Kernel.Vector2_Magnitude(Ptr);
+
+        /// <summary>
+        /// The vectors sqr magnitude.
+        /// </summary>
+        public double SqrMagnitude => Kernel.Vector2_SqrLength(Ptr);
 
         /// <summary>
         /// Access the x component.

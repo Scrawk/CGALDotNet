@@ -6,14 +6,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CGALDotNetTest.Geometry
 {
     [TestClass]
-    public class Box2Test
+    public class Box2_EEK_Test
     {
         [TestMethod]
         public void CreateBox()
         {
             var min = new Point2d(-1, -2);
             var max = new Point2d(1, 2);
-            var box = new Box2<EIK>(min, max);
+            var box = new Box2<EEK>(min, max);
 
             Assert.AreEqual(new Point2d(-1, -2), box.Min);
             Assert.AreEqual(new Point2d(1, 2), box.Max);
@@ -22,7 +22,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Release()
         {
-            var box = new Box2<EIK>(-1, -1);
+            var box = new Box2<EEK>(-1, -1);
             box.Dispose();
 
             Assert.IsTrue(box.IsDisposed);
@@ -34,7 +34,7 @@ namespace CGALDotNetTest.Geometry
             var min = new Point2d(-1, -3);
             var max = new Point2d(1, 3);
 
-            var box = new Box2<EIK>(min, max);
+            var box = new Box2<EEK>(min, max);
 
             Assert.AreEqual(min, box.Min);
             Assert.AreEqual(max, box.Max);
@@ -46,7 +46,7 @@ namespace CGALDotNetTest.Geometry
             var min = new Point2d(-1, -3);
             var max = new Point2d(1, 3);
 
-            var box = new Box2<EIK>(min, max);
+            var box = new Box2<EEK>(min, max);
 
             box.Min = new Point2d(0, 1);
             box.Max = new Point2d(2, 4);
@@ -58,7 +58,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Area()
         {
-            var box = new Box2<EIK>(-1, 1);
+            var box = new Box2<EEK>(-1, 1);
 
             Assert.AreEqual(4, box.Area);
         }
@@ -70,7 +70,7 @@ namespace CGALDotNetTest.Geometry
             var p2 = new Point2d(-1, 0);
             var p3 = new Point2d(0, 0);
 
-            var box = new Box2<EIK>(-1, 1);
+            var box = new Box2<EEK>(-1, 1);
 
             Assert.AreEqual(BOUNDED_SIDE.ON_UNBOUNDED_SIDE, box.BoundedSide(p1));
             Assert.AreEqual(BOUNDED_SIDE.ON_BOUNDARY, box.BoundedSide(p2));
@@ -84,7 +84,7 @@ namespace CGALDotNetTest.Geometry
             var p2 = new Point2d(-1, 0);
             var p3 = new Point2d(0, 0);
 
-            var box = new Box2<EIK>(-1, 1);
+            var box = new Box2<EEK>(-1, 1);
 
             Assert.IsFalse(box.ContainsPoint(p1));
             Assert.IsTrue(box.ContainsPoint(p2));
@@ -95,26 +95,26 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void IsDegenerate()
         {
-            var box = new Box2<EIK>(0, 0);
+            var box = new Box2<EEK>(0, 0);
             Assert.IsTrue(box.IsDegenerate);
         }
 
         [TestMethod]
         public void Transform()
         {
-            var box = new Box2<EIK>(-1, 1);
+            var box = new Box2<EEK>(-1, 1);
             box.Translate(new Point2d(1, 1));
 
             Assert.AreEqual(new Point2d(0, 0), box.Min);
             Assert.AreEqual(new Point2d(2, 2), box.Max);
 
-            box = new Box2<EIK>(-1, 1);
+            box = new Box2<EEK>(-1, 1);
             box.Scale(2);
 
             Assert.AreEqual(new Point2d(-2, -2), box.Min);
             Assert.AreEqual(new Point2d(2, 2), box.Max);
 
-            box = new Box2<EIK>(-1, 1);
+            box = new Box2<EEK>(-1, 1);
             box.Rotate(new Degree(90));
             box.Round(2);
 
@@ -125,7 +125,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Copy()
         {
-            var box = new Box2<EIK>(-1, 1);
+            var box = new Box2<EEK>(-1, 1);
             var box2 = box.Copy();
 
             Assert.AreNotEqual(box.Ptr, box2.Ptr);
@@ -136,7 +136,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Convert()
         {
-            var box1 = new Box2<EIK>(-1, 1);
+            var box1 = new Box2<EEK>(-1, 1);
             var box2 = box1.Convert<EEK>();
 
             Assert.AreNotEqual(box1.Ptr, box2.Ptr);
@@ -148,7 +148,7 @@ namespace CGALDotNetTest.Geometry
         [TestMethod]
         public void Shape()
         {
-            var box = new Box2<EIK>(-1, 1);
+            var box = new Box2<EEK>(-1, 1);
             var shape = box.Shape;
 
             Assert.AreEqual(new Point2d(-1, -1), shape.Min);
@@ -167,14 +167,14 @@ namespace CGALDotNetTest.Geometry
             var p7 = new Point2d(0.0000001);
             var p8 = new Point2d(0.00000001);
 
-            var box1 = new Box2<EIK>(p1, p1);
-            var box2 = new Box2<EIK>(p2, p2);
-            var box3 = new Box2<EIK>(p3, p3);
-            var box4 = new Box2<EIK>(p4, p4);
-            var box5 = new Box2<EIK>(p5, p5);
-            var box6 = new Box2<EIK>(p6, p6);
-            var box7 = new Box2<EIK>(p7, p7);
-            var box8 = new Box2<EIK>(p8, p8);
+            var box1 = new Box2<EEK>(p1, p1);
+            var box2 = new Box2<EEK>(p2, p2);
+            var box3 = new Box2<EEK>(p3, p3);
+            var box4 = new Box2<EEK>(p4, p4);
+            var box5 = new Box2<EEK>(p5, p5);
+            var box6 = new Box2<EEK>(p6, p6);
+            var box7 = new Box2<EEK>(p7, p7);
+            var box8 = new Box2<EEK>(p8, p8);
 
             box1.Round(1);
             box2.Round(2);
