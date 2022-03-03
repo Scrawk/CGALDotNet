@@ -91,7 +91,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Translate the shape.
+        /// Translate the object.
         /// </summary>
         /// <param name="translation">The amount to translate.</param>
         public void Translate(Point2d translation)
@@ -100,7 +100,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Rotate the shape.
+        /// Rotate the object.
         /// </summary>
         /// <param name="rotation">The amount to rotate.</param>
         public void Rotate(Degree rotation)
@@ -109,7 +109,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// Scale the shape.
+        /// Scale the object.
         /// </summary>
         /// <param name="scale">The amount to scale.</param>
         public void Scale(double scale)
@@ -118,20 +118,20 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Translate, rotate and scale the object.
         /// </summary>
-        /// <param name="translation"></param>
-        /// <param name="rotation"></param>
-        /// <param name="scale"></param>
+        /// <param name="translation">The amount to translate.</param>
+        /// <param name="rotation">The amount to rotate in degrees.</param>
+        /// <param name="scale">The amount to scale.</param>
         public void Transform(Point2d translation, Degree rotation, double scale)
         {
             Kernel.Line2_Transform(Ptr, translation, rotation.radian, scale);    
         }
 
         /// <summary>
-        /// 
+        /// Create a deep copy of the line.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The deep copy.</returns>
         public Line2<K> Copy()
         {
             return new Line2<K>(Kernel.Line2_Copy(Ptr));
@@ -159,7 +159,7 @@ namespace CGALDotNet.Geometry
     }
 
     /// <summary>
-    /// 
+    /// The abstract class for the line object.
     /// </summary>
     public abstract class Line2 : CGALObject
     {
@@ -214,7 +214,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The lines kernel.
         /// </summary>
         protected private GeometryKernel2 Kernel { get; private set; }
 
@@ -224,7 +224,7 @@ namespace CGALDotNet.Geometry
         public Line2d Shape => new Line2d(A, B, C);
 
         /// <summary>
-        /// 
+        /// The lines constant in ax.
         /// </summary>
         public double A
         {
@@ -233,7 +233,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The lines constant in by.
         /// </summary>
         public double B
         {
@@ -242,7 +242,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The lines constant.
         /// </summary>
         public double C
         {
@@ -251,30 +251,30 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Is the line degenerate.
         /// </summary>
         public bool IsDegenerate => Kernel.Line2_IsDegenerate(Ptr);
 
         /// <summary>
-        /// 
+        /// Is the line horizontal on the x axis.
         /// </summary>
         public bool IsHorizontal => Kernel.Line2_IsHorizontal(Ptr);
 
         /// <summary>
-        /// 
+        /// Is the line vertical on the y axis.
         /// </summary>
         public bool IsVertical => Kernel.Line2_IsVertical(Ptr); 
 
         /// <summary>
-        /// 
+        /// Convert the line to a vector.
         /// </summary>
         public Vector2d Vector => Kernel.Line2_Vector(Ptr);
 
         /// <summary>
-        /// 
+        /// Does the point lie on the line.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>True if the point lies on the line.</returns>
         public bool HasOn(Point2d point)
         {
             return Kernel.Line2_HasOn(Ptr, point);
