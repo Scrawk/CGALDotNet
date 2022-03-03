@@ -8,7 +8,7 @@ using CGALDotNetGeometry.Shapes;
 namespace CGALDotNet.Geometry
 {
     /// <summary>
-    /// 
+    /// A CGALObject that represents a line on 2D space.
     /// </summary>
     /// <typeparam name="K"></typeparam>
     public sealed class Line2<K> : Line2 where K : CGALKernel, new()
@@ -25,40 +25,40 @@ namespace CGALDotNet.Geometry
 	    public readonly static Line2<K> Vertical = new Line2<K>(Point2d.Zero, Point2d.UnitY);
 
         /// <summary>
-        /// 
+        /// Create a new line where ax + by + c = 0 holds.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">The constant in ax.</param>
+        /// <param name="b">The constant in by.</param>
+        /// <param name="c">The constant.</param>
         public Line2(double a, double b, double c) : base(a, b, c, new K())
         {
 
         }
 
         /// <summary>
-        /// 
+        /// Create a new line that passes through the two points.
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
+        /// <param name="p1">The first point.</param>
+        /// <param name="p2">The second point.</param>
         public Line2(Point2d p1, Point2d p2) : base(p1, p2, new K())
         {
 
         }
 
         /// <summary>
-        /// 
+        /// Create a line that passes through the point in the direction of the vector.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="v"></param>
+        /// <param name="p">The point.</param>
+        /// <param name="v">The vector.</param>
         public Line2(Point2d p, Vector2d v) : base(p, v, new K())
         {
 
         }
 
         /// <summary>
-        /// 
+        /// Create a line from a existing pointer.
         /// </summary>
-        /// <param name="ptr"></param>
+        /// <param name="ptr">The pointer.</param>
         internal Line2(IntPtr ptr) : base(new K(), ptr)
         {
 
