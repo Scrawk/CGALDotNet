@@ -65,7 +65,7 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Create a new line that faces in the opposite direction.
         /// </summary>
         public Line2<K> Opposite => new Line2<K>(Kernel.Line2_Opposite(Ptr));
 
@@ -80,10 +80,10 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Create a new line that is perpendicular to current line.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">A point the line should turn ccw when turning./param>
+        /// <returns>The perpendicular line.</returns>
         public Line2<K> Perpendicular(Point2d point)
         {
             var ptr = Kernel.Line2_Perpendicular(Ptr, point);
