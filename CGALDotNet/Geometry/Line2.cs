@@ -281,47 +281,48 @@ namespace CGALDotNet.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Does the point lies on the negative/cw side of the line.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>True if the point lies on the negative/cw side of the line.</returns>
         public bool HasOnNegativeSide(Point2d point)
         {
             return Kernel.Line2_HasOnNegativeSide(Ptr, point);  
         }
 
-        /// <summary>
-        /// 
+       /// <summary>
+        /// Does the point lies on the positive/ccw side of the line.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>True if the point lies on the positive/ccw side of the line.</returns>
         public bool HasOnPositiveSide(Point2d point)
         {
             return Kernel.Line2_HasOnPositiveSide(Ptr, point);  
         }
 
         /// <summary>
-        /// 
+        /// The lines x value given a y value.
         /// </summary>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        /// <param name="y">The y value.</param>
+        /// <returns>The lines x value given a y value.</returns>
         public double X_On_Y(double y)
         {
             return Kernel.Line2_X_On_Y(Ptr, y);
         }
 
         /// <summary>
-        /// 
+        /// The lines y value given a x value.
         /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
+        /// <param name="x">The x value.</param>
+        /// <returns>The lines y value given a x value.</returns>
+
         public double Y_On_X(double x)
         {
             return Kernel.Line2_Y_On_X(Ptr, x);
         }
 
         /// <summary>
-        /// 
+        /// Release the unmanaged pointer.
         /// </summary>
         protected override void ReleasePtr()
         {
