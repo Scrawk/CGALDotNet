@@ -128,14 +128,30 @@ void* Segment2_EEK_Copy(void* ptr)
 	return s2;
 }
 
-void* Segment2_EEK_Convert(void* ptr)
+template<class K2>
+static void* Convert(Segment2* s)
 {
-	typedef CGAL::Cartesian_converter<EEK, EIK> Converter;
-	Converter convert;
+	CGAL::Cartesian_converter<EEK, K2> convert;
 
-	auto s = CastToSegment2(ptr);
 	auto a = convert(s->source());
 	auto b = convert(s->target());
 
-	return new CGAL::Segment_2<EIK>(a, b);
+	return new CGAL::Segment_2<K2>(a, b);
+}
+
+void* Segment2_EEK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto s = CastToSegment2(ptr);
+
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(s);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(s);
+
+	default:
+		return Convert<EEK>(s);
+	}
 }

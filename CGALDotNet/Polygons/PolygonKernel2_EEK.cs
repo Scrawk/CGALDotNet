@@ -35,6 +35,11 @@ namespace CGALDotNet.Polygons
             return Polygon2_EEK_Copy(ptr);
         }
 
+        internal override IntPtr Convert(IntPtr ptr, CGAL_KERNEL k)
+        {
+            return Polygon2_EEK_Convert(ptr, k);
+        }
+
         internal override Box2d GetBoundingBox(IntPtr ptr)
         {
             return Polygon2_EEK_GetBoundingBox(ptr);
@@ -181,6 +186,9 @@ namespace CGALDotNet.Polygons
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Polygon2_EEK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Polygon2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern Box2d Polygon2_EEK_GetBoundingBox(IntPtr ptr);

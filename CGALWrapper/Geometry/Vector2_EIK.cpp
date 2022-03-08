@@ -99,14 +99,30 @@ void* Vector2_EIK_Copy(void* ptr)
 	return v2;
 }
 
-void* Vector2_EIK_Convert(void* ptr)
+template<class K2>
+static void* Convert(Vector2* v)
 {
-	typedef CGAL::Cartesian_converter<EIK, EEK> Converter;
-	Converter convert;
+	CGAL::Cartesian_converter<EIK, K2> convert;
 
+	auto x = convert((*v)[0]);
+	auto y = convert((*v)[1]);
+
+	return new CGAL::Vector_2<K2>(x, y);
+}
+
+void* Vector2_EIK_Convert(void* ptr, CGAL_KERNEL k)
+{
 	auto p = CastToVector2(ptr);
-	auto x = convert(p->x());
-	auto y = convert(p->y());
 
-	return new CGAL::Vector_2<EEK>(x, y);
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(p);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(p);
+
+	default:
+		return Convert<EIK>(p);
+	}
 }

@@ -107,16 +107,10 @@ namespace CGALDotNet.Geometry
         /// <returns>The shape with another kernel type.</returns>
         public Point2<T> Convert<T>() where T : CGALKernel, new()
         {
-            if (KernelName == typeof(T).Name)
-            {
-                var ptr = Kernel.Point2_Copy(Ptr);
-                return new Point2<T>(ptr);
-            }
-            else
-            {
-                var ptr = Kernel.Point2_Convert(Ptr);
-                return new Point2<T>(ptr);
-            }
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Point2_Convert(Ptr, e);
+            return new Point2<T>(ptr);
         }
     }
 

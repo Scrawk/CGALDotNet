@@ -117,15 +117,31 @@ void* Triangle2_EIK_Copy(void* ptr)
 	return t2;
 }
 
-void* Triangle2_EIK_Convert(void* ptr)
+template<class K2>
+static void* Convert(Triangle2* t)
 {
-	typedef CGAL::Cartesian_converter<EIK, EEK> Converter;
-	Converter convert;
+	CGAL::Cartesian_converter<EIK, K2> convert;
 
-	auto t = CastToTriangle2(ptr);
 	auto a = convert(t->vertex(0));
 	auto b = convert(t->vertex(1));
 	auto c = convert(t->vertex(2));
 
-	return new CGAL::Triangle_2<EEK>(a, b, c);
+	return new CGAL::Triangle_2<K2>(a, b, c);
+}
+
+void* Triangle2_EEK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto t = CastToTriangle2(ptr);
+
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(t);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(t);
+
+	default:
+		return Convert<EIK>(t);
+	}
 }

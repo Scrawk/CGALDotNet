@@ -82,7 +82,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// Create a new line that is perpendicular to current line.
         /// </summary>
-        /// <param name="point">A point the line should turn ccw when turning./param>
+        /// <param name="point">A point the line should turn ccw when turning.</param>
         /// <returns>The perpendicular line.</returns>
         public Line2<K> Perpendicular(Point2d point)
         {
@@ -145,16 +145,10 @@ namespace CGALDotNet.Geometry
         /// <returns>The shape with another kernel type.</returns>
         public Line2<T> Convert<T>() where T : CGALKernel, new()
         {
-            if (Kernel.Name == typeof(T).Name)
-            {
-                var ptr = Kernel.Line2_Copy(Ptr);
-                return new Line2<T>(ptr);
-            }
-            else
-            {
-                var ptr = Kernel.Line2_Convert(Ptr);
-                return new Line2<T>(ptr);
-            }
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Line2_Convert(Ptr, e);
+            return new Line2<T>(ptr);
         }
     }
 

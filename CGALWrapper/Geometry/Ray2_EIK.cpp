@@ -102,23 +102,30 @@ void Ray2_EIK_Transform(void* ptr, const Point2d& translation, double rotation, 
 	(*ray) = ray->transform(T * R * S);
 }
 
-void* Ray2_EIK_Copy(void* ptr)
+template<class K2>
+static void* Convert(Ray2* r)
 {
-	auto r = CastToRay2(ptr);
-	auto r2 = new Ray2();
+	CGAL::Cartesian_converter<EIK, K2> convert;
 
-	(*r2) = *r;
-	return r2;
-}
-
-void* Ray2_EIK_Convert(void* ptr)
-{
-	typedef CGAL::Cartesian_converter<EIK, EEK> Converter;
-	Converter convert;
-
-	auto r = CastToRay2(ptr);
 	auto p = convert(r->source());
 	auto d = convert(r->direction());
 
-	return new CGAL::Ray_2<EEK>(p, d);
+	return new CGAL::Ray_2<K2>(p, d);
+}
+
+void* Ray2_EIK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto r = CastToRay2(ptr);
+
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(r);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(r);
+
+	default:
+		return Convert<EIK>(r);
+	}
 }

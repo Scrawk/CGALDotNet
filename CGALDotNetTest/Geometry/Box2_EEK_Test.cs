@@ -137,12 +137,12 @@ namespace CGALDotNetTest.Geometry
         public void Convert()
         {
             var box1 = new Box2<EEK>(-1, 1);
-            var box2 = box1.Convert<EEK>();
+            var box2 = box1.Convert<EIK>();
 
             Assert.AreNotEqual(box1.Ptr, box2.Ptr);
             Assert.AreEqual(new Point2d(-1, -1), box2.Min);
             Assert.AreEqual(new Point2d(1, 1), box2.Max);
-            Assert.AreEqual("EEK", box2.KernelName);
+            Assert.AreEqual("EIK", box2.KernelName);
         }
 
         [TestMethod]

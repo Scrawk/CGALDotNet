@@ -30,6 +30,21 @@ void* Polygon2_EEK_Copy(void* ptr)
 	return Polygon2<EEK>::Copy(ptr);
 }
 
+void* Polygon2_EEK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Polygon2<EEK>::Convert<EIK>(ptr);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Polygon2<EEK>::Convert<EEK>(ptr);
+
+	default:
+		return Polygon2<EEK>::Convert<EEK>(ptr);
+	}
+}
+
 void Polygon2_EEK_Clear(void* ptr)
 {
 	Polygon2<EEK>::Clear(ptr);

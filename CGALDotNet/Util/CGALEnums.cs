@@ -50,6 +50,30 @@ namespace CGALDotNet
         {
             return Enum.GetValues(typeof(T)).Length;
         }
+
+        public static CGAL_KERNEL ToKernelEnum(string k)
+        {
+            switch (k)
+            {
+                case "EIK":
+                    return CGAL_KERNEL.EIK;
+
+                case "EEK":
+                    return CGAL_KERNEL.EEK;
+
+                case "EEK_SQRT2":
+                    return CGAL_KERNEL.EEK_SQRT2;
+
+                case "EEK_KTH_ROOT":
+                    return CGAL_KERNEL.EEK_KTH_ROOT;
+
+                case "EEK_ROOT_OF":
+                    return CGAL_KERNEL.EEK_ROOT_OF;
+
+                default:
+                    throw new Exception("Unhandled case.");
+            }
+        }
     }
 
     public enum ANGLE 

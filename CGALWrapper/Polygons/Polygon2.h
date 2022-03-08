@@ -8,6 +8,7 @@
 #include <CGAL/Aff_transformation_2.h>
 #include <CGAL/Vector_2.h>
 #include <CGAL/Direction_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 template<class K>
 class Polygon2
@@ -73,6 +74,26 @@ public:
 	{
 		auto polygon = CastToPolygon2(ptr);
 		return new Polygon_2(*polygon);
+	}
+
+	template<class K2>
+	static void* Convert(void* ptr)
+	{
+		typedef CGAL::Cartesian_converter<K, K2> Converter;
+		Converter convert;
+
+		auto polygon = CastToPolygon2(ptr);
+		auto count = polygon->size();
+
+		auto poly2 = new CGAL::Polygon_2<K2>();
+
+		for (auto i = 0; i < count; i++)
+		{
+			auto p = convert(polygon->vertex(i));
+			poly2->push_back(p);
+		}
+
+		return poly2;
 	}
 
 	static void Clear(void* ptr)

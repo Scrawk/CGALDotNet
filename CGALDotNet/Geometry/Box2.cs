@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+using CGALDotNet;
 using CGALDotNetGeometry.Numerics;
 using CGALDotNetGeometry.Shapes;
 
@@ -116,16 +117,10 @@ namespace CGALDotNet.Geometry
         /// <returns>The shape with another kernel type.</returns>
         public Box2<T> Convert<T>() where T : CGALKernel, new()
         {
-            if (Kernel.Name == typeof(T).Name)
-            {
-                var ptr = Kernel.Box2_Copy(Ptr);
-                return new Box2<T>(ptr);
-            }
-            else
-            {
-                var ptr = Kernel.Box2_Convert(Ptr);
-                return new Box2<T>(ptr);
-            }
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Box2_Convert(Ptr, e);
+            return new Box2<T>(ptr);
         }
 
     }

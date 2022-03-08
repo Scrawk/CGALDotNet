@@ -36,6 +36,6 @@ extern "C"
 
 	CGALWRAPPER_API void* Segment2_EIK_Copy(void* ptr);
 
-	CGALWRAPPER_API void* Segment2_EIK_Convert(void* ptr);
+	CGALWRAPPER_API void* Segment2_EIK_Convert(void* ptr, CGAL_KERNEL k);
 }
 

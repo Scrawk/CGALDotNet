@@ -22,7 +22,7 @@ extern "C"
 
 	CGALWRAPPER_API void* Point2_EEK_Copy(void* ptr);
 
-	CGALWRAPPER_API void* Point2_EEK_Convert(void* ptr);
+	CGALWRAPPER_API void* Point2_EEK_Convert(void* ptr, CGAL_KERNEL k);
 
 }
 

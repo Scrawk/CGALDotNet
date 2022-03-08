@@ -171,15 +171,31 @@ void* Line2_EIK_Copy(void* ptr)
 	return l2;
 }
 
-void* Line2_EIK_Convert(void* ptr)
+template<class K2>
+static void* Convert(Line2* l)
 {
-	typedef CGAL::Cartesian_converter<EEK, EIK> Converter;
-	Converter convert;
+	CGAL::Cartesian_converter<EIK, K2> convert;
 
-	auto l = CastToLine2(ptr);
 	auto a = convert(l->a());
 	auto b = convert(l->b());
 	auto c = convert(l->c());
 
-	return new CGAL::Line_2<EEK>(a, b, c);
+	return new CGAL::Line_2<K2>(a, b, c);
+}
+
+void* Line2_EIK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto l = CastToLine2(ptr);
+
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(l);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(l);
+
+	default:
+		return Convert<EIK>(l);
+	}
 }

@@ -31,7 +31,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Point2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr Point2_Convert(IntPtr ptr);
+        internal abstract IntPtr Point2_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -63,7 +63,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Vector2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr Vector2_Convert(IntPtr ptr);
+        internal abstract IntPtr Vector2_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -91,7 +91,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr HPoint2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr HPoint2_Convert(IntPtr ptr);
+        internal abstract IntPtr HPoint2_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -145,7 +145,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Line2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr Line2_Convert(IntPtr ptr);
+        internal abstract IntPtr Line2_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -177,7 +177,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Ray2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr Ray2_Convert(IntPtr ptr);
+        internal abstract IntPtr Ray2_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -215,7 +215,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Segment2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr Segment2_Convert(IntPtr ptr);
+        internal abstract IntPtr Segment2_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -245,7 +245,7 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Triangle2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr Triangle2_Convert(IntPtr ptr);
+        internal abstract IntPtr Triangle2_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -277,6 +277,6 @@ namespace CGALDotNet.Geometry
 
         internal abstract IntPtr Box2_Copy(IntPtr ptr);
 
-        internal abstract IntPtr Box2_Convert(IntPtr ptr);
+        internal abstract IntPtr Box2_Convert(IntPtr ptr, CGAL_KERNEL k);
     }
 }

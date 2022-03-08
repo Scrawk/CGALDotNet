@@ -183,3 +183,33 @@ void* Line2_EEK_Convert(void* ptr)
 
 	return new CGAL::Line_2<EIK>(a, b, c);
 }
+
+
+template<class K2>
+static void* Convert(Line2* l)
+{
+	CGAL::Cartesian_converter<EEK, K2> convert;
+
+	auto a = convert(l->a());
+	auto b = convert(l->b());
+	auto c = convert(l->c());
+
+	return new CGAL::Line_2<K2>(a, b, c);
+}
+
+void* Line2_EEK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto l = CastToLine2(ptr);
+
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(l);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(l);
+
+	default:
+		return Convert<EEK>(l);
+	}
+}

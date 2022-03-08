@@ -109,15 +109,32 @@ void* Box2_EIK_Copy(void* ptr)
 	return nrec;
 }
 
-void* Box2_EIK_Convert(void* ptr)
+template<class K2>
+static void* Convert(Box2* rec)
 {
-	typedef CGAL::Cartesian_converter<EIK, EEK> Converter;
-	Converter convert;
+	CGAL::Cartesian_converter<EIK, K2> convert;
 
-	auto rec = CastToBox2(ptr);
 	auto min = convert(rec->min());
 	auto max = convert(rec->max());
 
-	return new CGAL::Iso_rectangle_2<EEK>(min, max);
+	return new CGAL::Iso_rectangle_2<K2>(min, max);
+}
+
+void* Box2_EIK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto rec = CastToBox2(ptr);
+
+	switch (k) 
+	{
+		case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+			return Convert<EIK>(rec);
+
+		case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+			return Convert<EEK>(rec);
+
+		default:
+			return Convert<EIK>(rec);
+	}
+
 }
 

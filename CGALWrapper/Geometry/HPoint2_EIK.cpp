@@ -77,15 +77,32 @@ void* HPoint2_EIK_Copy(void* ptr)
 	return p2;
 }
 
-void* HPoint2_EIK_Convert(void* ptr)
+template<class K2>
+static void* Convert(HPoint2* hp)
 {
-	typedef CGAL::Cartesian_converter<EIK, EEK> EIK_to_EEK;
-	EIK_to_EEK convert;
+	CGAL::Cartesian_converter<EIK, K2> convert;
 
+	auto hx = convert((*hp)[0]);
+	auto hy = convert((*hp)[1]);
+	auto hw = convert((*hp)[2]);
+	auto p = CGAL::Point_2<K2>(hx, hy);
+
+	return  new CGAL::Weighted_point_2<K2>(p, hw);
+}
+
+void* HPoint2_EIK_Convert(void* ptr, CGAL_KERNEL k)
+{
 	auto p = CastToHPoint2(ptr);
-	auto hx = convert((*p)[0]);
-	auto hy = convert((*p)[1]);
-	auto hw = convert((*p)[2]);
 
-	return new CGAL::Weighted_point_2<EEK>(CGAL::Point_2<EEK>(hx, hy), hw);
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(p);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(p);
+
+	default:
+		return Convert<EIK>(p);
+	}
 }

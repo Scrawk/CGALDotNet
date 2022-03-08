@@ -110,14 +110,30 @@ void* Ray2_EEK_Copy(void* ptr)
 	return r2;
 }
 
-void* Ray2_EEK_Convert(void* ptr)
+template<class K2>
+static void* Convert(Ray2* r)
 {
-	typedef CGAL::Cartesian_converter<EEK, EIK> Converter;
-	Converter convert;
+	CGAL::Cartesian_converter<EEK, K2> convert;
 
-	auto r = CastToRay2(ptr);
 	auto p = convert(r->source());
 	auto d = convert(r->direction());
 
-	return new CGAL::Ray_2<EIK>(p, d);
+	return new CGAL::Ray_2<K2>(p, d);
+}
+
+void* Ray2_EEK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto r = CastToRay2(ptr);
+
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(r);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(r);
+
+	default:
+		return Convert<EEK>(r);
+	}
 }

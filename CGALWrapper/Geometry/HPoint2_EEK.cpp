@@ -89,3 +89,34 @@ void* HPoint2_EEK_Convert(void* ptr)
 
 	return new CGAL::Weighted_point_2<EIK>(CGAL::Point_2<EIK>(hx, hy), hw);
 }
+
+
+template<class K2>
+static void* Convert(HPoint2* hp)
+{
+	CGAL::Cartesian_converter<EEK, K2> convert;
+
+	auto hx = convert((*hp)[0]);
+	auto hy = convert((*hp)[1]);
+	auto hw = convert((*hp)[2]);
+	auto p = CGAL::Point_2<K2>(hx, hy);
+
+	return  new CGAL::Weighted_point_2<K2>(p, hw);
+}
+
+void* HPoint2_EEK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	auto p = CastToHPoint2(ptr);
+
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Convert<EIK>(p);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Convert<EEK>(p);
+
+	default:
+		return Convert<EEK>(p);
+	}
+}

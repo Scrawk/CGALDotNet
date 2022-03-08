@@ -435,6 +435,11 @@ namespace CGALDotNet.Polygons
         protected private PolygonWithHolesKernel2 Kernel { get; private set; }
 
         /// <summary>
+        /// The type of kernel object uses.
+        /// </summary>
+        public string KernelName => Kernel.Name;
+
+        /// <summary>
         /// Valid polygon with holes must have a simple and ccw boundary
         /// and all holes must be simple and cw.
         /// </summary>

@@ -18,7 +18,7 @@ namespace CGALDotNet.Geometry
         ///                 The Point2 Class Functions
         /// 
         /// </summary>-------------------------------------------------------
-        
+
         internal override IntPtr Point2_Create()
         {
             return Point2_Create();
@@ -59,9 +59,9 @@ namespace CGALDotNet.Geometry
             return Point2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr Point2_Convert(IntPtr ptr)
+        internal override IntPtr Point2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return Point2_EEK_Convert(ptr);
+            return Point2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -130,9 +130,9 @@ namespace CGALDotNet.Geometry
             return Vector2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr Vector2_Convert(IntPtr ptr)
+        internal override IntPtr Vector2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return Vector2_EEK_Convert(ptr);
+            return Vector2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -191,9 +191,9 @@ namespace CGALDotNet.Geometry
             return HPoint2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr HPoint2_Convert(IntPtr ptr)
+        internal override IntPtr HPoint2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return HPoint2_EEK_Convert(ptr);
+            return HPoint2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -317,9 +317,9 @@ namespace CGALDotNet.Geometry
             return Line2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr Line2_Convert(IntPtr ptr)
+        internal override IntPtr Line2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return Line2_EEK_Convert(ptr);
+            return Line2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -370,7 +370,7 @@ namespace CGALDotNet.Geometry
 
         internal override IntPtr Ray2_Opposite(IntPtr ptr)
         {
-            return Ray2_EEK_Opposite(ptr);  
+            return Ray2_EEK_Opposite(ptr);
         }
 
         internal override IntPtr Ray2_Line(IntPtr ptr)
@@ -380,7 +380,7 @@ namespace CGALDotNet.Geometry
 
         internal override void Ray2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
         {
-            Ray2_EEK_Transform(ptr, translation, rotation, scale);   
+            Ray2_EEK_Transform(ptr, translation, rotation, scale);
         }
 
         internal override IntPtr Ray2_Copy(IntPtr ptr)
@@ -388,9 +388,9 @@ namespace CGALDotNet.Geometry
             return Ray2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr Ray2_Convert(IntPtr ptr)
+        internal override IntPtr Ray2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return Ray2_EEK_Convert(ptr);
+            return Ray2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -426,7 +426,7 @@ namespace CGALDotNet.Geometry
 
         internal override Point2d Segment2_Max(IntPtr ptr)
         {
-            return Segment2_EEK_Max(ptr);   
+            return Segment2_EEK_Max(ptr);
         }
 
         internal override bool Segment2_IsDegenerate(IntPtr ptr)
@@ -466,7 +466,7 @@ namespace CGALDotNet.Geometry
 
         internal override void Segment2_Transform(IntPtr ptr, Point2d translation, double rotation, double scale)
         {
-            Segment2_EEK_Transform(ptr, translation, rotation, scale);  
+            Segment2_EEK_Transform(ptr, translation, rotation, scale);
         }
 
         internal override IntPtr Segment2_Copy(IntPtr ptr)
@@ -474,9 +474,9 @@ namespace CGALDotNet.Geometry
             return Segment2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr Segment2_Convert(IntPtr ptr)
+        internal override IntPtr Segment2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return Segment2_EEK_Convert(ptr);
+            return Segment2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -540,9 +540,9 @@ namespace CGALDotNet.Geometry
             return Triangle2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr Triangle2_Convert(IntPtr ptr)
+        internal override IntPtr Triangle2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return Triangle2_EEK_Convert(ptr);
+            return Triangle2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -610,9 +610,9 @@ namespace CGALDotNet.Geometry
             return Box2_EEK_Copy(ptr);
         }
 
-        internal override IntPtr Box2_Convert(IntPtr ptr)
+        internal override IntPtr Box2_Convert(IntPtr ptr, CGAL_KERNEL k)
         {
-            return Box2_EEK_Convert(ptr);
+            return Box2_EEK_Convert(ptr, k);
         }
 
         /// <summary>--------------------------------------------------------
@@ -646,7 +646,7 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr Point2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Point2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Point2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -691,7 +691,7 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr Vector2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Vector2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Vector2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -730,7 +730,7 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr HPoint2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr HPoint2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr HPoint2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -808,7 +808,7 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr Line2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Line2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Line2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -853,7 +853,7 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr Ray2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Ray2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Ray2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -907,7 +907,7 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr Segment2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Segment2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Segment2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -949,7 +949,7 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr Triangle2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Triangle2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Triangle2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         /// <summary>--------------------------------------------------------
         /// 
@@ -994,6 +994,6 @@ namespace CGALDotNet.Geometry
         private static extern IntPtr Box2_EEK_Copy(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern IntPtr Box2_EEK_Convert(IntPtr ptr);
+        private static extern IntPtr Box2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
     }
 }

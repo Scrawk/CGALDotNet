@@ -102,16 +102,10 @@ namespace CGALDotNet.Geometry
         /// <returns>The shape with another kernel type.</returns>
         public Vector2<T> Convert<T>() where T : CGALKernel, new()
         {
-            if (KernelName == typeof(T).Name)
-            {
-                var ptr = Kernel.Vector2_Copy(Ptr);
-                return new Vector2<T>(ptr);
-            }
-            else
-            {
-                var ptr = Kernel.Vector2_Convert(Ptr);
-                return new Vector2<T>(ptr);
-            }
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Vector2_Convert(Ptr, e);
+            return new Vector2<T>(ptr);
         }
 
     }

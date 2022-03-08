@@ -31,5 +31,5 @@ extern "C"
 
 	CGALWRAPPER_API void Box2_EEK_Transform(void* ptr, const Point2d& translation, double rotation, double scale);
 
-	CGALWRAPPER_API void* Box2_EEK_Convert(void* ptr);
+	CGALWRAPPER_API void* Box2_EEK_Convert(void* ptr, CGAL_KERNEL k);
 }

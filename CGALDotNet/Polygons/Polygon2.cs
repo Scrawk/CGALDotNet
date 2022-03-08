@@ -408,6 +408,11 @@ namespace CGALDotNet.Polygons
         protected private PolygonKernel2 Kernel { get; private set; }
 
         /// <summary>
+        /// The type of kernel object uses.
+        /// </summary>
+        public string KernelName => Kernel.Name;
+
+        /// <summary>
         /// Array accessor for the polygon.
         /// Getting a point wraps around the polygon.
         /// </summary>
@@ -458,7 +463,7 @@ namespace CGALDotNet.Polygons
         /// <summary>
         /// Shrink the capacity to match the point count.
         /// </summary>
-        public void ShrinkToCapacityToFitCount()
+        public void ShrinkCapacityToFitCount()
         {
             Kernel.ShrinkToFit(Ptr);
         }
@@ -534,14 +539,6 @@ namespace CGALDotNet.Polygons
             Count += count;
             IsUpdated = false;
             Kernel.InsertRange(Ptr, start, count, points);
-        }
-
-        /// <summary>
-        /// Shrink the capacity to match the point count.
-        /// </summary>
-        public void ShrinkCapacityToFitCount()
-        {
-            Kernel.ShrinkToFit(Ptr);
         }
 
         /// <summary>
@@ -896,9 +893,10 @@ namespace CGALDotNet.Polygons
         /// <returns>The new polygon.</returns>
         public Polygon2<T> Convert<T>() where T : CGALKernel, new()
         {
-            var points = ArrayCache.Point2dArray(Count);
-            GetPoints(points, Count);
-            return new Polygon2<T>(points);
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Convert(Ptr, e);
+            return new Polygon2<T>(ptr);
         }
 
         /// <summary>
