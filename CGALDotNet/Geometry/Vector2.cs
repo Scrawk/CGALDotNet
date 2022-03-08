@@ -94,20 +94,6 @@ namespace CGALDotNet.Geometry
             return new Vector2<K>(Kernel.Vector2_Copy(Ptr));
         }
 
-        /// <summary>
-        /// Convert to another kernel.
-        /// Must provide a different kernel to convert to or
-        /// just a deep copy will be returned.
-        /// </summary>
-        /// <returns>The shape with another kernel type.</returns>
-        public Vector2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var k = typeof(T).Name;
-            var e = CGALEnum.ToKernelEnum(k);
-            var ptr = Kernel.Vector2_Convert(Ptr, e);
-            return new Vector2<T>(ptr);
-        }
-
     }
 
     /// <summary>
@@ -233,6 +219,20 @@ namespace CGALDotNet.Geometry
         public void Normalize()
         {
             Kernel.Vector2_Normalize(Ptr);
+        }
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Vector2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Vector2_Convert(Ptr, e);
+            return new Vector2<T>(ptr);
         }
 
     }

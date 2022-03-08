@@ -20,6 +20,8 @@ namespace CGALDotNet.Polygons
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
+        internal abstract IntPtr Convert(IntPtr ptr, CGAL_KERNEL k);
+
         internal abstract void Clear(IntPtr ptr);
 
         internal abstract void ClearBoundary(IntPtr ptr);

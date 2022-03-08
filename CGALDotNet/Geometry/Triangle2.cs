@@ -89,20 +89,6 @@ namespace CGALDotNet.Geometry
         {
             return new Triangle2<K>(Kernel.Triangle2_Copy(Ptr));
         }
-
-        /// <summary>
-        /// Convert to another kernel.
-        /// Must provide a different kernel to convert to or
-        /// just a deep copy will be returned.
-        /// </summary>
-        /// <returns>The shape with another kernel type.</returns>
-        public Triangle2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var k = typeof(T).Name;
-            var e = CGALEnum.ToKernelEnum(k);
-            var ptr = Kernel.Triangle2_Convert(Ptr, e);
-            return new Triangle2<T>(ptr);
-        }
     }
 
     /// <summary>
@@ -254,6 +240,20 @@ namespace CGALDotNet.Geometry
             A.Round(digits);
             B.Round(digits);
             C.Round(digits);
+        }
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Triangle2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Triangle2_Convert(Ptr, e);
+            return new Triangle2<T>(ptr);
         }
     }
 }

@@ -19,6 +19,8 @@ extern "C"
 
 	CGALWRAPPER_API void* PolygonWithHoles2_EEK_Copy(void* ptr);
 
+	CGALWRAPPER_API void* PolygonWithHoles2_EEK_Convert(void* ptr, CGAL_KERNEL k);
+
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_Clear(void* ptr);
 
 	CGALWRAPPER_API void PolygonWithHoles2_EEK_ClearBoundary(void* ptr);

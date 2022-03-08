@@ -6,6 +6,7 @@
 #include <CGAL/Polygon_with_holes_2.h>
 #include <CGAL/connect_holes.h>
 #include <CGAL/enum.h>
+#include <CGAL/Cartesian_converter.h>
 
 #define BOUNDARY_INDEX -1
 
@@ -95,6 +96,43 @@ public:
 	static Pwh_2* Copy(Pwh_2& pwh)
 	{
 		return new Pwh_2(pwh);
+	}
+
+	template<class K2>
+	static void* Convert(void* ptr)
+	{
+		typedef CGAL::Cartesian_converter<K, K2> Converter;
+		Converter convert;
+
+		auto pwh = CastToPolygonWithHoles2(ptr);
+
+		auto pwh2 = new CGAL::Polygon_with_holes_2<K2>();
+
+		if (!pwh->is_unbounded())
+		{
+			auto count = pwh->outer_boundary().size();
+			for (auto i = 0; i < count; i++)
+			{
+				auto p = convert(pwh->outer_boundary().vertex(i));
+				pwh2->outer_boundary().push_back(p);
+			}
+		}
+
+		for (auto& hole : pwh->holes())
+		{
+			auto count = hole.size();
+			auto hole2 = CGAL::Polygon_2<K2>();
+
+			for (auto i = 0; i < count; i++)
+			{
+				auto p = convert(hole.vertex(i));
+				hole2.push_back(p);
+			}
+
+			pwh2->add_hole(hole2);
+		}
+
+		return pwh2;
 	}
 
 	static void Clear(void* ptr)

@@ -137,19 +137,6 @@ namespace CGALDotNet.Geometry
             return new Line2<K>(Kernel.Line2_Copy(Ptr));
         }
 
-        /// <summary>
-        /// Convert to another kernel.
-        /// Must provide a different kernel to convert to or
-        /// just a deep copy will be returned.
-        /// </summary>
-        /// <returns>The shape with another kernel type.</returns>
-        public Line2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var k = typeof(T).Name;
-            var e = CGALEnum.ToKernelEnum(k);
-            var ptr = Kernel.Line2_Convert(Ptr, e);
-            return new Line2<T>(ptr);
-        }
     }
 
     /// <summary>
@@ -332,6 +319,20 @@ namespace CGALDotNet.Geometry
             this.A = Math.Round(A, digits);
             this.B = Math.Round(B, digits);
             this.C = Math.Round(C, digits);
+        }
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Line2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Line2_Convert(Ptr, e);
+            return new Line2<T>(ptr);
         }
     }
 }

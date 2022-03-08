@@ -37,6 +37,11 @@ namespace CGALDotNet.Polygons
             return PolygonWithHoles2_EEK_Copy(ptr);
         }
 
+        internal override IntPtr Convert(IntPtr ptr, CGAL_KERNEL k)
+        {
+            return PolygonWithHoles2_EEK_Convert(ptr, k);   
+        }
+
         internal override void Clear(IntPtr ptr)
         {
             PolygonWithHoles2_EEK_Clear(ptr);
@@ -186,6 +191,9 @@ namespace CGALDotNet.Polygons
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr PolygonWithHoles2_EEK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr PolygonWithHoles2_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void PolygonWithHoles2_EEK_Clear(IntPtr ptr);

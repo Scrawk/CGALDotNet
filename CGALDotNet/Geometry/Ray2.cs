@@ -110,19 +110,6 @@ namespace CGALDotNet.Geometry
             return new Ray2<K>(Kernel.Ray2_Copy(Ptr));
         }
 
-        /// <summary>
-        /// Convert to another kernel.
-        /// Must provide a different kernel to convert to or
-        /// just a deep copy will be returned.
-        /// </summary>
-        /// <returns>The shape with another kernel type.</returns>
-        public Ray2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var k = typeof(T).Name;
-            var e = CGALEnum.ToKernelEnum(k);
-            var ptr = Kernel.Ray2_Convert(Ptr, e);
-            return new Ray2<T>(ptr);
-        }
 
     }
 
@@ -222,6 +209,20 @@ namespace CGALDotNet.Geometry
         {
             Position.Round(digits);
             Direction.Round(digits);
+        }
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Ray2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Ray2_Convert(Ptr, e);
+            return new Ray2<T>(ptr);
         }
     }
 }

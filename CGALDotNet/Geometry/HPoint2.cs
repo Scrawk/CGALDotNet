@@ -84,20 +84,6 @@ namespace CGALDotNet.Geometry
             return new HPoint2<K>(Kernel.HPoint2_Copy(Ptr));
         }
 
-        /// <summary>
-        /// Convert to another kernel.
-        /// Must provide a different kernel to convert to or
-        /// just a deep copy will be returned.
-        /// </summary>
-        /// <returns>The shape with another kernel type.</returns>
-        public HPoint2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var k = typeof(T).Name;
-            var e = CGALEnum.ToKernelEnum(k);
-            var ptr = Kernel.HPoint2_Convert(Ptr, e);
-            return new HPoint2<T>(ptr);
-        }
-
     }
 
     /// <summary>
@@ -217,6 +203,20 @@ namespace CGALDotNet.Geometry
             this.x = MathUtil.Clamp01(x);
             this.y = MathUtil.Clamp01(y);
             //this.w = MathUtil.Clamp01(w);
+        }
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public HPoint2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.HPoint2_Convert(Ptr, e);
+            return new HPoint2<T>(ptr);
         }
     }
 }

@@ -1808,14 +1808,6 @@
             </summary>
             <returns>The deep copy.</returns>
         </member>
-        <member name="M:CGALDotNet.Geometry.Box2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
-        </member>
         <member name="T:CGALDotNet.Geometry.Box2">
             <summary>
             The abstract iso rectangle definition.
@@ -1898,6 +1890,14 @@
             Round the shape.
             </summary>
             <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Box2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.CGALIntersections">
             <summary>
@@ -2959,14 +2959,6 @@
             </summary>
             <returns>The deep copy.</returns>
         </member>
-        <member name="M:CGALDotNet.Geometry.HPoint2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
-        </member>
         <member name="T:CGALDotNet.Geometry.HPoint2">
             <summary>
             
@@ -3037,6 +3029,14 @@
             <summary>
             Clamp the point.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.HPoint2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.INTERSECTION_RESULT_2D">
             <summary>
@@ -3226,14 +3226,6 @@
             </summary>
             <returns>The deep copy.</returns>
         </member>
-        <member name="M:CGALDotNet.Geometry.Line2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
-        </member>
         <member name="T:CGALDotNet.Geometry.Line2">
             <summary>
             The abstract class for the line object.
@@ -3360,6 +3352,14 @@
             </summary>
             <param name="digits">The number of digits to round to.</param>
         </member>
+        <member name="M:CGALDotNet.Geometry.Line2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Point2`1">
             <summary>
             
@@ -3432,14 +3432,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CGALDotNet.Geometry.Point2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
-        </member>
         <member name="T:CGALDotNet.Geometry.Point2">
             <summary>
             
@@ -3509,6 +3501,14 @@
             <summary>
             Clamp the point.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Point2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Ray2`1">
             <summary>
@@ -3586,14 +3586,6 @@
             
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.Ray2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Ray2">
             <summary>
@@ -3673,6 +3665,14 @@
             </summary>
             <param name="digits">The number of digits to round to.</param>
         </member>
+        <member name="M:CGALDotNet.Geometry.Ray2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Segment2`1">
             <summary>
             
@@ -3744,14 +3744,6 @@
             
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.Segment2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Segment2">
             <summary>
@@ -3851,6 +3843,14 @@
             </summary>
             <param name="digits">The number of digits to round to.</param>
         </member>
+        <member name="M:CGALDotNet.Geometry.Segment2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Triangle2`1">
             <summary>
             
@@ -3908,14 +3908,6 @@
             
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.Triangle2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Triangle2">
             <summary>
@@ -4008,6 +4000,14 @@
             </summary>
             <param name="digits">The number of digits to round to.</param>
         </member>
+        <member name="M:CGALDotNet.Geometry.Triangle2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
+        </member>
         <member name="T:CGALDotNet.Geometry.Vector2`1">
             <summary>
             A Vector2 object with kernel type K.
@@ -4074,14 +4074,6 @@
             Create a deep copy of the vector.
             </summary>
             <returns>The deep copy.</returns>
-        </member>
-        <member name="M:CGALDotNet.Geometry.Vector2`1.Convert``1">
-            <summary>
-            Convert to another kernel.
-            Must provide a different kernel to convert to or
-            just a deep copy will be returned.
-            </summary>
-            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Geometry.Vector2">
             <summary>
@@ -4167,6 +4159,14 @@
             <summary>
             Normalize the vector.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Geometry.Vector2.Convert``1">
+            <summary>
+            Convert to another kernel.
+            Must provide a different kernel to convert to or
+            just a deep copy will be returned.
+            </summary>
+            <returns>The shape with another kernel type.</returns>
         </member>
         <member name="T:CGALDotNet.Hulls.HULL_METHOD">
             <summary>
@@ -6853,6 +6853,14 @@
             Round each point it polygon to a number of digits.
             </summary>
             <param name="digits">The number of digits to round to.</param>
+        </member>
+        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.Convert``1">
+            <summary>
+            Convert the polygon to a new polygon with a different kernel.
+            May result in different values due to precision issues.
+            </summary>
+            <typeparam name="T">The new kernel type.</typeparam>
+            <returns>The new polygon.</returns>
         </member>
         <member name="M:CGALDotNet.Polygons.PolygonWithHoles2.ReleasePtr">
             <summary>

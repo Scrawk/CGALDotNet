@@ -31,6 +31,21 @@ void* PolygonWithHoles2_EEK_Copy(void* ptr)
 	return PolygonWithHoles2<EEK>::Copy(ptr);
 }
 
+void* PolygonWithHoles2_EEK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return PolygonWithHoles2<EEK>::Convert<EIK>(ptr);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return PolygonWithHoles2<EEK>::Convert<EEK>(ptr);
+
+	default:
+		return PolygonWithHoles2<EEK>::Convert<EEK>(ptr);
+	}
+}
+
 void PolygonWithHoles2_EEK_Clear(void* ptr)
 {
 	PolygonWithHoles2<EEK>::Clear(ptr);

@@ -854,6 +854,20 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
+        /// Convert the polygon to a new polygon with a different kernel.
+        /// May result in different values due to precision issues.
+        /// </summary>
+        /// <typeparam name="T">The new kernel type.</typeparam>
+        /// <returns>The new polygon.</returns>
+        public PolygonWithHoles2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Convert(Ptr, e);
+            return new PolygonWithHoles2<T>(ptr);
+        }
+
+        /// <summary>
         /// Release the unmanaged resoures.
         /// </summary>
         protected override void ReleasePtr()

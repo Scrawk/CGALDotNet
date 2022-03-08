@@ -109,20 +109,6 @@ namespace CGALDotNet.Geometry
             return new Box2<K>(ptr);
         }
 
-        /// <summary>
-        /// Convert to another kernel.
-        /// Must provide a different kernel to convert to or
-        /// just a deep copy will be returned.
-        /// </summary>
-        /// <returns>The shape with another kernel type.</returns>
-        public Box2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            var k = typeof(T).Name;
-            var e = CGALEnum.ToKernelEnum(k);
-            var ptr = Kernel.Box2_Convert(Ptr, e);
-            return new Box2<T>(ptr);
-        }
-
     }
 
     /// <summary>
@@ -253,6 +239,20 @@ namespace CGALDotNet.Geometry
         {
             this.Min = Min.Rounded(digits);
             this.Max = Max.Rounded(digits);
+        }
+
+        /// <summary>
+        /// Convert to another kernel.
+        /// Must provide a different kernel to convert to or
+        /// just a deep copy will be returned.
+        /// </summary>
+        /// <returns>The shape with another kernel type.</returns>
+        public Box2<T> Convert<T>() where T : CGALKernel, new()
+        {
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Box2_Convert(Ptr, e);
+            return new Box2<T>(ptr);
         }
 
     }
