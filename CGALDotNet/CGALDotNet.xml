@@ -6445,14 +6445,6 @@
             </summary>
             <returns>The copy.</returns>
         </member>
-        <member name="M:CGALDotNet.Polygons.PolygonWithHoles2`1.Convert``1">
-            <summary>
-            Convert the polygon to a new polygon with a different kernel.
-            May result in different values due to precision issues.
-            </summary>
-            <typeparam name="T">The new kernel type.</typeparam>
-            <returns>The new polygon.</returns>
-        </member>
         <member name="M:CGALDotNet.Polygons.PolygonWithHoles2`1.Copy(CGALDotNet.Polygons.POLYGON_ELEMENT,System.Int32)">
             <summary>
             Create a deep copy of the polygon element.

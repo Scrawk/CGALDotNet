@@ -79,35 +79,6 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Convert the polygon to a new polygon with a different kernel.
-        /// May result in different values due to precision issues.
-        /// </summary>
-        /// <typeparam name="T">The new kernel type.</typeparam>
-        /// <returns>The new polygon.</returns>
-        public PolygonWithHoles2<T> Convert<T>() where T : CGALKernel, new()
-        {
-            PolygonWithHoles2<T> pwh;
-
-            if (IsBounded)
-            {
-                var boundary = GetBoundary();
-                pwh = new PolygonWithHoles2<T>(boundary.Convert<T>());
-            }
-            else
-            {
-                pwh = new PolygonWithHoles2<T>();
-            }
-
-            for(int i = 0; i < HoleCount; i++)
-            {
-                var hole = GetHole(i);
-                pwh.AddHole(hole.Convert<T>());
-            }
-
-            return pwh;
-        }
-
-        /// <summary>
         /// Create a deep copy of the polygon element.
         /// </summary>
         /// <param name="element">The element type to copy.</param>
