@@ -19,6 +19,12 @@
 
 - [The Geometry Intersections.](https://github.com/Scrawk/CGALDotNet/wiki/The-Geometry-Intersections)
 
+# The Polygon Kernel.
+
+- [The Polygon Kernel.](https://github.com/Scrawk/CGALDotNet/wiki/The-Polygon-Kernel)
+
+- [The Polygon With Holes Kernel.](https://github.com/Scrawk/CGALDotNet/wiki/The-Polygon-With-Holes-Kernel)
+
 
 Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
