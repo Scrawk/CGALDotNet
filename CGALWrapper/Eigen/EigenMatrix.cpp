@@ -398,43 +398,43 @@ void* EigenMatrix_LDLT_Mat(void* ptr1, void* ptr2)
 	return x;
 }
 
-void* EigenMatrix_BdcSvd_Vec(void* ptr1, void* ptr2)
+void* EigenMatrix_BdcSvd_Vec(void* ptr1, void* ptr2, int options)
 {
 	auto m = CastToMatrix(ptr1);
 	auto v = CastToColumnVector(ptr2);
 	auto x = NewColumnVector();
 
-	(*x) = m->bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
+	(*x) = m->bdcSvd(options).solve(*v);
 	return x;
 }
 
-void* EigenMatrix_BdcSvd_Mat(void* ptr1, void* ptr2)
+void* EigenMatrix_BdcSvd_Mat(void* ptr1, void* ptr2, int options)
 {
 	auto m = CastToMatrix(ptr1);
 	auto v = CastToMatrix(ptr2);
 	auto x = NewMatrix();
 
-	(*x) = m->bdcSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
+	(*x) = m->bdcSvd(options).solve(*v);
 	return x;
 }
 
-void* EigenMatrix_JacobiSvd_Vec(void* ptr1, void* ptr2)
+void* EigenMatrix_JacobiSvd_Vec(void* ptr1, void* ptr2, int options)
 {
 	auto m = CastToMatrix(ptr1);
 	auto v = CastToColumnVector(ptr2);
 	auto x = NewColumnVector();
 
-	(*x) = m->jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
+	(*x) = m->jacobiSvd(options).solve(*v);
 	return x;
 }
 
-void* EigenMatrix_JacobiSvd_Mat(void* ptr1, void* ptr2)
+void* EigenMatrix_JacobiSvd_Mat(void* ptr1, void* ptr2, int options)
 {
 	auto m = CastToMatrix(ptr1);
 	auto v = CastToMatrix(ptr2);
 	auto x = NewMatrix();
 
-	(*x) = m->jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(*v);
+	(*x) = m->jacobiSvd(options).solve(*v);
 	return x;
 }
 
@@ -527,6 +527,38 @@ void* EigenMatrix_Eigenvectors(void* ptr)
 		(*x) = solver.eigenvectors();
 
 		return x;
+	}
+}
+
+BOOL EigenMatrix_EigenValuesVectors(void* ptr, void** values, void** vectors)
+{
+	auto m = CastToMatrix(ptr);
+
+	Eigen::SelfAdjointEigenSolver<Matrix> solver(*m);
+	*values = nullptr;
+	*vectors = nullptr;
+
+	if (solver.info() != Eigen::Success)
+	{
+		return FALSE;
+	}
+	else
+	{
+		auto _values = solver.eigenvalues();
+		auto _vectors = solver.eigenvectors();
+
+		auto v = NewColumnVector(_values);
+		for (auto i = 0; i < _values.size(); i++)
+			(*v)[i] = _values[i];
+
+		auto m = NewMatrix(_vectors);
+		for (auto i = 0; i < _vectors.size(); i++)
+			(*m)(i) = _vectors(i);
+
+		(*values) = v;
+		(*vectors) = m;
+
+		return TRUE;
 	}
 }
 

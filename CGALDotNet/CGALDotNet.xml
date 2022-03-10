@@ -1416,6 +1416,135 @@
             
             </summary>
         </member>
+        <member name="T:CGALDotNet.Eigen.EigenColumnVector">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="dimension"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.#ctor(System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+            <param name="w"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.#ctor(System.Collections.Generic.IList{System.Double})">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenColumnVector.Item(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenColumnVector.Dimension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenColumnVector.Magnitude">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenColumnVector.Normalized">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenColumnVector.Transpose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenColumnVector.Adjoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenColumnVector.Conjugate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.Dot(CGALDotNet.Eigen.EigenColumnVector,CGALDotNet.Eigen.EigenColumnVector)">
+            <summary>
+            
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.Normalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.Resize(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="dimension"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.Random(System.Int32,System.Double,System.Double,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="dimension"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="seed"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenColumnVector.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Eigen.EIGEN_SOLVER">
+            <summary>
+            enum for egien solvers.
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.Int32,System.Int32)">
             <summary>
             Create a new matrix filled with zeros.
@@ -1436,6 +1565,21 @@
             </summary>
             <param name="columns"></param>
         </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Create a 2 x 2 matrix.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Create a 3 x 3 matrix.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Create a 4 x 4 matrix.
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Eigen.EigenMatrix.#ctor(System.IntPtr)">
             <summary>
             Create a new matrix from a pointer.
@@ -1448,6 +1592,16 @@
             </summary>
             <param name="size">The number of rows and columns of the matrix. Must be square.</param>
             <returns>The identity matrix.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Series(System.Int32,System.Int32)">
+            <summary>
+            Create a matrix filled with the numbers 1, 2. 3, etc to end.
+            Used for debugging.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="columns">The number columns.</param>
+            <returns>The Matrix.</returns>
+            <exception cref="T:System.ArgumentException"></exception>
         </member>
         <member name="M:CGALDotNet.Eigen.EigenMatrix.Random(System.Int32,System.Int32,System.Double,System.Double,System.Int32)">
             <summary>
@@ -1732,12 +1886,400 @@
             <param name="vectors">The eigen vectors if found, null otherwise.</param>
             <returns>True if the vectors could be determined.</returns>
         </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.EigenValuesAndVectors(CGALDotNet.Eigen.EigenColumnVector@,CGALDotNet.Eigen.EigenMatrix@)">
+            <summary>
+            
+            </summary>
+            <param name="values"></param>
+            <param name="vectors"></param>
+            <returns></returns>
+        </member>
         <member name="M:CGALDotNet.Eigen.EigenMatrix.TryInverse(CGALDotNet.Eigen.EigenMatrix@)">
             <summary>
             Try and find the inverse of the matrix.
             </summary>
             <param name="inverse">The inverse if found, null otherwise.</param>
             <returns>True if the inverse was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.GetRow(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetRow(System.Int32,CGALDotNet.Eigen.EigenRowVector)">
+            <summary>
+            
+            </summary>
+            <param name="Row"></param>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetRow(System.Int32,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="row"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetRow(System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="row"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetRow(System.Int32,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="row"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+            <param name="w"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.GetColumn(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetColumn(System.Int32,CGALDotNet.Eigen.EigenColumnVector)">
+            <summary>
+            
+            </summary>
+            <param name="Column"></param>
+            <param name="v"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetColumn(System.Int32,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="column"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetColumn(System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="column"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.SetColumn(System.Int32,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="column"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+            <param name="w"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Round(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="digits"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Translate(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Scale(CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Scale(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.RotateX(CGALDotNetGeometry.Numerics.Radian)">
+            <summary>
+            
+            </summary>
+            <param name="radian"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.RotateY(CGALDotNetGeometry.Numerics.Radian)">
+            <summary>
+            
+            </summary>
+            <param name="radian"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.RotateZ(CGALDotNetGeometry.Numerics.Radian)">
+            <summary>
+            
+            </summary>
+            <param name="radian"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Rotate(CGALDotNetGeometry.Numerics.Radian,CGALDotNetGeometry.Numerics.Vector3d)">
+            <summary>
+            Create a rotation from a angle and the rotation axis.
+            </summary>
+            <param name="radian">The rotation amount.</param>
+            <param name="axis">The axis to rotate on.</param>
+            <returns>The rotation matrix.</returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenMatrix.Print(System.Text.StringBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:CGALDotNet.Eigen.EigenRowVector">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="dimension"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.#ctor(System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+            <param name="w"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.#ctor(System.Collections.Generic.IList{System.Double})">
+            <summary>
+            
+            </summary>
+            <param name="list"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenRowVector.Item(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenRowVector.Dimension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenRowVector.Magnitude">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.ToString">
+            <summary>
+            /
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenRowVector.Normalized">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenRowVector.Transpose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenRowVector.Adjoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenRowVector.Conjugate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.Dot(CGALDotNet.Eigen.EigenRowVector,CGALDotNet.Eigen.EigenRowVector)">
+            <summary>
+            
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.Normalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.Random(System.Int32,System.Double,System.Double,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="dimension"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <param name="seed"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenRowVector.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CGALDotNet.Eigen.EigenVector">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.#ctor(System.IntPtr)">
+            <summary>
+            
+            </summary>
+            <param name="ptr"></param>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenVector.x">
+            <summary>
+            The first value in the vector.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenVector.y">
+            <summary>
+            The second value in the vector.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenVector.z">
+            <summary>
+            The third value in the vector.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenVector.w">
+            <summary>
+            The fourth value in the vector.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenVector.Item(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenVector.Dimension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Eigen.EigenVector.Magnitude">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.Normalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.Resize(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="dimension"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.IsZero(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="eps"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.IsPositive">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.HasNAN">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.NoNAN">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.IsFinite">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.MakeFinite">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.IsConst(System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="eps"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.Round(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="digits"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.Print(System.Text.StringBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:CGALDotNet.Eigen.EigenVector.AreSameSize(CGALDotNet.Eigen.EigenVector,CGALDotNet.Eigen.EigenVector)">
+            <summary>
+            
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="T:CGALDotNet.Geometry.Box2`1">
             <summary>

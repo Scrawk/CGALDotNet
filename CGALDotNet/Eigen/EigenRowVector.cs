@@ -8,14 +8,25 @@ using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Eigen
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EigenRowVector : EigenVector
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dimension"></param>
         public EigenRowVector(int dimension)
         {
             Ptr = EigenRowVector_CreateVector(dimension);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public EigenRowVector(double x, double y)
         {
             Ptr = EigenRowVector_CreateVector(2);
@@ -31,6 +42,13 @@ namespace CGALDotNet.Eigen
             this[2] = z;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="w"></param>
         public EigenRowVector(double x, double y, double z, double w)
         {
             Ptr = EigenRowVector_CreateVector(4);
@@ -40,6 +58,10 @@ namespace CGALDotNet.Eigen
             this[3] = w;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
         public EigenRowVector(IList<double> list)
         {
             Ptr = EigenRowVector_CreateVector(list.Count);
@@ -47,40 +69,80 @@ namespace CGALDotNet.Eigen
                 this[i] = list[i];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ptr"></param>
         internal EigenRowVector(IntPtr ptr) : base(ptr)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
         public override double this[int i]
         {
             get { return EigenRowVector_Get(Ptr, i); }
             set { EigenRowVector_Set(Ptr, i, value); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override int Dimension => EigenRowVector_Dimension(Ptr);
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override double Magnitude => EigenRowVector_Norm(Ptr);
 
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return String.Format("[EigenRowVector: Dimension={0}]", Dimension);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public EigenRowVector Normalized => new EigenRowVector(EigenRowVector_Normalized(Ptr));
 
+        /// <summary>
+        /// 
+        /// </summary>
         public EigenColumnVector Transpose => new EigenColumnVector(EigenRowVector_Transpose(Ptr));
 
+        /// <summary>
+        /// 
+        /// </summary>
         public EigenRowVector Adjoint => new EigenRowVector(EigenRowVector_Adjoint(Ptr));
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public EigenRowVector Conjugate => new EigenRowVector(EigenRowVector_Conjugate(Ptr));
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         public static double Dot(EigenRowVector v1, EigenRowVector v2)
         {
             AreSameSize(v1, v2);
             return EigenRowVector_Dot(v1.Ptr, v2.Ptr);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Normalize()
         {
             EigenRowVector_Normalize(Ptr);
@@ -91,6 +153,14 @@ namespace CGALDotNet.Eigen
             EigenRowVector_Resize(Ptr, dimension);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dimension"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="seed"></param>
+        /// <returns></returns>
         public static EigenRowVector Random(int dimension, double min, double max, int seed)
         {
             var ptr = EigenRowVector_CreateVector(dimension);
@@ -104,6 +174,9 @@ namespace CGALDotNet.Eigen
             return v;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override void ReleasePtr()
         {
             EigenRowVector_Release(Ptr);

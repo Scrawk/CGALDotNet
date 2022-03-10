@@ -92,13 +92,13 @@ extern "C"
 
 	CGALWRAPPER_API void* EigenMatrix_LDLT_Mat(void* ptr1, void* ptr2);
 
-	CGALWRAPPER_API void* EigenMatrix_BdcSvd_Vec(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_BdcSvd_Vec(void* ptr1, void* ptr2, int options);
 
-	CGALWRAPPER_API void* EigenMatrix_BdcSvd_Mat(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_BdcSvd_Mat(void* ptr1, void* ptr2, int options);
 
-	CGALWRAPPER_API void* EigenMatrix_JacobiSvd_Vec(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_JacobiSvd_Vec(void* ptr1, void* ptr2, int options);
 
-	CGALWRAPPER_API void* EigenMatrix_JacobiSvd_Mat(void* ptr1, void* ptr2);
+	CGALWRAPPER_API void* EigenMatrix_JacobiSvd_Mat(void* ptr1, void* ptr2, int options);
 
 	CGALWRAPPER_API void* EigenMatrix_FullPivHouseholderQr_Vec(void* ptr1, void* ptr2);
 
@@ -115,6 +115,8 @@ extern "C"
 	CGALWRAPPER_API void* EigenMatrix_Eigenvalues(void* ptr);
 
 	CGALWRAPPER_API void* EigenMatrix_Eigenvectors(void* ptr);
+
+	CGALWRAPPER_API BOOL EigenMatrix_EigenValuesVectors(void* ptr, void** values, void** vectors);
 }
 
 

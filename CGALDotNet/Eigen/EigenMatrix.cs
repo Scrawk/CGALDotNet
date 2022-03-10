@@ -8,6 +8,9 @@ using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Eigen
 {
+	/// <summary>
+	/// enum for egien solvers.
+	/// </summary>
 	public enum EIGEN_SOLVER
     {
 		COL_PIV_HOUSEHOLDER_QR,
@@ -20,6 +23,14 @@ namespace CGALDotNet.Eigen
 		JACOBI_SVD,
 		FULL_PIV_HOUSEHOLDER_QR,
 		COMPLETE_ORTH_DECOM
+	}
+
+	public enum EIGEN_SOLVER_OPTIONS
+	{
+		COMPUTE_FULL_U = 4, //Used to indicate that the square matrix U is to be computed.
+		COMPUTE_THIN_U = 8, //Used to indicate that the thin matrix U is to be computed.
+		COMPUTE_FULL_V = 16, //Used to indicate that the square matrix V is to be computed.
+		COMPUTE_THIN_V = 32, //Used to indicate that the thin matrix V is to be computed.
 	}
 
 	public class EigenMatrix : CGALObject
@@ -93,12 +104,55 @@ namespace CGALDotNet.Eigen
 		}
 
 		/// <summary>
+		/// Create a 2 x 2 matrix.
+		/// </summary>
+		public EigenMatrix(double m00, double m01,
+						double m10, double m11)
+		{
+			Ptr = EigenMatrix_Create(2, 2);
+
+			this[0, 0] = m00; this[0, 1] = m01;
+			this[1, 0] = m10; this[1, 1] = m11;
+		}
+
+		/// <summary>
+		/// Create a 3 x 3 matrix.
+		/// </summary>
+		public EigenMatrix(double m00, double m01, double m02,
+							double m10, double m11, double m12,
+							double m20, double m21, double m22)
+		{
+			Ptr = EigenMatrix_Create(3, 3);
+
+			this[0, 0] = m00; this[0, 1] = m01; this[0, 2] = m02;
+			this[1, 0] = m10; this[1, 1] = m11; this[1, 2] = m12;
+			this[2, 0] = m20; this[2, 1] = m21; this[2, 2] = m22;
+;
+		}
+
+		/// <summary>
+		/// Create a 4 x 4 matrix.
+		/// </summary>
+		public EigenMatrix(	double m00, double m01, double m02, double m03,
+							double m10, double m11, double m12, double m13,
+							double m20, double m21, double m22, double m23,
+							double m30, double m31, double m32, double m33)
+		{
+			Ptr = EigenMatrix_Create(4, 4);
+
+			this[0,0] = m00; this[0,1] = m01; this[0,2] = m02; this[0,3] = m03;
+			this[1,0] = m10; this[1,1] = m11; this[1,2] = m12; this[1,3] = m13;
+			this[2,0] = m20; this[2,1] = m21; this[2,2] = m22; this[2,3] = m23;
+			this[3,0] = m30; this[3,1] = m31; this[3,2] = m32; this[3,3] = m33;
+		}
+
+		/// <summary>
 		/// Create a new matrix from a pointer.
 		/// </summary>
 		/// <param name="ptr"></param>
 		internal EigenMatrix(IntPtr ptr) : base(ptr)
 		{
-			
+
 		}
 
 		/// <summary>
@@ -113,6 +167,36 @@ namespace CGALDotNet.Eigen
 
 			var ptr = EigenMatrix_CreateIdentity(size, size);
 			return new EigenMatrix(ptr);
+		}
+
+		/// <summary>
+		/// Create a matrix filled with the numbers 1, 2. 3, etc to end.
+		/// Used for debugging.
+		/// </summary>
+		/// <param name="rows">The number of rows.</param>
+		/// <param name="columns">The number columns.</param>
+		/// <returns>The Matrix.</returns>
+		/// <exception cref="ArgumentException"></exception>
+		internal static EigenMatrix Series(int rows, int columns)
+		{
+			if (rows <= 0)
+				throw new ArgumentException("Rows can not be <= zero.");
+
+			if (columns <= 0)
+				throw new ArgumentException("Colums can not be <= zero.");
+
+			var m = new EigenMatrix(rows, columns);
+
+			int i = 0;
+			for (int x = 0; x < m.Rows; x++)
+			{
+				for (int y = 0; y < m.Columns; y++)
+				{
+					m[x, y] = i++;
+				}
+			}
+
+			return m;
 		}
 
 		/// <summary>
@@ -729,28 +813,44 @@ namespace CGALDotNet.Eigen
 		public EigenColumnVector BdcSvd(EigenColumnVector v)
 		{
 			IsValidProduct(this, v);
-			var ptr = EigenMatrix_BdcSvd_Vec(Ptr, v.Ptr);
+
+			int options = (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_U | 
+						  (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_V;
+
+			var ptr = EigenMatrix_BdcSvd_Vec(Ptr, v.Ptr, options);
 			return new EigenColumnVector(ptr);
 		}
 
 		public EigenMatrix BdcSvd(EigenMatrix v)
 		{
 			IsValidProduct(this, v);
-			var ptr = EigenMatrix_BdcSvd_Mat(Ptr, v.Ptr);
+
+			int options = (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_U |
+			  (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_V;
+
+			var ptr = EigenMatrix_BdcSvd_Mat(Ptr, v.Ptr, options);
 			return new EigenMatrix(ptr);
 		}
 
 		public EigenColumnVector JacobiSvd(EigenColumnVector v)
 		{
 			IsValidProduct(this, v);
-			var ptr = EigenMatrix_JacobiSvd_Vec(Ptr, v.Ptr);
+
+			int options = (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_U |
+			  (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_V;
+
+			var ptr = EigenMatrix_JacobiSvd_Vec(Ptr, v.Ptr, options);
 			return new EigenColumnVector(ptr);
 		}
 
 		public EigenMatrix JacobiSvd(EigenMatrix v)
 		{
 			IsValidProduct(this, v);
-			var ptr = EigenMatrix_JacobiSvd_Mat(Ptr, v.Ptr);
+
+			int options = (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_U |
+			  (int)EIGEN_SOLVER_OPTIONS.COMPUTE_THIN_V;
+
+			var ptr = EigenMatrix_JacobiSvd_Mat(Ptr, v.Ptr, options);
 			return new EigenMatrix(ptr);
 		}
 
@@ -847,6 +947,33 @@ namespace CGALDotNet.Eigen
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="values"></param>
+		/// <param name="vectors"></param>
+		/// <returns></returns>
+		public bool EigenValuesAndVectors(out EigenColumnVector values, out EigenMatrix vectors)
+        {
+			IntPtr valuesPtr;
+			IntPtr vectorsPtr;
+
+			if (EigenMatrix_EigenValuesVectors(Ptr, out valuesPtr, out vectorsPtr))
+            {
+	
+				values = new EigenColumnVector(valuesPtr);
+				vectors = new EigenMatrix(vectorsPtr);
+				return true;
+			}
+            else
+            {
+				values = null;
+				vectors = null;
+				return false;
+            }
+
+        }
+
+		/// <summary>
 		/// Try and find the inverse of the matrix.
 		/// </summary>
 		/// <param name="inverse">The inverse if found, null otherwise.</param>
@@ -868,72 +995,54 @@ namespace CGALDotNet.Eigen
             }
         }
 
-		public EigenRowVector GetRow(int row)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="Row"></param>
+		/// <returns></returns>
+		public EigenRowVector GetRow(int Row)
 		{
-			CheckRows(this, row + 1);
+			CheckRows(this, Row + 1);
 			var v = new EigenRowVector(Rows);
-			for (int i = 0; i < Columns; i++)
-				v[i] = this[row, i];
+			for (int i = 0; i < Rows; i++)
+				v[i] = this[i, Row];
 
 			return v;
 		}
 
-		public void SetRow(int row, EigenRowVector v)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="Row"></param>
+		/// <param name="v"></param>
+		public void SetRow(int Row, EigenRowVector v)
 		{
 			AreSameSize(this, v);
 			for (int i = 0; i < Rows; i++)
-				this[row, i] = v[i];
+				this[i, Row] = v[i];
 		}
 
-		public void SetRow(int column, double x, double y)
-		{
-			CheckSize(this, 2, column + 1);
-			this[0, column] = x;
-			this[1, column] = y;
-		}
-
-		public void SetRow(int column, double x, double y, double z)
-		{
-			CheckSize(this, 3, column + 1);
-			this[0, column] = x;
-			this[1, column] = y;
-			this[2, column] = z;
-		}
-
-		public void SetRow(int column, double x, double y, double z, double w)
-		{
-			CheckSize(this, 4, column + 1);
-			this[0, column] = x;
-			this[1, column] = y;
-			this[2, column] = z;
-			this[3, column] = w;
-		}
-
-		public EigenColumnVector GetColumn(int column)
-		{
-			CheckColumns(this, column + 1);
-			var v = new EigenColumnVector(Rows);
-			for (int i = 0; i < Rows; i++)
-				v[i] = this[i, column];
-
-			return v;
-		}
-
-		public void SetColumn(int column, EigenColumnVector v)
-		{
-			AreSameSize(this, v);
-			for (int i = 0; i < Rows; i++)
-				this[i, column] = v[i];
-		}
-
-		public void SetColumn(int row, double x, double y)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="row"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		public void SetRow(int row, double x, double y)
 		{
 			CheckSize(this, row + 1, 2);
 			this[row, 0] = x;
 			this[row, 1] = y;
 		}
 
-		public void SetColumn(int row, double x, double y, double z)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="row"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="z"></param>
+		public void SetRow(int row, double x, double y, double z)
 		{
 			CheckSize(this, row + 1, 3);
 			this[row, 0] = x;
@@ -941,7 +1050,15 @@ namespace CGALDotNet.Eigen
 			this[row, 2] = z;
 		}
 
-		public void SetColumn(int row, double x, double y, double z, double w)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="row"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="z"></param>
+		/// <param name="w"></param>
+		public void SetRow(int row, double x, double y, double z, double w)
 		{
 			CheckSize(this, row + 1, 4);
 			this[row, 0] = x;
@@ -950,12 +1067,223 @@ namespace CGALDotNet.Eigen
 			this[row, 3] = w;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="Column"></param>
+		/// <returns></returns>
+		public EigenColumnVector GetColumn(int Column)
+		{
+			CheckColumns(this, Column + 1);
+			var v = new EigenColumnVector(Columns);
+			for (int i = 0; i < Columns; i++)
+				v[i] = this[Column, i];
+
+			return v;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="Column"></param>
+		/// <param name="v"></param>
+		public void SetColumn(int Column, EigenColumnVector v)
+		{
+			AreSameSize(this, v);
+			for (int i = 0; i < Columns; i++)
+				this[Column, i] = v[i];
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="column"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		public void SetColumn(int column, double x, double y)
+		{
+			CheckSize(this, 2, column + 1);
+			this[0, column] = x;
+			this[1, column] = y;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="column"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="z"></param>
+		public void SetColumn(int column, double x, double y, double z)
+		{
+			CheckSize(this, 3, column + 1);
+			this[0, column] = x;
+			this[1, column] = y;
+			this[2, column] = z;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="column"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="z"></param>
+		/// <param name="w"></param>
+		public void SetColumn(int column, double x, double y, double z, double w)
+		{
+			CheckSize(this, 4, column + 1);
+			this[0, column] = x;
+			this[1, column] = y;
+			this[2, column] = z;
+			this[3, column] = w;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="digits"></param>
 		public void Round(int digits)
 		{
 			for (int i = 0; i < Length; i++)
 				this[i] = Math.Round(this[i], digits);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="point"></param>
+		/// <returns></returns>
+		public static EigenMatrix Translate(Point3d point)
+        {
+			var m = EigenMatrix.Identity(4);
+			m.SetColumn(3, point.x, point.y, point.z, 1);
+			return m;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="point"></param>
+		/// <returns></returns>
+		public static EigenMatrix Scale(Point3d point)
+		{
+			var m = EigenMatrix.Identity(4);
+
+			m[0, 0] = point.x;
+			m[1, 1] = point.y;
+			m[2, 2] = point.z;
+
+			return m;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
+		static public EigenMatrix Scale(double s)
+		{
+			var m = EigenMatrix.Identity(4);
+
+			m[0, 0] = s;
+			m[1, 1] = s;
+			m[2, 2] = s;
+
+			return m;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="radian"></param>
+		/// <returns></returns>
+		static public EigenMatrix RotateX(Radian radian)
+		{
+			var m = new EigenMatrix(4, 4);
+
+			double ca = MathUtil.Cos(radian);
+			double sa = MathUtil.Sin(radian);
+
+			return new EigenMatrix(	1, 0, 0, 0,
+									0, ca, -sa, 0,
+									0, sa, ca, 0,
+									0, 0, 0, 1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="radian"></param>
+		/// <returns></returns>
+		static public EigenMatrix RotateY(Radian radian)
+		{
+			var m = new EigenMatrix(4, 4);
+
+			double ca = MathUtil.Cos(radian);
+			double sa = MathUtil.Sin(radian);
+
+			return new EigenMatrix(ca, 0, sa, 0,
+									0, 1, 0, 0,
+									-sa, 0, ca, 0,
+									0, 0, 0, 1);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="radian"></param>
+		/// <returns></returns>
+		static public EigenMatrix RotateZ(Radian radian)
+		{
+			var m = new EigenMatrix(4, 4);
+
+			double ca = MathUtil.Cos(radian);
+			double sa = MathUtil.Sin(radian);
+
+			return new EigenMatrix(ca, -sa, 0, 0,
+									sa, ca, 0, 0,
+									0, 0, 1, 0,
+									0, 0, 0, 1);
+		}
+
+		/// <summary>
+		/// Create a rotation from a angle and the rotation axis.
+		/// </summary>
+		/// <param name="radian">The rotation amount.</param>
+		/// <param name="axis">The axis to rotate on.</param>
+		/// <returns>The rotation matrix.</returns>
+		static public EigenMatrix Rotate(Radian radian, Vector3d axis)
+		{
+			var m = EigenMatrix.Identity(4);
+
+			double sinTheta = MathUtil.Sin(radian);
+			double cosTheta = MathUtil.Cos(radian);
+
+			// Compute rotation of first basis vector
+			m[0, 0] = axis.x * axis.x + (1 - axis.x * axis.x) * cosTheta;
+			m[0, 1] = axis.x * axis.y * (1 - cosTheta) - axis.z * sinTheta;
+			m[0, 2] = axis.x * axis.z * (1 - cosTheta) + axis.y * sinTheta;
+			m[0, 3] = 0;
+
+			// Compute rotations of second and third basis vectors
+			m[1, 0] = axis.x * axis.y * (1 - cosTheta) + axis.z * sinTheta;
+			m[1, 1] = axis.y * axis.y + (1 - axis.y * axis.y) * cosTheta;
+			m[1, 2] = axis.y * axis.z * (1 - cosTheta) - axis.x * sinTheta;
+			m[1, 3] = 0;
+
+			m[2, 0] = axis.x * axis.z * (1 - cosTheta) - axis.y * sinTheta;
+			m[2, 1] = axis.y * axis.z * (1 - cosTheta) + axis.x * sinTheta;
+			m[2, 2] = axis.z * axis.z + (1 - axis.z * axis.z) * cosTheta;
+			m[2, 3] = 0;
+
+			return m;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="builder"></param>
 		public override void Print(StringBuilder builder)
 		{
 			builder.AppendLine(this.ToString());
@@ -1158,16 +1486,16 @@ namespace CGALDotNet.Eigen
 		private static extern IntPtr EigenMatrix_LDLT_Mat(IntPtr ptr1, IntPtr ptr2);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern IntPtr EigenMatrix_BdcSvd_Vec(IntPtr ptr1, IntPtr ptr2);
+		private static extern IntPtr EigenMatrix_BdcSvd_Vec(IntPtr ptr1, IntPtr ptr2, int options);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern IntPtr EigenMatrix_BdcSvd_Mat(IntPtr ptr1, IntPtr ptr2);
+		private static extern IntPtr EigenMatrix_BdcSvd_Mat(IntPtr ptr1, IntPtr ptr2, int options);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern IntPtr EigenMatrix_JacobiSvd_Vec(IntPtr ptr1, IntPtr ptr2);
+		private static extern IntPtr EigenMatrix_JacobiSvd_Vec(IntPtr ptr1, IntPtr ptr2, int options);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern IntPtr EigenMatrix_JacobiSvd_Mat(IntPtr ptr1, IntPtr ptr2);
+		private static extern IntPtr EigenMatrix_JacobiSvd_Mat(IntPtr ptr1, IntPtr ptr2, int options);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr EigenMatrix_FullPivHouseholderQr_Vec(IntPtr ptr1, IntPtr ptr2);
@@ -1192,6 +1520,9 @@ namespace CGALDotNet.Eigen
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr EigenMatrix_Eigenvectors(IntPtr ptr);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool EigenMatrix_EigenValuesVectors(IntPtr ptr, [Out] out IntPtr values, [Out] out IntPtr vectors);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern bool EigenMatrix_IsInvertible(IntPtr ptr);
