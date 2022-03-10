@@ -27,6 +27,10 @@
 
 - [The Polygon With Holes Kernel.](https://github.com/Scrawk/CGALDotNet/wiki/The-Polygon-With-Holes-Kernel)
 
+- [The Polygon Boolean Kernel.](https://github.com/Scrawk/CGALDotNet/wiki/The-Polygon-Boolean-Kernel)
+
+- [The Polygon Minkowski Kernel.](https://github.com/Scrawk/CGALDotNet/wiki/The-Polygon-Minkowski-Kernel)
+
 
 Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
