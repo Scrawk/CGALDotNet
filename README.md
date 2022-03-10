@@ -5,6 +5,8 @@
 
 - [The CGAL Numbers types.](https://github.com/Scrawk/CGALDotNet/wiki/The-Number-Types)
 
+- [Eigen](https://github.com/Scrawk/CGALDotNet/wiki/Eigen)
+
 - [The CGAL Object.](https://github.com/Scrawk/CGALDotNet/wiki/The-CGALObject)
 
 - [The CGAL Global Functions.](https://github.com/Scrawk/CGALDotNet/wiki/The-CGALGlobal-Functions)
