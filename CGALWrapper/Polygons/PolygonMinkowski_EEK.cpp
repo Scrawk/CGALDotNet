@@ -73,3 +73,4 @@ void* PolygonMinkowski_EEK_MinkowskiSumPWH_Triangle(void* pwhPtr1, void* polyPtr
 	return PolygonMinkowski<EEK>::MinkowskiSumPWH_Triangle(pwhPtr1, polyPtr2);
 }
 
+

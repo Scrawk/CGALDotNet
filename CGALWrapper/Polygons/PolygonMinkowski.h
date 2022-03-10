@@ -154,4 +154,6 @@ public:
 		return PolygonWithHoles2<K>::NewPolygonWithHoles2(&sum);
 	}
 
+
+
 };
