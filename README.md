@@ -5,6 +5,8 @@
 
 - [The CGAL Numbers types.](https://github.com/Scrawk/CGALDotNet/wiki/The-Number-Types)
 
+- [Eigen](https://github.com/Scrawk/CGALDotNet/wiki/Eigen)
+
 - [The CGAL Object.](https://github.com/Scrawk/CGALDotNet/wiki/The-CGALObject)
 
 - [The CGAL Global Functions.](https://github.com/Scrawk/CGALDotNet/wiki/The-CGALGlobal-Functions)
@@ -31,5 +33,7 @@ Some common geomerty objects are referrenced in a [seperate project](https://git
 Work in progress. Only 64 bit windows binarys provided.
 
 Examples in Unity can be found in [this](https://github.com/Scrawk/CGALDotNetUnity) repository.
+
+A page on the Unity forums can be found [here](https://forum.unity.com/threads/cgaldotnet-a-c-computational-library-built-around-cgal.1250314/).
 
 
