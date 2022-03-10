@@ -40,6 +40,11 @@ namespace CGALDotNet.Polylines
             return Polyline3_EEK_Copy(ptr);
         }
 
+        internal override IntPtr Convert(IntPtr ptr, CGAL_KERNEL k)
+        {
+            return Polyline3_EEK_Convert(ptr, k);
+        }
+
         internal override void Clear(IntPtr ptr)
         {
             Polyline3_EEK_Clear(ptr);
@@ -139,6 +144,9 @@ namespace CGALDotNet.Polylines
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr Polyline3_EEK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern IntPtr Polyline3_EEK_Convert(IntPtr ptr, CGAL_KERNEL k);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Polyline3_EEK_Clear(IntPtr ptr);

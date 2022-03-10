@@ -19,6 +19,8 @@ extern "C"
 
 	CGALWRAPPER_API void* Polyline3_EEK_Copy(void* ptr);
 
+	CGALWRAPPER_API void* Polyline3_EEK_Convert(void* ptr, CGAL_KERNEL k);
+
 	CGALWRAPPER_API void Polyline3_EEK_Clear(void* ptr);
 
 	CGALWRAPPER_API  int Polyline3_EEK_Capacity(void* ptr);

@@ -442,12 +442,13 @@ namespace CGALDotNet.Polylines
         /// May result in different values due to precision issues.
         /// </summary>
         /// <typeparam name="T">The new kernel type.</typeparam>
-        /// <returns>The new polyline.</returns>
+        /// <returns>The new polline.</returns>
         public Polyline2<T> Convert<T>() where T : CGALKernel, new()
         {
-            var points = ArrayCache.Point2dArray(Count);
-            GetPoints(points, Count);
-            return new Polyline2<T>(points);
+            var k = typeof(T).Name;
+            var e = CGALEnum.ToKernelEnum(k);
+            var ptr = Kernel.Convert(Ptr, e);
+            return new Polyline2<T>(ptr);
         }
 
         /// <summary>

@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <CGAL/enum.h> 
 #include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 template<class K>
 class Polyline2
@@ -71,6 +72,26 @@ public:
 		auto copy = new Polyline2();
 		copy->points = polyline->points;
 		return copy;
+	}
+
+	template<class K2>
+	static void* Convert(void* ptr)
+	{
+		typedef CGAL::Cartesian_converter<K, K2> Converter;
+		Converter convert;
+
+		auto polyline = CastToPolyline2(ptr);
+		auto count = polyline->points.size();
+
+		auto polyline2 = new Polyline2<K2>();
+
+		for (auto i = 0; i < count; i++)
+		{
+			auto p = convert(polyline->points[i]);
+			polyline2->points.push_back(p);
+		}
+
+		return polyline2;
 	}
 
 	static void Clear(void* ptr)

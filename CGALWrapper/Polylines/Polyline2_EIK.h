@@ -18,6 +18,8 @@ extern "C"
 
 	CGALWRAPPER_API void* Polyline2_EIK_Copy(void* ptr);
 
+	CGALWRAPPER_API void* Polyline2_EIK_Convert(void* ptr, CGAL_KERNEL k);
+
 	CGALWRAPPER_API void Polyline2_EIK_Clear(void* ptr);
 
 	CGALWRAPPER_API  int Polyline2_EIK_Capacity(void* ptr);

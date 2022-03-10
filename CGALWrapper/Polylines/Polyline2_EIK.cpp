@@ -27,6 +27,21 @@ void* Polyline2_EIK_Copy(void* ptr)
 	return Polyline2<EIK>::Copy(ptr);
 }
 
+void* Polyline2_EIK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Polyline2<EIK>::Convert<EIK>(ptr);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Polyline2<EIK>::Convert<EEK>(ptr);
+
+	default:
+		return Polyline2<EIK>::Convert<EIK>(ptr);
+	}
+}
+
 void Polyline2_EIK_Clear(void* ptr)
 {
 	Polyline2<EIK>::Clear(ptr);
