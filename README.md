@@ -31,6 +31,12 @@
 
 - [Polygon Minkowski.](https://github.com/Scrawk/CGALDotNet/wiki/Polygon-Minkowski)
 
+- [Polygon Offset.](https://github.com/Scrawk/CGALDotNet/wiki/Polygon-Offset)
+
+- [Polygon Simplification.](https://github.com/Scrawk/CGALDotNet/wiki/Polygon-Simplification)
+
+- [Polygon Visibility.](https://github.com/Scrawk/CGALDotNet/wiki/Polygon-Visibility)
+
 
 Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
