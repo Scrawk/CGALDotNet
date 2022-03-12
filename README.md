@@ -11,6 +11,8 @@
 
 - [The CGAL Global Functions.](https://github.com/Scrawk/CGALDotNet/wiki/The-CGALGlobal-Functions)
 
+- [Unity Extensions](https://github.com/Scrawk/CGALDotNet/wiki/Unity-Extensions)
+
 # The Geometry Kernel.
 
 - [The Geometry Numerics.](https://github.com/Scrawk/CGALDotNet/wiki/The-Geometry-Numerics)
@@ -36,6 +38,8 @@
 - [Polygon Simplification.](https://github.com/Scrawk/CGALDotNet/wiki/Polygon-Simplification)
 
 - [Polygon Visibility.](https://github.com/Scrawk/CGALDotNet/wiki/Polygon-Visibility)
+
+- [Polygon Partition.](https://github.com/Scrawk/CGALDotNet/wiki/Polygon-Partition)
 
 
 Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
