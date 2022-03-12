@@ -13,6 +13,7 @@
 #include <vector>
 #include "CGAL/Point_2.h"
 #include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Cartesian_converter.h>
 
 template<class K, class TRI, class VERT, class FACE>
 class BaseTriangulation2
@@ -34,10 +35,10 @@ public:
 		map.OnModelChanged();
 	}
 
-	void SetIndices()
+	void SetIndices(BOOL vertices, BOOL faces)
 	{
 		map.OnModelChanged();
-		map.SetIndices(model);
+		map.SetIndices(model, vertices, faces);
 	}
 
 	int BuildStamp()
@@ -386,5 +387,6 @@ public:
 		for (auto& vert :  model.finite_vertex_handles())
 			vert->point() = M(vert->point());
 	}
+
 
 };

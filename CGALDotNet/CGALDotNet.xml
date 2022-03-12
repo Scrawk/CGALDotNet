@@ -10500,7 +10500,7 @@
             May result in different values due to precision issues.
             </summary>
             <typeparam name="T">The new kernel type.</typeparam>
-            <returns>The new polyline.</returns>
+            <returns>The new polline.</returns>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline2.ToList">
             <summary>
@@ -10802,7 +10802,7 @@
             May result in different values due to precision issues.
             </summary>
             <typeparam name="T">The new kernel type.</typeparam>
-            <returns>The new polyline.</returns>
+            <returns>The new polline.</returns>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline3.ToList">
             <summary>

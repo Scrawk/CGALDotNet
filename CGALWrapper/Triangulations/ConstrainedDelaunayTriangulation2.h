@@ -62,10 +62,28 @@ public:
 
 	void* Copy()
 	{
-		auto copy = new ConstrainedDelaunayTriangulation2();
+		auto copy = NewTriangulation2();
 		copy->model = this->model;
 
 		return copy;
+	}
+
+	template<class K2>
+	static void* Convert(void* ptr)
+	{
+		typedef CGAL::Cartesian_converter<K, K2> Converter;
+		Converter convert;
+
+		auto tri = NewTriangulation2();
+		auto tri2 = new ConstrainedDelaunayTriangulation2<K2, Triangulation_2, Vertex, Face>();
+
+		for (const auto& vert : tri->model.finite_vertex_handles())
+		{
+			auto p = convert(vert->point());
+			//tri2->model.insert(p);
+		}
+
+		return tri2;
 	}
 
 	BOOL MoveVertex(int index, Point2d point, BOOL ifNoCollision, TriVertex2& triVert)
@@ -302,8 +320,6 @@ public:
 
 	int MarkDomains(int* indices, int count)
 	{
-
-
 		this->map.SetVertexIndices(this->model);
 
 		//Need each face to store its nesting level.

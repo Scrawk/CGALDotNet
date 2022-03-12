@@ -49,9 +49,27 @@ public:
 
 	void* Copy()
 	{
-		auto copy = new Triangulation2();
+		auto copy = NewTriangulation2();
 		copy->model = this->model;
 		return copy;
+	}
+
+	template<class K2>
+	static void* Convert(void* ptr)
+	{
+		typedef CGAL::Cartesian_converter<K, K2> Converter;
+		Converter convert;
+
+		auto tri = NewTriangulation2();
+		auto tri2 = new Triangulation2<K2, Triangulation_2, Vertex, Face>();
+
+		for (auto vert : tri->model.finite_vertex_handles())
+		{
+			auto p = convert(vert->point());
+			//tri2->model.insert(p);
+		}
+
+		return tri2;
 	}
 
 };

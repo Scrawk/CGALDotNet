@@ -34,6 +34,21 @@ void* DelaunayTriangulation2_EIK_Copy(void* ptr)
 	return tri->Copy();
 }
 
+void* DelaunayTriangulation2_EIK_Convert(void* ptr, CGAL_KERNEL k)
+{
+	switch (k)
+	{
+	case CGAL_KERNEL::EXACT_PREDICATES_INEXACT_CONSTRUCTION:
+		return Tri2::Convert<EIK>(ptr);
+
+	case CGAL_KERNEL::EXACT_PREDICATES_EXACT_CONSTRUCTION:
+		return Tri2::Convert<EEK>(ptr);
+
+	default:
+		return Tri2::Convert<EIK>(ptr);
+	}
+}
+
 void DelaunayTriangulation2_EIK_SetIndices(void* ptr)
 {
 	auto tri = Tri2::CastToTriangulation2(ptr);
