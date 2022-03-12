@@ -546,6 +546,9 @@
     <ClInclude Include="Geometry\Box2_EIK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Triangulations\BaseTriangulation3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

@@ -15,8 +15,8 @@
 #include <CGAL/Delaunay_triangulation_cell_base_3.h>
 #include <CGAL/Triangulation_vertex_base_with_info_3.h>
 
-template<class K>
-class DelaunayTriangulation3
+template<class K, class TRI, class VERT, class FACE>
+class DelaunayTriangulation3 : public BaseTriangulation3<K, TRI, VERT, FACE>
 {
 
 public:
@@ -34,8 +34,6 @@ public:
 	typedef CGAL::Aff_transformation_3<K>								Transformation_3;
 
 public:
-
-	DelaunayTriangulation_3 model;
 
 	DelaunayTriangulation3()
 	{
@@ -68,198 +66,10 @@ public:
 		return static_cast<DelaunayTriangulation3*>(ptr);
 	}
 
-	static void Clear(void* ptr)
+	void* Copy()
 	{
-		auto tri = CastToTriangulation3(ptr);
-		tri->Clear();
-	}
-
-	void Clear()
-	{
-		model.clear();
-	}
-
-	static void* Copy(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		auto copy = new DelaunayTriangulation3<K>();
-		copy->model = tri->model;
+		auto copy = NewTriangulation3();
+		copy->model = this->model;
 		return copy;
 	}
-
-	static int Dimension(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return tri->model.dimension();
-	}
-
-	static BOOL IsValid(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return tri->model.is_valid();
-	}
-
-	static int VertexCount(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return (int)tri->model.number_of_vertices();
-	}
-
-	static int CellCount(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return (int)tri->model.number_of_cells();
-	}
-
-	static int FiniteCellCount(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return (int)tri->model.number_of_finite_cells();
-	}
-
-	static int EdgeCount(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return (int)tri->model.number_of_edges();
-	}
-
-	static int FiniteEdgeCount(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return (int)tri->model.number_of_finite_edges();
-	}
-
-	static int FacetCount(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return (int)tri->model.number_of_facets();
-	}
-
-	static int FiniteFacetCount(void* ptr)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		return (int)tri->model.number_of_finite_facets();
-	}
-
-	static void InsertPoint(void* ptr, const Point3d& point)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		tri->model.insert(point.ToCGAL<K>());
-	}
-
-	static void InsertPoints(void* ptr, Point3d* points, int count)
-	{
-		auto tri = CastToTriangulation3(ptr);
-
-		std::vector<Point_3> list(count);
-		for (int i = 0; i < count; i++)
-			list[i] = points[i].ToCGAL<K>();
-
-		tri->model.insert(list.begin(), list.end());
-	}
-
-	static void GetPoints(void* ptr, Point3d* points, int count)
-	{
-		auto tri = CastToTriangulation3(ptr);
-
-		int num = (int)tri->model.number_of_vertices();
-
-		int i = 0;
-		for (const auto& vert : tri->model.finite_vertex_handles())
-		{
-			points[i++] = Point3d::FromCGAL<K>(vert->point());
-
-			if (i >= count) return;
-			if (i >= num) return;
-		}
-
-	}
-
-	void MarkVertices()
-	{
-		int index = 0;
-		for (auto vert : model.all_vertex_handles())
-		{
-			if (!model.is_infinite(vert))
-				vert->info() = index++;
-			else
-				vert->info() = NULL_INDEX;
-		}
-	}
-
-	static void GetSegmentIndices(void* ptr, int* indices, int count)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		tri->MarkVertices();
-
-		int num = (int)tri->model.number_of_finite_edges();
-
-		int index = 0;
-		for (auto edge = tri->model.finite_edges_begin(); edge != tri->model.finite_edges_end(); ++edge)
-		{
-			indices[index * 2 + 0] = edge->first->vertex(0)->info();
-			indices[index * 2 + 1] = edge->first->vertex(1)->info();
-
-			index++;
-
-			if (index * 2 >= count) return;
-			if (index >= num) return;
-		}
-	}
-
-	static void GetTriangleIndices(void* ptr, int* indices, int count)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		tri->MarkVertices();
-
-		int num = (int)tri->model.number_of_finite_facets();
-
-		int index = 0;
-		for (auto face = tri->model.finite_facets_begin(); face != tri->model.finite_facets_end(); ++face)
-		{
-			indices[index * 3 + 0] = face->first->vertex(0)->info();
-			indices[index * 3 + 1] = face->first->vertex(1)->info();
-			indices[index * 3 + 2] = face->first->vertex(2)->info();
-
-			index++;
-
-			if (index * 3 >= count) return;
-			if (index >= num) return;
-		}
-	}
-
-	static void GetTetrahedraIndices(void* ptr, int* indices, int count)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		tri->MarkVertices();
-
-		int num = (int)tri->model.number_of_finite_cells();
-
-		int index = 0;
-		for (auto cell = tri->model.finite_cells_begin(); cell != tri->model.finite_cells_end(); ++cell)
-		{
-			indices[index * 4 + 0] = cell->vertex(0)->info();
-			indices[index * 4 + 1] = cell->vertex(1)->info();
-			indices[index * 4 + 2] = cell->vertex(2)->info();
-			indices[index * 4 + 3] = cell->vertex(3)->info();
-
-			index++;
-
-			if (index * 4 >= count) return;
-			if (index >= num) return;
-		}
-	}
-
-	static void Transform(void* ptr, const Matrix4x4d& matrix)
-	{
-		auto tri = CastToTriangulation3(ptr);
-		auto m = matrix.ToCGAL<K>();
-
-		for (auto vert = tri->model.finite_vertices_begin(); vert != tri->model.finite_vertices_end(); ++vert)
-		{
-			auto p = vert->point();
-			vert->set_point(m.transform(p));
-		}
-	}
-
 };

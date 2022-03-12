@@ -185,6 +185,7 @@
     <ClInclude Include="Geometry\Ray2_EIK.h" />
     <ClInclude Include="Geometry\Segment2_EIK.h" />
     <ClInclude Include="Geometry\Triangle2_EIK.h" />
+    <ClInclude Include="Triangulations\BaseTriangulation3.h" />
     <ClInclude Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\ConstrainedTriangulation2_EIK.h" />
     <ClInclude Include="Triangulations\DelaunayTriangulation2_EIK.h" />

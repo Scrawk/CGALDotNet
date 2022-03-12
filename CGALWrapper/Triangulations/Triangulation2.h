@@ -63,7 +63,7 @@ public:
 		auto tri = NewTriangulation2();
 		auto tri2 = new Triangulation2<K2, Triangulation_2, Vertex, Face>();
 
-		for (auto vert : tri->model.finite_vertex_handles())
+		for (const auto& vert : tri->model.finite_vertex_handles())
 		{
 			auto p = convert(vert->point());
 			//tri2->model.insert(p);

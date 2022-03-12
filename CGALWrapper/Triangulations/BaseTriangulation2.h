@@ -121,7 +121,6 @@ public:
 	void GetIndices(int* indices, int count)
 	{
 		int index = 0;
-
 		map.SetVertexIndices(model);
 
 		for (auto& face : model.finite_face_handles())

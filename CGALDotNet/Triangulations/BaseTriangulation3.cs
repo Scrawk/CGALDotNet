@@ -66,6 +66,13 @@ namespace CGALDotNet.Triangulations
         protected private BaseTriangulationKernel3 Kernel { get; private set; }
 
         /// <summary>
+        /// Returns the buildStamp.
+        /// The build stamp will change if 
+        /// the triangulation model has changed
+        /// </summary>
+        public int BuildStamp => Kernel.BuildStamp(Ptr);
+
+        /// <summary>
         /// Returns the dimension of the affine hull.
         /// </summary>
         public int Dimension => Kernel.Dimension(Ptr);

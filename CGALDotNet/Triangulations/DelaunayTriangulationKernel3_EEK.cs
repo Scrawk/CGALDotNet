@@ -33,6 +33,11 @@ namespace CGALDotNet.Triangulations
             return DelaunayTriangulation3_EEK_Copy(ptr);
         }
 
+        internal override int BuildStamp(IntPtr ptr)
+        {
+            return DelaunayTriangulation3_EEK_BuildStamp(ptr);
+        }
+
         internal override int Dimension(IntPtr ptr)
         {
             return DelaunayTriangulation3_EEK_Dimension(ptr);
@@ -124,6 +129,9 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern IntPtr DelaunayTriangulation3_EEK_Copy(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int DelaunayTriangulation3_EEK_BuildStamp(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int DelaunayTriangulation3_EEK_Dimension(IntPtr ptr);

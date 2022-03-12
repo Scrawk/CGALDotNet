@@ -18,6 +18,8 @@ namespace CGALDotNet.Triangulations
 
         internal abstract IntPtr Copy(IntPtr ptr);
 
+        internal abstract int BuildStamp(IntPtr ptr);
+
         internal abstract int Dimension(IntPtr ptr);
 
         internal abstract bool IsValid(IntPtr ptr);

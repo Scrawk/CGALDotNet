@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <unordered_map>
 
 template<class T>
 class IndexMap
@@ -9,7 +10,7 @@ private:
 
 	int nextIndex = 0;
 
-	std::map<int, T> map;
+	std::unordered_map<int, T> map;
 
 public:
 
