@@ -35,10 +35,10 @@ public:
 		map.OnModelChanged();
 	}
 
-	void SetIndices(BOOL vertices, BOOL faces)
+	void SetIndices()
 	{
 		map.OnModelChanged();
-		map.SetIndices(model, vertices, faces);
+		map.SetIndices(model);
 	}
 
 	int BuildStamp()

@@ -13529,6 +13529,42 @@
             <param name="faceIndex">The face index in the triangulation</param>
             <param name="neighbourIndex">The neighbours index in the face array betwen 0 and 2.</param>
         </member>
+        <member name="M:CGALDotNet.Triangulations.TriEdge2.op_Equality(CGALDotNet.Triangulations.TriEdge2,CGALDotNet.Triangulations.TriEdge2)">
+            <summary>
+            Are the two edges equal.
+            </summary>
+            <param name="e1">The first edge.</param>
+            <param name="e2">The second edge.</param>
+            <returns>True if the edges are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriEdge2.op_Inequality(CGALDotNet.Triangulations.TriEdge2,CGALDotNet.Triangulations.TriEdge2)">
+            <summary>
+            Are the two edges not equal.
+            </summary>
+            <param name="e1">The first edge.</param>
+            <param name="e2">The second edge.</param>
+            <returns>True if the edges are not equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriEdge2.Equals(System.Object)">
+            <summary>
+            Are these objects equal.
+            </summary>
+            <param name="obj">The other object.</param>
+            <returns>True if the objects are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriEdge2.Equals(CGALDotNet.Triangulations.TriEdge2)">
+            <summary>
+            Are these edges equal.
+            </summary>
+            <param name="edge">The other edge.</param>
+            <returns>True if the edges are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriEdge2.GetHashCode">
+            <summary>
+            The edges hash code.
+            </summary>
+            <returns>The edges hash code.</returns>
+        </member>
         <member name="T:CGALDotNet.Triangulations.TriFace2">
             <summary>
             From Index to HalfEdgeIndex must match layout
@@ -13549,6 +13585,42 @@
             <summary>
             The faces 3 vertices.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.op_Equality(CGALDotNet.Triangulations.TriFace2,CGALDotNet.Triangulations.TriFace2)">
+            <summary>
+            Are the two faces equal.
+            </summary>
+            <param name="f1">The first face.</param>
+            <param name="f2">The second face.</param>
+            <returns>True if the faces are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.op_Inequality(CGALDotNet.Triangulations.TriFace2,CGALDotNet.Triangulations.TriFace2)">
+            <summary>
+            Are the two faces not equal.
+            </summary>
+            <param name="f1">The first face.</param>
+            <param name="f2">The second face.</param>
+            <returns>True if the faces are not equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.Equals(System.Object)">
+            <summary>
+            Are these objects equal.
+            </summary>
+            <param name="obj">The other object.</param>
+            <returns>True if the objects are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.Equals(CGALDotNet.Triangulations.TriFace2)">
+            <summary>
+            Are these faces equal.
+            </summary>
+            <param name="face">The other face.</param>
+            <returns>True if the faces are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.GetHashCode">
+            <summary>
+            The faces hash code.
+            </summary>
+            <returns>The faces hash code.</returns>
         </member>
         <member name="M:CGALDotNet.Triangulations.TriFace2.GetVertexIndex(System.Int32)">
             <summary>
@@ -13587,6 +13659,42 @@
             <summary>
             The one of the faces the vertex is connected to.
             </summary>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriVertex2.op_Equality(CGALDotNet.Triangulations.TriVertex2,CGALDotNet.Triangulations.TriVertex2)">
+            <summary>
+            Are the two faces equal.
+            </summary>
+            <param name="v1">The first face.</param>
+            <param name="v2">The second face.</param>
+            <returns>True if the faces are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriVertex2.op_Inequality(CGALDotNet.Triangulations.TriVertex2,CGALDotNet.Triangulations.TriVertex2)">
+            <summary>
+            Are the two faces not equal.
+            </summary>
+            <param name="v1">The first face.</param>
+            <param name="v2">The second face.</param>
+            <returns>True if the faces are not equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriVertex2.Equals(System.Object)">
+            <summary>
+            Are these objects equal.
+            </summary>
+            <param name="obj">The other object.</param>
+            <returns>True if the objects are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriVertex2.Equals(CGALDotNet.Triangulations.TriVertex2)">
+            <summary>
+            Are these faces equal.
+            </summary>
+            <param name="face">The other face.</param>
+            <returns>True if the faces are equal.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriVertex2.GetHashCode">
+            <summary>
+            The faces hash code.
+            </summary>
+            <returns>The faces hash code.</returns>
         </member>
         <member name="T:CGALDotNet.ArrayCache">
             <summary>

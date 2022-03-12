@@ -26,9 +26,15 @@ namespace CGALDotNet.Polyhedra
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("[MeshVertex3: Index={0}, Halfedge={1}, Point={2}, Degree={3}]",
+                Index, Halfedge, Point, Degree);
+        }
+
         public static bool operator ==(MeshVertex3 v1, MeshVertex3 v2)
         {
-            return v1.Index == v2.Index && v1.Halfedge == v2.Halfedge 
+            return v1.Index == v2.Index && v1.Halfedge == v2.Halfedge
                 && v1.Degree == v2.Degree && v1.Point == v2.Point;
         }
 
@@ -61,12 +67,6 @@ namespace CGALDotNet.Polyhedra
                 hash = (hash * MathUtil.HASH_PRIME_2) ^ Halfedge.GetHashCode();
                 return hash;
             }
-        }
-
-        public override string ToString()
-        {
-            return string.Format("[MeshVertex3: Index={0}, Halfedge={1}, Point={2}, Degree={3}]",
-                Index, Halfedge, Point, Degree);
         }
 
         public IEnumerable<MeshHalfedge3> EnumerateHalfedges(IMesh mesh)
