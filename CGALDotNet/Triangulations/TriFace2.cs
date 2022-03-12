@@ -27,7 +27,7 @@ namespace CGALDotNet.Triangulations
         /// <summary>
         /// The faces 3 vertices.
         /// </summary>
-        public fixed int VertexIndex[3];
+        private fixed int VertexIndex[3];
 
         /// <summary>
         /// 

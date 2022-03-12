@@ -13586,6 +13586,12 @@
             The faces 3 vertices.
             </summary>
         </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:CGALDotNet.Triangulations.TriFace2.op_Equality(CGALDotNet.Triangulations.TriFace2,CGALDotNet.Triangulations.TriFace2)">
             <summary>
             Are the two faces equal.
@@ -13628,6 +13634,20 @@
             </summary>
             <param name="i">The vertices index wrapped to 0-2.</param>
             <returns>The vertices index in the triangulation.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.EnumerateVertices(CGALDotNet.Triangulations.BaseTriangulation2)">
+            <summary>
+            Enumerate the vertices of the face.
+            </summary>
+            <param name="tri">The triangle the vertices below too.</param>
+            <returns>The face vertices.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriFace2.EnumerateVertices(CGALDotNet.Triangulations.TriVertex2[])">
+            <summary>
+            Enumerate the vertices of the face.
+            </summary>
+            <param name="vertices">The vertices array.</param>
+            <returns>The face vertices.</returns>
         </member>
         <member name="T:CGALDotNet.Triangulations.TriVertex2">
             <summary>
