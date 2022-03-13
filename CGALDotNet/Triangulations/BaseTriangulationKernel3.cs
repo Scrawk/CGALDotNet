@@ -44,6 +44,14 @@ namespace CGALDotNet.Triangulations
 
         internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
 
+        internal abstract void GetVertices(IntPtr ptr, TriVertex3[] vertices, int count);
+
+        internal abstract bool GetVertex(IntPtr ptr, int index, out TriVertex3 vertex);
+
+        internal abstract void GetCells(IntPtr ptr, TriCell3[] cells, int count);
+
+        internal abstract bool GetCell(IntPtr ptr, int index, out TriCell3 cell);
+
         internal abstract void GetSegmentIndices(IntPtr ptr, int[] indices, int count);
 
         internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);

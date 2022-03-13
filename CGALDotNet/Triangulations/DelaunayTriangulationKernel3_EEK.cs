@@ -98,6 +98,26 @@ namespace CGALDotNet.Triangulations
             DelaunayTriangulation3_EEK_GetPoints(ptr, points, count);
         }
 
+        internal override void GetVertices(IntPtr ptr, TriVertex3[] vertices, int count)
+        {
+            DelaunayTriangulation3_EEK_GetVertices(ptr, vertices, count);
+        }
+
+        internal override bool GetVertex(IntPtr ptr, int index, out TriVertex3 vertex)
+        {
+            return DelaunayTriangulation3_EEK_GetVertex(ptr, index, out vertex);
+        }
+
+        internal override void GetCells(IntPtr ptr, TriCell3[] cells, int count)
+        {
+            DelaunayTriangulation3_EEK_GetCells(ptr, cells, count);
+        }
+
+        internal override bool GetCell(IntPtr ptr, int index, out TriCell3 cell)
+        {
+            return DelaunayTriangulation3_EEK_GetCell(ptr, index, out cell);
+        }
+
         internal override void GetSegmentIndices(IntPtr ptr, int[] indices, int count)
         {
             DelaunayTriangulation3_EEK_GetSegmentIndices(ptr, indices, count);
@@ -168,6 +188,18 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation3_EEK_GetVertices(IntPtr ptr, [Out] TriVertex3[] vertices, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool DelaunayTriangulation3_EEK_GetVertex(IntPtr ptr, int index, out TriVertex3 vertex);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation3_EEK_GetCells(IntPtr ptr, [Out] TriCell3[] cells, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool DelaunayTriangulation3_EEK_GetCell(IntPtr ptr, int index, out TriCell3 cell);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation3_EEK_GetSegmentIndices(IntPtr ptr, [Out] int[] indices, int count);

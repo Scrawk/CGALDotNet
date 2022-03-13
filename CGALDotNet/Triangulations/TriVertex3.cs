@@ -8,24 +8,24 @@ using CGALDotNetGeometry.Numerics;
 namespace CGALDotNet.Triangulations
 {
     /// <summary>
-    /// From Point to HalfEdgeIndex must match layout
-    /// of the unmanaged TriVertex2 in the TriVertex2 header file.
+    /// 
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct TriVertex2 : IEquatable<TriVertex2>
+    public struct TriVertex3 : IEquatable<TriVertex3>
     {
         /// <summary>
         /// The vertices point.
         /// </summary>
-        public Point2d Point;
+        public Point3d Point;
 
         /// <summary>
-        /// Is this a infinite vertex.
+        /// Is this a infinte vertex.
         /// </summary>
         public bool IsInfinite;
 
         /// <summary>
-        /// The number of egdes connected to the vertex.
+        /// The vertices degree is the 
+        /// number of edges connecting to it.
         /// </summary>
         public int Degree;
 
@@ -35,40 +35,44 @@ namespace CGALDotNet.Triangulations
         public int Index;
 
         /// <summary>
-        /// The one of the vertexs the vertex is connected to.
+        /// The one of the cells the vertex is connected to.
         /// </summary>
-        public int FaceIndex;
+        public int CellIndex;
 
         public override string ToString()
         {
-            return string.Format("[TriVertex2: Index={0}, Point={1}, IsInfinite={2}, Degree={3}, Face={4}]", 
-                Index, Point, IsInfinite, Degree, FaceIndex);
+            return string.Format("[TriVertex3: Index={0}, Point={1}, IsInfinite={2}, Degree={3}, CellIndex={4}]",
+                Index, Point, IsInfinite, Degree, CellIndex);
         }
 
         /// <summary>
-        /// Are the two vertexs equal.
+        /// Are the two vertices equal.
         /// </summary>
         /// <param name="v1">The first vertex.</param>
         /// <param name="v2">The second vertex.</param>
         /// <returns>True if the vertexs are equal.</returns>
-        public static bool operator ==(TriVertex2 v1, TriVertex2 v2)
+        public static bool operator ==(TriVertex3 v1, TriVertex3 v2)
         {
-            return v1.Index == v2.Index && v1.IsInfinite == v2.IsInfinite
-                && v1.Degree == v2.Degree && v1.FaceIndex == v2.FaceIndex
-                && v1.Point == v2.Point;
+            return v1.Index == v2.Index
+                 && v1.IsInfinite == v2.IsInfinite
+                 && v1.Degree == v2.Degree
+                 && v1.CellIndex == v2.CellIndex
+                 && v1.Point == v2.Point;
         }
 
         /// <summary>
-        /// Are the two vertexs not equal.
+        /// Are the two vertices not equal.
         /// </summary>
         /// <param name="v1">The first vertex.</param>
         /// <param name="v2">The second vertex.</param>
         /// <returns>True if the vertexs are not equal.</returns>
-        public static bool operator !=(TriVertex2 v1, TriVertex2 v2)
+        public static bool operator !=(TriVertex3 v1, TriVertex3 v2)
         {
-            return v1.Index != v2.Index || v1.IsInfinite != v2.IsInfinite
-                    || v1.Degree != v2.Degree || v1.FaceIndex != v2.FaceIndex
-                    || v1.Point != v2.Point;
+            return v1.Index != v2.Index
+                       || v1.IsInfinite != v2.IsInfinite
+                       || v1.Degree != v2.Degree
+                       || v1.CellIndex != v2.CellIndex
+                       || v1.Point != v2.Point;
         }
 
         /// <summary>
@@ -78,8 +82,8 @@ namespace CGALDotNet.Triangulations
         /// <returns>True if the objects are equal.</returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is TriVertex2)) return false;
-            TriVertex2 v = (TriVertex2)obj;
+            if (!(obj is TriVertex3)) return false;
+            TriVertex3 v = (TriVertex3)obj;
             return this == v;
         }
 
@@ -88,7 +92,7 @@ namespace CGALDotNet.Triangulations
         /// </summary>
         /// <param name="vertex">The other vertex.</param>
         /// <returns>True if the vertexs are equal.</returns>
-        public bool Equals(TriVertex2 vertex)
+        public bool Equals(TriVertex3 vertex)
         {
             return this == vertex;
         }
@@ -102,10 +106,10 @@ namespace CGALDotNet.Triangulations
             unchecked
             {
                 int hash = (int)MathUtil.HASH_PRIME_1;
-                hash = (hash * MathUtil.HASH_PRIME_2) ^ Index.GetHashCode();
                 hash = (hash * MathUtil.HASH_PRIME_2) ^ IsInfinite.GetHashCode();
-                hash = (hash * MathUtil.HASH_PRIME_2) ^ FaceIndex.GetHashCode();
                 hash = (hash * MathUtil.HASH_PRIME_2) ^ Degree.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ Index.GetHashCode();
+                hash = (hash * MathUtil.HASH_PRIME_2) ^ CellIndex.GetHashCode();
                 hash = (hash * MathUtil.HASH_PRIME_2) ^ Point.GetHashCode();
                 return hash;
             }

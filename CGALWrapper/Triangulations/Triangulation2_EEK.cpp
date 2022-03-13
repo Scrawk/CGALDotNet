@@ -211,4 +211,3 @@ void Triangulation2_EEK_Transform(void* ptr, Point2d translation, double rotatio
 
 
 
-

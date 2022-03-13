@@ -140,7 +140,7 @@ public:
 		auto vert = map.FindVertex(model, index);
 		if (vert != nullptr)
 		{
-			int degree = TriUtil::Degree(model, *vert);
+			int degree = TriUtil::Degree2(model, *vert);
 			triVert = TriVertex2::FromVertex<K>(model, *vert, degree);
 			return TRUE;
 		}
@@ -159,7 +159,7 @@ public:
 
 		for (const auto& vert : model.finite_vertex_handles())
 		{
-			int degree = TriUtil::Degree(model, vert);
+			int degree = TriUtil::Degree2(model, vert);
 			vertices[i++] = TriVertex2::FromVertex<K>(model, vert, degree);
 		}
 	}
@@ -329,7 +329,7 @@ public:
 			if (v != *vert)
 				 map.OnModelChanged();
 
-			int degree = TriUtil::Degree( model, v);
+			int degree = TriUtil::Degree2( model, v);
 			triVert = TriVertex2::FromVertex<K>( model, v, degree);
 			return TRUE;
 		}

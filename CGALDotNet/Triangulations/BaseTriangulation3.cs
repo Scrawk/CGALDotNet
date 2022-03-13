@@ -118,7 +118,7 @@ namespace CGALDotNet.Triangulations
         public int FiniteTriangleCount =>  Kernel.FiniteFacetCount(Ptr);
 
         /// <summary>
-        /// 
+        /// The number of indices needed for the finite tetrahedrons.
         /// </summary>
         public int TetrahdronIndiceCount => FiniteTetrahedronCount * 4;
 
@@ -194,10 +194,54 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
-        /// 
+        /// Get the triangulation vertices.
         /// </summary>
-        /// <param name="indices"></param>
-        /// <param name="count"></param>
+        /// <param name="vertices">The vertex array.</param>
+        /// <param name="count">The vertex array length.</param>
+        public void GetVertices(TriVertex3[] vertices, int count)
+        {
+            ErrorUtil.CheckArray(vertices, count);
+            Kernel.GetVertices(Ptr, vertices, count);
+        }
+
+        /// <summary>
+        /// Get a triangulation vertex.
+        /// </summary>
+        /// <param name="index">The vertices index</param>
+        /// <param name="vertex">The vertex.</param>
+        /// <returns></returns>
+        public bool GetVertex(int index, out TriVertex3 vertex)
+        {
+            return Kernel.GetVertex(Ptr, index, out vertex); 
+        }
+
+        /// <summary>
+        /// Get the triangulation vertices.
+        /// </summary>
+        /// <param name="cells">The vertex array.</param>
+        /// <param name="count">The vertex array length.</param>
+        public void GetCells(TriCell3[] cells, int count)
+        {
+            ErrorUtil.CheckArray(cells, count);
+            Kernel.GetCells(Ptr, cells, count);
+        }
+
+        /// <summary>
+        /// Get a triangulation vertex.
+        /// </summary>
+        /// <param name="index">The vertices index</param>
+        /// <param name="cell">The vertex.</param>
+        /// <returns></returns>
+        public bool GetCell(int index, out TriCell3 cell)
+        {
+            return Kernel.GetCell(Ptr, index, out cell);
+        }
+
+        /// <summary>
+        /// Get the indices of the tetrahedron cells in the triangulation.
+        /// </summary>
+        /// <param name="indices">The indices array.</param>
+        /// <param name="count">The indices array length.</param>
         public void GetTetrahedronIndices(int[] indices, int count)
         {
             ErrorUtil.CheckArray(indices, count);
@@ -205,10 +249,10 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
-        /// 
+        /// Gets all the segment indices with no duplicates
         /// </summary>
-        /// <param name="segments"></param>
-        public void GetSegmentsIndices(List<SegmentIndex> segments)
+        /// <param name="segments">The list to hold the segments.</param>
+        public void GetUniqueSegmentsIndices(List<SegmentIndex> segments)
         {
             var indices = TetrahedronToSegmentIndices();
             var set = new HashSet<SegmentIndex>();
@@ -229,9 +273,10 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
-        /// 
+        /// Get the segment indices of all the tertrhdron in triangulation.
+        /// Will contain duplicate segments.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Get the segment indices of all the tertrhdron in triangulation.</returns>
         private List<SegmentIndex> TetrahedronToSegmentIndices()
         {
             int count =TetrahdronIndiceCount;

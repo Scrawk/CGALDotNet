@@ -13,6 +13,7 @@ typedef CGAL::Triangulation_3<EEK, Tds>						Triangulation_3;
 typedef typename Triangulation_3::Point						Point_3;
 typedef typename Triangulation_3::Cell_handle				Cell;
 typedef typename Triangulation_3::Vertex_handle				Vertex;
+typedef typename Triangulation_3::Edge						Edge;
 
 typedef Triangulation3<EEK, Triangulation_3, Vertex, Cell> Tri3;
 
@@ -115,6 +116,30 @@ void Triangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 	tri->GetPoints(points, count);
 }
 
+void Triangulation3_EEK_GetVertices(void* ptr, TriVertex3* vertices, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetVertices(vertices, count);
+}
+
+BOOL Triangulation3_EEK_GetVertex(void* ptr, int index, TriVertex3& vertex)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->GetVertex(index, vertex);
+}
+
+void Triangulation3_EEK_GetCells(void* ptr, TriCell3* cells, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetCells(cells, count);
+}
+
+BOOL Triangulation3_EEK_GetCell(void* ptr, int index, TriCell3& cell)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->GetCell(index, cell);
+}
+
 void Triangulation3_EEK_GetSegmentIndices(void* ptr, int* indices, int count)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);
@@ -138,4 +163,6 @@ void Triangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix)
 	auto tri = Tri3::CastToTriangulation3(ptr);
 	tri->Transform(matrix);
 }
+
+
 

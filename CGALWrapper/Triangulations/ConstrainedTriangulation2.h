@@ -101,7 +101,7 @@ public:
 			if (v != *vert)
 				this->map.OnModelChanged();
 
-			int degree = TriUtil::Degree(this->model, v);
+			int degree = TriUtil::Degree2(this->model, v);
 			triVert = TriVertex2::FromVertex<K>(this->model, v, degree);
 			return TRUE;
 		}

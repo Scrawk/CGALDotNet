@@ -9,9 +9,13 @@
 struct TriVertex2
 {
 	Point2d Point;
+
 	BOOL IsInfinite;
+
 	int Degree;
+
 	int Index;
+
 	int FaceIndex;
 
 	static TriVertex2 NullVertex()

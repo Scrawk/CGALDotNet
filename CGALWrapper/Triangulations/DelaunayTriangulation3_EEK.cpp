@@ -115,6 +115,30 @@ void DelaunayTriangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 	tri->GetPoints(points, count);
 }
 
+void DelaunayTriangulation3_EEK_GetVertices(void* ptr, TriVertex3* vertices, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetVertices(vertices, count);
+}
+
+BOOL DelaunayTriangulation3_EEK_GetVertex(void* ptr, int index, TriVertex3& vertex)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->GetVertex(index, vertex);
+}
+
+void DelaunayTriangulation3_EEK_GetCells(void* ptr, TriCell3* cells, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetCells(cells, count);
+}
+
+BOOL DelaunayTriangulation3_EEK_GetCell(void* ptr, int index, TriCell3& cell)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->GetCell(index, cell);
+}
+
 void DelaunayTriangulation3_EEK_GetSegmentIndices(void* ptr, int* indices, int count)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);

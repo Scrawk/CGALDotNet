@@ -3,6 +3,8 @@
 #include "../CGALWrapper.h"
 #include "../Geometry/Geometry3.h"
 #include "../Geometry/Matrices.h"
+#include "TriVertex3.h"
+#include "TriCell3.h"
 
 extern "C"
 {
@@ -39,6 +41,14 @@ extern "C"
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_InsertPoints(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count);
+
+	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetVertices(void* ptr, TriVertex3* vertices, int count);
+
+	CGALWRAPPER_API BOOL DelaunayTriangulation3_EEK_GetVertex(void* ptr, int index, TriVertex3& vertex);
+
+	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetCells(void* ptr, TriCell3* cells, int count);
+
+	CGALWRAPPER_API BOOL DelaunayTriangulation3_EEK_GetCell(void* ptr, int index, TriCell3& cell);
 
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetSegmentIndices(void* ptr, int* indices, int count);
 

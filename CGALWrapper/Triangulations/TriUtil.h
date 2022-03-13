@@ -27,7 +27,7 @@ namespace TriUtil
 	}
 
 	template<class TRI, class VERT>
-	int Degree(TRI& tri, VERT vert)
+	int Degree2(TRI& tri, VERT vert)
 	{
 		auto face = vert->face();
 		auto start = vert->incident_faces(face), end(start);
@@ -46,6 +46,14 @@ namespace TriUtil
 
 		return count;
 	}
+
+	//template<class TRI, class VERT, class CELL>
+	//int Degree3(TRI& tri, VERT vert)
+	//{
+	//	std::vector<CELL> cells;
+	//	tri.finite_incident_cells(vert, std::back_inserter(cells));
+	//	return cells.size();
+	//}
 
 	template<class POINT, class FACE>
 	POINT CenterPoint(FACE face)
