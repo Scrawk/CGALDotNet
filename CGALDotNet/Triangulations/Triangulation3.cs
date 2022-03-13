@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Extensions;
+
 using CGALDotNet.Meshing;
 using CGALDotNet.Hulls;
 using CGALDotNet.Polyhedra;
@@ -100,11 +102,13 @@ namespace CGALDotNet.Triangulations
             if (count < 4)
                 throw new InvalidOperationException("Trianglution must have at least 4 points to compute the hull.");
 
-            var points = ArrayCache.Point3dArray(count);
+            var points = new Point3d[count];
             GetPoints(points, count);
 
+            points = points.RemoveNonFinite().ToArray();
+
             var hull = ConvexHull3<K>.Instance;
-            return hull.CreateHullAsPolyhedron(points, count);
+            return hull.CreateHullAsPolyhedron(points, points.Length);
         }
 
     }

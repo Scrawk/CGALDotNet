@@ -217,7 +217,7 @@ namespace CGALDotNet.Triangulations
         private static extern void Triangulation3_EEK_GetVertices(IntPtr ptr, [Out] TriVertex3[] vertices, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool Triangulation3_EEK_GetVertex(IntPtr ptr, int index, out TriVertex3 vertex);
+        private static extern bool Triangulation3_EEK_GetVertex(IntPtr ptr, int index, [Out] out TriVertex3 vertex);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Triangulation3_EEK_GetCells(IntPtr ptr, [Out] TriCell3[] cells, int count);

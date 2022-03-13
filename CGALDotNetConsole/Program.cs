@@ -42,6 +42,52 @@ namespace CGALDotNetConsole
             var cells = new TriCell3[tri.TetrahedronCount];
             tri.GetCells(cells, cells.Length);
 
+            var segments = new int[tri.EdgeCount * 2];
+            tri.GetSegmentIndices(segments, segments.Length);
+
+            var triangles = new int[tri.TriangleCount * 3];
+            tri.GetTriangleIndices(triangles, triangles.Length);
+
+            Console.WriteLine("");
+            Console.WriteLine("vertices");
+
+            foreach (var v in vertices)
+                Console.WriteLine(v);
+
+            Console.WriteLine("");
+            Console.WriteLine("cells");
+
+            foreach (var c in cells)
+                Console.WriteLine(c);
+
+            Console.WriteLine("");
+            Console.WriteLine("segments");
+            for (int i = 0; i < segments.Length / 2; i++)
+            {
+                int i0 = segments[i * 2 + 0];
+                int i1 = segments[i * 2 + 1];
+
+                Console.WriteLine(i0 + " " + i1);
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Triangles");
+            for (int i = 0; i < triangles.Length / 3; i++)
+            {
+                int i0 = triangles[i * 3 + 0];
+                int i1 = triangles[i * 3 + 1];
+                int i2 = triangles[i * 3 + 2];
+
+                Console.WriteLine(i0 + " " + i1 + " " + i2);
+            }
+
+
+            Console.WriteLine("");
+
+            tri.GetVertex(1, out TriVertex3 vert);
+
+            Console.WriteLine(vert);
+
         }
 
 

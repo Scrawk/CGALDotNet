@@ -12695,25 +12695,26 @@
             <param name="cell">The vertex.</param>
             <returns></returns>
         </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation3.GetSegmentIndices(System.Int32[],System.Int32)">
+            <summary>
+            Get the indices of the cells edges in the triangulation.
+            </summary>
+            <param name="indices">The indices array.</param>
+            <param name="count">The indices array length.</param>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation3.GetTriangleIndices(System.Int32[],System.Int32)">
+            <summary>
+            Get the indices of the cells triangles in the triangulation.
+            </summary>
+            <param name="indices">The indices array.</param>
+            <param name="count">The indices array length.</param>
+        </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation3.GetTetrahedronIndices(System.Int32[],System.Int32)">
             <summary>
             Get the indices of the tetrahedron cells in the triangulation.
             </summary>
             <param name="indices">The indices array.</param>
             <param name="count">The indices array length.</param>
-        </member>
-        <member name="M:CGALDotNet.Triangulations.BaseTriangulation3.GetUniqueSegmentsIndices(System.Collections.Generic.List{CGALDotNetGeometry.Shapes.SegmentIndex})">
-            <summary>
-            Gets all the segment indices with no duplicates
-            </summary>
-            <param name="segments">The list to hold the segments.</param>
-        </member>
-        <member name="M:CGALDotNet.Triangulations.BaseTriangulation3.TetrahedronToSegmentIndices">
-            <summary>
-            Get the segment indices of all the tertrhdron in triangulation.
-            Will contain duplicate segments.
-            </summary>
-            <returns>Get the segment indices of all the tertrhdron in triangulation.</returns>
         </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation3.Translate(CGALDotNetGeometry.Numerics.Point3d)">
             <summary>

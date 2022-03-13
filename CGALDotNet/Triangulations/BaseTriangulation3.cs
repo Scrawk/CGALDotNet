@@ -299,6 +299,28 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
+        /// Get the indices of the cells edges in the triangulation.
+        /// </summary>
+        /// <param name="indices">The indices array.</param>
+        /// <param name="count">The indices array length.</param>
+        public void GetSegmentIndices(int[] indices, int count)
+        {
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetSegmentIndices(Ptr, indices, count);
+        }
+
+        /// <summary>
+        /// Get the indices of the cells triangles in the triangulation.
+        /// </summary>
+        /// <param name="indices">The indices array.</param>
+        /// <param name="count">The indices array length.</param>
+        public void GetTriangleIndices(int[] indices, int count)
+        {
+            ErrorUtil.CheckArray(indices, count);
+            Kernel.GetTriangleIndices(Ptr, indices, count);
+        }
+
+        /// <summary>
         /// Get the indices of the tetrahedron cells in the triangulation.
         /// </summary>
         /// <param name="indices">The indices array.</param>
@@ -307,72 +329,6 @@ namespace CGALDotNet.Triangulations
         {
             ErrorUtil.CheckArray(indices, count);
             Kernel.GetTetrahedraIndices(Ptr, indices, count);
-        }
-
-        /// <summary>
-        /// Gets all the segment indices with no duplicates
-        /// </summary>
-        /// <param name="segments">The list to hold the segments.</param>
-        public void GetUniqueSegmentsIndices(List<SegmentIndex> segments)
-        {
-            var indices = TetrahedronToSegmentIndices();
-            var set = new HashSet<SegmentIndex>();
-
-            for (int i = 0; i < indices.Count; i++)
-            {
-                var seg = indices[i];
-                var opp = seg.Reversed;
-
-                if (!set.Contains(seg) && !set.Contains(opp))
-                {
-                    set.Add(seg);
-                    set.Add(opp);
-                    segments.Add(seg);
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// Get the segment indices of all the tertrhdron in triangulation.
-        /// Will contain duplicate segments.
-        /// </summary>
-        /// <returns>Get the segment indices of all the tertrhdron in triangulation.</returns>
-        private List<SegmentIndex> TetrahedronToSegmentIndices()
-        {
-            int count =TetrahdronIndiceCount;
-            var indices = new int[count];
-
-            GetTetrahedronIndices(indices, count);
-
-            var segments = new List<SegmentIndex>();
-
-            for (int i = 0; i < indices.Length / 4; i++)
-            {
-                int i0 = indices[i * 4 + 0];
-                int i1 = indices[i * 4 + 1];
-                int i2 = indices[i * 4 + 2];
-                int i3 = indices[i * 4 + 3];
-
-                var i01 = new SegmentIndex(i0, i1);
-                var i02 = new SegmentIndex(i0, i2);
-                var i03 = new SegmentIndex(i0, i3);
-
-                var i12 = new SegmentIndex(i1, i2);
-                var i23 = new SegmentIndex(i2, i3);
-                var i31 = new SegmentIndex(i3, i1);
-
-                if (!i01.HasNullIndex) segments.Add(i01);
-                if (!i02.HasNullIndex) segments.Add(i02);
-                if (!i03.HasNullIndex) segments.Add(i03);
-
-                if (!i12.HasNullIndex) segments.Add(i12);
-                if (!i23.HasNullIndex) segments.Add(i23);
-                if (!i31.HasNullIndex) segments.Add(i31);
-
-            }
-
-            return segments;
         }
 
         /// <summary>

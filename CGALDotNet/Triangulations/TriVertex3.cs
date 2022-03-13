@@ -114,5 +114,20 @@ namespace CGALDotNet.Triangulations
                 return hash;
             }
         }
+
+        public IEnumerable<TriVertex3> EnumerateVertices(BaseTriangulation3 tri)
+        {
+            if (tri.GetCell(CellIndex, out TriCell3 c))
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    int index = c.GetVertexIndex(i);
+                    if (index != this.Index && tri.GetVertex(index, out TriVertex3 v))
+                    {
+                        yield return v;
+                    }
+                }
+            }
+        }
     }
 }

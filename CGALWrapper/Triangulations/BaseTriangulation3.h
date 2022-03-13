@@ -22,6 +22,17 @@ class BaseTriangulation3
 
 public:
 
+	typedef CGAL::Triangulation_vertex_base_with_info_3<int, K> Vb;
+	typedef CGAL::Triangulation_cell_base_with_info_3<int, K>	Cb;
+	typedef CGAL::Triangulation_data_structure_3<Vb, Cb>        Tds;
+
+	typedef CGAL::Triangulation_3<K, Tds>						Triangulation_3;
+
+	typedef typename Triangulation_3::Point						Point_3;
+	typedef typename Triangulation_3::Cell_handle				Cell;
+	typedef typename Triangulation_3::Vertex_handle				Vertex;
+	typedef typename Triangulation_3::Edge						Edge;
+
 	typedef typename K::Point_3 Point_3;
 	typedef CGAL::Aff_transformation_3<K> Transformation_3;
 
@@ -64,9 +75,17 @@ public:
 		int index = 0;
 		for (auto& vert : model.all_vertex_handles())
 		{
-			vert->info() = index;
-			vertexMap.insert(std::pair<int, VERT>(index, vert));
-			index++;
+			if (model.is_infinite(vert))
+			{
+				vert->info() = NULL_INDEX;
+			}
+			else
+			{
+				vert->info() = index;
+				vertexMap.insert(std::pair<int, VERT>(index, vert));
+				index++;
+			}
+
 		}
 
 		buildStamp++;
@@ -83,9 +102,16 @@ public:
 		int index = 0;
 		for (auto cell = model.all_cells_begin(); cell != model.all_cells_end(); ++cell)
 		{
-			cellMap.insert(std::pair<int, CELL>(index, cell));
-			cellIndexMap.insert(std::pair<CELL, int>(cell, index));
-			index++;
+			if (model.is_infinite(cell))
+			{
+				cellIndexMap.insert(std::pair<CELL, int>(cell, NULL_INDEX));
+			}
+			else
+			{
+				cellMap.insert(std::pair<int, CELL>(index, cell));
+				cellIndexMap.insert(std::pair<CELL, int>(cell, index));
+				index++;
+			}
 		}
 	
 		buildStamp++;
@@ -227,20 +253,26 @@ public:
 			}
 
 			Circumcenters[i] = c / 4;
+
+			i++;
+			if (i >= count) return;
 		}
 	}
 
 	void GetPoints(Point3d* points, int count)
 	{
-		int num = (int)model.number_of_vertices();
+		constexpr double inf = std::numeric_limits<double>::infinity();
 
 		int i = 0;
-		for (const auto& vert : model.finite_vertex_handles())
+		for (const auto& vert : model.all_vertex_handles())
 		{
-			points[i++] = Point3d::FromCGAL<K>(vert->point());
+			if (model.is_infinite(vert))
+				points[i] = { inf, inf, inf };
+			else
+				points[i] = Point3d::FromCGAL<K>(vert->point());
 
+			i++;
 			if (i >= count) return;
-			if (i >= num) return;
 		}
 	}
 
@@ -248,43 +280,71 @@ public:
 	{
 		BuildVertexIndices();
 
-		int num = (int)model.number_of_vertices();
+		constexpr double inf = std::numeric_limits<double>::infinity();
 
 		int i = 0;
-		for (const auto& vert : model.finite_vertex_handles())
+		for (auto& vert : model.all_vertex_handles())
 		{
 			TriVertex3 v;
-			v.Point = Point3d::FromCGAL<K>(vert->point());
-			v.Degree = model.degree(vert);
-			v.IsInfinite = model.is_infinite(vert);
+
+			if (model.is_infinite(vert))
+			{
+				v.Point = { inf, inf, inf };
+				v.IsInfinite = TRUE;
+			}
+				
+			else
+			{
+				v.Point = Point3d::FromCGAL<K>(vert->point());
+				v.IsInfinite = FALSE;
+			}
+
+			if (model.is_infinite(vert->cell()))
+				ResetCell(vert);
+				
+			v.Degree = Degree(vert);
 			v.Index = vert->info();
 			v.CellIndex = GetCellIndex(vert->cell());
 
 			vertices[i++] = v;
 	
 			if (i >= count) return;
-			if (i >= num) return;
 		}
 	}
 
-	BOOL GetVertex(int index, TriVertex3& vertex)
+	BOOL GetVertex(int index, TriVertex3& v)
 	{
 		BuildVertexIndices();
-	
+
+		constexpr double inf = std::numeric_limits<double>::infinity();
+
 		auto vert = GetVertex(index);
 		if(vert != nullptr)
 		{
-			vertex.Point = Point3d::FromCGAL<K>(vert->point());
-			vertex.Degree = model.degree(vert);
-			vertex.IsInfinite = model.is_infinite(vert);
-			vertex.Index = vert->info();
-			vertex.CellIndex = GetCellIndex(vert->cell());
+			if (model.is_infinite(vert))
+			{
+				v.Point = { inf, inf, inf };
+				v.IsInfinite = TRUE;
+			}
+
+			else
+			{
+				v.Point = Point3d::FromCGAL<K>(vert->point());
+				v.IsInfinite = FALSE;
+			}
+
+			if (model.is_infinite(vert->cell()))
+				ResetCell(vert);
+
+			v.Degree = Degree(vert);
+			v.Index = vert->info();
+			v.CellIndex = GetCellIndex(vert->cell());
 
 			return TRUE;
 		}
 		else
 		{
-			vertex = TriVertex3::NullVertex();
+			v = TriVertex3::NullVertex();
 			return FALSE;
 		}
 	}
@@ -292,8 +352,6 @@ public:
 	void GetCells(TriCell3* cells, int count)
 	{
 		BuildVertexIndices();
-
-		int num = (int)model.number_of_cells();
 
 		int i = 0;
 		for (auto cell = model.all_cells_begin(); cell != model.all_cells_end(); ++cell)
@@ -313,7 +371,6 @@ public:
 			cells[i++] = c;
 
 			if (i >= count) return;
-			if (i >= num) return;
 		}
 	}
 
@@ -349,18 +406,14 @@ public:
 	{
 		BuildVertexIndices();
 
-		int num = (int)model.number_of_finite_edges();
-
 		int index = 0;
-		for (auto edge = model.finite_edges_begin(); edge != model.finite_edges_end(); ++edge)
+		for (auto edge = model.all_edges_begin(); edge != model.all_edges_end(); ++edge)
 		{
 			indices[index * 2 + 0] = edge->first->vertex(0)->info();
 			indices[index * 2 + 1] = edge->first->vertex(1)->info();
 
 			index++;
-
 			if (index * 2 >= count) return;
-			if (index >= num) return;
 		}
 	}
 
@@ -368,19 +421,15 @@ public:
 	{
 		BuildVertexIndices();
 
-		int num = (int)model.number_of_finite_facets();
-
 		int index = 0;
-		for (auto face = model.finite_facets_begin(); face != model.finite_facets_end(); ++face)
+		for (auto face = model.all_facets_begin(); face != model.all_facets_end(); ++face)
 		{
 			indices[index * 3 + 0] = face->first->vertex(0)->info();
 			indices[index * 3 + 1] = face->first->vertex(1)->info();
 			indices[index * 3 + 2] = face->first->vertex(2)->info();
 
 			index++;
-
 			if (index * 3 >= count) return;
-			if (index >= num) return;
 		}
 	}
 
@@ -388,10 +437,8 @@ public:
 	{
 		BuildVertexIndices();
 
-		int num = (int)model.number_of_finite_cells();
-
 		int index = 0;
-		for (auto cell = model.finite_cells_begin(); cell != model.finite_cells_end(); ++cell)
+		for (auto cell = model.all_cells_begin(); cell != model.all_cells_end(); ++cell)
 		{
 			indices[index * 4 + 0] = cell->vertex(0)->info();
 			indices[index * 4 + 1] = cell->vertex(1)->info();
@@ -399,9 +446,7 @@ public:
 			indices[index * 4 + 3] = cell->vertex(3)->info();
 
 			index++;
-
 			if (index * 4 >= count) return;
-			if (index >= num) return;
 		}
 	}
 
@@ -415,4 +460,37 @@ public:
 			vert->set_point(m.transform(p));
 		}
 	}
+
+	void ResetCell(VERT& vert)
+	{
+		std::vector<CELL> cells;
+		model.incident_cells(vert, std::back_inserter(cells));
+
+		for (auto cell : cells)
+		{
+			if (!model.is_infinite(cell))
+			{
+				vert->set_cell(cell);
+				return;
+			}
+		}
+	}
+
+	int Degree(VERT& vert)
+	{
+		std::vector<CELL> cells;
+		model.incident_cells(vert, std::back_inserter(cells));
+
+		int count = 0;
+		for (auto cell : cells)
+		{
+			if (!model.is_infinite(cell))
+			{
+				count++;
+			}
+		}
+
+		return count;
+	}
+
 };
