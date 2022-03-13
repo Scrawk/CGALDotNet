@@ -45,6 +45,8 @@
 
 - [Triangulation 2D](https://github.com/Scrawk/CGALDotNet/wiki/Triangulations-2D)
 
+- [Triangulation 3D](https://github.com/Scrawk/CGALDotNet/wiki/Triangulations-3D) 
+
 Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
 Work in progress. Only 64 bit windows binarys provided.
