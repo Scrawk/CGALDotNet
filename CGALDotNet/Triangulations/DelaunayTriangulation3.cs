@@ -152,6 +152,50 @@ namespace CGALDotNet.Triangulations
         protected private DelaunayTriangulationKernel3 TriangulationKernel { get; private set; }
 
         /// <summary>
+        /// Move a vertex.
+        /// </summary>
+        /// <param name="index">The vertices index.</param>
+        /// <param name="point">The point to move to.</param>
+        /// <param name="ifNoCollision">Should the vertex only be moved if there is no coliision.</param>
+        /// <returns>If the vertex was moved.</returns>
+        public bool Move(int index, Point3d point, bool ifNoCollision = true)
+        {
+            return TriangulationKernel.Move(Ptr, index, point, ifNoCollision);
+        }
+
+        /// <summary>
+        /// Find the index of the nearest vertex to the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <returns>The index of the nearest vertex to the point.</returns>
+        public int NearestVertex(Point3d point)
+        {
+            return TriangulationKernel.NearestVertex(Ptr, point);
+        }
+
+        /// <summary>
+        /// Find the index of the nearest vertex to the point.
+        /// Presumes poimt is in a cell.
+        /// </summary>
+        /// <param name="index">The cells index.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The index of the nearest vertex to the point.</returns>
+        public int NearestVertexInCell(int index, Point3d point)
+        {
+            return TriangulationKernel.NearestVertexInCell(Ptr, index, point);
+        }
+
+        /// <summary>
+        /// Remobe a vertex.
+        /// </summary>
+        /// <param name="index">The vertex index.</param>
+        /// <returns>True if vertex was removed.</returns>
+        public bool RemoveVertex(int index)
+        {
+            return TriangulationKernel.RemoveVertex(Ptr, index);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="builder"></param>

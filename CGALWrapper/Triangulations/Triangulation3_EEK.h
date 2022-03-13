@@ -40,6 +40,12 @@ extern "C"
 
 	CGALWRAPPER_API void Triangulation3_EEK_InsertPoints(void* ptr, Point3d* points, int count);
 
+	CGALWRAPPER_API void Triangulation3_EEK_InsertInCell(void* ptr, int index, const Point3d& point);
+
+	CGALWRAPPER_API int Triangulation3_EEK_Locate(void* ptr, const Point3d& point);
+
+	CGALWRAPPER_API void Triangulation3_EEK_GetCircumcenters(void* ptr, Point3d* Circumcenters, int count);
+
 	CGALWRAPPER_API void Triangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API void Triangulation3_EEK_GetVertices(void* ptr, TriVertex3* vertices, int count);

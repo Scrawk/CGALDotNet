@@ -110,6 +110,25 @@ void Triangulation3_EEK_InsertPoints(void* ptr, Point3d* points, int count)
 	auto tri = Tri3::CastToTriangulation3(ptr);
 	tri->InsertPoints(points, count);
 }
+
+void Triangulation3_EEK_InsertInCell(void* ptr, int index, const Point3d& point)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->InsertInCell(index, point);
+}
+
+int Triangulation3_EEK_Locate(void* ptr, const Point3d& point)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->Locate(point);
+}
+
+void Triangulation3_EEK_GetCircumcenters(void* ptr, Point3d* Circumcenters, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetCircumcenters(Circumcenters, count);
+}
+
 void Triangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);

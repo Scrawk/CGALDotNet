@@ -42,6 +42,12 @@ namespace CGALDotNet.Triangulations
 
 	    internal abstract void InsertPoints(IntPtr ptr, Point3d[] points, int count);
 
+        internal abstract void InsertInCell(IntPtr ptr, int index, Point3d point);
+
+        internal abstract int Locate(IntPtr ptr, Point3d point);
+
+        internal abstract void GetCircumcenters(IntPtr ptr, Point3d[] Circumcenters, int count);
+
         internal abstract void GetPoints(IntPtr ptr, Point3d[] points, int count);
 
         internal abstract void GetVertices(IntPtr ptr, TriVertex3[] vertices, int count);

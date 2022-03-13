@@ -93,6 +93,21 @@ namespace CGALDotNet.Triangulations
             DelaunayTriangulation3_EEK_InsertPoints(ptr, points, count);
         }
 
+        internal override void InsertInCell(IntPtr ptr, int index, Point3d point)
+        {
+            DelaunayTriangulation3_EEK_InsertInCell(ptr, index, point);
+        }
+
+        internal override int Locate(IntPtr ptr, Point3d point)
+        {
+            return DelaunayTriangulation3_EEK_Locate(ptr, point);
+        }
+
+        internal override void GetCircumcenters(IntPtr ptr, Point3d[] Circumcenters, int count)
+        {
+            DelaunayTriangulation3_EEK_GetCircumcenters(ptr, Circumcenters, count);
+        }
+
         internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
         {
             DelaunayTriangulation3_EEK_GetPoints(ptr, points, count);
@@ -136,6 +151,26 @@ namespace CGALDotNet.Triangulations
         internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
         {
             DelaunayTriangulation3_EEK_Transform(ptr, matrix);
+        }
+
+        internal override bool Move(IntPtr ptr, int index, Point3d point, bool ifNoCollision)
+        {
+            return DelaunayTriangulation3_EEK_Move(ptr, index, point, ifNoCollision);
+        }
+
+        internal override int NearestVertex(IntPtr ptr, Point3d point)
+        {
+            return DelaunayTriangulation3_EEK_NearestVertex(ptr, point);
+        }
+
+        internal override int NearestVertexInCell(IntPtr ptr, int index, Point3d point)
+        {
+            return NearestVertexInCell(ptr, index, point);
+        }
+
+        internal override bool RemoveVertex(IntPtr ptr, int index)
+        {
+            return DelaunayTriangulation3_EEK_RemoveVertex (ptr, index);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -187,6 +222,15 @@ namespace CGALDotNet.Triangulations
         private static extern void DelaunayTriangulation3_EEK_InsertPoints(IntPtr ptr, Point3d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation3_EEK_InsertInCell(IntPtr ptr, int index, Point3d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int DelaunayTriangulation3_EEK_Locate(IntPtr ptr, Point3d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation3_EEK_GetCircumcenters(IntPtr ptr, [Out] Point3d[] Circumcenters, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -212,6 +256,18 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool DelaunayTriangulation3_EEK_Move(IntPtr ptr, int index, Point3d point, bool ifNoCollision);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int DelaunayTriangulation3_EEK_NearestVertex(IntPtr ptr, Point3d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int DelaunayTriangulation3_EEK_NearestVertexInCell(IntPtr ptr, int index, Point3d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern bool DelaunayTriangulation3_EEK_RemoveVertex(IntPtr ptr, int index);
 
     }
 }

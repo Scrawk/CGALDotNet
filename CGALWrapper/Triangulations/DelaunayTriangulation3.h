@@ -72,4 +72,58 @@ public:
 		copy->model = this->model;
 		return copy;
 	}
+
+	BOOL Move(int index, const Point3d& point, BOOL ifNoCollision)
+	{
+		auto vert = this->GetVertex(index);
+		if (vert != nullptr)
+		{
+			if (ifNoCollision)
+				this->model.move_if_no_collision(vert, point.ToCGAL<K>());
+			else
+				this->model.move(vert, point.ToCGAL<K>());
+
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	int NearestVertex(const Point3d& point)
+	{
+		this->BuildVertexIndices();
+		auto vert = this->model.nearest_vertex(point.ToCGAL<K>());
+		return vert->info();
+	}
+
+	int NearestVertexInCell(int index, const Point3d& point)
+	{
+		auto cell = this->GetCell(index);
+		if (cell != nullptr)
+		{
+			this->BuildVertexIndices();
+			auto vert = this->model.nearest_vertex_in_cell(point.ToCGAL<K>(), cell);
+			return vert->info();
+		}
+		else
+		{
+			return NULL_INDEX;
+		}
+	}
+
+	BOOL RemoveVertex(int index)
+	{
+		auto vert = this->GetVertex(index);
+		if (vert != nullptr)
+		{
+			this->model.remove(vert);
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 };

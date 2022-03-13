@@ -93,6 +93,21 @@ namespace CGALDotNet.Triangulations
             Triangulation3_EEK_InsertPoints(ptr, points, count);
         }
 
+        internal override void InsertInCell(IntPtr ptr, int index, Point3d point)
+        {
+            Triangulation3_EEK_InsertInCell(ptr, index, point);
+        }
+
+        internal override int Locate(IntPtr ptr, Point3d point)
+        {
+            return Triangulation3_EEK_Locate(ptr, point);
+        }
+
+        internal override void GetCircumcenters(IntPtr ptr, Point3d[] Circumcenters, int count)
+        {
+            Triangulation3_EEK_GetCircumcenters(ptr, Circumcenters, count); 
+        }
+
         internal override void GetPoints(IntPtr ptr, Point3d[] points, int count)
         {
             Triangulation3_EEK_GetPoints(ptr, points, count);
@@ -185,6 +200,15 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Triangulation3_EEK_InsertPoints(IntPtr ptr, Point3d[] points, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation3_EEK_InsertInCell(IntPtr ptr, int index, Point3d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int Triangulation3_EEK_Locate(IntPtr ptr, Point3d point);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void Triangulation3_EEK_GetCircumcenters(IntPtr ptr, [Out] Point3d[] Circumcenters, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void Triangulation3_EEK_GetPoints(IntPtr ptr, [Out] Point3d[] points, int count);

@@ -40,6 +40,12 @@ extern "C"
 
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_InsertPoints(void* ptr, Point3d* points, int count);
 
+	CGALWRAPPER_API void DelaunayTriangulation3_EEK_InsertInCell(void* ptr, int index, const Point3d& point);
+
+	CGALWRAPPER_API int DelaunayTriangulation3_EEK_Locate(void* ptr, const Point3d& point);
+
+	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetCircumcenters(void* ptr, Point3d* Circumcenters, int count);
+
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count);
 
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetVertices(void* ptr, TriVertex3* vertices, int count);
@@ -57,4 +63,12 @@ extern "C"
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetTetrahedraIndices(void* ptr, int* indices, int count);
 
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix);
+
+	CGALWRAPPER_API BOOL DelaunayTriangulation3_EEK_Move(void* ptr, int index, const Point3d& point, BOOL ifNoCollision);
+
+	CGALWRAPPER_API int DelaunayTriangulation3_EEK_NearestVertex(void* ptr, const Point3d& point);
+
+	CGALWRAPPER_API int DelaunayTriangulation3_EEK_NearestVertexInCell(void* ptr, int index, const Point3d& point);
+
+	CGALWRAPPER_API BOOL DelaunayTriangulation3_EEK_RemoveVertex(void* ptr, int index);
 }

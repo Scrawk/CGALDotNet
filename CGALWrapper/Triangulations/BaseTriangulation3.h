@@ -196,6 +196,40 @@ public:
 		OnModelChanged();
 	}
 
+	void InsertInCell(int index, const Point3d& point)
+	{
+		auto c = GetCell(index);
+		if (c != nullptr)
+		{
+			model.insert_in_cell(point.ToCGAL<K>(), c);
+			OnModelChanged();
+		}
+	}
+
+	int Locate(const Point3d& point)
+	{
+		auto cell = model.locate(point.ToCGAL<K>());
+		return GetCellIndex(cell);
+	}
+
+	void GetCircumcenters(Point3d* Circumcenters, int count)
+	{
+		int num = (int)model.number_of_cells();
+
+		int i = 0;
+		for (auto cell = model.all_cells_begin(); cell != model.all_cells_end(); ++cell)
+		{
+			Point3d c = { 0,0,0 };
+
+			for (int j = 0; j < 4; j++)
+			{
+				c = c + Point3d::FromCGAL<EEK>(cell->vertex(j)->point());
+			}
+
+			Circumcenters[i] = c / 4;
+		}
+	}
+
 	void GetPoints(Point3d* points, int count)
 	{
 		int num = (int)model.number_of_vertices();
@@ -213,7 +247,6 @@ public:
 	void GetVertices(TriVertex3* vertices, int count)
 	{
 		BuildVertexIndices();
-		BuildCellIndices();
 
 		int num = (int)model.number_of_vertices();
 
@@ -237,10 +270,8 @@ public:
 	BOOL GetVertex(int index, TriVertex3& vertex)
 	{
 		BuildVertexIndices();
-		BuildCellIndices();
-
+	
 		auto vert = GetVertex(index);
-
 		if(vert != nullptr)
 		{
 			vertex.Point = Point3d::FromCGAL<K>(vert->point());
@@ -261,7 +292,6 @@ public:
 	void GetCells(TriCell3* cells, int count)
 	{
 		BuildVertexIndices();
-		BuildCellIndices();
 
 		int num = (int)model.number_of_cells();
 
@@ -290,10 +320,8 @@ public:
 	BOOL GetCell(int index, TriCell3& cell)
 	{
 		BuildVertexIndices();
-		BuildCellIndices();
 
 		auto c = GetCell(index);
-
 		if (c != nullptr)
 		{
 			cell.IsInfinite = model.is_infinite(c);

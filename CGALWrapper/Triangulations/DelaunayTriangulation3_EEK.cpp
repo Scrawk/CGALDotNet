@@ -109,6 +109,24 @@ void DelaunayTriangulation3_EEK_InsertPoints(void* ptr, Point3d* points, int cou
 	tri->InsertPoints(points, count);
 }
 
+void DelaunayTriangulation3_EEK_InsertInCell(void* ptr, int index, const Point3d& point)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->InsertInCell(index, point);
+}
+
+int DelaunayTriangulation3_EEK_Locate(void* ptr, const Point3d& point)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->Locate(point);
+}
+
+void DelaunayTriangulation3_EEK_GetCircumcenters(void* ptr, Point3d* Circumcenters, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetCircumcenters(Circumcenters, count);
+}
+
 void DelaunayTriangulation3_EEK_GetPoints(void* ptr, Point3d* points, int count)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);
@@ -161,4 +179,28 @@ void DelaunayTriangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);
 	tri->Transform(matrix);
+}
+
+BOOL DelaunayTriangulation3_EEK_Move(void* ptr, int index, const Point3d& point, BOOL ifNoCollision)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->Move(index, point, ifNoCollision);
+}
+
+int DelaunayTriangulation3_EEK_NearestVertex(void* ptr, const Point3d& point)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->NearestVertex(point);
+}
+
+int DelaunayTriangulation3_EEK_NearestVertexInCell(void* ptr, int index, const Point3d& point)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->NearestVertexInCell(index, point);
+}
+
+BOOL DelaunayTriangulation3_EEK_RemoveVertex(void* ptr, int index)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->RemoveVertex(index);
 }

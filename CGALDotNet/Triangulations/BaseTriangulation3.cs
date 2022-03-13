@@ -171,6 +171,67 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
+        /// Insert a vertex into a cell.
+        /// </summary>
+        /// <param name="index">The cells index.</param>
+        /// <param name="point">The point to insert.</param>
+        public void InsertInCell(int index, Point3d point)
+        {
+            Kernel.InsertInCell(Ptr, index, point);
+        }
+
+        /// <summary>
+        /// If the point query lies inside the convex hull of the points, the cell that contains the query in its interior is returned.
+        /// If query lies on a facet, an edge or on a vertex, one of the cells having query on its boundary is returned.
+        /// If the point query lies outside the convex hull of the points, an infinite cell with vertices { p,q,r,∞} is
+        /// returned such that the tetrahedron(p, q, r, query) is positively oriented(the rest of the triangulation lies
+        /// on the other side of facet (p, q, r)).
+        /// Note that locate works even in degenerate dimensions: in dimension 2 (resp. 1, 0) the Cell_handle returned
+        /// is the one that represents the facet(resp.edge, vertex) containing the query point.
+        /// The optional argument start is used as a starting place for the search.
+        /// The optional argument could_lock_zone is used by the concurrency-safe version of the triangulation.When the
+        /// pointer is not null, the locate will try to lock all the cells along the walk. If it succeeds,
+        /// could_lock_zone is true, otherwise it is false. In any case, the locked cells are not unlocked by locate,
+        /// leaving this choice to the user. 
+        /// </summary>
+        /// <param name="point">The point to query</param>
+        /// <param name="cell">The cell thats closest to point.</param>
+        /// <returns>The closest cell to point.</returns>
+        public bool Locate(Point3d point, out TriCell3 cell)
+        {
+            int index = Kernel.Locate(Ptr, point);
+            if(index != CGALGlobal.NULL_INDEX)
+            {
+                if(GetCell(index, out cell))
+                {
+                    return true;
+                }
+                else
+                {
+                    cell = new TriCell3();
+                    return false;
+                }
+            }
+            else
+            {
+                cell = new TriCell3();
+                return false;
+            }
+            
+        }
+
+        /// <summary>
+        /// Get the centroids of each cell.
+        /// </summary>
+        /// <param name="circumcenters">The array of points</param>
+        /// <param name="count">The array of points length</param>
+        public void GetCircumcenters(Point3d[] circumcenters, int count)
+        {
+            ErrorUtil.CheckArray(circumcenters, count);
+            Kernel.GetCircumcenters(Ptr, circumcenters, count);
+        }
+
+        /// <summary>
         /// Get all the points in the triangulation.
         /// </summary>
         /// <param name="points">The array to copy into.</param>
