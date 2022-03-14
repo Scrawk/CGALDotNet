@@ -60,6 +60,12 @@
             <param name="polygon">The polygon.</param>
             <param name="nonIntersecting">If the polygon intersects anything else in the arramgement.</param>
         </member>
+        <member name="M:CGALDotNet.Arrangements.Arrangement2`1.Triangulate(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Triangulate the arrangement.
+            </summary>
+            <param name="indices">The triangle indices.</param>
+        </member>
         <member name="T:CGALDotNet.Arrangements.Arrangement2">
             <summary>
             The abstract base class.
@@ -220,6 +226,12 @@
             <param name="index">The index of the half edge.</param>
             <param name="face">The face.</param>
             <returns>True if the face was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Arrangements.Arrangement2.Triangulate(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Triangulate the arrangement.
+            </summary>
+            <param name="indices">The triangle indices.</param>
         </member>
         <member name="M:CGALDotNet.Arrangements.Arrangement2.CreateLocator(CGALDotNet.Arrangements.ARR_LOCATOR)">
             <summary>
@@ -421,12 +433,6 @@
         <member name="M:CGALDotNet.Arrangements.Arrangement2.ReleasePtr">
             <summary>
             Release any unmanaged resources.
-            </summary>
-        </member>
-        <member name="T:CGALDotNet.Arrangements.ArrVertex2">
-            <summary>
-            From Point to HalfEdgeIndex must match layout
-            of the unmanaged ArrVertex2 in the ArrVertex2 header file.
             </summary>
         </member>
         <member name="T:CGALDotNet.Arrangements.SweepLine`1">

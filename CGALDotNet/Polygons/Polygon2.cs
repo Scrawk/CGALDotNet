@@ -611,6 +611,91 @@ namespace CGALDotNet.Polygons
         /// <param name="indices">The triangle indices.</param>
         public abstract void Triangulate(List<int> indices);
 
+        /*
+    /// <summary>
+    /// Triangulate the polygon.
+    /// </summary>
+    /// <param name="triangules">The triangless.</param>
+    public void Triangulate(List<Triangle2d> triangules)
+    {
+        int numPoints = Count;
+
+        var points = ArrayCache.Point2dArray(numPoints);
+        GetPoints(points, points.Length);
+
+        // A polygon can be composed of multiple contours which are all tessellated at the same time.
+        var contour = new ContourVertex[numPoints];
+        for (int i = 0; i < numPoints; i++)
+            contour[i].Position = new Vec3(points[i].x, points[i].y, 0);
+
+        // Create an instance of the tessellator. Can be reused.
+        var tess = new Tess();
+        // Add the contour with a specific orientation, use "Original" if you want to keep the input orientation.
+        tess.AddContour(contour, ContourOrientation.Clockwise);
+
+        // Tessellate!
+        // The winding rule determines how the different contours are combined together.
+        // See http://www.glprogramming.com/red/chapter11.html (section "Winding Numbers and Winding Rules") for more information.
+        // If you want triangles as output, you need to use "Polygons" type as output and 3 vertices per polygon.
+        tess.Tessellate(WindingRule.EvenOdd, ElementType.Polygons, 3);
+
+        int numTriangles = tess.ElementCount;
+        for (int i = 0; i < numTriangles; i++)
+        {
+            var a = points[tess.Elements[i * 3 + 0]];
+            var b = points[tess.Elements[i * 3 + 1]];
+            var c = points[tess.Elements[i * 3 + 2]];
+
+            var t = new Triangle2d(a, b, c);
+
+            triangules.Add(t);
+        }
+    }
+
+    /// <summary>
+    /// Triangulate the polygon.
+    /// </summary>
+    /// <param name="triangules">The triangle indices.</param>
+    public void Triangulate(List<int> triangules)
+    {
+        int numPoints = Count;
+
+        var points = new Point2d[numPoints];
+        GetPoints(points, points.Length);
+
+        // A polygon can be composed of multiple contours which are all tessellated at the same time.
+        var contour = new ContourVertex[numPoints];
+        for (int i = 0; i < numPoints; i++)
+            contour[i].Position = new Vec3(points[i].x, points[i].y, 0);
+
+        // Create an instance of the tessellator. Can be reused.
+        var tess = new Tess();
+        // Add the contour with a specific orientation, use "Original" if you want to keep the input orientation.
+        tess.AddContour(contour, ContourOrientation.Clockwise);
+
+        // The winding rule determines how the different contours are combined together.
+        // See http://www.glprogramming.com/red/chapter11.html (section "Winding Numbers and Winding Rules") for more information.
+        // If you want triangles as output, you need to use "Polygons" type as output and 3 vertices per polygon.
+        tess.Tessellate(WindingRule.EvenOdd, ElementType.Polygons, 3);
+
+        int numTriangles = tess.ElementCount;
+        for (int i = 0; i < numTriangles; i++)
+        {
+            var a = tess.Elements[i * 3 + 0];
+            var b = tess.Elements[i * 3 + 1];
+            var c = tess.Elements[i * 3 + 2];
+
+            Console.WriteLine(a);
+            Console.WriteLine(b);
+            Console.WriteLine(c);
+
+            triangules.Add(a);
+            triangules.Add(b);
+            triangules.Add(c);
+        }
+    }
+    */
+
         /// <summary>
         /// Get all the polygon segments.
         /// </summary>

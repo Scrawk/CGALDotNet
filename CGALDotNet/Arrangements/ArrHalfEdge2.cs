@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Arrangements
 {
@@ -28,6 +29,20 @@ namespace CGALDotNet.Arrangements
         {
             return string.Format("[ArrHalfEdge2: Index={0}, FaceIndex={1}, IsFictitious={2}]",
                 Index, FaceIndex, IsFictitious);
+        }
+
+        public Segment2d GetSegment(ArrVertex2[] vertices)
+        {
+            if (SourceIndex == CGALGlobal.NULL_INDEX)
+                throw new ArgumentException("Source index is null");
+
+            if (TargetIndex == CGALGlobal.NULL_INDEX)
+                throw new ArgumentException("Target index is null");
+
+            var a = vertices[SourceIndex].Point;
+            var b = vertices[TargetIndex].Point;
+            
+            return new Segment2d(a, b);
         }
 
         public IEnumerable<ArrHalfedge2> EnumerateEdges(Arrangement2 arr)

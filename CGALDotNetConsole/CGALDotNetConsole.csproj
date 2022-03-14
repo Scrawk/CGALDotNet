@@ -21,6 +21,9 @@
     <Reference Include="CGALDotNetGeometry">
       <HintPath>..\..\CGALDotNetGeometry\CGALDotNetGeometry\bin\Release\netcoreapp3.1\CGALDotNetGeometry.dll</HintPath>
     </Reference>
+    <Reference Include="LibTessDotNet">
+      <HintPath>..\..\LibTessDotNet\LibTessDotNet\bin\Release\netcoreapp3.1\LibTessDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
