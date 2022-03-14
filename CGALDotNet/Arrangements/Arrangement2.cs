@@ -95,49 +95,6 @@ namespace CGALDotNet.Arrangements
             Kernel.InsertPolygon(Ptr, polygon.Ptr, nonIntersecting);
         }
 
-        /// <summary>
-        /// Triangulate the arrangement.
-        /// </summary>
-        /// <param name="indices">The triangle indices.</param>
-        public override void Triangulate(List<int> indices)
-        {
-            try
-            {
-                var ct = ConstrainedTriangulation2<K>.Instance;
-
-                var vertices = new ArrVertex2[VertexCount];
-                GetVertices(vertices, vertices.Length);
-
-                var faces = new ArrFace2[FaceCount];
-                GetFaces(faces, faces.Length);
-
-                foreach (var face in faces)
-                {
-                    var points = new List<Point2d>();
-                    foreach (var vert in face.EnumerateVertices(this))
-                    {
-                        points.Add(vert.Point);
-
-                        Console.WriteLine(vert.Point);
-                    }
-
-                    var poly = new Polygon2<K>(points.ToArray());
-
-                    if(poly.IsSimple)
-                    {
-                        if (!poly.IsCounterClockWise)
-                            poly.Reverse();
-
-                        ct.InsertConstraint(poly);
-                    }
-                }
-                   
-                ct.GetConstrainedDomainIndices(indices);
-                ct.Clear();
-            }
-            catch (NotImplementedException) { }
-            catch (NotSupportedException) { }
-        }
     }
 
     /// <summary>
@@ -347,12 +304,6 @@ namespace CGALDotNet.Arrangements
         {
             return Kernel.GetFace(Ptr, index, out face);
         }
-
-        /// <summary>
-        /// Triangulate the arrangement.
-        /// </summary>
-        /// <param name="indices">The triangle indices.</param>
-        public abstract void Triangulate(List<int> indices);
 
         /// <summary>
         /// Create the locator used to find query the arrangement.
