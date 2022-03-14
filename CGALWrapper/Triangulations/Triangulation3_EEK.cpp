@@ -51,10 +51,16 @@ int Triangulation3_EEK_Dimension(void* ptr)
 	return tri->Dimension();
 }
 
-BOOL Triangulation3_EEK_IsValid(void* ptr)
+BOOL Triangulation3_EEK_IsValid(void* ptr, BOOL verbose)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);
-	return tri->IsValid();
+	return tri->IsValid(verbose);
+}
+
+int Triangulation3_EEK_FiniteVertexCount(void* ptr)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->FiniteVertexCount();
 }
 
 int Triangulation3_EEK_VertexCount(void* ptr)

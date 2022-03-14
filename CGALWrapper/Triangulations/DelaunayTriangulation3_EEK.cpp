@@ -49,10 +49,16 @@ int DelaunayTriangulation3_EEK_Dimension(void* ptr)
 	return tri->Dimension();
 }
 
-BOOL DelaunayTriangulation3_EEK_IsValid(void* ptr)
+BOOL DelaunayTriangulation3_EEK_IsValid(void* ptr, BOOL verbose)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);
-	return tri->IsValid();
+	return tri->IsValid(verbose);
+}
+
+int DelaunayTriangulation3_EEK_FiniteVertexCount(void* ptr)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	return tri->FiniteVertexCount();
 }
 
 int DelaunayTriangulation3_EEK_VertexCount(void* ptr)

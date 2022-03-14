@@ -20,7 +20,9 @@ extern "C"
 
 	CGALWRAPPER_API int Triangulation3_EEK_Dimension(void* ptr);
 
-	CGALWRAPPER_API BOOL Triangulation3_EEK_IsValid(void* ptr);
+	CGALWRAPPER_API BOOL Triangulation3_EEK_IsValid(void* ptr, BOOL verbose);
+
+	CGALWRAPPER_API int Triangulation3_EEK_FiniteVertexCount(void* ptr);
 
 	CGALWRAPPER_API int Triangulation3_EEK_VertexCount(void* ptr);
 

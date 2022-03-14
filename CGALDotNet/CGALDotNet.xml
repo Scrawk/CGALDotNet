@@ -12541,6 +12541,11 @@
         </member>
         <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.VertexCount">
             <summary>
+            Returns the number of vertices.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Triangulations.BaseTriangulation3.FiniteVertexCount">
+            <summary>
             Returns the number of finite vertices.
             </summary>
         </member>
@@ -14012,6 +14017,21 @@
             The vertexs hash code.
             </summary>
             <returns>The vertexs hash code.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriVertex3.EnumerateVertices(CGALDotNet.Triangulations.BaseTriangulation3)">
+            <summary>
+            Enumerate around all the other vertices in this vertexs cell.
+            </summary>
+            <param name="tri">The triangulation the vertex belongs to.</param>
+            <returns>All the other vertices in this vertexs cell</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.TriVertex3.EnumerateVertices(CGALDotNet.Triangulations.TriVertex3[],CGALDotNet.Triangulations.TriCell3[])">
+            <summary>
+            Enumerate around all the other vertices in this vertexs cell.
+            </summary>
+            <param name="vertices">A array of the other vertices in the triangulation.</param>
+            <param name="cells">A array of the other cells in the triangulation.</param>
+            <returns>All the other vertices in this vertexs cell</returns>
         </member>
         <member name="T:CGALDotNet.ArrayCache">
             <summary>

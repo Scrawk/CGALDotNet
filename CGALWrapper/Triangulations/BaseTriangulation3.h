@@ -75,16 +75,16 @@ public:
 		int index = 0;
 		for (auto& vert : model.all_vertex_handles())
 		{
-			if (model.is_infinite(vert))
-			{
-				vert->info() = NULL_INDEX;
-			}
-			else
-			{
+			//if (model.is_infinite(vert))
+			//{
+			//	vert->info() = NULL_INDEX;
+			//}
+			//else
+			//{
 				vert->info() = index;
 				vertexMap.insert(std::pair<int, VERT>(index, vert));
 				index++;
-			}
+			//}
 
 		}
 
@@ -102,16 +102,16 @@ public:
 		int index = 0;
 		for (auto cell = model.all_cells_begin(); cell != model.all_cells_end(); ++cell)
 		{
-			if (model.is_infinite(cell))
-			{
-				cellIndexMap.insert(std::pair<CELL, int>(cell, NULL_INDEX));
-			}
-			else
-			{
+			//if (model.is_infinite(cell))
+			//{
+			//	cellIndexMap.insert(std::pair<CELL, int>(cell, NULL_INDEX));
+			//}
+			//else
+			//{
 				cellMap.insert(std::pair<int, CELL>(index, cell));
 				cellIndexMap.insert(std::pair<CELL, int>(cell, index));
 				index++;
-			}
+			//}
 		}
 	
 		buildStamp++;
@@ -151,19 +151,9 @@ public:
 			return nullptr;
 	}
 
-	BOOL IsValid(int level)
+	BOOL IsValid(BOOL verbose)
 	{
-		return model.is_valid(level);
-	}
-
-	int VertexCount()
-	{
-		return (int)model.number_of_vertices();
-	}
-
-	int FaceCount()
-	{
-		return (int)model.number_of_faces();
+		return model.is_valid(verbose);
 	}
 
 	int Dimension()
@@ -171,38 +161,93 @@ public:
 		return model.dimension();
 	}
 
-	BOOL IsValid()
+	int VertexCount()
 	{
-		return model.is_valid();
+		int count = 0;
+		for (const auto& vert : model.all_vertex_handles())
+			count++;
+
+		return count;
+
+		//return (int)model.number_of_vertices();
+	}
+
+	int FiniteVertexCount()
+	{
+		int count = 0;
+		for (const auto& vert : model.all_vertex_handles())
+			if (!model.is_infinite(vert))
+				count++;
+
+		return count;
 	}
 
 	int CellCount()
 	{
-		return (int)model.number_of_cells();
+		int count = 0;
+		for (const auto& cell : model.all_cell_handles())
+			count++;
+
+		return count;
+
+		//return (int)model.number_of_cells();
 	}
 
 	int FiniteCellCount()
 	{
-		return (int)model.number_of_finite_cells();
+		int count = 0;
+		for (const auto& cell : model.all_cell_handles())
+			if (!model.is_infinite(cell))
+				count++;
+
+		return count;
+
+		//return (int)model.number_of_finite_cells();
 	}
 
 	int EdgeCount()
 	{
-		return (int)model.number_of_edges();
+		int count = 0;
+		for (auto edge = model.all_edges_begin(); edge != model.all_edges_end(); ++edge)
+			count++;
+
+		return count;
+
+		//return (int)model.number_of_edges();
 	}
 
 	int FiniteEdgeCount()
 	{
+		//int count = 0;
+		//for (auto edge = model.all_edges_begin(); edge != model.all_edges_end(); ++edge)
+		//	if (!model.is_infinite(edge))
+		//		count++;
+
+		//return count;
+
 		return (int)model.number_of_finite_edges();
 	}
 
 	int FacetCount()
 	{
-		return (int)model.number_of_facets();
+		int count = 0;
+		for (auto face = model.all_facets_begin(); face != model.all_facets_end(); ++face)
+			count++;
+
+		return count;
+
+		//return (int)model.number_of_facets();
 	}
 
 	int FiniteFacetCount()
 	{
+		//int count = 0;
+		//for (auto face = model.all_facets_begin(); face != model.all_facets_end(); ++face)
+		//	if (!model.is_infinite(face))
+		//		count++;
+
+		//return count;
+
 		return (int)model.number_of_finite_facets();
 	}
 

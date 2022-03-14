@@ -115,6 +115,11 @@ namespace CGALDotNet.Triangulations
             }
         }
 
+        /// <summary>
+        /// Enumerate around all the other vertices in this vertexs cell.
+        /// </summary>
+        /// <param name="tri">The triangulation the vertex belongs to.</param>
+        /// <returns>All the other vertices in this vertexs cell</returns>
         public IEnumerable<TriVertex3> EnumerateVertices(BaseTriangulation3 tri)
         {
             if (tri.GetCell(CellIndex, out TriCell3 c))
@@ -122,12 +127,37 @@ namespace CGALDotNet.Triangulations
                 for (int i = 0; i < 4; i++)
                 {
                     int index = c.GetVertexIndex(i);
-                    if (index != this.Index && tri.GetVertex(index, out TriVertex3 v))
+                    if (index != Index && tri.GetVertex(index, out TriVertex3 v))
                     {
                         yield return v;
                     }
                 }
             }
         }
+
+        /// <summary>
+        /// Enumerate around all the other vertices in this vertexs cell.
+        /// </summary>
+        /// <param name="vertices">A array of the other vertices in the triangulation.</param>
+        /// <param name="cells">A array of the other cells in the triangulation.</param>
+        /// <returns>All the other vertices in this vertexs cell</returns>
+        public IEnumerable<TriVertex3> EnumerateVertices(TriVertex3[] vertices, TriCell3[] cells)
+        {
+            if (CellIndex == CGALGlobal.NULL_INDEX)
+                yield break;
+
+            var c = cells[CellIndex];
+
+            for (int i = 0; i < 4; i++)
+            {
+                int index = c.GetVertexIndex(i);
+
+                if (index == CGALGlobal.NULL_INDEX || index == Index)
+                    continue;
+
+                yield return vertices[index];
+            }
+        }
     }
+
 }

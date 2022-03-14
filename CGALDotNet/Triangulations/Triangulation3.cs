@@ -165,6 +165,7 @@ namespace CGALDotNet.Triangulations
             builder.AppendLine("IsValid = " + IsValid());
             builder.AppendLine("Dimension = " + Dimension);
             builder.AppendLine("VertexCount = " + VertexCount);
+            builder.AppendLine("FiniteVertexCount = " + FiniteVertexCount);
             builder.AppendLine("TetrahedronCount = " + TetrahedronCount);
             builder.AppendLine("FiniteTetrahedronCount = " + FiniteTetrahedronCount);
             builder.AppendLine("EdgeCount = " + EdgeCount);

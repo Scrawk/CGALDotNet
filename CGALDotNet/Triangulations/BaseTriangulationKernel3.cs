@@ -22,9 +22,11 @@ namespace CGALDotNet.Triangulations
 
         internal abstract int Dimension(IntPtr ptr);
 
-        internal abstract bool IsValid(IntPtr ptr);
+        internal abstract bool IsValid(IntPtr ptr, bool verbose);
 
         internal abstract int VertexCount(IntPtr ptr);
+
+        internal abstract int FiniteVertexCount(IntPtr ptr);
 
         internal abstract int CellCount(IntPtr ptr);
 

@@ -78,9 +78,14 @@ namespace CGALDotNet.Triangulations
         public int Dimension => Kernel.Dimension(Ptr);
 
         /// <summary>
-        /// Returns the number of finite vertices.
+        /// Returns the number of vertices.
         /// </summary>
         public int VertexCount => Kernel.VertexCount(Ptr);
+
+        /// <summary>
+        /// Returns the number of finite vertices.
+        /// </summary>
+        public int FiniteVertexCount => Kernel.FiniteVertexCount(Ptr);
 
         /// <summary>
         /// Returns the number of cells or 0 if Dimension less than 3.
@@ -136,7 +141,7 @@ namespace CGALDotNet.Triangulations
         /// <returns></returns>
         public bool IsValid()
         {
-            return Kernel.IsValid(Ptr);
+            return Kernel.IsValid(Ptr, false);
         }
 
         /// <summary>

@@ -29,65 +29,87 @@ namespace CGALDotNetConsole
         public static void Main(string[] args)
         {
 
-            var points = Point3d.RandomPoints(0, 10, new Box3f(-10, 10));
+            Tri3Test();
+        }
+
+        private static void Tri3Test()
+        {
+            var box = new Box3d(-20, 20);
+            var randomPoints = Point3d.RandomPoints(1, 10, box);
+
+            var m_triangulation = new DelaunayTriangulation3<EEK>(randomPoints);
+
+            m_triangulation.Print();
+
+            var points = new Point3d[m_triangulation.VertexCount];
+            m_triangulation.GetPoints(points, points.Length);
             points.Round(2);
 
-            var tri = new DelaunayTriangulation3<EEK>(points);
+            var verts = new TriVertex3[m_triangulation.VertexCount];
+            m_triangulation.GetVertices(verts, verts.Length);
+            verts.Round(2);
 
-            tri.Print();
+            var segments = new int[m_triangulation.EdgeCount * 2];
+            m_triangulation.GetSegmentIndices(segments, segments.Length);
 
-            var vertices = new TriVertex3[tri.VertexCount];
-            tri.GetVertices(vertices, vertices.Length);
+            Console.WriteLine("Segments = " + segments.Length);
 
-            var cells = new TriCell3[tri.TetrahedronCount];
-            tri.GetCells(cells, cells.Length);
-
-            var segments = new int[tri.EdgeCount * 2];
-            tri.GetSegmentIndices(segments, segments.Length);
-
-            var triangles = new int[tri.TriangleCount * 3];
-            tri.GetTriangleIndices(triangles, triangles.Length);
+            foreach (var p in points)
+            {
+                Console.WriteLine(p);
+            }
 
             Console.WriteLine("");
-            Console.WriteLine("vertices");
 
-            foreach (var v in vertices)
+            foreach (var v in verts)
+            {
                 Console.WriteLine(v);
+            }
 
-            Console.WriteLine("");
-            Console.WriteLine("cells");
+            int edges = 0;
 
-            foreach (var c in cells)
-                Console.WriteLine(c);
-
-            Console.WriteLine("");
-            Console.WriteLine("segments");
             for (int i = 0; i < segments.Length / 2; i++)
             {
-                int i0 = segments[i * 2 + 0];
-                int i1 = segments[i * 2 + 1];
+                int A = segments[i * 2 + 0];
+                int B = segments[i * 2 + 1];
 
-                Console.WriteLine(i0 + " " + i1);
+                Console.WriteLine("Create edge " + A + " " + B);
+
+                if (A < 0 || A >= points.Length)
+                {
+                    //Console.WriteLine("A is out of bounds");
+                    continue;
+                }
+
+                if (B < 0 || B >= points.Length)
+                {
+                    //Console.WriteLine("B is out of bounds");
+                    continue;
+                }
+
+                var a = points[A];
+                var b = points[B];
+
+                if (!a.IsFinite)
+                {
+                    //Console.WriteLine("a is not finite");
+                    //Console.WriteLine(a);
+                    continue;
+                }
+
+                if (!b.IsFinite)
+                {
+                    //Console.WriteLine("b is not finite");
+                    //Console.WriteLine(b);
+                    continue;
+                }
+
+                edges++;
+
+                Console.WriteLine("Create edge " + a + " " + b);
             }
 
-            Console.WriteLine("");
-            Console.WriteLine("Triangles");
-            for (int i = 0; i < triangles.Length / 3; i++)
-            {
-                int i0 = triangles[i * 3 + 0];
-                int i1 = triangles[i * 3 + 1];
-                int i2 = triangles[i * 3 + 2];
-
-                Console.WriteLine(i0 + " " + i1 + " " + i2);
-            }
-
-
-            Console.WriteLine("");
-
-            tri.GetVertex(1, out TriVertex3 vert);
-
-            Console.WriteLine(vert);
-
+            Console.WriteLine("Created " + edges + " edges)");
         }
 
 

@@ -43,14 +43,19 @@ namespace CGALDotNet.Triangulations
             return Triangulation3_EEK_Dimension(ptr);
         }
 
-        internal override bool IsValid(IntPtr ptr)
+        internal override bool IsValid(IntPtr ptr, bool verbose)
         {
-            return Triangulation3_EEK_IsValid(ptr);
+            return Triangulation3_EEK_IsValid(ptr, verbose);
         }
 
         internal override int VertexCount(IntPtr ptr)
         {
             return Triangulation3_EEK_VertexCount(ptr);
+        }
+
+        internal override int FiniteVertexCount(IntPtr ptr)
+        {
+            return Triangulation3_EEK_FiniteVertexCount(ptr);
         }
 
         internal override int CellCount(IntPtr ptr)
@@ -172,10 +177,13 @@ namespace CGALDotNet.Triangulations
         private static extern int Triangulation3_EEK_Dimension(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern bool Triangulation3_EEK_IsValid(IntPtr ptr);
+        private static extern bool Triangulation3_EEK_IsValid(IntPtr ptr, bool verbose);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Triangulation3_EEK_VertexCount(IntPtr ptr);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int Triangulation3_EEK_FiniteVertexCount(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern int Triangulation3_EEK_CellCount(IntPtr ptr);
