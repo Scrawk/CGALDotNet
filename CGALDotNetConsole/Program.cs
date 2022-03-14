@@ -38,7 +38,6 @@ namespace CGALDotNetConsole
             var  indices = new List<int>();
             poly.Triangulate(indices);
 
- 
             //LibTess();
         }
 
