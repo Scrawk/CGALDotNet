@@ -64,6 +64,12 @@ extern "C"
 
 	CGALWRAPPER_API void Triangulation3_EEK_GetTetrahedraIndices(void* ptr, int* indices, int count);
 
+	CGALWRAPPER_API void Triangulation3_EEK_GetSegments(void* ptr, Segment3d* segments, int count);
+
+	CGALWRAPPER_API void Triangulation3_EEK_GetTriangles(void* ptr, Triangle3d* triangles, int count);
+
+	CGALWRAPPER_API void Triangulation3_EEK_GetTetahedrons(void* ptr, Tetahedron3d* tetahedrons, int count);
+
 	CGALWRAPPER_API void Triangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix);
 
 }

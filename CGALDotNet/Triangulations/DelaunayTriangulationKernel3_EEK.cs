@@ -4,6 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 
 using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Triangulations
 {
@@ -153,6 +154,21 @@ namespace CGALDotNet.Triangulations
             DelaunayTriangulation3_EEK_GetTetrahedraIndices(ptr, indices, count);
         }
 
+        internal override void GetSegments(IntPtr ptr, Segment3d[] indices, int count)
+        {
+            DelaunayTriangulation3_EEK_GetSegments(ptr, indices, count);
+        }
+
+        internal override void GetTriangles(IntPtr ptr, Triangle3d[] indices, int count)
+        {
+            DelaunayTriangulation3_EEK_GetTriangles(ptr, indices, count);
+        }
+
+        internal override void GetTetrahedrons(IntPtr ptr, Tetrahedron3d[] indices, int count)
+        {
+            DelaunayTriangulation3_EEK_GetTetrahedrons(ptr, indices, count);
+        }
+
         internal override void Transform(IntPtr ptr, Matrix4x4d matrix)
         {
             DelaunayTriangulation3_EEK_Transform(ptr, matrix);
@@ -261,6 +277,15 @@ namespace CGALDotNet.Triangulations
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation3_EEK_GetTetrahedraIndices(IntPtr ptr, [Out] int[] indices, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation3_EEK_GetSegments(IntPtr ptr, [Out] Segment3d[] segments, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation3_EEK_GetTriangles(IntPtr ptr, [Out] Triangle3d[] triangles, int count);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern void DelaunayTriangulation3_EEK_GetTetrahedrons(IntPtr ptr, [Out] Tetrahedron3d[] Tetrahedrons, int count);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
         private static extern void DelaunayTriangulation3_EEK_Transform(IntPtr ptr, Matrix4x4d matrix);

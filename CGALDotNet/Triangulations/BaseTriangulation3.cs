@@ -314,6 +314,12 @@ namespace CGALDotNet.Triangulations
             Kernel.GetSegmentIndices(Ptr, indices, count);
         }
 
+        public void GetSegments(Segment3d[] segments, int count)
+        {
+            ErrorUtil.CheckArray(segments, count);
+            Kernel.GetSegments(Ptr, segments, count);
+        }
+
         /// <summary>
         /// Get the indices of the cells triangles in the triangulation.
         /// </summary>
@@ -325,6 +331,12 @@ namespace CGALDotNet.Triangulations
             Kernel.GetTriangleIndices(Ptr, indices, count);
         }
 
+        public void GetTriangles(Triangle3d[] triangles, int count)
+        {
+            ErrorUtil.CheckArray(triangles, count);
+            Kernel.GetTriangles(Ptr, triangles, count);
+        }
+
         /// <summary>
         /// Get the indices of the tetrahedron cells in the triangulation.
         /// </summary>
@@ -334,6 +346,12 @@ namespace CGALDotNet.Triangulations
         {
             ErrorUtil.CheckArray(indices, count);
             Kernel.GetTetrahedraIndices(Ptr, indices, count);
+        }
+
+        public void GetTetrahedrons(Tetrahedron3d[] tetrahedrons, int count)
+        {
+            ErrorUtil.CheckArray(tetrahedrons, count);
+            Kernel.GetTetrahedrons(Ptr, tetrahedrons, count);
         }
 
         /// <summary>

@@ -375,6 +375,25 @@ struct Triangle3d
 
 };
 
+struct Tetahedron3d
+{
+    Point3d a;
+    Point3d b;
+    Point3d c;
+    Point3d d;
+
+    template<class K>
+    static Tetahedron3d FromCGAL(CGAL::Point_3<K> a, CGAL::Point_3<K> b, CGAL::Point_3<K> c, CGAL::Point_3<K> d)
+    {
+        auto A = Point3d::FromCGAL<K>(a);
+        auto B = Point3d::FromCGAL<K>(b);
+        auto C = Point3d::FromCGAL<K>(c);
+        auto D = Point3d::FromCGAL<K>(d);
+        return { A, B, C, D };
+    }
+
+};
+
 
 
 

@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 using CGALDotNetGeometry.Numerics;
+using CGALDotNetGeometry.Shapes;
 
 namespace CGALDotNet.Triangulations
 {
@@ -65,6 +66,12 @@ namespace CGALDotNet.Triangulations
         internal abstract void GetTriangleIndices(IntPtr ptr, int[] indices, int count);
 
         internal abstract void GetTetrahedraIndices(IntPtr ptr, int[] indices, int count);
+
+        internal abstract void GetSegments(IntPtr ptr, Segment3d[] indices, int count);
+
+        internal abstract void GetTriangles(IntPtr ptr, Triangle3d[] indices, int count);
+
+        internal abstract void GetTetrahedrons(IntPtr ptr, Tetrahedron3d[] indices, int count);
 
         internal abstract void Transform(IntPtr ptr, Matrix4x4d matrix);
     }

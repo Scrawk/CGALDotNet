@@ -183,6 +183,24 @@ void Triangulation3_EEK_GetTetrahedraIndices(void* ptr, int* indices, int count)
 	tri->GetTetrahedraIndices(indices, count);
 }
 
+void Triangulation3_EEK_GetSegments(void* ptr, Segment3d* segments, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetSegments(segments, count);
+}
+
+void Triangulation3_EEK_GetTriangles(void* ptr, Triangle3d* triangles, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetTriangles(triangles, count);
+}
+
+void Triangulation3_EEK_GetTetahedrons(void* ptr, Tetahedron3d* tetahedrons, int count)
+{
+	auto tri = Tri3::CastToTriangulation3(ptr);
+	tri->GetTetahedrons(tetahedrons, count);
+}
+
 void Triangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix)
 {
 	auto tri = Tri3::CastToTriangulation3(ptr);

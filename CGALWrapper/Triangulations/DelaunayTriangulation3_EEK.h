@@ -64,6 +64,12 @@ extern "C"
 
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetTetrahedraIndices(void* ptr, int* indices, int count);
 
+	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetSegments(void* ptr, Segment3d* segments, int count);
+
+	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetTriangles(void* ptr, Triangle3d* triangles, int count);
+
+	CGALWRAPPER_API void DelaunayTriangulation3_EEK_GetTetahedrons(void* ptr, Tetahedron3d* tetahedrons, int count);
+
 	CGALWRAPPER_API void DelaunayTriangulation3_EEK_Transform(void* ptr, const Matrix4x4d& matrix);
 
 	CGALWRAPPER_API BOOL DelaunayTriangulation3_EEK_Move(void* ptr, int index, const Point3d& point, BOOL ifNoCollision);

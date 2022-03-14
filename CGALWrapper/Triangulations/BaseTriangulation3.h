@@ -446,7 +446,6 @@ public:
 		}
 	}
 
-
 	void GetSegmentIndices(int* indices, int count)
 	{
 		BuildVertexIndices();
@@ -492,6 +491,66 @@ public:
 
 			index++;
 			if (index * 4 >= count) return;
+		}
+	}
+
+	void GetSegments(Segment3d* segments, int count)
+	{
+		BuildVertexIndices();
+
+		int index = 0;
+		for (auto edge = model.all_edges_begin(); edge != model.all_edges_end(); ++edge)
+		{
+			auto a = edge->first->vertex(0)->point();
+			auto b = edge->first->vertex(1)->point();
+
+			segments[index].a = Point3d::FromCGAL<K>(a);
+			segments[index].b = Point3d::FromCGAL<K>(b);
+
+			index++;
+			if (index >= count) return;
+		}
+	}
+
+	void GetTriangles(Triangle3d* triangles, int count)
+	{
+		BuildVertexIndices();
+
+		int index = 0;
+		for (auto face = model.all_facets_begin(); face != model.all_facets_end(); ++face)
+		{
+			auto a = face->first->vertex(0)->point();
+			auto b = face->first->vertex(1)->point();
+			auto c = face->first->vertex(2)->point();
+
+			triangles[index].a = Point3d::FromCGAL<K>(a);
+			triangles[index].b = Point3d::FromCGAL<K>(b);
+			triangles[index].c = Point3d::FromCGAL<K>(c);
+
+			index++;
+			if (index >= count) return;
+		}
+	}
+
+	void GetTetahedrons(Tetahedron3d* tetahedrons, int count)
+	{
+		BuildVertexIndices();
+
+		int index = 0;
+		for (auto cell = model.all_cells_begin(); cell != model.all_cells_end(); ++cell)
+		{
+			auto a = cell->vertex(0)->point();
+			auto b = cell->vertex(1)->point();
+			auto c = cell->vertex(2)->point();
+			auto d = cell->vertex(3)->point();
+
+			tetahedrons[index].a = Point3d::FromCGAL<K>(a);
+			tetahedrons[index].b = Point3d::FromCGAL<K>(b);
+			tetahedrons[index].c = Point3d::FromCGAL<K>(c);
+			tetahedrons[index].d = Point3d::FromCGAL<K>(d);
+
+			index++;
+			if (index >= count) return;
 		}
 	}
 
