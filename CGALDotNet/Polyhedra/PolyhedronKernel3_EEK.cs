@@ -355,6 +355,87 @@ namespace CGALDotNet.Polyhedra
 				hexagons, hexagonCount);
 		}
 
+		internal override int AddFacetToBorder(IntPtr ptr, int h, int g)
+        {
+			return Polyhedron3_EEK_AddFacetToBorder(ptr, h, g);
+        }
+
+		internal override int AddVertexAndFacetToBorder(IntPtr ptr, int h, int g)
+        {
+			return Polyhedron3_EEK_AddVertexAndFacetToBorder(ptr, h, g);
+
+		}
+
+		internal override int CreateCenterVertex(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_CreateCenterVertex(ptr, h);
+        }
+
+		internal override int EraseCenterVertex(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_EraseCenterVertex(ptr, h);
+        }
+
+		internal override bool EraseConnectedComponent(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_EraseConnectedComponent(ptr, h);
+        }
+
+		internal override bool EraseFacet(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_EraseFacet(ptr, h);	
+        }
+
+		internal override int FillHole(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_FillHole(ptr, h);	
+        }
+
+		internal override int FlipEdge(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_FlipEdge(ptr, h);
+        }
+
+		internal override int JoinFacet(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_JoinFacet(ptr, h);	
+        }
+
+		internal override int JoinLoop(IntPtr ptr, int h, int g)
+        {
+			return Polyhedron3_EEK_JoinLoop(ptr, h, g);	
+        }
+
+		internal override int JoinVertex(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_JoinVertex(ptr, h);
+        }
+
+		internal override int MakeHole(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_MakeHole(ptr, h);	
+        }
+
+		internal override int SpliEdge(IntPtr ptr, int h)
+        {
+			return Polyhedron3_EEK_SpliEdge(ptr, h);	
+        }
+
+		internal override int SplitFacet(IntPtr ptr, int h, int g)
+        {
+			return Polyhedron3_EEK_SplitFacet(ptr, h, g);	
+        }
+
+		internal override int SplitLoop(IntPtr ptr, int h, int g, int k)
+        {
+			return Polyhedron3_EEK_SplitLoop(ptr, h, g, k);
+        }
+
+		internal override int SplitVertex(IntPtr ptr, int h, int g)
+        {
+			return Polyhedron3_EEK_SplitVertex(ptr, h, g);
+        }
+
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern IntPtr Polyhedron3_EEK_Create();
 
@@ -556,5 +637,53 @@ namespace CGALDotNet.Polyhedra
 			[Out] int[] quads, int quadCount,
 			[Out] int[] pentagons, int pentagonCount,
 			[Out] int[] hexagons, int hexagonCount);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_AddFacetToBorder(IntPtr ptr, int h, int g);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_AddVertexAndFacetToBorder(IntPtr ptr, int h, int g);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_CreateCenterVertex(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_EraseCenterVertex(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_EraseConnectedComponent(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern bool Polyhedron3_EEK_EraseFacet(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_FillHole(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_FlipEdge(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_JoinFacet(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_JoinLoop(IntPtr ptr, int h, int g);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_JoinVertex(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_MakeHole(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_SpliEdge(IntPtr ptr, int h);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_SplitFacet(IntPtr ptr, int h, int g);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_SplitLoop(IntPtr ptr, int h, int g, int k);
+
+		[DllImport(DLL_NAME, CallingConvention = CDECL)]
+		private static extern int Polyhedron3_EEK_SplitVertex(IntPtr ptr, int h, int g);
 	}
 }

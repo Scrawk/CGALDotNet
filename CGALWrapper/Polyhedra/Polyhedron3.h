@@ -63,7 +63,7 @@ public:
 	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
 	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
 
-private:
+public:
 
 	PolyhedronMap<K> map;
 
@@ -72,8 +72,6 @@ private:
 
 	std::unordered_map<Face_Des, Vector> faceNormalMap;
 	bool rebuildFaceNormalMap = true;
-
-public:
 
 	Polyhedron3()
 	{
@@ -257,6 +255,7 @@ public:
 		if (faces) poly->map.OnFacesChanged();
 		if (edges) poly->map.OnHalfedgesChanged();
 	}
+
 	static void ClearNormalMaps(void* ptr, BOOL vertices, BOOL faces)
 	{
 		auto poly = CastToPolyhedron(ptr);
@@ -1205,6 +1204,283 @@ public:
 			}
 
 		}
+	}
+
+	static int AddFacetToBorder(void* ptr, int h, int g)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+		auto eg = poly->FindHalfedgeDes(g);
+
+		if (eh == nullptr || eg == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.add_facet_to_border(*eh, *eg);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int AddVertexAndFacetToBorder(void* ptr, int h, int g)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+		auto eg = poly->FindHalfedgeDes(g);
+
+		if (eh == nullptr || eg == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.add_vertex_and_facet_to_border(*eh, *eg);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int CreateCenterVertex(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.create_center_vertex(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int EraseCenterVertex(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.erase_center_vertex(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static BOOL EraseConnectedComponent(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return FALSE;
+
+		poly->model.erase_connected_component(*eh);
+
+		poly->OnModelChanged();
+
+		return TRUE;
+	}
+
+	static BOOL EraseFacet(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return FALSE;
+
+		poly->model.erase_facet(*eh);
+
+		poly->OnModelChanged();
+
+		return TRUE;
+	}
+
+	static int FillHole(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.fill_hole(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int FlipEdge(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.flip_edge(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int JoinFacet(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.join_facet(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int JoinLoop(void* ptr, int h, int g)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+		auto eg = poly->FindHalfedgeDes(g);
+
+		if (eh == nullptr || eg == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.join_loop(*eh, *eg);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int JoinVertex(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.join_vertex(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int MakeHole(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.make_hole(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int SpliEdge(void* ptr, int h)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+
+		if (eh == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.split_edge(*eh);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int SplitFacet(void* ptr, int h, int g)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+		auto eg = poly->FindHalfedgeDes(g);
+
+		if (eh == nullptr || eg == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.split_facet(*eh, *eg);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int SplitLoop(void* ptr, int h, int g, int k)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+		auto eg = poly->FindHalfedgeDes(g);
+		auto ek = poly->FindHalfedgeDes(k);
+
+		if (eh == nullptr || eg == nullptr || ek == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.split_loop(*eh, *eg, *ek);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
+	}
+
+	static int SplitVertex(void* ptr, int h, int g)
+	{
+		auto poly = CastToPolyhedron(ptr);
+
+		auto eh = poly->FindHalfedgeDes(h);
+		auto eg = poly->FindHalfedgeDes(g);
+
+		if (eh == nullptr || eg == nullptr)
+			return NULL_INDEX;
+
+		auto e = poly->model.split_vertex(*eh, *eg);
+
+		poly->OnModelChanged();
+		poly->map.BuildHalfedgeMaps(poly->model);
+
+		return poly->FindHalfedgeIndex(e);
 	}
 
 };

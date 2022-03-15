@@ -149,5 +149,37 @@ namespace CGALDotNet.Polyhedra
 			int[] pentagons, int pentagonCount,
 			int[] hexagons, int hexagonCount);
 
+		internal abstract int AddFacetToBorder(IntPtr ptr, int h, int g);
+
+		internal abstract int AddVertexAndFacetToBorder(IntPtr ptr, int h, int g);
+
+		internal abstract int CreateCenterVertex(IntPtr ptr, int h);
+
+		internal abstract int EraseCenterVertex(IntPtr ptr, int h);
+
+		internal abstract bool EraseConnectedComponent(IntPtr ptr, int h);
+
+		internal abstract bool EraseFacet(IntPtr ptr, int h);
+
+		internal abstract int FillHole(IntPtr ptr, int h);
+
+		internal abstract int FlipEdge(IntPtr ptr, int h);
+
+		internal abstract int JoinFacet(IntPtr ptr, int h);
+
+		internal abstract int JoinLoop(IntPtr ptr, int h, int g);
+
+		internal abstract int JoinVertex(IntPtr ptr, int h);
+
+		internal abstract int MakeHole(IntPtr ptr, int h);
+
+		internal abstract int SpliEdge(IntPtr ptr, int h);
+
+		internal abstract int SplitFacet(IntPtr ptr, int h, int g);
+
+		internal abstract int SplitLoop(IntPtr ptr, int h, int g, int k);
+
+		internal abstract int SplitVertex(IntPtr ptr, int h, int g);
+
 	}
 }

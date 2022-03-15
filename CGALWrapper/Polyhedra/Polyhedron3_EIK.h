@@ -155,4 +155,36 @@ extern "C"
 		int* quads, int quadCount,
 		int* pentagons, int pentagonCount,
 		int* hexagons, int hexagonCount);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_AddFacetToBorder(void* ptr, int h, int g);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_AddVertexAndFacetToBorder(void* ptr, int h, int g);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_CreateCenterVertex(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_EraseCenterVertex(void* ptr, int h);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EIK_EraseConnectedComponent(void* ptr, int h);
+
+	CGALWRAPPER_API BOOL Polyhedron3_EIK_EraseFacet(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_FillHole(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_FlipEdge(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_JoinFacet(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_JoinLoop(void* ptr, int h, int g);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_JoinVertex(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_MakeHole(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_SpliEdge(void* ptr, int h);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_SplitFacet(void* ptr, int h, int g);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_SplitLoop(void* ptr, int h, int g, int k);
+
+	CGALWRAPPER_API int Polyhedron3_EIK_SplitVertex(void* ptr, int h, int g);
 }

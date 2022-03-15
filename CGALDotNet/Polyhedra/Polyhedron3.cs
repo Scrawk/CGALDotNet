@@ -37,6 +37,14 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Construct from points and polygon indices.
+        /// </summary>
+        public Polyhedron3(Point3d[] points, PolygonalIndices indices) : base(new K())
+        {
+            CreatePolygonalMesh(points, points.Length, indices);
+        }
+
+        /// <summary>
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The meshs pointer.</param>
@@ -1529,8 +1537,6 @@ namespace CGALDotNet.Polyhedra
             return points;
         }
 
-        /*
-
         /// <summary>
         /// Return all the points in the mesh in a list.
         /// </summary>
@@ -1539,13 +1545,269 @@ namespace CGALDotNet.Polyhedra
         {
             int count = VertexCount;
             var points = new List<Point3d>(count);
-           for (int i = 0; i < count.; i++)
+           for (int i = 0; i < count; i++)
                 points.Add(GetPoint(i));
         
             return points;
         }
 
-        */
+
+        /// <summary>
+        /// https://doc.cgal.org/latest/Polyhedron/classCGAL_1_1Polyhedron__3.html#a73119c0c90bf8612da003305af25a52a
+        /// creates a new facet within the hole incident to h and g by connecting the 
+        /// vertex denoted by g with the vertex denoted by h with a new halfedge and 
+        /// filling this separated part of the hole with a new facet, such that the 
+        /// new facet is incident to g.
+        ///
+        /// Precondition
+        /// h->is_border(), g->is_border(), h != g, h->next() != g, 
+        /// and g can be reached along the same hole starting with h.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <param name="g">a halfedge index</param>
+        /// <returns> Returns the halfedge of the new edge that is incident to the new facet.</returns>
+        public int AddFacetToBorder(int h, int g)
+        {
+            return Kernel.AddFacetToBorder(Ptr, h, g);
+        }
+
+        /// <summary>
+        /// creates a new facet within the hole incident to h and g by connecting the 
+        /// tip of g with the tip of h with two new halfedges and a new vertex and 
+        /// filling this separated part of the hole with a new facet, such that the 
+        /// new facet is incident to g.
+        ///
+        /// Precondition
+        /// h->is_border(), g->is_border(), h != g, and g can be reached along the same hole starting with h.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <param name="g">a halfedge index</param>
+        /// <returns>Returns the halfedge of the new edge that is incident to the new facet and the new vertex.</returns>
+        public int AddVertexAndFacetToBorder(int h, int g)
+        {
+            return Kernel.AddVertexAndFacetToBorder(Ptr, h, g);
+        }
+
+        /// <summary>
+        /// barycentric triangulation of h->facet().
+        /// Creates a new vertex, a copy of h->vertex(), and connects it to each vertex incident 
+        /// to h->facet() splitting h->facet() into triangles.h remains incident to the original 
+        /// facet, all other triangles are copies of this facet.
+        /// Precondition
+        /// h is not a border halfedge.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>Returns the halfedge h->next() 
+        /// after the operation, i.e., a halfedge pointing to the new vertex.The time is 
+        /// proportional to the size of the facet.</returns>
+        public int CreateCenterVertex(int h)
+        {
+            return Kernel.CreateCenterVertex(Ptr, h);
+        }
+
+        /// <summary>
+        /// reverses create_center_vertex().
+        /// Erases the vertex pointed to by g and all incident halfedges thereby merging all 
+        /// incident facets.Only g->facet() remains. The neighborhood of g->vertex() may not 
+        /// be triangulated, it can have larger facets.
+        /// Precondition
+        /// None of the incident facets of g->vertex() is a hole. There are at least two distinct facets incident to the facets that are incident to g->vertex(). (This prevents the operation from collapsing a volume into two facets glued together with opposite orientations, such as would happen with any vertex of a tetrahedron.)
+        /// Supports_removal must be CGAL::Tag_true.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>Returns the halfedge g->prev(). 
+        /// Thus, the invariant h == erase_center_vertex(create_center_vertex(h)) 
+        /// holds if h is not a border halfedge.The time is proportional to the sum of the size of all incident facets.</returns>
+        public int EraseCenterVertex(int h)
+        {
+            return Kernel.EraseCenterVertex(Ptr, h);
+        }
+
+        /// <summary>
+        /// removes the incident facet of h and changes all halfedges incident to the facet 
+        /// into border edges or removes them from the polyhedral surface if they were already border edges.
+        /// If this creates isolated vertices they get removed as well.See make_hole(h) for a more specialized variant.
+        /// Precondition
+        /// h->is_border() == false.
+        /// Supports_removal must be CGAL::Tag_true
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns></returns>
+        public bool EraseConnectedComponent(int h)
+        {
+            return Kernel.EraseConnectedComponent(Ptr, h);
+        }
+
+        /// <summary>
+        /// Erase a facet.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>returns a range of handles over the facets.</returns>
+        public bool EraseFacet(int h)
+        {
+            return Kernel.EraseFacet(Ptr, h);
+        }
+
+        /// <summary>
+        /// fills a hole with a newly created facet.
+        /// Makes all border halfedges of the hole denoted 
+        /// by h incident to the new facet.Returns h.
+        /// Precondition
+        /// h.is_border().
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns></returns>
+        public int FillHole(int h)
+        {
+            return Kernel.FillHole(Ptr, h);
+        }
+
+        /// <summary>
+        /// performs an edge flip.
+        /// 
+        /// Precondition
+        /// h != Halfedge_handle() and both facets incident to h are triangles.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>It returns h after rotating the edge h one vertex in the direction of the face orientation.</returns>
+        public int FlipEdge(int h)
+        {
+            return Kernel.FlipEdge(Ptr, h);
+        }
+
+        /// <summary>
+        /// joins the two facets incident to h.
+        /// The facet incident to h->opposite() gets removed.Both facets might be holes. 
+        /// 
+        /// Precondition
+        /// The degree of both vertices incident to h is at least three(no antennas).
+        /// Supports_removal must be CGAL::Tag_true.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>Returns the predecessor of h around the facet. The invariant join_facet(split_facet(h, g)) 
+        /// returns h and keeps the polyhedron unchanged.The time is proportional to the size of 
+        /// the facet removed and the time to compute h->prev().</returns>
+        public int JoinFacet(int h)
+        {
+            return Kernel.JoinFacet(Ptr, h);
+        }
+
+        /// <summary>
+        /// glues the boundary of the two facets denoted by h and g together and returns h.
+        /// Both facets and the vertices along the facet denoted by g gets removed.Both facets may be holes.
+        /// The invariant join_loop(h, split_loop(h, i, j)) 
+        /// Precondition
+        /// The facets denoted by h and g are different and have equal degree(i.e., number of edges).
+        /// Supports_removal must be CGAL::Tag_true.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <param name="g">a halfedge index</param>
+        /// <returns>returns h and keeps the polyhedron unchanged.</returns>
+        public int JoinLoop(int h, int g)
+        {
+            return Kernel.JoinLoop(Ptr, h, g);
+        }
+
+        /// <summary>
+        /// joins the two vertices incident to h.
+        /// The vertex denoted by h->opposite() gets removed.
+        /// Precondition
+        /// The size of both facets incident to h is at least four(no multi-edges).
+        /// Supports_removal must be CGAL::Tag_true.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>Returns the predecessor of h around the vertex, i.e.,
+        /// h->opposite()->prev(). The invariant join_vertex(split_vertex(h, g)) 
+        /// returns h and keeps the polyhedron unchanged.The time is proportional 
+        /// to the degree of the vertex removed and the time to compute h->prev() and h->opposite()->prev().</returns>
+        public int JoinVertex(int h)
+        {
+            return Kernel.JoinVertex(Ptr, h);
+        }
+
+        /// <summary>
+        /// removes the incident facet of h and changes all halfedges incident to the facet into border edges.
+        /// 
+        /// Precondition
+        /// None of the incident halfedges of the facet is a border edge.
+        /// Supports_removal must be CGAL::Tag_true.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>Returns h.See erase_facet(h) for a more generalized variant.</returns>
+        public int MakeHole(int h)
+        {
+            return Kernel.MakeHole(Ptr, h);
+        }
+
+        /// <summary>
+        /// splits the halfedge h into two halfedges inserting a new vertex that is a copy of h->opposite()->vertex().
+        /// Is equivalent to split_vertex(h->prev(), h->opposite())->opposite(). The call of prev() can make this method 
+        /// slower than a direct call of split_vertex() if the previous halfedge is already known and computing 
+        /// it would be costly when the halfedge data structure does not support the prev() member function.
+        /// 
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>Returns the new halfedge now pointing to the inserted vertex.The new halfedge is followed 
+        /// by the old halfedge, i.e., hnew->next() == h.</returns>
+        public int SpliEdge(int h)
+        {
+            return Kernel.SpliEdge(Ptr, h);
+        }
+
+        /// <summary>
+        /// splits the facet incident to h and g into two facets with a new diagonal between 
+        /// the two vertices denoted by h and g respectively.
+        /// The second(new) facet is a copy of the first facet.
+        /// Precondition
+        /// h and g are incident to the same facet.h != g (no loops). h->next() != g and g->next() != h (no multi-edges).
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <returns>Returns h->next() after the
+        /// operation, i.e., the new diagonal.The new face is to the right of the new diagonal,
+        /// the old face is to the left.The time is proportional to the distance from h to g around the facet.</returns>
+        public int SplitFacet(int h, int g)
+        {
+            return Kernel.SplitFacet(Ptr, h, g);
+        }
+
+        /// <summary>
+        /// cuts the polyhedron into two parts along the cycle (h,i,j) (edge j runs on the backside of the three dimensional figure above).
+        /// Three new vertices(one copy for each vertex in the cycle) and three new halfedges(one copy for each halfedge in the cycle), 
+        /// and two new triangles are created.h,i,j will be incident to the first new triangle.
+        /// Precondition
+        /// h, i, j denote distinct, consecutive vertices of the polyhedron and form a cycle: i.e., h->vertex() == i->opposite()->vertex(),
+        /// … , j->vertex() == h->opposite()->vertex(). The six facets incident to(h, i, j) are all distinct.
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <param name="g">a halfedge index</param>
+        /// <param name="k">a halfedge index</param>
+        /// <returns>The return value will be the halfedge 
+        /// incident to the second new triangle which is the copy of h-opposite().</returns>
+        public int SplitLoop(int h, int g, int k)
+        {
+            return Kernel.SplitLoop(Ptr, h, g, k);
+        }
+
+        /// <summary>
+        /// splits the vertex incident to h and g into two vertices, the old vertex remains and a
+        /// new copy is created, and connects them with a new edge.
+        /// Let hnew be h->next()->opposite() after the split, i.e., a halfedge of the new edge.
+        /// The split regroups the halfedges around the two vertices.The halfedge sequence hnew,
+        /// g->next()->opposite(), … , h remains around the old vertex, while the halfedge 
+        /// sequence hnew->opposite(), h->next()->opposite() (before the split), … , g is 
+        /// regrouped around the new vertex.
+        /// Precondition
+        /// h and g are incident to the same vertex. h != g (antennas are not allowed).
+        /// </summary>
+        /// <param name="h">a halfedge index</param>
+        /// <param name="g">a halfedge index</param>
+        /// <returns>The split returns hnew, i.e., the new halfedge 
+        /// incident to the old vertex.The time is proportional to the distance from h to 
+        /// g around the vertex.</returns>
+        public int SplitVertex(int h, int g)
+        {
+            return Kernel.SplitVertex(Ptr, h, g);
+        }
 
         /// <summary>
         /// Update the mesh if needed.

@@ -33,7 +33,22 @@ namespace CGALDotNetConsole
         static void Main(string[] args)
         {
 
+            var indices = new PolygonalIndices();
 
+            indices.quads = new int[]
+            {
+                0, 1, 2, 3
+            };
+
+            var points = new Point3d[]
+            {
+               new Point3d(0, 0, 0),
+               new Point3d(1, 0, 0),
+               new Point3d(1, 1, 0),
+               new Point3d(0, 1, 0)
+            };
+
+            var mesh = new Polyhedron3<EIK>(points, indices);
         }
 
         static void LibTess()

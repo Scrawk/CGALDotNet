@@ -11,6 +11,7 @@ namespace CGALDotNet.Polyhedra
         public int[] pentagons;
         public int[] hexagons;
 
+
         public PolygonalIndices(PolygonalCount count)
         {
             triangles = count.triangles > 0 ? new int[count.triangles * 3] : null;

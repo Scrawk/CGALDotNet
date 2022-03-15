@@ -344,6 +344,87 @@ void Polyhedron3_EIK_GetDualPolygonalIndices(void* ptr,
 		hexagons, hexagonCount);
 }
 
+int Polyhedron3_EIK_AddFacetToBorder(void* ptr, int h, int g)
+{
+	return Polyhedron3<EIK>::AddFacetToBorder(ptr, h, g);
+}
+
+int Polyhedron3_EIK_AddVertexAndFacetToBorder(void* ptr, int h, int g)
+{
+	return Polyhedron3<EIK>::AddVertexAndFacetToBorder(ptr, h, g);
+}
+
+int Polyhedron3_EIK_CreateCenterVertex(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::CreateCenterVertex(ptr, h);
+}
+
+int Polyhedron3_EIK_EraseCenterVertex(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::EraseCenterVertex(ptr, h);
+}
+
+BOOL Polyhedron3_EIK_EraseConnectedComponent(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::EraseConnectedComponent(ptr, h);
+}
+
+BOOL Polyhedron3_EIK_EraseFacet(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::EraseFacet(ptr, h);
+}
+
+int Polyhedron3_EIK_FillHole(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::FillHole(ptr, h);
+}
+
+int Polyhedron3_EIK_FlipEdge(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::FlipEdge(ptr, h);
+}
+
+int Polyhedron3_EIK_JoinFacet(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::JoinFacet(ptr, h);
+}
+
+int Polyhedron3_EIK_JoinLoop(void* ptr, int h, int g)
+{
+	return Polyhedron3<EIK>::JoinLoop(ptr, h, g);
+}
+
+int Polyhedron3_EIK_JoinVertex(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::JoinVertex(ptr, h);
+}
+
+int Polyhedron3_EIK_MakeHole(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::MakeHole(ptr, h);
+}
+
+int Polyhedron3_EIK_SpliEdge(void* ptr, int h)
+{
+	return Polyhedron3<EIK>::SpliEdge(ptr, h);
+}
+
+int Polyhedron3_EIK_SplitFacet(void* ptr, int h, int g)
+{
+	return Polyhedron3<EIK>::SplitFacet(ptr, h, g);
+}
+
+int Polyhedron3_EIK_SplitLoop(void* ptr, int h, int g, int k)
+{
+	return Polyhedron3<EIK>::SplitLoop(ptr, h, g, k);
+}
+
+int Polyhedron3_EIK_SplitVertex(void* ptr, int h, int g)
+{
+	return Polyhedron3<EIK>::SplitVertex(ptr, h, g);
+}
+
+
 
 
 
