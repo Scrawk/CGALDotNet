@@ -205,7 +205,7 @@ namespace CGALDotNet.Polyhedra
         /// </summary>
         /// <returns>The duel mesh.</returns>
         /// <exception cref="InvalidOperationException">Is thrown if the mesh is not a valid closed mesh.</exception>
-        public Polyhedron3<K> CreateDualMesh()
+        public Polyhedron3<K> Dual()
         {
             if (!IsValidClosedMesh)
                 throw new InvalidOperationException("Mesh must be a valid closed mesh to create a dual mesh.");
@@ -774,6 +774,41 @@ namespace CGALDotNet.Polyhedra
             if (index < 0 || index >= VertexCount)
                 throw new ArgumentOutOfRangeException("Index must be a number >= 0 and < count");
 
+            return Kernel.GetPoint(Ptr, index);
+        }
+
+        /// <summary>
+        /// Get the point at the index
+        /// and wrap around the polygon.
+        /// </summary>
+        /// <param name="index">The points index.</param>
+        /// <returns>The point at the index.</returns>
+        public Point3d GetPointWrapped(int index)
+        {
+            index = MathUtil.Wrap(index, VertexCount);
+            return Kernel.GetPoint(Ptr, index);
+        }
+
+        /// <summary>
+        /// Get the point at the index
+        /// and clamp to the polygons last point.
+        /// </summary>
+        /// <param name="index">The points index.</param>
+        /// <returns>The point at the index.</returns>
+        public Point3d GetPointClamped(int index)
+        {
+            index = MathUtil.Clamp(index, 0, VertexCount - 1);
+            return Kernel.GetPoint(Ptr, index);
+        }
+
+        /// <summary>
+        /// Get the vertices point but wraps the index.
+        /// </summary>
+        /// <param name="index">The vertex index in the mesh.</param>
+        /// <returns>The vertices point.</returns>
+        public Point3d GetPointClamp(int index)
+        {
+            index = MathUtil.Wrap(index, VertexCount);
             return Kernel.GetPoint(Ptr, index);
         }
 

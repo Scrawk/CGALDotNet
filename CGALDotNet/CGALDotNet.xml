@@ -8639,7 +8639,7 @@
             <param name="xz">Should the y coord of the points be used for the z coord.</param>
             <exception cref="T:System.InvalidOperationException">Thrown if the polygon is not simple.</exception>
         </member>
-        <member name="M:CGALDotNet.Polyhedra.Polyhedron3`1.CreateDualMesh">
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3`1.Dual">
             <summary>
             Create the dual mesh where each face becomes a vertex
             and each vertex becomes a face.
@@ -8947,6 +8947,29 @@
             <param name="index">The vertex index in the mesh.</param>
             <returns>The vertices point.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">If index is out of range.</exception>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetPointWrapped(System.Int32)">
+            <summary>
+            Get the point at the index
+            and wrap around the polygon.
+            </summary>
+            <param name="index">The points index.</param>
+            <returns>The point at the index.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetPointClamped(System.Int32)">
+            <summary>
+            Get the point at the index
+            and clamp to the polygons last point.
+            </summary>
+            <param name="index">The points index.</param>
+            <returns>The point at the index.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetPointClamp(System.Int32)">
+            <summary>
+            Get the vertices point but wraps the index.
+            </summary>
+            <param name="index">The vertex index in the mesh.</param>
+            <returns>The vertices point.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetPoints(CGALDotNetGeometry.Numerics.Point3d[],System.Int32)">
             <summary>
