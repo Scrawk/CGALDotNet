@@ -416,9 +416,9 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EIK_MakeHole(ptr, h);
 		}
 
-		internal override int SpliEdge(IntPtr ptr, int h)
+		internal override int SplitEdge(IntPtr ptr, int h)
 		{
-			return Polyhedron3_EIK_SpliEdge(ptr, h);
+			return Polyhedron3_EIK_SplitEdge(ptr, h);
 		}
 
 		internal override int SplitFacet(IntPtr ptr, int h, int g)
@@ -675,7 +675,7 @@ namespace CGALDotNet.Polyhedra
 		private static extern int Polyhedron3_EIK_MakeHole(IntPtr ptr, int h);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern int Polyhedron3_EIK_SpliEdge(IntPtr ptr, int h);
+		private static extern int Polyhedron3_EIK_SplitEdge(IntPtr ptr, int h);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern int Polyhedron3_EIK_SplitFacet(IntPtr ptr, int h, int g);

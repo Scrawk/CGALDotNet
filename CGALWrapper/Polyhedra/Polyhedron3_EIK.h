@@ -180,7 +180,7 @@ extern "C"
 
 	CGALWRAPPER_API int Polyhedron3_EIK_MakeHole(void* ptr, int h);
 
-	CGALWRAPPER_API int Polyhedron3_EIK_SpliEdge(void* ptr, int h);
+	CGALWRAPPER_API int Polyhedron3_EIK_SplitEdge(void* ptr, int h);
 
 	CGALWRAPPER_API int Polyhedron3_EIK_SplitFacet(void* ptr, int h, int g);
 

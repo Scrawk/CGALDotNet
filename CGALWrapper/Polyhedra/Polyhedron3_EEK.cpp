@@ -404,9 +404,9 @@ int Polyhedron3_EEK_MakeHole(void* ptr, int h)
 	return Polyhedron3<EEK>::MakeHole(ptr, h);
 }
 
-int Polyhedron3_EEK_SpliEdge(void* ptr, int h)
+int Polyhedron3_EEK_SplitEdge(void* ptr, int h)
 {
-	return Polyhedron3<EEK>::SpliEdge(ptr, h);
+	return Polyhedron3<EEK>::SplitEdge(ptr, h);
 }
 
 int Polyhedron3_EEK_SplitFacet(void* ptr, int h, int g)

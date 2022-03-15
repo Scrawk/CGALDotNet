@@ -173,7 +173,7 @@ namespace CGALDotNet.Polyhedra
 
 		internal abstract int MakeHole(IntPtr ptr, int h);
 
-		internal abstract int SpliEdge(IntPtr ptr, int h);
+		internal abstract int SplitEdge(IntPtr ptr, int h);
 
 		internal abstract int SplitFacet(IntPtr ptr, int h, int g);
 

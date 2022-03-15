@@ -9497,7 +9497,7 @@
             <param name="h">a halfedge index</param>
             <returns>Returns h.See erase_facet(h) for a more generalized variant.</returns>
         </member>
-        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.SpliEdge(System.Int32)">
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.SplitEdge(System.Int32)">
             <summary>
             splits the halfedge h into two halfedges inserting a new vertex that is a copy of h->opposite()->vertex().
             Is equivalent to split_vertex(h->prev(), h->opposite())->opposite(). The call of prev() can make this method 

@@ -1411,7 +1411,7 @@ public:
 		return poly->FindHalfedgeIndex(e);
 	}
 
-	static int SpliEdge(void* ptr, int h)
+	static int SplitEdge(void* ptr, int h)
 	{
 		auto poly = CastToPolyhedron(ptr);
 

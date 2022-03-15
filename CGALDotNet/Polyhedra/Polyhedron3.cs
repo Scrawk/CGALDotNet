@@ -1767,9 +1767,9 @@ namespace CGALDotNet.Polyhedra
         /// <param name="h">a halfedge index</param>
         /// <returns>Returns the new halfedge now pointing to the inserted vertex.The new halfedge is followed 
         /// by the old halfedge, i.e., hnew->next() == h.</returns>
-        public int SpliEdge(int h)
+        public int SplitEdge(int h)
         {
-            return Kernel.SpliEdge(Ptr, h);
+            return Kernel.SplitEdge(Ptr, h);
         }
 
         /// <summary>
