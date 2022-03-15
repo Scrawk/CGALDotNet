@@ -1793,9 +1793,11 @@ namespace CGALDotNet.Polyhedra
         /// h and g are incident to the same facet.h != g (no loops). h->next() != g and g->next() != h (no multi-edges).
         /// </summary>
         /// <param name="h">a halfedge index</param>
+        /// <param name="g">a halfedge index</param>
         /// <returns>Returns h->next() after the
         /// operation, i.e., the new diagonal.The new face is to the right of the new diagonal,
         /// the old face is to the left.The time is proportional to the distance from h to g around the facet.</returns>
+        /// <returns></returns>
         public int SplitFacet(int h, int g)
         {
             IsUpdated = false;

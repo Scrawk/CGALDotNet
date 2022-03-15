@@ -601,12 +601,38 @@
             <returns>OBTUSE, RIGHT or ACUTE depending on the 
             angle formed by the two vectors u and v.</returns>
         </member>
+        <member name="M:CGALDotNet.CGALGlobal.ApproxAngle(CGALDotNetGeometry.Numerics.Vector2d,CGALDotNetGeometry.Numerics.Vector2d)">
+            <summary>
+            Returns an approximation of the angle between u and v.
+            </summary>
+            <param name="u">The first vector.</param>
+            <param name="v">The second vector.</param>
+            <returns>The angle is given in degrees.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.ApproxAngle(CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d,CGALDotNetGeometry.Numerics.Point2d)">
+            <summary>
+            Returns an approximation of the angle between p-q and r-q.
+            </summary>
+            <param name="p">The first tetrahedrons point.</param>
+            <param name="q">The second tetrahedrons point.</param>
+            <param name="r">The third tetrahedrons point.</param>
+            <returns>The angle is given in degrees.</returns>
+        </member>
         <member name="M:CGALDotNet.CGALGlobal.ApproxAngle(CGALDotNetGeometry.Numerics.Vector3d,CGALDotNetGeometry.Numerics.Vector3d)">
             <summary>
             Returns an approximation of the angle between u and v.
             </summary>
             <param name="u">The first vector.</param>
             <param name="v">The second vector.</param>
+            <returns>The angle is given in degrees.</returns>
+        </member>
+        <member name="M:CGALDotNet.CGALGlobal.ApproxAngle(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
+            <summary>
+            Returns an approximation of the angle between p-q and r-q.
+            </summary>
+            <param name="p">The first tetrahedrons point.</param>
+            <param name="q">The second tetrahedrons point.</param>
+            <param name="r">The third tetrahedrons point.</param>
             <returns>The angle is given in degrees.</returns>
         </member>
         <member name="M:CGALDotNet.CGALGlobal.ApproxDihedralAngle(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
@@ -5411,6 +5437,12 @@
             <returns>The new polyhedron mesh</returns>
             <exception cref="T:System.InvalidOperationException">Thrown if the polygon is not simple.</exception>
         </member>
+        <member name="M:CGALDotNet.Polygons.Polygon2`1.Dual">
+            <summary>
+            Get the dual polygon where every point s now a edge.
+            </summary>
+            <returns>The dual polygon.</returns>
+        </member>
         <member name="T:CGALDotNet.Polygons.Polygon2">
             <summary>
             The abstract polygon definition.
@@ -5569,14 +5601,14 @@
         </member>
         <member name="M:CGALDotNet.Polygons.Polygon2.Insert(System.Int32,CGALDotNetGeometry.Numerics.Point2d)">
             <summary>
-            Remove the point at the index from the array.
+            Insert the point at the index into the array.
             </summary>
             <param name="index">The points index.</param>
             <param name="point">The point to insert.</param>
         </member>
         <member name="M:CGALDotNet.Polygons.Polygon2.Insert(System.Int32,CGALDotNetGeometry.Numerics.Point2d[],System.Int32)">
             <summary>
-            Remove a range of points from the array.
+            Insert a range of points into the array.
             </summary>
             <param name="start">The starting index</param>
             <param name="points">The points to insert.</param>
@@ -5801,6 +5833,14 @@
             </summary>
             <typeparam name="T">The new kernel type.</typeparam>
             <returns>The new polygon.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polygons.Polygon2.Truncate(System.Int32,System.Double)">
+            <summary>
+            Truncate a point in the polygon by splitting
+            the point and shifting toward its neghbours.
+            </summary>
+            <param name="index">The points index in mesh.</param>
+            <param name="amount">The amount to truncale.</param>
         </member>
         <member name="M:CGALDotNet.Polygons.Polygon2.Print(System.Text.StringBuilder)">
             <summary>
@@ -9518,9 +9558,11 @@
             h and g are incident to the same facet.h != g (no loops). h->next() != g and g->next() != h (no multi-edges).
             </summary>
             <param name="h">a halfedge index</param>
+            <param name="g">a halfedge index</param>
             <returns>Returns h->next() after the
             operation, i.e., the new diagonal.The new face is to the right of the new diagonal,
             the old face is to the left.The time is proportional to the distance from h to g around the facet.</returns>
+            <returns></returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.SplitLoop(System.Int32,System.Int32,System.Int32)">
             <summary>

@@ -116,8 +116,49 @@ namespace CGALDotNet
         /// <param name="u">The first vector.</param>
         /// <param name="v">The second vector.</param>
         /// <returns>The angle is given in degrees.</returns>
+        public static Degree ApproxAngle(Vector2d u, Vector2d v)
+        {
+            return new Degree(CGALGlobal_EIK_ApproxAngle_Vector3d(u.xy0, v.xy0));
+        }
+
+        /// <summary>
+        /// Returns an approximation of the angle between p-q and r-q.
+        /// </summary>
+        /// <param name="p">The first tetrahedrons point.</param>
+        /// <param name="q">The second tetrahedrons point.</param>
+        /// <param name="r">The third tetrahedrons point.</param>
+        /// <returns>The angle is given in degrees.</returns>
+        public static Degree ApproxAngle(Point2d p, Point2d q, Point2d r)
+        {
+            var u = Point2d.Direction(q, p).xy0;
+            var v = Point2d.Direction(q, r).xy0;
+
+            return new Degree(CGALGlobal_EIK_ApproxAngle_Vector3d(u, v));
+        }
+
+        /// <summary>
+        /// Returns an approximation of the angle between u and v.
+        /// </summary>
+        /// <param name="u">The first vector.</param>
+        /// <param name="v">The second vector.</param>
+        /// <returns>The angle is given in degrees.</returns>
         public static Degree ApproxAngle(Vector3d u, Vector3d v)
         {
+            return new Degree(CGALGlobal_EIK_ApproxAngle_Vector3d(u, v));
+        }
+
+        /// <summary>
+        /// Returns an approximation of the angle between p-q and r-q.
+        /// </summary>
+        /// <param name="p">The first tetrahedrons point.</param>
+        /// <param name="q">The second tetrahedrons point.</param>
+        /// <param name="r">The third tetrahedrons point.</param>
+        /// <returns>The angle is given in degrees.</returns>
+        public static Degree ApproxAngle(Point3d p, Point3d q, Point3d r)
+        {
+            var u = Point3d.Direction(q, p);
+            var v = Point3d.Direction(q, r);
+
             return new Degree(CGALGlobal_EIK_ApproxAngle_Vector3d(u, v));
         }
 

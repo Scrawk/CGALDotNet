@@ -268,6 +268,29 @@ namespace CGALDotNet.Polygons
             poly.CreatePolygonMesh(this, xz);
             return poly;
         }
+
+        /// <summary>
+        /// Get the dual polygon where every point s now a edge.
+        /// </summary>
+        /// <returns>The dual polygon.</returns>
+        public Polygon2<K> Dual()
+        {
+            int count = Count;
+            if (count < 3)
+                throw new InvalidOperationException("Count < 3");
+
+            var points = new Point2d[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                var a = GetPoint(i);
+                var b = GetPointWrapped(i + 1);
+
+                points[i] = (a + b) * 0.5;
+            }
+
+            return new Polygon2<K>(points);
+        }
     }
 
     /// <summary>
@@ -510,7 +533,7 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Remove the point at the index from the array.
+        /// Insert the point at the index into the array.
         /// </summary>
         /// <param name="index">The points index.</param>
         /// <param name="point">The point to insert.</param>
@@ -525,7 +548,7 @@ namespace CGALDotNet.Polygons
         }
 
         /// <summary>
-        /// Remove a range of points from the array.
+        /// Insert a range of points into the array.
         /// </summary>
         /// <param name="start">The starting index</param>
         /// <param name="points">The points to insert.</param>
@@ -982,6 +1005,41 @@ namespace CGALDotNet.Polygons
             var e = CGALEnum.ToKernelEnum(k);
             var ptr = Kernel.Convert(Ptr, e);
             return new Polygon2<T>(ptr);
+        }
+
+        /// <summary>
+        /// Truncate a point in the polygon by splitting
+        /// the point and shifting toward its neghbours.
+        /// </summary>
+        /// <param name="index">The points index in mesh.</param>
+        /// <param name="amount">The amount to truncale.</param>
+        public void Truncate(int index, double amount)
+        {
+            if (amount <= 0) return;
+
+            var a = GetPointWrapped(index - 1);
+            var b = GetPoint(index);
+            var c = GetPointWrapped(index + 1);
+
+            var dir_ba = Point2d.Direction(b, a);
+            var dir_bc = Point2d.Direction(b, c);
+
+            var dist_ba = Point2d.Distance(b, a);
+            var dist_bc = Point2d.Distance(b, c);
+
+            if (amount >= dist_ba && amount >= dist_bc)
+            {
+                Remove(index);
+            }
+            else if (amount < dist_ba && amount < dist_bc)
+            {
+                var d = b + dir_ba.Point2d * amount;
+                var e = b + dir_bc.Point2d * amount;
+
+                Remove(index);
+                Insert(index, d);
+                Insert(index + 1, e);
+            }
         }
 
         /// <summary>
