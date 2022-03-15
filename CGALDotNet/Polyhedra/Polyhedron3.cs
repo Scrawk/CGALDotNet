@@ -1586,6 +1586,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns> Returns the halfedge of the new edge that is incident to the new facet.</returns>
         public int AddFacetToBorder(int h, int g)
         {
+            IsUpdated = false;
             return Kernel.AddFacetToBorder(Ptr, h, g);
         }
 
@@ -1603,6 +1604,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>Returns the halfedge of the new edge that is incident to the new facet and the new vertex.</returns>
         public int AddVertexAndFacetToBorder(int h, int g)
         {
+            IsUpdated = false;
             return Kernel.AddVertexAndFacetToBorder(Ptr, h, g);
         }
 
@@ -1620,6 +1622,7 @@ namespace CGALDotNet.Polyhedra
         /// proportional to the size of the facet.</returns>
         public int CreateCenterVertex(int h)
         {
+            IsUpdated = false;
             return Kernel.CreateCenterVertex(Ptr, h);
         }
 
@@ -1638,6 +1641,7 @@ namespace CGALDotNet.Polyhedra
         /// holds if h is not a border halfedge.The time is proportional to the sum of the size of all incident facets.</returns>
         public int EraseCenterVertex(int h)
         {
+            IsUpdated = false;
             return Kernel.EraseCenterVertex(Ptr, h);
         }
 
@@ -1653,6 +1657,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns></returns>
         public bool EraseConnectedComponent(int h)
         {
+            IsUpdated = false;
             return Kernel.EraseConnectedComponent(Ptr, h);
         }
 
@@ -1663,6 +1668,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>returns a range of handles over the facets.</returns>
         public bool EraseFacet(int h)
         {
+            IsUpdated = false;
             return Kernel.EraseFacet(Ptr, h);
         }
 
@@ -1677,6 +1683,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns></returns>
         public int FillHole(int h)
         {
+            IsUpdated = false;
             return Kernel.FillHole(Ptr, h);
         }
 
@@ -1690,6 +1697,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>It returns h after rotating the edge h one vertex in the direction of the face orientation.</returns>
         public int FlipEdge(int h)
         {
+            IsUpdated = false;
             return Kernel.FlipEdge(Ptr, h);
         }
 
@@ -1707,6 +1715,7 @@ namespace CGALDotNet.Polyhedra
         /// the facet removed and the time to compute h->prev().</returns>
         public int JoinFacet(int h)
         {
+            IsUpdated = false;
             return Kernel.JoinFacet(Ptr, h);
         }
 
@@ -1723,6 +1732,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>returns h and keeps the polyhedron unchanged.</returns>
         public int JoinLoop(int h, int g)
         {
+            IsUpdated = false;
             return Kernel.JoinLoop(Ptr, h, g);
         }
 
@@ -1740,6 +1750,7 @@ namespace CGALDotNet.Polyhedra
         /// to the degree of the vertex removed and the time to compute h->prev() and h->opposite()->prev().</returns>
         public int JoinVertex(int h)
         {
+            IsUpdated = false;
             return Kernel.JoinVertex(Ptr, h);
         }
 
@@ -1754,6 +1765,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>Returns h.See erase_facet(h) for a more generalized variant.</returns>
         public int MakeHole(int h)
         {
+            IsUpdated = false;
             return Kernel.MakeHole(Ptr, h);
         }
 
@@ -1769,6 +1781,7 @@ namespace CGALDotNet.Polyhedra
         /// by the old halfedge, i.e., hnew->next() == h.</returns>
         public int SplitEdge(int h)
         {
+            IsUpdated = false;
             return Kernel.SplitEdge(Ptr, h);
         }
 
@@ -1785,6 +1798,7 @@ namespace CGALDotNet.Polyhedra
         /// the old face is to the left.The time is proportional to the distance from h to g around the facet.</returns>
         public int SplitFacet(int h, int g)
         {
+            IsUpdated = false;
             return Kernel.SplitFacet(Ptr, h, g);
         }
 
@@ -1803,6 +1817,7 @@ namespace CGALDotNet.Polyhedra
         /// incident to the second new triangle which is the copy of h-opposite().</returns>
         public int SplitLoop(int h, int g, int k)
         {
+            IsUpdated = false;
             return Kernel.SplitLoop(Ptr, h, g, k);
         }
 
@@ -1824,6 +1839,7 @@ namespace CGALDotNet.Polyhedra
         /// g around the vertex.</returns>
         public int SplitVertex(int h, int g)
         {
+            IsUpdated = false;
             return Kernel.SplitVertex(Ptr, h, g);
         }
 
