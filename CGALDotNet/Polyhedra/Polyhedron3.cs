@@ -1137,6 +1137,12 @@ namespace CGALDotNet.Polyhedra
         /// <returns>True if the ray hit a face.</returns>
         public bool LocateFace(Ray3d ray, out MeshFace3 face)
         {
+            if (ray.IsDegenerate)
+            {
+                face = MeshFace3.NullFace;
+                return false;
+            }
+
             var result = LocateFace(ray);
             if(result.Hit && GetFace(result.Face, out face))
             {
@@ -1159,6 +1165,12 @@ namespace CGALDotNet.Polyhedra
         /// <returns>True if the ray hit a vertex.</returns>
         public bool LocateVertex(Ray3d ray, double radius, out MeshVertex3 vertex)
         {
+            if (ray.IsDegenerate)
+            {
+                vertex = MeshVertex3.NullVertex;
+                return false;
+            }
+
             var result = LocateFace(ray);
             if (result.Hit && GetFace(result.Face, out MeshFace3 face))
             {
@@ -1202,6 +1214,12 @@ namespace CGALDotNet.Polyhedra
         /// <returns>True if the ray hit a edge.</returns>
         public bool LocateHalfedge(Ray3d ray, double radius, out MeshHalfedge3 edge)
         {
+            if (ray.IsDegenerate)
+            {
+                edge = MeshHalfedge3.NullHalfedge;
+                return false;
+            }
+
             var result = LocateFace(ray);
             if (result.Hit && GetFace(result.Face, out MeshFace3 face))
             {

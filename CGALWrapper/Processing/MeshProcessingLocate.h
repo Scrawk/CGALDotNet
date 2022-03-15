@@ -101,8 +101,17 @@ public:
 
 		MeshHitResult result;
 		result.face = mesh->FindFaceIndex(face);
-		result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
-		result.coord = ToPoint3d(coord);
+
+		if (result.face != NULL_INDEX)
+		{
+			result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
+			result.coord = ToPoint3d(coord);
+		}
+		else
+		{
+			result.point = { 0,0,0 };
+			result.coord = { 0,0,0 };
+		}
 
 		return result;
 	}
@@ -118,8 +127,17 @@ public:
 
 		MeshHitResult result;
 		result.face = mesh->FindFaceIndex(face);
-		result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
-		result.coord = ToPoint3d(coord);
+
+		if (result.face != NULL_INDEX)
+		{
+			result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
+			result.coord = ToPoint3d(coord);
+		}
+		else
+		{
+			result.point = { 0,0,0 };
+			result.coord = { 0,0,0 };
+		}
 
 		return result;
 	}
@@ -154,8 +172,17 @@ public:
 
 		MeshHitResult result;
 		result.face = mesh->FindFaceIndex(face);
-		result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
-		result.coord = ToPoint3d(coord);
+
+		if (result.face != NULL_INDEX)
+		{
+			result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
+			result.coord = ToPoint3d(coord);
+		}
+		else
+		{
+			result.point = { 0,0,0 };
+			result.coord = { 0,0,0 };
+		}
 
 		return result;
 	}
@@ -171,12 +198,17 @@ public:
 
 		MeshHitResult result;
 		result.face = mesh->FindFaceIndex(face);
-		result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
-		result.coord = ToPoint3d(coord);
-		//result.on_face_border = PMP::is_on_face_border(location, mesh->model);
-		//result.on_edge = PMP::is_on_halfedge(location, mesh->model);
-		//result.on_mesh_border = PMP::is_on_mesh_border(location, mesh->model);
-		//result.on_vertex = PMP::is_on_vertex(location, mesh->model);
+
+		if (result.face != NULL_INDEX)
+		{
+			result.point = Point3d::FromCGAL(PMP::construct_point(location, mesh->model));
+			result.coord = ToPoint3d(coord);
+		}
+		else
+		{
+			result.point = { 0,0,0 };
+			result.coord = { 0,0,0 };
+		}
 
 		return result;
 	}
