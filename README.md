@@ -53,6 +53,10 @@
 
 - [Sweep Line 2D](https://github.com/Scrawk/CGALDotNet/wiki/Sweep-Line-2D) 
 
+# The Polyhedra Kernel
+
+- [Polyhedra3 Mesh](https://github.com/Scrawk/CGALDotNet/wiki/Polyhedron3-Mesh)
+
 Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
 Work in progress. Only 64 bit windows binarys provided.
