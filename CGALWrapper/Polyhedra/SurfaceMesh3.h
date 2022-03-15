@@ -1635,6 +1635,8 @@ public:
 		ArrayUtil::FillWithNull(pentagons, pentagonCount);
 		ArrayUtil::FillWithNull(hexagons, hexagonCount);
 
+		//Not workinng
+
 		for (auto vert : mesh->model.vertices())
 		{
 			int count = mesh->model.degree(vert);

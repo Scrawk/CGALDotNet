@@ -33,12 +33,7 @@ namespace CGALDotNetConsole
         static void Main(string[] args)
         {
 
-            var poly = PolygonFactory<EEK>.CreateBox(-1, 1);
-            
-            var  indices = new List<int>();
-            poly.Triangulate(indices);
 
-            //LibTess();
         }
 
         static void LibTess()

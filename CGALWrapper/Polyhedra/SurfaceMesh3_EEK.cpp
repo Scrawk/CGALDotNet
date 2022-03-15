@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 void* SurfaceMesh3_EEK_Create()
 {
 	return SurfaceMesh3<EEK>::NewSurfaceMesh();
@@ -547,6 +548,90 @@ void SurfaceMesh3_EEK_GetDualPolygonalIndices(void* ptr,
 		quads, quadCount,
 		pentagons, pentagonCount,
 		hexagons, hexagonCount);
+}
+
+static void GetDualPolygonalIndices(void* ptr,
+	int* triangles, int triangleCount,
+	int* quads, int quadCount,
+	int* pentagons, int pentagonCount,
+	int* hexagons, int hexagonCount)
+{
+
+	typedef typename EEK::FT FT;
+	typedef typename EEK::Point_3 Point_3;
+	typedef typename CGAL::Surface_mesh<Point_3> SurfaceMesh;
+	typedef typename SurfaceMesh::Edge_index Edge;
+	typedef typename SurfaceMesh::Halfedge_index Halfedge;
+	typedef typename SurfaceMesh::Vertex_index Vertex;
+	typedef typename SurfaceMesh::Face_index Face;
+
+	auto mesh = SurfaceMesh3<EEK>::CastToSurfaceMesh(ptr);
+	mesh->BuildModel();
+
+	int triangleIndex = 0;
+	int quadIndex = 0;
+	int pentagonIndex = 0;
+	int hexagonIndex = 0;
+	int indices[6];
+
+	ArrayUtil::FillWithNull(triangles, triangleCount);
+	ArrayUtil::FillWithNull(quads, quadCount);
+	ArrayUtil::FillWithNull(pentagons, pentagonCount);
+	ArrayUtil::FillWithNull(hexagons, hexagonCount);
+
+
+	for (auto face : mesh->model.faces())
+	{
+
+		int count = mesh->model.degree(face);
+
+		if (count < 3 || count > 6) continue;
+
+		auto hedge = mesh->model.halfedge(face);
+		for (int i = 0; i < count; i++)
+		{
+			auto face = mesh->model.face(hedge);
+			indices[i] = mesh->FindFaceIndex(face);
+			hedge = mesh->model.next_around_source(hedge);
+		}
+
+		if (count == 3 && triangleIndex < triangleCount)
+		{
+			triangles[triangleIndex * 3 + 0] = indices[0];
+			triangles[triangleIndex * 3 + 1] = indices[1];
+			triangles[triangleIndex * 3 + 2] = indices[2];
+			triangleIndex++;
+		}
+		else if (count == 4 && quadIndex < quadCount)
+		{
+			quads[quadIndex * 4 + 0] = indices[0];
+			quads[quadIndex * 4 + 1] = indices[1];
+			quads[quadIndex * 4 + 2] = indices[2];
+			quads[quadIndex * 4 + 3] = indices[3];
+			quadIndex++;
+		}
+		else if (count == 5 && pentagonIndex < pentagonCount)
+		{
+			pentagons[pentagonIndex * 5 + 0] = indices[0];
+			pentagons[pentagonIndex * 5 + 1] = indices[1];
+			pentagons[pentagonIndex * 5 + 2] = indices[2];
+			pentagons[pentagonIndex * 5 + 3] = indices[3];
+			pentagons[pentagonIndex * 5 + 4] = indices[4];
+			pentagonIndex++;
+		}
+		else if (count == 6 && hexagonIndex < hexagonCount)
+		{
+			hexagons[hexagonIndex * 6 + 0] = indices[0];
+			hexagons[hexagonIndex * 6 + 1] = indices[1];
+			hexagons[hexagonIndex * 6 + 2] = indices[2];
+			hexagons[hexagonIndex * 6 + 3] = indices[3];
+			hexagons[hexagonIndex * 6 + 4] = indices[4];
+			hexagons[hexagonIndex * 6 + 5] = indices[5];
+			hexagonIndex++;
+		}
+
+	}
+
 }
 
 
