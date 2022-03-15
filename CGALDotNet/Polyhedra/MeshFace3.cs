@@ -7,10 +7,19 @@ namespace CGALDotNet.Polyhedra
 {
     public struct MeshFace3 : IEquatable<MeshFace3>
     {
+        /// <summary>
+        /// The faces index
+        /// </summary>
         public int Index;
 
+        /// <summary>
+        /// THe faces edge
+        /// </summary>
         public int Halfedge;
 
+        /// <summary>
+        /// A face where all compents are null index.
+        /// </summary>
         public static MeshFace3 NullFace
         {
             get
@@ -22,22 +31,43 @@ namespace CGALDotNet.Polyhedra
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("[MeshFace3: Index={0}, Halfedge={1}]",
                 Index, Halfedge);
         }
 
+        /// <summary>
+        /// Are these faces equal.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         public static bool operator ==(MeshFace3 v1, MeshFace3 v2)
         {
             return v1.Index == v2.Index && v1.Halfedge == v2.Halfedge;
         }
 
+        /// <summary>
+        /// Are these faces not equal.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         public static bool operator !=(MeshFace3 v1, MeshFace3 v2)
         {
             return v1.Index != v2.Index || v1.Halfedge != v2.Halfedge;
         }
 
+        /// <summary>
+        /// Are these objects equal.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (!(obj is MeshFace3)) return false;
@@ -45,11 +75,20 @@ namespace CGALDotNet.Polyhedra
             return this == v;
         }
 
+        /// <summary>
+        /// Are these faces equal.
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public bool Equals(MeshFace3 v)
         {
             return this == v;
         }
 
+        /// <summary>
+        /// The faces hash code.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             unchecked
@@ -61,6 +100,11 @@ namespace CGALDotNet.Polyhedra
             }
         }
 
+        /// <summary>
+        /// Enmerate all edges in this edge loop.
+        /// </summary>
+        /// <param name="mesh">The mesh the edges belong too.</param>
+        /// <returns>The next edge</returns>
         public IEnumerable<MeshHalfedge3> EnumerateHalfedges(IMesh mesh)
         {
             int count = mesh.HalfedgeCount;
@@ -79,6 +123,11 @@ namespace CGALDotNet.Polyhedra
             }
         }
 
+        /// <summary>
+        /// Enmerate all vertices in this edge loop.
+        /// </summary>
+        /// <param name="mesh">The mesh the edges belong too.</param>
+        /// <returns>The next vertex</returns>
         public IEnumerable<MeshVertex3> EnumerateVertices(IMesh mesh)
         {
             int count = mesh.HalfedgeCount;

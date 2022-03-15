@@ -7917,11 +7917,273 @@
             <param name="edge">The hit edge.</param>
             <returns>True if the ray hit a edge.</returns>
         </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshFace3.Index">
+            <summary>
+            The faces index
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshFace3.Halfedge">
+            <summary>
+            THe faces edge
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polyhedra.MeshFace3.NullFace">
+            <summary>
+            A face where all compents are null index.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.op_Equality(CGALDotNet.Polyhedra.MeshFace3,CGALDotNet.Polyhedra.MeshFace3)">
+            <summary>
+            Are these faces equal.
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.op_Inequality(CGALDotNet.Polyhedra.MeshFace3,CGALDotNet.Polyhedra.MeshFace3)">
+            <summary>
+            Are these faces not equal.
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.Equals(System.Object)">
+            <summary>
+            Are these objects equal.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.Equals(CGALDotNet.Polyhedra.MeshFace3)">
+            <summary>
+            Are these faces equal.
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.GetHashCode">
+            <summary>
+            The faces hash code.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.EnumerateHalfedges(CGALDotNet.Polyhedra.IMesh)">
+            <summary>
+            Enmerate all edges in this edge loop.
+            </summary>
+            <param name="mesh">The mesh the edges belong too.</param>
+            <returns>The next edge</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshFace3.EnumerateVertices(CGALDotNet.Polyhedra.IMesh)">
+            <summary>
+            Enmerate all vertices in this edge loop.
+            </summary>
+            <param name="mesh">The mesh the edges belong too.</param>
+            <returns>The next vertex</returns>
+        </member>
         <member name="T:CGALDotNet.Polyhedra.MeshFactory">
             <summary>
             https://github.com/caosdoar/spheres/blob/master/src/spheres.cpp
             https://github.com/mrdoob/three.js/tree/dev/src/geometries
             </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.IsBorder">
+            <summary>
+            Is the edge a border to a hole.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.Index">
+            <summary>
+            The edges index.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.Source">
+            <summary>
+            The edges  source vertices index.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.Target">
+            <summary>
+            The edges  target vertices index.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.Opposite">
+            <summary>
+            The edges opposite edge.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.Next">
+            <summary>
+            The edges next edge.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.Previous">
+            <summary>
+            The edges previous edge.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshHalfedge3.Face">
+            <summary>
+            The edges face
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polyhedra.MeshHalfedge3.NullHalfedge">
+            <summary>
+            A edge where everthing is set to null index.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.SourcePoint(CGALDotNet.Polyhedra.IMesh)">
+            <summary>
+            Get the source point. 
+            </summary>
+            <param name="mesh">The mesh the point belongs to.</param>
+            <returns>The  source point</returns>
+            <exception cref="T:System.ArgumentException">If point is null index.</exception>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.TargetPoint(CGALDotNet.Polyhedra.IMesh)">
+            <summary>
+            Get the target point. 
+            </summary>
+            <param name="mesh">The mesh the point belongs to.</param>
+            <returns>The  target point</returns>
+            <exception cref="T:System.ArgumentException">If point is null index.</exception>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.op_Equality(CGALDotNet.Polyhedra.MeshHalfedge3,CGALDotNet.Polyhedra.MeshHalfedge3)">
+            <summary>
+            Are these edges equal.
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.op_Inequality(CGALDotNet.Polyhedra.MeshHalfedge3,CGALDotNet.Polyhedra.MeshHalfedge3)">
+            <summary>
+            Are these edges not equal.
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.Equals(System.Object)">
+            <summary>
+            Are these objects equal.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.Equals(CGALDotNet.Polyhedra.MeshHalfedge3)">
+            <summary>
+            Are these edges equal.
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.GetHashCode">
+            <summary>
+            The edges hahe code
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.EnumerateHalfedges(CGALDotNet.Polyhedra.IMesh)">
+            <summary>
+            Enmerate all edges in this edge loop.
+            </summary>
+            <param name="mesh">The mesh the edges belong too.</param>
+            <returns>The next edge</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshHalfedge3.EnumerateVertices(CGALDotNet.Polyhedra.IMesh)">
+            <summary>
+            Enmerate all vertices in this edge loop.
+            </summary>
+            <param name="mesh">The mesh the edges belong too.</param>
+            <returns>The next vertex</returns>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshVertex3.Point">
+            <summary>
+            The vertices point.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshVertex3.Degree">
+            <summary>
+            The vertices degree is how mang edges connect to it.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshVertex3.Index">
+            <summary>
+            The vertices index.
+            </summary>
+        </member>
+        <member name="F:CGALDotNet.Polyhedra.MeshVertex3.Halfedge">
+            <summary>
+            The vertices edge
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polyhedra.MeshVertex3.NullVertex">
+            <summary>
+            A vertex where all components are null.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshVertex3.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshVertex3.op_Equality(CGALDotNet.Polyhedra.MeshVertex3,CGALDotNet.Polyhedra.MeshVertex3)">
+            <summary>
+            Are these vertices equal.
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshVertex3.op_Inequality(CGALDotNet.Polyhedra.MeshVertex3,CGALDotNet.Polyhedra.MeshVertex3)">
+            <summary>
+            Are these vertices not equal.
+            </summary>
+            <param name="v1"></param>
+            <param name="v2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshVertex3.Equals(System.Object)">
+            <summary>
+            Are these objects equal.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshVertex3.Equals(CGALDotNet.Polyhedra.MeshVertex3)">
+            <summary>
+            Are these vertices equal.
+            </summary>
+            <param name="v"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshVertex3.GetHashCode">
+            <summary>
+            The vertices hash code
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.MeshVertex3.EnumerateHalfedges(CGALDotNet.Polyhedra.IMesh)">
+            <summary>
+            Enmerate all edges surrounding the vertex.
+            </summary>
+            <param name="mesh">The mesh the edges belong too.</param>
+            <returns>The next edge</returns>
         </member>
         <member name="T:CGALDotNet.Polyhedra.NefPolyhedron3`1">
             <summary>
