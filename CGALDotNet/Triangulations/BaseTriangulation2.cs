@@ -189,6 +189,20 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
+        /// Get the point.
+        /// </summary>
+        /// <param name="index">The points index.</param>
+        /// <returns>The point</returns>
+        /// <exception cref="ArgumentException">If point with the index not found.</exception>
+        public Point2d GetPoint(int index)
+        {
+            if (GetPoint(index, out Point2d point))
+                return point;
+            else
+                throw new ArgumentException("Cound not get point " + index);
+        }
+
+        /// <summary>
         /// Get a vertex.
         /// </summary>
         /// <param name="index">The vertex index.</param>
@@ -197,6 +211,20 @@ namespace CGALDotNet.Triangulations
         public bool GetVertex(int index, out TriVertex2 vertex)
         {
             return Kernel.GetVertex(Ptr, index, out vertex);
+        }
+
+        /// <summary>
+        /// Get the vertex.
+        /// </summary>
+        /// <param name="index">The vertexs index.</param>
+        /// <returns>The vertexs</returns>
+        /// <exception cref="ArgumentException">If vertex with the index not found.</exception>
+        public TriVertex2 GetVertex(int index)
+        {
+            if (GetVertex(index, out TriVertex2 vertex))
+                return vertex;
+            else
+                throw new ArgumentException("Cound not get vertex " + index);
         }
 
         /// <summary>
@@ -219,6 +247,20 @@ namespace CGALDotNet.Triangulations
         public bool GetFace(int index, out TriFace2 face)
         {
             return Kernel.GetFace(Ptr, index, out face);
+        }
+
+        /// <summary>
+        /// Get the face.
+        /// </summary>
+        /// <param name="index">The faces index.</param>
+        /// <returns>The Faces</returns>
+        /// <exception cref="ArgumentException">If face with the index not found.</exception>
+        public TriFace2 GetFace(int index)
+        {
+            if (GetFace(index, out TriFace2 face))
+                return face;
+            else
+                throw new ArgumentException("Cound not get face " + index);
         }
 
         /// <summary>
@@ -245,6 +287,21 @@ namespace CGALDotNet.Triangulations
         }
 
         /// <summary>
+        /// Get the segment between the face and a neighbour.
+        /// </summary>
+        /// <param name="faceIndex">The faces index</param>
+        /// <param name="neighbourIndex">The neighbour (0-2) index in the face.</param>
+        /// <returns>The segment</returns>
+        /// <exception cref="ArgumentException">If segment with the index not found.</exception>
+        public Segment2d GetSegment(int faceIndex, int neighbourIndex)
+        {
+            if (GetSegment(faceIndex, neighbourIndex, out Segment2d tri))
+                return tri;
+            else
+                throw new ArgumentException("Cound not get seg at face index " + faceIndex);
+        }
+
+        /// <summary>
         /// Get a faces triangle.
         /// </summary>
         /// <param name="faceIndex">The faces index</param>
@@ -253,6 +310,20 @@ namespace CGALDotNet.Triangulations
         public bool GetTriangle(int faceIndex, out Triangle2d triangle)
         {
             return Kernel.GetTriangle(Ptr, faceIndex, out triangle);
+        }
+
+        /// <summary>
+        /// Get the triangle.
+        /// </summary>
+        /// <param name="index">The triangles index.</param>
+        /// <returns>The triangle</returns>
+        /// <exception cref="ArgumentException">If triangle with the index not found.</exception>
+        public Triangle2d GetTriangle(int index)
+        {
+            if (GetTriangle(index, out Triangle2d tri))
+                return tri;
+            else
+                throw new ArgumentException("Cound not get tri " + index);
         }
 
         /// <summary>
@@ -276,6 +347,20 @@ namespace CGALDotNet.Triangulations
         public bool GetCircumcenter(int faceIndex, out Point2d circumcenter)
         {
             return Kernel.GetCircumcenter(Ptr, faceIndex, out circumcenter);
+        }
+
+        /// <summary>
+        /// Get the circumcenter.
+        /// </summary>
+        /// <param name="index">The circumcenters index.</param>
+        /// <returns>The circumcenter</returns>
+        /// <exception cref="ArgumentException">If circumcenter with the index not found.</exception>
+        public Point2d GetCircumcenter(int index)
+        {
+            if (GetCircumcenter(index, out Point2d cir))
+                return cir;
+            else
+                throw new ArgumentException("Cound not get circumcenter " + index);
         }
 
         /// <summary>

@@ -862,6 +862,20 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Get the segment.
+        /// </summary>
+        /// <param name="index">The segment index.</param>
+        /// <returns>The segment</returns>
+        /// <exception cref="ArgumentException">If segmentwith the index not found.</exception>
+        public Segment3d GetSegment(int index)
+        {
+            if (GetSegment(index, out Segment3d seg))
+                return seg;
+            else
+                throw new ArgumentException("Cound not get segment " + index);
+        }
+
+        /// <summary>
         /// Get a segment for  each halfedge in the mesh.
         /// </summary>
         /// <param name="segments">The segment array.</param>
@@ -882,6 +896,20 @@ namespace CGALDotNet.Polyhedra
         public bool GetTriangle(int index, out Triangle3d triangle)
         {
             return Kernel.GetTriangle(Ptr, index, out triangle);
+        }
+
+        /// <summary>
+        /// Get the triangle.
+        /// </summary>
+        /// <param name="index">The triangle index.</param>
+        /// <returns>The triangle</returns>
+        /// <exception cref="ArgumentException">If triangle with the index not found.</exception>
+        public Triangle3d GetTriangle(int index)
+        {
+            if (GetTriangle(index, out Triangle3d tri))
+                return tri;
+            else
+                throw new ArgumentException("Cound not get triangle " + index);
         }
 
         /// <summary>
@@ -908,6 +936,20 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Get the mesh vertex.
+        /// </summary>
+        /// <param name="index">The vertexs index.</param>
+        /// <returns>The vertexs</returns>
+        /// <exception cref="ArgumentException">If vertex with the index not found.</exception>
+        public MeshVertex3 GetVertex(int index)
+        {
+            if (GetVertex(index, out MeshVertex3 vertex))
+                return vertex;
+            else
+                throw new ArgumentException("Cound not get vertex " + index);
+        }
+
+        /// <summary>
         /// Get the vertices in the mesh.
         /// </summary>
         /// <param name="vertices">The vertex array.</param>
@@ -930,6 +972,20 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Get the mesh face.
+        /// </summary>
+        /// <param name="index">The faces index.</param>
+        /// <returns>The faces</returns>
+        /// <exception cref="ArgumentException">If face with the index not found.</exception>
+        public MeshFace3 GetFace(int index)
+        {
+            if(GetFace(index, out MeshFace3 face))
+                return face;
+            else
+                throw new ArgumentException("Cound not get face " + index);
+        }
+
+        /// <summary>
         /// Get the faces in the mesh.
         /// </summary>
         /// <param name="faces">The face array.</param>
@@ -949,6 +1005,20 @@ namespace CGALDotNet.Polyhedra
         public bool GetHalfedge(int index, out MeshHalfedge3 halfedge)
         {
             return Kernel.GetHalfedge(Ptr, index, out halfedge);
+        }
+
+        /// <summary>
+        /// Get the mesh Halfedge.
+        /// </summary>
+        /// <param name="index">The Halfedges index.</param>
+        /// <returns>The Halfedges</returns>
+        /// <exception cref="ArgumentException">If Halfedge with the index not found.</exception>
+        public MeshHalfedge3 GetHalfedge(int index)
+        {
+            if (GetHalfedge(index, out MeshHalfedge3 Halfedge))
+                return Halfedge;
+            else
+                throw new ArgumentException("Cound not get Halfedge " + index);
         }
 
         /// <summary>

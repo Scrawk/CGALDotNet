@@ -50,27 +50,30 @@ public:
 	typedef typename HalfedgeDS::Vertex Vertex;
 	typedef typename HalfedgeDS::Face Face;
 	typedef typename HalfedgeDS::Halfedge Halfedge;
-	typedef typename Polyhedron::Vertex_handle Vertex_Handle;
-	typedef typename Polyhedron::Face_handle Face_Handle;
-	typedef typename Polyhedron::Halfedge_handle Halfedge_Handle;
-	typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
-	typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
-	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor Edge_Des;
-	typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor Halfedge_Des;
-	typedef CGAL::Aff_transformation_3<K> Transformation_3;
+
+	//typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
+	//typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
+	//typedef typename boost::graph_traits<Polyhedron>::edge_descriptor Edge_Des;
+	//typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor Halfedge_Des;
+
+	typedef typename HalfedgeDS::Vertex_iterator Vertex_Iter;
+	typedef typename HalfedgeDS::Face_iterator Face_Iter;
+	typedef typename HalfedgeDS::Halfedge_iterator Halfedge_Iter;
 
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<Polyhedron> AABB_face_graph_primitive;
 	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
 	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
+	typedef CGAL::Aff_transformation_3<K> Transformation_3;
+
 
 public:
 
 	PolyhedronMap<K> map;
 
-	std::unordered_map<Vertex_Des, Vector> vertexNormalMap;
+	std::unordered_map<Vertex_Iter, Vector> vertexNormalMap;
 	bool rebuildVertexNormalMap = true;
 
-	std::unordered_map<Face_Des, Vector> faceNormalMap;
+	std::unordered_map<Face_Iter, Vector> faceNormalMap;
 	bool rebuildFaceNormalMap = true;
 
 	Polyhedron3()
@@ -172,61 +175,55 @@ public:
 		}
 	}
 
-	int FindVertexIndex(Vertex_Des vert)
+	int FindVertexIndex(Vertex_Iter vert)
 	{
 		map.BuildVertexMaps(model);
-		return map.FindVertexIndex(vert);
+		return map.FindVertexIndex(model, vert);
 	}
 
-	Vertex_Des* FindVertexDes(int index)
+	Vertex_Iter* FindVertexDes(int index)
 	{
 		map.BuildVertexMaps(model);
-		return map.FindVertexDes(index);
+		return map.FindVertexDes(model, index);
 	}
 
 	Vertex* FindVertex(int index)
 	{
 		map.BuildVertexMaps(model);
-		return map.FindVertex(index);
+		return map.FindVertex(model, index);
 	}
 
-	Vertex* GetVertex(int index)
-	{
-		map.BuildVertexMaps(model);
-		return map.GetVertex(index);
-	}
-
-	int FindFaceIndex(Face_Des face)
+	int FindFaceIndex(Face_Iter face)
 	{
 		map.BuildFaceMaps(model);
 		return map.FindFaceIndex(face);
 	}
 
-	Face_Des* FindFaceDes(int index)
+	Face_Iter* FindFaceDes(int index)
 	{
 		map.BuildFaceMaps(model);
 		return map.FindFaceDes(index);
 	}
 
-	int FindHalfedgeIndex(Halfedge_Des edge)
+	int FindHalfedgeIndex(Halfedge_Iter edge)
 	{
 		map.BuildHalfedgeMaps(model);
 		return map.FindHalfedgeIndex(edge);
 	}
 
-	Halfedge_Des* FindHalfedgeDes(int index)
+	Halfedge_Iter* FindHalfedgeDes(int index)
 	{
 		map.BuildHalfedgeMaps(model);
 		return map.FindHalfedgeDes(index);
 	}
 
-	Halfedge_Des GetHalfedgeDes(int index)
+	Halfedge_Iter GetHalfedgeDes(int index)
 	{
 		map.BuildHalfedgeMaps(model);
 		return map.GetHalfedgeDes(index);
 	}
 
-	Vector FindVertexNormal(Vertex_Des vert)
+	Vector FindVertexNormal(Vertex_Iter vert)
 	{
 		auto item = vertexNormalMap.find(vert);
 		if (item != vertexNormalMap.end())
@@ -389,15 +386,19 @@ public:
 		poly->model.make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
 	}
 
-	static Point3d GetPoint(void* ptr, int index)
+	Point3d GetPoint(int index)
 	{
-		auto poly = CastToPolyhedron(ptr);
-
-		auto vertex = poly->FindVertex(index);
+		auto vertex = FindVertex(index);
 		if (vertex != nullptr)
 			return Point3d::FromCGAL(vertex->point());
 		else
 			return { 0, 0, 0 };
+	}
+
+	static Point3d GetPoint(void* ptr, int index)
+	{
+		auto poly = CastToPolyhedron(ptr);
+		return poly->GetPoint(index);
 	}
 
 	static void GetPoints(void* ptr, Point3d* points, int count)
@@ -405,20 +406,23 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		int i = 0;
 
-		for (const auto point : poly->model.points())
+		for (int i = 0; i < count; i++)
 		{
-			points[i++] = Point3d::FromCGAL<K>(point);
-			if (i >= count) return;
+			points[i] = poly->GetPoint(i);
 		}
+	}
+
+	void SetPoint(int index, const Point3d& point)
+	{
+		auto vertex = FindVertex(index);
+		if (vertex != nullptr)
+			vertex->point() = point.ToCGAL<K>();
 	}
 
 	static void SetPoint(void* ptr, int index, const Point3d& point)
 	{
 		auto poly = CastToPolyhedron(ptr);
-
-		auto vertex = poly->FindVertex(index);
-		if (vertex != nullptr)
-			vertex->point() = point.ToCGAL<K>();
+		poly->SetPoint(index, point);
 	}
 
 	static void SetPoints(void* ptr, Point3d* points, int count)
@@ -427,16 +431,8 @@ public:
 
 		for (int i = 0; i < count; i++)
 		{
-			auto vertex = poly->GetVertex(i);
-			vertex->point() = points[i].ToCGAL<K>();
+			poly->SetPoint(i, points[i]);
 		}
-
-		//int i = 0;
-		//for (auto& point : poly->model.points())
-		//{
-		//	point = points[i++].ToCGAL<K>();
-		//	if (i >= count) return;
-		//}
 	}
 
 	static BOOL GetSegment(void* ptr, int index, Segment3d& segment)

@@ -29,110 +29,26 @@ namespace CGALDotNetConsole
 
         static void Main(string[] args)
         {
-
-            var indices = new PolygonalIndices();
-
-            indices.quads = new int[]
-            {
-                0, 1, 2, 3
-            };
-
-            var points = new Point3d[]
-            {
-               new Point3d(0, 0, 0),
-               new Point3d(1, 0, 0),
-               new Point3d(1, 1, 0),
-               new Point3d(0, 1, 0)
-            };
-
-            var mesh = new Polyhedron3<EIK>(points, indices);
-
-            var ray = new Ray3d(new Point3d(1, 0, 0), new Vector3d(0, 0, 1));
-
-            if (mesh.LocateFace(ray, out MeshFace3 face))
-            {
-                Console.WriteLine(face);
-            }
-        }
-
-        private static void Tri3Test()
-        {
-            var box = new Box3d(-20, 20);
-            var randomPoints = Point3d.RandomPoints(1, 10, box);
-
-            var m_triangulation = new DelaunayTriangulation3<EEK>(randomPoints);
-
-            m_triangulation.Print();
-
-            var points = new Point3d[m_triangulation.VertexCount];
-            m_triangulation.GetPoints(points, points.Length);
-            points.Round(2);
-
-            var verts = new TriVertex3[m_triangulation.VertexCount];
-            m_triangulation.GetVertices(verts, verts.Length);
-            verts.Round(2);
-
-            var segments = new int[m_triangulation.EdgeCount * 2];
-            m_triangulation.GetSegmentIndices(segments, segments.Length);
-
-            Console.WriteLine("Segments = " + segments.Length);
-
-            foreach (var p in points)
-            {
-                Console.WriteLine(p);
-            }
+    
+            var mesh = PolyhedronFactory<EEK>.CreateCube(1);
 
             Console.WriteLine("");
+            foreach (var p in mesh)
+                Console.WriteLine(p);
 
-            foreach (var v in verts)
-            {
-                Console.WriteLine(v);
-            }
+            mesh.Subdivide(1);
 
-            int edges = 0;
+            Console.WriteLine("");
+            foreach (var p in mesh)
+                Console.WriteLine(p.Rounded(2));
 
-            for (int i = 0; i < segments.Length / 2; i++)
-            {
-                int A = segments[i * 2 + 0];
-                int B = segments[i * 2 + 1];
+            var points2 = new Point3d[mesh.VertexCount];
+            mesh.GetPoints(points2, points2.Length);
 
-                Console.WriteLine("Create edge " + A + " " + B);
+            Console.WriteLine("");
+            foreach (var p in points2)
+                Console.WriteLine(p.Rounded(2));
 
-                if (A < 0 || A >= points.Length)
-                {
-                    //Console.WriteLine("A is out of bounds");
-                    continue;
-                }
-
-                if (B < 0 || B >= points.Length)
-                {
-                    //Console.WriteLine("B is out of bounds");
-                    continue;
-                }
-
-                var a = points[A];
-                var b = points[B];
-
-                if (!a.IsFinite)
-                {
-                    //Console.WriteLine("a is not finite");
-                    //Console.WriteLine(a);
-                    continue;
-                }
-
-                if (!b.IsFinite)
-                {
-                    //Console.WriteLine("b is not finite");
-                    //Console.WriteLine(b);
-                    continue;
-                }
-
-                edges++;
-
-                Console.WriteLine("Create edge " + a + " " + b);
-            }
-
-            Console.WriteLine("Created " + edges + " edges)");
         }
 
 

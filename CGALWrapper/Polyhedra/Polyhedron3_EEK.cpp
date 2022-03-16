@@ -424,6 +424,35 @@ int Polyhedron3_EEK_SplitVertex(void* ptr, int h, int g)
 	return Polyhedron3<EEK>::SplitVertex(ptr, h, g);
 }
 
+/*
+typedef typename EEK::FT FT;
+typedef typename EEK::Point_3 Point;
+typedef typename EEK::Vector_3 Vector;
+typedef CGAL::Polyhedron_3<EEK, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
+typedef typename HalfedgeDS::Vertex Vertex;
+typedef typename HalfedgeDS::Face Face;
+typedef typename HalfedgeDS::Halfedge Halfedge;
+
+//typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
+typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
+typedef typename boost::graph_traits<Polyhedron>::edge_descriptor Edge_Des;
+typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor Halfedge_Des;
+
+typedef typename HalfedgeDS::Vertex_iterator Vertex_Iter;
+
+void _BuildVertexMaps(void* ptr)
+{
+	auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
+
+	int index = 0;
+	for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
+	{
+		Vertex v = *vert;
+		v.point() = vert->point();
+	}
+}
+*/
 
 
 

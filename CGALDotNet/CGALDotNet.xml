@@ -9001,6 +9001,14 @@
             <param name="segment">The segment.</param>
             <returns>True if halfedge found.</returns>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetSegment(System.Int32)">
+            <summary>
+            Get the segment.
+            </summary>
+            <param name="index">The segment index.</param>
+            <returns>The segment</returns>
+            <exception cref="T:System.ArgumentException">If segmentwith the index not found.</exception>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetSegments(CGALDotNetGeometry.Shapes.Segment3d[],System.Int32)">
             <summary>
             Get a segment for  each halfedge in the mesh.
@@ -9016,6 +9024,14 @@
             <param name="index">The faces index.</param>
             <param name="triangle">The faces triangle</param>
             <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetTriangle(System.Int32)">
+            <summary>
+            Get the triangle.
+            </summary>
+            <param name="index">The triangle index.</param>
+            <returns>The triangle</returns>
+            <exception cref="T:System.ArgumentException">If triangle with the index not found.</exception>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetTriangles(CGALDotNetGeometry.Shapes.Triangle3d[],System.Int32)">
             <summary>
@@ -9033,6 +9049,14 @@
             <param name="vertex">The vertex.</param>
             <returns>True if the vertex was found.</returns>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetVertex(System.Int32)">
+            <summary>
+            Get the mesh vertex.
+            </summary>
+            <param name="index">The vertexs index.</param>
+            <returns>The vertexs</returns>
+            <exception cref="T:System.ArgumentException">If vertex with the index not found.</exception>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetVertices(CGALDotNet.Polyhedra.MeshVertex3[],System.Int32)">
             <summary>
             Get the vertices in the mesh.
@@ -9048,6 +9072,14 @@
             <param name="face">The face.</param>
             <returns>True if the face was found.</returns>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetFace(System.Int32)">
+            <summary>
+            Get the mesh face.
+            </summary>
+            <param name="index">The faces index.</param>
+            <returns>The faces</returns>
+            <exception cref="T:System.ArgumentException">If face with the index not found.</exception>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetFaces(CGALDotNet.Polyhedra.MeshFace3[],System.Int32)">
             <summary>
             Get the faces in the mesh.
@@ -9062,6 +9094,14 @@
             <param name="index">The halfedges index.</param>
             <param name="halfedge">The halfedge.</param>
             <returns>True if the halfedge was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetHalfedge(System.Int32)">
+            <summary>
+            Get the mesh Halfedge.
+            </summary>
+            <param name="index">The Halfedges index.</param>
+            <returns>The Halfedges</returns>
+            <exception cref="T:System.ArgumentException">If Halfedge with the index not found.</exception>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.GetHalfedges(CGALDotNet.Polyhedra.MeshHalfedge3[],System.Int32)">
             <summary>
@@ -12875,6 +12915,14 @@
             <param name="point">The vertices point.</param>
             <returns>True if the vertex was found.</returns>
         </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetPoint(System.Int32)">
+            <summary>
+            Get the point.
+            </summary>
+            <param name="index">The points index.</param>
+            <returns>The point</returns>
+            <exception cref="T:System.ArgumentException">If point with the index not found.</exception>
+        </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetVertex(System.Int32,CGALDotNet.Triangulations.TriVertex2@)">
             <summary>
             Get a vertex.
@@ -12882,6 +12930,14 @@
             <param name="index">The vertex index.</param>
             <param name="vertex">The vertex.</param>
             <returns>True if the vertex was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetVertex(System.Int32)">
+            <summary>
+            Get the vertex.
+            </summary>
+            <param name="index">The vertexs index.</param>
+            <returns>The vertexs</returns>
+            <exception cref="T:System.ArgumentException">If vertex with the index not found.</exception>
         </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetVertices(CGALDotNet.Triangulations.TriVertex2[],System.Int32)">
             <summary>
@@ -12897,6 +12953,14 @@
             <param name="index">The faces index</param>
             <param name="face">The face</param>
             <returns>True if the face was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetFace(System.Int32)">
+            <summary>
+            Get the face.
+            </summary>
+            <param name="index">The faces index.</param>
+            <returns>The Faces</returns>
+            <exception cref="T:System.ArgumentException">If face with the index not found.</exception>
         </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetFaces(CGALDotNet.Triangulations.TriFace2[],System.Int32)">
             <summary>
@@ -12914,6 +12978,15 @@
             <param name="segment">The segment.</param>
             <returns>True if the face was found.</returns>
         </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetSegment(System.Int32,System.Int32)">
+            <summary>
+            Get the segment between the face and a neighbour.
+            </summary>
+            <param name="faceIndex">The faces index</param>
+            <param name="neighbourIndex">The neighbour (0-2) index in the face.</param>
+            <returns>The segment</returns>
+            <exception cref="T:System.ArgumentException">If segment with the index not found.</exception>
+        </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetTriangle(System.Int32,CGALDotNetGeometry.Shapes.Triangle2d@)">
             <summary>
             Get a faces triangle.
@@ -12921,6 +12994,14 @@
             <param name="faceIndex">The faces index</param>
             <param name="triangle">The triangle</param>
             <returns>True if the face was found</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetTriangle(System.Int32)">
+            <summary>
+            Get the triangle.
+            </summary>
+            <param name="index">The triangles index.</param>
+            <returns>The triangle</returns>
+            <exception cref="T:System.ArgumentException">If triangle with the index not found.</exception>
         </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetTriangles(CGALDotNetGeometry.Shapes.Triangle2d[],System.Int32)">
             <summary>
@@ -12937,6 +13018,14 @@
             <param name="circumcenter">The circumcenter. A circle
             that passes through all three of the triangules vertices.</param>
             <returns>True if the face was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetCircumcenter(System.Int32)">
+            <summary>
+            Get the circumcenter.
+            </summary>
+            <param name="index">The circumcenters index.</param>
+            <returns>The circumcenter</returns>
+            <exception cref="T:System.ArgumentException">If circumcenter with the index not found.</exception>
         </member>
         <member name="M:CGALDotNet.Triangulations.BaseTriangulation2.GetCircumcenters(CGALDotNetGeometry.Numerics.Point2d[],System.Int32)">
             <summary>
