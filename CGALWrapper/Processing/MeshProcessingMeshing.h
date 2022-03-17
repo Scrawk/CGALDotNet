@@ -253,7 +253,7 @@ public:
 	{
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 
-		auto face = mesh->FindFaceDes(index);
+		auto face = mesh->FindFaceIter(index);
 
 		if (face != nullptr)
 		{
@@ -275,7 +275,7 @@ public:
 		std::vector<PFace_Des> _faces;
 		for (int i = 0; i < count; i++)
 		{
-			auto face = mesh->FindFaceDes(faces[i]);
+			auto face = mesh->FindFaceIter(faces[i]);
 			if (face != nullptr)
 				_faces.push_back(*face);
 		}

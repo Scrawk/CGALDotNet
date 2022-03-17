@@ -2000,6 +2000,48 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public void PrintVertices(StringBuilder builder)
+        {
+            builder.AppendLine("Vertices");
+            var verts = new MeshVertex3[VertexCount];
+            GetVertices(verts, verts.Length);
+
+            foreach (var v in verts)
+                builder.AppendLine(v.ToString());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public void PrintFaces(StringBuilder builder)
+        {
+            builder.AppendLine("Faces");
+            var faces = new MeshFace3[FaceCount];
+            GetFaces(faces, faces.Length);
+
+            foreach (var f in faces)
+                builder.AppendLine(f.ToString());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        public void PrintHalfedges(StringBuilder builder)
+        {
+            builder.AppendLine("Edges");
+            var edges = new MeshHalfedge3[HalfedgeCount];
+            GetHalfedges(edges, edges.Length);
+
+            foreach (var e in edges)
+                builder.AppendLine(e.ToString());
+        }
+
+        /// <summary>
         /// Release the unmanaged pointer.
         /// </summary>
         protected override void ReleasePtr()

@@ -155,7 +155,7 @@ public:
 
 		int before = (int)mesh->model.size_of_halfedges();
 
-		auto hedge = mesh->FindHalfedgeDes(index);
+		auto hedge = mesh->FindHalfedgeIter(index);
 		if(hedge != nullptr)
 			PMP::merge_duplicated_vertices_in_boundary_cycle(*hedge, mesh->model);
 

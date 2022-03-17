@@ -125,25 +125,23 @@ namespace CGALDotNet.Polyhedra
             mesh.GetHalfedge(Halfedge, out start);
             MeshHalfedge3 e = start;
 
-            int count = mesh.HalfedgeCount;
-
             do
             {
                 yield return e;
 
                 MeshHalfedge3 opp, next;
 
-                if (e.Opposite >= 0 && e.Opposite < count)
-                    mesh.GetHalfedge(e.Opposite, out opp);
+                if (e.Next != CGALGlobal.NULL_INDEX)
+                    mesh.GetHalfedge(e.Next, out next);
                 else
                     yield break;
 
-                if (e.Next >= 0 && e.Next < count)
-                    mesh.GetHalfedge(opp.Next, out next);
+                if (next.Opposite != CGALGlobal.NULL_INDEX)
+                    mesh.GetHalfedge(next.Opposite, out opp);
                 else
                     yield break;
 
-                e = next;
+                e = opp;
             }
             while (e.Index != start.Index);
         }

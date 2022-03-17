@@ -107,9 +107,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>The next edge</returns>
         public IEnumerable<MeshHalfedge3> EnumerateHalfedges(IMesh mesh)
         {
-            int count = mesh.HalfedgeCount;
-
-            if (Halfedge >= 0 && Halfedge < count)
+            if (Halfedge != CGALGlobal.NULL_INDEX)
             {
                 MeshHalfedge3 edge;
                 mesh.GetHalfedge(Halfedge, out edge);
@@ -130,9 +128,7 @@ namespace CGALDotNet.Polyhedra
         /// <returns>The next vertex</returns>
         public IEnumerable<MeshVertex3> EnumerateVertices(IMesh mesh)
         {
-            int count = mesh.HalfedgeCount;
-
-            if (Halfedge >= 0 && Halfedge < count)
+            if (Halfedge != CGALGlobal.NULL_INDEX)
             {
                 MeshHalfedge3 edge;
                 mesh.GetHalfedge(Halfedge, out edge);

@@ -5,7 +5,8 @@ using CGALDotNetGeometry.Numerics;
 
 namespace CGALDotNet.Polyhedra
 {
-    public struct MeshHalfedge3 : IEquatable<MeshHalfedge3>
+
+	public struct MeshHalfedge3 : IEquatable<MeshHalfedge3>
 	{
 		/// <summary>
 		/// Is the edge a border to a hole.
@@ -185,13 +186,11 @@ namespace CGALDotNet.Polyhedra
 			var start = this;
 			var e = start;
 
-			int count = mesh.HalfedgeCount;
-
 			do
 			{
 				yield return e;
 
-				if (e.Next >= 0 && e.Next < count)
+				if (e.Next != CGALGlobal.NULL_INDEX)
 					mesh.GetHalfedge(e.Next, out e);
 				else
 					yield break;
@@ -210,19 +209,16 @@ namespace CGALDotNet.Polyhedra
 			var start = this;
 			var e = start;
 
-			int vertCount = mesh.VertexCount;
-			int edgeCount = mesh.HalfedgeCount;
-
 			do
 			{
-				if (e.Source >= 0 && e.Source < vertCount)
+				if (e.Source != CGALGlobal.NULL_INDEX)
 				{
 					MeshVertex3 vert;
 					mesh.GetVertex(e.Source, out vert);
 					yield return vert;
 				}
 
-				if (e.Next >= 0 && e.Next < edgeCount)
+				if (e.Next != CGALGlobal.NULL_INDEX)
 					mesh.GetHalfedge(e.Next, out e);
 				else
 					yield break;

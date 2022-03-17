@@ -181,10 +181,10 @@ public:
 		return map.FindVertexIndex(model, vert);
 	}
 
-	Vertex_Iter* FindVertexDes(int index)
+	Vertex_Iter* FindVertexIter(int index)
 	{
 		map.BuildVertexMaps(model);
-		return map.FindVertexDes(model, index);
+		return map.FindVertexIter(model, index);
 	}
 
 	Vertex* FindVertex(int index)
@@ -199,10 +199,10 @@ public:
 		return map.FindFaceIndex(face);
 	}
 
-	Face_Iter* FindFaceDes(int index)
+	Face_Iter* FindFaceIter(int index)
 	{
 		map.BuildFaceMaps(model);
-		return map.FindFaceDes(index);
+		return map.FindFaceIter(index);
 	}
 
 	int FindHalfedgeIndex(Halfedge_Iter edge)
@@ -211,16 +211,16 @@ public:
 		return map.FindHalfedgeIndex(edge);
 	}
 
-	Halfedge_Iter* FindHalfedgeDes(int index)
+	Halfedge_Iter* FindHalfedgeIter(int index)
 	{
 		map.BuildHalfedgeMaps(model);
-		return map.FindHalfedgeDes(index);
+		return map.FindHalfedgeIter(index);
 	}
 
-	Halfedge_Iter GetHalfedgeDes(int index)
+	Halfedge_Iter GetHalfedgeIter(int index)
 	{
 		map.BuildHalfedgeMaps(model);
-		return map.GetHalfedgeDes(index);
+		return map.GetHalfedgeIter(index);
 	}
 
 	Vector FindVertexNormal(Vertex_Iter vert)
@@ -439,7 +439,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto edge = poly->FindHalfedgeDes(index);
+		auto edge = poly->FindHalfedgeIter(index);
 		if (edge != nullptr)
 		{
 			auto a = (*edge)->vertex()->point();
@@ -479,7 +479,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto face = poly->FindFaceDes(index);
+		auto face = poly->FindFaceIter(index);
 		if (face != nullptr)
 		{
 			auto a = (*face)->halfedge()->prev()->vertex()->point();
@@ -526,7 +526,7 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		vert = MeshVertex3::NullVertex();
 
-		auto v = poly->FindVertexDes(index);
+		auto v = poly->FindVertexIter(index);
 		if (v != nullptr)
 		{
 			vert.Index = index;
@@ -567,7 +567,7 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		face = MeshFace3::NullFace();
 
-		auto f = poly->FindFaceDes(index);
+		auto f = poly->FindFaceIter(index);
 		if (f != nullptr)
 		{
 			face.Index = index;
@@ -612,7 +612,7 @@ public:
 		auto poly = CastToPolyhedron(ptr);
 		edge = MeshHalfedge3::NullHalfedge();
 
-		auto e = poly->FindHalfedgeDes(index);
+		auto e = poly->FindHalfedgeIter(index);
 		if (e != nullptr)
 		{
 			edge.Index = index;
@@ -1206,8 +1206,8 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
-		auto eg = poly->FindHalfedgeDes(g);
+		auto eh = poly->FindHalfedgeIter(h);
+		auto eg = poly->FindHalfedgeIter(g);
 
 		if (eh == nullptr || eg == nullptr)
 			return NULL_INDEX;
@@ -1224,8 +1224,8 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
-		auto eg = poly->FindHalfedgeDes(g);
+		auto eh = poly->FindHalfedgeIter(h);
+		auto eg = poly->FindHalfedgeIter(g);
 
 		if (eh == nullptr || eg == nullptr)
 			return NULL_INDEX;
@@ -1242,7 +1242,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1259,7 +1259,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1276,7 +1276,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return FALSE;
@@ -1292,7 +1292,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return FALSE;
@@ -1308,7 +1308,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1325,7 +1325,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1342,7 +1342,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1359,8 +1359,8 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
-		auto eg = poly->FindHalfedgeDes(g);
+		auto eh = poly->FindHalfedgeIter(h);
+		auto eg = poly->FindHalfedgeIter(g);
 
 		if (eh == nullptr || eg == nullptr)
 			return NULL_INDEX;
@@ -1377,7 +1377,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1394,7 +1394,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1411,7 +1411,7 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
+		auto eh = poly->FindHalfedgeIter(h);
 
 		if (eh == nullptr)
 			return NULL_INDEX;
@@ -1428,8 +1428,8 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
-		auto eg = poly->FindHalfedgeDes(g);
+		auto eh = poly->FindHalfedgeIter(h);
+		auto eg = poly->FindHalfedgeIter(g);
 
 		if (eh == nullptr || eg == nullptr)
 			return NULL_INDEX;
@@ -1446,9 +1446,9 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
-		auto eg = poly->FindHalfedgeDes(g);
-		auto ek = poly->FindHalfedgeDes(k);
+		auto eh = poly->FindHalfedgeIter(h);
+		auto eg = poly->FindHalfedgeIter(g);
+		auto ek = poly->FindHalfedgeIter(k);
 
 		if (eh == nullptr || eg == nullptr || ek == nullptr)
 			return NULL_INDEX;
@@ -1465,8 +1465,8 @@ public:
 	{
 		auto poly = CastToPolyhedron(ptr);
 
-		auto eh = poly->FindHalfedgeDes(h);
-		auto eg = poly->FindHalfedgeDes(g);
+		auto eh = poly->FindHalfedgeIter(h);
+		auto eg = poly->FindHalfedgeIter(g);
 
 		if (eh == nullptr || eg == nullptr)
 			return NULL_INDEX;

@@ -9671,6 +9671,24 @@
             </summary>
             <param name="builder"></param>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.PrintVertices(System.Text.StringBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.PrintFaces(System.Text.StringBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.Polyhedron3.PrintHalfedges(System.Text.StringBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.ReleasePtr">
             <summary>
             Release the unmanaged pointer.

@@ -31,17 +31,17 @@ private:
 
 	int buildStamp = 1;
 
-	//std::unordered_map<Vertex_Iter, int> vertexIndexMap;
+	std::unordered_map<Vertex_Iter, int> vertexIndexMap;
 	//std::vector<Vertex> vertexMap;
-	//std::vector<Vertex_Iter> vertexDesMap;
-	//bool rebuildVertexIndexMap = true;
+	std::vector<Vertex_Iter> vertexIterMap;
+	bool rebuildVertexIndexMap = true;
 
 	std::unordered_map<Face_Iter, int> faceIndexMap;
-	std::vector<Face_Iter> faceDesMap;
+	std::vector<Face_Iter> faceIterMap;
 	bool rebuildFaceIndexMap = true;
 
 	std::unordered_map<Halfedge_Iter, int> halfedgeIndexMap;
-	std::vector<Halfedge_Iter> halfedgeDesMap;
+	std::vector<Halfedge_Iter> halfedgeIterMap;
 	bool rebuildHalfedgeIndexMap = true;
 
 public:
@@ -53,24 +53,24 @@ public:
 
 	void OnVerticesChanged()
 	{
-		//vertexDesMap.clear();
-		//vertexDesMap.reserve(0);
-		//vertexIndexMap.clear();
-		//rebuildVertexIndexMap = true;
+		vertexIterMap.clear();
+		vertexIterMap.reserve(0);
+		vertexIndexMap.clear();
+		rebuildVertexIndexMap = true;
 	}
 
 	void OnFacesChanged()
 	{
-		faceDesMap.clear();
-		faceDesMap.reserve(0);
+		faceIterMap.clear();
+		faceIterMap.reserve(0);
 		faceIndexMap.clear();
 		rebuildFaceIndexMap = true;
 	}
 
 	void OnHalfedgesChanged()
 	{
-		halfedgeDesMap.clear();
-		halfedgeDesMap.reserve(0);
+		halfedgeIterMap.clear();
+		halfedgeIterMap.reserve(0);
 		halfedgeIndexMap.clear();
 		rebuildHalfedgeIndexMap = true;
 	}
@@ -84,25 +84,25 @@ public:
 
 	void BuildVertexMaps(Polyhedron& model, bool force = false)
 	{
-		/*
+		
 		if (!force && !rebuildVertexIndexMap) return;
 		rebuildVertexIndexMap = false;
 
 		auto count = model.size_of_vertices();
-		vertexMap.reserve(count);
-		vertexDesMap.reserve(count);
+		//vertexMap.reserve(count);
+		vertexIterMap.reserve(count);
 		vertexIndexMap.clear();
 
 		int index = 0;
 		for (auto vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
 		{
 			//vert->id() = index;
-			vertexMap.push_back(*vert);
-			vertexDesMap.push_back(vert);
+			//vertexMap.push_back(*vert);
+			vertexIterMap.push_back(vert);
 			vertexIndexMap.insert(std::pair<Vertex_Iter, int>(vert, index));
 			index++;
 		}
-		*/
+		
 	}
 
 	void BuildFaceMaps(Polyhedron& model, bool force = false)
@@ -111,14 +111,14 @@ public:
 		rebuildFaceIndexMap = false;
 
 		auto count = model.size_of_facets();
-		faceDesMap.reserve(count);
+		faceIterMap.reserve(count);
 		faceIndexMap.clear();
 
 		int index = 0;
 		for (Face_Iter face = model.facets_begin(); face != model.facets_end(); ++face)
 		{
 			//face->id() = index;
-			faceDesMap.push_back(face);
+			faceIterMap.push_back(face);
 			faceIndexMap.insert(std::pair<Face_Iter, int>(face, index));
 			index++;
 		}
@@ -130,14 +130,14 @@ public:
 		rebuildHalfedgeIndexMap = false;
 
 		auto count = model.size_of_halfedges();
-		halfedgeDesMap.reserve(count);
+		halfedgeIterMap.reserve(count);
 		halfedgeIndexMap.clear();
 
 		int index = 0;
 		for (Halfedge_Iter hedge = model.halfedges_begin(); hedge != model.halfedges_end(); ++hedge)
 		{
 			//hedge->id() = index;
-			halfedgeDesMap.push_back(hedge);
+			halfedgeIterMap.push_back(hedge);
 			halfedgeIndexMap.insert(std::pair<Halfedge_Iter, int>(hedge, index));
 			index++;
 		}
@@ -145,24 +145,25 @@ public:
 
 	int FindVertexIndex(Polyhedron& model, Vertex_Iter v)
 	{
+		/*
 		int i = 0;
 		for (Vertex_Iter vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
 		{
 			if (v == vert) return i;
 			i++;
 		}
+		*/
 
-		/*
-		auto item = vertexIndexMap.find(vert);
+		auto item = vertexIndexMap.find(v);
 		if (item != vertexIndexMap.end())
 			return item->second;
 		else
 			return NULL_INDEX;
-		*/
 	}
 
-	Vertex_Iter* FindVertexDes(Polyhedron& model, int index)
+	Vertex_Iter* FindVertexIter(Polyhedron& model, int index)
 	{
+		/*
 		int i = 0;
 		for (Vertex_Iter vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
 		{
@@ -171,24 +172,38 @@ public:
 		}
 
 		return nullptr;
+		*/
 
-		/*
-		int count = (int)vertexDesMap.size();
+		int count = (int)vertexIterMap.size();
 		if (index < 0 || index >= count)
 			return nullptr;
 
-		return &vertexDesMap[index];
-		*/
+		return &vertexIterMap[index];
+	
 	}
 
 	Vertex* FindVertex(Polyhedron& model, int index)
 	{
-		int i = 0;
-		for (Vertex_Iter vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
-		{
-			if (i == index) return &(*vert);
-			i++;
-		}
+		int count = (int)model.size_of_vertices();
+
+		//if (index < count / 2)
+		//{
+			int i = 0;
+			for (Vertex_Iter vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
+			{
+				if (i == index) return &(*vert);
+				i++;
+			}
+		//}
+		//else
+		//{
+		//	int i = count - 1;
+		//	for (Vertex_Iter vert = model.vertices_end(); vert != model.vertices_begin(); --vert)
+		//	{
+		//		if (i == index) return &(*vert);
+		//		i--;
+		//	}
+		//}
 
 		return nullptr;
 
@@ -210,13 +225,13 @@ public:
 			return NULL_INDEX;
 	}
 
-	Face_Iter* FindFaceDes(int index)
+	Face_Iter* FindFaceIter(int index)
 	{
-		int count = (int)faceDesMap.size();
+		int count = (int)faceIterMap.size();
 		if (index < 0 || index >= count)
 			return nullptr;
 
-		return &faceDesMap[index];
+		return &faceIterMap[index];
 	}
 
 	int FindHalfedgeIndex(Halfedge_Iter edge)
@@ -228,18 +243,18 @@ public:
 			return NULL_INDEX;
 	}
 
-	Halfedge_Iter* FindHalfedgeDes(int index)
+	Halfedge_Iter* FindHalfedgeIter(int index)
 	{
-		int count = (int)halfedgeDesMap.size();
+		int count = (int)halfedgeIterMap.size();
 		if (index < 0 || index >= count)
 			return nullptr;
 
-		return &halfedgeDesMap[index];
+		return &halfedgeIterMap[index];
 	}
 
-	Halfedge_Iter GetHalfedgeDes(int index)
+	Halfedge_Iter GetHalfedgeIter(int index)
 	{
-		return halfedgeDesMap[index];
+		return halfedgeIterMap[index];
 	}
 
 };

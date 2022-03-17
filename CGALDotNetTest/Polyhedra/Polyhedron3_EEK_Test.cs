@@ -45,19 +45,25 @@ namespace CGALDotNetTest.Polyhedra
             Assert.IsTrue(poly.IsDisposed);
         }
 
+        [TestMethod]
         public void VertexCount()
         {
-
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, true);
+            Assert.AreEqual(8, poly.VertexCount);
         }
 
+        [TestMethod]
         public void FaceCount()
         {
-
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, true);
+            Assert.AreEqual(6, poly.FaceCount);
         }
 
+        [TestMethod]
         public void HalfedgeCount()
         {
-
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, true);
+            Assert.AreEqual(24, poly.HalfedgeCount);
         }
 
         public void BorderEdgeCount()
@@ -71,26 +77,40 @@ namespace CGALDotNetTest.Polyhedra
 
         }
 
+        [TestMethod]
         public void IsValid()
         {
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, true);
+            Assert.IsTrue(poly.IsValid);
         }
 
+        [TestMethod]
         public void IsClosed()
         {
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, true);
+            Assert.IsTrue(poly.IsClosed);
         }
 
+        [TestMethod]
         public void IsTriangle()
         {
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, false);
+            Assert.IsTrue(poly.IsTriangle);
         }
 
+        [TestMethod]
         public void IsQuad()
         {
-  
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, true);
+            Assert.IsTrue(poly.IsQuad);
         }
 
+        [TestMethod]
         public void Clear()
         {
-
+            var poly = PolyhedronFactory<EEK>.CreateCube(1, true);
+            poly.Clear();
+            Assert.AreEqual(0, poly.VertexCount);
         }
 
         public void CreateMesh()
