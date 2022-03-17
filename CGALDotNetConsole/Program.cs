@@ -43,7 +43,7 @@ namespace CGALDotNetConsole
                 new Point3d(0, 0, 0),
                 new Point3d(1, 0, 0),
                 new Point3d(1, 1, 0),
-                new Point3d(0, 1, 0)
+                new Point3d(0, 2, 0)
             };
 
             var mesh = new Polyhedron3<EEK>(points, indices);
