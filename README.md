@@ -57,6 +57,8 @@
 
 - [Polyhedra3 Mesh](https://github.com/Scrawk/CGALDotNet/wiki/Polyhedron3-Mesh)
 
+- [Mesh Processing](https://github.com/Scrawk/CGALDotNet/wiki/Mesh-Processing)
+
 Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
 Work in progress. Only 64 bit windows binarys provided.
