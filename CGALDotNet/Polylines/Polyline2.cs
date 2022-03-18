@@ -5,6 +5,7 @@ using System.Text;
 
 using CGALDotNetGeometry.Numerics;
 using CGALDotNetGeometry.Shapes;
+using CGALDotNet.Polygons;
 
 namespace CGALDotNet.Polylines
 {
@@ -60,6 +61,21 @@ namespace CGALDotNet.Polylines
             var ptr = Kernel.Copy(Ptr);
             var copy = new Polyline2<K>(ptr);
             return copy;
+        }
+
+        /// <summary>
+        /// Create a polygon from the line.
+        /// </summary>
+        /// <param name="threshold">Threshold for the firat and last points being equal.</param>
+        /// <returns>The polygon.</returns>
+        public Polygon2<K> ToPoylgon(double threshold = MathUtil.EPS_64)
+        {
+            var points = ToList();
+
+            if (Point2d.Distance(First, Last) < threshold)
+                points.RemoveAt(points.Count-1);
+
+            return new Polygon2<K>(points.ToArray());
         }
 
     }
@@ -120,6 +136,16 @@ namespace CGALDotNet.Polylines
         /// The capacity of the point array.
         /// </summary>
         public int Capacity => Kernel.Capacity(Ptr);
+
+        /// <summary>
+        /// Get the first point.
+        /// </summary>
+        public Point2d First => this[0];
+
+        /// <summary>
+        /// Get the last point.
+        /// </summary>
+        public Point2d Last => this[Count-1];
 
         /// <summary>
         /// The polylines kernel.
@@ -438,6 +464,19 @@ namespace CGALDotNet.Polylines
         }
 
         /// <summary>
+        /// Return all the points in the polyline in a list.
+        /// </summary>
+        /// <returns>The list.</returns>
+        public List<Point2d> ToList()
+        {
+            var points = new List<Point2d>(Count);
+            for (int i = 0; i < Count; i++)
+                points.Add(GetPoint(i));
+
+            return points;
+        }
+
+        /// <summary>
         /// Convert the polyline to a new polyline with a different kernel.
         /// May result in different values due to precision issues.
         /// </summary>
@@ -449,19 +488,6 @@ namespace CGALDotNet.Polylines
             var e = CGALEnum.ToKernelEnum(k);
             var ptr = Kernel.Convert(Ptr, e);
             return new Polyline2<T>(ptr);
-        }
-
-        /// <summary>
-        /// Return all the points in the polyline in a list.
-        /// </summary>
-        /// <returns>The list.</returns>
-        public List<Point2d> ToList()
-        {
-            var points = new List<Point2d>(Count);
-            for (int i = 0; i < Count; i++)
-                points.Add(GetPoint(i));
-
-            return points;
         }
 
         /// <summary>

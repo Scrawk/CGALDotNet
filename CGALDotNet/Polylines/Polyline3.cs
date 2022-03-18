@@ -122,6 +122,16 @@ namespace CGALDotNet.Polylines
         public int Capacity => Kernel.Capacity(Ptr);
 
         /// <summary>
+        /// Get the first point.
+        /// </summary>
+        public Point3d First => this[0];
+
+        /// <summary>
+        /// Get the last point.
+        /// </summary>
+        public Point3d Last => this[Count - 1];
+
+        /// <summary>
         /// The polylines kernel.
         /// Contains the functions to the unmanaged CGAL polyline.
         /// </summary>
@@ -442,6 +452,19 @@ namespace CGALDotNet.Polylines
         }
 
         /// <summary>
+        /// Return all the points in the polyline in a list.
+        /// </summary>
+        /// <returns>The list.</returns>
+        public List<Point3d> ToList()
+        {
+            var points = new List<Point3d>(Count);
+            for (int i = 0; i < Count; i++)
+                points.Add(GetPoint(i));
+
+            return points;
+        }
+
+        /// <summary>
         /// Convert the polyline to a new polyline with a different kernel.
         /// May result in different values due to precision issues.
         /// </summary>
@@ -453,19 +476,6 @@ namespace CGALDotNet.Polylines
             var e = CGALEnum.ToKernelEnum(k);
             var ptr = Kernel.Convert(Ptr, e);
             return new Polyline3<T>(ptr);
-        }
-
-        /// <summary>
-        /// Return all the points in the polyline in a list.
-        /// </summary>
-        /// <returns>The list.</returns>
-        public List<Point3d> ToList()
-        {
-            var points = new List<Point3d>(Count);
-            for (int i = 0; i < Count; i++)
-                points.Add(GetPoint(i));
-
-            return points;
         }
 
         /// <summary>
