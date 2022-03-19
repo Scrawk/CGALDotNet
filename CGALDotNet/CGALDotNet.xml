@@ -8829,12 +8829,21 @@
             A tetrahedron is added to the polyhedral surface
             with its vertices initialized to p1, p2, p3, and p4.
             </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <param name="p3"></param>
+            <param name="p4"></param>
+            <returns>A edge in the tetrahdron.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.MakeTriangle(CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d,CGALDotNetGeometry.Numerics.Point3d)">
             <summary>
             A triangle with border edges is added to the 
             polyhedral surface with its vertices initialized to p1, p2, and p3.
             </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <param name="p3"></param>
+            <returns>A edge in the triangle.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.Polyhedron3.CreateMesh(CGALDotNetGeometry.Numerics.Point3d[],System.Int32[],System.Int32[])">
             <summary>
@@ -10856,6 +10865,13 @@
             </summary>
             <returns>The copied polyline.</returns>
         </member>
+        <member name="M:CGALDotNet.Polylines.Polyline2`1.ToPoylgon(System.Double)">
+            <summary>
+            Create a polygon from the line.
+            </summary>
+            <param name="threshold">Threshold for the firat and last points being equal.</param>
+            <returns>The polygon.</returns>
+        </member>
         <member name="T:CGALDotNet.Polylines.Polyline2">
             <summary>
             The abstract polyline definition.
@@ -10894,6 +10910,16 @@
         <member name="P:CGALDotNet.Polylines.Polyline2.Capacity">
             <summary>
             The capacity of the point array.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polylines.Polyline2.First">
+            <summary>
+            Get the first point.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polylines.Polyline2.Last">
+            <summary>
+            Get the last point.
             </summary>
         </member>
         <member name="P:CGALDotNet.Polylines.Polyline2.Kernel">
@@ -11093,6 +11119,12 @@
             </summary>
             <returns>The array.</returns>
         </member>
+        <member name="M:CGALDotNet.Polylines.Polyline2.ToList">
+            <summary>
+            Return all the points in the polyline in a list.
+            </summary>
+            <returns>The list.</returns>
+        </member>
         <member name="M:CGALDotNet.Polylines.Polyline2.Convert``1">
             <summary>
             Convert the polyline to a new polyline with a different kernel.
@@ -11100,12 +11132,6 @@
             </summary>
             <typeparam name="T">The new kernel type.</typeparam>
             <returns>The new polline.</returns>
-        </member>
-        <member name="M:CGALDotNet.Polylines.Polyline2.ToList">
-            <summary>
-            Return all the points in the polyline in a list.
-            </summary>
-            <returns>The list.</returns>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline2.Print(System.Text.StringBuilder)">
             <summary>
@@ -11196,6 +11222,16 @@
         <member name="P:CGALDotNet.Polylines.Polyline3.Capacity">
             <summary>
             The capacity of the point array.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polylines.Polyline3.First">
+            <summary>
+            Get the first point.
+            </summary>
+        </member>
+        <member name="P:CGALDotNet.Polylines.Polyline3.Last">
+            <summary>
+            Get the last point.
             </summary>
         </member>
         <member name="P:CGALDotNet.Polylines.Polyline3.Kernel">
@@ -11395,6 +11431,12 @@
             </summary>
             <returns>The array.</returns>
         </member>
+        <member name="M:CGALDotNet.Polylines.Polyline3.ToList">
+            <summary>
+            Return all the points in the polyline in a list.
+            </summary>
+            <returns>The list.</returns>
+        </member>
         <member name="M:CGALDotNet.Polylines.Polyline3.Convert``1">
             <summary>
             Convert the polyline to a new polyline with a different kernel.
@@ -11402,12 +11444,6 @@
             </summary>
             <typeparam name="T">The new kernel type.</typeparam>
             <returns>The new polline.</returns>
-        </member>
-        <member name="M:CGALDotNet.Polylines.Polyline3.ToList">
-            <summary>
-            Return all the points in the polyline in a list.
-            </summary>
-            <returns>The list.</returns>
         </member>
         <member name="M:CGALDotNet.Polylines.Polyline3.Print(System.Text.StringBuilder)">
             <summary>

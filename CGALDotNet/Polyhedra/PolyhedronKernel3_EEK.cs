@@ -114,14 +114,14 @@ namespace CGALDotNet.Polyhedra
 			return Polyhedron3_EEK_GetBoundingBox(ptr);
 		}
 
-		internal override void MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+		internal override int MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 		{
-			Polyhedron3_EEK_MakeTetrahedron(ptr, p1, p2, p3, p4);
+			return Polyhedron3_EEK_MakeTetrahedron(ptr, p1, p2, p3, p4);
 		}
 
-		internal override void MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3)
+		internal override int MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3)
 		{
-			Polyhedron3_EEK_MakeTriangle(ptr, p1, p2, p3);
+			return Polyhedron3_EEK_MakeTriangle(ptr, p1, p2, p3);
 		}
 
 		internal override Point3d GetPoint(IntPtr ptr, int index)
@@ -497,10 +497,10 @@ namespace CGALDotNet.Polyhedra
 		private static extern Box3d Polyhedron3_EEK_GetBoundingBox(IntPtr ptr);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
+		private static extern int Polyhedron3_EEK_MakeTetrahedron(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
-		private static extern void Polyhedron3_EEK_MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
+		private static extern int Polyhedron3_EEK_MakeTriangle(IntPtr ptr, Point3d p1, Point3d p2, Point3d p3);
 
 		[DllImport(DLL_NAME, CallingConvention = CDECL)]
 		private static extern Point3d Polyhedron3_EEK_GetPoint(IntPtr ptr, int index);

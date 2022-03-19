@@ -49,6 +49,7 @@ public:
 
 		CGAL::Surface_mesh_simplification::Count_ratio_stop_predicate<Polyhedron> stop(stop_ratio);
 		CGAL::Surface_mesh_simplification::edge_collapse(mesh->model, stop);
+		mesh->OnModelChanged();
 	}
 
 	static void Simplify_SM(void* polyPtr, double stop_ratio)
@@ -57,6 +58,7 @@ public:
 
 		CGAL::Surface_mesh_simplification::Count_ratio_stop_predicate<SurfaceMesh> stop(stop_ratio);
 		CGAL::Surface_mesh_simplification::edge_collapse(mesh->model, stop);
+		mesh->OnModelChanged();
 	}
 
 };

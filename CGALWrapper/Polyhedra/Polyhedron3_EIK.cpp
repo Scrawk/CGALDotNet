@@ -102,14 +102,14 @@ Box3d Polyhedron3_EIK_GetBoundingBox(void* ptr)
 	return Polyhedron3<EIK>::GetBoundingBox(ptr);
 }
 
-void Polyhedron3_EIK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+int Polyhedron3_EIK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 {
-	Polyhedron3<EIK>::MakeTetrahedron(ptr, p1, p2, p3, p4);
+	return Polyhedron3<EIK>::MakeTetrahedron(ptr, p1, p2, p3, p4);
 }
 
-void Polyhedron3_EIK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
+int Polyhedron3_EIK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 {
-	Polyhedron3<EIK>::MakeTriangle(ptr, p1, p2, p3);
+	return Polyhedron3<EIK>::MakeTriangle(ptr, p1, p2, p3);
 }
 
 Point3d Polyhedron3_EIK_GetPoint(void* ptr, int index)

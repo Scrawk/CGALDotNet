@@ -42,6 +42,7 @@ public:
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
 		CGAL::Subdivision_method_3::CatmullClark_subdivision(mesh->model, param);
+		mesh->OnModelChanged();
 	}
 
 	static void Subdive_DooSabin_PH(void* meshPtr, int iterations)
@@ -49,6 +50,7 @@ public:
 		//auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 		//auto param = CGAL::parameters::number_of_iterations(iterations);
 		//CGAL::Subdivision_method_3::DooSabin_subdivision(mesh->model, param);
+		//mesh->OnModelChanged();
 	}
 
 	static void Subdive_Loop_PH(void* meshPtr, int iterations)
@@ -56,6 +58,7 @@ public:
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
 		CGAL::Subdivision_method_3::Loop_subdivision(mesh->model, param);
+		mesh->OnModelChanged();
 	}
 
 	static void Subdive_Sqrt3_PH(void* meshPtr, int iterations)
@@ -63,6 +66,7 @@ public:
 		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
 		CGAL::Subdivision_method_3::Sqrt3_subdivision(mesh->model, param);
+		mesh->OnModelChanged();
 	}
 
 	//Surface mesh
@@ -72,6 +76,7 @@ public:
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
 		CGAL::Subdivision_method_3::CatmullClark_subdivision(mesh->model, param);
+		mesh->OnModelChanged();
 	}
 
 	static void Subdive_DooSabin_SM(void* meshPtr, int iterations)
@@ -79,6 +84,7 @@ public:
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
 		CGAL::Subdivision_method_3::DooSabin_subdivision(mesh->model, param);
+		mesh->OnModelChanged();
 	}
 
 	static void Subdive_Loop_SM(void* meshPtr, int iterations)
@@ -86,6 +92,7 @@ public:
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
 		CGAL::Subdivision_method_3::Loop_subdivision(mesh->model, param);
+		mesh->OnModelChanged();
 	}
 
 	static void Subdive_Sqrt3_SM(void* meshPtr, int iterations)
@@ -93,6 +100,7 @@ public:
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 		auto param = CGAL::parameters::number_of_iterations(iterations);
 		CGAL::Subdivision_method_3::Sqrt3_subdivision(mesh->model, param);
+		mesh->OnModelChanged();
 	}
 
 };

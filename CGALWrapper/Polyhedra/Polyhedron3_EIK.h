@@ -55,9 +55,9 @@ extern "C"
 
 	CGALWRAPPER_API Box3d Polyhedron3_EIK_GetBoundingBox(void* ptr);
 
-	CGALWRAPPER_API void Polyhedron3_EIK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
+	CGALWRAPPER_API int Polyhedron3_EIK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4);
 
-	CGALWRAPPER_API void Polyhedron3_EIK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3);
+	CGALWRAPPER_API int Polyhedron3_EIK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3);
 
 	CGALWRAPPER_API Point3d Polyhedron3_EIK_GetPoint(void* ptr, int index);
 

@@ -1,6 +1,8 @@
 #include "Polyhedron3_EEK.h"
 
 #include "Polyhedron3.h"
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
 
 void* Polyhedron3_EEK_Create()
 {
@@ -102,14 +104,14 @@ Box3d Polyhedron3_EEK_GetBoundingBox(void* ptr)
 	return Polyhedron3<EEK>::GetBoundingBox(ptr);
 }
 
-void Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+int Polyhedron3_EEK_MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 {
-	Polyhedron3<EEK>::MakeTetrahedron(ptr, p1, p2, p3, p4);
+	return Polyhedron3<EEK>::MakeTetrahedron(ptr, p1, p2, p3, p4);
 }
 
-void Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
+int Polyhedron3_EEK_MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 {
-	Polyhedron3<EEK>::MakeTriangle(ptr, p1, p2, p3);
+	return Polyhedron3<EEK>::MakeTriangle(ptr, p1, p2, p3);
 }
 
 Point3d Polyhedron3_EEK_GetPoint(void* ptr, int index)
@@ -441,18 +443,14 @@ typedef typename boost::graph_traits<Polyhedron>::halfedge_descriptor Halfedge_D
 
 typedef typename HalfedgeDS::Vertex_iterator Vertex_Iter;
 
-void _BuildVertexMaps(void* ptr)
+void Test()
 {
-	auto poly = Polyhedron3<EEK>::CastToPolyhedron(ptr);
 
-	int index = 0;
-	for (auto vert = poly->model.vertices_begin(); vert != poly->model.vertices_end(); ++vert)
-	{
-		Vertex v = *vert;
-		v.point() = vert->point();
-	}
+	Polyhedron model;
+
 }
 */
+
 
 
 

@@ -373,17 +373,22 @@ public:
 		}
 	}
 
-	static void MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
+	static int MakeTetrahedron(void* ptr, Point3d p1, Point3d p2, Point3d p3, Point3d p4)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->model.make_tetrahedron(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>(), p4.ToCGAL<K>());
+		auto e = poly->model.make_tetrahedron(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>(), p4.ToCGAL<K>());
 		poly->OnModelChanged();
+
+		return poly->FindHalfedgeIndex(e);
 	}
 
-	static void MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
+	static int MakeTriangle(void* ptr, Point3d p1, Point3d p2, Point3d p3)
 	{
 		auto poly = CastToPolyhedron(ptr);
-		poly->model.make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
+		auto e = poly->model.make_triangle(p1.ToCGAL<K>(), p2.ToCGAL<K>(), p3.ToCGAL<K>());
+		poly->OnModelChanged();
+
+		return poly->FindHalfedgeIndex(e);
 	}
 
 	Point3d GetPoint(int index)
@@ -556,8 +561,9 @@ public:
 			vert.Point = Point3d::FromCGAL<K>(v->point());
 			vert.Degree = (int)v->degree();
 
-			vertices[i++] = vert;
+			vertices[i] = vert;
 
+			i++;
 			if (i >= count) return;
 		}
 	}
@@ -589,20 +595,15 @@ public:
 		int i = 0;
 		for (auto f = poly->model.facets_begin(); f != poly->model.facets_end(); ++f)
 		{
-			MeshFace3 face;
-			if (f->halfedge() == nullptr)
-			{
-				face = MeshFace3::NullFace();
-			}
-			else
-			{
-				MeshFace3 face = MeshFace3::NullFace();
-				face.Index = i;
+			MeshFace3 face = MeshFace3::NullFace();
+			face.Index = i;
+
+			if (f->halfedge() != nullptr)
 				face.Halfedge = poly->FindHalfedgeIndex(f->halfedge());
-			}
 
-			faces[i++] = face;
+			faces[i] = face;
 
+			i++;
 			if (i >= count) return;
 		}
 	}
@@ -650,8 +651,9 @@ public:
 			edge.Face = poly->FindFaceIndex(e->face());
 			edge.IsBorder = e->is_border();
 
-			edges[i++] = edge;
+			edges[i] = edge;
 
+			i++;
 			if (i >= count) return;
 		}
 		

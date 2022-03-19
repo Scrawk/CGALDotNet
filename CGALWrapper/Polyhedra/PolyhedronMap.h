@@ -55,7 +55,7 @@ public:
 	{
 		vertexIterMap.clear();
 		vertexIterMap.reserve(0);
-		vertexIndexMap.clear();
+		//vertexIndexMap.clear();
 		rebuildVertexIndexMap = true;
 	}
 
@@ -63,7 +63,7 @@ public:
 	{
 		faceIterMap.clear();
 		faceIterMap.reserve(0);
-		faceIndexMap.clear();
+		//faceIndexMap.clear();
 		rebuildFaceIndexMap = true;
 	}
 
@@ -71,7 +71,7 @@ public:
 	{
 		halfedgeIterMap.clear();
 		halfedgeIterMap.reserve(0);
-		halfedgeIndexMap.clear();
+		//halfedgeIndexMap.clear();
 		rebuildHalfedgeIndexMap = true;
 	}
 
@@ -145,6 +145,8 @@ public:
 
 	int FindVertexIndex(Polyhedron& model, Vertex_Iter v)
 	{
+		//return v->id();
+
 		/*
 		int i = 0;
 		for (Vertex_Iter vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
@@ -152,6 +154,7 @@ public:
 			if (v == vert) return i;
 			i++;
 		}
+
 		*/
 
 		auto item = vertexIndexMap.find(v);
@@ -179,31 +182,19 @@ public:
 			return nullptr;
 
 		return &vertexIterMap[index];
-	
+
 	}
 
 	Vertex* FindVertex(Polyhedron& model, int index)
 	{
 		int count = (int)model.size_of_vertices();
 
-		//if (index < count / 2)
-		//{
-			int i = 0;
-			for (Vertex_Iter vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
-			{
-				if (i == index) return &(*vert);
-				i++;
-			}
-		//}
-		//else
-		//{
-		//	int i = count - 1;
-		//	for (Vertex_Iter vert = model.vertices_end(); vert != model.vertices_begin(); --vert)
-		//	{
-		//		if (i == index) return &(*vert);
-		//		i--;
-		//	}
-		//}
+		int i = 0;
+		for (Vertex_Iter vert = model.vertices_begin(); vert != model.vertices_end(); ++vert)
+		{
+			if (i == index) return &(*vert);
+			i++;
+		}
 
 		return nullptr;
 
@@ -216,9 +207,11 @@ public:
 		*/
 	}
 
-	int FindFaceIndex(Face_Iter vert)
+	int FindFaceIndex(Face_Iter face)
 	{
-		auto item = faceIndexMap.find(vert);
+		//return face->id();
+
+		auto item = faceIndexMap.find(face);
 		if (item != faceIndexMap.end())
 			return item->second;
 		else
@@ -236,11 +229,14 @@ public:
 
 	int FindHalfedgeIndex(Halfedge_Iter edge)
 	{
+		//return edge->id();
+		
 		auto item = halfedgeIndexMap.find(edge);
 		if (item != halfedgeIndexMap.end())
 			return item->second;
 		else
 			return NULL_INDEX;
+			
 	}
 
 	Halfedge_Iter* FindHalfedgeIter(int index)

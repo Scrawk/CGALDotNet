@@ -47,30 +47,14 @@ namespace CGALDotNetConsole
             };
 
             var mesh = new Polyhedron3<EEK>(points, indices);
-            mesh.Translate(new Point3d(-0.5, -0.5, 0));
-
-            var v = mesh.GetVertex(1);
-            var e0 = mesh.GetHalfedge(v.Halfedge);
-            var e1 = mesh.GetHalfedge(e0.Next);
-
-            var a = e0.TargetPoint(mesh);
-            var b = v.Point;
-            var c = e1.SourcePoint(mesh);
-
-            Console.WriteLine("a " + a);
-            Console.WriteLine("b " + b);
-            Console.WriteLine("c " + c);
-
-            var edge_index = mesh.SplitEdge(e0.Index);
-
-            var split_edge = mesh.GetHalfedge(edge_index);
-
-            var v0 = mesh.GetVertex(split_edge.Source);
-            var v1 = mesh.GetVertex(split_edge.Target);
-
-            Console.WriteLine(mesh);
 
             var builder = new StringBuilder();
+
+            var segments = new Segment3d[mesh.HalfedgeCount];
+            mesh.GetSegments(segments, segments.Length);
+
+            var triangles = new Triangle3d[mesh.FaceCount];
+            mesh.GetTriangles(triangles, triangles.Length);
 
             mesh.PrintFaces(builder);
             mesh.PrintVertices(builder);
