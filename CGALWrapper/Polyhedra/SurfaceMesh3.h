@@ -43,6 +43,7 @@ public:
 
 	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point_3;
+	typedef typename K::Vector_3 Vector_3;
 	typedef typename CGAL::Surface_mesh<Point_3> SurfaceMesh;
 	typedef typename SurfaceMesh::Edge_index Edge;
 	typedef typename SurfaceMesh::Halfedge_index Halfedge;
@@ -52,6 +53,9 @@ public:
 	typedef typename CGAL::AABB_face_graph_triangle_primitive<SurfaceMesh> AABB_face_graph_primitive;
 	typedef typename CGAL::AABB_traits<K, AABB_face_graph_primitive> AABB_face_graph_traits;
 	typedef typename CGAL::AABB_tree<AABB_face_graph_traits> AABBTree;
+
+	typedef typename boost::graph_traits<SurfaceMesh>::vertex_descriptor VertexDes;
+	typedef typename boost::graph_traits<SurfaceMesh>::face_descriptor FaceDes;
 
 	~SurfaceMesh3()
 	{
@@ -193,22 +197,27 @@ public:
 
 	void ClearVertexNormalMap()
 	{
-		typedef K::Vector_3 Vector;
-		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::vertex_descriptor VertexDes;
-
-		auto pair = model.property_map<VertexDes, Vector>(VERTEX_NORMAL_MAP_NAME);
+		auto pair = model.property_map<VertexDes, Vector_3>(VERTEX_NORMAL_MAP_NAME);
 		model.remove_property_map(pair.first);
 		vertexNormalsComputed = false;
 	}
 
 	void ClearFaceNormalMap()
 	{
-		typedef K::Vector_3 Vector;
-		typedef boost::graph_traits<SurfaceMesh3<K>::SurfaceMesh>::face_descriptor FaceDes;
-
-		auto pair = model.property_map<FaceDes, Vector>(FACE_NORMAL_MAP_NAME);
+		auto pair = model.property_map<FaceDes, Vector_3>(FACE_NORMAL_MAP_NAME);
 		model.remove_property_map(pair.first);
 		faceNormalsComputed = false;
+	}
+
+	auto AddScalarPropertyMap(const char* name)
+	{
+		return model.add_property_map<VertexDes, double>(name, 0).first;
+	}
+
+	void ClearScalarPropertyMap(const char* name)
+	{
+		auto pair = model.property_map<VertexDes, double>(name);
+		model.remove_property_map(pair.first);
 	}
 
 	int FindVertexIndex(Vertex vertex)

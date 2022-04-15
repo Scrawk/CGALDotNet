@@ -43,24 +43,18 @@ namespace CGALDotNetConsole
                 new Point3d(0, 0, 0),
                 new Point3d(1, 0, 0),
                 new Point3d(1, 1, 0),
-                new Point3d(0, 2, 0)
+                new Point3d(0, 1, 0)
             };
 
-            var mesh = new Polyhedron3<EEK>(points, indices);
+            var mesh = new SurfaceMesh3<EEK>(points, indices);
+            mesh.Triangulate();
 
-            var builder = new StringBuilder();
+            var distances = new List<double>();
 
-            var segments = new Segment3d[mesh.HalfedgeCount];
-            mesh.GetSegments(segments, segments.Length);
+           HeatMethod<EEK>.Instance.EstimateGeodesicDistances(mesh, 0, distances);
 
-            var triangles = new Triangle3d[mesh.FaceCount];
-            mesh.GetTriangles(triangles, triangles.Length);
-
-            mesh.PrintFaces(builder);
-            mesh.PrintVertices(builder);
-            mesh.PrintHalfedges(builder);
-
-            Console.WriteLine(builder.ToString());
+            foreach(var d in distances)
+                Console.WriteLine(d);
 
         }
 

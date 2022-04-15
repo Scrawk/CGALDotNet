@@ -9722,6 +9722,11 @@
             Construct from points and triangle indices.
             </summary>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.#ctor(CGALDotNetGeometry.Numerics.Point3d[],CGALDotNet.Polyhedra.PolygonalIndices)">
+            <summary>
+            Construct from points and polygon indices.
+            </summary>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3`1.#ctor(System.IntPtr)">
             <summary>
             Create from a pointer.
@@ -10188,6 +10193,13 @@
             <param name="vertex">The vertex.</param>
             <returns>True if the vertex was found.</returns>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetVertex(System.Int32)">
+            <summary>
+            Get the mesh vertex.
+            </summary>
+            <param name="index">The vertices index.</param>
+            <returns>The vertex.</returns>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetVertices(CGALDotNet.Polyhedra.MeshVertex3[],System.Int32)">
             <summary>
             Get the vertices in the mesh.
@@ -10203,6 +10215,13 @@
             <param name="face">The face.</param>
             <returns>True if the face was found.</returns>
         </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetFace(System.Int32)">
+            <summary>
+            Get the mesh face.
+            </summary>
+            <param name="index">The faces index.</param>
+            <returns>The face.</returns>
+        </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetFaces(CGALDotNet.Polyhedra.MeshFace3[],System.Int32)">
             <summary>
             Get the faces in the mesh.
@@ -10217,6 +10236,13 @@
             <param name="index">The halfedges index.</param>
             <param name="halfedge">The halfedge.</param>
             <returns>True if the halfedge was found.</returns>
+        </member>
+        <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetHalfedge(System.Int32)">
+            <summary>
+            Get the mesh halfedge.
+            </summary>
+            <param name="index">The halfedges index.</param>
+            <returns>THe healfedge.</returns>
         </member>
         <member name="M:CGALDotNet.Polyhedra.SurfaceMesh3.GetHalfedges(CGALDotNet.Polyhedra.MeshHalfedge3[],System.Int32)">
             <summary>

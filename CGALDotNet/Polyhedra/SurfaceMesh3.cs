@@ -40,6 +40,14 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Construct from points and polygon indices.
+        /// </summary>
+        public SurfaceMesh3(Point3d[] points, PolygonalIndices indices) : base(new K())
+        {
+            CreatePolygonalMesh(points, points.Length, indices);
+        }
+
+        /// <summary>
         /// Create from a pointer.
         /// </summary>
         /// <param name="ptr">The surface meshes pointer.</param>
@@ -834,6 +842,17 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Get the mesh vertex.
+        /// </summary>
+        /// <param name="index">The vertices index.</param>
+        /// <returns>The vertex.</returns>
+        public MeshVertex3 GetVertex(int index)
+        {
+            Kernel.GetVertex(Ptr, index, out MeshVertex3 vertex);
+            return vertex;
+        }
+
+        /// <summary>
         /// Get the vertices in the mesh.
         /// </summary>
         /// <param name="vertices">The vertex array.</param>
@@ -856,6 +875,17 @@ namespace CGALDotNet.Polyhedra
         }
 
         /// <summary>
+        /// Get the mesh face.
+        /// </summary>
+        /// <param name="index">The faces index.</param>
+        /// <returns>The face.</returns>
+        public MeshFace3 GetFace(int index)
+        {
+            Kernel.GetFace(Ptr, index, out MeshFace3 face);
+            return face;
+        }
+
+        /// <summary>
         /// Get the faces in the mesh.
         /// </summary>
         /// <param name="faces">The face array.</param>
@@ -875,6 +905,17 @@ namespace CGALDotNet.Polyhedra
         public bool GetHalfedge(int index, out MeshHalfedge3 halfedge)
         {
             return Kernel.GetHalfedge(Ptr, index, out halfedge);
+        }
+
+        /// <summary>
+        /// Get the mesh halfedge.
+        /// </summary>
+        /// <param name="index">The halfedges index.</param>
+        /// <returns>THe healfedge.</returns>
+        public MeshHalfedge3 GetHalfedge(int index)
+        {
+            Kernel.GetHalfedge(Ptr, index, out MeshHalfedge3 halfedge);
+            return halfedge;
         }
 
         /// <summary>
