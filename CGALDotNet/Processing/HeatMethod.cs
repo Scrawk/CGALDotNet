@@ -27,9 +27,9 @@ namespace CGALDotNet.Processing
             return string.Format("[HeatMethod<{0}>: ]", Kernel.Name);
         }
 
-        public double EstimateGeodesicDistances(SurfaceMesh3<K> mesh, int index, List<double> distances)
+        public double EstimateGeodesicDistances(SurfaceMesh3<K> mesh, int index, bool useIDT, List<double> distances)
         {
-            int count = Kernel.EstimateGeodesicDistances_SM(Ptr, mesh.Ptr, index);
+            int count = Kernel.EstimateGeodesicDistances_SM(Ptr, mesh.Ptr, index, useIDT);
 
             double max = double.NegativeInfinity;
             for (int i = 0; i < count; i++)
@@ -41,7 +41,27 @@ namespace CGALDotNet.Processing
 
                 distances.Add(dist);
             }
-                
+
+            ClearDistances();
+
+            return max;
+        }
+
+        public double EstimateGeodesicDistances(Polyhedron3<K> mesh, int index, List<double> distances)
+        {
+            int count = Kernel.EstimateGeodesicDistances_PH(Ptr, mesh.Ptr, index, false);
+
+            double max = double.NegativeInfinity;
+            for (int i = 0; i < count; i++)
+            {
+                var dist = GetDistance(i);
+
+                if (dist > max)
+                    max = dist;
+
+                distances.Add(dist);
+            }
+
             ClearDistances();
 
             return max;
@@ -70,6 +90,7 @@ namespace CGALDotNet.Processing
         }
 
         internal HeatMethodKernel Kernel { get; private set; }
+
         protected double GetDistance(int index)
         {
             return Kernel.GetDistance(Ptr, index);

@@ -21,7 +21,12 @@ void HeatMethod_EEK_ClearDistances(void* ptr)
 	HeatMethod<EEK>::ClearDistances(ptr);
 }
 
-int HeatMethod_EEK_EstimateGeodesicDistances_SM(void* ptr, void* meshPtr, int vertexIndex)
+int HeatMethod_EEK_EstimateGeodesicDistances_SM(void* ptr, void* meshPtr, int vertexIndex, BOOL useIDT)
 {
-	return HeatMethod<EEK>::EstimateGeodesicDistances_SM(ptr, meshPtr, vertexIndex);
+	return HeatMethod<EEK>::EstimateGeodesicDistances_SM(ptr, meshPtr, vertexIndex, useIDT);
+}
+
+int HeatMethod_EEK_EstimateGeodesicDistances_PH(void* ptr, void* meshPtr, int vertexIndex, BOOL useIDT)
+{
+	return HeatMethod<EEK>::EstimateGeodesicDistances_PH(ptr, meshPtr, vertexIndex, useIDT);
 }

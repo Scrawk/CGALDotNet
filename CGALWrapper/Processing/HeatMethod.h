@@ -5,6 +5,7 @@
 #include "../Polyhedra/Polyhedron3.h"
 #include "../Polyhedra/SurfaceMesh3.h"
 
+#include <boost/unordered_map.hpp>
 #include <CGAL/Heat_method_3/Surface_mesh_geodesic_distances_3.h>
 
 
@@ -14,10 +15,17 @@ class HeatMethod
 
 public:
 
-	typedef typename K::Point_3																Point3;
-	typedef typename CGAL::Surface_mesh<Point3>												SurfaceMesh;
-	typedef typename boost::graph_traits<SurfaceMesh>::vertex_descriptor					VertexDes;
-	typedef typename CGAL::Heat_method_3::Surface_mesh_geodesic_distances_3<SurfaceMesh>	Heat_method;
+	typedef typename K::Point_3 Point3;
+	
+	typedef typename CGAL::Surface_mesh<Point3>																						SurfaceMesh;
+	typedef typename boost::graph_traits<SurfaceMesh>::vertex_descriptor															SVertexDes;
+	typedef typename CGAL::Heat_method_3::Surface_mesh_geodesic_distances_3<SurfaceMesh, CGAL::Heat_method_3::Intrinsic_Delaunay>   SHeat_method_idt;
+	typedef typename CGAL::Heat_method_3::Surface_mesh_geodesic_distances_3<SurfaceMesh, CGAL::Heat_method_3::Direct>				SHeat_method;
+
+	typedef typename CGAL::Polyhedron_3<K>																							Polyhedron;
+	typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor																PVertexDes;
+	typedef typename CGAL::Heat_method_3::Surface_mesh_geodesic_distances_3<Polyhedron, CGAL::Heat_method_3::Intrinsic_Delaunay>    PHeat_method_idt;
+	typedef typename CGAL::Heat_method_3::Surface_mesh_geodesic_distances_3<Polyhedron, CGAL::Heat_method_3::Direct>				PHeat_method;
 
 	std::vector<double> distances;
 
@@ -54,22 +62,30 @@ public:
 		method->distances.clear();
 	}
 
-	static int EstimateGeodesicDistances_SM(void* ptr, void* meshPtr, int vertexIndex)
+	static int EstimateGeodesicDistances_SM(void* ptr, void* meshPtr, int vertexIndex, BOOL useIDT)
 	{
 		auto method = CastToHeatMethod(ptr);
 		auto mesh = SurfaceMesh3<K>::CastToSurfaceMesh(meshPtr);
 
 		auto distMap = mesh->AddScalarPropertyMap("v:distance");
-		Heat_method hm(mesh->model);
-
 		auto source = mesh->FindVertex(vertexIndex);
 
-		hm.add_source(source);
-		hm.estimate_geodesic_distances(distMap);
+		if (useIDT)
+		{
+			SHeat_method_idt hm(mesh->model);
+			hm.add_source(source);
+			hm.estimate_geodesic_distances(distMap);
+		}
+		else
+		{
+			SHeat_method hm(mesh->model);
+			hm.add_source(source);
+			hm.estimate_geodesic_distances(distMap);
+		}
 
 		method->distances.clear();
 
-		for (VertexDes vd : vertices(mesh->model))
+		for (auto vd : vertices(mesh->model))
 		{
 			double dist = get(distMap, vd);
 			method->distances.push_back(dist);
@@ -77,7 +93,41 @@ public:
 
 		mesh->ClearScalarPropertyMap("v:distance");
 
-		return method->distances.size();
+		return (int)method->distances.size();
 	}
+	
+	static int EstimateGeodesicDistances_PH(void* ptr, void* meshPtr, int vertexIndex, BOOL useIDT)
+	{
+		auto method = CastToHeatMethod(ptr);
+		auto mesh = Polyhedron3<K>::CastToPolyhedron(meshPtr);
+
+		boost::unordered_map<PVertexDes, double> distMap;
+		auto source = mesh->FindVertex(vertexIndex);
+
+		//if (useIDT)
+		//{
+			CGAL::Heat_method_3::estimate_geodesic_distances(mesh->model,
+				boost::make_assoc_property_map(distMap),
+				source);
+
+		//}
+		//else
+		//{
+		//	CGAL::Heat_method_3::estimate_geodesic_distances(mesh->model,
+		//		boost::make_assoc_property_map(distMap),
+		//		source);
+		//}
+
+		method->distances.clear();
+
+		for (auto vd : vertices(mesh->model))
+		{
+			double dist = distMap[vd];
+			method->distances.push_back(dist);
+		}
+
+		return (int)method->distances.size();
+	}
+	
 
 };

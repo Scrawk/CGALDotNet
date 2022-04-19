@@ -17,6 +17,8 @@ namespace CGALDotNet.Processing
 
         internal abstract void ClearDistances(IntPtr ptr);
 
-        internal abstract int EstimateGeodesicDistances_SM(IntPtr ptr, IntPtr meshPtr, int vertexIndex);
+        internal abstract int EstimateGeodesicDistances_SM(IntPtr ptr, IntPtr meshPtr, int vertexIndex, bool useIDT);
+
+        internal abstract int EstimateGeodesicDistances_PH(IntPtr ptr, IntPtr meshPtr, int vertexIndex, bool useIDT);
     }
 }

@@ -185,6 +185,7 @@
     <ClInclude Include="Geometry\Ray2_EIK.h" />
     <ClInclude Include="Geometry\Segment2_EIK.h" />
     <ClInclude Include="Geometry\Triangle2_EIK.h" />
+    <ClInclude Include="Processing\HeatMethod_EIK.h" />
     <ClInclude Include="Processing\HeatMethod_EEK.h" />
     <ClInclude Include="Processing\HeatMethod.h" />
     <ClInclude Include="Triangulations\BaseTriangulation3.h" />
@@ -347,6 +348,7 @@
     <ClCompile Include="Geometry\Ray2_EIK.cpp" />
     <ClCompile Include="Geometry\Segment2_EIK.cpp" />
     <ClCompile Include="Geometry\Triangle2_EIK.cpp" />
+    <ClCompile Include="Processing\HeatMethod_EIK.cpp" />
     <ClCompile Include="Processing\HeatMethod_EEK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedDelaunayTriangulation2_EIK.cpp" />
     <ClCompile Include="Triangulations\ConstrainedTriangulation2_EIK.cpp" />

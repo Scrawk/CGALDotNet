@@ -13,7 +13,8 @@ extern "C"
 
 	CGALWRAPPER_API void HeatMethod_EEK_ClearDistances(void* ptr);
 
-	CGALWRAPPER_API int HeatMethod_EEK_EstimateGeodesicDistances_SM(void* ptr, void* meshPtr, int vertexIndex);
+	CGALWRAPPER_API int HeatMethod_EEK_EstimateGeodesicDistances_SM(void* ptr, void* meshPtr, int vertexIndex, BOOL useIDT);
 
+	CGALWRAPPER_API int HeatMethod_EEK_EstimateGeodesicDistances_PH(void* ptr, void* meshPtr, int vertexIndex, BOOL useIDT);
 }
 

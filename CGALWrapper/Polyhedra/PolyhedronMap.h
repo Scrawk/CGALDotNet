@@ -14,7 +14,8 @@ class PolyhedronMap
 private:
 
 	typedef typename K::Point_3 Point;
-	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+	typedef CGAL::Polyhedron_3<K> Polyhedron;
+	//typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
 	//typedef typename boost::graph_traits<Polyhedron>::vertex_descriptor	Vertex_Des;
 	//typedef typename boost::graph_traits<Polyhedron>::face_descriptor Face_Des;
 	//typedef typename boost::graph_traits<Polyhedron>::edge_descriptor Edge_Des;

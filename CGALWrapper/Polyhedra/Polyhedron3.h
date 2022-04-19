@@ -45,7 +45,8 @@ public:
 	typedef typename K::FT FT;
 	typedef typename K::Point_3 Point;
 	typedef typename K::Vector_3 Vector;
-	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+	//typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+	typedef CGAL::Polyhedron_3<K> Polyhedron;
 	typedef typename Polyhedron::HalfedgeDS HalfedgeDS;
 	typedef typename HalfedgeDS::Vertex Vertex;
 	typedef typename HalfedgeDS::Face Face;

@@ -46,12 +46,12 @@ namespace CGALDotNetConsole
                 new Point3d(0, 1, 0)
             };
 
-            var mesh = new SurfaceMesh3<EEK>(points, indices);
+            var mesh = new Polyhedron3<EIK>(points, indices);
             mesh.Triangulate();
 
             var distances = new List<double>();
 
-           HeatMethod<EEK>.Instance.EstimateGeodesicDistances(mesh, 0, distances);
+           HeatMethod<EIK>.Instance.EstimateGeodesicDistances(mesh, 0, distances);
 
             foreach(var d in distances)
                 Console.WriteLine(d);

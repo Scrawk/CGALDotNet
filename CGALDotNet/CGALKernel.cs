@@ -172,7 +172,7 @@ namespace CGALDotNet
 
         internal override MeshProcessingLocateKernel MeshProcessingLocateKernel => MeshProcessingLocateKernel_EIK.Instance;
 
-        internal override HeatMethodKernel HeatMethodKernel => throw new NotImplementedException();
+        internal override HeatMethodKernel HeatMethodKernel => HeatMethodKernel_EIK.Instance;
     }
 
     public class EEK : CGALKernel

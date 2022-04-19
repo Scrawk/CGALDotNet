@@ -27,7 +27,7 @@ public:
 	typedef typename std::vector<Point> PointList;
 	typedef typename std::vector<PointList> PolylineList;
 
-	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+	typedef CGAL::Polyhedron_3<K> Polyhedron;
 
 	typedef CGAL::AABB_halfedge_graph_segment_primitive<Polyhedron> PHGSP;
 	typedef CGAL::AABB_traits<K, PHGSP> PAABB_traits;

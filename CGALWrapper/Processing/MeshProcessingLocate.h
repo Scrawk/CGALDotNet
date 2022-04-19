@@ -29,7 +29,7 @@ public:
 	typedef typename K::Point_3     Point_3;
 	typedef typename K::Ray_3       Ray_3;
 
-	typedef CGAL::Polyhedron_3<K, CGAL::Polyhedron_items_with_id_3> Polyhedron;
+	typedef CGAL::Polyhedron_3<K> Polyhedron;
 	typedef typename boost::graph_traits<Polyhedron>::edge_descriptor PEdge_Des;
 	typedef typename boost::graph_traits<Polyhedron>::face_descriptor PFace_Des;
 

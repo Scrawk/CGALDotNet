@@ -34,9 +34,14 @@ namespace CGALDotNet.Processing
             HeatMethod_EEK_ClearDistances(ptr);  
         }
 
-        internal override int EstimateGeodesicDistances_SM(IntPtr ptr, IntPtr meshPtr, int vertexIndex)
+        internal override int EstimateGeodesicDistances_SM(IntPtr ptr, IntPtr meshPtr, int vertexIndex, bool useIDT)
         {
-            return HeatMethod_EEK_EstimateGeodesicDistances_SM(ptr, meshPtr, vertexIndex);
+            return HeatMethod_EEK_EstimateGeodesicDistances_SM(ptr, meshPtr, vertexIndex, useIDT);
+        }
+
+        internal override int EstimateGeodesicDistances_PH(IntPtr ptr, IntPtr meshPtr, int vertexIndex, bool useIDT)
+        {
+            return HeatMethod_EEK_EstimateGeodesicDistances_PH(ptr, meshPtr, vertexIndex, useIDT);
         }
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
@@ -52,6 +57,9 @@ namespace CGALDotNet.Processing
         private static extern void HeatMethod_EEK_ClearDistances(IntPtr ptr);
 
         [DllImport(DLL_NAME, CallingConvention = CDECL)]
-        private static extern int HeatMethod_EEK_EstimateGeodesicDistances_SM(IntPtr ptr, IntPtr meshPtr, int vertexIndex);
+        private static extern int HeatMethod_EEK_EstimateGeodesicDistances_SM(IntPtr ptr, IntPtr meshPtr, int vertexIndex, bool useIDT);
+
+        [DllImport(DLL_NAME, CallingConvention = CDECL)]
+        private static extern int HeatMethod_EEK_EstimateGeodesicDistances_PH(IntPtr ptr, IntPtr meshPtr, int vertexIndex, bool useIDT);
     }
 }
