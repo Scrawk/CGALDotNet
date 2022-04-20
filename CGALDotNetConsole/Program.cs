@@ -46,15 +46,22 @@ namespace CGALDotNetConsole
                 new Point3d(0, 1, 0)
             };
 
-            var mesh = new Polyhedron3<EIK>(points, indices);
-            mesh.Triangulate();
+            var mesh = SurfaceMeshFactory<EEK>.CreateUVSphere();
+            //mesh.Print();
 
             var distances = new List<double>();
 
-           HeatMethod<EIK>.Instance.EstimateGeodesicDistances(mesh, 0, distances);
+            var timer = new Timer();
+            timer.Start();
 
-            foreach(var d in distances)
-                Console.WriteLine(d);
+           HeatMethod<EEK>.Instance.EstimateGeodesicDistances(mesh, 0, distances);
+
+            timer.Stop();
+
+            Console.WriteLine("Time = " + timer.ElapsedMilliseconds);
+
+            //foreach(var d in distances)
+            //    Console.WriteLine(d);
 
         }
 
