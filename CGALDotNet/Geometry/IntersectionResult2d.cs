@@ -92,7 +92,7 @@ namespace CGALDotNet.Geometry
         /// <summary>
         /// If result type was ray get the ray geometry.
         /// </summary>
-        public Ray2d Ray => new Ray2d(this[0], this[1].Vector2d);
+        public Ray2d Ray => new Ray2d(this[0], this[1]);
 
         /// <summary>
         /// If result type was segment get the segment geometry.

@@ -11487,6 +11487,108 @@
             Release the unmanaged pointer.
             </summary>
         </member>
+        <member name="T:CGALDotNet.Processing.HeatMethod`1">
+            <summary>
+            The heat method is an algorithm that solves the single- or multiple-source shortest 
+            path problem by returning an approximation of the geodesic distance for all vertices
+            of a triangle mesh to the closest vertex in a given set of source vertices. 
+            The geodesic distance between two vertices of a mesh is the distance when walking 
+            on the surface, potentially through the interior of faces. Two vertices that are 
+            close in 3D space may be far away on the surface.
+            </summary>
+            <typeparam name="K"></typeparam>
+        </member>
+        <member name="F:CGALDotNet.Processing.HeatMethod`1.Instance">
+            <summary>
+            Create a static instance.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod`1.#ctor">
+            <summary>
+            Create a new instance.
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod`1.#ctor(System.IntPtr)">
+            <summary>
+            Create a new instance from a existing pointer to a unmanaged object.
+            </summary>
+            <param name="ptr">The unmanaged objects pointer.</param>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod`1.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod`1.EstimateGeodesicDistances(CGALDotNet.Polyhedra.SurfaceMesh3{`0},System.Int32,System.Collections.Generic.List{System.Double},System.Boolean)">
+            <summary>
+            Find the distances for each vertex in the mesh to the vertex at the provided index.
+            </summary>
+            <param name="mesh">The mesh containing the vertices.</param>
+            <param name="index">The vertices index to find the distances to.</param>
+            <param name="distances">The distances for each vertex in the mesh.</param>
+            <param name="useIDT">Should the intrinsitic delaunay triangulation be used. 
+            This will improve the results for meshes that have bad triangle quality.</param>
+            <returns>The maximum distance value.</returns>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod`1.EstimateGeodesicDistances(CGALDotNet.Polyhedra.Polyhedron3{`0},System.Int32,System.Collections.Generic.List{System.Double})">
+            <summary>
+            Find the distances for each vertex in the mesh to the vertex at the provided index.
+            </summary>
+            <param name="mesh">The mesh containing the vertices.</param>
+            <param name="index">The vertices index to find the distances to.</param>
+            <param name="distances">The distances for each vertex in the mesh.
+            This will improve the results for meshes that have bad triangle quality.</param>
+            <returns>The maximum distance value.</returns>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod.#ctor(CGALDotNet.CGALKernel)">
+            <summary>
+            Create a new instance.
+            </summary>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod.#ctor(CGALDotNet.CGALKernel,System.IntPtr)">
+            <summary>
+            Create a new instance from a existing pointer to a unmanaged object.
+            </summary>
+            <param name="kernel"></param>
+            <param name="ptr">The unmanaged objects pointer.</param>
+        </member>
+        <member name="P:CGALDotNet.Processing.HeatMethod.Kernel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod.GetDistances(System.Int32,System.Collections.Generic.List{System.Double})">
+            <summary>
+            
+            </summary>
+            <param name="count"></param>
+            <param name="distances"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod.GetDistance(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod.ClearDistances">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CGALDotNet.Processing.HeatMethod.ReleasePtr">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:CGALDotNet.Processing.MeshProcessingBoolean`1">
             <summary>
             

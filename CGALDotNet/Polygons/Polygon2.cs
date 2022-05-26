@@ -1033,8 +1033,8 @@ namespace CGALDotNet.Polygons
             }
             else if (amount < dist_ba && amount < dist_bc)
             {
-                var d = b + dir_ba.Point2d * amount;
-                var e = b + dir_bc.Point2d * amount;
+                var d = b + dir_ba * amount;
+                var e = b + dir_bc * amount;
 
                 Remove(index);
                 Insert(index, d);
