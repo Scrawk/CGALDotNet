@@ -1,0 +1,1472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D461966A2BDC346500608BE7 /* Ray2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79172BD8524900F22FC0 /* Ray2_EEK.cpp */; };
+		D461966E2BDC42AB00608BE7 /* Triangle2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792D2BD8524900F22FC0 /* Triangle2_EEK.cpp */; };
+		D461966F2BDC42AB00608BE7 /* VersionNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB795D2BD8524900F22FC0 /* VersionNumber.cpp */; };
+		D46196702BDC42AB00608BE7 /* ConvexHull2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78B02BD8524900F22FC0 /* ConvexHull2_EEK.cpp */; };
+		D46196712BDC42AB00608BE7 /* Line2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792B2BD8524900F22FC0 /* Line2_EEK.cpp */; };
+		D46196722BDC42AB00608BE7 /* ConstrainedTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C92BD8524900F22FC0 /* ConstrainedTriangulation2_EIK.cpp */; };
+		D46196732BDC42AB00608BE7 /* Arrangement2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78BF2BD8524900F22FC0 /* Arrangement2_EEK.cpp */; };
+		D46196742BDC42AB00608BE7 /* PolygonOffset2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78632BD8524900F22FC0 /* PolygonOffset2_EIK.cpp */; };
+		D46196752BDC42AB00608BE7 /* SkinSurfaceMeshing_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F62BD8524900F22FC0 /* SkinSurfaceMeshing_EEK.cpp */; };
+		D46196762BDC42AB00608BE7 /* SurfaceMesh3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79492BD8524900F22FC0 /* SurfaceMesh3_EIK.cpp */; };
+		D46196772BDC42AB00608BE7 /* MeshProcessingSlicer_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787D2BD8524900F22FC0 /* MeshProcessingSlicer_EEK.cpp */; };
+		D46196782BDC42AB00608BE7 /* Intersections_shapes_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792E2BD8524900F22FC0 /* Intersections_shapes_EIK.cpp */; };
+		D46196792BDC42AB00608BE7 /* Ray2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79122BD8524900F22FC0 /* Ray2_EIK.cpp */; };
+		D461967A2BDC42AB00608BE7 /* Ray2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79172BD8524900F22FC0 /* Ray2_EEK.cpp */; };
+		D461967B2BDC42AB00608BE7 /* MeshProcessingSlicer_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78822BD8524900F22FC0 /* MeshProcessingSlicer_EIK.cpp */; };
+		D461967C2BDC42AB00608BE7 /* Triangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78D52BD8524900F22FC0 /* Triangulation2_EIK.cpp */; };
+		D461967D2BDC42AB00608BE7 /* MeshProcessingConnections_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78762BD8524900F22FC0 /* MeshProcessingConnections_EIK.cpp */; };
+		D461967E2BDC42AB00608BE7 /* SurfaceSubdivision_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78982BD8524900F22FC0 /* SurfaceSubdivision_EIK.cpp */; };
+		D461967F2BDC42AB00608BE7 /* pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79012BD8524900F22FC0 /* pch.cpp */; };
+		D46196802BDC42AB00608BE7 /* EigenRowVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F32BD8524900F22FC0 /* EigenRowVector.cpp */; };
+		D46196812BDC42AB00608BE7 /* PolygonVisibility_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78622BD8524900F22FC0 /* PolygonVisibility_EIK.cpp */; };
+		D46196822BDC42AB00608BE7 /* Box2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79062BD8524900F22FC0 /* Box2_EIK.cpp */; };
+		D46196832BDC42AB00608BE7 /* PolygonOffset2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB785F2BD8524900F22FC0 /* PolygonOffset2_EEK.cpp */; };
+		D46196842BDC42AB00608BE7 /* Point2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79052BD8524900F22FC0 /* Point2_EIK.cpp */; };
+		D46196852BDC42AB00608BE7 /* Triangulation3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78D82BD8524900F22FC0 /* Triangulation3_EEK.cpp */; };
+		D46196862BDC42AB00608BE7 /* MeshProcessingLocate_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78802BD8524900F22FC0 /* MeshProcessingLocate_EEK.cpp */; };
+		D46196872BDC42AB00608BE7 /* HeatMethod_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB789E2BD8524900F22FC0 /* HeatMethod_EIK.cpp */; };
+		D46196882BDC42AB00608BE7 /* MeshProcessingFeatures_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78792BD8524900F22FC0 /* MeshProcessingFeatures_EIK.cpp */; };
+		D46196892BDC42AB00608BE7 /* SurfaceSubdivision_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB789B2BD8524900F22FC0 /* SurfaceSubdivision_EEK.cpp */; };
+		D461968A2BDC42AB00608BE7 /* PolygonMinkowski_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78502BD8524900F22FC0 /* PolygonMinkowski_EIK.cpp */; };
+		D461968B2BDC42AB00608BE7 /* Vector2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79112BD8524900F22FC0 /* Vector2_EIK.cpp */; };
+		D461968C2BDC42AB00608BE7 /* SweepLine_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C42BD8524900F22FC0 /* SweepLine_EIK.cpp */; };
+		D461968D2BDC42AB00608BE7 /* PolygonWithHoles2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78572BD8524900F22FC0 /* PolygonWithHoles2_EEK.cpp */; };
+		D461968E2BDC42AB00608BE7 /* EigenColumnVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F42BD8524900F22FC0 /* EigenColumnVector.cpp */; };
+		D461968F2BDC42AB00608BE7 /* PolygonWithHoles2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78552BD8524900F22FC0 /* PolygonWithHoles2_EIK.cpp */; };
+		D46196902BDC42AB00608BE7 /* ConstrainedDelaunayTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78DE2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.cpp */; };
+		D46196912BDC42AB00608BE7 /* Segment2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79182BD8524900F22FC0 /* Segment2_EEK.cpp */; };
+		D46196922BDC42AB00608BE7 /* MeshProcessingMeshing_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78A12BD8524900F22FC0 /* MeshProcessingMeshing_EIK.cpp */; };
+		D46196932BDC42AB00608BE7 /* Triangle2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79302BD8524900F22FC0 /* Triangle2_EIK.cpp */; };
+		D46196942BDC42AB00608BE7 /* Polyline3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79592BD8524900F22FC0 /* Polyline3_EEK.cpp */; };
+		D46196952BDC42AB00608BE7 /* ConvexHull3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78AE2BD8524900F22FC0 /* ConvexHull3_EEK.cpp */; };
+		D46196962BDC42AB00608BE7 /* MeshProcessingBoolean_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB788A2BD8524900F22FC0 /* MeshProcessingBoolean_EEK.cpp */; };
+		D46196972BDC42AB00608BE7 /* ConvexHull3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78AD2BD8524900F22FC0 /* ConvexHull3_EIK.cpp */; };
+		D46196982BDC42AB00608BE7 /* ConformingTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78FA2BD8524900F22FC0 /* ConformingTriangulation2_EEK.cpp */; };
+		D46196992BDC42AB00608BE7 /* NativeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79362BD8524900F22FC0 /* NativeList.cpp */; };
+		D461969A2BDC42AB00608BE7 /* Vector2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79162BD8524900F22FC0 /* Vector2_EEK.cpp */; };
+		D461969B2BDC42AB00608BE7 /* Intersections_geometry_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB791E2BD8524900F22FC0 /* Intersections_geometry_EIK.cpp */; };
+		D461969C2BDC42AB00608BE7 /* Circle2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78EB2BD8524900F22FC0 /* Circle2_EEK.cpp */; };
+		D461969D2BDC42AB00608BE7 /* MeshProcessingConnections_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787A2BD8524900F22FC0 /* MeshProcessingConnections_EEK.cpp */; };
+		D461969E2BDC42AB00608BE7 /* Point2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB790C2BD8524900F22FC0 /* Point2_EEK.cpp */; };
+		D461969F2BDC42AB00608BE7 /* Intersections_geometry_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB791D2BD8524900F22FC0 /* Intersections_geometry_EEK.cpp */; };
+		D46196A02BDC42AB00608BE7 /* HPoint2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79102BD8524900F22FC0 /* HPoint2_EIK.cpp */; };
+		D46196A12BDC42AB00608BE7 /* HPoint2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79152BD8524900F22FC0 /* HPoint2_EEK.cpp */; };
+		D46196A22BDC42AB00608BE7 /* TetrahedralRemeshing_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78FE2BD8524900F22FC0 /* TetrahedralRemeshing_EEK.cpp */; };
+		D46196A32BDC42AB00608BE7 /* Polyhedron3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79402BD8524900F22FC0 /* Polyhedron3_EIK.cpp */; };
+		D46196A42BDC42AB00608BE7 /* MeshProcessingMeshing_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78A52BD8524900F22FC0 /* MeshProcessingMeshing_EEK.cpp */; };
+		D46196A52BDC42AB00608BE7 /* Polygon2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB785D2BD8524900F22FC0 /* Polygon2_EEK.cpp */; };
+		D46196A62BDC42AB00608BE7 /* ConstrainedTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C62BD8524900F22FC0 /* ConstrainedTriangulation2_EEK.cpp */; };
+		D46196A72BDC42AB00608BE7 /* Triangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78D62BD8524900F22FC0 /* Triangulation2_EEK.cpp */; };
+		D46196A82BDC42AB00608BE7 /* Box2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB790D2BD8524900F22FC0 /* Box2_EEK.cpp */; };
+		D46196A92BDC42AB00608BE7 /* Polygon2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78602BD8524900F22FC0 /* Polygon2_EIK.cpp */; };
+		D46196AA2BDC42AB00608BE7 /* SurfaceMesh3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB794A2BD8524900F22FC0 /* SurfaceMesh3_EEK.cpp */; };
+		D46196AB2BDC42AB00608BE7 /* NefPolyhedron3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79452BD8524900F22FC0 /* NefPolyhedron3_EEK.cpp */; };
+		D46196AC2BDC42AB00608BE7 /* PolygonPartition2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78662BD8524900F22FC0 /* PolygonPartition2_EEK.cpp */; };
+		D46196AD2BDC42AB00608BE7 /* Polyhedron3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79422BD8524900F22FC0 /* Polyhedron3_EEK.cpp */; };
+		D46196AE2BDC42AB00608BE7 /* NefPolyhedron3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79412BD8524900F22FC0 /* NefPolyhedron3_EIK.cpp */; };
+		D46196AF2BDC42AB00608BE7 /* DelaunayTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78E52BD8524900F22FC0 /* DelaunayTriangulation2_EEK.cpp */; };
+		D46196B02BDC42AB00608BE7 /* Segment2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79132BD8524900F22FC0 /* Segment2_EIK.cpp */; };
+		D46196B12BDC42AB00608BE7 /* ConvexHull2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78B12BD8524900F22FC0 /* ConvexHull2_EIK.cpp */; };
+		D46196B22BDC42AB00608BE7 /* MeshProcessingOrientation_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78922BD8524900F22FC0 /* MeshProcessingOrientation_EIK.cpp */; };
+		D46196B32BDC42AB00608BE7 /* MeshProcessingRepair_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB788F2BD8524900F22FC0 /* MeshProcessingRepair_EIK.cpp */; };
+		D46196B42BDC42AB00608BE7 /* PolygonSimplification2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78692BD8524900F22FC0 /* PolygonSimplification2_EIK.cpp */; };
+		D46196B52BDC42AB00608BE7 /* PolygonBoolean2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78582BD8524900F22FC0 /* PolygonBoolean2_EIK.cpp */; };
+		D46196B62BDC42AB00608BE7 /* DelaunayTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78E82BD8524900F22FC0 /* DelaunayTriangulation2_EIK.cpp */; };
+		D46196B72BDC42AB00608BE7 /* Line2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792F2BD8524900F22FC0 /* Line2_EIK.cpp */; };
+		D46196B82BDC42AB00608BE7 /* MeshProcessingBoolean_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78872BD8524900F22FC0 /* MeshProcessingBoolean_EIK.cpp */; };
+		D46196B92BDC42AB00608BE7 /* CGALGlobal_EIK_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB795F2BD8524900F22FC0 /* CGALGlobal_EIK_EEK.cpp */; };
+		D46196BA2BDC42AB00608BE7 /* PolygonSimplification2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB786E2BD8524900F22FC0 /* PolygonSimplification2_EEK.cpp */; };
+		D46196BB2BDC42AB00608BE7 /* SweepLine_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C22BD8524900F22FC0 /* SweepLine_EEK.cpp */; };
+		D46196BC2BDC42AB00608BE7 /* MeshProcessingOrientation_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78972BD8524900F22FC0 /* MeshProcessingOrientation_EEK.cpp */; };
+		D46196BD2BDC42AB00608BE7 /* ConstrainedDelaunayTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78DB2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.cpp */; };
+		D46196BE2BDC42AB00608BE7 /* Polyline2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79582BD8524900F22FC0 /* Polyline2_EEK.cpp */; };
+		D46196BF2BDC42AB00608BE7 /* Polyline3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB795A2BD8524900F22FC0 /* Polyline3_EIK.cpp */; };
+		D46196C02BDC42AB00608BE7 /* PolygonVisibility_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB785E2BD8524900F22FC0 /* PolygonVisibility_EEK.cpp */; };
+		D46196C12BDC42AB00608BE7 /* ConformingTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F72BD8524900F22FC0 /* ConformingTriangulation2_EIK.cpp */; };
+		D46196C22BDC42AB00608BE7 /* MeshProcessingRepair_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78962BD8524900F22FC0 /* MeshProcessingRepair_EEK.cpp */; };
+		D46196C32BDC42AB00608BE7 /* HeatMethod_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78992BD8524900F22FC0 /* HeatMethod_EEK.cpp */; };
+		D46196C42BDC42AB00608BE7 /* DelaunayTriangulation3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78E02BD8524900F22FC0 /* DelaunayTriangulation3_EEK.cpp */; };
+		D46196C52BDC42AB00608BE7 /* SurfaceSimplification_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78952BD8524900F22FC0 /* SurfaceSimplification_EIK.cpp */; };
+		D46196C62BDC42AB00608BE7 /* MeshProcessingFeatures_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787B2BD8524900F22FC0 /* MeshProcessingFeatures_EEK.cpp */; };
+		D46196C72BDC42AB00608BE7 /* PolygonBoolean2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78532BD8524900F22FC0 /* PolygonBoolean2_EEK.cpp */; };
+		D46196C82BDC42AB00608BE7 /* MeshProcessingLocate_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787C2BD8524900F22FC0 /* MeshProcessingLocate_EIK.cpp */; };
+		D46196C92BDC42AB00608BE7 /* Polyline2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79572BD8524900F22FC0 /* Polyline2_EIK.cpp */; };
+		D46196CA2BDC42AB00608BE7 /* EigenMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F22BD8524900F22FC0 /* EigenMatrix.cpp */; };
+		D46196CB2BDC42AB00608BE7 /* PolygonMinkowski_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB784E2BD8524900F22FC0 /* PolygonMinkowski_EEK.cpp */; };
+		D46196CC2BDC42AB00608BE7 /* PolygonPartition2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB786C2BD8524900F22FC0 /* PolygonPartition2_EIK.cpp */; };
+		D4BB88362BD8529D00F22FC0 /* PolygonMinkowski_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB784E2BD8524900F22FC0 /* PolygonMinkowski_EEK.cpp */; };
+		D4BB88372BD8529D00F22FC0 /* PolygonSimplification2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78692BD8524900F22FC0 /* PolygonSimplification2_EIK.cpp */; };
+		D4BB88382BD8529D00F22FC0 /* PolygonMinkowski_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78502BD8524900F22FC0 /* PolygonMinkowski_EIK.cpp */; };
+		D4BB88392BD8529D00F22FC0 /* PolygonBoolean2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78582BD8524900F22FC0 /* PolygonBoolean2_EIK.cpp */; };
+		D4BB883A2BD8529D00F22FC0 /* PolygonSimplification2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB786E2BD8524900F22FC0 /* PolygonSimplification2_EEK.cpp */; };
+		D4BB883B2BD8529D00F22FC0 /* PolygonWithHoles2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78552BD8524900F22FC0 /* PolygonWithHoles2_EIK.cpp */; };
+		D4BB883C2BD8529D00F22FC0 /* PolygonWithHoles2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78572BD8524900F22FC0 /* PolygonWithHoles2_EEK.cpp */; };
+		D4BB883D2BD8529D00F22FC0 /* Polygon2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78602BD8524900F22FC0 /* Polygon2_EIK.cpp */; };
+		D4BB883E2BD8529D00F22FC0 /* PolygonBoolean2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78532BD8524900F22FC0 /* PolygonBoolean2_EEK.cpp */; };
+		D4BB883F2BD8529D00F22FC0 /* Polygon2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB785D2BD8524900F22FC0 /* Polygon2_EEK.cpp */; };
+		D4BB88402BD8529D00F22FC0 /* PolygonVisibility_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB785E2BD8524900F22FC0 /* PolygonVisibility_EEK.cpp */; };
+		D4BB88412BD8529D00F22FC0 /* PolygonOffset2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB785F2BD8524900F22FC0 /* PolygonOffset2_EEK.cpp */; };
+		D4BB88422BD8529D00F22FC0 /* PolygonPartition2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB786C2BD8524900F22FC0 /* PolygonPartition2_EIK.cpp */; };
+		D4BB88432BD8529D00F22FC0 /* PolygonPartition2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78662BD8524900F22FC0 /* PolygonPartition2_EEK.cpp */; };
+		D4BB88442BD8529D00F22FC0 /* PolygonVisibility_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78622BD8524900F22FC0 /* PolygonVisibility_EIK.cpp */; };
+		D4BB88452BD8529D00F22FC0 /* PolygonOffset2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78632BD8524900F22FC0 /* PolygonOffset2_EIK.cpp */; };
+		D4BB88462BD852A200F22FC0 /* MeshProcessingFeatures_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787B2BD8524900F22FC0 /* MeshProcessingFeatures_EEK.cpp */; };
+		D4BB88472BD852A200F22FC0 /* MeshProcessingLocate_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78802BD8524900F22FC0 /* MeshProcessingLocate_EEK.cpp */; };
+		D4BB88482BD852A200F22FC0 /* SurfaceSimplification_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78952BD8524900F22FC0 /* SurfaceSimplification_EIK.cpp */; };
+		D4BB88492BD852A200F22FC0 /* MeshProcessingBoolean_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78872BD8524900F22FC0 /* MeshProcessingBoolean_EIK.cpp */; };
+		D4BB884A2BD852A200F22FC0 /* MeshProcessingOrientation_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78922BD8524900F22FC0 /* MeshProcessingOrientation_EIK.cpp */; };
+		D4BB884B2BD852A200F22FC0 /* SurfaceSubdivision_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78982BD8524900F22FC0 /* SurfaceSubdivision_EIK.cpp */; };
+		D4BB884C2BD852A200F22FC0 /* MeshProcessingMeshing_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78A12BD8524900F22FC0 /* MeshProcessingMeshing_EIK.cpp */; };
+		D4BB884D2BD852A200F22FC0 /* HeatMethod_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78992BD8524900F22FC0 /* HeatMethod_EEK.cpp */; };
+		D4BB884E2BD852A200F22FC0 /* SurfaceSubdivision_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB789B2BD8524900F22FC0 /* SurfaceSubdivision_EEK.cpp */; };
+		D4BB884F2BD852A200F22FC0 /* MeshProcessingLocate_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787C2BD8524900F22FC0 /* MeshProcessingLocate_EIK.cpp */; };
+		D4BB88502BD852A200F22FC0 /* MeshProcessingConnections_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78762BD8524900F22FC0 /* MeshProcessingConnections_EIK.cpp */; };
+		D4BB88512BD852A200F22FC0 /* HeatMethod_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB789E2BD8524900F22FC0 /* HeatMethod_EIK.cpp */; };
+		D4BB88522BD852A200F22FC0 /* MeshProcessingBoolean_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB788A2BD8524900F22FC0 /* MeshProcessingBoolean_EEK.cpp */; };
+		D4BB88532BD852A200F22FC0 /* MeshProcessingRepair_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78962BD8524900F22FC0 /* MeshProcessingRepair_EEK.cpp */; };
+		D4BB88542BD852A200F22FC0 /* MeshProcessingMeshing_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78A52BD8524900F22FC0 /* MeshProcessingMeshing_EEK.cpp */; };
+		D4BB88552BD852A200F22FC0 /* MeshProcessingRepair_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB788F2BD8524900F22FC0 /* MeshProcessingRepair_EIK.cpp */; };
+		D4BB88562BD852A200F22FC0 /* MeshProcessingConnections_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787A2BD8524900F22FC0 /* MeshProcessingConnections_EEK.cpp */; };
+		D4BB88572BD852A200F22FC0 /* MeshProcessingSlicer_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB787D2BD8524900F22FC0 /* MeshProcessingSlicer_EEK.cpp */; };
+		D4BB88582BD852A200F22FC0 /* MeshProcessingOrientation_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78972BD8524900F22FC0 /* MeshProcessingOrientation_EEK.cpp */; };
+		D4BB88592BD852A200F22FC0 /* MeshProcessingFeatures_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78792BD8524900F22FC0 /* MeshProcessingFeatures_EIK.cpp */; };
+		D4BB885A2BD852A200F22FC0 /* MeshProcessingSlicer_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78822BD8524900F22FC0 /* MeshProcessingSlicer_EIK.cpp */; };
+		D4BB885B2BD852B900F22FC0 /* Triangle2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792D2BD8524900F22FC0 /* Triangle2_EEK.cpp */; };
+		D4BB885C2BD852B900F22FC0 /* ConvexHull2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78B12BD8524900F22FC0 /* ConvexHull2_EIK.cpp */; };
+		D4BB885D2BD852B900F22FC0 /* Vector2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79112BD8524900F22FC0 /* Vector2_EIK.cpp */; };
+		D4BB885E2BD852B900F22FC0 /* Intersections_geometry_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB791D2BD8524900F22FC0 /* Intersections_geometry_EEK.cpp */; };
+		D4BB885F2BD852B900F22FC0 /* SweepLine_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C42BD8524900F22FC0 /* SweepLine_EIK.cpp */; };
+		D4BB88602BD852B900F22FC0 /* DelaunayTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78E82BD8524900F22FC0 /* DelaunayTriangulation2_EIK.cpp */; };
+		D4BB88612BD852B900F22FC0 /* EigenMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F22BD8524900F22FC0 /* EigenMatrix.cpp */; };
+		D4BB88622BD852B900F22FC0 /* EigenColumnVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F42BD8524900F22FC0 /* EigenColumnVector.cpp */; };
+		D4BB88632BD852B900F22FC0 /* ConformingTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78FA2BD8524900F22FC0 /* ConformingTriangulation2_EEK.cpp */; };
+		D4BB88642BD852B900F22FC0 /* CGALGlobal_EIK_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB795F2BD8524900F22FC0 /* CGALGlobal_EIK_EEK.cpp */; };
+		D4BB88652BD852B900F22FC0 /* ConvexHull3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78AE2BD8524900F22FC0 /* ConvexHull3_EEK.cpp */; };
+		D4BB88662BD852B900F22FC0 /* HPoint2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79152BD8524900F22FC0 /* HPoint2_EEK.cpp */; };
+		D4BB88672BD852B900F22FC0 /* EigenRowVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F32BD8524900F22FC0 /* EigenRowVector.cpp */; };
+		D4BB88682BD852B900F22FC0 /* SurfaceMesh3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79492BD8524900F22FC0 /* SurfaceMesh3_EIK.cpp */; };
+		D4BB88692BD852B900F22FC0 /* Circle2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78EB2BD8524900F22FC0 /* Circle2_EEK.cpp */; };
+		D4BB886A2BD852B900F22FC0 /* Point2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79052BD8524900F22FC0 /* Point2_EIK.cpp */; };
+		D4BB886B2BD852B900F22FC0 /* Polyline3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB795A2BD8524900F22FC0 /* Polyline3_EIK.cpp */; };
+		D4BB886C2BD852B900F22FC0 /* Triangulation3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78D82BD8524900F22FC0 /* Triangulation3_EEK.cpp */; };
+		D4BB886D2BD852B900F22FC0 /* VersionNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB795D2BD8524900F22FC0 /* VersionNumber.cpp */; };
+		D4BB886E2BD852B900F22FC0 /* ConstrainedTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C92BD8524900F22FC0 /* ConstrainedTriangulation2_EIK.cpp */; };
+		D4BB886F2BD852B900F22FC0 /* Box2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB790D2BD8524900F22FC0 /* Box2_EEK.cpp */; };
+		D4BB88702BD852B900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78DE2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.cpp */; };
+		D4BB88712BD852B900F22FC0 /* Segment2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79132BD8524900F22FC0 /* Segment2_EIK.cpp */; };
+		D4BB88722BD852B900F22FC0 /* HPoint2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79102BD8524900F22FC0 /* HPoint2_EIK.cpp */; };
+		D4BB88732BD852B900F22FC0 /* Vector2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79162BD8524900F22FC0 /* Vector2_EEK.cpp */; };
+		D4BB88742BD852B900F22FC0 /* DelaunayTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78E52BD8524900F22FC0 /* DelaunayTriangulation2_EEK.cpp */; };
+		D4BB88752BD852B900F22FC0 /* Polyline2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79582BD8524900F22FC0 /* Polyline2_EEK.cpp */; };
+		D4BB88762BD852B900F22FC0 /* Line2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792F2BD8524900F22FC0 /* Line2_EIK.cpp */; };
+		D4BB88772BD852B900F22FC0 /* ConformingTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F72BD8524900F22FC0 /* ConformingTriangulation2_EIK.cpp */; };
+		D4BB88782BD852B900F22FC0 /* Triangle2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79302BD8524900F22FC0 /* Triangle2_EIK.cpp */; };
+		D4BB887A2BD852B900F22FC0 /* Box2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79062BD8524900F22FC0 /* Box2_EIK.cpp */; };
+		D4BB887B2BD852B900F22FC0 /* NefPolyhedron3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79412BD8524900F22FC0 /* NefPolyhedron3_EIK.cpp */; };
+		D4BB887C2BD852B900F22FC0 /* SurfaceMesh3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB794A2BD8524900F22FC0 /* SurfaceMesh3_EEK.cpp */; };
+		D4BB887D2BD852B900F22FC0 /* ConvexHull3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78AD2BD8524900F22FC0 /* ConvexHull3_EIK.cpp */; };
+		D4BB887E2BD852B900F22FC0 /* SkinSurfaceMeshing_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78F62BD8524900F22FC0 /* SkinSurfaceMeshing_EEK.cpp */; };
+		D4BB887F2BD852B900F22FC0 /* DelaunayTriangulation3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78E02BD8524900F22FC0 /* DelaunayTriangulation3_EEK.cpp */; };
+		D4BB88802BD852B900F22FC0 /* Point2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB790C2BD8524900F22FC0 /* Point2_EEK.cpp */; };
+		D4BB88812BD852B900F22FC0 /* Polyhedron3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79422BD8524900F22FC0 /* Polyhedron3_EEK.cpp */; };
+		D4BB88822BD852B900F22FC0 /* TetrahedralRemeshing_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78FE2BD8524900F22FC0 /* TetrahedralRemeshing_EEK.cpp */; };
+		D4BB88832BD852B900F22FC0 /* SweepLine_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C22BD8524900F22FC0 /* SweepLine_EEK.cpp */; };
+		D4BB88842BD852B900F22FC0 /* Triangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78D62BD8524900F22FC0 /* Triangulation2_EEK.cpp */; };
+		D4BB88852BD852B900F22FC0 /* NativeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79362BD8524900F22FC0 /* NativeList.cpp */; };
+		D4BB88862BD852B900F22FC0 /* Triangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78D52BD8524900F22FC0 /* Triangulation2_EIK.cpp */; };
+		D4BB88872BD852B900F22FC0 /* Polyline2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79572BD8524900F22FC0 /* Polyline2_EIK.cpp */; };
+		D4BB88882BD852B900F22FC0 /* Arrangement2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78BF2BD8524900F22FC0 /* Arrangement2_EEK.cpp */; };
+		D4BB88892BD852B900F22FC0 /* NefPolyhedron3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79452BD8524900F22FC0 /* NefPolyhedron3_EEK.cpp */; };
+		D4BB888A2BD852B900F22FC0 /* Intersections_geometry_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB791E2BD8524900F22FC0 /* Intersections_geometry_EIK.cpp */; };
+		D4BB888B2BD852B900F22FC0 /* ConvexHull2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78B02BD8524900F22FC0 /* ConvexHull2_EEK.cpp */; };
+		D4BB888C2BD852B900F22FC0 /* Line2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792B2BD8524900F22FC0 /* Line2_EEK.cpp */; };
+		D4BB888D2BD852B900F22FC0 /* Intersections_shapes_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB792E2BD8524900F22FC0 /* Intersections_shapes_EIK.cpp */; };
+		D4BB888E2BD852B900F22FC0 /* Segment2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79182BD8524900F22FC0 /* Segment2_EEK.cpp */; };
+		D4BB888F2BD852B900F22FC0 /* pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79012BD8524900F22FC0 /* pch.cpp */; };
+		D4BB88902BD852B900F22FC0 /* ConstrainedTriangulation2_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78C62BD8524900F22FC0 /* ConstrainedTriangulation2_EEK.cpp */; };
+		D4BB88912BD852B900F22FC0 /* Polyhedron3_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79402BD8524900F22FC0 /* Polyhedron3_EIK.cpp */; };
+		D4BB88922BD852B900F22FC0 /* Polyline3_EEK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79592BD8524900F22FC0 /* Polyline3_EEK.cpp */; };
+		D4BB88932BD852B900F22FC0 /* Ray2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB79122BD8524900F22FC0 /* Ray2_EIK.cpp */; };
+		D4BB88942BD852B900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4BB78DB2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D46196662BDC2CFE00608BE7 /* libgmpxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgmpxx.a; path = ../../../../../../../../../opt/homebrew/Cellar/gmp/6.3.0/lib/libgmpxx.a; sourceTree = "<group>"; };
+		D46196682BDC2DEB00608BE7 /* libgmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgmp.a; path = ../../../../../../../../../opt/homebrew/Cellar/gmp/6.3.0/lib/libgmp.a; sourceTree = "<group>"; };
+		D46196D12BDC42AB00608BE7 /* libCgalForCgalDotnet.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libCgalForCgalDotnet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D46196E22BDD1C7200608BE7 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		D4BB78422BD8523F00F22FC0 /* libCgalForCgalDotnet.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libCgalForCgalDotnet.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4BB784A2BD8524900F22FC0 /* pch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
+		D4BB784C2BD8524900F22FC0 /* PolygonWithHoles2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonWithHoles2_EEK.h; sourceTree = "<group>"; };
+		D4BB784D2BD8524900F22FC0 /* PolygonMinkowski_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonMinkowski_EIK.h; sourceTree = "<group>"; };
+		D4BB784E2BD8524900F22FC0 /* PolygonMinkowski_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonMinkowski_EEK.cpp; sourceTree = "<group>"; };
+		D4BB784F2BD8524900F22FC0 /* PolygonOffset2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonOffset2_EIK.h; sourceTree = "<group>"; };
+		D4BB78502BD8524900F22FC0 /* PolygonMinkowski_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonMinkowski_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78512BD8524900F22FC0 /* PolygonBoolean2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonBoolean2_EIK.h; sourceTree = "<group>"; };
+		D4BB78522BD8524900F22FC0 /* Polygon2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polygon2_EEK.h; sourceTree = "<group>"; };
+		D4BB78532BD8524900F22FC0 /* PolygonBoolean2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonBoolean2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78542BD8524900F22FC0 /* Polygon2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polygon2.h; sourceTree = "<group>"; };
+		D4BB78552BD8524900F22FC0 /* PolygonWithHoles2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonWithHoles2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78562BD8524900F22FC0 /* PolygonSimplification2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonSimplification2_EEK.h; sourceTree = "<group>"; };
+		D4BB78572BD8524900F22FC0 /* PolygonWithHoles2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonWithHoles2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78582BD8524900F22FC0 /* PolygonBoolean2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonBoolean2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78592BD8524900F22FC0 /* PolygonVisibility_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonVisibility_EEK.h; sourceTree = "<group>"; };
+		D4BB785A2BD8524900F22FC0 /* PolygonWithHoles2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonWithHoles2.h; sourceTree = "<group>"; };
+		D4BB785B2BD8524900F22FC0 /* PolygonPartition2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonPartition2.h; sourceTree = "<group>"; };
+		D4BB785C2BD8524900F22FC0 /* PolygonOffset2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonOffset2.h; sourceTree = "<group>"; };
+		D4BB785D2BD8524900F22FC0 /* Polygon2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polygon2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB785E2BD8524900F22FC0 /* PolygonVisibility_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonVisibility_EEK.cpp; sourceTree = "<group>"; };
+		D4BB785F2BD8524900F22FC0 /* PolygonOffset2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonOffset2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78602BD8524900F22FC0 /* Polygon2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polygon2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78612BD8524900F22FC0 /* PolygonPartition2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonPartition2_EIK.h; sourceTree = "<group>"; };
+		D4BB78622BD8524900F22FC0 /* PolygonVisibility_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonVisibility_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78632BD8524900F22FC0 /* PolygonOffset2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonOffset2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78642BD8524900F22FC0 /* PolygonMinkowski_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonMinkowski_EEK.h; sourceTree = "<group>"; };
+		D4BB78652BD8524900F22FC0 /* PolygonBoolean2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonBoolean2.h; sourceTree = "<group>"; };
+		D4BB78662BD8524900F22FC0 /* PolygonPartition2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonPartition2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78672BD8524900F22FC0 /* PolygonWithHoles2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonWithHoles2_EIK.h; sourceTree = "<group>"; };
+		D4BB78682BD8524900F22FC0 /* PolygonSimplification2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonSimplification2.h; sourceTree = "<group>"; };
+		D4BB78692BD8524900F22FC0 /* PolygonSimplification2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonSimplification2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB786A2BD8524900F22FC0 /* PolygonVisiblity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonVisiblity.h; sourceTree = "<group>"; };
+		D4BB786B2BD8524900F22FC0 /* PolygonMinkowski.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonMinkowski.h; sourceTree = "<group>"; };
+		D4BB786C2BD8524900F22FC0 /* PolygonPartition2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonPartition2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB786D2BD8524900F22FC0 /* PolygonOffset2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonOffset2_EEK.h; sourceTree = "<group>"; };
+		D4BB786E2BD8524900F22FC0 /* PolygonSimplification2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolygonSimplification2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB786F2BD8524900F22FC0 /* PolygonBoolean2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonBoolean2_EEK.h; sourceTree = "<group>"; };
+		D4BB78702BD8524900F22FC0 /* Polygon2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polygon2_EIK.h; sourceTree = "<group>"; };
+		D4BB78712BD8524900F22FC0 /* PolygonSimplification2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonSimplification2_EIK.h; sourceTree = "<group>"; };
+		D4BB78722BD8524900F22FC0 /* PolygonVisibility_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonVisibility_EIK.h; sourceTree = "<group>"; };
+		D4BB78732BD8524900F22FC0 /* PolygonPartition2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonPartition2_EEK.h; sourceTree = "<group>"; };
+		D4BB78742BD8524900F22FC0 /* CGALWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGALWrapper.h; sourceTree = "<group>"; };
+		D4BB78762BD8524900F22FC0 /* MeshProcessingConnections_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingConnections_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78772BD8524900F22FC0 /* MeshProcessingOrientation_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingOrientation_EEK.h; sourceTree = "<group>"; };
+		D4BB78782BD8524900F22FC0 /* MeshProcessingRepair_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingRepair_EIK.h; sourceTree = "<group>"; };
+		D4BB78792BD8524900F22FC0 /* MeshProcessingFeatures_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingFeatures_EIK.cpp; sourceTree = "<group>"; };
+		D4BB787A2BD8524900F22FC0 /* MeshProcessingConnections_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingConnections_EEK.cpp; sourceTree = "<group>"; };
+		D4BB787B2BD8524900F22FC0 /* MeshProcessingFeatures_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingFeatures_EEK.cpp; sourceTree = "<group>"; };
+		D4BB787C2BD8524900F22FC0 /* MeshProcessingLocate_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingLocate_EIK.cpp; sourceTree = "<group>"; };
+		D4BB787D2BD8524900F22FC0 /* MeshProcessingSlicer_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingSlicer_EEK.cpp; sourceTree = "<group>"; };
+		D4BB787E2BD8524900F22FC0 /* MeshProcessingSlicer_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingSlicer_EIK.h; sourceTree = "<group>"; };
+		D4BB787F2BD8524900F22FC0 /* MeshProcessingOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingOrientation.h; sourceTree = "<group>"; };
+		D4BB78802BD8524900F22FC0 /* MeshProcessingLocate_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingLocate_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78812BD8524900F22FC0 /* MeshProcessingMeshing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingMeshing.h; sourceTree = "<group>"; };
+		D4BB78822BD8524900F22FC0 /* MeshProcessingSlicer_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingSlicer_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78832BD8524900F22FC0 /* MeshProcessingFeatures_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingFeatures_EIK.h; sourceTree = "<group>"; };
+		D4BB78842BD8524900F22FC0 /* MeshProcessingLocate_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingLocate_EIK.h; sourceTree = "<group>"; };
+		D4BB78852BD8524900F22FC0 /* MeshProcessingRepair.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingRepair.h; sourceTree = "<group>"; };
+		D4BB78862BD8524900F22FC0 /* MeshProcessingLocate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingLocate.h; sourceTree = "<group>"; };
+		D4BB78872BD8524900F22FC0 /* MeshProcessingBoolean_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingBoolean_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78882BD8524900F22FC0 /* SurfaceSimplification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceSimplification.h; sourceTree = "<group>"; };
+		D4BB78892BD8524900F22FC0 /* MeshProcessingConnections_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingConnections_EIK.h; sourceTree = "<group>"; };
+		D4BB788A2BD8524900F22FC0 /* MeshProcessingBoolean_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingBoolean_EEK.cpp; sourceTree = "<group>"; };
+		D4BB788B2BD8524900F22FC0 /* SurfaceSubdivision_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceSubdivision_EIK.h; sourceTree = "<group>"; };
+		D4BB788C2BD8524900F22FC0 /* HeatMethod_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeatMethod_EIK.h; sourceTree = "<group>"; };
+		D4BB788D2BD8524900F22FC0 /* MeshProcessingBoolean_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingBoolean_EEK.h; sourceTree = "<group>"; };
+		D4BB788E2BD8524900F22FC0 /* MeshProcessingMeshing_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingMeshing_EIK.h; sourceTree = "<group>"; };
+		D4BB788F2BD8524900F22FC0 /* MeshProcessingRepair_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingRepair_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78902BD8524900F22FC0 /* MeshProcessingOrientation_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingOrientation_EIK.h; sourceTree = "<group>"; };
+		D4BB78912BD8524900F22FC0 /* MeshProcessingRepair_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingRepair_EEK.h; sourceTree = "<group>"; };
+		D4BB78922BD8524900F22FC0 /* MeshProcessingOrientation_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingOrientation_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78932BD8524900F22FC0 /* SurfaceSimplification_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceSimplification_EIK.h; sourceTree = "<group>"; };
+		D4BB78942BD8524900F22FC0 /* HeatMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeatMethod.h; sourceTree = "<group>"; };
+		D4BB78952BD8524900F22FC0 /* SurfaceSimplification_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SurfaceSimplification_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78962BD8524900F22FC0 /* MeshProcessingRepair_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingRepair_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78972BD8524900F22FC0 /* MeshProcessingOrientation_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingOrientation_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78982BD8524900F22FC0 /* SurfaceSubdivision_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SurfaceSubdivision_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78992BD8524900F22FC0 /* HeatMethod_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HeatMethod_EEK.cpp; sourceTree = "<group>"; };
+		D4BB789A2BD8524900F22FC0 /* MeshProcessingSlicer_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingSlicer_EEK.h; sourceTree = "<group>"; };
+		D4BB789B2BD8524900F22FC0 /* SurfaceSubdivision_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SurfaceSubdivision_EEK.cpp; sourceTree = "<group>"; };
+		D4BB789C2BD8524900F22FC0 /* MeshProcessingFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingFeatures.h; sourceTree = "<group>"; };
+		D4BB789D2BD8524900F22FC0 /* MeshProcessingLocate_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingLocate_EEK.h; sourceTree = "<group>"; };
+		D4BB789E2BD8524900F22FC0 /* HeatMethod_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HeatMethod_EIK.cpp; sourceTree = "<group>"; };
+		D4BB789F2BD8524900F22FC0 /* MeshProcessingFeatures_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingFeatures_EEK.h; sourceTree = "<group>"; };
+		D4BB78A02BD8524900F22FC0 /* MeshProcessingConnections.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingConnections.h; sourceTree = "<group>"; };
+		D4BB78A12BD8524900F22FC0 /* MeshProcessingMeshing_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingMeshing_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78A22BD8524900F22FC0 /* MeshProcessingSlicer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingSlicer.h; sourceTree = "<group>"; };
+		D4BB78A32BD8524900F22FC0 /* MeshProcessingConnections_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingConnections_EEK.h; sourceTree = "<group>"; };
+		D4BB78A42BD8524900F22FC0 /* SurfaceSubdivision.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceSubdivision.h; sourceTree = "<group>"; };
+		D4BB78A52BD8524900F22FC0 /* MeshProcessingMeshing_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MeshProcessingMeshing_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78A62BD8524900F22FC0 /* MeshProcessingBoolean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingBoolean.h; sourceTree = "<group>"; };
+		D4BB78A72BD8524900F22FC0 /* SurfaceSubdivision_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceSubdivision_EEK.h; sourceTree = "<group>"; };
+		D4BB78A82BD8524900F22FC0 /* MeshProcessingBoolean_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingBoolean_EIK.h; sourceTree = "<group>"; };
+		D4BB78A92BD8524900F22FC0 /* HeatMethod_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeatMethod_EEK.h; sourceTree = "<group>"; };
+		D4BB78AA2BD8524900F22FC0 /* MeshProcessingMeshing_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshProcessingMeshing_EEK.h; sourceTree = "<group>"; };
+		D4BB78AD2BD8524900F22FC0 /* ConvexHull3_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConvexHull3_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78AE2BD8524900F22FC0 /* ConvexHull3_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConvexHull3_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78AF2BD8524900F22FC0 /* ConvexHull3_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexHull3_EIK.h; sourceTree = "<group>"; };
+		D4BB78B02BD8524900F22FC0 /* ConvexHull2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConvexHull2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78B12BD8524900F22FC0 /* ConvexHull2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConvexHull2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78B22BD8524900F22FC0 /* ConvexHull2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexHull2.h; sourceTree = "<group>"; };
+		D4BB78B32BD8524900F22FC0 /* ConvexHull2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexHull2_EIK.h; sourceTree = "<group>"; };
+		D4BB78B42BD8524900F22FC0 /* ConvexHull3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexHull3.h; sourceTree = "<group>"; };
+		D4BB78B52BD8524900F22FC0 /* ConvexHull3_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexHull3_EEK.h; sourceTree = "<group>"; };
+		D4BB78B62BD8524900F22FC0 /* ConvexHull2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexHull2_EEK.h; sourceTree = "<group>"; };
+		D4BB78B82BD8524900F22FC0 /* ArrVertex2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrVertex2.h; sourceTree = "<group>"; };
+		D4BB78B92BD8524900F22FC0 /* Arrangement2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arrangement2.h; sourceTree = "<group>"; };
+		D4BB78BA2BD8524900F22FC0 /* ArrMultiLocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrMultiLocator.h; sourceTree = "<group>"; };
+		D4BB78BB2BD8524900F22FC0 /* ArrFace2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrFace2.h; sourceTree = "<group>"; };
+		D4BB78BC2BD8524900F22FC0 /* ArrHalfEdge2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrHalfEdge2.h; sourceTree = "<group>"; };
+		D4BB78BD2BD8524900F22FC0 /* SweepLine_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SweepLine_EEK.h; sourceTree = "<group>"; };
+		D4BB78BE2BD8524900F22FC0 /* SweepLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SweepLine.h; sourceTree = "<group>"; };
+		D4BB78BF2BD8524900F22FC0 /* Arrangement2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Arrangement2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78C02BD8524900F22FC0 /* SweepLine_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SweepLine_EIK.h; sourceTree = "<group>"; };
+		D4BB78C12BD8524900F22FC0 /* Arrangement2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arrangement2_EEK.h; sourceTree = "<group>"; };
+		D4BB78C22BD8524900F22FC0 /* SweepLine_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SweepLine_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78C32BD8524900F22FC0 /* ArrangementMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrangementMap.h; sourceTree = "<group>"; };
+		D4BB78C42BD8524900F22FC0 /* SweepLine_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SweepLine_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78C62BD8524900F22FC0 /* ConstrainedTriangulation2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConstrainedTriangulation2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78C72BD8524900F22FC0 /* BaseTriangulation3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTriangulation3.h; sourceTree = "<group>"; };
+		D4BB78C82BD8524900F22FC0 /* Triangulation3_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangulation3_EEK.h; sourceTree = "<group>"; };
+		D4BB78C92BD8524900F22FC0 /* ConstrainedTriangulation2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConstrainedTriangulation2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78CA2BD8524900F22FC0 /* TriVertex2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriVertex2.h; sourceTree = "<group>"; };
+		D4BB78CB2BD8524900F22FC0 /* Triangulation3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangulation3.h; sourceTree = "<group>"; };
+		D4BB78CC2BD8524900F22FC0 /* TriUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriUtil.h; sourceTree = "<group>"; };
+		D4BB78CD2BD8524900F22FC0 /* DelaunayTriangulation3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelaunayTriangulation3.h; sourceTree = "<group>"; };
+		D4BB78CE2BD8524900F22FC0 /* Triangulation2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangulation2_EEK.h; sourceTree = "<group>"; };
+		D4BB78CF2BD8524900F22FC0 /* ConstrainedTriangulation2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstrainedTriangulation2_EIK.h; sourceTree = "<group>"; };
+		D4BB78D02BD8524900F22FC0 /* DelaunayTriangulation2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelaunayTriangulation2_EIK.h; sourceTree = "<group>"; };
+		D4BB78D12BD8524900F22FC0 /* TriangulationMap2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangulationMap2.h; sourceTree = "<group>"; };
+		D4BB78D22BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstrainedDelaunayTriangulation2_EEK.h; sourceTree = "<group>"; };
+		D4BB78D32BD8524900F22FC0 /* ConstrainedTriangulation2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstrainedTriangulation2.h; sourceTree = "<group>"; };
+		D4BB78D42BD8524900F22FC0 /* TriEdge2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriEdge2.h; sourceTree = "<group>"; };
+		D4BB78D52BD8524900F22FC0 /* Triangulation2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Triangulation2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78D62BD8524900F22FC0 /* Triangulation2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Triangulation2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78D72BD8524900F22FC0 /* TriFace2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriFace2.h; sourceTree = "<group>"; };
+		D4BB78D82BD8524900F22FC0 /* Triangulation3_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Triangulation3_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78D92BD8524900F22FC0 /* DelaunayTriangulation3_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelaunayTriangulation3_EEK.h; sourceTree = "<group>"; };
+		D4BB78DA2BD8524900F22FC0 /* Triangulation2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangulation2_EIK.h; sourceTree = "<group>"; };
+		D4BB78DB2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConstrainedDelaunayTriangulation2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78DC2BD8524900F22FC0 /* ConstrainedTriangulation2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstrainedTriangulation2_EEK.h; sourceTree = "<group>"; };
+		D4BB78DD2BD8524900F22FC0 /* BaseTriangulation2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTriangulation2.h; sourceTree = "<group>"; };
+		D4BB78DE2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConstrainedDelaunayTriangulation2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78DF2BD8524900F22FC0 /* TriCell3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriCell3.h; sourceTree = "<group>"; };
+		D4BB78E02BD8524900F22FC0 /* DelaunayTriangulation3_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DelaunayTriangulation3_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78E12BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstrainedDelaunayTriangulation2.h; sourceTree = "<group>"; };
+		D4BB78E22BD8524900F22FC0 /* Triangulation2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangulation2.h; sourceTree = "<group>"; };
+		D4BB78E32BD8524900F22FC0 /* TriVertex3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriVertex3.h; sourceTree = "<group>"; };
+		D4BB78E42BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstrainedDelaunayTriangulation2_EIK.h; sourceTree = "<group>"; };
+		D4BB78E52BD8524900F22FC0 /* DelaunayTriangulation2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DelaunayTriangulation2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78E62BD8524900F22FC0 /* DelaunayTriangulation2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelaunayTriangulation2_EEK.h; sourceTree = "<group>"; };
+		D4BB78E72BD8524900F22FC0 /* DelaunayTriangulation2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DelaunayTriangulation2.h; sourceTree = "<group>"; };
+		D4BB78E82BD8524900F22FC0 /* DelaunayTriangulation2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DelaunayTriangulation2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78EA2BD8524900F22FC0 /* Circle2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Circle2_EEK.h; sourceTree = "<group>"; };
+		D4BB78EB2BD8524900F22FC0 /* Circle2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Circle2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78EC2BD8524900F22FC0 /* Circle2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Circle2.h; sourceTree = "<group>"; };
+		D4BB78EF2BD8524900F22FC0 /* EigenRowVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EigenRowVector.h; sourceTree = "<group>"; };
+		D4BB78F02BD8524900F22FC0 /* EigenColumnVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EigenColumnVector.h; sourceTree = "<group>"; };
+		D4BB78F12BD8524900F22FC0 /* EigenMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EigenMatrix.h; sourceTree = "<group>"; };
+		D4BB78F22BD8524900F22FC0 /* EigenMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EigenMatrix.cpp; sourceTree = "<group>"; };
+		D4BB78F32BD8524900F22FC0 /* EigenRowVector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EigenRowVector.cpp; sourceTree = "<group>"; };
+		D4BB78F42BD8524900F22FC0 /* EigenColumnVector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EigenColumnVector.cpp; sourceTree = "<group>"; };
+		D4BB78F62BD8524900F22FC0 /* SkinSurfaceMeshing_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SkinSurfaceMeshing_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78F72BD8524900F22FC0 /* ConformingTriangulation2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConformingTriangulation2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB78F82BD8524900F22FC0 /* TetrahedralRemeshing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TetrahedralRemeshing.h; sourceTree = "<group>"; };
+		D4BB78F92BD8524900F22FC0 /* ConformingTriangulation2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConformingTriangulation2.h; sourceTree = "<group>"; };
+		D4BB78FA2BD8524900F22FC0 /* ConformingTriangulation2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConformingTriangulation2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78FB2BD8524900F22FC0 /* ConformingTriangulation2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConformingTriangulation2_EEK.h; sourceTree = "<group>"; };
+		D4BB78FC2BD8524900F22FC0 /* SkinSurfaceMesing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkinSurfaceMesing.h; sourceTree = "<group>"; };
+		D4BB78FD2BD8524900F22FC0 /* ConformingTriangulation2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConformingTriangulation2_EIK.h; sourceTree = "<group>"; };
+		D4BB78FE2BD8524900F22FC0 /* TetrahedralRemeshing_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TetrahedralRemeshing_EEK.cpp; sourceTree = "<group>"; };
+		D4BB78FF2BD8524900F22FC0 /* TetrahedralRemeshing_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TetrahedralRemeshing_EEK.h; sourceTree = "<group>"; };
+		D4BB79002BD8524900F22FC0 /* SkinSurfaceMeshing_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SkinSurfaceMeshing_EEK.h; sourceTree = "<group>"; };
+		D4BB79012BD8524900F22FC0 /* pch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pch.cpp; sourceTree = "<group>"; };
+		D4BB79032BD8524900F22FC0 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		D4BB79052BD8524900F22FC0 /* Point2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Point2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79062BD8524900F22FC0 /* Box2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Box2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79072BD8524900F22FC0 /* Index.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
+		D4BB79082BD8524900F22FC0 /* Vector2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2_EEK.h; sourceTree = "<group>"; };
+		D4BB79092BD8524900F22FC0 /* Intersections_shapes_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Intersections_shapes_EIK.h; sourceTree = "<group>"; };
+		D4BB790A2BD8524900F22FC0 /* Line2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line2_EIK.h; sourceTree = "<group>"; };
+		D4BB790B2BD8524900F22FC0 /* MinMax.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MinMax.h; sourceTree = "<group>"; };
+		D4BB790C2BD8524900F22FC0 /* Point2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Point2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB790D2BD8524900F22FC0 /* Box2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Box2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB790E2BD8524900F22FC0 /* Point2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Point2_EIK.h; sourceTree = "<group>"; };
+		D4BB790F2BD8524900F22FC0 /* Box2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Box2_EIK.h; sourceTree = "<group>"; };
+		D4BB79102BD8524900F22FC0 /* HPoint2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HPoint2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79112BD8524900F22FC0 /* Vector2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vector2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79122BD8524900F22FC0 /* Ray2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Ray2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79132BD8524900F22FC0 /* Segment2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Segment2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79142BD8524900F22FC0 /* Segment2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Segment2_EIK.h; sourceTree = "<group>"; };
+		D4BB79152BD8524900F22FC0 /* HPoint2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HPoint2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79162BD8524900F22FC0 /* Vector2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vector2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79172BD8524900F22FC0 /* Ray2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Ray2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79182BD8524900F22FC0 /* Segment2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Segment2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79192BD8524900F22FC0 /* Ray2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ray2_EEK.h; sourceTree = "<group>"; };
+		D4BB791A2BD8524900F22FC0 /* HPoint2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPoint2_EIK.h; sourceTree = "<group>"; };
+		D4BB791B2BD8524900F22FC0 /* Intersections_geometry_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Intersections_geometry_EEK.h; sourceTree = "<group>"; };
+		D4BB791C2BD8524900F22FC0 /* Intersections_shapes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Intersections_shapes.h; sourceTree = "<group>"; };
+		D4BB791D2BD8524900F22FC0 /* Intersections_geometry_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Intersections_geometry_EEK.cpp; sourceTree = "<group>"; };
+		D4BB791E2BD8524900F22FC0 /* Intersections_geometry_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Intersections_geometry_EIK.cpp; sourceTree = "<group>"; };
+		D4BB791F2BD8524900F22FC0 /* Triangle2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangle2_EIK.h; sourceTree = "<group>"; };
+		D4BB79202BD8524900F22FC0 /* Geometry3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Geometry3.h; sourceTree = "<group>"; };
+		D4BB79212BD8524900F22FC0 /* Vector2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector2_EIK.h; sourceTree = "<group>"; };
+		D4BB79222BD8524900F22FC0 /* IntersectionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntersectionResult.h; sourceTree = "<group>"; };
+		D4BB79232BD8524900F22FC0 /* Line2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line2_EEK.h; sourceTree = "<group>"; };
+		D4BB79242BD8524900F22FC0 /* Intersections_geometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Intersections_geometry.h; sourceTree = "<group>"; };
+		D4BB79252BD8524900F22FC0 /* Point2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Point2_EEK.h; sourceTree = "<group>"; };
+		D4BB79262BD8524900F22FC0 /* Box2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Box2_EEK.h; sourceTree = "<group>"; };
+		D4BB79272BD8524900F22FC0 /* Segment2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Segment2_EEK.h; sourceTree = "<group>"; };
+		D4BB79282BD8524900F22FC0 /* Geometry2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Geometry2.h; sourceTree = "<group>"; };
+		D4BB79292BD8524900F22FC0 /* Ray2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ray2_EIK.h; sourceTree = "<group>"; };
+		D4BB792A2BD8524900F22FC0 /* HPoint2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPoint2_EEK.h; sourceTree = "<group>"; };
+		D4BB792B2BD8524900F22FC0 /* Line2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Line2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB792C2BD8524900F22FC0 /* Matrices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrices.h; sourceTree = "<group>"; };
+		D4BB792D2BD8524900F22FC0 /* Triangle2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB792E2BD8524900F22FC0 /* Intersections_shapes_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Intersections_shapes_EIK.cpp; sourceTree = "<group>"; };
+		D4BB792F2BD8524900F22FC0 /* Line2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Line2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79302BD8524900F22FC0 /* Triangle2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79312BD8524900F22FC0 /* Intersections_geometry_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Intersections_geometry_EIK.h; sourceTree = "<group>"; };
+		D4BB79322BD8524900F22FC0 /* Triangle2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Triangle2_EEK.h; sourceTree = "<group>"; };
+		D4BB79332BD8524900F22FC0 /* framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
+		D4BB79352BD8524900F22FC0 /* IndexMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexMap.h; sourceTree = "<group>"; };
+		D4BB79362BD8524900F22FC0 /* NativeList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NativeList.cpp; sourceTree = "<group>"; };
+		D4BB79372BD8524900F22FC0 /* NativeList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeList.h; sourceTree = "<group>"; };
+		D4BB79392BD8524900F22FC0 /* Polyhedron3_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyhedron3_EIK.h; sourceTree = "<group>"; };
+		D4BB793A2BD8524900F22FC0 /* MeshHitResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshHitResult.h; sourceTree = "<group>"; };
+		D4BB793B2BD8524900F22FC0 /* PolyhedronMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolyhedronMap.h; sourceTree = "<group>"; };
+		D4BB793C2BD8524900F22FC0 /* MeshBuilders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshBuilders.h; sourceTree = "<group>"; };
+		D4BB793D2BD8524900F22FC0 /* NefPolyhedron3_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NefPolyhedron3_EIK.h; sourceTree = "<group>"; };
+		D4BB793E2BD8524900F22FC0 /* NefPolyhedron3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NefPolyhedron3.h; sourceTree = "<group>"; };
+		D4BB793F2BD8524900F22FC0 /* SurfaceMesh3_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceMesh3_EEK.h; sourceTree = "<group>"; };
+		D4BB79402BD8524900F22FC0 /* Polyhedron3_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polyhedron3_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79412BD8524900F22FC0 /* NefPolyhedron3_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NefPolyhedron3_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79422BD8524900F22FC0 /* Polyhedron3_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polyhedron3_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79432BD8524900F22FC0 /* Polyhedron3_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyhedron3_EEK.h; sourceTree = "<group>"; };
+		D4BB79442BD8524900F22FC0 /* MeshVertex3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshVertex3.h; sourceTree = "<group>"; };
+		D4BB79452BD8524900F22FC0 /* NefPolyhedron3_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NefPolyhedron3_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79462BD8524900F22FC0 /* SurfaceMeshMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceMeshMap.h; sourceTree = "<group>"; };
+		D4BB79472BD8524900F22FC0 /* MeshFace3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshFace3.h; sourceTree = "<group>"; };
+		D4BB79482BD8524900F22FC0 /* PolygonalCount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolygonalCount.h; sourceTree = "<group>"; };
+		D4BB79492BD8524900F22FC0 /* SurfaceMesh3_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SurfaceMesh3_EIK.cpp; sourceTree = "<group>"; };
+		D4BB794A2BD8524900F22FC0 /* SurfaceMesh3_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SurfaceMesh3_EEK.cpp; sourceTree = "<group>"; };
+		D4BB794B2BD8524900F22FC0 /* NefPolyhedron3_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NefPolyhedron3_EEK.h; sourceTree = "<group>"; };
+		D4BB794C2BD8524900F22FC0 /* Polyhedron3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyhedron3.h; sourceTree = "<group>"; };
+		D4BB794D2BD8524900F22FC0 /* MeshHalfedge3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeshHalfedge3.h; sourceTree = "<group>"; };
+		D4BB794E2BD8524900F22FC0 /* SurfaceMesh3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceMesh3.h; sourceTree = "<group>"; };
+		D4BB794F2BD8524900F22FC0 /* SurfaceMesh3_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurfaceMesh3_EIK.h; sourceTree = "<group>"; };
+		D4BB79512BD8524900F22FC0 /* Polyline3_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline3_EIK.h; sourceTree = "<group>"; };
+		D4BB79522BD8524900F22FC0 /* Polyline2_EIK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline2_EIK.h; sourceTree = "<group>"; };
+		D4BB79532BD8524900F22FC0 /* Polyline3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline3.h; sourceTree = "<group>"; };
+		D4BB79542BD8524900F22FC0 /* Polyline3_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline3_EEK.h; sourceTree = "<group>"; };
+		D4BB79552BD8524900F22FC0 /* Polyline2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline2.h; sourceTree = "<group>"; };
+		D4BB79562BD8524900F22FC0 /* Polyline2_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polyline2_EEK.h; sourceTree = "<group>"; };
+		D4BB79572BD8524900F22FC0 /* Polyline2_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polyline2_EIK.cpp; sourceTree = "<group>"; };
+		D4BB79582BD8524900F22FC0 /* Polyline2_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polyline2_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79592BD8524900F22FC0 /* Polyline3_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polyline3_EEK.cpp; sourceTree = "<group>"; };
+		D4BB795A2BD8524900F22FC0 /* Polyline3_EIK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polyline3_EIK.cpp; sourceTree = "<group>"; };
+		D4BB795C2BD8524900F22FC0 /* CGALGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGALGlobal.h; sourceTree = "<group>"; };
+		D4BB795D2BD8524900F22FC0 /* VersionNumber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VersionNumber.cpp; sourceTree = "<group>"; };
+		D4BB795E2BD8524900F22FC0 /* CGALGlobal_EIK_EEK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGALGlobal_EIK_EEK.h; sourceTree = "<group>"; };
+		D4BB795F2BD8524900F22FC0 /* CGALGlobal_EIK_EEK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CGALGlobal_EIK_EEK.cpp; sourceTree = "<group>"; };
+		D4BB79602BD8524900F22FC0 /* ArrayUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayUtil.h; sourceTree = "<group>"; };
+		D4BB79612BD8524900F22FC0 /* VersionNumber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VersionNumber.h; sourceTree = "<group>"; };
+		D4BB88952BD85F2C00F22FC0 /* Notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
+		D4BB88972BDA700600F22FC0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D46196CD2BDC42AB00608BE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BB78402BD8523F00F22FC0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D4BB78392BD8523F00F22FC0 = {
+			isa = PBXGroup;
+			children = (
+				D4BB88952BD85F2C00F22FC0 /* Notes.txt */,
+				D46196E22BDD1C7200608BE7 /* README.txt */,
+				D4BB78492BD8524900F22FC0 /* CGALWrapper */,
+				D4BB78432BD8523F00F22FC0 /* Products */,
+				D4BB88962BDA700600F22FC0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D4BB78432BD8523F00F22FC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78422BD8523F00F22FC0 /* libCgalForCgalDotnet.dylib */,
+				D46196D12BDC42AB00608BE7 /* libCgalForCgalDotnet.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4BB78492BD8524900F22FC0 /* CGALWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB784A2BD8524900F22FC0 /* pch.h */,
+				D4BB784B2BD8524900F22FC0 /* Polygons */,
+				D4BB78742BD8524900F22FC0 /* CGALWrapper.h */,
+				D4BB78752BD8524900F22FC0 /* Processing */,
+				D4BB78AC2BD8524900F22FC0 /* Hull */,
+				D4BB78B72BD8524900F22FC0 /* Arrangments */,
+				D4BB78C52BD8524900F22FC0 /* Triangulations */,
+				D4BB78E92BD8524900F22FC0 /* Circlar */,
+				D4BB78EE2BD8524900F22FC0 /* Eigen */,
+				D4BB78F52BD8524900F22FC0 /* Meshing */,
+				D4BB79012BD8524900F22FC0 /* pch.cpp */,
+				D4BB79032BD8524900F22FC0 /* resource.h */,
+				D4BB79042BD8524900F22FC0 /* Geometry */,
+				D4BB79332BD8524900F22FC0 /* framework.h */,
+				D4BB79342BD8524900F22FC0 /* Collections */,
+				D4BB79382BD8524900F22FC0 /* Polyhedra */,
+				D4BB79502BD8524900F22FC0 /* Polylines */,
+				D4BB795B2BD8524900F22FC0 /* Utility */,
+			);
+			path = CGALWrapper;
+			sourceTree = "<group>";
+		};
+		D4BB784B2BD8524900F22FC0 /* Polygons */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB784C2BD8524900F22FC0 /* PolygonWithHoles2_EEK.h */,
+				D4BB784D2BD8524900F22FC0 /* PolygonMinkowski_EIK.h */,
+				D4BB784E2BD8524900F22FC0 /* PolygonMinkowski_EEK.cpp */,
+				D4BB784F2BD8524900F22FC0 /* PolygonOffset2_EIK.h */,
+				D4BB78502BD8524900F22FC0 /* PolygonMinkowski_EIK.cpp */,
+				D4BB78512BD8524900F22FC0 /* PolygonBoolean2_EIK.h */,
+				D4BB78522BD8524900F22FC0 /* Polygon2_EEK.h */,
+				D4BB78532BD8524900F22FC0 /* PolygonBoolean2_EEK.cpp */,
+				D4BB78542BD8524900F22FC0 /* Polygon2.h */,
+				D4BB78552BD8524900F22FC0 /* PolygonWithHoles2_EIK.cpp */,
+				D4BB78562BD8524900F22FC0 /* PolygonSimplification2_EEK.h */,
+				D4BB78572BD8524900F22FC0 /* PolygonWithHoles2_EEK.cpp */,
+				D4BB78582BD8524900F22FC0 /* PolygonBoolean2_EIK.cpp */,
+				D4BB78592BD8524900F22FC0 /* PolygonVisibility_EEK.h */,
+				D4BB785A2BD8524900F22FC0 /* PolygonWithHoles2.h */,
+				D4BB785B2BD8524900F22FC0 /* PolygonPartition2.h */,
+				D4BB785C2BD8524900F22FC0 /* PolygonOffset2.h */,
+				D4BB785D2BD8524900F22FC0 /* Polygon2_EEK.cpp */,
+				D4BB785E2BD8524900F22FC0 /* PolygonVisibility_EEK.cpp */,
+				D4BB785F2BD8524900F22FC0 /* PolygonOffset2_EEK.cpp */,
+				D4BB78602BD8524900F22FC0 /* Polygon2_EIK.cpp */,
+				D4BB78612BD8524900F22FC0 /* PolygonPartition2_EIK.h */,
+				D4BB78622BD8524900F22FC0 /* PolygonVisibility_EIK.cpp */,
+				D4BB78632BD8524900F22FC0 /* PolygonOffset2_EIK.cpp */,
+				D4BB78642BD8524900F22FC0 /* PolygonMinkowski_EEK.h */,
+				D4BB78652BD8524900F22FC0 /* PolygonBoolean2.h */,
+				D4BB78662BD8524900F22FC0 /* PolygonPartition2_EEK.cpp */,
+				D4BB78672BD8524900F22FC0 /* PolygonWithHoles2_EIK.h */,
+				D4BB78682BD8524900F22FC0 /* PolygonSimplification2.h */,
+				D4BB78692BD8524900F22FC0 /* PolygonSimplification2_EIK.cpp */,
+				D4BB786A2BD8524900F22FC0 /* PolygonVisiblity.h */,
+				D4BB786B2BD8524900F22FC0 /* PolygonMinkowski.h */,
+				D4BB786C2BD8524900F22FC0 /* PolygonPartition2_EIK.cpp */,
+				D4BB786D2BD8524900F22FC0 /* PolygonOffset2_EEK.h */,
+				D4BB786E2BD8524900F22FC0 /* PolygonSimplification2_EEK.cpp */,
+				D4BB786F2BD8524900F22FC0 /* PolygonBoolean2_EEK.h */,
+				D4BB78702BD8524900F22FC0 /* Polygon2_EIK.h */,
+				D4BB78712BD8524900F22FC0 /* PolygonSimplification2_EIK.h */,
+				D4BB78722BD8524900F22FC0 /* PolygonVisibility_EIK.h */,
+				D4BB78732BD8524900F22FC0 /* PolygonPartition2_EEK.h */,
+			);
+			path = Polygons;
+			sourceTree = "<group>";
+		};
+		D4BB78752BD8524900F22FC0 /* Processing */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78762BD8524900F22FC0 /* MeshProcessingConnections_EIK.cpp */,
+				D4BB78772BD8524900F22FC0 /* MeshProcessingOrientation_EEK.h */,
+				D4BB78782BD8524900F22FC0 /* MeshProcessingRepair_EIK.h */,
+				D4BB78792BD8524900F22FC0 /* MeshProcessingFeatures_EIK.cpp */,
+				D4BB787A2BD8524900F22FC0 /* MeshProcessingConnections_EEK.cpp */,
+				D4BB787B2BD8524900F22FC0 /* MeshProcessingFeatures_EEK.cpp */,
+				D4BB787C2BD8524900F22FC0 /* MeshProcessingLocate_EIK.cpp */,
+				D4BB787D2BD8524900F22FC0 /* MeshProcessingSlicer_EEK.cpp */,
+				D4BB787E2BD8524900F22FC0 /* MeshProcessingSlicer_EIK.h */,
+				D4BB787F2BD8524900F22FC0 /* MeshProcessingOrientation.h */,
+				D4BB78802BD8524900F22FC0 /* MeshProcessingLocate_EEK.cpp */,
+				D4BB78812BD8524900F22FC0 /* MeshProcessingMeshing.h */,
+				D4BB78822BD8524900F22FC0 /* MeshProcessingSlicer_EIK.cpp */,
+				D4BB78832BD8524900F22FC0 /* MeshProcessingFeatures_EIK.h */,
+				D4BB78842BD8524900F22FC0 /* MeshProcessingLocate_EIK.h */,
+				D4BB78852BD8524900F22FC0 /* MeshProcessingRepair.h */,
+				D4BB78862BD8524900F22FC0 /* MeshProcessingLocate.h */,
+				D4BB78872BD8524900F22FC0 /* MeshProcessingBoolean_EIK.cpp */,
+				D4BB78882BD8524900F22FC0 /* SurfaceSimplification.h */,
+				D4BB78892BD8524900F22FC0 /* MeshProcessingConnections_EIK.h */,
+				D4BB788A2BD8524900F22FC0 /* MeshProcessingBoolean_EEK.cpp */,
+				D4BB788B2BD8524900F22FC0 /* SurfaceSubdivision_EIK.h */,
+				D4BB788C2BD8524900F22FC0 /* HeatMethod_EIK.h */,
+				D4BB788D2BD8524900F22FC0 /* MeshProcessingBoolean_EEK.h */,
+				D4BB788E2BD8524900F22FC0 /* MeshProcessingMeshing_EIK.h */,
+				D4BB788F2BD8524900F22FC0 /* MeshProcessingRepair_EIK.cpp */,
+				D4BB78902BD8524900F22FC0 /* MeshProcessingOrientation_EIK.h */,
+				D4BB78912BD8524900F22FC0 /* MeshProcessingRepair_EEK.h */,
+				D4BB78922BD8524900F22FC0 /* MeshProcessingOrientation_EIK.cpp */,
+				D4BB78932BD8524900F22FC0 /* SurfaceSimplification_EIK.h */,
+				D4BB78942BD8524900F22FC0 /* HeatMethod.h */,
+				D4BB78952BD8524900F22FC0 /* SurfaceSimplification_EIK.cpp */,
+				D4BB78962BD8524900F22FC0 /* MeshProcessingRepair_EEK.cpp */,
+				D4BB78972BD8524900F22FC0 /* MeshProcessingOrientation_EEK.cpp */,
+				D4BB78982BD8524900F22FC0 /* SurfaceSubdivision_EIK.cpp */,
+				D4BB78992BD8524900F22FC0 /* HeatMethod_EEK.cpp */,
+				D4BB789A2BD8524900F22FC0 /* MeshProcessingSlicer_EEK.h */,
+				D4BB789B2BD8524900F22FC0 /* SurfaceSubdivision_EEK.cpp */,
+				D4BB789C2BD8524900F22FC0 /* MeshProcessingFeatures.h */,
+				D4BB789D2BD8524900F22FC0 /* MeshProcessingLocate_EEK.h */,
+				D4BB789E2BD8524900F22FC0 /* HeatMethod_EIK.cpp */,
+				D4BB789F2BD8524900F22FC0 /* MeshProcessingFeatures_EEK.h */,
+				D4BB78A02BD8524900F22FC0 /* MeshProcessingConnections.h */,
+				D4BB78A12BD8524900F22FC0 /* MeshProcessingMeshing_EIK.cpp */,
+				D4BB78A22BD8524900F22FC0 /* MeshProcessingSlicer.h */,
+				D4BB78A32BD8524900F22FC0 /* MeshProcessingConnections_EEK.h */,
+				D4BB78A42BD8524900F22FC0 /* SurfaceSubdivision.h */,
+				D4BB78A52BD8524900F22FC0 /* MeshProcessingMeshing_EEK.cpp */,
+				D4BB78A62BD8524900F22FC0 /* MeshProcessingBoolean.h */,
+				D4BB78A72BD8524900F22FC0 /* SurfaceSubdivision_EEK.h */,
+				D4BB78A82BD8524900F22FC0 /* MeshProcessingBoolean_EIK.h */,
+				D4BB78A92BD8524900F22FC0 /* HeatMethod_EEK.h */,
+				D4BB78AA2BD8524900F22FC0 /* MeshProcessingMeshing_EEK.h */,
+			);
+			path = Processing;
+			sourceTree = "<group>";
+		};
+		D4BB78AC2BD8524900F22FC0 /* Hull */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78AD2BD8524900F22FC0 /* ConvexHull3_EIK.cpp */,
+				D4BB78AE2BD8524900F22FC0 /* ConvexHull3_EEK.cpp */,
+				D4BB78AF2BD8524900F22FC0 /* ConvexHull3_EIK.h */,
+				D4BB78B02BD8524900F22FC0 /* ConvexHull2_EEK.cpp */,
+				D4BB78B12BD8524900F22FC0 /* ConvexHull2_EIK.cpp */,
+				D4BB78B22BD8524900F22FC0 /* ConvexHull2.h */,
+				D4BB78B32BD8524900F22FC0 /* ConvexHull2_EIK.h */,
+				D4BB78B42BD8524900F22FC0 /* ConvexHull3.h */,
+				D4BB78B52BD8524900F22FC0 /* ConvexHull3_EEK.h */,
+				D4BB78B62BD8524900F22FC0 /* ConvexHull2_EEK.h */,
+			);
+			path = Hull;
+			sourceTree = "<group>";
+		};
+		D4BB78B72BD8524900F22FC0 /* Arrangments */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78B82BD8524900F22FC0 /* ArrVertex2.h */,
+				D4BB78B92BD8524900F22FC0 /* Arrangement2.h */,
+				D4BB78BA2BD8524900F22FC0 /* ArrMultiLocator.h */,
+				D4BB78BB2BD8524900F22FC0 /* ArrFace2.h */,
+				D4BB78BC2BD8524900F22FC0 /* ArrHalfEdge2.h */,
+				D4BB78BD2BD8524900F22FC0 /* SweepLine_EEK.h */,
+				D4BB78BE2BD8524900F22FC0 /* SweepLine.h */,
+				D4BB78BF2BD8524900F22FC0 /* Arrangement2_EEK.cpp */,
+				D4BB78C02BD8524900F22FC0 /* SweepLine_EIK.h */,
+				D4BB78C12BD8524900F22FC0 /* Arrangement2_EEK.h */,
+				D4BB78C22BD8524900F22FC0 /* SweepLine_EEK.cpp */,
+				D4BB78C32BD8524900F22FC0 /* ArrangementMap.h */,
+				D4BB78C42BD8524900F22FC0 /* SweepLine_EIK.cpp */,
+			);
+			path = Arrangments;
+			sourceTree = "<group>";
+		};
+		D4BB78C52BD8524900F22FC0 /* Triangulations */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78C62BD8524900F22FC0 /* ConstrainedTriangulation2_EEK.cpp */,
+				D4BB78C72BD8524900F22FC0 /* BaseTriangulation3.h */,
+				D4BB78C82BD8524900F22FC0 /* Triangulation3_EEK.h */,
+				D4BB78C92BD8524900F22FC0 /* ConstrainedTriangulation2_EIK.cpp */,
+				D4BB78CA2BD8524900F22FC0 /* TriVertex2.h */,
+				D4BB78CB2BD8524900F22FC0 /* Triangulation3.h */,
+				D4BB78CC2BD8524900F22FC0 /* TriUtil.h */,
+				D4BB78CD2BD8524900F22FC0 /* DelaunayTriangulation3.h */,
+				D4BB78CE2BD8524900F22FC0 /* Triangulation2_EEK.h */,
+				D4BB78CF2BD8524900F22FC0 /* ConstrainedTriangulation2_EIK.h */,
+				D4BB78D02BD8524900F22FC0 /* DelaunayTriangulation2_EIK.h */,
+				D4BB78D12BD8524900F22FC0 /* TriangulationMap2.h */,
+				D4BB78D22BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.h */,
+				D4BB78D32BD8524900F22FC0 /* ConstrainedTriangulation2.h */,
+				D4BB78D42BD8524900F22FC0 /* TriEdge2.h */,
+				D4BB78D52BD8524900F22FC0 /* Triangulation2_EIK.cpp */,
+				D4BB78D62BD8524900F22FC0 /* Triangulation2_EEK.cpp */,
+				D4BB78D72BD8524900F22FC0 /* TriFace2.h */,
+				D4BB78D82BD8524900F22FC0 /* Triangulation3_EEK.cpp */,
+				D4BB78D92BD8524900F22FC0 /* DelaunayTriangulation3_EEK.h */,
+				D4BB78DA2BD8524900F22FC0 /* Triangulation2_EIK.h */,
+				D4BB78DB2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.cpp */,
+				D4BB78DC2BD8524900F22FC0 /* ConstrainedTriangulation2_EEK.h */,
+				D4BB78DD2BD8524900F22FC0 /* BaseTriangulation2.h */,
+				D4BB78DE2BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.cpp */,
+				D4BB78DF2BD8524900F22FC0 /* TriCell3.h */,
+				D4BB78E02BD8524900F22FC0 /* DelaunayTriangulation3_EEK.cpp */,
+				D4BB78E12BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2.h */,
+				D4BB78E22BD8524900F22FC0 /* Triangulation2.h */,
+				D4BB78E32BD8524900F22FC0 /* TriVertex3.h */,
+				D4BB78E42BD8524900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.h */,
+				D4BB78E52BD8524900F22FC0 /* DelaunayTriangulation2_EEK.cpp */,
+				D4BB78E62BD8524900F22FC0 /* DelaunayTriangulation2_EEK.h */,
+				D4BB78E72BD8524900F22FC0 /* DelaunayTriangulation2.h */,
+				D4BB78E82BD8524900F22FC0 /* DelaunayTriangulation2_EIK.cpp */,
+			);
+			path = Triangulations;
+			sourceTree = "<group>";
+		};
+		D4BB78E92BD8524900F22FC0 /* Circlar */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78EA2BD8524900F22FC0 /* Circle2_EEK.h */,
+				D4BB78EB2BD8524900F22FC0 /* Circle2_EEK.cpp */,
+				D4BB78EC2BD8524900F22FC0 /* Circle2.h */,
+			);
+			path = Circlar;
+			sourceTree = "<group>";
+		};
+		D4BB78EE2BD8524900F22FC0 /* Eigen */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78EF2BD8524900F22FC0 /* EigenRowVector.h */,
+				D4BB78F02BD8524900F22FC0 /* EigenColumnVector.h */,
+				D4BB78F12BD8524900F22FC0 /* EigenMatrix.h */,
+				D4BB78F22BD8524900F22FC0 /* EigenMatrix.cpp */,
+				D4BB78F32BD8524900F22FC0 /* EigenRowVector.cpp */,
+				D4BB78F42BD8524900F22FC0 /* EigenColumnVector.cpp */,
+			);
+			path = Eigen;
+			sourceTree = "<group>";
+		};
+		D4BB78F52BD8524900F22FC0 /* Meshing */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB78F62BD8524900F22FC0 /* SkinSurfaceMeshing_EEK.cpp */,
+				D4BB78F72BD8524900F22FC0 /* ConformingTriangulation2_EIK.cpp */,
+				D4BB78F82BD8524900F22FC0 /* TetrahedralRemeshing.h */,
+				D4BB78F92BD8524900F22FC0 /* ConformingTriangulation2.h */,
+				D4BB78FA2BD8524900F22FC0 /* ConformingTriangulation2_EEK.cpp */,
+				D4BB78FB2BD8524900F22FC0 /* ConformingTriangulation2_EEK.h */,
+				D4BB78FC2BD8524900F22FC0 /* SkinSurfaceMesing.h */,
+				D4BB78FD2BD8524900F22FC0 /* ConformingTriangulation2_EIK.h */,
+				D4BB78FE2BD8524900F22FC0 /* TetrahedralRemeshing_EEK.cpp */,
+				D4BB78FF2BD8524900F22FC0 /* TetrahedralRemeshing_EEK.h */,
+				D4BB79002BD8524900F22FC0 /* SkinSurfaceMeshing_EEK.h */,
+			);
+			path = Meshing;
+			sourceTree = "<group>";
+		};
+		D4BB79042BD8524900F22FC0 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB79052BD8524900F22FC0 /* Point2_EIK.cpp */,
+				D4BB79062BD8524900F22FC0 /* Box2_EIK.cpp */,
+				D4BB79072BD8524900F22FC0 /* Index.h */,
+				D4BB79082BD8524900F22FC0 /* Vector2_EEK.h */,
+				D4BB79092BD8524900F22FC0 /* Intersections_shapes_EIK.h */,
+				D4BB790A2BD8524900F22FC0 /* Line2_EIK.h */,
+				D4BB790B2BD8524900F22FC0 /* MinMax.h */,
+				D4BB790C2BD8524900F22FC0 /* Point2_EEK.cpp */,
+				D4BB790D2BD8524900F22FC0 /* Box2_EEK.cpp */,
+				D4BB790E2BD8524900F22FC0 /* Point2_EIK.h */,
+				D4BB790F2BD8524900F22FC0 /* Box2_EIK.h */,
+				D4BB79102BD8524900F22FC0 /* HPoint2_EIK.cpp */,
+				D4BB79112BD8524900F22FC0 /* Vector2_EIK.cpp */,
+				D4BB79122BD8524900F22FC0 /* Ray2_EIK.cpp */,
+				D4BB79132BD8524900F22FC0 /* Segment2_EIK.cpp */,
+				D4BB79142BD8524900F22FC0 /* Segment2_EIK.h */,
+				D4BB79152BD8524900F22FC0 /* HPoint2_EEK.cpp */,
+				D4BB79162BD8524900F22FC0 /* Vector2_EEK.cpp */,
+				D4BB79172BD8524900F22FC0 /* Ray2_EEK.cpp */,
+				D4BB79182BD8524900F22FC0 /* Segment2_EEK.cpp */,
+				D4BB79192BD8524900F22FC0 /* Ray2_EEK.h */,
+				D4BB791A2BD8524900F22FC0 /* HPoint2_EIK.h */,
+				D4BB791B2BD8524900F22FC0 /* Intersections_geometry_EEK.h */,
+				D4BB791C2BD8524900F22FC0 /* Intersections_shapes.h */,
+				D4BB791D2BD8524900F22FC0 /* Intersections_geometry_EEK.cpp */,
+				D4BB791E2BD8524900F22FC0 /* Intersections_geometry_EIK.cpp */,
+				D4BB791F2BD8524900F22FC0 /* Triangle2_EIK.h */,
+				D4BB79202BD8524900F22FC0 /* Geometry3.h */,
+				D4BB79212BD8524900F22FC0 /* Vector2_EIK.h */,
+				D4BB79222BD8524900F22FC0 /* IntersectionResult.h */,
+				D4BB79232BD8524900F22FC0 /* Line2_EEK.h */,
+				D4BB79242BD8524900F22FC0 /* Intersections_geometry.h */,
+				D4BB79252BD8524900F22FC0 /* Point2_EEK.h */,
+				D4BB79262BD8524900F22FC0 /* Box2_EEK.h */,
+				D4BB79272BD8524900F22FC0 /* Segment2_EEK.h */,
+				D4BB79282BD8524900F22FC0 /* Geometry2.h */,
+				D4BB79292BD8524900F22FC0 /* Ray2_EIK.h */,
+				D4BB792A2BD8524900F22FC0 /* HPoint2_EEK.h */,
+				D4BB792B2BD8524900F22FC0 /* Line2_EEK.cpp */,
+				D4BB792C2BD8524900F22FC0 /* Matrices.h */,
+				D4BB792D2BD8524900F22FC0 /* Triangle2_EEK.cpp */,
+				D4BB792E2BD8524900F22FC0 /* Intersections_shapes_EIK.cpp */,
+				D4BB792F2BD8524900F22FC0 /* Line2_EIK.cpp */,
+				D4BB79302BD8524900F22FC0 /* Triangle2_EIK.cpp */,
+				D4BB79312BD8524900F22FC0 /* Intersections_geometry_EIK.h */,
+				D4BB79322BD8524900F22FC0 /* Triangle2_EEK.h */,
+			);
+			path = Geometry;
+			sourceTree = "<group>";
+		};
+		D4BB79342BD8524900F22FC0 /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB79352BD8524900F22FC0 /* IndexMap.h */,
+				D4BB79362BD8524900F22FC0 /* NativeList.cpp */,
+				D4BB79372BD8524900F22FC0 /* NativeList.h */,
+			);
+			path = Collections;
+			sourceTree = "<group>";
+		};
+		D4BB79382BD8524900F22FC0 /* Polyhedra */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB79392BD8524900F22FC0 /* Polyhedron3_EIK.h */,
+				D4BB793A2BD8524900F22FC0 /* MeshHitResult.h */,
+				D4BB793B2BD8524900F22FC0 /* PolyhedronMap.h */,
+				D4BB793C2BD8524900F22FC0 /* MeshBuilders.h */,
+				D4BB793D2BD8524900F22FC0 /* NefPolyhedron3_EIK.h */,
+				D4BB793E2BD8524900F22FC0 /* NefPolyhedron3.h */,
+				D4BB793F2BD8524900F22FC0 /* SurfaceMesh3_EEK.h */,
+				D4BB79402BD8524900F22FC0 /* Polyhedron3_EIK.cpp */,
+				D4BB79412BD8524900F22FC0 /* NefPolyhedron3_EIK.cpp */,
+				D4BB79422BD8524900F22FC0 /* Polyhedron3_EEK.cpp */,
+				D4BB79432BD8524900F22FC0 /* Polyhedron3_EEK.h */,
+				D4BB79442BD8524900F22FC0 /* MeshVertex3.h */,
+				D4BB79452BD8524900F22FC0 /* NefPolyhedron3_EEK.cpp */,
+				D4BB79462BD8524900F22FC0 /* SurfaceMeshMap.h */,
+				D4BB79472BD8524900F22FC0 /* MeshFace3.h */,
+				D4BB79482BD8524900F22FC0 /* PolygonalCount.h */,
+				D4BB79492BD8524900F22FC0 /* SurfaceMesh3_EIK.cpp */,
+				D4BB794A2BD8524900F22FC0 /* SurfaceMesh3_EEK.cpp */,
+				D4BB794B2BD8524900F22FC0 /* NefPolyhedron3_EEK.h */,
+				D4BB794C2BD8524900F22FC0 /* Polyhedron3.h */,
+				D4BB794D2BD8524900F22FC0 /* MeshHalfedge3.h */,
+				D4BB794E2BD8524900F22FC0 /* SurfaceMesh3.h */,
+				D4BB794F2BD8524900F22FC0 /* SurfaceMesh3_EIK.h */,
+			);
+			path = Polyhedra;
+			sourceTree = "<group>";
+		};
+		D4BB79502BD8524900F22FC0 /* Polylines */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB79512BD8524900F22FC0 /* Polyline3_EIK.h */,
+				D4BB79522BD8524900F22FC0 /* Polyline2_EIK.h */,
+				D4BB79532BD8524900F22FC0 /* Polyline3.h */,
+				D4BB79542BD8524900F22FC0 /* Polyline3_EEK.h */,
+				D4BB79552BD8524900F22FC0 /* Polyline2.h */,
+				D4BB79562BD8524900F22FC0 /* Polyline2_EEK.h */,
+				D4BB79572BD8524900F22FC0 /* Polyline2_EIK.cpp */,
+				D4BB79582BD8524900F22FC0 /* Polyline2_EEK.cpp */,
+				D4BB79592BD8524900F22FC0 /* Polyline3_EEK.cpp */,
+				D4BB795A2BD8524900F22FC0 /* Polyline3_EIK.cpp */,
+			);
+			path = Polylines;
+			sourceTree = "<group>";
+		};
+		D4BB795B2BD8524900F22FC0 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				D4BB795C2BD8524900F22FC0 /* CGALGlobal.h */,
+				D4BB795D2BD8524900F22FC0 /* VersionNumber.cpp */,
+				D4BB795E2BD8524900F22FC0 /* CGALGlobal_EIK_EEK.h */,
+				D4BB795F2BD8524900F22FC0 /* CGALGlobal_EIK_EEK.cpp */,
+				D4BB79602BD8524900F22FC0 /* ArrayUtil.h */,
+				D4BB79612BD8524900F22FC0 /* VersionNumber.h */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		D4BB88962BDA700600F22FC0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D46196682BDC2DEB00608BE7 /* libgmp.a */,
+				D46196662BDC2CFE00608BE7 /* libgmpxx.a */,
+				D4BB88972BDA700600F22FC0 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D461966C2BDC42AB00608BE7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BB783E2BD8523F00F22FC0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D461966B2BDC42AB00608BE7 /* CgalForCgalDotnet_static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D46196CE2BDC42AB00608BE7 /* Build configuration list for PBXNativeTarget "CgalForCgalDotnet_static" */;
+			buildPhases = (
+				D461966C2BDC42AB00608BE7 /* Headers */,
+				D461966D2BDC42AB00608BE7 /* Sources */,
+				D46196CD2BDC42AB00608BE7 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CgalForCgalDotnet_static;
+			productName = CgalForCgalDotnet;
+			productReference = D46196D12BDC42AB00608BE7 /* libCgalForCgalDotnet.a */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		D4BB78412BD8523F00F22FC0 /* CgalForCgalDotnet_dynamic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4BB78462BD8523F00F22FC0 /* Build configuration list for PBXNativeTarget "CgalForCgalDotnet_dynamic" */;
+			buildPhases = (
+				D4BB783E2BD8523F00F22FC0 /* Headers */,
+				D4BB783F2BD8523F00F22FC0 /* Sources */,
+				D4BB78402BD8523F00F22FC0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CgalForCgalDotnet_dynamic;
+			productName = CgalForCgalDotnet;
+			productReference = D4BB78422BD8523F00F22FC0 /* libCgalForCgalDotnet.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D4BB783A2BD8523F00F22FC0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					D4BB78412BD8523F00F22FC0 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = D4BB783D2BD8523F00F22FC0 /* Build configuration list for PBXProject "CgalForCgalDotnet" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D4BB78392BD8523F00F22FC0;
+			productRefGroup = D4BB78432BD8523F00F22FC0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4BB78412BD8523F00F22FC0 /* CgalForCgalDotnet_dynamic */,
+				D461966B2BDC42AB00608BE7 /* CgalForCgalDotnet_static */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D461966D2BDC42AB00608BE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D461966E2BDC42AB00608BE7 /* Triangle2_EEK.cpp in Sources */,
+				D461966F2BDC42AB00608BE7 /* VersionNumber.cpp in Sources */,
+				D46196702BDC42AB00608BE7 /* ConvexHull2_EEK.cpp in Sources */,
+				D46196712BDC42AB00608BE7 /* Line2_EEK.cpp in Sources */,
+				D46196722BDC42AB00608BE7 /* ConstrainedTriangulation2_EIK.cpp in Sources */,
+				D46196732BDC42AB00608BE7 /* Arrangement2_EEK.cpp in Sources */,
+				D46196742BDC42AB00608BE7 /* PolygonOffset2_EIK.cpp in Sources */,
+				D46196752BDC42AB00608BE7 /* SkinSurfaceMeshing_EEK.cpp in Sources */,
+				D46196762BDC42AB00608BE7 /* SurfaceMesh3_EIK.cpp in Sources */,
+				D46196772BDC42AB00608BE7 /* MeshProcessingSlicer_EEK.cpp in Sources */,
+				D46196782BDC42AB00608BE7 /* Intersections_shapes_EIK.cpp in Sources */,
+				D46196792BDC42AB00608BE7 /* Ray2_EIK.cpp in Sources */,
+				D461967A2BDC42AB00608BE7 /* Ray2_EEK.cpp in Sources */,
+				D461967B2BDC42AB00608BE7 /* MeshProcessingSlicer_EIK.cpp in Sources */,
+				D461967C2BDC42AB00608BE7 /* Triangulation2_EIK.cpp in Sources */,
+				D461967D2BDC42AB00608BE7 /* MeshProcessingConnections_EIK.cpp in Sources */,
+				D461967E2BDC42AB00608BE7 /* SurfaceSubdivision_EIK.cpp in Sources */,
+				D461967F2BDC42AB00608BE7 /* pch.cpp in Sources */,
+				D46196802BDC42AB00608BE7 /* EigenRowVector.cpp in Sources */,
+				D46196812BDC42AB00608BE7 /* PolygonVisibility_EIK.cpp in Sources */,
+				D46196822BDC42AB00608BE7 /* Box2_EIK.cpp in Sources */,
+				D46196832BDC42AB00608BE7 /* PolygonOffset2_EEK.cpp in Sources */,
+				D46196842BDC42AB00608BE7 /* Point2_EIK.cpp in Sources */,
+				D46196852BDC42AB00608BE7 /* Triangulation3_EEK.cpp in Sources */,
+				D46196862BDC42AB00608BE7 /* MeshProcessingLocate_EEK.cpp in Sources */,
+				D46196872BDC42AB00608BE7 /* HeatMethod_EIK.cpp in Sources */,
+				D46196882BDC42AB00608BE7 /* MeshProcessingFeatures_EIK.cpp in Sources */,
+				D46196892BDC42AB00608BE7 /* SurfaceSubdivision_EEK.cpp in Sources */,
+				D461968A2BDC42AB00608BE7 /* PolygonMinkowski_EIK.cpp in Sources */,
+				D461968B2BDC42AB00608BE7 /* Vector2_EIK.cpp in Sources */,
+				D461968C2BDC42AB00608BE7 /* SweepLine_EIK.cpp in Sources */,
+				D461968D2BDC42AB00608BE7 /* PolygonWithHoles2_EEK.cpp in Sources */,
+				D461968E2BDC42AB00608BE7 /* EigenColumnVector.cpp in Sources */,
+				D461968F2BDC42AB00608BE7 /* PolygonWithHoles2_EIK.cpp in Sources */,
+				D46196902BDC42AB00608BE7 /* ConstrainedDelaunayTriangulation2_EEK.cpp in Sources */,
+				D46196912BDC42AB00608BE7 /* Segment2_EEK.cpp in Sources */,
+				D46196922BDC42AB00608BE7 /* MeshProcessingMeshing_EIK.cpp in Sources */,
+				D46196932BDC42AB00608BE7 /* Triangle2_EIK.cpp in Sources */,
+				D46196942BDC42AB00608BE7 /* Polyline3_EEK.cpp in Sources */,
+				D46196952BDC42AB00608BE7 /* ConvexHull3_EEK.cpp in Sources */,
+				D46196962BDC42AB00608BE7 /* MeshProcessingBoolean_EEK.cpp in Sources */,
+				D46196972BDC42AB00608BE7 /* ConvexHull3_EIK.cpp in Sources */,
+				D46196982BDC42AB00608BE7 /* ConformingTriangulation2_EEK.cpp in Sources */,
+				D46196992BDC42AB00608BE7 /* NativeList.cpp in Sources */,
+				D461969A2BDC42AB00608BE7 /* Vector2_EEK.cpp in Sources */,
+				D461969B2BDC42AB00608BE7 /* Intersections_geometry_EIK.cpp in Sources */,
+				D461969C2BDC42AB00608BE7 /* Circle2_EEK.cpp in Sources */,
+				D461969D2BDC42AB00608BE7 /* MeshProcessingConnections_EEK.cpp in Sources */,
+				D461969E2BDC42AB00608BE7 /* Point2_EEK.cpp in Sources */,
+				D461969F2BDC42AB00608BE7 /* Intersections_geometry_EEK.cpp in Sources */,
+				D46196A02BDC42AB00608BE7 /* HPoint2_EIK.cpp in Sources */,
+				D46196A12BDC42AB00608BE7 /* HPoint2_EEK.cpp in Sources */,
+				D46196A22BDC42AB00608BE7 /* TetrahedralRemeshing_EEK.cpp in Sources */,
+				D46196A32BDC42AB00608BE7 /* Polyhedron3_EIK.cpp in Sources */,
+				D46196A42BDC42AB00608BE7 /* MeshProcessingMeshing_EEK.cpp in Sources */,
+				D46196A52BDC42AB00608BE7 /* Polygon2_EEK.cpp in Sources */,
+				D46196A62BDC42AB00608BE7 /* ConstrainedTriangulation2_EEK.cpp in Sources */,
+				D46196A72BDC42AB00608BE7 /* Triangulation2_EEK.cpp in Sources */,
+				D46196A82BDC42AB00608BE7 /* Box2_EEK.cpp in Sources */,
+				D46196A92BDC42AB00608BE7 /* Polygon2_EIK.cpp in Sources */,
+				D46196AA2BDC42AB00608BE7 /* SurfaceMesh3_EEK.cpp in Sources */,
+				D46196AB2BDC42AB00608BE7 /* NefPolyhedron3_EEK.cpp in Sources */,
+				D46196AC2BDC42AB00608BE7 /* PolygonPartition2_EEK.cpp in Sources */,
+				D46196AD2BDC42AB00608BE7 /* Polyhedron3_EEK.cpp in Sources */,
+				D46196AE2BDC42AB00608BE7 /* NefPolyhedron3_EIK.cpp in Sources */,
+				D46196AF2BDC42AB00608BE7 /* DelaunayTriangulation2_EEK.cpp in Sources */,
+				D46196B02BDC42AB00608BE7 /* Segment2_EIK.cpp in Sources */,
+				D46196B12BDC42AB00608BE7 /* ConvexHull2_EIK.cpp in Sources */,
+				D46196B22BDC42AB00608BE7 /* MeshProcessingOrientation_EIK.cpp in Sources */,
+				D46196B32BDC42AB00608BE7 /* MeshProcessingRepair_EIK.cpp in Sources */,
+				D46196B42BDC42AB00608BE7 /* PolygonSimplification2_EIK.cpp in Sources */,
+				D46196B52BDC42AB00608BE7 /* PolygonBoolean2_EIK.cpp in Sources */,
+				D46196B62BDC42AB00608BE7 /* DelaunayTriangulation2_EIK.cpp in Sources */,
+				D46196B72BDC42AB00608BE7 /* Line2_EIK.cpp in Sources */,
+				D46196B82BDC42AB00608BE7 /* MeshProcessingBoolean_EIK.cpp in Sources */,
+				D46196B92BDC42AB00608BE7 /* CGALGlobal_EIK_EEK.cpp in Sources */,
+				D46196BA2BDC42AB00608BE7 /* PolygonSimplification2_EEK.cpp in Sources */,
+				D46196BB2BDC42AB00608BE7 /* SweepLine_EEK.cpp in Sources */,
+				D46196BC2BDC42AB00608BE7 /* MeshProcessingOrientation_EEK.cpp in Sources */,
+				D46196BD2BDC42AB00608BE7 /* ConstrainedDelaunayTriangulation2_EIK.cpp in Sources */,
+				D46196BE2BDC42AB00608BE7 /* Polyline2_EEK.cpp in Sources */,
+				D46196BF2BDC42AB00608BE7 /* Polyline3_EIK.cpp in Sources */,
+				D46196C02BDC42AB00608BE7 /* PolygonVisibility_EEK.cpp in Sources */,
+				D46196C12BDC42AB00608BE7 /* ConformingTriangulation2_EIK.cpp in Sources */,
+				D46196C22BDC42AB00608BE7 /* MeshProcessingRepair_EEK.cpp in Sources */,
+				D46196C32BDC42AB00608BE7 /* HeatMethod_EEK.cpp in Sources */,
+				D46196C42BDC42AB00608BE7 /* DelaunayTriangulation3_EEK.cpp in Sources */,
+				D46196C52BDC42AB00608BE7 /* SurfaceSimplification_EIK.cpp in Sources */,
+				D46196C62BDC42AB00608BE7 /* MeshProcessingFeatures_EEK.cpp in Sources */,
+				D46196C72BDC42AB00608BE7 /* PolygonBoolean2_EEK.cpp in Sources */,
+				D46196C82BDC42AB00608BE7 /* MeshProcessingLocate_EIK.cpp in Sources */,
+				D46196C92BDC42AB00608BE7 /* Polyline2_EIK.cpp in Sources */,
+				D46196CA2BDC42AB00608BE7 /* EigenMatrix.cpp in Sources */,
+				D46196CB2BDC42AB00608BE7 /* PolygonMinkowski_EEK.cpp in Sources */,
+				D46196CC2BDC42AB00608BE7 /* PolygonPartition2_EIK.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BB783F2BD8523F00F22FC0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BB885B2BD852B900F22FC0 /* Triangle2_EEK.cpp in Sources */,
+				D4BB886D2BD852B900F22FC0 /* VersionNumber.cpp in Sources */,
+				D4BB888B2BD852B900F22FC0 /* ConvexHull2_EEK.cpp in Sources */,
+				D4BB888C2BD852B900F22FC0 /* Line2_EEK.cpp in Sources */,
+				D4BB886E2BD852B900F22FC0 /* ConstrainedTriangulation2_EIK.cpp in Sources */,
+				D4BB88882BD852B900F22FC0 /* Arrangement2_EEK.cpp in Sources */,
+				D4BB88452BD8529D00F22FC0 /* PolygonOffset2_EIK.cpp in Sources */,
+				D4BB887E2BD852B900F22FC0 /* SkinSurfaceMeshing_EEK.cpp in Sources */,
+				D4BB88682BD852B900F22FC0 /* SurfaceMesh3_EIK.cpp in Sources */,
+				D4BB88572BD852A200F22FC0 /* MeshProcessingSlicer_EEK.cpp in Sources */,
+				D4BB888D2BD852B900F22FC0 /* Intersections_shapes_EIK.cpp in Sources */,
+				D4BB88932BD852B900F22FC0 /* Ray2_EIK.cpp in Sources */,
+				D461966A2BDC346500608BE7 /* Ray2_EEK.cpp in Sources */,
+				D4BB885A2BD852A200F22FC0 /* MeshProcessingSlicer_EIK.cpp in Sources */,
+				D4BB88862BD852B900F22FC0 /* Triangulation2_EIK.cpp in Sources */,
+				D4BB88502BD852A200F22FC0 /* MeshProcessingConnections_EIK.cpp in Sources */,
+				D4BB884B2BD852A200F22FC0 /* SurfaceSubdivision_EIK.cpp in Sources */,
+				D4BB888F2BD852B900F22FC0 /* pch.cpp in Sources */,
+				D4BB88672BD852B900F22FC0 /* EigenRowVector.cpp in Sources */,
+				D4BB88442BD8529D00F22FC0 /* PolygonVisibility_EIK.cpp in Sources */,
+				D4BB887A2BD852B900F22FC0 /* Box2_EIK.cpp in Sources */,
+				D4BB88412BD8529D00F22FC0 /* PolygonOffset2_EEK.cpp in Sources */,
+				D4BB886A2BD852B900F22FC0 /* Point2_EIK.cpp in Sources */,
+				D4BB886C2BD852B900F22FC0 /* Triangulation3_EEK.cpp in Sources */,
+				D4BB88472BD852A200F22FC0 /* MeshProcessingLocate_EEK.cpp in Sources */,
+				D4BB88512BD852A200F22FC0 /* HeatMethod_EIK.cpp in Sources */,
+				D4BB88592BD852A200F22FC0 /* MeshProcessingFeatures_EIK.cpp in Sources */,
+				D4BB884E2BD852A200F22FC0 /* SurfaceSubdivision_EEK.cpp in Sources */,
+				D4BB88382BD8529D00F22FC0 /* PolygonMinkowski_EIK.cpp in Sources */,
+				D4BB885D2BD852B900F22FC0 /* Vector2_EIK.cpp in Sources */,
+				D4BB885F2BD852B900F22FC0 /* SweepLine_EIK.cpp in Sources */,
+				D4BB883C2BD8529D00F22FC0 /* PolygonWithHoles2_EEK.cpp in Sources */,
+				D4BB88622BD852B900F22FC0 /* EigenColumnVector.cpp in Sources */,
+				D4BB883B2BD8529D00F22FC0 /* PolygonWithHoles2_EIK.cpp in Sources */,
+				D4BB88702BD852B900F22FC0 /* ConstrainedDelaunayTriangulation2_EEK.cpp in Sources */,
+				D4BB888E2BD852B900F22FC0 /* Segment2_EEK.cpp in Sources */,
+				D4BB884C2BD852A200F22FC0 /* MeshProcessingMeshing_EIK.cpp in Sources */,
+				D4BB88782BD852B900F22FC0 /* Triangle2_EIK.cpp in Sources */,
+				D4BB88922BD852B900F22FC0 /* Polyline3_EEK.cpp in Sources */,
+				D4BB88652BD852B900F22FC0 /* ConvexHull3_EEK.cpp in Sources */,
+				D4BB88522BD852A200F22FC0 /* MeshProcessingBoolean_EEK.cpp in Sources */,
+				D4BB887D2BD852B900F22FC0 /* ConvexHull3_EIK.cpp in Sources */,
+				D4BB88632BD852B900F22FC0 /* ConformingTriangulation2_EEK.cpp in Sources */,
+				D4BB88852BD852B900F22FC0 /* NativeList.cpp in Sources */,
+				D4BB88732BD852B900F22FC0 /* Vector2_EEK.cpp in Sources */,
+				D4BB888A2BD852B900F22FC0 /* Intersections_geometry_EIK.cpp in Sources */,
+				D4BB88692BD852B900F22FC0 /* Circle2_EEK.cpp in Sources */,
+				D4BB88562BD852A200F22FC0 /* MeshProcessingConnections_EEK.cpp in Sources */,
+				D4BB88802BD852B900F22FC0 /* Point2_EEK.cpp in Sources */,
+				D4BB885E2BD852B900F22FC0 /* Intersections_geometry_EEK.cpp in Sources */,
+				D4BB88722BD852B900F22FC0 /* HPoint2_EIK.cpp in Sources */,
+				D4BB88662BD852B900F22FC0 /* HPoint2_EEK.cpp in Sources */,
+				D4BB88822BD852B900F22FC0 /* TetrahedralRemeshing_EEK.cpp in Sources */,
+				D4BB88912BD852B900F22FC0 /* Polyhedron3_EIK.cpp in Sources */,
+				D4BB88542BD852A200F22FC0 /* MeshProcessingMeshing_EEK.cpp in Sources */,
+				D4BB883F2BD8529D00F22FC0 /* Polygon2_EEK.cpp in Sources */,
+				D4BB88902BD852B900F22FC0 /* ConstrainedTriangulation2_EEK.cpp in Sources */,
+				D4BB88842BD852B900F22FC0 /* Triangulation2_EEK.cpp in Sources */,
+				D4BB886F2BD852B900F22FC0 /* Box2_EEK.cpp in Sources */,
+				D4BB883D2BD8529D00F22FC0 /* Polygon2_EIK.cpp in Sources */,
+				D4BB887C2BD852B900F22FC0 /* SurfaceMesh3_EEK.cpp in Sources */,
+				D4BB88892BD852B900F22FC0 /* NefPolyhedron3_EEK.cpp in Sources */,
+				D4BB88432BD8529D00F22FC0 /* PolygonPartition2_EEK.cpp in Sources */,
+				D4BB88812BD852B900F22FC0 /* Polyhedron3_EEK.cpp in Sources */,
+				D4BB887B2BD852B900F22FC0 /* NefPolyhedron3_EIK.cpp in Sources */,
+				D4BB88742BD852B900F22FC0 /* DelaunayTriangulation2_EEK.cpp in Sources */,
+				D4BB88712BD852B900F22FC0 /* Segment2_EIK.cpp in Sources */,
+				D4BB885C2BD852B900F22FC0 /* ConvexHull2_EIK.cpp in Sources */,
+				D4BB884A2BD852A200F22FC0 /* MeshProcessingOrientation_EIK.cpp in Sources */,
+				D4BB88552BD852A200F22FC0 /* MeshProcessingRepair_EIK.cpp in Sources */,
+				D4BB88372BD8529D00F22FC0 /* PolygonSimplification2_EIK.cpp in Sources */,
+				D4BB88392BD8529D00F22FC0 /* PolygonBoolean2_EIK.cpp in Sources */,
+				D4BB88602BD852B900F22FC0 /* DelaunayTriangulation2_EIK.cpp in Sources */,
+				D4BB88762BD852B900F22FC0 /* Line2_EIK.cpp in Sources */,
+				D4BB88492BD852A200F22FC0 /* MeshProcessingBoolean_EIK.cpp in Sources */,
+				D4BB88642BD852B900F22FC0 /* CGALGlobal_EIK_EEK.cpp in Sources */,
+				D4BB883A2BD8529D00F22FC0 /* PolygonSimplification2_EEK.cpp in Sources */,
+				D4BB88832BD852B900F22FC0 /* SweepLine_EEK.cpp in Sources */,
+				D4BB88582BD852A200F22FC0 /* MeshProcessingOrientation_EEK.cpp in Sources */,
+				D4BB88942BD852B900F22FC0 /* ConstrainedDelaunayTriangulation2_EIK.cpp in Sources */,
+				D4BB88752BD852B900F22FC0 /* Polyline2_EEK.cpp in Sources */,
+				D4BB886B2BD852B900F22FC0 /* Polyline3_EIK.cpp in Sources */,
+				D4BB88402BD8529D00F22FC0 /* PolygonVisibility_EEK.cpp in Sources */,
+				D4BB88772BD852B900F22FC0 /* ConformingTriangulation2_EIK.cpp in Sources */,
+				D4BB88532BD852A200F22FC0 /* MeshProcessingRepair_EEK.cpp in Sources */,
+				D4BB884D2BD852A200F22FC0 /* HeatMethod_EEK.cpp in Sources */,
+				D4BB887F2BD852B900F22FC0 /* DelaunayTriangulation3_EEK.cpp in Sources */,
+				D4BB88482BD852A200F22FC0 /* SurfaceSimplification_EIK.cpp in Sources */,
+				D4BB88462BD852A200F22FC0 /* MeshProcessingFeatures_EEK.cpp in Sources */,
+				D4BB883E2BD8529D00F22FC0 /* PolygonBoolean2_EEK.cpp in Sources */,
+				D4BB884F2BD852A200F22FC0 /* MeshProcessingLocate_EIK.cpp in Sources */,
+				D4BB88872BD852B900F22FC0 /* Polyline2_EIK.cpp in Sources */,
+				D4BB88612BD852B900F22FC0 /* EigenMatrix.cpp in Sources */,
+				D4BB88362BD8529D00F22FC0 /* PolygonMinkowski_EEK.cpp in Sources */,
+				D4BB88422BD8529D00F22FC0 /* PolygonPartition2_EIK.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D46196CF2BDC42AB00608BE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QFX8Z7YDTS;
+				DYLIB_COMPATIBILITY_VERSION = $inherited;
+				DYLIB_CURRENT_VERSION = $inherited;
+				DYLIB_INSTALL_NAME_BASE = "";
+				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				EXECUTABLE_PREFIX = $inherited;
+				GCC_PREPROCESSOR_DEFINITIONS = $inherited;
+				HEADER_SEARCH_PATHS = $inherited;
+				LD_DYLIB_INSTALL_NAME = "";
+				LIBRARY_SEARCH_PATHS = $inherited;
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = $inherited;
+				OTHER_LDFLAGS = $inherited;
+				PRODUCT_NAME = $inherited;
+				SKIP_INSTALL = $inherited;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		D46196D02BDC42AB00608BE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QFX8Z7YDTS;
+				DYLIB_COMPATIBILITY_VERSION = $inherited;
+				DYLIB_CURRENT_VERSION = $inherited;
+				DYLIB_INSTALL_NAME_BASE = "";
+				EXECUTABLE_EXTENSION = "$(STATIC_LIBRARY_EXTENSION:default=a)";
+				EXECUTABLE_PREFIX = $inherited;
+				GCC_PREPROCESSOR_DEFINITIONS = $inherited;
+				HEADER_SEARCH_PATHS = $inherited;
+				LD_DYLIB_INSTALL_NAME = "";
+				LIBRARY_SEARCH_PATHS = $inherited;
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = $inherited;
+				OTHER_LDFLAGS = $inherited;
+				PRODUCT_NAME = $inherited;
+				SKIP_INSTALL = $inherited;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		D4BB78442BD8523F00F22FC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"CGAL_USE_CORE=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/homebrew/opt/cgal/include/,
+					/opt/homebrew/opt/boost/include/,
+					/opt/homebrew/opt/gmp/include/,
+					/opt/homebrew/opt/mpfr/include/,
+					/opt/homebrew/opt/eigen/include/eigen3/,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/opt/homebrew/opt/cgal/lib/,
+					/opt/homebrew/opt/boost/lib/,
+					/opt/homebrew/opt/gmp/lib/,
+					/opt/homebrew/opt/mpfr/lib/,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fdeclspec";
+				OTHER_LDFLAGS = (
+					"-lgmp",
+					"-lmpfr",
+				);
+				PRODUCT_NAME = CgalForCgalDotnet;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D4BB78452BD8523F00F22FC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "CGAL_USE_CORE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/opt/homebrew/opt/cgal/include/,
+					/opt/homebrew/opt/boost/include/,
+					/opt/homebrew/opt/gmp/include/,
+					/opt/homebrew/opt/mpfr/include/,
+					/opt/homebrew/opt/eigen/include/eigen3/,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/opt/homebrew/opt/cgal/lib/,
+					/opt/homebrew/opt/boost/lib/,
+					/opt/homebrew/opt/gmp/lib/,
+					/opt/homebrew/opt/mpfr/lib/,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "-fdeclspec";
+				OTHER_LDFLAGS = (
+					"-lgmp",
+					"-lmpfr",
+				);
+				PRODUCT_NAME = CgalForCgalDotnet;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D4BB78472BD8523F00F22FC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QFX8Z7YDTS;
+				DYLIB_COMPATIBILITY_VERSION = $inherited;
+				DYLIB_CURRENT_VERSION = $inherited;
+				EXECUTABLE_PREFIX = $inherited;
+				GCC_PREPROCESSOR_DEFINITIONS = $inherited;
+				HEADER_SEARCH_PATHS = $inherited;
+				LIBRARY_SEARCH_PATHS = $inherited;
+				OTHER_CFLAGS = $inherited;
+				OTHER_LDFLAGS = $inherited;
+				PRODUCT_NAME = $inherited;
+				SKIP_INSTALL = $inherited;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		D4BB78482BD8523F00F22FC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QFX8Z7YDTS;
+				DYLIB_COMPATIBILITY_VERSION = $inherited;
+				DYLIB_CURRENT_VERSION = $inherited;
+				EXECUTABLE_PREFIX = $inherited;
+				GCC_PREPROCESSOR_DEFINITIONS = $inherited;
+				HEADER_SEARCH_PATHS = $inherited;
+				LIBRARY_SEARCH_PATHS = $inherited;
+				OTHER_CFLAGS = $inherited;
+				OTHER_LDFLAGS = $inherited;
+				PRODUCT_NAME = $inherited;
+				SKIP_INSTALL = $inherited;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D46196CE2BDC42AB00608BE7 /* Build configuration list for PBXNativeTarget "CgalForCgalDotnet_static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D46196CF2BDC42AB00608BE7 /* Debug */,
+				D46196D02BDC42AB00608BE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4BB783D2BD8523F00F22FC0 /* Build configuration list for PBXProject "CgalForCgalDotnet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BB78442BD8523F00F22FC0 /* Debug */,
+				D4BB78452BD8523F00F22FC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4BB78462BD8523F00F22FC0 /* Build configuration list for PBXNativeTarget "CgalForCgalDotnet_dynamic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BB78472BD8523F00F22FC0 /* Debug */,
+				D4BB78482BD8523F00F22FC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4BB783A2BD8523F00F22FC0 /* Project object */;
+}

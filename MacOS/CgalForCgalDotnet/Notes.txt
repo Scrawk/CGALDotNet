@@ -1,0 +1,136 @@
+
+__
+NOTE: any "Build Setting" that is common to both targets should be set in the project "Build Settings" rather than each target "Build Settings". Each such target "Build Setting" must then be set to $inherited.
+
+Select "Customized" in target "Build Settings" to have a look at all config mods.
+
+
+__
+NOTE:
+You can check which architectures a given library is compatible with. ex: "file libmpfr.dylib"
+Reinstall any libraries with incompatible architetures. ex: "brew reinstall mpfr"
+
+__
+List of MODS made:
+
+__
+comment (or remove) all references to #include <windows.h>
+
+__
+check the system path to CGAL by running "brew --prefix cgal" or "brew list --verbose cgal"
+add /opt/homebrew/opt/cgal/include/ to the "Header Search Paths" - not to the "User Header Search Paths"
+
+__
+check the system path to "boost" by running "brew --prefix boost"
+add /opt/homebrew/opt/boost/include/ to the "Header Search Paths"
+
+__
+add CGAL_USE_CORE=1 to the "Preprocessor Macros"
+
+__
+check the system path to "gmp" by running "brew --prefix gmp"
+add /opt/homebrew/opt/gmp/include/ to the "Header Search Paths"
+
+__
+check the system path to "mpfr" by running "brew --prefix mpfr"
+add /opt/homebrew/opt/mpfr/include/ to the "Header Search Paths"
+
+__
+add -fdeclspec to "Other C Flags" to add support for __declspec which is a Microsoft-specific keyword used for specifying various attributes, such as dllimport, dllexport, and others, which control the visibility and linkage of symbols in DLLs (Dynamic Link Libraries) on Windows platforms.
+
+__
+check the system path to "eigen" by running "brew --prefix eigen"
+add /opt/homebrew/opt/eigen/include/eigen3/ to the "Header Search Paths"
+
+__
+Added the following code to file CGALWrapper.h:
+
+#ifndef FILIPE_SA_ADDED_H
+#define FILIPE_SA_ADDED_H
+typedef int BOOL;
+#define TRUE 1
+#define FALSE 0
+#endif /* FILIPE_SA_ADDED_H */
+
+__
+modified file Utility/VersionNumber to #include <Eigen/src/Core/util/Macros.h> instead of #include  "Eigen\src\Core\util\Macros.h"
+- notice the forward slashes instead of the backslashes used in windows system paths.
+
+__
+modify occurencies of:
+boost::get<Arrangement_2::Face_const_handle>
+to:
+boost::get<typename Arrangement_2::Face_const_handle>
+we use the "typename" keyword to indicate to the compiler that Face_const_handle is indeed a type.
+
+__
+painstakingly fix all occurences of errors similar to:
+Use 'template' keyword to treat 'ToCGAL' as a dependent template name.
+where the compiler requires that the keyword "template" must be present.
+
+
+__
+commented line:
+typedef typename Triangulation_3::Point Point_3;
+in file:
+Triangulations/BaseTriangulation3.h
+to get rid of the error:
+Redefinition of 'Point_3'
+
+
+__
+fix all errors similar to:
+Unexpected type name 'Segment_2': expected expression
+by adding the "template" keyword.
+Ex: change CGAL::object_cast<K::Segment_2>(&o) to CGAL::object_cast<typename K::Segment_2>(&o)
+
+
+__
+#define CGALWRAPPER_API 
+instead of
+#define CGALWRAPPER_API __declspec(dllexport)
+
+See: https://github.com/Unity-Technologies/DesktopSamples/blob/master/SimplestPluginExample/PluginSource/Plugin.cpp
+See: https://stackoverflow.com/questions/8258319/gcc-arm-equivalent-to-declspecdllexport
+
+__
+add
+/opt/homebrew/opt/cgal/lib/
+/opt/homebrew/opt/boost/lib/
+/opt/homebrew/opt/gmp/lib/
+/opt/homebrew/opt/mpfr/lib/
+to the "Library Search Paths"
+
+
+__
+add -lgmp to the "Other Linker Flags"
+OR add libgmp.a to the "Link Binary With Libraries" in "Build Phases"
+
+__
+add -lmpfr to the "Other Linker Flags"
+OR add libmpfr.a to the "Link Binary With Libraries" in "Build Phases"
+
+
+__
+prefix the "static" keyword to functions that the linker complains to be duplicate symbols in C files.
+example: "duplicate symbol 'CastToRay2(void*)' in:" Ray2_EEK.o and in Ray2_EIK.o
+
+
+__
+duplicate the xcode target to be able to create a static library and dynamic library from this same project.
+
+
+__
+remove the value of build setting "Dynamic Library Install Name" and "Dynamic Library Install Name Base" from the static library target, just in case.
+- these tell xcode where to install the output library file, if the build setting "Skip Install" is set to "No".
+
+__
+configure the static library target "Mach-O Type" to "Static Library"
+configure the dynamic library target "Mach-O Type" to "Dynamic Library"
+
+__
+configure the static library target "Exectutable Extension" to $(STATIC_LIBRARY_EXTENSION:default=a)
+configure the dynamic library target "Exectutable Extension" to $(DYNAMIC_LIBRARY_EXTENSION:default=dylib)
+
+__
+change the "Product Name" from $(TARGET_NAME) (i.e CgalForCgalDotnet_dynamic) to CgalForCgalDotnet so that the output file becomes libCgalForCgalDotnet.dylib instead of libCgalForCgalDotnet_dynamic.dylib
