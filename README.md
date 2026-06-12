@@ -59,9 +59,9 @@
 
 - [Mesh Processing](https://github.com/Scrawk/CGALDotNet/wiki/Mesh-Processing)
 
-Some common geomerty objects are referrenced in a [seperate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
+Some common geometry objects are referenced in a [separate project](https://github.com/Scrawk/CGALDotNetGeometry) so they can come under a different license.
 
-Work in progress. Only 64 bit windows binarys provided.
+Work in progress. Only 64 bit windows binaries provided.
 
 Examples in Unity can be found in [this](https://github.com/Scrawk/CGALDotNetUnity) repository.
 
